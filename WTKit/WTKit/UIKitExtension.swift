@@ -859,6 +859,14 @@ extension NSLayoutConstraint{
     
 }
 
+    
+//CG Kit
+extension CGRect{
+    public var centerPoint:CGPoint{
+        return CGPointMake(CGRectGetMidX(self), CGRectGetMinY(self))
+    }
+}
+
 
 // MARK: - 附加类
 

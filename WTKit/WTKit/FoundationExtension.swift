@@ -8,8 +8,8 @@
 
 import Foundation
 #if os(iOS)
-    import MobileCoreServices
-    import UIKit
+//    import MobileCoreServices
+//    import UIKit
 #elseif os(OSX)
     import CoreServices
 #endif
@@ -553,9 +553,4 @@ extension String{
         data?.parseJSON(block)
     }
  
-}
-extension CGRect{
-    public var centerPoint:CGPoint{
-        return CGPointMake(CGRectGetMidX(self), CGRectGetMinY(self))
-    }
 }
