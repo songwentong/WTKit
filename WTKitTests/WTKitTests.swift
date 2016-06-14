@@ -62,22 +62,27 @@ class WTKitTests: XCTestCase {
         super.tearDown()
     }
     
+    
     func testExample() {
         // This is an example of a functional test case.
         
-        NSOperationQueue.main { 
+        NSOperationQueue.main {
             let thread = NSThread.currentThread()
-            print("main:   \(thread)")
+            print("main:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
             //main thread
+        }
+        NSOperationQueue.background {
+            let thread = NSThread.currentThread()
+            print("background:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
         }
         NSOperationQueue.userInteractive {
             let thread = NSThread.currentThread()
-            print("userInteractive: \(thread)")
+            print("userInteractive:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
             //separate thread
         }
-        NSOperationQueue.globalQueue { 
+        NSOperationQueue.globalQueue {
             let thread = NSThread.currentThread()
-            print("globalQueue: \(thread)")
+            print("globalQueue:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
             //separate thread
         }
 

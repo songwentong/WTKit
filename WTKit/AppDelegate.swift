@@ -15,12 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        WTPrint("wt print \(self)")
-
-        
-        
-        
+//        WTPrint("wt print \(self)")
         return true
     }
 
