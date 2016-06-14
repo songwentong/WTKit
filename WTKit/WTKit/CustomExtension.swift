@@ -116,8 +116,8 @@ public enum WTHudMode{
 public class WTProgressIndicatorView:UIView{
   
     public  var strokeColor:UIColor = UIColor.whiteColor()
-    public  var lineWidth:CGFloat = 5.0
-    public  var radius:CGFloat = 5.0{
+    public  var lineWidth:CGFloat = 2.0
+    public  var radius:CGFloat = 20.0{
         didSet{
             self.resetLayer()
         }
@@ -131,7 +131,11 @@ public class WTProgressIndicatorView:UIView{
     }
     private func resetLayer(){
     
-        let aCenter = CGPoint(x: 0, y: 0)
+        self.layer.removeAllAnimations()
+        if self.animationLayer != nil {
+            self.animationLayer?.removeFromSuperlayer()
+        }
+        let aCenter = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
         let path = UIBezierPath(arcCenter: aCenter, radius: self.radius, startAngle: CGFloat(M_PI*3/2), endAngle: CGFloat(M_PI/2 + M_PI*5), clockwise: true)
         let layer = CAShapeLayer()
         layer.contentsScale = UIScreen.mainScreen().scale
@@ -142,38 +146,25 @@ public class WTProgressIndicatorView:UIView{
         layer.lineJoin = kCALineJoinBevel
         layer.path = path.CGPath
         
-        let mask = CALayer()
-        //TODO:mask
-        layer.mask = mask
         let timeFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-        let animation = CABasicAnimation(keyPath: "transform.rotation")
-        animation.fromValue = 0;
-        animation.toValue = (M_PI*2);
-        animation.duration = 1.0;
-        animation.timingFunction = timeFunction;
-        animation.removedOnCompletion = false;
-        animation.repeatCount = HUGE;
-        animation.fillMode = kCAFillModeForwards;
-        animation.autoreverses = false;
-        layer.mask?.addAnimation(animation, forKey: "rotation")
-        
         let animationGroup = CAAnimationGroup()
-        animationGroup.duration = 1.0
+        animationGroup.duration = 1.5
         animationGroup.repeatCount = HUGE
         animationGroup.removedOnCompletion = false
         animationGroup.timingFunction = timeFunction
         
         let strokeStart = CABasicAnimation(keyPath: "strokeStart")
-        strokeStart.fromValue = 0.01
-        strokeStart.toValue = 0.5
+        strokeStart.fromValue = -1
+        strokeStart.toValue = 1.0
         
         let strokeEnd = CABasicAnimation(keyPath: "strokeEnd")
-        strokeEnd.fromValue = 0.5
-        strokeEnd.toValue = 0.99
+        strokeEnd.fromValue = 0.0
+        strokeEnd.toValue = 1.0
         
         animationGroup.animations = [strokeStart,strokeEnd]
         layer.addAnimation(animationGroup, forKey: "stroke")
         self.animationLayer = layer
+        self.layer.addSublayer(layer)
     }
     
     
@@ -181,7 +172,7 @@ public class WTProgressIndicatorView:UIView{
 public class WTHudView:UIView{
     public var mode:WTHudMode = .ActivityIndicatorView{
         didSet{
-            self.setupIndicatorViewWithMode()
+            self.updateIndicatorViewWithMode()
             self.setNeedsLayout()
         }
     }
@@ -190,7 +181,11 @@ public class WTHudView:UIView{
     public var defaultFontSize:CGFloat = 14
     public var detailFefaultFontSize:CGFloat = 12
     public var titleLabel:UILabel?
-    public var titleText = "loading..."
+    public var titleText = "loading..."{
+        didSet{
+            titleLabel?.text = titleText;
+        }
+    }
     public var defaultBgColor:UIColor = UIColor.colorWithHexString("3", alpha: 0.5)
     public var defaultTitleColor:UIColor = UIColor.whiteColor()
     private var backgroundView:UIView?
@@ -213,18 +208,21 @@ public class WTHudView:UIView{
         backgroundView?.alpha = 0
         self.addSubview(backgroundView!)
         
-        self.setupIndicatorViewWithMode()
+        self.updateIndicatorViewWithMode()
         
         titleLabel = UILabel(frame: CGRectZero)
         titleLabel!.text = titleText
         titleLabel!.textColor = defaultTitleColor
+        titleLabel?.textAlignment = .Center
         titleLabel!.font = UIFont.systemFontOfSize(defaultFontSize)
         backgroundView!.addSubview(titleLabel!)
         self.setNeedsLayout()
         
     }
-    private func setupIndicatorViewWithMode(){
-        
+    private func updateIndicatorViewWithMode(){
+        if (self.indicatorView != nil) {
+            self.indicatorView?.removeFromSuperview()
+        }
         switch mode {
         case .ActivityIndicatorView:
             let indicatorView:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .White);
@@ -244,30 +242,31 @@ public class WTHudView:UIView{
         
     }
     public override func layoutSubviews() {
-        backgroundView!.setWidth(80)
-        backgroundView!.setHeight(90)
+        backgroundView!.setWidth(100)
+        backgroundView!.setHeight(100)
         backgroundView!.setCenterX(self.centerX)
         backgroundView!.setCenterY(self.centerY)
         let indictor = self.indicatorView
         if indictor!.isKindOfClass(UIActivityIndicatorView) {
             indictor?.setSize(CGSizeMake(40, 40))
             indictor?.setTop(20)
-            indictor?.setLeft(20)
+            indictor?.setLeft(30)
           
         }else if indictor!.isKindOfClass(WTProgressIndicatorView){
             
-            indictor?.frame = CGRectMake(20, 20, 40, 40)
+            indictor?.frame = CGRectMake(30, 20, 40, 40)
         }
         titleLabel?.setX(10)
         titleLabel?.setWidth((backgroundView!.width) - titleLabel!.x * 2.0)
         titleLabel?.setHeight(20)
-        titleLabel?.setTop(indictor!.bottom)
+        titleLabel?.setTop(indictor!.bottom + 10)
 
     }
-    public static func showHudInView(view:UIView,animatied:Bool){
+    public static func showHudInView(view:UIView,animatied:Bool) ->WTHudView{
         let hud = WTHudView(view: view)
         view.addSubview(hud)
         hud.showAnimated(animatied)
+        return hud
     }
     public static func hudViewForView(view:UIView) ->WTHudView?{
         for v in view.subviews {

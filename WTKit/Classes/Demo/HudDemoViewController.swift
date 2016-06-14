@@ -13,14 +13,12 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     required init?(coder aDecoder: NSCoder){
-        dataList = ["showLoadingView","text"]
+        dataList = ["NormalLoadingView","text","progressLoadingView"]
         super.init(coder: aDecoder)
     }
     
     deinit{
-        
-//        WTLog("deinit")
-//        self.tableView.removeRefresh()
+
     }
     
     override func viewDidLoad() {
@@ -54,7 +52,7 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
     // MARK: - UITableViewDataSource
     @available(iOS 2.0, *)
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 2;
+        return dataList.count;
     }
     
     // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
@@ -87,6 +85,15 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
             break
         case 1:
             self.showHudWithTip("这是一段长文字长文字长文章长文章长文字长文字长文字长文字长文章长文章长文章长文章长文章长文字长文章长文字")
+            break
+        case 2:
+            let hud = WTHudView.showHudInView(view, animatied: true)
+            hud.mode = .roundProgressIndicatorView
+            hud.titleText = "加载中..."
+            self.performBlock({ 
+                hud.hideAnimated(true)
+                }, afterDelay: 10)
+            
             break
         default:
             break
