@@ -47,6 +47,7 @@ func WTPrint<T>(items:T,
     用于WTKit内部log
     只有在debug下并且WTKitLogMode是true的情况下输出
  */
+private let WTKitLogMode:Bool = true
 public func WTLog(
     items: Any...,
     separator: String = " ",
@@ -56,7 +57,7 @@ public func WTLog(
     line: Int = #line
     ) {
     #if DEBUG
-        if UIApplication.WTKitLogMode {
+        if WTKitLogMode {
             print("\((file as NSString).lastPathComponent)[\(line)], \(method)")
             print(items,separator: separator,terminator: terminator)
         }

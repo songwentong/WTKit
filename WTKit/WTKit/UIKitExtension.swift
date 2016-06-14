@@ -95,12 +95,7 @@ private var UIApplicationIsFirstEver:Void?
 extension UIApplication{
     
     
-    //LOG 模式,true开启,false关闭
-    public static var WTKitLogMode:Bool{
-        get{
-            return true
-        }
-    }
+  
     
     
        
