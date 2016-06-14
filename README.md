@@ -70,6 +70,12 @@ NSOperationQueue.userInteractive {
 NSOperationQueue.background { 
             print("current queue is global queue priority : background")
         }
+        /*
+globalQueue:<NSThread: 0x7fb3a3f19390>{number = 3, name = (null)}
+userInteractive:<NSThread: 0x7fb3a3da4ef0>{number = 2, name = (null)}
+background:<NSThread: 0x7fb3a3e2a380>{number = 4, name = (null)}
+main:<NSThread: 0x7fb3a3c037d0>{number = 1, name = main}
+        */
 ```
 - String
 ```swift
