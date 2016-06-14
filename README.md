@@ -61,7 +61,7 @@ let request:NSMutableURLRequest? = NSURLRequest.request("url", method: "GET", pa
 NSOperationQueue.globalQueue { 
             print("current is  global queue")
         }
-NSOperationQueue.gotoMainQueue { 
+NSOperationQueue.main { 
             print("current is main queue")
         }
 NSOperationQueue.userInteractive { 
