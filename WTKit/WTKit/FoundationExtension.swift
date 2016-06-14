@@ -382,12 +382,12 @@ extension NSURLCache{
         图片缓存
      */
     public static func sharedURLCacheForUIImage()->NSURLCache{
-        var cache =  objc_getAssociatedObject(UIApplication.sharedApplication(), &sharedURLCacheForUIImageKey)
+        var cache =  objc_getAssociatedObject(NSOperationQueue.mainQueue(), &sharedURLCacheForUIImageKey)
         if cache is NSURLCache {
             return cache as! NSURLCache
         }else{
             cache = NSURLCache(memoryCapacity: 4*1024, diskCapacity: 1024*10242, diskPath: "cacheForImage")
-            objc_setAssociatedObject(UIApplication.sharedApplication(), &sharedURLCacheForUIImageKey, cache, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(NSOperationQueue.mainQueue(), &sharedURLCacheForUIImageKey, cache, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return cache as! NSURLCache
         }
     }

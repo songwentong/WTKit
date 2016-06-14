@@ -5,7 +5,7 @@
 //  Created by SongWentong on 5/26/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+#if os(iOS)
 import Foundation
 import UIKit
 extension UIViewController{
@@ -417,3 +417,4 @@ public protocol KlineViewDataSource:NSObjectProtocol{
 public protocol KlineViewDelegate:NSObjectProtocol{
     
 }
+#endif

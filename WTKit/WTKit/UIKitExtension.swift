@@ -5,10 +5,13 @@
 //  Created by SongWentong on 4/21/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+#if os(iOS)
 import Foundation
 import UIKit
 import ImageIO
+
+
+
 // MARK: - 官方类扩展
 extension UIColor{
     
@@ -933,3 +936,4 @@ public class WTNetworkActivityIndicatorManager{
         }
     }
 }
+#endif
