@@ -58,24 +58,32 @@ let request:NSMutableURLRequest? = NSURLRequest.request("url", method: "GET", pa
 
 - NSOperationQueue
 ```swift
-NSOperationQueue.globalQueue { 
-            print("current is  global queue")
+        NSOperationQueue.main {
+            let thread = NSThread.currentThread()
+            print("main:\(thread) threadPriority:\(thread.threadPriority)")
+            //main thread
         }
-NSOperationQueue.main { 
-            print("current is main queue")
+        NSOperationQueue.background {
+            let thread = NSThread.currentThread()
+            print("background:\(thread) threadPriority:\(thread.threadPriority)")
         }
-NSOperationQueue.userInteractive { 
-            print("current queue is global queue priority : userInteractive")
+        NSOperationQueue.userInteractive {
+            let thread = NSThread.currentThread()
+            print("userInteractive:\(thread) threadPriority:\(thread.threadPriority)")
+            //separate thread
         }
-NSOperationQueue.background { 
-            print("current queue is global queue priority : background")
+        NSOperationQueue.globalQueue {
+            let thread = NSThread.currentThread()
+            print("globalQueue:\(thread) threadPriority:\(thread.threadPriority)")
+            //separate thread
         }
-        /*
-globalQueue:<NSThread: 0x7fb3a3f19390>{number = 3, name = (null)}
-userInteractive:<NSThread: 0x7fb3a3da4ef0>{number = 2, name = (null)}
-background:<NSThread: 0x7fb3a3e2a380>{number = 4, name = (null)}
-main:<NSThread: 0x7fb3a3c037d0>{number = 1, name = main}
-        */
+/*
+userInteractive:<NSThread: 0x7ffb83d6ec50>{number = 2, name = (null)} threadPriority:0.5
+background:<NSThread: 0x7ffb83dc79e0>{number = 4, name = (null)} threadPriority:0.0
+globalQueue:<NSThread: 0x7ffb83c42d20>{number = 3, name = (null)} threadPriority:0.5
+main:<NSThread: 0x7ffb83c02030>{number = 1, name = main} threadPriority:0.758064516129032
+
+*/
 ```
 - String
 ```swift
