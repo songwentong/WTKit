@@ -148,7 +148,7 @@ extension NSURLSession{
     }
     
     public static func cachedDataTaskWithRequest(request:NSURLRequest , completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)->Void{
-        let cache = NSURLCache.sharedURLCacheForUIImage()
+        let cache = NSURLCache.sharedURLCacheForRequests()
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
             NSOperationQueue.main({ 
                 completionHandler(data,response,error)
@@ -374,10 +374,29 @@ extension NSObject{
     
 }
 
-
-//图片下载的key
+//数据缓存
+private var sharedURLCacheForRequestsKey:Void?
+//图片缓存
 private var sharedURLCacheForUIImageKey:Void?
 extension NSURLCache{
+    
+    /*!
+        数据缓存
+     */
+    public static func sharedURLCacheForRequests()->NSURLCache{
+        var cache = objc_getAssociatedObject(NSOperationQueue.mainQueue(), &sharedURLCacheForRequestsKey)
+        if cache is NSURLCache {
+            
+        }else{
+            //0M memory, 1G Disk
+            cache = NSURLCache(memoryCapacity: 0, diskCapacity: 1*1024*1024*1024, diskPath: "sharedURLCacheForRequestsKey")
+            objc_setAssociatedObject(NSOperationQueue.mainQueue(), &sharedURLCacheForRequestsKey, cache, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            
+        }
+        return cache as! NSURLCache
+        
+    }
+    
     
     /*!
         图片缓存
@@ -387,7 +406,8 @@ extension NSURLCache{
         if cache is NSURLCache {
             return cache as! NSURLCache
         }else{
-            cache = NSURLCache(memoryCapacity: 4*1024, diskCapacity: 1024*10242, diskPath: "cacheForImage")
+            //4M memory  4G Disk
+            cache = NSURLCache(memoryCapacity: 4*1024*1024, diskCapacity: 4*1024*1024*1024, diskPath: "cacheForImage")
             objc_setAssociatedObject(NSOperationQueue.mainQueue(), &sharedURLCacheForUIImageKey, cache, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return cache as! NSURLCache
         }
