@@ -640,7 +640,18 @@ extension UIView{
     }
 }
 
-
+extension UIWebView{
+    /*!
+        缓存网页
+     */
+    public func loadRequest(request: NSURLRequest, useCache:Bool){
+        let req:NSMutableURLRequest = request.mutableCopy() as! NSMutableURLRequest
+        if useCache {
+            req.cachePolicy = .ReturnCacheDataElseLoad
+        }
+        loadRequest(request)
+    }
+}
 
 public class RefreshHeader:UIView{
     var refreshBlock:()->Void
