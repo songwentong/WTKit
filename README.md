@@ -97,7 +97,8 @@ public func numberFor(unit:NSCalendarUnit)->Int
 
 
 let date = NSDate()
-print("year:  \(date.numberFor(.Year)) month:\(date.numberFor(.Month)) day:\(date.numberFor(.Month))")
+print("year:\(date.numberFor(.Year)) month:\(date.numberFor(.Month)) day:\(date.numberFor(.Day))")
+//year:2016 month:6 day:15
         
 ```
 
