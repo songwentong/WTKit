@@ -76,6 +76,10 @@ extension UIColor{
         return UIColor(red: 1-r, green: 1-g, blue: 1-b, alpha: a)
     }
     
+    //TODO
+    public func hexString()->String{
+        return ""
+    }
     
     private class func randomColorValue()->CGFloat{
         return CGFloat(random())%255.0
