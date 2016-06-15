@@ -93,11 +93,11 @@ print(string.length)//5
 - NSDate
 ```swift
 // Get just one calendar unit value
-public func numberFor(unit:NSCalendarUnit)->Int
+public func date.numberForComponent(unit:NSCalendarUnit)->Int
 
 
 let date = NSDate()
-print("year:\(date.numberFor(.Year)) month:\(date.numberFor(.Month)) day:\(date.numberFor(.Day))")
+print("year:\(date.numberForComponent(.Year)) month:\(date.numberForComponent(.Month)) day:\(date.numberForComponent(.Day))")
 //year:2016 month:6 day:15
         
 ```
