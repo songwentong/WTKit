@@ -54,7 +54,7 @@ class WTKitTests: XCTestCase {
     
     func testNSDate(){
         let date = NSDate()
-        print("year:\(date.numberFor(.Year)) month:\(date.numberFor(.Month)) day:\(date.numberFor(.Day))")
+        print("year:\(date.numberForComponent(.Year)) month:\(date.numberForComponent(.Month)) day:\(date.numberForComponent(.Day))")
     }
     
     override func tearDown() {

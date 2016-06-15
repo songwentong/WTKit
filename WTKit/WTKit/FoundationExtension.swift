@@ -527,7 +527,7 @@ extension NSData{
     }
 }
 extension NSDate{
-    public func numberFor(unit:NSCalendarUnit)->Int{
+    public func numberForComponent(unit:NSCalendarUnit)->Int{
         return NSCalendar.currentCalendar().component(unit, fromDate: self)
     }
 }
