@@ -889,7 +889,12 @@ extension UIScrollView{
     
     
 }
-
+extension UITextView{
+    public func selectAllText(){
+        let range = self.textRangeFromPosition(self.beginningOfDocument, toPosition: self.endOfDocument)
+        self.selectedTextRange = range
+    }
+}
 extension UICollectionView{
     //------------------图片查看----------------
 }
