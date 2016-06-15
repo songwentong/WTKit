@@ -746,6 +746,8 @@ public class RefreshHeader:UIView{
     public var loadingText:String = "Loading..."
     var titleLabel:UILabel
     var timeLabel:UILabel
+    let arrowImageURL:String = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"
+    var arrowImageView:UIImageView
     
     override init(frame: CGRect) {
         self.refreshBlock = {}
@@ -753,11 +755,17 @@ public class RefreshHeader:UIView{
         refreshHeight = CGRectGetHeight(frame)
         titleLabel = UILabel()
         timeLabel = UILabel()
+        arrowImageView = UIImageView()
+        arrowImageView.setImageWith(arrowImageURL)
         super.init(frame: frame)
         addSubview(titleLabel)
         addSubview(timeLabel)
+        addSubview(arrowImageView)
+        
         titleLabel.frame = CGRectMake(0, 0, UIScreen.screenWidth(), 40)
         titleLabel.textAlignment = .Center
+        arrowImageView.frame = CGRectMake(0, 0, 30, 40)
+//        arrowImageView.contentMode = UIViewContentMode.Center
         self.backgroundColor = UIColor.whiteColor()
     }
     
@@ -831,9 +839,16 @@ public class RefreshHeader:UIView{
                     if self.scrollView?.contentOffset.y > -refreshHeight {
                         self.state = .PullDownToRefresh
                         self.titleLabel.text = pullDownToRefreshText
+                        
+                        
+                        if scrollView != nil {
+                            arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI) * ((self.scrollView!.contentOffset.y - 30) / (refreshHeight - 30)))
+                        }
                     }else{
                         self.state = .ReleaseToRefresh
                         self.titleLabel.text = releaseToRefreshText
+                        
+                        arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
                     }
                 }
 
