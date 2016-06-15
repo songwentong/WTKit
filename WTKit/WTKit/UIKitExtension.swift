@@ -188,6 +188,9 @@ extension UIScreen{
     public static func screenWidth()->CGFloat{
         return CGRectGetWidth(UIScreen.mainScreen().bounds)
     }
+    public static func screenHeight()->CGFloat{
+        return CGRectGetHeight(UIScreen.mainScreen().bounds)
+    }
 }
 extension UIDevice{
     public static func systemVersion()->String{
@@ -201,6 +204,64 @@ extension UIDevice{
     public static func uuidString()->String{
         return (UIDevice.currentDevice().identifierForVendor?.UUIDString)!
     }
+    
+    
+    /*!
+        is iPhone
+     */
+    public static func isPhone()->Bool{
+        
+        if UI_USER_INTERFACE_IDIOM() == .Phone {
+            return true
+        }
+        return false
+    }
+    
+    /*!
+        硬盘空间
+     */
+    public func diskSpace()->Int64{
+        var attributes:[String : AnyObject]?
+        var fileSystemSize:Int64 = 0
+        do{
+           try attributes = NSFileManager.defaultManager().attributesOfItemAtPath(NSHomeDirectory())
+            fileSystemSize = (attributes![NSFileSystemSize]?.longLongValue)!
+        }catch{
+            
+        }
+        return fileSystemSize
+    }
+    
+    /*!
+        可用空间
+    */
+    public func diskSpaceFree()->Int64{
+        var attributes:[String : AnyObject]?
+        var fileSystemSize:Int64 = 0
+        do{
+            try attributes = NSFileManager.defaultManager().attributesOfItemAtPath(NSHomeDirectory())
+            fileSystemSize = (attributes![NSFileSystemFreeSize]?.longLongValue)!
+        }catch{
+            
+        }
+        return fileSystemSize
+    }
+    
+    /*!
+        已用空间
+     */
+    public func diskSpaceUsed()->Int64{
+        return diskSpace() - diskSpaceFree()
+    }
+    
+    /*!
+        物理内存
+     */
+    public func memoryTotal()->UInt64{
+        let mem = NSProcessInfo.processInfo().physicalMemory;
+        return mem;
+    }
+    
 }
 
 //target - action block keys
