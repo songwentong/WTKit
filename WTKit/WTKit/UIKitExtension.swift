@@ -703,6 +703,24 @@ extension UIView{
         addSubview(scrollview)
         
     }
+    
+    
+    /*!
+        清空所有子视图
+     */
+    public func removeAllSubViews(){
+        while self.subviews.count != 0 {
+            self.subviews.first?.removeFromSuperview()
+        }
+    }
+    
+    public func viewController()->UIViewController?{
+        if self.nextResponder() is UIViewController {
+            return self.nextResponder() as? UIViewController
+        }else{
+            return nil
+        }
+    }
 }
 
 extension UIWebView{

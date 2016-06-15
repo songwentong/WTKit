@@ -79,13 +79,13 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                 if error == nil{
                     
                     if(data != nil){
-                        let string = String.init(data: data!, encoding: NSUTF8StringEncoding)
-                        if string != nil{
-                            NSOperationQueue.main({
-                                self.resultTextView.text = string;
-                            })
+                        let string = data?.toUTF8String()
+                        
+                        NSOperationQueue.main({
+                            self.resultTextView.text = string;
+                        })
                             
-                        }
+                        
                         
                     }
                     self.showHudWithTip("请求成功")

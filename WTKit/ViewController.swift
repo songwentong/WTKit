@@ -35,7 +35,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+//        WTLog(self.view.viewController())
 //        aaa(UILabel().text!)
     }
 //    func aaa(a:String="ccc"){

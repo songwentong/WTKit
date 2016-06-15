@@ -497,6 +497,16 @@ extension Dictionary{
 }
 extension NSData{
     
+    /*!
+        utf-8 string
+     */
+    public func toUTF8String()->String{
+        let string = String.init(data: self, encoding: NSUTF8StringEncoding)
+        if string == nil {
+            return ""
+        }
+        return string!
+    }
     
     /*!
         Create a Foundation object from JSON data.
