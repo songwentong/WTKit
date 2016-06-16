@@ -746,14 +746,26 @@ public class RefreshHeader:UIView{
     weak var scrollView:UIScrollView?
     var state:ScrollViewRefreshState
     public var refreshHeight:CGFloat
+    
+    /*!
+        这里5条数据可配置
+     */
     public var pullDownToRefreshText:String = "pull down to refresh"
     public var releaseToRefreshText:String = "release to refresh"
     public var loadingText:String = "Loading..."
+    public var lastUpdateText:String = "last update time:"
+    public var dateStyle:String = "yyyy-MM-dd"
     var titleLabel:UILabel
     var timeLabel:UILabel
+    
+    /*!
+        图片地址可配置,也可设置为本地的地址
+     */
     let arrowImageURL:String = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"
     var arrowImageView:UIImageView
     var activityIndicator:UIActivityIndicatorView
+    var lastUpdateDate:NSDate? = nil
+    var dateFormatter:NSDateFormatter = NSDateFormatter()
     
     override init(frame: CGRect) {
         self.refreshBlock = {}
@@ -772,6 +784,10 @@ public class RefreshHeader:UIView{
         
         titleLabel.frame = CGRectMake(0, 0, UIScreen.screenWidth(), 40)
         titleLabel.textAlignment = .Center
+        timeLabel.frame = CGRectMake(0, 40, UIScreen.screenWidth(), 20)
+        timeLabel.textAlignment = .Center
+        timeLabel.font = UIFont.systemFontOfSize(12)
+        timeLabel.textColor = UIColor.colorWithHexString("3")
         arrowImageView.frame = CGRectMake(30, 0, 30, CGRectGetHeight(frame))
         activityIndicator.frame = arrowImageView.frame
         activityIndicator.hidesWhenStopped = true
@@ -843,6 +859,7 @@ public class RefreshHeader:UIView{
     public func scrollViewContentOffsetDidChange(change:AnyObject?)->Void{
         if self.scrollView != nil {
             if (self.scrollView!.dragging) {
+                
                 //如果正在拖拽,就刷新一下状态
                 if self.state != .Loading {
                     if self.scrollView?.contentOffset.y > -refreshHeight {
@@ -866,6 +883,13 @@ public class RefreshHeader:UIView{
                             }, completion: nil)
                         
                     }
+                    
+                    if lastUpdateDate != nil {
+                        dateFormatter.dateFormat = dateStyle
+                        timeLabel.text = "\(lastUpdateText)\(dateFormatter.stringFromDate(lastUpdateDate!))"
+                    }
+                    
+                    
                 }
 
             }else{
@@ -939,6 +963,7 @@ extension UIScrollView{
             self.refreshHeader?.arrowImageView.hidden = false
             self.refreshHeader?.arrowImageView.transform = CGAffineTransformIdentity
             self.refreshHeader?.state = .PullDownToRefresh
+            self.refreshHeader?.lastUpdateDate = NSDate()
         }
     }
     
