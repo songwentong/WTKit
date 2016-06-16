@@ -345,7 +345,7 @@ extension UIButton{
     }
 
     
-    public func setImageWith(url:String, forState:UIControlState,placeHolder:UIImage?=nil) {
+    public func setImageWith(url:String, forState:UIControlState,placeHolder:UIImage?=nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil) {
         safeSyncInMain { 
             self.setImage(placeHolder, forState: forState)
         }
@@ -355,6 +355,9 @@ extension UIButton{
                     safeSyncInMain({
                         self?.setImage(image, forState: forState)
                         self?.setNeedsLayout()
+                        if complection != nil {
+                            complection!(image:image,error: error)
+                        }
                         
                     })
             };
@@ -607,7 +610,7 @@ extension UIImageView{
         swift 中对于方法做了优化,无需写多个方法来设置不同参数,写一个全的,然后需要填几个参数就填几个
         不想填的就填一个不加逗号就可以了.
      */
-    func setImageWith(url:String?="" ,placeHolder:UIImage? = nil,complection:((image:UIImage?)->Void)?=nil)->Void{
+    func setImageWith(url:String?="" ,placeHolder:UIImage? = nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil)->Void{
         safeSyncInMain { 
             self.image = placeHolder
         }
@@ -618,7 +621,7 @@ extension UIImageView{
                         self?.setNeedsLayout()
                     })
                 if complection != nil{
-                    complection!(image:image)
+                    complection!(image:image,error:error)
                 }
             }
             
