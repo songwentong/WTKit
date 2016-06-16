@@ -113,9 +113,32 @@ public enum WTHudMode{
     case roundProgressIndicatorView
     case ActivityIndicatorView
 }
+public class WTPieProgressView:UIView{
+        
+    public var progress:CGFloat = 0.0{
+        didSet{
+            self.setNeedsDisplay()
+        }
+    }
+    
+    public override func drawRect(rect: CGRect) {
+
+        let ctx = UIGraphicsGetCurrentContext()
+        self.layer.allowsGroupOpacity = false
+        let cPoint = CGPointMake(rect.size.width / 2, rect.size.height / 2)
+        let color = UIColor.colorWithHexString("fof8ff", alpha: 0.6)
+        let radius = rect.size.width / 2
+        CGContextMoveToPoint(ctx, cPoint.x, cPoint.y);
+        CGContextSetFillColor(ctx, CGColorGetComponents(color.CGColor));
+        CGContextAddArc(ctx, cPoint.x, cPoint.y, radius, CGFloat(M_PI*3/2),CGFloat(M_PI*3/2)+CGFloat(M_PI)*2*progress, 0);
+        CGContextFillPath(ctx);
+    }
+    
+}
+    
 public class WTProgressIndicatorView:UIView{
   
-    public  var strokeColor:UIColor = UIColor.whiteColor()
+    public  var strokeColor:UIColor =  UIColor.whiteColor().colorWithAlphaComponent(0.8)
     public  var lineWidth:CGFloat = 2.0
     public  var radius:CGFloat = 20.0{
         didSet{
@@ -173,7 +196,7 @@ public class WTHudView:UIView{
     public var mode:WTHudMode = .ActivityIndicatorView{
         didSet{
             self.updateIndicatorViewWithMode()
-            self.setNeedsLayout()
+            self.updateFrames()
         }
     }
     public var progress:Double = 0.0
@@ -189,7 +212,7 @@ public class WTHudView:UIView{
     public var defaultBgColor:UIColor = UIColor.colorWithHexString("3", alpha: 0.5)
     public var defaultTitleColor:UIColor = UIColor.whiteColor()
     private var backgroundView:UIView?
-    private var indicatorView:UIView?
+    public var indicatorView:UIView?
     private(set) public var detailText:String?
     private(set) public var detailLabel:UILabel?
     
@@ -216,7 +239,7 @@ public class WTHudView:UIView{
         titleLabel?.textAlignment = .Center
         titleLabel!.font = UIFont.systemFontOfSize(defaultFontSize)
         backgroundView!.addSubview(titleLabel!)
-        self.setNeedsLayout()
+        self.updateFrames()
         
     }
     private func updateIndicatorViewWithMode(){
@@ -236,12 +259,19 @@ public class WTHudView:UIView{
             self.indicatorView = indicatorView
             backgroundView!.addSubview(indicatorView)
             break
+        case.pieProgress:
+            let indicatorView = WTPieProgressView()
+            indicatorView.backgroundColor = UIColor.clearColor()
+            self.indicatorView = indicatorView
+            backgroundView!.addSubview(indicatorView)
+            break
         default: break
             
         }
         
     }
-    public override func layoutSubviews() {
+    
+    public func updateFrames(){
         backgroundView!.setWidth(100)
         backgroundView!.setHeight(100)
         backgroundView!.setCenterX(self.centerX)
@@ -251,9 +281,11 @@ public class WTHudView:UIView{
             indictor?.setSize(CGSizeMake(40, 40))
             indictor?.setTop(20)
             indictor?.setLeft(30)
-          
+            
         }else if indictor!.isKindOfClass(WTProgressIndicatorView){
             
+            indictor?.frame = CGRectMake(30, 20, 40, 40)
+        }else if indictor!.isKindOfClass(WTPieProgressView){
             indictor?.frame = CGRectMake(30, 20, 40, 40)
         }
         titleLabel?.setX(10)
@@ -261,6 +293,9 @@ public class WTHudView:UIView{
         titleLabel?.setHeight(20)
         titleLabel?.setTop(indictor!.bottom + 10)
 
+    }
+    public override func layoutSubviews() {
+      
     }
     public static func showHudInView(view:UIView,animatied:Bool) ->WTHudView{
         let hud = WTHudView(view: view)
@@ -297,10 +332,10 @@ public class WTHudView:UIView{
     }
     public func hideAnimated(animated:Bool){
         if animated {
-            let animaations = {self.backgroundView!.transform = CGAffineTransformMakeScale(0.0, 0.0)
+            let animaations = {self.backgroundView!.transform = CGAffineTransformMakeScale(0.5, 0.5)
                 self.backgroundView!.alpha = 0.0
             }
-            UIView.animateWithDuration(0.2, animations: animaations, completion: { (finish) in
+            UIView.animateWithDuration(0.3, animations: animaations, completion: { (finish) in
                 self.removeFromSuperview()
             })
         }else{

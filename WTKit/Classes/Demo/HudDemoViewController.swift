@@ -11,9 +11,10 @@ import UIKit
 class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     var dataList:[String]
     @IBOutlet weak var tableView: UITableView!
-    
+    var timer:NSTimer?
+    var progress:CGFloat = 0
     required init?(coder aDecoder: NSCoder){
-        dataList = ["NormalLoadingView","text","progressLoadingView"]
+        dataList = ["NormalLoadingView","text","progressLoadingView","pieProgressView"]
         super.init(coder: aDecoder)
     }
     
@@ -34,6 +35,21 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
 //        tableView.contentInset = UIEdgeInsetsMake(100, 0, 0, 0);
     }
 
+    func addProgress(){
+        progress += CGFloat(random()%100)/200
+        let hud = WTHudView.hudViewForView(view)
+        if (hud != nil) {
+          let view = hud!.indicatorView as! WTPieProgressView
+          view.progress = progress
+        }
+        if progress>=1 {
+            progress = 0
+            timer?.invalidate()
+            timer = nil
+            hud?.hideAnimated(true)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -94,6 +110,15 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
                 hud.hideAnimated(true)
                 }, afterDelay: 10)
             
+            break
+        case 3:
+            if (timer != nil) {
+                return
+            }
+            let hud = WTHudView.showHudInView(view, animatied: true)
+            hud.mode = .pieProgress
+            timer = NSTimer(timeInterval: 1, target: self, selector: #selector(HudDemoViewController.addProgress), userInfo: nil, repeats: true)
+            NSRunLoop.mainRunLoop().addTimer(timer!, forMode: kCFRunLoopCommonModes as String)
             break
         default:
             break
