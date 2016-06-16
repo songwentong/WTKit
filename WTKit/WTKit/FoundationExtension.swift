@@ -582,5 +582,13 @@ extension String{
         
         data?.parseJSON(block)
     }
+    
+    public func toUTF8Data()->NSData{
+        var data = dataUsingEncoding(NSUTF8StringEncoding)
+        if data == nil {
+            data = NSData()
+        }
+        return data!
+    }
  
 }

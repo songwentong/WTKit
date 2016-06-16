@@ -41,6 +41,11 @@ class WTKitTests: XCTestCase {
  */
     }
     
+    func testNSData(){
+        let string = "test data".toUTF8Data().toUTF8String()
+        print(string)
+    }
+    
     func testParseJSON(){
         "a string".parseJSON { (obj, error) in
             
