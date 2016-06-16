@@ -748,6 +748,7 @@ public class RefreshHeader:UIView{
     var timeLabel:UILabel
     let arrowImageURL:String = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"
     var arrowImageView:UIImageView
+    var activityIndicator:UIActivityIndicatorView
     
     override init(frame: CGRect) {
         self.refreshBlock = {}
@@ -757,15 +758,18 @@ public class RefreshHeader:UIView{
         timeLabel = UILabel()
         arrowImageView = UIImageView()
         arrowImageView.setImageWith(arrowImageURL)
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         super.init(frame: frame)
         addSubview(titleLabel)
         addSubview(timeLabel)
         addSubview(arrowImageView)
+        addSubview(activityIndicator)
         
         titleLabel.frame = CGRectMake(0, 0, UIScreen.screenWidth(), 40)
         titleLabel.textAlignment = .Center
         arrowImageView.frame = CGRectMake(30, 0, 30, CGRectGetHeight(frame))
-//        arrowImageView.contentMode = UIViewContentMode.Center
+        activityIndicator.frame = arrowImageView.frame
+        activityIndicator.hidesWhenStopped = true
         self.backgroundColor = UIColor.whiteColor()
     }
     
@@ -862,9 +866,11 @@ public class RefreshHeader:UIView{
             }else{
                 if state == .ReleaseToRefresh {
                     self.state = .Loading
+                    self.arrowImageView.hidden = true
                     self.titleLabel.text = loadingText
                     refreshBlock()
                     self.scrollView?.startRefresh()
+                    activityIndicator.startAnimating()
                 }
 
 
@@ -918,11 +924,14 @@ extension UIScrollView{
         回收
      */
     public func finishRefresh()->Void{
+        refreshHeader?.activityIndicator.stopAnimating()
         
         UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
             self.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
             self.contentOffset = CGPointMake(0, 0)
+            
         }) { (finish) in
+            self.refreshHeader?.arrowImageView.hidden = false
             self.refreshHeader?.state = .PullDownToRefresh
         }
     }
