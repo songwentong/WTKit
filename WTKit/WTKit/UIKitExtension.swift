@@ -764,7 +764,7 @@ public class RefreshHeader:UIView{
         
         titleLabel.frame = CGRectMake(0, 0, UIScreen.screenWidth(), 40)
         titleLabel.textAlignment = .Center
-        arrowImageView.frame = CGRectMake(0, 0, 30, 40)
+        arrowImageView.frame = CGRectMake(30, 0, 30, CGRectGetHeight(frame))
 //        arrowImageView.contentMode = UIViewContentMode.Center
         self.backgroundColor = UIColor.whiteColor()
     }
@@ -841,14 +841,21 @@ public class RefreshHeader:UIView{
                         self.titleLabel.text = pullDownToRefreshText
                         
                         
-                        if scrollView != nil {
-                            arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI) * ((self.scrollView!.contentOffset.y - 30) / (refreshHeight - 30)))
-                        }
+//                        if scrollView != nil {
+//                            arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI) * ((self.scrollView!.contentOffset.y - 30) / (refreshHeight - 30)))
+//                        }
+                        UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                            self.arrowImageView.transform = CGAffineTransformMakeRotation(0)
+                            }, completion: nil)
+                        
                     }else{
                         self.state = .ReleaseToRefresh
                         self.titleLabel.text = releaseToRefreshText
                         
-                        arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+                        UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                                self.arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+                            }, completion: nil)
+                        
                     }
                 }
 
