@@ -417,18 +417,21 @@ public class ImageDownloadOperaion:NSOperation{
             
             //weak self 使用场景:self 可能为空    unowned 使用场景:self 不能为空
             let task =  NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { [weak self](data, response, error1) -> Void in
-                    if(error1==nil){
-                        let image = UIImage(data: data!)
-                        
-                        if self != nil{
-                        if(!self!.cancelled){
-                            self!.completionHandler(image: image, error:error1)
+                    if(error1 == nil){
+                        NSOperationQueue.globalQueue({ 
+                            let image = UIImage(data: data!)
+                            
+                            if self != nil{
+                                if(!self!.cancelled){
+                                    self!.completionHandler(image: image, error:error1)
+                                }
                             }
-                        }
+                            
+                            
+                            let responseToCache = NSCachedURLResponse(response: response!, data: data!, userInfo: nil, storagePolicy: NSURLCacheStoragePolicy.Allowed)
+                            sharedURLCache.storeCachedResponse(responseToCache, forRequest:request )
+                        })
                         
-                        
-                        let responseToCache = NSCachedURLResponse(response: response!, data: data!, userInfo: nil, storagePolicy: NSURLCacheStoragePolicy.Allowed)
-                        sharedURLCache.storeCachedResponse(responseToCache, forRequest:request )
                         
                         
                     }else{
@@ -445,11 +448,13 @@ public class ImageDownloadOperaion:NSOperation{
                 task.resume()
             
         }else{
+            NSOperationQueue.globalQueue({ 
+                let image = UIImage(data: (cachedResponseForRequest?.data)!)
+                if !self.cancelled {
+                    self.completionHandler(image: image, error: nil)
+                }
+            })
             
-            let image = UIImage(data: (cachedResponseForRequest?.data)!)
-            if !self.cancelled {
-                completionHandler(image: image, error: nil)
-            }
             
             
         }
