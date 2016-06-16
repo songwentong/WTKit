@@ -399,7 +399,7 @@ public class ImageDownloadOperaion:NSOperation{
     
     
      deinit{
-        WTLog("deinit")
+//        WTLog("ImageDownloadOperaion deinit")
     }
     override public func main() {
         
