@@ -937,6 +937,7 @@ extension UIScrollView{
             
         }) { (finish) in
             self.refreshHeader?.arrowImageView.hidden = false
+            self.refreshHeader?.arrowImageView.transform = CGAffineTransformIdentity
             self.refreshHeader?.state = .PullDownToRefresh
         }
     }

@@ -46,7 +46,7 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
         // Pass the selected object to the new view controller.
     }
     */
-    
+    //----------datasource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return dataList.count
     }
@@ -59,6 +59,12 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    
+    //----------delegate
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath){
         cell.textLabel!.text = dataList[indexPath.row]
     }
