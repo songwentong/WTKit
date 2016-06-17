@@ -885,7 +885,8 @@ public class RefreshHeader:UIView{
                             self.arrowImageView.transform = CGAffineTransformMakeRotation(0)
                             }, completion: nil)
                         
-                    }else{
+                    }else
+                    {
                         self.state = .ReleaseToRefresh
                         self.titleLabel.text = releaseToRefreshText
                         
@@ -905,12 +906,7 @@ public class RefreshHeader:UIView{
 
             }else{
                 if state == .ReleaseToRefresh {
-                    self.state = .Loading
-                    self.arrowImageView.hidden = true
-                    self.titleLabel.text = loadingText
-                    refreshBlock()
-                    self.scrollView?.startRefresh()
-                    activityIndicator.startAnimating()
+                    beginRefresh()
                 }
 
 
@@ -918,7 +914,27 @@ public class RefreshHeader:UIView{
         }
     }
     
-    
+    public func beginRefresh(){
+        if state == .Loading {
+            return;
+        }
+        self.state = .Loading
+        self.arrowImageView.hidden = true
+        self.titleLabel.text = loadingText
+        refreshBlock()
+        activityIndicator.startAnimating()
+        if lastUpdateDate != nil {
+            dateFormatter.dateFormat = dateStyle
+            timeLabel.text = "\(lastUpdateText)\(dateFormatter.stringFromDate(lastUpdateDate!))"
+        }
+        UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
+            self.scrollView?.contentInset = UIEdgeInsetsMake((self.refreshHeight), 0, 0, 0);
+            self.alpha = 1.0
+        }) { (finish) in
+            
+        }
+        self.setNeedsDisplay()
+    }
 
 }
 private var refreshHeaderKey:Void?
@@ -950,14 +966,8 @@ extension UIScrollView{
      */
     public func startRefresh()->Void{
         
-//        self.setContentOffset(CGPointMake(0, 0), animated: true)
-        UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
-            self.contentInset = UIEdgeInsetsMake((self.refreshHeader?.refreshHeight)!, 0, 0, 0);
-            self.refreshHeader?.alpha = 1.0
-            }) { (finish) in
-                
-        }
-        self.refreshHeader?.setNeedsDisplay()
+        self.refreshHeader?.beginRefresh()
+        
     }
     
     /*!
