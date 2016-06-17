@@ -406,8 +406,8 @@ extension NSURLCache{
         if cache is NSURLCache {
             return cache as! NSURLCache
         }else{
-            //4M memory  4G Disk
-            cache = NSURLCache(memoryCapacity: 4*1024*1024, diskCapacity: 4*1024*1024*1024, diskPath: "cacheForImage")
+            //4M memory  1G Disk
+            cache = NSURLCache(memoryCapacity: 4*1024*1024, diskCapacity: 1024 * 1024 * 1024, diskPath: "cacheForImage")
             objc_setAssociatedObject(NSOperationQueue.mainQueue(), &sharedURLCacheForUIImageKey, cache, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return cache as! NSURLCache
         }
