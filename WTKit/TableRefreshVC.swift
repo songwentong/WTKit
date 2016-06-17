@@ -16,14 +16,14 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.refreshHeader = RefreshHeader.headerWithRefreshing({
-            self.dataList.insert("refresh one time", atIndex: 0)
-            performOperationWithBlock({
-                self.tableView.finishRefresh()
-                self.tableView.beginUpdates()
+        tableView.refreshHeader = RefreshHeader.headerWithRefreshing({ [weak self] ()in
+            self?.dataList.insert("refresh one time", atIndex: 0)
+            performOperationWithBlock({[weak self] ()in
+                self?.tableView.finishRefresh()
+                self?.tableView.beginUpdates()
                 let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-                self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-                self.tableView.endUpdates()
+                self?.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                self?.tableView.endUpdates()
                 }, afterDelay: 2.0)
             
         })

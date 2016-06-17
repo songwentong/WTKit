@@ -110,7 +110,7 @@ public func safeSyncInMain(block:dispatch_block_t)->Void{
 /*!
     延时执行的代码块
  */
-public func performOperationWithBlock(block:dispatch_block_t, afterDelay:NSTimeInterval){
+public func performOperationWithBlock(block:()->Void, afterDelay:NSTimeInterval){
     //Swift 不允许数据在计算中损失,所以需要在计算的时候转换以下类型
     let time = Int64(afterDelay * Double(NSEC_PER_SEC))
     let t = dispatch_time(DISPATCH_TIME_NOW, time)
@@ -437,7 +437,6 @@ extension Array{
             }
         }
         
-        
         return self
     }
     
@@ -484,9 +483,6 @@ extension NSOperationQueue{
     public static func main(block: () -> Void)->Void{
         NSOperationQueue.mainQueue().addOperationWithBlock(block)
     }
-}
-extension Array{
-    
 }
 extension NSOperation{
 
