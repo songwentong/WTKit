@@ -83,6 +83,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                         
                         NSOperationQueue.main({
                             self.resultTextView.text = string;
+                            self.resultTextView.flashScrollIndicators()
                         })
                             
                         
