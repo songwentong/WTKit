@@ -17,11 +17,21 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
     @IBOutlet weak var rightItem: UIBarButtonItem!
     var parameters:[String:String]?
     
+    
+    let lastURLKey = "lastURLKey"
+    
     override func viewDidLoad() {
         //        requestButton.enabled = false
         
+        var url = NSUserDefaults.standardUserDefaults().stringForKey(lastURLKey)
+        if url == nil {
+            url = "http://www.baidu.com"
+        }
+        urlTextField.text = url
+        
         checkTextLength()
         super.viewDidLoad()
+        
 //        self.navigationItem.hidesBackButton = true
     }
     
@@ -72,6 +82,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
             if methodSegment.selectedSegmentIndex == 1 {
                 method = "POST"
             }
+            NSUserDefaults.standardUserDefaults().setObject(urlTextField.text, forKey: lastURLKey)
             NSURLSession.dataTaskWith(string!,method:method,parameters:parameters, completionHandler: { (data, response, error) in
                 self.hideLoadingView()
                 self.requestButton.enabled = true
