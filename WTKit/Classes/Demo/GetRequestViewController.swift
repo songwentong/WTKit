@@ -78,18 +78,21 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                 
                 if error == nil{
                     
-                    if(data != nil){
-                        let string = data?.toUTF8String()
+
+                    let string = data?.toUTF8String()
                         
-                        NSOperationQueue.main({
-                            self.resultTextView.text = string;
-                            self.resultTextView.flashScrollIndicators()
-                        })
-                            
+                    
+                    self.resultTextView.text = string;
+                    self.resultTextView.flashScrollIndicators()
                         
                         
+
+                    if (string?.length == 0){
+                        self.showHudWithTip("请求成功,数据不是UTF8格式")
+                    }else{
+                        self.showHudWithTip("请求成功")
                     }
-                    self.showHudWithTip("请求成功")
+                    
                 }else{
                     self.showHudWithTip("请求失败")
                 }
