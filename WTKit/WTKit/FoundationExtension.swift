@@ -154,7 +154,7 @@ extension NSURLSession{
                 completionHandler(data,response,error)
             })
             
-            if error != nil{
+            if error == nil{
                 //保存当前请求
                 cache.storeCachedResponse(NSCachedURLResponse.init(response: response!, data: data!, userInfo: nil, storagePolicy: .Allowed), forRequest: request)
             }

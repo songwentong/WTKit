@@ -27,10 +27,12 @@ class GifImageVC: UIViewController {
 
         
         //http://ww1.sinaimg.cn/bmiddle/006ajVGQgw1f4s8n25m5hg30b4081u0z.gif
+        self.showLoadingView()
         NSURLSession.cachedDataTaskWithRequest(NSURLRequest.request("http://ww1.sinaimg.cn/mw690/47449485jw1f4shxfge7lg208w04rkjn.gif")) { (data, response, error) in
             if data != nil {
                 
                 NSOperationQueue.main({
+                    self.hideLoadingView()
                     self.imageView = self.view.viewWithTag(1) as! AnimationImageVIew
                     self.imageView.backgroundColor = UIColor.whiteColor()
                     let image = WTImage(data:data!)
