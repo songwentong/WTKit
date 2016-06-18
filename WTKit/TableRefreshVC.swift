@@ -18,10 +18,11 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
         WTLog("deinit")
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.refreshHeader = RefreshHeader.headerWithRefreshing({  ()in
-            self.dataList.insert("refresh one time", atIndex: 0)
+        tableView.refreshHeader = RefreshHeader.headerWithRefreshing({  [weak self]()in
+            self?.dataList.insert("refresh one time", atIndex: 0)
             performOperationWithBlock({ [weak self]()in
                 self?.tableView.finishRefresh()
                 self?.tableView.beginUpdates()
@@ -33,6 +34,9 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
         })
         dataList.append("pull down to refresh")
         // Do any additional setup after loading the view.
+    }
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
     }
 
     override func didReceiveMemoryWarning() {

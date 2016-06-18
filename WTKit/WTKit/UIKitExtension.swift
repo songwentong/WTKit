@@ -828,19 +828,24 @@ public class RefreshHeader:UIView{
     }
     
     public override func willMoveToSuperview(newSuperview: UIView?) {
+        super.willMoveToSuperview(newSuperview)
+        
         
         if newSuperview is UIScrollView {
             self.scrollView = newSuperview as? UIScrollView
             addObservers()
+        }else{
+            
         }
     }
     
     public override func willMoveToWindow(newWindow: UIWindow?) {
-//        removeObservers()
+        super.willMoveToWindow(newWindow)
         if newWindow == nil {
             removeObservers()
         }
     }
+    
     func contentOffset()->String{
         return "contentOffset"
     }
@@ -943,7 +948,7 @@ extension UIScrollView{
     
     
     
-    public var refreshHeader:RefreshHeader?{
+    public weak var refreshHeader:RefreshHeader?{
         get{
             let r = objc_getAssociatedObject(self, &refreshHeaderKey)
             return r as? RefreshHeader
@@ -954,8 +959,10 @@ extension UIScrollView{
             if ((header?.superview) != nil) {
                 header?.removeFromSuperview()
             }
-            self.addSubview(newValue!)
-            objc_setAssociatedObject(self, &refreshHeaderKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if newValue != nil {
+                self.addSubview(newValue!)
+            }
+            objc_setAssociatedObject(self, &refreshHeaderKey, newValue, .OBJC_ASSOCIATION_ASSIGN);
         }
     }
     
