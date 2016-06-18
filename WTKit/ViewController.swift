@@ -66,7 +66,9 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         // Dispose of any resources that can be recreated.
     }
 
+}
 // MARK: - UITableViewDataSource
+extension ViewController{
     internal func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return dataList.count
     }
@@ -81,8 +83,10 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         return "Demo 列表"
     } // fixed font style. use custom view (UILabel) if you want something different
 
-    
+}
 // MARK: - UITableViewDelegate
+extension ViewController{
+
     internal func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath){
         cell.textLabel?.text = dataList[indexPath.row]["title"]
     }
@@ -93,4 +97,3 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         self.performSegueWithIdentifier(segue!, sender: nil);
     }
 }
-
