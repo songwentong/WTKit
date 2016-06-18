@@ -11,7 +11,9 @@ import UIKit
 class ColorViewController: UIViewController {
     @IBOutlet weak var colorView: UIView!
     @IBOutlet weak var textView: UITextField!
-    
+    deinit{
+        WTLog("deinit")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

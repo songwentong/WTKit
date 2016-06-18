@@ -31,6 +31,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         dataList.append(["title":"HUD","segue":"hud"])
         dataList.append(["title":"COLOR 创建","segue":"color"])
         dataList.append(["title":"下拉刷新","segue":"TableRefreshVC"])
+        dataList.append(["title":"二维码扫描","segue":"QRCodeScanVC"])
         super.init(coder: aDecoder)
         
     }

@@ -105,6 +105,7 @@
                         <segue destination="1x8-Ir-6Ce" kind="show" identifier="gif" id="v0V-Kb-F5i"/>
                         <segue destination="0jQ-ct-hkP" kind="show" identifier="uploadImage" id="mqA-ba-GRN"/>
                         <segue destination="zWi-DW-p6Q" kind="show" identifier="TableRefreshVC" id="FGg-dk-RtP"/>
+                        <segue destination="HtW-nn-KJo" kind="show" identifier="QRCodeScanVC" id="Mka-DX-2IV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -516,6 +517,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7UG-0C-NyV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3867" y="4155"/>
+        </scene>
+        <!--Code ScanVC-->
+        <scene sceneID="bvp-0G-U2Y">
+            <objects>
+                <viewController id="HtW-nn-KJo" customClass="QRCodeScanVC" customModule="WTKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fX6-ua-NhH"/>
+                        <viewControllerLayoutGuide type="bottom" id="6SJ-Y8-EIz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Lyt-BL-VGE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pVG-c9-tsP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4497" y="319"/>
         </scene>
         <!--参数-->
         <scene sceneID="U8P-KM-xum">

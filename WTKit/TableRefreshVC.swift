@@ -14,11 +14,15 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
     @IBOutlet weak var tableView: UITableView!
     var dataList:Array<String> = []
     
+    deinit{
+        WTLog("deinit")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.refreshHeader = RefreshHeader.headerWithRefreshing({ [weak self] ()in
-            self?.dataList.insert("refresh one time", atIndex: 0)
-            performOperationWithBlock({[weak self] ()in
+        tableView.refreshHeader = RefreshHeader.headerWithRefreshing({  ()in
+            self.dataList.insert("refresh one time", atIndex: 0)
+            performOperationWithBlock({ [weak self]()in
                 self?.tableView.finishRefresh()
                 self?.tableView.beginUpdates()
                 let indexPath = NSIndexPath(forRow: 0, inSection: 0)

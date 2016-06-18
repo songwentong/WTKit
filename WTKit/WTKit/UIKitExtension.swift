@@ -52,7 +52,7 @@ extension UIColor{
             let red = CGFloat(rInt)/255.0
             let green = CGFloat(gInt)/255.0
             let blue = CGFloat(bInt)/255.0
-            WTLog("\(red) \(green) \(blue)")
+//            WTLog("\(red) \(green) \(blue)")
             let color = UIColor(red: red, green: green, blue: blue,alpha: alpha!)
             return color;
         default:

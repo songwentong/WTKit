@@ -19,7 +19,7 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
     
     deinit{
-
+        WTLog("deinit")
     }
     
     override func viewDidLoad() {

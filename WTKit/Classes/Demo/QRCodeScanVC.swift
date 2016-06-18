@@ -9,7 +9,9 @@
 import UIKit
 //二维码扫描
 class QRCodeScanVC: UIViewController {
-
+    deinit{
+        WTLog("deinit")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

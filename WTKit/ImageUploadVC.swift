@@ -17,7 +17,9 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
         uploadButton.setImageWith(url, forState: .Normal)
         
     }
-    
+    deinit{
+        WTLog("deinit")
+    }
     @IBAction func selectImage(sender: AnyObject) {
         let picker = UIImagePickerController()
         picker.delegate = self

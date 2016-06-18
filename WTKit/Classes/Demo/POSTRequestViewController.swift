@@ -15,7 +15,9 @@ class POSTRequestViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var parameterButton: UIBarButtonItem!
     var parameters:[String:AnyObject]?
     
-    
+    deinit{
+        WTLog("deinit")
+    }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         parameters = nil
