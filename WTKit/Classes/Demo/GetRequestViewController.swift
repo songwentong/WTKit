@@ -34,7 +34,9 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
         
 //        self.navigationItem.hidesBackButton = true
     }
-    
+    deinit{
+        WTLog("deinit")
+    }
     @IBAction func EditChanged(sender: AnyObject) {
         
         checkTextLength()

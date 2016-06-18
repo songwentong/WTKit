@@ -18,6 +18,9 @@ class GifImageVC: UIViewController {
         super.init(coder: aDecoder)
         
     }
+    deinit{
+        WTLog("deinit")
+    }
     
     //http://image.baidu.com/search/detail?ct=503316480&z=undefined&tn=baiduimagedetail&ipn=d&word=gif&step_word=&ie=utf-8&in=&cl=2&lm=-1&st=undefined&cs=1608871163,3223894477&os=3118387444,1750686340&simid=4233628155,738094048&pn=5&rn=1&di=199807664760&ln=1000&fr=&fmq=1465700905698_R&fm=&ic=undefined&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&is=&istype=0&ist=&jit=&bdtype=0&gsm=0&objurl=http%3A%2F%2Ff.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F1e30e924b899a901f13830bc1f950a7b0208f52f.jpg&rpstart=0&rpnum=0
     override func viewDidLoad() {
