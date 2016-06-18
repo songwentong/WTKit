@@ -983,7 +983,7 @@ extension UIScrollView{
     /*!
         回收
      */
-    public func finishRefresh()->Void{
+    public func stopLoading()->Void{
         refreshHeader?.activityIndicator.stopAnimating()
         
         UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {

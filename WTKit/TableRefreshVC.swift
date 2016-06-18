@@ -24,7 +24,7 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
         tableView.refreshHeader = RefreshHeader.headerWithRefreshing({  [weak self]()in
             self?.dataList.insert("refresh one time", atIndex: 0)
             performOperationWithBlock({ [weak self]()in
-                self?.tableView.finishRefresh()
+                self?.tableView.stopLoading()
                 self?.tableView.beginUpdates()
                 let indexPath = NSIndexPath(forRow: 0, inSection: 0)
                 self?.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)

@@ -27,7 +27,7 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
         self.tableView.refreshHeader = RefreshHeader.headerWithRefreshing({[weak self]()in
             WTLog("refresh")
             self?.performBlock({
-                self?.tableView.finishRefresh()
+                self?.tableView.stopLoading()
                 }, afterDelay: 2)
         })
 //        self.modalTransitionStyle
