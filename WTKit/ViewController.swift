@@ -35,6 +35,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         super.init(coder: aDecoder)
         
     }
+// MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -65,13 +66,10 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         // Dispose of any resources that can be recreated.
     }
 
-    
+// MARK: - UITableViewDataSource
     internal func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return dataList.count
     }
-    
-    // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-    // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
     
     @available(iOS 2.0, *)
     internal func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
@@ -84,7 +82,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     } // fixed font style. use custom view (UILabel) if you want something different
 
     
-    //Mark - UITableViewDelegate
+// MARK: - UITableViewDelegate
     internal func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath){
         cell.textLabel?.text = dataList[indexPath.row]["title"]
     }
