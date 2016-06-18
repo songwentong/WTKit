@@ -172,8 +172,8 @@ self.tableView.refreshHeader = RefreshHeader.headerWithRefreshing({
             printf("refresh data from internet")
         })
         
-//finish refresh        
-self.tableView.finishRefresh()
+//stop refresh        
+self.tableView.stopLoading()
 ```
 - CALayer
 ```swift
