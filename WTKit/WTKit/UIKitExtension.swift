@@ -800,6 +800,9 @@ public class RefreshHeader:UIView{
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    deinit{
+        WTLog("RefreshHeader deinit \(self)")
+    }
     
     public enum ScrollViewRefreshState:Int{
         case PullDownToRefresh
