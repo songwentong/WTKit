@@ -24,10 +24,10 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.refreshHeader = RefreshHeader.headerWithRefreshing({ 
+        self.tableView.refreshHeader = RefreshHeader.headerWithRefreshing({[weak self]()in
             WTLog("refresh")
-            self.performBlock({ 
-                self.tableView.finishRefresh()
+            self?.performBlock({
+                self?.tableView.finishRefresh()
                 }, afterDelay: 2)
         })
 //        self.modalTransitionStyle
