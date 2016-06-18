@@ -103,7 +103,7 @@ extension UIApplication{
     
     
        
-    //---------------------------------------------------------------------
+// MARK: - 版本号/build号/bundleID/程序名
     public class func appBundleName()->String{
             return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleName") as! String
     }
@@ -129,7 +129,7 @@ extension UIApplication{
     }
     
     
-    //-----------version tracking-----------------
+// MARK: - 版本记录以及是否是本次build首次启动
     
     /*!
         是否是当前版本的首次启动
@@ -144,7 +144,10 @@ extension UIApplication{
         return isFirst!
     }
     }
+
     
+    
+
     /*!
         记录一下当前版本
      */
@@ -221,6 +224,8 @@ extension UIDevice{
         return false
     }
     
+    
+// MARK: - 磁盘空间/可用空间/已用空间
     /*!
         硬盘空间
      */
@@ -344,7 +349,7 @@ extension UIButton{
         }
     }
 
-    
+// MARK: - 设置一张网络图片,并缓存下来
     public func setImageWith(url:String, forState:UIControlState,placeHolder:UIImage?=nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil) {
         safeSyncInMain { 
             self.setImage(placeHolder, forState: forState)
@@ -489,7 +494,7 @@ extension UIImage{
         return NSURLCache.sharedURLCacheForUIImage()
     }
     
-    
+
     //创建一个可以缓存图片的operation
     public class func imageOperationWithURL(url:String, completionHandler: (image:UIImage?,error:NSError?)->Void)->ImageDownloadOperaion!{
         return ImageDownloadOperaion.init(url: url, completionHandler: completionHandler)
@@ -605,6 +610,9 @@ extension UIImageView{
         }
     }
 
+    
+    
+// MARK: - 设置一张网络图片,并缓存下来
     /*!
         给出URL来请求图片
         swift 中对于方法做了优化,无需写多个方法来设置不同参数,写一个全的,然后需要填几个参数就填几个

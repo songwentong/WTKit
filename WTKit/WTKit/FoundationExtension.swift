@@ -14,19 +14,7 @@ import Foundation
     import CoreServices
 #endif
 
-/*
-//这个方法用于注释程序内所有已有的log
-public func print(
-        items: Any...,
-    separator: String = " ",
-    terminator: String = "\n"
-    ) {
- #if DEBUG
-    Swift.print(items)
- #endif
-}
- */
-
+// MARK: - 用于DEBUG模式的print,强烈推荐使用
 /*!
     用于DEBUG模式的log
  */
@@ -65,30 +53,8 @@ public func WTLog(
     
 }
 
-/*
- print 的源码
- @inline(never)
- @_semantics("stdlib_binary_only")
- public func print(
- _ items: Any...,
- separator: String = " ",
- terminator: String = "\n"
- ) {
- if let hook = _playgroundPrintHook {
- var output = _TeeStream(left: "", right: _Stdout())
- _print(
- items, separator: separator, terminator: terminator, to: &output)
- hook(output.left)
- }
- else {
- var output = _Stdout()
- _print(
- items, separator: separator, terminator: terminator, to: &output)
- }
- }
- */
 
-//DEBUG执行的方法
+// MARK: - DEBUG执行的方法
 public func DEBUGBlock(block:() -> Void){
     #if DEBUG
         block()
@@ -107,6 +73,8 @@ public func safeSyncInMain(block:dispatch_block_t)->Void{
     }
 }
 
+
+// MARK: - 延时执行的代码块
 /*!
     延时执行的代码块
  */
@@ -446,6 +414,8 @@ extension Array{
 }
 extension NSOperationQueue{
     
+    
+// MARK: - 快捷线程切换
     /*!
      到默认的全局队列做事情
      优先级是默认的
@@ -588,3 +558,25 @@ extension String{
     }
  
 }
+/*
+ print 的源码
+ @inline(never)
+ @_semantics("stdlib_binary_only")
+ public func print(
+ _ items: Any...,
+ separator: String = " ",
+ terminator: String = "\n"
+ ) {
+ if let hook = _playgroundPrintHook {
+ var output = _TeeStream(left: "", right: _Stdout())
+ _print(
+ items, separator: separator, terminator: terminator, to: &output)
+ hook(output.left)
+ }
+ else {
+ var output = _Stdout()
+ _print(
+ items, separator: separator, terminator: terminator, to: &output)
+ }
+ }
+ */
