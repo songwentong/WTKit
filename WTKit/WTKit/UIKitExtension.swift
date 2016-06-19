@@ -808,7 +808,7 @@ public class RefreshHeader:UIView{
         
         
         
-        timeLabel.frame = CGRectMake(0, 40, UIScreen.screenWidth(), 20)
+//        timeLabel.frame = CGRectMake(0, 40, UIScreen.screenWidth(), 20)
         timeLabel.textAlignment = .Center
         timeLabel.font = UIFont.systemFontOfSize(12)
         timeLabel.textColor = UIColor.colorWithHexString("3")
@@ -821,14 +821,30 @@ public class RefreshHeader:UIView{
     private func configLayoutConstraint(){
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         var constraints = [NSLayoutConstraint]()
-        let left = NSLayoutConstraint(item: titleLabel, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 0)
-        let right = NSLayoutConstraint(item: titleLabel, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: 0)
-        let top = NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0)
-        let height = NSLayoutConstraint(item: titleLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
+        var left = NSLayoutConstraint(item: titleLabel, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 0)
+        var right = NSLayoutConstraint(item: titleLabel, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: 0)
+        var top = NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0)
+        var height = NSLayoutConstraint(item: titleLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
         constraints.append(left)
         constraints.append(right)
         constraints.append(top)
         constraints.append(height)
+        
+        
+        
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        left = NSLayoutConstraint(item: timeLabel, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 0)
+        right = NSLayoutConstraint(item: timeLabel, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: 0)
+        top = NSLayoutConstraint(item: timeLabel, attribute: .Top, relatedBy: .Equal, toItem:titleLabel, attribute: .Bottom, multiplier: 1, constant: 0)
+        height = NSLayoutConstraint(item: timeLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 20)
+        constraints.append(left)
+        constraints.append(right)
+        constraints.append(top)
+        constraints.append(height)
+        
+        
+        
+        
         NSLayoutConstraint.activateConstraints(constraints)
 //        self.addConstraints(constraints)
 //        self.updateConstraintsIfNeeded()
@@ -934,6 +950,7 @@ public class RefreshHeader:UIView{
             if self.scrollView != nil {
                 self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetWidth(self.scrollView!.frame), refreshHeight)
                 titleLabel.layoutIfNeeded()
+                timeLabel.layoutIfNeeded()
             }
         }
     }
