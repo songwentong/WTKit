@@ -23,13 +23,18 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
         super.viewDidLoad()
         dataList.append("pull down to refresh")
         tableView.refreshHeader = RefreshHeader.headerWithRefreshing({  [weak self]()in
-            self?.dataList.insert("refresh one time", atIndex: 0)
+            
             performOperationWithBlock({ [weak self]()in
-                self?.tableView.stopLoading()
-                self?.tableView.beginUpdates()
-                let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-                self?.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-                self?.tableView.endUpdates()
+                if self != nil{
+                    self?.dataList.insert("refresh one time", atIndex: 0)
+                    self?.tableView.stopLoading()
+                    self?.tableView.beginUpdates()
+                    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+                    WTPrint(self?.dataList)
+                    self?.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+                    self?.tableView.endUpdates()
+                }
+                
                 }, afterDelay: 2.0)
             
         })

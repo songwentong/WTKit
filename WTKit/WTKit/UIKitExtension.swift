@@ -802,8 +802,8 @@ public class RefreshHeader:UIView{
         addSubview(activityIndicator)
         
         
-        titleLabel.frame = CGRectMake(0, 0, UIScreen.screenWidth(), 40)
-//        self.configLayoutConstraint()
+//        titleLabel.frame = CGRectMake(0, 0, UIScreen.screenWidth(), 40)
+        self.configLayoutConstraint()
         titleLabel.textAlignment = .Center
         
         
@@ -829,8 +829,9 @@ public class RefreshHeader:UIView{
         constraints.append(right)
         constraints.append(top)
         constraints.append(height)
-        self.addConstraints(constraints)
-        self.updateConstraintsIfNeeded()
+        NSLayoutConstraint.activateConstraints(constraints)
+//        self.addConstraints(constraints)
+//        self.updateConstraintsIfNeeded()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -932,6 +933,7 @@ public class RefreshHeader:UIView{
         }else if keyPath == contentSize(){
             if self.scrollView != nil {
                 self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetWidth(self.scrollView!.frame), refreshHeight)
+                titleLabel.layoutIfNeeded()
             }
         }
     }
