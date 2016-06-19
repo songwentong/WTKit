@@ -844,8 +844,12 @@ public class RefreshHeader:UIView{
         
         
         
+        if UIDevice.systemFloatVersion() >= 8.0 {
+            NSLayoutConstraint.activateConstraints(constraints)
+        }else{
+            self.addConstraints(constraints)
+        }
         
-        NSLayoutConstraint.activateConstraints(constraints)
 //        self.addConstraints(constraints)
 //        self.updateConstraintsIfNeeded()
     }
