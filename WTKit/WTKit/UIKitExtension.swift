@@ -953,8 +953,8 @@ public class RefreshHeader:UIView{
         }else if keyPath == contentSize(){
             if self.scrollView != nil {
                 self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetWidth(self.scrollView!.frame), refreshHeight)
-                titleLabel.layoutIfNeeded()
-                timeLabel.layoutIfNeeded()
+//                titleLabel.layoutIfNeeded()
+//                timeLabel.layoutIfNeeded()
             }
         }
     }
