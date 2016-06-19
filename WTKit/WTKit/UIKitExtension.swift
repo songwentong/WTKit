@@ -776,7 +776,11 @@ public class RefreshHeader:UIView{
     /*!
         图片地址可配置,也可设置为本地的地址
      */
-    let arrowImageURL:String = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"
+    var arrowImageURL:String = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"{
+        didSet{
+            
+        }
+    }
     var arrowImageView:UIImageView
     var activityIndicator:UIActivityIndicatorView
     var lastUpdateDate:NSDate? = nil
@@ -815,16 +819,16 @@ public class RefreshHeader:UIView{
         
     }
     private func configLayoutConstraint(){
-        self.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         var constraints = [NSLayoutConstraint]()
         let left = NSLayoutConstraint(item: titleLabel, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 0)
         let right = NSLayoutConstraint(item: titleLabel, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: 0)
         let top = NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0)
-//        let height = NSLayoutConstraint(item: titleLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
+        let height = NSLayoutConstraint(item: titleLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
         constraints.append(left)
         constraints.append(right)
         constraints.append(top)
-//        constraints.append(height)
+        constraints.append(height)
         self.addConstraints(constraints)
         self.updateConstraintsIfNeeded()
     }
