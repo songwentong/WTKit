@@ -21,6 +21,7 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dataList.append("pull down to refresh")
         tableView.refreshHeader = RefreshHeader.headerWithRefreshing({  [weak self]()in
             self?.dataList.insert("refresh one time", atIndex: 0)
             performOperationWithBlock({ [weak self]()in
@@ -32,7 +33,7 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
                 }, afterDelay: 2.0)
             
         })
-        dataList.append("pull down to refresh")
+        
         // Do any additional setup after loading the view.
     }
     override func viewDidDisappear(animated: Bool) {

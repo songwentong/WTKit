@@ -755,7 +755,11 @@ extension UIWebView{
 public class RefreshHeader:UIView{
     var refreshBlock:()->Void
     weak var scrollView:UIScrollView?
-    var state:ScrollViewRefreshState
+    var state:ScrollViewRefreshState{
+        didSet{
+            updateTitle()
+        }
+    }
     public var refreshHeight:CGFloat
     
     /*!
@@ -793,8 +797,13 @@ public class RefreshHeader:UIView{
         addSubview(arrowImageView)
         addSubview(activityIndicator)
         
+        
         titleLabel.frame = CGRectMake(0, 0, UIScreen.screenWidth(), 40)
+//        self.configLayoutConstraint()
         titleLabel.textAlignment = .Center
+        
+        
+        
         timeLabel.frame = CGRectMake(0, 40, UIScreen.screenWidth(), 20)
         timeLabel.textAlignment = .Center
         timeLabel.font = UIFont.systemFontOfSize(12)
@@ -803,6 +812,21 @@ public class RefreshHeader:UIView{
         activityIndicator.frame = arrowImageView.frame
         activityIndicator.hidesWhenStopped = true
         self.backgroundColor = UIColor.whiteColor()
+        
+    }
+    private func configLayoutConstraint(){
+        self.translatesAutoresizingMaskIntoConstraints = false
+        var constraints = [NSLayoutConstraint]()
+        let left = NSLayoutConstraint(item: titleLabel, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 0)
+        let right = NSLayoutConstraint(item: titleLabel, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: 0)
+        let top = NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0)
+//        let height = NSLayoutConstraint(item: titleLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
+        constraints.append(left)
+        constraints.append(right)
+        constraints.append(top)
+//        constraints.append(height)
+        self.addConstraints(constraints)
+        self.updateConstraintsIfNeeded()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -822,10 +846,27 @@ public class RefreshHeader:UIView{
         switch forState {
         case .PullDownToRefresh:
             pullDownToRefreshText = title
+            break
         case .ReleaseToRefresh:
             releaseToRefreshText = title
+            break
         case .Loading:
             loadingText = title
+            break
+        }
+    }
+    
+    private func updateTitle(){
+        switch state {
+        case .PullDownToRefresh:
+            titleLabel.text = pullDownToRefreshText
+            break
+        case .ReleaseToRefresh:
+            titleLabel.text = releaseToRefreshText
+            break
+        case .Loading:
+            titleLabel.text = loadingText
+            break
         }
     }
 
@@ -857,20 +898,25 @@ public class RefreshHeader:UIView{
         }
     }
     
-    func contentOffset()->String{
+    private func contentOffset()->String{
         return "contentOffset"
     }
-    func dragging()->String{
+    private func dragging()->String{
         return "dragging"
+    }
+    private func contentSize()->String{
+        return "contentSize"
     }
     func addObservers(){
 //        self.scrollView?.contentOffset
 //        self.scrollView?.dragging
         self.scrollView?.addObserver(self, forKeyPath: contentOffset(), options: .New, context: nil)
+        self.scrollView?.addObserver(self, forKeyPath: contentSize(), options: .New, context: nil)
 //        self.scrollView?.addObserver(self, forKeyPath: "dragging", options: .New, context: nil)
     }
     func removeObservers(){
         self.scrollView?.removeObserver(self, forKeyPath: contentOffset())
+        self.scrollView?.removeObserver(self, forKeyPath: contentSize())
 //        self.scrollView?.removeObserver(self, forKeyPath: "dragging")
     }
     
@@ -879,8 +925,10 @@ public class RefreshHeader:UIView{
             self.scrollViewContentOffsetDidChange(change)
 
 
-        }else if keyPath == dragging(){
-            
+        }else if keyPath == contentSize(){
+            if self.scrollView != nil {
+                self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetWidth(self.scrollView!.frame), refreshHeight)
+            }
         }
     }
     public func scrollViewContentOffsetDidChange(change:AnyObject?)->Void{
@@ -891,12 +939,8 @@ public class RefreshHeader:UIView{
                 if self.state != .Loading {
                     if self.scrollView?.contentOffset.y > -refreshHeight {
                         self.state = .PullDownToRefresh
-                        self.titleLabel.text = pullDownToRefreshText
                         
                         
-//                        if scrollView != nil {
-//                            arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI) * ((self.scrollView!.contentOffset.y - 30) / (refreshHeight - 30)))
-//                        }
                         UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
                             self.arrowImageView.transform = CGAffineTransformMakeRotation(0)
                             }, completion: nil)
@@ -904,7 +948,6 @@ public class RefreshHeader:UIView{
                     }else
                     {
                         self.state = .ReleaseToRefresh
-                        self.titleLabel.text = releaseToRefreshText
                         
                         UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
                                 self.arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
@@ -936,7 +979,6 @@ public class RefreshHeader:UIView{
         }
         self.state = .Loading
         self.arrowImageView.hidden = true
-        self.titleLabel.text = loadingText
         refreshBlock()
         activityIndicator.startAnimating()
         if lastUpdateDate != nil {
