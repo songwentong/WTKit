@@ -756,8 +756,18 @@ public class RefreshHeader:UIView{
     var refreshBlock:()->Void
     weak var scrollView:UIScrollView?
     var state:ScrollViewRefreshState{
+        willSet{
+//            print(newValue)
+        }
         didSet{
-            updateTitle()
+            if oldValue != state {
+                updateTitle()
+            }else{
+                //equal, no need to update title
+//                print("no need to update")
+            }
+            
+            
         }
     }
     public var refreshHeight:CGFloat
@@ -882,6 +892,7 @@ public class RefreshHeader:UIView{
     }
     
     private func updateTitle(){
+//        WTLog("update title")
         switch state {
         case .PullDownToRefresh:
             titleLabel.text = pullDownToRefreshText
