@@ -18,7 +18,7 @@ import Foundation
 /*!
     用于DEBUG模式的log
  */
-func WTPrint<T>(items:T,
+public func WTPrint<T>(items:T,
              separator: String = " ",
              terminator: String = "\n",
              file: String = #file,
