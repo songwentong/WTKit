@@ -903,6 +903,7 @@ public class RefreshHeader:UIView{
             loadingText = title
             break
         }
+        updateTitle()
     }
     
     private func updateTitle(){

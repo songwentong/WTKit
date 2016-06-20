@@ -38,6 +38,13 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
                 }, afterDelay: 2.0)
             
         })
+        CFBundleCopyBundleLocalizations(<#T##bundle: CFBundle!##CFBundle!#>)
+        tableView.refreshHeader?.setTitle("加载中...", forState: .Loading)
+        tableView.refreshHeader?.setTitle("下拉刷新", forState: .PullDownToRefresh)
+        tableView.refreshHeader?.setTitle("松开刷新", forState: .ReleaseToRefresh)
+        tableView.refreshHeader?.lastUpdateText = "上次刷新时间"
+//        tableView.refreshHeader?.dateStyle = ""
+ 
 //        tableView.refreshHeader?.arrowImageURL = "http://g.hiphotos.baidu.com/image/h%3D300/sign=5552640dcd80653864eaa213a7dca115/8cb1cb13495409231b15823d9558d109b3de4971.jpg"
         // Do any additional setup after loading the view.
     }
