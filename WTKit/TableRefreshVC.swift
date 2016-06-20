@@ -44,7 +44,7 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
         tableView.refreshHeader?.lastUpdateText = "上次刷新时间"
 //        tableView.refreshHeader?.dateStyle = ""
  
-//        tableView.refreshHeader?.arrowImageURL = "http://g.hiphotos.baidu.com/image/h%3D300/sign=5552640dcd80653864eaa213a7dca115/8cb1cb13495409231b15823d9558d109b3de4971.jpg"
+//        tableView.refreshHeader?.arrowImageURL = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"
         // Do any additional setup after loading the view.
     }
     override func viewDidDisappear(animated: Bool) {

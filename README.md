@@ -180,6 +180,8 @@ tableView.refreshHeader?.setTitle("加载中...", forState: .Loading)
 tableView.refreshHeader?.setTitle("下拉刷新", forState: .PullDownToRefresh)
 tableView.refreshHeader?.setTitle("松开刷新", forState: .ReleaseToRefresh)
 tableView.refreshHeader?.lastUpdateText = "上次刷新时间"
+//custom arrow image
+tableView.refreshHeader?.arrowImageURL = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"
 
 ```
 - CALayer
