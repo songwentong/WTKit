@@ -38,7 +38,6 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
                 }, afterDelay: 2.0)
             
         })
-        CFBundleCopyBundleLocalizations(<#T##bundle: CFBundle!##CFBundle!#>)
         tableView.refreshHeader?.setTitle("加载中...", forState: .Loading)
         tableView.refreshHeader?.setTitle("下拉刷新", forState: .PullDownToRefresh)
         tableView.refreshHeader?.setTitle("松开刷新", forState: .ReleaseToRefresh)
