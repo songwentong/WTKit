@@ -137,7 +137,7 @@ let image:UIImage = (self.imageView.image?.imageWithRoundCornerRadius(30))
 - UIImageView
 ```swift
 //set image with a url
-imageView.setImageWith("url")u
+imageView.setImageWith("url")
 
 //set hight lighted image with a url,and set a place holder image
 imageView.sethighlightedImageWith("url", placeHolder: placeHolderImage)
