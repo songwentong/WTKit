@@ -761,7 +761,7 @@ public class RefreshHeader:UIView{
     public var releaseToRefreshText:String = "release to refresh"
     public var loadingText:String = "Loading..."
     public var lastUpdateText:String = "last update time:"
-    public var dateStyle:String = "yyyy-MM-dd"
+    public var dateStyle:String = "HH:mm"
     /*!
      图片地址可配置,也可设置为本地的地址
      默认是这个箭头
@@ -908,15 +908,33 @@ public class RefreshHeader:UIView{
     
     private func updateTitle(){
 //        WTLog("update title")
+        activityIndicator.stopAnimating()
+        self.arrowImageView.hidden = false
         switch state {
         case .PullDownToRefresh:
             titleLabel.text = pullDownToRefreshText
+            UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                self.arrowImageView.transform = CGAffineTransformMakeRotation(0)
+                }, completion: nil)
+            if lastUpdateDate != nil {
+                dateFormatter.dateFormat = dateStyle
+                timeLabel.text = "\(lastUpdateText)\(dateFormatter.stringFromDate(lastUpdateDate!))"
+            }
             break
         case .ReleaseToRefresh:
             titleLabel.text = releaseToRefreshText
+            UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                self.arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+                }, completion: nil)
             break
         case .Loading:
             titleLabel.text = loadingText
+            self.arrowImageView.hidden = true
+            activityIndicator.startAnimating()
+            
+            
+            self.lastUpdateDate = NSDate()
+            
             break
         }
     }
@@ -992,28 +1010,10 @@ public class RefreshHeader:UIView{
                 if self.state != .Loading {
                     if self.scrollView?.contentOffset.y > -refreshHeight {
                         self.state = .PullDownToRefresh
-                        
-                        
-                        UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                            self.arrowImageView.transform = CGAffineTransformMakeRotation(0)
-                            }, completion: nil)
-                        
                     }else
                     {
                         self.state = .ReleaseToRefresh
-                        
-                        UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                                self.arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
-                            }, completion: nil)
-                        
                     }
-                    
-                    if lastUpdateDate != nil {
-                        dateFormatter.dateFormat = dateStyle
-                        timeLabel.text = "\(lastUpdateText)\(dateFormatter.stringFromDate(lastUpdateDate!))"
-                    }
-                    
-                    
                 }
 
             }else{
@@ -1031,13 +1031,9 @@ public class RefreshHeader:UIView{
             return;
         }
         self.state = .Loading
-        self.arrowImageView.hidden = true
+        
         refreshBlock()
-        activityIndicator.startAnimating()
-        if lastUpdateDate != nil {
-            dateFormatter.dateFormat = dateStyle
-            timeLabel.text = "\(lastUpdateText)\(dateFormatter.stringFromDate(lastUpdateDate!))"
-        }
+        
         UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
             self.scrollView?.contentInset = UIEdgeInsetsMake((self.refreshHeight), 0, 0, 0);
             self.alpha = 1.0
@@ -1087,7 +1083,6 @@ extension UIScrollView{
         回收
      */
     public func stopLoading()->Void{
-        refreshHeader?.activityIndicator.stopAnimating()
         
         UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
             self.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -1097,7 +1092,6 @@ extension UIScrollView{
             self.refreshHeader?.arrowImageView.hidden = false
             self.refreshHeader?.arrowImageView.transform = CGAffineTransformIdentity
             self.refreshHeader?.state = .PullDownToRefresh
-            self.refreshHeader?.lastUpdateDate = NSDate()
         }
     }
     
