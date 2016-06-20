@@ -131,10 +131,21 @@ extension UIApplication{
     
 // MARK: - 版本记录以及是否是本次build首次启动
     
+    
+    
+    /*!
+        非常好用的方法,用于处理首次启动需要做的事情
+     */
+    public static func firstLaunchForBuild(block:(isFirstLaunchEver:Bool)->Void){
+        self.track()
+        block(isFirstLaunchEver: sharedApplication().isFirstLaunchEver)
+        
+    }
+    
     /*!
         是否是当前版本的首次启动
      */
-    public var isFirstLaunchEver:Bool{
+    private var isFirstLaunchEver:Bool{
     get{
         var isFirst:Bool? = objc_getAssociatedObject(self, &UIApplicationIsFirstEver) as? Bool
         if isFirst == nil {
@@ -146,12 +157,11 @@ extension UIApplication{
     }
 
     
-    
 
     /*!
         记录一下当前版本
      */
-    public static func track(){
+    private static func track(){
         let first = self.isFirstLaunchMethod()
         objc_setAssociatedObject(UIApplication.sharedApplication(), &UIApplicationIsFirstEver, first, .OBJC_ASSOCIATION_ASSIGN)
         

@@ -32,6 +32,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         dataList.append(["title":"COLOR 创建","segue":"color"])
         dataList.append(["title":"下拉刷新","segue":"TableRefreshVC"])
         dataList.append(["title":"二维码扫描","segue":"QRCodeScanVC"])
+        
         super.init(coder: aDecoder)
     }
 // MARK: View Lifecycle
@@ -40,6 +41,15 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         // Do any additional setup after loading the view, typically from a nib.
 //        WTLog(self.view.viewController())
 //        aaa(UILabel().text!)
+        
+        UIApplication.firstLaunchForBuild { [weak self](isFirstLaunchEver) in
+            if isFirstLaunchEver{
+                self?.showHudWithTip("热烈欢迎")
+            }else{
+                self?.showHudWithTip("欢迎回来")
+            }
+        }
+        
     }
 //    func aaa(a:String="ccc"){
 //        WTLog(a)
