@@ -150,6 +150,10 @@ self.showLoadingView()
 
 //hide loading activity indicator 
 self.hideLoadingView()
+
+
+//show tip with String
+self.showHudWithTip("热烈欢迎")
 ```
 
 - UIView
