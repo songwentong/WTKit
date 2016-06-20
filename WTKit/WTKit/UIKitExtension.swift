@@ -93,8 +93,8 @@ extension UIColor{
     }
 }
 
-private let UIApplicationVersionsKey = "UI application version track key"
-private let UIApplicationBuildsKey = "UI application version build key"
+private let UIApplicationVersionsKey = "WTKit UIapplication versions key"
+private let UIApplicationBuildsKey = "WTKit UIapplication builds key"
 private var UIApplicationIsFirstEver:Void?
 extension UIApplication{
     
