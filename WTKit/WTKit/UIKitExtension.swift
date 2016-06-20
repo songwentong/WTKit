@@ -153,7 +153,10 @@ extension UIApplication{
             objc_setAssociatedObject(self, &UIApplicationIsFirstEver, isFirst, .OBJC_ASSOCIATION_ASSIGN)
         }
         return isFirst!
-    }
+        }
+    set{
+            objc_setAssociatedObject(UIApplication.sharedApplication(), &UIApplicationIsFirstEver, newValue, .OBJC_ASSOCIATION_ASSIGN)
+        }
     }
 
     
@@ -162,8 +165,9 @@ extension UIApplication{
         记录一下当前版本
      */
     private static func track(){
+        
         let first = self.isFirstLaunchMethod()
-        objc_setAssociatedObject(UIApplication.sharedApplication(), &UIApplicationIsFirstEver, first, .OBJC_ASSOCIATION_ASSIGN)
+        sharedApplication().isFirstLaunchEver = first
         
         var versionArray:[String]! = NSUserDefaults.standardUserDefaults().arrayForKey(UIApplicationVersionsKey) as? Array<String>
         if versionArray == nil {
