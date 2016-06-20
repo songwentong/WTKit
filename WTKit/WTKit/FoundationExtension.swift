@@ -523,6 +523,25 @@ extension String{
 
     //TODO MD5
     
+    //"$¥231＄￥"
+    /*!
+        全角的RMB符号，加删除线的时候比较方便,不会和数字看起来不同
+        Half-width
+        注意:如果是全角的和数字放在一起加删除线不会连接在一起
+     
+        ¥ 全角 ￥半角
+     */
+    public static func RMBSymbol()->String{
+        return "¥"
+    }
+    
+    /*!
+     half-width dollar
+     $ 半角   ＄全角
+     */
+    public static func DollarSymbol()->String{
+        return "$"
+    }
     
     subscript(range:Range<Int>)->String{
         get{
