@@ -837,8 +837,8 @@ public class RefreshHeader:UIView{
     private func configLayoutConstraint(){
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         var constraints = [NSLayoutConstraint]()
-        var left = NSLayoutConstraint(item: titleLabel, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 0)
-        var right = NSLayoutConstraint(item: titleLabel, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: 0)
+        var left = NSLayoutConstraint(item: titleLabel, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
+        var right = NSLayoutConstraint(item: titleLabel, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
         var top = NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0)
         var height = NSLayoutConstraint(item: titleLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
         constraints.append(left)
@@ -849,8 +849,8 @@ public class RefreshHeader:UIView{
         
         
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
-        left = NSLayoutConstraint(item: timeLabel, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 0)
-        right = NSLayoutConstraint(item: timeLabel, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: 0)
+        left = NSLayoutConstraint(item: timeLabel, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
+        right = NSLayoutConstraint(item: timeLabel, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
         top = NSLayoutConstraint(item: timeLabel, attribute: .Top, relatedBy: .Equal, toItem:titleLabel, attribute: .Bottom, multiplier: 1, constant: 0)
         height = NSLayoutConstraint(item: timeLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 20)
         constraints.append(left)
