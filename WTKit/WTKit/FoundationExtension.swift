@@ -344,8 +344,6 @@ extension NSObject{
 
 //数据缓存
 private var sharedURLCacheForRequestsKey:Void?
-//图片缓存
-private var sharedURLCacheForUIImageKey:Void?
 extension NSURLCache{
     
     /*!
@@ -366,20 +364,7 @@ extension NSURLCache{
     }
     
     
-    /*!
-        图片缓存
-     */
-    public static func sharedURLCacheForUIImage()->NSURLCache{
-        var cache =  objc_getAssociatedObject(NSOperationQueue.mainQueue(), &sharedURLCacheForUIImageKey)
-        if cache is NSURLCache {
-            return cache as! NSURLCache
-        }else{
-            //4M memory  1G Disk
-            cache = NSURLCache(memoryCapacity: 4*1024*1024, diskCapacity: 1024 * 1024 * 1024, diskPath: "cacheForImage")
-            objc_setAssociatedObject(NSOperationQueue.mainQueue(), &sharedURLCacheForUIImageKey, cache, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            return cache as! NSURLCache
-        }
-    }
+
 }
 extension Array{
     

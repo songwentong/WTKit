@@ -491,7 +491,7 @@ extension UIImage{
      */
     
     public class func sharedURLCache() -> NSURLCache {
-        return NSURLCache.sharedURLCacheForUIImage()
+        return NSURLCache.sharedURLCacheForRequests()
     }
     
 
