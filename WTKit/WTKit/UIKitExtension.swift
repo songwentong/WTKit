@@ -755,7 +755,7 @@ extension UIWebView{
 public class RefreshHeader:UIView{
     var refreshBlock:()->Void
     weak var scrollView:UIScrollView?
-    var state:ScrollViewRefreshState{
+    private var state:ScrollViewRefreshState{
         willSet{
 //            print(newValue)
         }
@@ -780,21 +780,21 @@ public class RefreshHeader:UIView{
     public var loadingText:String = "Loading..."
     public var lastUpdateText:String = "last update time:"
     public var dateStyle:String = "yyyy-MM-dd"
-    var titleLabel:UILabel
-    var timeLabel:UILabel
+    private var titleLabel:UILabel
+    private var timeLabel:UILabel
     
     /*!
         图片地址可配置,也可设置为本地的地址
      */
-    var arrowImageURL:String = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"{
+    public var arrowImageURL:String = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"{
         didSet{
             arrowImageView.setImageWith(arrowImageURL)
         }
     }
-    var arrowImageView:UIImageView
-    var activityIndicator:UIActivityIndicatorView
-    var lastUpdateDate:NSDate? = nil
-    var dateFormatter:NSDateFormatter = NSDateFormatter()
+    private var arrowImageView:UIImageView
+    private var activityIndicator:UIActivityIndicatorView
+    private var lastUpdateDate:NSDate? = nil
+    private var dateFormatter:NSDateFormatter = NSDateFormatter()
     
     override init(frame: CGRect) {
         self.refreshBlock = {}
