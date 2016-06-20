@@ -835,8 +835,11 @@ public class RefreshHeader:UIView{
         
     }
     private func configLayoutConstraint(){
+        //关闭自动伸展,改为用约束来控制
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         var constraints = [NSLayoutConstraint]()
+        //这里的左侧和右侧 用Leading和Trailing的原因是为了适应各国语言的书写顺序,通常都是
+        //从左向右的,但是个别国家的书写顺序是从右向左的,所以要注意一下
         var left = NSLayoutConstraint(item: titleLabel, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
         var right = NSLayoutConstraint(item: titleLabel, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
         var top = NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0)
@@ -883,6 +886,9 @@ public class RefreshHeader:UIView{
         case Loading
     }
     
+    /*!
+        这个方法来设置不同状态的文案
+     */
     public func setTitle(title:String, forState:ScrollViewRefreshState){
         switch forState {
         case .PullDownToRefresh:
@@ -949,14 +955,14 @@ public class RefreshHeader:UIView{
     private func contentSize()->String{
         return "contentSize"
     }
-    func addObservers(){
+    private func addObservers(){
 //        self.scrollView?.contentOffset
 //        self.scrollView?.dragging
         self.scrollView?.addObserver(self, forKeyPath: contentOffset(), options: .New, context: nil)
         self.scrollView?.addObserver(self, forKeyPath: contentSize(), options: .New, context: nil)
 //        self.scrollView?.addObserver(self, forKeyPath: "dragging", options: .New, context: nil)
     }
-    func removeObservers(){
+    private func removeObservers(){
         self.scrollView?.removeObserver(self, forKeyPath: contentOffset())
         self.scrollView?.removeObserver(self, forKeyPath: contentSize())
 //        self.scrollView?.removeObserver(self, forKeyPath: "dragging")
@@ -975,7 +981,7 @@ public class RefreshHeader:UIView{
             }
         }
     }
-    public func scrollViewContentOffsetDidChange(change:AnyObject?)->Void{
+    private func scrollViewContentOffsetDidChange(change:AnyObject?)->Void{
         if self.scrollView != nil {
             if (self.scrollView!.dragging) {
                 
