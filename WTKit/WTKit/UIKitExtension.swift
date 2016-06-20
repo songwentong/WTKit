@@ -768,7 +768,9 @@ public class RefreshHeader:UIView{
      */
     public var arrowImageURL:String = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"{
         didSet{
-            arrowImageView.setImageWith(arrowImageURL)
+            if oldValue == arrowImageURL {
+                arrowImageView.setImageWith(arrowImageURL)
+            }
         }
     }
     
