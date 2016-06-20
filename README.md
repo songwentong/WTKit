@@ -120,15 +120,13 @@ let appVersion:String = UIApplication.appVersion()
 let docPath:String = UIApplication.documentsPath()
 
 
-//record current version
-//note:call this method at application did finish launching
-UIApplication.track()
-
-//check current version is first launch ever
-if UIApplication.sharedApplication().isFirstLaunchEver {
-            print("is first launch for build")
-        }else{
-            print("not first launch for build")
+//check if this launch is first launch,can use for everywhere,even use twice
+UIApplication.firstLaunchForBuild { [weak self](isFirstLaunchEver) in
+            if isFirstLaunchEver{
+                print("this is first launch")
+            }else{
+                print("this is not first launch")
+            }
         }
 ```
 - UIButton
@@ -145,7 +143,7 @@ let image:UIImage = (self.imageView.image?.imageWithRoundCornerRadius(30))
 - UIImageView
 ```swift
 //set image with a url
-imageView.setImageWith("url")
+imageView.setImageWith("url")u
 
 //set hight lighted image with a url,and set a place holder image
 imageView.sethighlightedImageWith("url", placeHolder: placeHolderImage)
