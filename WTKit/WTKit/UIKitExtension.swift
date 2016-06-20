@@ -618,12 +618,12 @@ extension UIImageView{
         swift 中对于方法做了优化,无需写多个方法来设置不同参数,写一个全的,然后需要填几个参数就填几个
         不想填的就填一个不加逗号就可以了.
      */
-    func setImageWith(url:String?="" ,placeHolder:UIImage? = nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil)->Void{
+    func setImageWith(url:String ,placeHolder:UIImage? = nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil)->Void{
         safeSyncInMain { 
             self.image = placeHolder
         }
         NSOperationQueue.globalQueue {
-            let operation = UIImage.imageOperationWithURL(url!) { [weak self](image:UIImage?, error:NSError?) -> Void in
+            let operation = UIImage.imageOperationWithURL(url) { [weak self](image:UIImage?, error:NSError?) -> Void in
                     safeSyncInMain({
                         self?.image = image
                         self?.setNeedsLayout()
@@ -788,7 +788,7 @@ public class RefreshHeader:UIView{
      */
     var arrowImageURL:String = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"{
         didSet{
-            
+            arrowImageView.setImageWith(arrowImageURL)
         }
     }
     var arrowImageView:UIImageView

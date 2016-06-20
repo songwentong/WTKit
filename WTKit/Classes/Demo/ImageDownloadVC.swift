@@ -30,7 +30,10 @@ class ImageDownloadVC: UIViewController {
         UIImageView.clearAllImageCache()
     }
     @IBAction func requestPress(sender: AnyObject) {
-        imageView.setImageWith(urlTextField.text)
+        if urlTextField.text != nil {
+            imageView.setImageWith(urlTextField.text!)
+        }
+        
     }
     
     @IBAction func cornerRaius(sender: AnyObject) {

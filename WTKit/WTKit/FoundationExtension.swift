@@ -115,10 +115,11 @@ extension NSURLSession{
         return task
     }
     
-    public static func cachedDataTaskWithRequest(request:NSURLRequest , completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void)->Void{
+    public static func cachedDataTaskWithRequest(request:NSURLRequest , completionHandler:(NSData?, NSURLResponse?, NSError?) -> Void)->Void{
         let cache = NSURLCache.sharedURLCacheForRequests()
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
-            NSOperationQueue.main({ 
+            NSOperationQueue.main({
+                
                 completionHandler(data,response,error)
             })
             

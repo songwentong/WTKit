@@ -38,7 +38,7 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
                 }, afterDelay: 2.0)
             
         })
-        
+//        tableView.refreshHeader?.arrowImageURL = "http://g.hiphotos.baidu.com/image/h%3D300/sign=5552640dcd80653864eaa213a7dca115/8cb1cb13495409231b15823d9558d109b3de4971.jpg"
         // Do any additional setup after loading the view.
     }
     override func viewDidDisappear(animated: Bool) {
