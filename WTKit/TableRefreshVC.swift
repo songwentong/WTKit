@@ -41,6 +41,7 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
         tableView.refreshHeader?.setTitle("加载中...", forState: .Loading)
         tableView.refreshHeader?.setTitle("下拉刷新", forState: .PullDownToRefresh)
         tableView.refreshHeader?.setTitle("松开刷新", forState: .ReleaseToRefresh)
+//        tableView.refreshHeader?.dateStyle = ""
         tableView.refreshHeader?.lastUpdateText = "上次刷新时间"
 //        tableView.refreshHeader?.dateStyle = ""
  
