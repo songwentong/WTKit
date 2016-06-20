@@ -931,9 +931,16 @@ public class RefreshHeader:UIView{
             titleLabel.text = loadingText
             self.arrowImageView.hidden = true
             activityIndicator.startAnimating()
-            
-            
             self.lastUpdateDate = NSDate()
+            refreshBlock()
+            
+            UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
+                self.scrollView?.contentInset = UIEdgeInsetsMake((self.refreshHeight), 0, 0, 0);
+                self.alpha = 1.0
+            }) { (finish) in
+                
+            }
+            self.setNeedsDisplay()
             
             break
         }
@@ -1018,7 +1025,7 @@ public class RefreshHeader:UIView{
 
             }else{
                 if state == .ReleaseToRefresh {
-                    beginRefresh()
+                    self.state = .Loading
                 }
 
 
@@ -1032,15 +1039,7 @@ public class RefreshHeader:UIView{
         }
         self.state = .Loading
         
-        refreshBlock()
         
-        UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
-            self.scrollView?.contentInset = UIEdgeInsetsMake((self.refreshHeight), 0, 0, 0);
-            self.alpha = 1.0
-        }) { (finish) in
-            
-        }
-        self.setNeedsDisplay()
     }
 
 }
