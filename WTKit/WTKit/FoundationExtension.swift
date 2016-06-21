@@ -614,7 +614,11 @@ public class WTReachability:NSObject{
     
     var _reachabilityRef:SCNetworkReachabilityRef?
     
+    /*!
+     * Use to check the reachability of a given host name.
+     */
     public class func reachabilityWithHostName(hostName:String)->WTReachability{
+        
         var returnValue:WTReachability?
         let reachability = SCNetworkReachabilityCreateWithName(nil, hostName);
         if reachability != nil {
@@ -624,16 +628,33 @@ public class WTReachability:NSObject{
         return returnValue!
     }
     
+    /*!
+     * Use to check the reachability of a given IP address.
+     */
+    public class func reachabilityWithAddress(hostAddress: UnsafePointer<sockaddr>)->WTReachability?{
+        let reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, hostAddress);
+        var returnValue:WTReachability?
+        if reachability != nil {
+            returnValue = WTReachability()
+            returnValue?._reachabilityRef = reachability
+        }
+        return returnValue
     
+    }
     
-//    public class func reachabilityForInternetConnection()->WTReachability{
-//        struct sockaddr_in zeroAddress;
-//        bzero(&zeroAddress, sizeof(zeroAddress));
-//        zeroAddress.sin_len = sizeof(zeroAddress);
-//        zeroAddress.sin_family = AF_INET;
-//        
-//        return [self reachabilityWithAddress: (const struct sockaddr *) &zeroAddress];
-//    }
+    /*!
+     * Checks whether the default route is available. Should be used by applications that do not connect to a particular host.
+     */
+    public class func reachabilityForInternetConnection(complection:(reachability:WTReachability)->Void) -> Void{
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        withUnsafePointer(&zeroAddress, {
+            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
+            let reachability:WTReachability = WTReachability.reachabilityWithAddress(UnsafePointer($0))!
+            complection(reachability:reachability)
+        })
+    }
     
     public func startNotifier()->Bool{
         var returnValue = false

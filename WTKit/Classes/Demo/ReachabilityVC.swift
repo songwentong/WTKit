@@ -23,6 +23,7 @@ class ReachabilityVC: UIViewController {
         NSNotificationCenter.defaultCenter().addObserverForName(kWTReachabilityChangedNotification, object: nil, queue: nil) { [weak self](notification) in
             
             let reachability:WTReachability = notification.object as! WTReachability
+            print(reachability.currentReachabilityStatus())
             if reachability == self?.reachability{
                 let status = reachability.currentReachabilityStatus()
                 var dict:[WTNetworkStatus:String] = [WTNetworkStatus:String]()
@@ -41,6 +42,9 @@ class ReachabilityVC: UIViewController {
             }
             
         }
+        
+        
+//        WTReachability.reachabilityForInternetConnection()
     }
     deinit{
         reachability.stopNotifier()
