@@ -21,7 +21,11 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
 
     @IBOutlet weak var tableView: UITableView!
     var dataList:Array<[String:String]>
+    var reachbility:WTReachability
+    
+    
     required init?(coder aDecoder: NSCoder) {
+        reachbility = WTReachability.reachabilityWithHostName("http://www.baidu.com")
         dataList = Array()
         dataList.append(["title":"GET/POST请求","segue":"get"])
 //        dataList.append(["title":"POST请求","segue":"post"])
@@ -48,6 +52,17 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
             }else{
                 self?.showHudWithTip("欢迎回来")
             }
+        }
+        
+        reachbility.startNotifier()
+        NSNotificationCenter.defaultCenter().addObserverForName(kWTReachabilityChangedNotification, object: nil, queue: nil) { (notification) in
+            let reachbility:WTReachability = notification.object as! WTReachability
+            let status = reachbility.currentReachabilityStatus()
+            var dict:[WTNetworkStatus:String] = [WTNetworkStatus:String]()
+            dict[WTNetworkStatus.NotReachable] = "NotReachable"
+            dict[WTNetworkStatus.ReachableViaWiFi] = "ReachableViaWiFi"
+            dict[WTNetworkStatus.ReachableViaWWAN] = "ReachableViaWWAN"
+            self.showHudWithTip(dict[status]!)
         }
         
     }

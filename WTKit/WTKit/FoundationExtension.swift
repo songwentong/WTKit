@@ -8,6 +8,8 @@
 
 import Foundation
 #if os(iOS)
+import SystemConfiguration
+import CoreFoundation
 //    import MobileCoreServices
 //    import UIKit
 #elseif os(OSX)
@@ -589,6 +591,127 @@ extension String{
     }
  
 }
+
+
+/*
+ public enum NSURLRequestCachePolicy : UInt {
+ 
+ case UseProtocolCachePolicy
+ 
+ case ReloadIgnoringLocalCacheData
+ case ReloadIgnoringLocalAndRemoteCacheData // Unimplemented
+ public static var ReloadIgnoringCacheData: NSURLRequestCachePolicy { get }
+ 
+ case ReturnCacheDataElseLoad
+ case ReturnCacheDataDontLoad
+ 
+ case ReloadRevalidatingCacheData // Unimplemented
+ }
+
+ */
+// MARK: - Reachbility
+public enum WTNetworkStatus:UInt{
+    //无连接
+    case NotReachable = 0
+    //Wi-Fi
+    case ReachableViaWiFi = 1
+    //蜂窝数据
+    case ReachableViaWWAN = 2
+}
+public let kWTReachabilityChangedNotification = "kWTReachabilityChangedNotification"
+func ReachabilityCallback(reachability:SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutablePointer<Void>) {
+        assert(info != nil)
+        let noteObject = Unmanaged<WTReachability>.fromOpaque(COpaquePointer(info)).takeUnretainedValue()
+    NSNotificationCenter.defaultCenter().postNotificationName(kWTReachabilityChangedNotification, object: noteObject, userInfo: nil)
+}
+
+public class WTReachability:NSObject{
+    
+    var _reachabilityRef:SCNetworkReachabilityRef?
+    
+    public class func reachabilityWithHostName(hostName:String)->WTReachability{
+        var returnValue:WTReachability?
+        let reachability = SCNetworkReachabilityCreateWithName(nil, hostName);
+        if reachability != nil {
+            returnValue = WTReachability()
+            returnValue?._reachabilityRef = reachability
+        }
+        return returnValue!
+    }
+    
+    private static func ReachabilityCallback(){
+    
+    }
+    
+    public func startNotifier()->Bool{
+        var returnValue = false
+        
+        var context:SCNetworkReachabilityContext = SCNetworkReachabilityContext()
+        context.info = UnsafeMutablePointer(Unmanaged.passUnretained(self).toOpaque())
+        
+        if SCNetworkReachabilitySetCallback(_reachabilityRef!, ReachabilityCallback, &context) {
+            if SCNetworkReachabilityScheduleWithRunLoop(_reachabilityRef!, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode) {
+                returnValue = true
+            }
+        }
+        return returnValue
+    }
+    public func stopNotifier(){
+        if _reachabilityRef != nil {
+            SCNetworkReachabilityUnscheduleFromRunLoop(_reachabilityRef!, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode)
+        }
+    }
+    
+    func networkStatusForFlags(flags:SCNetworkReachabilityFlags)->WTNetworkStatus{
+        if !flags.contains(.Reachable) {
+            return .NotReachable
+        }
+        var returnValue:WTNetworkStatus = .NotReachable
+        if !flags.contains(.ConnectionRequired) {
+            returnValue = .ReachableViaWiFi
+        }
+        
+        if flags.contains(.ConnectionOnDemand) || flags.contains(.ConnectionOnTraffic) {
+            if !flags.contains(.InterventionRequired) {
+                returnValue = .ReachableViaWiFi
+            }
+        }
+        
+        if flags.contains(.IsWWAN) {
+            returnValue = .ReachableViaWWAN
+        }
+        
+        
+        return returnValue
+    }
+    
+    func connectionRequired()->Bool{
+        assert(_reachabilityRef != nil)
+        var flags:SCNetworkReachabilityFlags = .Reachable
+        if SCNetworkReachabilityGetFlags(_reachabilityRef!, &flags) {
+            return (flags.contains(.ConnectionRequired))
+        }
+        return false
+    }
+    
+    /*!
+        当前网络状态
+     */
+    public func currentReachabilityStatus()->WTNetworkStatus{
+        assert(_reachabilityRef != nil)
+        let returnValue:WTNetworkStatus = .NotReachable
+        var flags:SCNetworkReachabilityFlags = .Reachable
+        if SCNetworkReachabilityGetFlags(_reachabilityRef!, &flags) {
+            return networkStatusForFlags(flags)
+        }
+        return returnValue
+    }
+    
+    deinit {
+        stopNotifier()
+    }
+    
+}
 /*
  print 的源码
  @inline(never)
@@ -611,3 +734,5 @@ extension String{
  }
  }
  */
+
+

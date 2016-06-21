@@ -15,7 +15,7 @@ extension UIViewController{
     /*!
         提示文字
      */
-    public func showHudWithTip(tip:NSString){
+    public func showHudWithTip(tip:String){
          WTTipView.showTip(tip)
     }
     /*!
