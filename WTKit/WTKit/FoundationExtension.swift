@@ -466,15 +466,13 @@ extension NSData{
     /*!
         Create a Foundation object from JSON data.
      */
-    public func jsonValue()->(AnyObject,NSError?){
-        var obj:AnyObject = "not a json"
-        var theError:NSError?
+    public func parseJson()->AnyObject?{
+        var obj:AnyObject? = nil
         do{
-            try obj = NSJSONSerialization.JSONObjectWithData(self, options: .MutableLeaves)
-        }catch let error as NSError{
-            theError = error
+            try obj = NSJSONSerialization.JSONObjectWithData(self, options: [])
+        } catch _{
         }
-        return (obj,theError)
+        return obj
     }
     
     /*!
