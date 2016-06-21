@@ -1125,7 +1125,7 @@ extension UITableView{
         self.insertRowsAtIndexPaths([indexPath], withRowAnimation: animation)
     }
     
-    public func insert(row:Int, section:Int,withRowAnimation animation: UITableViewRowAnimation){
+    public func insertRowAt(row row:Int, section:Int,withRowAnimation animation: UITableViewRowAnimation){
         let indexPath = NSIndexPath(forRow: row, inSection: section)
         self.insertRowAtIndexPath(indexPath, withRowAnimation: animation)
     }
