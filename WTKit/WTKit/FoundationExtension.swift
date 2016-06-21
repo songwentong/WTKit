@@ -661,7 +661,6 @@ public class WTReachability:NSObject{
         zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
         zeroAddress.sin_family = sa_family_t(AF_INET)
         withUnsafePointer(&zeroAddress, {
-            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
             let reachability:WTReachability = WTReachability.reachabilityWithAddress(UnsafePointer($0))!
             complection(reachability:reachability)
         })
