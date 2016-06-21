@@ -1130,6 +1130,19 @@ extension UITableView{
         self.insertRowAtIndexPath(indexPath, withRowAnimation: animation)
     }
     
+    
+    /*!
+        取消所有选中的cell
+     */
+    public func clearSelectedRows(animated:Bool){
+        let indexPathsForSelectedRows = self.indexPathsForSelectedRows
+        if indexPathsForSelectedRows != nil {
+            for(_, indexPath) in self.indexPathsForSelectedRows!.enumerate(){
+                self.deselectRowAtIndexPath(indexPath, animated: animated)
+            }
+        }
+    }
+    
 }
 extension UICollectionView{
     
