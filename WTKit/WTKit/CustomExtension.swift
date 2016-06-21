@@ -8,6 +8,8 @@
 #if os(iOS)
 import Foundation
 import UIKit
+    
+private let UIViewControllerWTKitDefaultLoadingTextKey = "UIViewControllerWTKitDefaultLoadingTextKey"
 extension UIViewController{
     
     /*!
@@ -27,6 +29,23 @@ extension UIViewController{
      */
     public func hideLoadingView(){
         WTHudView.hideHudInView(self.view, animatied: true)
+    }
+    
+    /*!
+        可以用于设置默认的loading的文字
+     */
+    public class func setDefaultLoadingText(string:String){
+        NSUserDefaults.standardUserDefaults().setObject(string, forKey: UIViewControllerWTKitDefaultLoadingTextKey)
+    }
+    /*!
+        获取默认的loading文字
+     */
+    public class func defaultLoadingText()->String{
+        var text:String? = NSUserDefaults.standardUserDefaults().stringForKey(UIViewControllerWTKitDefaultLoadingTextKey)
+        if text == nil {
+            text = "Loading..."
+        }
+        return text!
     }
 }
 
@@ -204,7 +223,7 @@ public class WTHudView:UIView{
     public var defaultFontSize:CGFloat = 14
     public var detailFefaultFontSize:CGFloat = 12
     public var titleLabel:UILabel?
-    public var titleText = "loading..."{
+    public var titleText = UIViewController.defaultLoadingText(){
         didSet{
             titleLabel?.text = titleText;
         }
