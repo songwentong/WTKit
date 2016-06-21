@@ -624,9 +624,16 @@ public class WTReachability:NSObject{
         return returnValue!
     }
     
-    private static func ReachabilityCallback(){
     
-    }
+    
+//    public class func reachabilityForInternetConnection()->WTReachability{
+//        struct sockaddr_in zeroAddress;
+//        bzero(&zeroAddress, sizeof(zeroAddress));
+//        zeroAddress.sin_len = sizeof(zeroAddress);
+//        zeroAddress.sin_family = AF_INET;
+//        
+//        return [self reachabilityWithAddress: (const struct sockaddr *) &zeroAddress];
+//    }
     
     public func startNotifier()->Bool{
         var returnValue = false

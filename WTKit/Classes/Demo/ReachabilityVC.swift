@@ -13,7 +13,9 @@ class ReachabilityVC: UIViewController {
     @IBOutlet weak var remoteHostLabel: UITextField!
     @IBOutlet weak var remoteHostImageView: UIImageView!
     @IBOutlet weak var remoteHostStatusField: UITextField!
+    
     var reachability:WTReachability = WTReachability.reachabilityWithHostName("www.apple.com")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,6 +31,11 @@ class ReachabilityVC: UIViewController {
                 dict[WTNetworkStatus.ReachableViaWWAN] = "通过蜂窝数据接入网络"
                 
                 self?.remoteHostStatusField.text = dict[status]
+                var imageNames:[WTNetworkStatus:String] = [WTNetworkStatus:String]()
+                imageNames[WTNetworkStatus.NotReachable] = "stop-32"
+                imageNames[WTNetworkStatus.ReachableViaWiFi] = "Airport"
+                imageNames[WTNetworkStatus.ReachableViaWWAN] = "WWAN5"
+                self?.remoteHostImageView.image = UIImage(named: imageNames[status]!)
             }else{
                 WTPrint("其他的reachability")
             }
