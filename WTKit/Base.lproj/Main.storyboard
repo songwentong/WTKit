@@ -73,36 +73,33 @@
                                     <constraint firstAttribute="width" constant="32" id="QlH-zd-jmT"/>
                                 </constraints>
                             </imageView>
-                            <imageView hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="YhS-W6-JgO">
+                            <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="YhS-W6-JgO">
                                 <rect key="frame" x="20" y="167" width="32" height="32"/>
                             </imageView>
                             <textField opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="3Wc-OO-tDx">
-                                <rect key="frame" x="60" y="100" width="240" height="30"/>
+                                <rect key="frame" x="60" y="100" width="520" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="ddV-YR-z1Z"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="ddV-YR-z1Z"/>
+                                    </mask>
+                                </variation>
                             </textField>
                             <textField opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Remote Host:" clearsOnBeginEditing="YES" minimumFontSize="29" translatesAutoresizingMaskIntoConstraints="NO" id="PyV-Eg-kME">
                                 <rect key="frame" x="20" y="72" width="103" height="20"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="O5L-fD-2EJ">
-                                <rect key="frame" x="60" y="167" width="240" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="31" id="bVK-Tq-EVx"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TCP/IP Routing Available" clearsOnBeginEditing="YES" minimumFontSize="29" translatesAutoresizingMaskIntoConstraints="NO" id="9vZ-is-pXE">
+                            <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TCP/IP Routing Available" clearsOnBeginEditing="YES" minimumFontSize="29" translatesAutoresizingMaskIntoConstraints="NO" id="9vZ-is-pXE">
                                 <rect key="frame" x="20" y="139" width="181" height="20"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="14" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="rxM-Or-kwI">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="14" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="rxM-Or-kwI">
                                 <rect key="frame" x="20" y="207" width="271" height="62"/>
                                 <string key="text">Cellular data network is available.
 Internet traffic will be routed through it.</string>
@@ -110,11 +107,20 @@ Internet traffic will be routed through it.</string>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="O5L-fD-2EJ">
+                                <rect key="frame" x="60" y="167" width="520" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="bVK-Tq-EVx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="eRa-Fg-Lbf" firstAttribute="top" secondItem="3Wc-OO-tDx" secondAttribute="top" id="0Gw-cS-tWp"/>
                             <constraint firstItem="YhS-W6-JgO" firstAttribute="centerY" secondItem="O5L-fD-2EJ" secondAttribute="centerY" id="35h-UT-uzd"/>
+                            <constraint firstAttribute="trailing" secondItem="3Wc-OO-tDx" secondAttribute="trailing" constant="20" id="4NX-cg-ADP"/>
                             <constraint firstItem="eRa-Fg-Lbf" firstAttribute="top" secondItem="PyV-Eg-kME" secondAttribute="bottom" constant="8" symbolic="YES" id="8er-GO-59c"/>
                             <constraint firstItem="O5L-fD-2EJ" firstAttribute="leading" secondItem="YhS-W6-JgO" secondAttribute="trailing" constant="8" symbolic="YES" id="A6R-y3-BZZ"/>
                             <constraint firstItem="YhS-W6-JgO" firstAttribute="top" secondItem="O5L-fD-2EJ" secondAttribute="top" id="Dhr-Ig-U5U"/>
@@ -135,9 +141,12 @@ Internet traffic will be routed through it.</string>
                     </view>
                     <navigationItem key="navigationItem" title="Reachability" id="V9S-EJ-GNQ"/>
                     <connections>
+                        <outlet property="internetConnectionImageView" destination="YhS-W6-JgO" id="cJN-Ys-fgU"/>
+                        <outlet property="internetConnectionStatusField" destination="O5L-fD-2EJ" id="Jaz-51-Ulf"/>
                         <outlet property="remoteHostImageView" destination="eRa-Fg-Lbf" id="7ON-lW-4Lf"/>
                         <outlet property="remoteHostLabel" destination="PyV-Eg-kME" id="gMV-jM-vFM"/>
                         <outlet property="remoteHostStatusField" destination="3Wc-OO-tDx" id="UEa-qR-aVi"/>
+                        <outlet property="summaryLabel" destination="rxM-Or-kwI" id="zet-M9-L1C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8WU-xE-gh1" userLabel="First Responder" sceneMemberID="firstResponder"/>
