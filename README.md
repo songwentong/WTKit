@@ -95,6 +95,17 @@ print("year:\(date.numberForComponent(.Year)) month:\(date.numberForComponent(.M
 //year:2016 month:6 day:15
         
 ```
+- WTReachability
+
+monitor the network state of an iOS device
+```swift
+var reachability:WTReachability = WTReachability.reachabilityWithHostName("www.apple.com")
+reachability.startNotifier()
+NSNotificationCenter.defaultCenter().addObserverForName(kWTReachabilityChangedNotification, object: nil, queue: nil) { [weak self](notification) in
+            let reachability:WTReachability = notification.object as! WTReachability
+            print(reachability.currentReachabilityStatus())
+}
+```
 
 # UIKit Extensions
 - UIColor
