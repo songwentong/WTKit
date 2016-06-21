@@ -493,6 +493,44 @@ extension NSDate{
     public func numberForComponent(unit:NSCalendarUnit)->Int{
         return NSCalendar.currentCalendar().component(unit, fromDate: self)
     }
+    public var year:Int{
+        get{
+            return numberForComponent(.Year)
+        }
+    }
+    public var month:Int{
+        get{
+            return numberForComponent(.Month)
+        }
+    }
+    public var day:Int{
+        get{
+            return numberForComponent(.Day)
+        }
+    }
+    public var hour:Int{
+        get{
+            return numberForComponent(.Hour)
+        }
+    }
+    public var minute:Int{
+        get{
+            return numberForComponent(.Minute)
+        }
+    }
+    public var second:Int{
+        get{
+            return numberForComponent(.Second)
+        }
+    }
+    public func stringWithDateFormat(format:String)->String{
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.locale = NSLocale.currentLocale()
+        return dateFormatter.stringFromDate(self)
+    }
+    
+    
 }
 extension NSPredicate{
     /*

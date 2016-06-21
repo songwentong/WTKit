@@ -1114,6 +1114,26 @@ extension UIScrollView{
     
     
 }
+extension UITableView{
+    public func updateWithClosure(table:(table:UITableView)->Void){
+        self.beginUpdates()
+        table(table:self)
+        self.endUpdates()
+    }
+
+    public func insertRowAtIndexPath(indexPath: NSIndexPath, withRowAnimation animation: UITableViewRowAnimation){
+        self.insertRowsAtIndexPaths([indexPath], withRowAnimation: animation)
+    }
+    
+    public func insert(row:Int, section:Int,withRowAnimation animation: UITableViewRowAnimation){
+        let indexPath = NSIndexPath(forRow: row, inSection: section)
+        self.insertRowAtIndexPath(indexPath, withRowAnimation: animation)
+    }
+    
+}
+extension UICollectionView{
+    
+}
 extension UITextView{
     public func selectAllText(){
         let range = self.textRangeFromPosition(self.beginningOfDocument, toPosition: self.endOfDocument)
