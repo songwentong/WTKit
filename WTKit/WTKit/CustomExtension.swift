@@ -78,7 +78,7 @@ public class WTTipView:UIView{
         window.addSubview(self)
         
         self.alpha = 0
-        self.transform = CGAffineTransformMakeScale(0, 0)
+        self.transform = CGAffineTransformMakeScale(0.1, 0.1)
         UIView.animateWithDuration(0.3) { 
             self.alpha = 1
             self.transform = CGAffineTransformMakeScale(1,1)
@@ -86,7 +86,7 @@ public class WTTipView:UIView{
        self.performBlock({
            UIView.animateWithDuration(0.2, animations: { 
             self.alpha = 0
-            self.transform = CGAffineTransformMakeScale(0, 0)
+            self.transform = CGAffineTransformMakeScale(0.1, 0.1)
             
             }, completion: { (true) in
                 self.transform = CGAffineTransformIdentity
