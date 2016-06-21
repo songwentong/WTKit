@@ -8,6 +8,8 @@
 
 import Foundation
 #if os(iOS)
+import SystemConfiguration
+import CoreFoundation
 //    import MobileCoreServices
 //    import UIKit
 #elseif os(OSX)
@@ -18,7 +20,7 @@ import Foundation
 /*!
     用于DEBUG模式的log
  */
-func WTPrint<T>(items:T,
+public func WTPrint<T>(items:T,
              separator: String = " ",
              terminator: String = "\n",
              file: String = #file,
@@ -493,10 +495,55 @@ extension NSDate{
         return NSCalendar.currentCalendar().component(unit, fromDate: self)
     }
 }
+extension NSPredicate{
+    /*
+     
+     身份证的正则
+     /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/
+     
+     数字,英文字母和下划线
+     ^\\w+$
+     
+     email
+     [\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?
+     
+     
+     手机号
+     ^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$
+     
+     
+     IPv6地址
+     \\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b
+     
+     IPv6地址
+     (([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))
+     
+     
+     */
+}
 extension String{
 
     //TODO MD5
     
+    //"$¥231＄￥"
+    /*!
+        半角的RMB符号，加删除线的时候比较方便,不会和数字看起来不同
+        Half-width
+        注意:如果是全角的和数字放在一起加删除线不会连接在一起
+     
+        ¥ 全角 ￥半角
+     */
+    public static func RMBSymbol()->String{
+        return "¥"
+    }
+    
+    /*!
+     half-width dollar
+     $ 半角   ＄全角
+     */
+    public static func DollarSymbol()->String{
+        return "$"
+    }
     
     subscript(range:Range<Int>)->String{
         get{
@@ -544,6 +591,123 @@ extension String{
     }
  
 }
+
+
+#if os(iOS)
+// MARK: - Reachbility
+public enum WTNetworkStatus:UInt{
+    //无连接
+    case NotReachable = 0
+    //Wi-Fi
+    case ReachableViaWiFi = 1
+    //蜂窝数据
+    case ReachableViaWWAN = 2
+}
+public let kWTReachabilityChangedNotification = "kWTReachabilityChangedNotification"
+func ReachabilityCallback(reachability:SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutablePointer<Void>) {
+        assert(info != nil)
+        let noteObject = Unmanaged<WTReachability>.fromOpaque(COpaquePointer(info)).takeUnretainedValue()
+    NSNotificationCenter.defaultCenter().postNotificationName(kWTReachabilityChangedNotification, object: noteObject, userInfo: nil)
+}
+
+public class WTReachability:NSObject{
+    
+    var _reachabilityRef:SCNetworkReachabilityRef?
+    
+    public class func reachabilityWithHostName(hostName:String)->WTReachability{
+        var returnValue:WTReachability?
+        let reachability = SCNetworkReachabilityCreateWithName(nil, hostName);
+        if reachability != nil {
+            returnValue = WTReachability()
+            returnValue?._reachabilityRef = reachability
+        }
+        return returnValue!
+    }
+    
+    
+    
+//    public class func reachabilityForInternetConnection()->WTReachability{
+//        struct sockaddr_in zeroAddress;
+//        bzero(&zeroAddress, sizeof(zeroAddress));
+//        zeroAddress.sin_len = sizeof(zeroAddress);
+//        zeroAddress.sin_family = AF_INET;
+//        
+//        return [self reachabilityWithAddress: (const struct sockaddr *) &zeroAddress];
+//    }
+    
+    public func startNotifier()->Bool{
+        var returnValue = false
+        
+        var context:SCNetworkReachabilityContext = SCNetworkReachabilityContext()
+        context.info = UnsafeMutablePointer(Unmanaged.passUnretained(self).toOpaque())
+        
+        if SCNetworkReachabilitySetCallback(_reachabilityRef!, ReachabilityCallback, &context) {
+            if SCNetworkReachabilityScheduleWithRunLoop(_reachabilityRef!, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode) {
+                returnValue = true
+            }
+        }
+        return returnValue
+    }
+    public func stopNotifier(){
+        if _reachabilityRef != nil {
+            SCNetworkReachabilityUnscheduleFromRunLoop(_reachabilityRef!, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode)
+        }
+    }
+    
+    func networkStatusForFlags(flags:SCNetworkReachabilityFlags)->WTNetworkStatus{
+        if !flags.contains(.Reachable) {
+            return .NotReachable
+        }
+        
+        var returnValue:WTNetworkStatus = .NotReachable
+        
+        
+        if !flags.contains(.ConnectionRequired) {
+            returnValue = .ReachableViaWiFi
+        }
+        
+        if flags.contains(.ConnectionOnDemand) || flags.contains(.ConnectionOnTraffic) {
+            if !flags.contains(.InterventionRequired) {
+                returnValue = .ReachableViaWiFi
+            }
+        }
+        
+        
+        if flags.intersect(.IsWWAN) == .IsWWAN {
+            returnValue = .ReachableViaWWAN
+        }
+        
+        return returnValue
+    }
+    
+    func connectionRequired()->Bool{
+        assert(_reachabilityRef != nil)
+        var flags:SCNetworkReachabilityFlags = .Reachable
+        if SCNetworkReachabilityGetFlags(_reachabilityRef!, &flags) {
+            return (flags.contains(.ConnectionRequired))
+        }
+        return false
+    }
+    
+    /*!
+        当前网络状态
+     */
+    public func currentReachabilityStatus()->WTNetworkStatus{
+        assert(_reachabilityRef != nil)
+        let returnValue:WTNetworkStatus = .NotReachable
+        var flags:SCNetworkReachabilityFlags = .Reachable
+        if SCNetworkReachabilityGetFlags(_reachabilityRef!, &flags) {
+            return networkStatusForFlags(flags)
+        }
+        return returnValue
+    }
+    
+    deinit {
+        stopNotifier()
+    }
+    
+}
+#endif
 /*
  print 的源码
  @inline(never)
@@ -566,3 +730,5 @@ extension String{
  }
  }
  */
+
+

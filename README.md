@@ -61,29 +61,23 @@ let request:NSMutableURLRequest? = NSURLRequest.request("url", method: "GET", pa
         NSOperationQueue.main {
             let thread = NSThread.currentThread()
             print("main:\(thread) threadPriority:\(thread.threadPriority)")
-            //main thread
+            //main:<NSThread: 0x7ffb83c02030>{number = 1, name = main} threadPriority:0.758064516129032
         }
         NSOperationQueue.background {
             let thread = NSThread.currentThread()
             print("background:\(thread) threadPriority:\(thread.threadPriority)")
+            //background:<NSThread: 0x7ffb83dc79e0>{number = 4, name = (null)} threadPriority:0.0
         }
         NSOperationQueue.userInteractive {
             let thread = NSThread.currentThread()
             print("userInteractive:\(thread) threadPriority:\(thread.threadPriority)")
-            //separate thread
+            //userInteractive:<NSThread: 0x7ffb83d6ec50>{number = 2, name = (null)} threadPriority:0.5
         }
         NSOperationQueue.globalQueue {
             let thread = NSThread.currentThread()
             print("globalQueue:\(thread) threadPriority:\(thread.threadPriority)")
-            //separate thread
+            //globalQueue:<NSThread: 0x7ffb83c42d20>{number = 3, name = (null)} threadPriority:0.5
         }
-/*
-userInteractive:<NSThread: 0x7ffb83d6ec50>{number = 2, name = (null)} threadPriority:0.5
-background:<NSThread: 0x7ffb83dc79e0>{number = 4, name = (null)} threadPriority:0.0
-globalQueue:<NSThread: 0x7ffb83c42d20>{number = 3, name = (null)} threadPriority:0.5
-main:<NSThread: 0x7ffb83c02030>{number = 1, name = main} threadPriority:0.758064516129032
-
-*/
 ```
 - String
 ```swift
@@ -143,7 +137,7 @@ let image:UIImage = (self.imageView.image?.imageWithRoundCornerRadius(30))
 - UIImageView
 ```swift
 //set image with a url
-imageView.setImageWith("url")u
+imageView.setImageWith("url")
 
 //set hight lighted image with a url,and set a place holder image
 imageView.sethighlightedImageWith("url", placeHolder: placeHolderImage)
@@ -156,6 +150,10 @@ self.showLoadingView()
 
 //hide loading activity indicator 
 self.hideLoadingView()
+
+
+//show tip with String
+self.showHudWithTip("热烈欢迎")
 ```
 
 - UIView
