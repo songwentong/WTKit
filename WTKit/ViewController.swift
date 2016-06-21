@@ -21,11 +21,10 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
 
     @IBOutlet weak var tableView: UITableView!
     var dataList:Array<[String:String]>
-    var reachbility:WTReachability
+    
     
     
     required init?(coder aDecoder: NSCoder) {
-        reachbility = WTReachability.reachabilityWithHostName("http://www.baidu.com")
         dataList = Array()
         dataList.append(["title":"GET/POST请求","segue":"get"])
 //        dataList.append(["title":"POST请求","segue":"post"])
@@ -36,6 +35,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         dataList.append(["title":"COLOR 创建","segue":"color"])
         dataList.append(["title":"下拉刷新","segue":"TableRefreshVC"])
         dataList.append(["title":"二维码扫描","segue":"QRCodeScanVC"])
+        dataList.append(["title":"Reachability","segue":"reachability"])
         
         super.init(coder: aDecoder)
     }
@@ -54,16 +54,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
             }
         }
         
-        reachbility.startNotifier()
-        NSNotificationCenter.defaultCenter().addObserverForName(kWTReachabilityChangedNotification, object: nil, queue: nil) { (notification) in
-            let reachbility:WTReachability = notification.object as! WTReachability
-            let status = reachbility.currentReachabilityStatus()
-            var dict:[WTNetworkStatus:String] = [WTNetworkStatus:String]()
-            dict[WTNetworkStatus.NotReachable] = "NotReachable"
-            dict[WTNetworkStatus.ReachableViaWiFi] = "ReachableViaWiFi"
-            dict[WTNetworkStatus.ReachableViaWWAN] = "ReachableViaWWAN"
-            self.showHudWithTip(dict[status]!)
-        }
+        
         
     }
 //    func aaa(a:String="ccc"){

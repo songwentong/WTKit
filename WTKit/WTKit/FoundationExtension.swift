@@ -593,22 +593,7 @@ extension String{
 }
 
 
-/*
- public enum NSURLRequestCachePolicy : UInt {
- 
- case UseProtocolCachePolicy
- 
- case ReloadIgnoringLocalCacheData
- case ReloadIgnoringLocalAndRemoteCacheData // Unimplemented
- public static var ReloadIgnoringCacheData: NSURLRequestCachePolicy { get }
- 
- case ReturnCacheDataElseLoad
- case ReturnCacheDataDontLoad
- 
- case ReloadRevalidatingCacheData // Unimplemented
- }
-
- */
+#if os(iOS)
 // MARK: - Reachbility
 public enum WTNetworkStatus:UInt{
     //无连接
@@ -666,7 +651,10 @@ public class WTReachability:NSObject{
         if !flags.contains(.Reachable) {
             return .NotReachable
         }
+        
         var returnValue:WTNetworkStatus = .NotReachable
+        
+        
         if !flags.contains(.ConnectionRequired) {
             returnValue = .ReachableViaWiFi
         }
@@ -677,10 +665,10 @@ public class WTReachability:NSObject{
             }
         }
         
-        if flags.contains(.IsWWAN) {
+        
+        if flags.intersect(.IsWWAN) == .IsWWAN {
             returnValue = .ReachableViaWWAN
         }
-        
         
         return returnValue
     }
@@ -712,6 +700,7 @@ public class WTReachability:NSObject{
     }
     
 }
+#endif
 /*
  print 的源码
  @inline(never)

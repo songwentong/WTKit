@@ -20,13 +20,13 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="43L-0z-BUE">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="3jQ-60-igf">
-                                        <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="50" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3jQ-60-igf" id="fct-7V-UNj">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -55,6 +55,95 @@
             </objects>
             <point key="canvasLocation" x="2936" y="-7"/>
         </scene>
+        <!--Reachability-->
+        <scene sceneID="jDh-TO-DE2">
+            <objects>
+                <viewController title="Reachability" id="qe8-7m-58g" customClass="ReachabilityVC" customModule="WTKit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Qt7-4x-sNc"/>
+                        <viewControllerLayoutGuide type="bottom" id="pHU-E7-8cw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vyN-gB-YeZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="eRa-Fg-Lbf">
+                                <rect key="frame" x="20" y="100" width="32" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="QlH-zd-jmT"/>
+                                </constraints>
+                            </imageView>
+                            <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="YhS-W6-JgO">
+                                <rect key="frame" x="20" y="167" width="32" height="32"/>
+                            </imageView>
+                            <textField opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="3Wc-OO-tDx">
+                                <rect key="frame" x="60" y="100" width="240" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="ddV-YR-z1Z"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Remote Host:" clearsOnBeginEditing="YES" minimumFontSize="29" translatesAutoresizingMaskIntoConstraints="NO" id="PyV-Eg-kME">
+                                <rect key="frame" x="20" y="72" width="103" height="20"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="O5L-fD-2EJ">
+                                <rect key="frame" x="60" y="167" width="240" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="bVK-Tq-EVx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TCP/IP Routing Available" clearsOnBeginEditing="YES" minimumFontSize="29" translatesAutoresizingMaskIntoConstraints="NO" id="9vZ-is-pXE">
+                                <rect key="frame" x="20" y="139" width="181" height="20"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="14" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="rxM-Or-kwI">
+                                <rect key="frame" x="20" y="207" width="271" height="62"/>
+                                <string key="text">Cellular data network is available.
+Internet traffic will be routed through it.</string>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eRa-Fg-Lbf" firstAttribute="top" secondItem="3Wc-OO-tDx" secondAttribute="top" id="0Gw-cS-tWp"/>
+                            <constraint firstItem="YhS-W6-JgO" firstAttribute="centerY" secondItem="O5L-fD-2EJ" secondAttribute="centerY" id="35h-UT-uzd"/>
+                            <constraint firstItem="eRa-Fg-Lbf" firstAttribute="top" secondItem="PyV-Eg-kME" secondAttribute="bottom" constant="8" symbolic="YES" id="8er-GO-59c"/>
+                            <constraint firstItem="O5L-fD-2EJ" firstAttribute="leading" secondItem="YhS-W6-JgO" secondAttribute="trailing" constant="8" symbolic="YES" id="A6R-y3-BZZ"/>
+                            <constraint firstItem="YhS-W6-JgO" firstAttribute="top" secondItem="O5L-fD-2EJ" secondAttribute="top" id="Dhr-Ig-U5U"/>
+                            <constraint firstItem="eRa-Fg-Lbf" firstAttribute="leading" secondItem="9vZ-is-pXE" secondAttribute="leading" id="DwP-I4-Fie"/>
+                            <constraint firstItem="PyV-Eg-kME" firstAttribute="top" secondItem="Qt7-4x-sNc" secondAttribute="bottom" constant="8" symbolic="YES" id="FVo-Bf-C5q"/>
+                            <constraint firstItem="3Wc-OO-tDx" firstAttribute="leading" secondItem="eRa-Fg-Lbf" secondAttribute="trailing" constant="8" symbolic="YES" id="Gq2-k5-sYv"/>
+                            <constraint firstItem="eRa-Fg-Lbf" firstAttribute="centerY" secondItem="3Wc-OO-tDx" secondAttribute="centerY" id="JLe-Uq-oEO"/>
+                            <constraint firstItem="rxM-Or-kwI" firstAttribute="top" secondItem="YhS-W6-JgO" secondAttribute="bottom" constant="8" symbolic="YES" id="RBT-MX-tR5"/>
+                            <constraint firstItem="PyV-Eg-kME" firstAttribute="leading" secondItem="vyN-gB-YeZ" secondAttribute="leadingMargin" id="Tda-Sb-5BX"/>
+                            <constraint firstItem="3Wc-OO-tDx" firstAttribute="leading" secondItem="O5L-fD-2EJ" secondAttribute="leading" id="Uhv-OI-gSu"/>
+                            <constraint firstItem="9vZ-is-pXE" firstAttribute="leading" secondItem="YhS-W6-JgO" secondAttribute="leading" id="bge-2x-Nwg"/>
+                            <constraint firstItem="9vZ-is-pXE" firstAttribute="top" secondItem="eRa-Fg-Lbf" secondAttribute="bottom" constant="8" symbolic="YES" id="mRq-Ts-wSl"/>
+                            <constraint firstItem="PyV-Eg-kME" firstAttribute="leading" secondItem="eRa-Fg-Lbf" secondAttribute="leading" id="nlA-VI-mXz"/>
+                            <constraint firstItem="3Wc-OO-tDx" firstAttribute="trailing" secondItem="O5L-fD-2EJ" secondAttribute="trailing" id="seY-OV-NdN"/>
+                            <constraint firstItem="YhS-W6-JgO" firstAttribute="top" secondItem="9vZ-is-pXE" secondAttribute="bottom" constant="8" symbolic="YES" id="sq7-nZ-qBr"/>
+                            <constraint firstItem="YhS-W6-JgO" firstAttribute="leading" secondItem="rxM-Or-kwI" secondAttribute="leading" id="wip-hB-9h8"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Reachability" id="V9S-EJ-GNQ"/>
+                    <connections>
+                        <outlet property="remoteHostImageView" destination="eRa-Fg-Lbf" id="7ON-lW-4Lf"/>
+                        <outlet property="remoteHostLabel" destination="PyV-Eg-kME" id="gMV-jM-vFM"/>
+                        <outlet property="remoteHostStatusField" destination="3Wc-OO-tDx" id="UEa-qR-aVi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8WU-xE-gh1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3588" y="-92"/>
+        </scene>
         <!--Demo列表-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -72,10 +161,10 @@
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="V4h-3e-YEW">
-                                        <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="50" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="V4h-3e-YEW" id="Mdp-rr-hSL">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -106,6 +195,7 @@
                         <segue destination="0jQ-ct-hkP" kind="show" identifier="uploadImage" id="mqA-ba-GRN"/>
                         <segue destination="zWi-DW-p6Q" kind="show" identifier="TableRefreshVC" id="FGg-dk-RtP"/>
                         <segue destination="HtW-nn-KJo" kind="show" identifier="QRCodeScanVC" id="Mka-DX-2IV"/>
+                        <segue destination="qe8-7m-58g" kind="show" identifier="reachability" id="7Zq-tD-aKd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -251,10 +341,10 @@
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="ppa-MW-IE5">
-                                        <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="50" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ppa-MW-IE5" id="lIv-LE-mKj">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -550,13 +640,13 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="cBq-7r-PNW">
                                 <rect key="frame" x="0.0" y="64" width="600" height="443"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="H7i-0Q-mvH">
-                                        <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="50" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H7i-0Q-mvH" id="L1E-KO-Stb">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sbS-fm-9uy">
