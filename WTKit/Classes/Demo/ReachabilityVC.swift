@@ -77,8 +77,6 @@ class ReachabilityVC: UIViewController {
         }
     }
     deinit{
-        reachability.stopNotifier()
-        internetReachability?.stopNotifier()
         NSNotificationCenter.defaultCenter().removeObserver(self, name: kWTReachabilityChangedNotification, object: nil)
         WTLog("deinit")
         
