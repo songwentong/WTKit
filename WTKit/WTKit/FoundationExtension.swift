@@ -10,8 +10,9 @@ import Foundation
 #if os(iOS)
 import SystemConfiguration
 import CoreFoundation
+import CoreGraphics
 //    import MobileCoreServices
-//    import UIKit
+import UIKit
 #elseif os(OSX)
     import CoreServices
 #endif
@@ -590,6 +591,16 @@ extension String{
         return data!
     }
  
+    
+    #if os(iOS)
+    /*!
+     *  用于计算文字高度
+     */
+    public func boundingRectWithSize(size: CGSize, options: NSStringDrawingOptions, attributes: [String : AnyObject]?, context: NSStringDrawingContext?) -> CGRect{
+        let string:NSString = self
+        return string.boundingRectWithSize(size, options: options, attributes: attributes, context: context)
+    }
+    #endif
 }
 
 
