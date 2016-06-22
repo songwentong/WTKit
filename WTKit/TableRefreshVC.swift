@@ -21,10 +21,15 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        for _ in 0...10{
         dataList.append("pull down to refresh")
+        }
+        
         tableView.refreshHeader = RefreshHeader.headerWithRefreshing({  [weak self]()in
             
             performOperationWithBlock({ [weak self]()in
+                
                 if self != nil{
                     self?.dataList.insert("refresh one time", atIndex: 0)
                     self?.tableView.stopLoading()

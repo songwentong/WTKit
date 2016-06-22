@@ -947,9 +947,11 @@ public class RefreshHeader:UIView{
             activityIndicator.startAnimating()
             self.lastUpdateDate = NSDate()
             refreshBlock()
-            
+//
             UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
                 self.scrollView?.contentInset = UIEdgeInsetsMake((self.refreshHeight), 0, 0, 0);
+//                self.scrollView?.setContentOffset(CGPointMake(0, -self.refreshHeight), animated: true)
+                self.scrollView?.contentOffset = CGPointMake(0, -self.refreshHeight)
                 self.alpha = 1.0
             }) { (finish) in
                 
