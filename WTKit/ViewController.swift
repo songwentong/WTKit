@@ -47,7 +47,6 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
 //        WTLog(self.view.viewController())
 //        aaa(UILabel().text!)
         
-        WTLog(SCNetworkReachabilityFlags())
         
         UIApplication.firstLaunchForBuild { [weak self](isFirstLaunchEver) in
             if isFirstLaunchEver{
