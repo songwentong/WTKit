@@ -12,21 +12,21 @@ import ImageIO
 class AnimationImageVIew: UIImageView {
     
     
-    private var iamgesource:CGImageSourceRef? = nil
+    private var iamgesource:CGImageSource? = nil
     private var currentFrameIndex = 0
     private var allFrameCount = 0
     private var linkIsInit = true// displaylink是懒加载，避免没有初始化
     private var curFrame:UIImage?
     private var loopCount = 0
-    private var duration:NSTimeInterval = 0
+    private var duration:TimeInterval = 0
     private lazy var link:CADisplayLink = {
         self.linkIsInit = true
         let aLink:CADisplayLink = CADisplayLink(target: self, selector: #selector(AnimationImageVIew.play(_:)));
-        aLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
+        aLink.add(to: RunLoop.main(), forMode: RunLoopMode.commonModes.rawValue)
         return aLink;
     }()
     
-    func play(link:CADisplayLink) {
+    func play(_ link:CADisplayLink) {
         if allFrameCount == 0{
             return 
         }
@@ -34,7 +34,7 @@ class AnimationImageVIew: UIImageView {
         if image == nil {
             return
         }
-        var delay:NSTimeInterval = 0
+        var delay:TimeInterval = 0
         duration += link.duration
         delay = (iamgesource?.getDurationAtIndex(currentFrameIndex))!
         if duration < delay {
@@ -64,14 +64,14 @@ class AnimationImageVIew: UIImageView {
     }
     override func isAnimating() -> Bool {
         if linkIsInit {
-            return !link.paused
+            return !link.isPaused
         }
         return super.isAnimating()
        
     }
-    override func displayLayer(layer: CALayer) {
+    override func display(_ layer: CALayer) {
         if curFrame != nil {
-            layer.contents = curFrame?.CGImage
+            layer.contents = curFrame?.cgImage
         }
     }
     
@@ -82,7 +82,7 @@ class AnimationImageVIew: UIImageView {
             return
         }else{
             if linkIsInit {
-               link.paused = false
+               link.isPaused = false
             }
            
         }
@@ -92,7 +92,7 @@ class AnimationImageVIew: UIImageView {
     override internal func stopAnimating() {
         super.stopAnimating()
         if linkIsInit {
-            link.paused = true
+            link.isPaused = true
         }
         
     }
@@ -111,7 +111,7 @@ class AnimationImageVIew: UIImageView {
     private func resetImage(){
         self.stopAnimating()
         if let imageSource = (image as! WTImage).iamgeSource!.source{
-            self.link.paused = true
+            self.link.isPaused = true
             self.curFrame = image
             self.allFrameCount = CGImageSourceGetCount(imageSource)
             self.currentFrameIndex = 0
@@ -121,8 +121,8 @@ class AnimationImageVIew: UIImageView {
                 loopCount = gifInfo[kCGImagePropertyGIFLoopCount as String] as? Int {
                 self.loopCount = loopCount
             }
-            if link.paused && curFrame != nil {
-                link.paused = false
+            if link.isPaused && curFrame != nil {
+                link.isPaused = false
             }
         }
      
@@ -136,10 +136,10 @@ class AnimationImageVIew: UIImageView {
         }
     
     }
-    private func prepareFrame(index:Int) -> UIImage?{
+    private func prepareFrame(_ index:Int) -> UIImage?{
         guard let imageRef = CGImageSourceCreateImageAtIndex(self.iamgesource!, index, nil) else {return nil}
 //        let duration = self.iamgesource!.getDurationAtIndex(index)
-        let aImage = UIImage(CGImage: imageRef)
+        let aImage = UIImage(cgImage: imageRef)
 
         return aImage
     }
@@ -157,8 +157,8 @@ class AnimationImageVIew: UIImageView {
 private var imageSourceKey:Void?
 
 class ImageSource {
-    var source:CGImageSourceRef?
-    init(imageref:CGImageSourceRef){
+    var source:CGImageSource?
+    init(imageref:CGImageSource){
         self.source = imageref
     }
 }
@@ -167,7 +167,7 @@ class ImageSource {
 class WTImage:UIImage{
     internal var iamgeSource:ImageSource?
 
-    override init?(data: NSData) {
+    override init?(data: Data) {
         let imageSourceRef = CGImageSourceCreateWithData(data, nil);
         self.iamgeSource = ImageSource(imageref: imageSourceRef!)
         super.init(data: data)
@@ -177,18 +177,18 @@ class WTImage:UIImage{
         fatalError("init(coder:) has not been implemented")
     }
     
-    required convenience init(imageLiteral name: String) {
+    required convenience init(imageLiteralResourceName name: String) {
         fatalError("init(imageLiteral:) has not been implemented")
     }
 
 }
 
-extension CGImageSourceRef{
-    func gifPropertiesAtIndex(index:Int) -> [String:Double]? {
+extension CGImageSource{
+    func gifPropertiesAtIndex(_ index:Int) -> [String:Double]? {
         let properties = CGImageSourceCopyPropertiesAtIndex(self, index, nil) as Dictionary?
         return properties?[kCGImagePropertyGIFDictionary as String] as? [String: Double]
     }
-    func getDurationAtIndex(index:Int) -> Double {
+    func getDurationAtIndex(_ index:Int) -> Double {
         guard let property = self.gifPropertiesAtIndex(index) else {return 0.1}
         let dur = property[kCGImagePropertyGIFDelayTime as String]! as NSNumber
         if dur.doubleValue < 0.011 {

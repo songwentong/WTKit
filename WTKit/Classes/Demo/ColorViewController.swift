@@ -30,7 +30,7 @@ class ColorViewController: UIViewController {
         
     }
     
-    @IBAction func editChanged(sender: AnyObject) {
+    @IBAction func editChanged(_ sender: AnyObject) {
         reSetColors()
     }
 

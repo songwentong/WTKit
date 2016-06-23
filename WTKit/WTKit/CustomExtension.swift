@@ -15,7 +15,7 @@ extension UIViewController{
     /*!
         提示文字
      */
-    public func showHudWithTip(tip:String){
+    public func showHudWithTip(_ tip:String){
          WTTipView.showTip(tip)
     }
     /*!
@@ -34,14 +34,14 @@ extension UIViewController{
     /*!
         可以用于设置默认的loading的文字
      */
-    public class func setDefaultLoadingText(string:String){
-        NSUserDefaults.standardUserDefaults().setObject(string, forKey: UIViewControllerWTKitDefaultLoadingTextKey)
+    public class func setDefaultLoadingText(_ string:String){
+        UserDefaults.standard().set(string, forKey: UIViewControllerWTKitDefaultLoadingTextKey)
     }
     /*!
         获取默认的loading文字
      */
     public class func defaultLoadingText()->String{
-        var text:String? = NSUserDefaults.standardUserDefaults().stringForKey(UIViewControllerWTKitDefaultLoadingTextKey)
+        var text:String? = UserDefaults.standard().string(forKey: UIViewControllerWTKitDefaultLoadingTextKey)
         if text == nil {
             text = "Loading..."
         }
@@ -56,31 +56,31 @@ public class WTTipView:UIView{
         label = UILabel(frame: frame);
         label.tag = 1
         label.numberOfLines = 2
-        label.font = UIFont.systemFontOfSize(14)
+        label.font = UIFont.systemFont(ofSize: 14)
         label.text = "test";
-        label.backgroundColor = UIColor.clearColor()
+        label.backgroundColor = UIColor.clear()
         
-        self.activity = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+        self.activity = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         super.init(frame: frame)
         self.layer.cornerRadius = 5.0
         self.clipsToBounds = true
-        self.backgroundColor = UIColor.redColor()
+        self.backgroundColor = UIColor.red()
         self.addSubview(label)
 //        self.addSubview(activity)
 //        self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(1.0)
     }
-    public static func showTip(tip:NSString){
+    public static func showTip(_ tip:NSString){
         
         let hud = WTTipView()
         hud.showTip(tip)
         
     }
-    public func showTip(tip:NSString){
+    public func showTip(_ tip:NSString){
         
-        let screenWidth = UIScreen.mainScreen().bounds.width
-        let screenHeight = UIScreen.mainScreen().bounds.height
+        let screenWidth = UIScreen.main().bounds.width
+        let screenHeight = UIScreen.main().bounds.height
         var tipHeght:CGFloat = 30
-        let size = tip.boundingRectWithSize(CGSizeMake(300, 60), options: .UsesLineFragmentOrigin, attributes: [NSFontAttributeName:UIFont.systemFontOfSize(14)], context: nil)
+        let size = tip.boundingRect(with: CGSize(width: 300, height: 60), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 14)], context: nil)
         var width = size.width
         let height = size.height
         
@@ -88,27 +88,27 @@ public class WTTipView:UIView{
             width = 280
             tipHeght += 20
         }
-        self.frame = CGRectMake((screenWidth - width - 20) / 2, screenHeight - 100, width + 20, tipHeght)
-        self.label.frame = CGRectMake(10, (tipHeght - height - 6)/2, width, height + 6)
+        self.frame = CGRect(x: (screenWidth - width - 20) / 2, y: screenHeight - 100, width: width + 20, height: tipHeght)
+        self.label.frame = CGRect(x: 10, y: (tipHeght - height - 6)/2, width: width, height: height + 6)
         self.label.text = tip as String
         backgroundColor = UIColor.colorWithHexString("3", alpha: 0.2)
-        label.textColor = UIColor.whiteColor()
-        let window = UIApplication.sharedApplication().windows[0]
+        label.textColor = UIColor.white()
+        let window = UIApplication.shared().windows[0]
         window.addSubview(self)
         
         self.alpha = 0
-        self.transform = CGAffineTransformMakeScale(0.1, 0.1)
-        UIView.animateWithDuration(0.3) { 
+        self.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        UIView.animate(withDuration: 0.3) { 
             self.alpha = 1
-            self.transform = CGAffineTransformMakeScale(1,1)
+            self.transform = CGAffineTransform(scaleX: 1,y: 1)
         }
        self.performBlock({
-           UIView.animateWithDuration(0.2, animations: { 
+           UIView.animate(withDuration: 0.2, animations: { 
             self.alpha = 0
-            self.transform = CGAffineTransformMakeScale(0.1, 0.1)
+            self.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             
             }, completion: { (true) in
-                self.transform = CGAffineTransformIdentity
+                self.transform = CGAffineTransform.identity
                 self.removeFromSuperview()
            })
         }, afterDelay: 2)
@@ -127,10 +127,10 @@ public class WTTipView:UIView{
 
 
 public enum WTHudMode{
-    case CustomView
+    case customView
     case pieProgress
     case roundProgressIndicatorView
-    case ActivityIndicatorView
+    case activityIndicatorView
 }
 public class WTPieProgressView:UIView{
         
@@ -140,24 +140,24 @@ public class WTPieProgressView:UIView{
         }
     }
     
-    public override func drawRect(rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
 
         let ctx = UIGraphicsGetCurrentContext()
         self.layer.allowsGroupOpacity = false
-        let cPoint = CGPointMake(rect.size.width / 2, rect.size.height / 2)
+        let cPoint = CGPoint(x: rect.size.width / 2, y: rect.size.height / 2)
         let color = UIColor.colorWithHexString("fof8ff", alpha: 0.6)
         let radius = rect.size.width / 2
-        CGContextMoveToPoint(ctx, cPoint.x, cPoint.y);
-        CGContextSetFillColor(ctx, CGColorGetComponents(color.CGColor));
-        CGContextAddArc(ctx, cPoint.x, cPoint.y, radius, CGFloat(M_PI*3/2),CGFloat(M_PI*3/2)+CGFloat(M_PI)*2*progress, 0);
-        CGContextFillPath(ctx);
+        ctx?.moveTo(x: cPoint.x, y: cPoint.y);
+        ctx?.setFillColor(color.cgColor.components!);
+        ctx?.addArc(centerX: cPoint.x, y: cPoint.y, radius: radius, startAngle: CGFloat(M_PI*3/2),endAngle: CGFloat(M_PI*3/2)+CGFloat(M_PI)*2*progress, clockwise: 0);
+        ctx?.fillPath();
     }
     
 }
     
 public class WTProgressIndicatorView:UIView{
   
-    public  var strokeColor:UIColor =  UIColor.whiteColor().colorWithAlphaComponent(0.8)
+    public  var strokeColor:UIColor =  UIColor.white().withAlphaComponent(0.8)
     public  var lineWidth:CGFloat = 2.0
     public  var radius:CGFloat = 20.0{
         didSet{
@@ -180,19 +180,19 @@ public class WTProgressIndicatorView:UIView{
         let aCenter = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
         let path = UIBezierPath(arcCenter: aCenter, radius: self.radius, startAngle: CGFloat(M_PI*3/2), endAngle: CGFloat(M_PI/2 + M_PI*5), clockwise: true)
         let layer = CAShapeLayer()
-        layer.contentsScale = UIScreen.mainScreen().scale
-        layer.fillColor = UIColor.clearColor().CGColor
-        layer.strokeColor = self.strokeColor.CGColor
+        layer.contentsScale = UIScreen.main().scale
+        layer.fillColor = UIColor.clear().cgColor
+        layer.strokeColor = self.strokeColor.cgColor
         layer.lineWidth = self.lineWidth
         layer.lineCap = kCALineCapRound
         layer.lineJoin = kCALineJoinBevel
-        layer.path = path.CGPath
+        layer.path = path.cgPath
         
         let timeFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         let animationGroup = CAAnimationGroup()
         animationGroup.duration = 1.5
         animationGroup.repeatCount = HUGE
-        animationGroup.removedOnCompletion = false
+        animationGroup.isRemovedOnCompletion = false
         animationGroup.timingFunction = timeFunction
         
         let strokeStart = CABasicAnimation(keyPath: "strokeStart")
@@ -204,7 +204,7 @@ public class WTProgressIndicatorView:UIView{
         strokeEnd.toValue = 1.0
         
         animationGroup.animations = [strokeStart,strokeEnd]
-        layer.addAnimation(animationGroup, forKey: "stroke")
+        layer.add(animationGroup, forKey: "stroke")
         self.animationLayer = layer
         self.layer.addSublayer(layer)
     }
@@ -212,7 +212,7 @@ public class WTProgressIndicatorView:UIView{
     
 }
 public class WTHudView:UIView{
-    public var mode:WTHudMode = .ActivityIndicatorView{
+    public var mode:WTHudMode = .activityIndicatorView{
         didSet{
             self.updateIndicatorViewWithMode()
             self.updateFrames()
@@ -229,7 +229,7 @@ public class WTHudView:UIView{
         }
     }
     public var defaultBgColor:UIColor = UIColor.colorWithHexString("3", alpha: 0.5)
-    public var defaultTitleColor:UIColor = UIColor.whiteColor()
+    public var defaultTitleColor:UIColor = UIColor.white()
     private var backgroundView:UIView?
     public var indicatorView:UIView?
     private(set) public var detailText:String?
@@ -243,7 +243,7 @@ public class WTHudView:UIView{
     }
     private func commonInit(){
         
-        backgroundView = UIView(frame: CGRectZero)
+        backgroundView = UIView(frame: CGRect.zero)
         backgroundView?.backgroundColor = defaultBgColor
         backgroundView!.layer.cornerRadius = 10
         backgroundView!.clipsToBounds = true
@@ -252,11 +252,11 @@ public class WTHudView:UIView{
         
         self.updateIndicatorViewWithMode()
         
-        titleLabel = UILabel(frame: CGRectZero)
+        titleLabel = UILabel(frame: CGRect.zero)
         titleLabel!.text = titleText
         titleLabel!.textColor = defaultTitleColor
-        titleLabel?.textAlignment = .Center
-        titleLabel!.font = UIFont.systemFontOfSize(defaultFontSize)
+        titleLabel?.textAlignment = .center
+        titleLabel!.font = UIFont.systemFont(ofSize: defaultFontSize)
         backgroundView!.addSubview(titleLabel!)
         self.updateFrames()
         
@@ -266,9 +266,9 @@ public class WTHudView:UIView{
             self.indicatorView?.removeFromSuperview()
         }
         switch mode {
-        case .ActivityIndicatorView:
-            let indicatorView:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .White);
-            indicatorView.frame = CGRectZero
+        case .activityIndicatorView:
+            let indicatorView:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .white);
+            indicatorView.frame = CGRect.zero
             self.indicatorView = indicatorView
             backgroundView!.addSubview(indicatorView)
             indicatorView.startAnimating()
@@ -280,7 +280,7 @@ public class WTHudView:UIView{
             break
         case.pieProgress:
             let indicatorView = WTPieProgressView()
-            indicatorView.backgroundColor = UIColor.clearColor()
+            indicatorView.backgroundColor = UIColor.clear()
             self.indicatorView = indicatorView
             backgroundView!.addSubview(indicatorView)
             break
@@ -296,16 +296,17 @@ public class WTHudView:UIView{
         backgroundView!.setCenterX(self.centerX)
         backgroundView!.setCenterY(self.centerY)
         let indictor = self.indicatorView
-        if indictor!.isKindOfClass(UIActivityIndicatorView) {
-            indictor?.setSize(CGSizeMake(40, 40))
+        
+        if indictor is UIActivityIndicatorView {
+            indictor?.setSize(CGSize(width: 40, height: 40))
             indictor?.setTop(20)
             indictor?.setLeft(30)
             
-        }else if indictor!.isKindOfClass(WTProgressIndicatorView){
+        }else if indictor is WTProgressIndicatorView{
             
-            indictor?.frame = CGRectMake(30, 20, 40, 40)
-        }else if indictor!.isKindOfClass(WTPieProgressView){
-            indictor?.frame = CGRectMake(30, 20, 40, 40)
+            indictor?.frame = CGRect(x: 30, y: 20, width: 40, height: 40)
+        }else if indictor is WTPieProgressView {
+            indictor?.frame = CGRect(x: 30, y: 20, width: 40, height: 40)
         }
         titleLabel?.setX(10)
         titleLabel?.setWidth((backgroundView!.width) - titleLabel!.x * 2.0)
@@ -316,45 +317,45 @@ public class WTHudView:UIView{
     public override func layoutSubviews() {
       
     }
-    public static func showHudInView(view:UIView,animatied:Bool) ->WTHudView{
+    public static func showHudInView(_ view:UIView,animatied:Bool) ->WTHudView{
         let hud = WTHudView(view: view)
         view.addSubview(hud)
         hud.showAnimated(animatied)
         return hud
     }
-    public static func hudViewForView(view:UIView) ->WTHudView?{
+    public static func hudViewForView(_ view:UIView) ->WTHudView?{
         for v in view.subviews {
-            if v.isKindOfClass(self) {
+            if v.isKind(of: self) {
                 return v as? WTHudView
             }
         }
         return nil
     }
-    public static func hideHudInView(view:UIView,animatied:Bool){
+    public static func hideHudInView(_ view:UIView,animatied:Bool){
         let hud = self.hudViewForView(view)
         if hud != nil {
             hud?.hideAnimated(animatied)
             
         }
     }
-    public func showAnimated(animated:Bool){
+    public func showAnimated(_ animated:Bool){
         
         if animated {
-            self.backgroundView?.transform = CGAffineTransformMakeScale(0.5, 0.5)
-            let animaations = {self.backgroundView!.transform = CGAffineTransformMakeScale(1.0, 1.0)
+            self.backgroundView?.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+            let animaations = {self.backgroundView!.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                 self.backgroundView!.alpha = 1.0
             }
-            UIView.animateWithDuration(0.3, animations: animaations, completion: nil)
+            UIView.animate(withDuration: 0.3, animations: animaations, completion: nil)
         }else{
             backgroundView?.alpha = 1.0
         }
     }
-    public func hideAnimated(animated:Bool){
+    public func hideAnimated(_ animated:Bool){
         if animated {
-            let animaations = {self.backgroundView!.transform = CGAffineTransformMakeScale(0.5, 0.5)
+            let animaations = {self.backgroundView!.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
                 self.backgroundView!.alpha = 0.0
             }
-            UIView.animateWithDuration(0.3, animations: animaations, completion: { (finish) in
+            UIView.animate(withDuration: 0.3, animations: animaations, completion: { (finish) in
                 self.removeFromSuperview()
             })
         }else{
@@ -388,55 +389,55 @@ extension UIView
     var top:        CGFloat { return self.frame.origin.y }
     var bottom:     CGFloat { return self.frame.origin.y + self.frame.size.height }
     
-    func setWidth(width:CGFloat) {
+    func setWidth(_ width:CGFloat) {
         self.frame.size.width = width
     }
     
-    func setHeight(height:CGFloat) {
+    func setHeight(_ height:CGFloat) {
         self.frame.size.height = height
     }
     
-    func setSize(size:CGSize) {
+    func setSize(_ size:CGSize) {
         self.frame.size = size
     }
     
-    func setOrigin(point:CGPoint) {
+    func setOrigin(_ point:CGPoint) {
         self.frame.origin = point
     }
     
-    func setX(x:CGFloat) {
-        self.frame.origin = CGPointMake(x, self.frame.origin.y)
+    func setX(_ x:CGFloat) {
+        self.frame.origin = CGPoint(x: x, y: self.frame.origin.y)
     }
     
-    func setY(y:CGFloat) {
-        self.frame.origin = CGPointMake(self.frame.origin.x, y)
+    func setY(_ y:CGFloat) {
+        self.frame.origin = CGPoint(x: self.frame.origin.x, y: y)
     }
     
-    func setCenterX(x:CGFloat) {
-        self.center = CGPointMake(x, self.center.y)
+    func setCenterX(_ x:CGFloat) {
+        self.center = CGPoint(x: x, y: self.center.y)
     }
     
-    func setCenterY(y:CGFloat) {
-        self.center = CGPointMake(self.center.x, y)
+    func setCenterY(_ y:CGFloat) {
+        self.center = CGPoint(x: self.center.x, y: y)
     }
     
-    func roundCorner(radius:CGFloat) {
+    func roundCorner(_ radius:CGFloat) {
         self.layer.cornerRadius = radius
     }
     
-    func setTop(top:CGFloat) {
+    func setTop(_ top:CGFloat) {
         self.frame.origin.y = top
     }
     
-    func setLeft(left:CGFloat) {
+    func setLeft(_ left:CGFloat) {
         self.frame.origin.x = left
     }
     
-    func setRight(right:CGFloat) {
+    func setRight(_ right:CGFloat) {
         self.frame.origin.x = right - self.frame.size.width
     }
     
-    func setBottom(bottom:CGFloat) {
+    func setBottom(_ bottom:CGFloat) {
         self.frame.origin.y = bottom - self.frame.size.height
     }
     

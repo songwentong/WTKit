@@ -26,33 +26,33 @@ class ImageDownloadVC: UIViewController {
     /*!
         清空缓存
      */
-    @IBAction func clearCache(sender: AnyObject) {
+    @IBAction func clearCache(_ sender: AnyObject) {
         UIImageView.clearAllImageCache()
     }
-    @IBAction func requestPress(sender: AnyObject) {
+    @IBAction func requestPress(_ sender: AnyObject) {
         if urlTextField.text != nil {
             imageView.setImageWith(urlTextField.text!)
         }
         
     }
     
-    @IBAction func cornerRaius(sender: AnyObject) {
-            NSOperationQueue.userInteractive({
+    @IBAction func cornerRaius(_ sender: AnyObject) {
+            OperationQueue.userInteractive({
                 let image = self.imageView.image?.imageWithRoundCornerRadius(30)
-                NSOperationQueue.main({ 
+                OperationQueue.main({ 
                     self.imageView.image = image
                 })
             })
     }
     
-    @IBAction func blurredImage(sender: AnyObject) {
+    @IBAction func blurredImage(_ sender: AnyObject) {
         if (imageView.image != nil) {
             let image = imageView.image
             var blurredImage:UIImage?
-            dispatch_async(dispatch_get_global_queue(0, 0), { 
+            DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes(rawValue: UInt64(0))).async(execute: { 
                 blurredImage = image!.imageWithFilter("CIGaussianBlur", parameters: ["inputRadius":5])
                 if (blurredImage != nil){
-                    dispatch_async(dispatch_get_main_queue(), { 
+                    DispatchQueue.main.async(execute: { 
                        self.imageView.image = blurredImage
                     })
                 }

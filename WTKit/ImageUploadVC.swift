@@ -14,23 +14,23 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
     override func viewDidLoad() {
         super.viewDidLoad()
         let url = "http://ww1.sinaimg.cn/mw690/47449485gw1f51dz245iaj20pa0fcdja.jpg"
-        uploadButton.setImageWith(url, forState: .Normal)
+        uploadButton.setImageWith(url, forState: UIControlState())
         
     }
     deinit{
         WTLog("deinit")
     }
-    @IBAction func selectImage(sender: AnyObject) {
+    @IBAction func selectImage(_ sender: AnyObject) {
         let picker = UIImagePickerController()
         picker.delegate = self
-        self.presentViewController(picker, animated: true, completion: nil)
+        self.present(picker, animated: true, completion: nil)
     }
 
-    @IBAction func uploadPressed(sender: AnyObject) {
-        let request = NSURLRequest.upLoadFile("ttp://localhost:9000/cgi-bin/PostIt.py", method: "POST", parameters: nil, body: nil);
-        NSURLSession.dataTaskWithRequest(request) { (data, response, eror) in
-            
-        }
+    @IBAction func uploadPressed(_ sender: AnyObject) {
+//        let request = URLRequest.upLoadFile("ttp://localhost:9000/cgi-bin/PostIt.py", method: "POST", parameters: nil, body: nil);
+//        URLSession.dataTaskWithRequest(request as URLRequest) { (data, response, eror) in
+        
+//        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -38,17 +38,17 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
     }
     
     @available(iOS 2.0, *)
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
         WTPrint(info)
         let image:UIImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
-        uploadButton.setImage(image, forState: .Normal)
-        picker.dismissViewControllerAnimated(true) { 
+        uploadButton.setImage(image, for: UIControlState())
+        picker.dismiss(animated: true) { 
             
         }
     }
     @available(iOS 2.0, *)
-    func imagePickerControllerDidCancel(picker: UIImagePickerController){
-        picker.dismissViewControllerAnimated(true) { 
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
+        picker.dismiss(animated: true) { 
             
         }
     }

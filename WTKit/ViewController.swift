@@ -60,16 +60,16 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
 //    func aaa(a:String="ccc"){
 //        WTLog(a)
 //    }
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let indexPath = tableView.indexPathForSelectedRow
         if(indexPath != nil){
-            tableView.deselectRowAtIndexPath(indexPath!, animated: true)
+            tableView.deselectRow(at: indexPath!, animated: true)
         }
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         //        segue.destinationViewController
@@ -84,17 +84,17 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
 }
 // MARK: - UITableViewDataSource
 extension ViewController{
-    internal func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return dataList.count
     }
     
-    @available(iOS 2.0, *)
-    internal func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    @objc(tableView:cellForRowAtIndexPath:) @available(iOS 2.0, *)
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         return  cell!
     }
-    internal func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+    internal func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         return "Demo 列表"
     } // fixed font style. use custom view (UILabel) if you want something different
 
@@ -102,13 +102,13 @@ extension ViewController{
 // MARK: - UITableViewDelegate
 extension ViewController{
 
-    internal func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath){
-        cell.textLabel?.text = dataList[indexPath.row]["title"]
+    @objc(tableView:willDisplayCell:forRowAtIndexPath:) internal func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
+        cell.textLabel?.text = dataList[(indexPath as NSIndexPath).row]["title"]
     }
     
     
-    internal func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        let segue = dataList[indexPath.row]["segue"]
-        self.performSegueWithIdentifier(segue!, sender: nil);
+    @objc(tableView:didSelectRowAtIndexPath:) internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        let segue = dataList[(indexPath as NSIndexPath).row]["segue"]
+        self.performSegue(withIdentifier: segue!, sender: nil);
     }
 }

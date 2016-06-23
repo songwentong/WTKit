@@ -21,9 +21,9 @@ class ReachabilityVC: UIViewController {
     var internetReachability:WTReachability?
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.summaryLabel.hidden = true
+        self.summaryLabel.isHidden = true
         
-        NSNotificationCenter.defaultCenter().addObserverForName(kWTReachabilityChangedNotification, object: nil, queue: nil) { [weak self](notification) in
+        NotificationCenter.default().addObserver(forName: NSNotification.Name(rawValue: kWTReachabilityChangedNotification), object: nil, queue: nil) { [weak self](notification) in
             
             let reachability:WTReachability = notification.object as! WTReachability
             
@@ -44,24 +44,24 @@ class ReachabilityVC: UIViewController {
 
     }
     
-    func updateInterfaceWithReachability(reachability:WTReachability){
+    func updateInterfaceWithReachability(_ reachability:WTReachability){
         var dict:[WTNetworkStatus:String] = [WTNetworkStatus:String]()
-        dict[WTNetworkStatus.NotReachable] = "无网络"
-        dict[WTNetworkStatus.ReachableViaWiFi] = "已连接Wi-Fi"
-        dict[WTNetworkStatus.ReachableViaWWAN] = "通过蜂窝数据接入网络"
+        dict[WTNetworkStatus.notReachable] = "无网络"
+        dict[WTNetworkStatus.reachableViaWiFi] = "已连接Wi-Fi"
+        dict[WTNetworkStatus.reachableViaWWAN] = "通过蜂窝数据接入网络"
         var imageNames:[WTNetworkStatus:String] = [WTNetworkStatus:String]()
-        imageNames[WTNetworkStatus.NotReachable] = "stop-32"
-        imageNames[WTNetworkStatus.ReachableViaWiFi] = "Airport"
-        imageNames[WTNetworkStatus.ReachableViaWWAN] = "WWAN5"
+        imageNames[WTNetworkStatus.notReachable] = "stop-32"
+        imageNames[WTNetworkStatus.reachableViaWiFi] = "Airport"
+        imageNames[WTNetworkStatus.reachableViaWWAN] = "WWAN5"
         if reachability == self.reachability{
             let status = reachability.currentReachabilityStatus()
             self.remoteHostStatusField.text = dict[status]
             
             self.remoteHostImageView.image = UIImage(named: imageNames[status]!)
             
-            self.summaryLabel.hidden = false
-            if(status != .ReachableViaWWAN){
-                self.summaryLabel.hidden = true
+            self.summaryLabel.isHidden = false
+            if(status != .reachableViaWWAN){
+                self.summaryLabel.isHidden = true
             }
             var baseLabelText = ""
             if (reachability.connectionRequired()){
@@ -77,11 +77,11 @@ class ReachabilityVC: UIViewController {
         }
     }
     deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: kWTReachabilityChangedNotification, object: nil)
+        NotificationCenter.default().removeObserver(self, name: NSNotification.Name(rawValue: kWTReachabilityChangedNotification), object: nil)
         WTLog("deinit")
         
     }
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
     }

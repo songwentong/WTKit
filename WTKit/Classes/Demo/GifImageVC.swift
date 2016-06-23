@@ -31,16 +31,16 @@ class GifImageVC: UIViewController {
         
         //http://ww1.sinaimg.cn/bmiddle/006ajVGQgw1f4s8n25m5hg30b4081u0z.gif
         self.showLoadingView()
-        NSURLSession.cachedDataTaskWithRequest(NSURLRequest.request("http://ww1.sinaimg.cn/mw690/47449485jw1f4shxfge7lg208w04rkjn.gif")) { (data, response, error) in
+        URLSession.cachedDataTaskWithRequest(URLRequest.request("http://ww1.sinaimg.cn/mw690/47449485jw1f4shxfge7lg208w04rkjn.gif") as URLRequest) { (data, response, error) in
             if data != nil {
                 
-                NSOperationQueue.main({
+                OperationQueue.main({
                     self.hideLoadingView()
                     self.imageView = self.view.viewWithTag(1) as! AnimationImageVIew
-                    self.imageView.backgroundColor = UIColor.whiteColor()
+                    self.imageView.backgroundColor = UIColor.white()
                     let image = WTImage(data:data!)
                     self.imageView.image = image
-                    self.imageView.userInteractionEnabled = true
+                    self.imageView.isUserInteractionEnabled = true
                     self.imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(GifImageVC.imageTap(_:))))
                 })
             }
@@ -57,7 +57,7 @@ class GifImageVC: UIViewController {
 //        }
 //        
     }
-    func imageTap(geture:UITapGestureRecognizer) {
+    func imageTap(_ geture:UITapGestureRecognizer) {
         if imageView.isAnimating() {
             imageView.stopAnimating()
         }else{

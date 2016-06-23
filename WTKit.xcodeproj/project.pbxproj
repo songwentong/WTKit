@@ -109,6 +109,7 @@
 		E10604FB1C87DF990017A469 = {
 			isa = PBXGroup;
 			children = (
+				E1BDC3CB1CD347E8002318D0 /* Res */,
 				E10605061C87DF990017A469 /* WTKit */,
 				E1BDC3B41CD3477D002318D0 /* WTKitTests */,
 				E1BDC3C21CD347B8002318D0 /* WTKitUITests */,
@@ -129,7 +130,6 @@
 		E10605061C87DF990017A469 /* WTKit */ = {
 			isa = PBXGroup;
 			children = (
-				E1BDC3CB1CD347E8002318D0 /* Res */,
 				E14E39D01CC8AE35008D2DE7 /* WTKit */,
 				E14E39CF1CC8AE2E008D2DE7 /* Classes */,
 			);
@@ -203,6 +203,7 @@
 				E10605101C87DF990017A469 /* LaunchScreen.storyboard */,
 			);
 			name = Res;
+			path = WTKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,18 +269,21 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = SongWentong;
 				TargetAttributes = {
 					E10605031C87DF990017A469 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 					E1BDC3B21CD3477D002318D0 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 						TestTargetID = E10605031C87DF990017A469;
 					};
 					E1BDC3C01CD347B8002318D0 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 						TestTargetID = E10605031C87DF990017A469;
 					};
 				};
@@ -502,6 +506,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mike.WTKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -516,6 +521,8 @@
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mike.WTKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -530,6 +537,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mike.WTKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WTKit.app/WTKit";
 			};
 			name = Debug;
@@ -544,6 +552,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mike.WTKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WTKit.app/WTKit";
 			};
 			name = Release;
@@ -557,6 +567,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mike.WTKitUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = WTKit;
 			};
 			name = Debug;
@@ -571,6 +582,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mike.WTKitUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = WTKit;
 			};
 			name = Release;

@@ -24,10 +24,10 @@ class WTKitTests: XCTestCase {
         testParseJSON()
     }
     func testReqeust(){
-        NSURLRequest.request("")
-        NSURLRequest.request("", method: "")
-        NSURLRequest.request("", method: "", parameters: nil)
-        NSURLRequest.request("", method: "", parameters: nil, headers: nil)
+        URLRequest.request("")
+        URLRequest.request("", method: "")
+        URLRequest.request("", method: "", parameters: nil)
+        URLRequest.request("", method: "", parameters: nil, headers: nil)
     }
     
     func testUIApplication(){
@@ -50,7 +50,7 @@ class WTKitTests: XCTestCase {
         "a string".parseJSON { (obj, error) in
             
         }
-        let data = "dasdada".dataUsingEncoding(NSUTF8StringEncoding)
+        let data = "dasdada".data(using: String.Encoding.utf8)
         data?.parseJSON({ (obj, error) in
             print(obj)
             print(error)
@@ -58,8 +58,8 @@ class WTKitTests: XCTestCase {
     }
     
     func testNSDate(){
-        let date = NSDate()
-        print("year:\(date.numberForComponent(.Year)) month:\(date.numberForComponent(.Month)) day:\(date.numberForComponent(.Day))")
+        let date = Date()
+        print("year:\(date.numberForComponent(.year)) month:\(date.numberForComponent(.month)) day:\(date.numberForComponent(.day))")
     }
     
     override func tearDown() {
@@ -71,23 +71,26 @@ class WTKitTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         
-        NSOperationQueue.main {
-            let thread = NSThread.currentThread()
-            print("main:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
+        OperationQueue.main {
+            let thread = Thread.current()
+            print("main:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
             //main thread
         }
-        NSOperationQueue.background {
-            let thread = NSThread.currentThread()
-            print("background:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
+        OperationQueue.background {
+            let thread = Thread.current()
+            print("background:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
+            
         }
-        NSOperationQueue.userInteractive {
-            let thread = NSThread.currentThread()
-            print("userInteractive:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
+        OperationQueue.userInteractive {
+            let thread = Thread.current()
+            print("userInteractive:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
+            
             //separate thread
         }
-        NSOperationQueue.globalQueue {
-            let thread = NSThread.currentThread()
-            print("globalQueue:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
+        OperationQueue.globalQueue {
+            let thread = Thread.current()
+            print("globalQueue:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
+            
             //separate thread
         }
 
@@ -95,12 +98,12 @@ class WTKitTests: XCTestCase {
     
     func convertStringToData(){
         let string = "1"
-        _ = string.dataUsingEncoding(NSUTF8StringEncoding)
+        _ = string.data(using: String.Encoding.utf8)
     }
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock {
+        self.measure {
             // Put the code you want to measure the time of here.
             self.convertStringToData()
         }
