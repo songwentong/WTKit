@@ -22,7 +22,7 @@ extension UIViewController{
         显示loading指示器(activity indicator)
      */
     public func showLoadingView(){
-        WTHudView.showHudInView(self.view, animatied: true)
+        _ = WTHudView.showHudInView(self.view, animatied: true)
     }
     /*!
         隐藏loading指示器

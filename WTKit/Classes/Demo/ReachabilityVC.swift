@@ -36,10 +36,14 @@ class ReachabilityVC: UIViewController {
         
         WTReachability.reachabilityForInternetConnection { [weak self](reachability) in
             self?.internetReachability = reachability
-            reachability.startNotifier()
+            if reachability.startNotifier(){
+            }
+            
             self?.updateInterfaceWithReachability(reachability)
         }
-        reachability.startNotifier()
+        if reachability.startNotifier() {
+            
+        }
         updateInterfaceWithReachability(reachability)
 
     }
