@@ -633,7 +633,7 @@ extension UIImageView{
         swift 中对于方法做了优化,无需写多个方法来设置不同参数,写一个全的,然后需要填几个参数就填几个
         不想填的就填一个不加逗号就可以了.
      */
-    func setImageWith(_ url:String ,placeHolder:UIImage? = nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil)->Void{
+    public func setImageWith(_ url:String ,placeHolder:UIImage? = nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil)->Void{
         safeSyncInMain { 
             self.image = placeHolder
         }
@@ -656,7 +656,7 @@ extension UIImageView{
     /*!
         设置高亮图
      */
-    func sethighlightedImageWith(_ url:String?="" ,placeHolder:UIImage? = nil){
+    public func sethighlightedImageWith(_ url:String?="" ,placeHolder:UIImage? = nil){
         safeSyncInMain {
             self.highlightedImage = placeHolder
         }
