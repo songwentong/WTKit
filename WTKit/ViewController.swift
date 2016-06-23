@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SystemConfiguration
 /*!
     todo list
     1.做一个图片上传和下载的测试
@@ -45,6 +46,8 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         // Do any additional setup after loading the view, typically from a nib.
 //        WTLog(self.view.viewController())
 //        aaa(UILabel().text!)
+        
+        WTLog(SCNetworkReachabilityFlags())
         
         UIApplication.firstLaunchForBuild { [weak self](isFirstLaunchEver) in
             if isFirstLaunchEver{

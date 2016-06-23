@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import Foundation
+import Foundation
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -16,28 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 //        WTPrint("wt print \(self)")
-        OperationQueue.main {
-            let thread = Thread.current()
-            print("main:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
-            //main thread
-        }
-        OperationQueue.background {
-            let thread = Thread.current()
-            print("background:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
-            
-        }
-        OperationQueue.userInteractive {
-            let thread = Thread.current()
-            print("userInteractive:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
-            
-            //separate thread
-        }
-        OperationQueue.globalQueue {
-            let thread = Thread.current()
-            print("globalQueue:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
-            
-            //separate thread
-        }
+        
+        
+        
         return true
     }
 
