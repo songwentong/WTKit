@@ -28,10 +28,14 @@ class ImageDownloadVC: UIViewController {
      */
     @IBAction func clearCache(_ sender: AnyObject) {
         UIImageView.clearAllImageCache()
+        self.showHudWithTip("缓存已清空")
     }
     @IBAction func requestPress(_ sender: AnyObject) {
         if urlTextField.text != nil {
-            imageView.setImageWith(urlTextField.text!)
+//            imageView.setImageWith(urlTextField.text! ,placeHolder:nil,complection: )
+            imageView.setImage(with: urlTextField.text!, placeHolder: nil, complection: { (image, error) in
+                
+            })
         }
         
     }
