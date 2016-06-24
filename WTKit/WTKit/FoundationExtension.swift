@@ -513,39 +513,50 @@ extension Data{
         }
         block(obj,theError)
     }
+    //public func +(lhs: Date, rhs: TimeInterval) -> Date
+
+    
+}
+public func +(lhs: Data, rhs: Data) -> Data{
+    var data = lhs
+    data.append(rhs)
+    return data
+}
+public func +=(lhs: inout Data, rhs: Data){
+    lhs.append(rhs)
 }
 extension Date{
-    public func numberForComponent(_ unit:Calendar.Unit)->Int{
+    public func numberFor(component unit:Calendar.Unit)->Int{
         return Calendar.current().component(unit, from: self)
     }
     public var year:Int{
         get{
-            return numberForComponent(.year)
+            return numberFor(component: .year)
         }
     }
     public var month:Int{
         get{
-            return numberForComponent(.month)
+            return numberFor(component:.month)
         }
     }
     public var day:Int{
         get{
-            return numberForComponent(.day)
+            return numberFor(component:.day)
         }
     }
     public var hour:Int{
         get{
-            return numberForComponent(.hour)
+            return numberFor(component:.hour)
         }
     }
     public var minute:Int{
         get{
-            return numberForComponent(.minute)
+            return numberFor(component:.minute)
         }
     }
     public var second:Int{
         get{
-            return numberForComponent(.second)
+            return numberFor(component:.second)
         }
     }
     public func stringWithDateFormat(_ format:String)->String{

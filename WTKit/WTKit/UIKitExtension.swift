@@ -589,7 +589,7 @@ extension UIImageView{
         UIImage.sharedURLCache().removeAllCachedResponses()
     }
     
-
+    
 
     internal var imageOperation:ImageDownloadOperaion?{
         get{
@@ -625,7 +625,9 @@ extension UIImageView{
         }
     }
 
-    
+    public static func cacheImageWith(url:String){
+        
+    }
     
 // MARK: - 设置一张网络图片,并缓存下来
     /*!
@@ -1247,6 +1249,7 @@ public class ImageViewerView:UIView,UIScrollViewDelegate{
         fatalError("init(coder:) has not been implemented")
     }
 }
+    
 
 
 /*!
