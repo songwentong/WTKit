@@ -172,22 +172,19 @@ extension URLRequest{
      */
     public static func request(_ url:String, method:String?="GET", parameters:[String:String]?=[:],headers: [String: String]? = [:]) -> URLRequest{
         
-        let queryStringFromParameters = self.queryStringFromParameters(parameters)!
+        let queryString = self.queryString(from:parameters)!
         var request:URLRequest
         var urlString:String
         request = URLRequest(url: URL(string: url)!)
         request.httpMethod = method!
+        request.allHTTPHeaderFields = headers
         if(self.methodShouldAddQuery(method!)){
-            urlString = String(format: "%@?%@", url,queryStringFromParameters)
+            urlString = String(format: "%@?%@", url,queryString)
+            request.url = URL(string: urlString)
         }else{
             urlString = url
-            request.httpBody = queryStringFromParameters.data(using: String.Encoding.utf8)
+            request.httpBody = queryString.toUTF8Data()
         }
-        request.url = URL(string: urlString)
-        
-        request.allHTTPHeaderFields = headers
- 
-      
         return request
     }
     
@@ -204,7 +201,7 @@ extension URLRequest{
     
     
     //从参数转成字符串
-    static func queryStringFromParameters(_ parameters:[String: String]?=[:])->String? {
+    static func queryString(from parameters:[String: String]?=[:])->String? {
         
         //        Array
         //        Dictionary
