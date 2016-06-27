@@ -57,9 +57,13 @@ class WTKitTests: XCTestCase {
         })
     }
     
+    
     func testNSDate(){
-        let date = Date()
-        print("year:\(date.numberForComponent(.year)) month:\(date.numberForComponent(.month)) day:\(date.numberForComponent(.day))")
+//        NotificationCenter.default().addObserver(forName: NSNotification.Name(rawValue: kWTReachabilityChangedNotification), object: nil, queue: nil) { [weak self](notification) in
+//            
+//        }
+//        let date = Date()
+//        print("year:\(date.numberForComponent(.year)) month:\(date.numberForComponent(.month)) day:\(date.numberForComponent(.day))")
     }
     
     override func tearDown() {
@@ -73,25 +77,21 @@ class WTKitTests: XCTestCase {
         
         OperationQueue.main {
             let thread = Thread.current()
-            print("main:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
-            //main thread
+            print("main:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
         }
         OperationQueue.background {
             let thread = Thread.current()
-            print("background:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
+            print("background:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
             
         }
         OperationQueue.userInteractive {
             let thread = Thread.current()
-            print("userInteractive:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
+            print("userInteractive:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
             
-            //separate thread
         }
         OperationQueue.globalQueue {
             let thread = Thread.current()
-            print("globalQueue:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
-            
-            //separate thread
+            print("globalQueue:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
         }
 
     }
