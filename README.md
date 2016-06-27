@@ -66,9 +66,9 @@ public func parseJson()->AnyObject?
 /*
 //print
 main:<NSThread: 0x7fbd40e04f40>{number = 1, name = main} threadPriority:0.758064516129032 qualityOfService:-1
-globalQueue:<NSThread: 0x7fbd40c18b60>{number = 5, name = (null)} threadPriority:0.5 qualityOfService:-1 nil
-userInteractive:<NSThread: 0x7fbd40d10c10>{number = 3, name = (null)} threadPriority:0.5 qualityOfService:33 nil
-background:<NSThread: 0x7fbd40c7c540>{number = 4, name = (null)} threadPriority:0.0 qualityOfService:9 nil
+globalQueue:<NSThread: 0x7fbd40c18b60>{number = 5, name = (null)} threadPriority:0.5 qualityOfService:-1
+userInteractive:<NSThread: 0x7fbd40d10c10>{number = 3, name = (null)} threadPriority:0.5 qualityOfService:33
+background:<NSThread: 0x7fbd40c7c540>{number = 4, name = (null)} threadPriority:0.0 qualityOfService:9
 
 */
 ```
