@@ -24,12 +24,12 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.refreshHeader = RefreshHeader.headerWithRefreshing({[weak self]()in
-            WTLog("refresh")
-            self?.performBlock({
-                self?.tableView.stopLoading()
-                }, afterDelay: 2)
-        })
+//        self.tableView.refreshHeader = RefreshHeader.headerWithRefreshing({[weak self]()in
+//            WTLog("refresh")
+//            self?.performBlock({
+//                self?.tableView.stopLoading()
+//                }, afterDelay: 2)
+//        })
 //        self.modalTransitionStyle
 //        tableView.separatorInset = UIEdgeInsetsMake(100, 0, 0, 0);
 //        tableView.contentInset = UIEdgeInsetsMake(100, 0, 0, 0);

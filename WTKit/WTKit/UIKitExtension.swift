@@ -952,14 +952,17 @@ public class RefreshHeader:UIView{
             self.lastUpdateDate = Date()
             refreshBlock()
 //
-            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
+            var options = UIViewAnimationOptions()
+            options = options.union(UIViewAnimationOptions.beginFromCurrentState)
+            options = options.union(UIViewAnimationOptions.curveEaseOut)
+            UIView.animate(withDuration: 0.1, delay: 0, options: options, animations: {
                 self.scrollView?.contentInset = UIEdgeInsetsMake((self.refreshHeight), 0, 0, 0);
-//                self.scrollView?.setContentOffset(CGPointMake(0, -self.refreshHeight), animated: true)
-                self.scrollView?.contentOffset = CGPoint(x: 0, y: -self.refreshHeight)
                 self.alpha = 1.0
             }) { (finish) in
                 
             }
+            let offset = CGPoint(x: 0, y: -self.refreshHeight)
+            self.scrollView?.setContentOffset(offset, animated: true)
             self.setNeedsDisplay()
             
             break
