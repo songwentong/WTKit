@@ -46,32 +46,39 @@ public func parseJson()->AnyObject?
 - OperationQueue
 ```swift
         OperationQueue.main {
-            let thread = NSThread.currentThread()
-            print("main:\(thread) threadPriority:\(thread.threadPriority)")
-            //main:<NSThread: 0x7ffb83c02030>{number = 1, name = main} threadPriority:0.758064516129032
+            let thread = Thread.current()
+            print("main:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
+            //main thread
         }
         OperationQueue.background {
-            let thread = NSThread.currentThread()
-            print("background:\(thread) threadPriority:\(thread.threadPriority)")
-            //background:<NSThread: 0x7ffb83dc79e0>{number = 4, name = (null)} threadPriority:0.0
+            let thread = Thread.current()
+            print("background:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
+            
         }
         OperationQueue.userInteractive {
-            let thread = NSThread.currentThread()
-            print("userInteractive:\(thread) threadPriority:\(thread.threadPriority)")
-            //userInteractive:<NSThread: 0x7ffb83d6ec50>{number = 2, name = (null)} threadPriority:0.5
+            let thread = Thread.current()
+            print("userInteractive:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
         }
         OperationQueue.globalQueue {
-            let thread = NSThread.currentThread()
-            print("globalQueue:\(thread) threadPriority:\(thread.threadPriority)")
-            //globalQueue:<NSThread: 0x7ffb83c42d20>{number = 3, name = (null)} threadPriority:0.5
+            let thread = Thread.current()
+            print("globalQueue:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue) \(OperationQueue.current()?.underlyingQueue)")
         }
+        
+/*
+//print
+main:<NSThread: 0x7fbd40e04f40>{number = 1, name = main} threadPriority:0.758064516129032 
+globalQueue:<NSThread: 0x7fbd40c18b60>{number = 5, name = (null)} threadPriority:0.5 qualityOfService:-1 nil
+userInteractive:<NSThread: 0x7fbd40d10c10>{number = 3, name = (null)} threadPriority:0.5 qualityOfService:33 nil
+background:<NSThread: 0x7fbd40c7c540>{number = 4, name = (null)} threadPriority:0.0 qualityOfService:9 nil
+
+*/
 ```
 - String
 ```swift
 let string = "swift"
 print(string.length)//5
 ```
-- NSDate
+- Date
 ```swift
 // Get just one calendar unit value
  public func numberFor(component unit:Calendar.Unit)->Int{
@@ -90,10 +97,10 @@ monitor the network state of an iOS device
 ```swift
 var reachability:WTReachability = WTReachability.reachabilityWithHostName("www.apple.com")
 reachability.startNotifier()
-NSNotificationCenter.defaultCenter().addObserverForName(kWTReachabilityChangedNotification, object: nil, queue: nil) { [weak self](notification) in
+NotificationCenter.default().addObserver(forName: NSNotification.Name(rawValue: kWTReachabilityChangedNotification), object: nil, queue: nil) { [weak self](notification) in
             let reachability:WTReachability = notification.object as! WTReachability
             print(reachability.currentReachabilityStatus())
-}
+        }
 ```
 
 # UIKit Extensions
@@ -159,7 +166,7 @@ self.showHudWithTip("热烈欢迎")
 - UIView
 ```swift
 let image:UIImage = self.view.snapShot()//get a snap shot image
-let pdf:NSData = self.view.pdf()//get a pdf shot 
+let pdf:Data = self.view.pdf()//get a pdf shot 
 ```
 - UIScrollView || UITableView
 ```swift
