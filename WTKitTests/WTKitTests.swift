@@ -18,16 +18,16 @@ class WTKitTests: XCTestCase {
         DEBUGBlock { 
             //code will run at debug mode
         }
-        UIColor.colorWithHexString("333333",alpha: 0.5)
+        _ = UIColor.colorWithHexString("333333",alpha: 0.5)
         
         
         testParseJSON()
     }
     func testReqeust(){
-        URLRequest.request("")
-        URLRequest.request("", method: "")
-        URLRequest.request("", method: "", parameters: nil)
-        URLRequest.request("", method: "", parameters: nil, headers: nil)
+        _ = URLRequest.request("")
+        _ = URLRequest.request("", method: "")
+        _ = URLRequest.request("", method: "", parameters: nil)
+        _ = URLRequest.request("", method: "", parameters: nil, headers: nil)
     }
     
     func testUIApplication(){
