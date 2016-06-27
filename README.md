@@ -22,58 +22,45 @@ DEBUGBlock {
 ```swift
 
 ```
-- NSData
+- Data
 ```swift
+//convert to string(utf-8)
+public func toUTF8String()->String
 //parse json
-public func jsonValue()->(AnyObject?,NSError?)
+public func parseJson()->AnyObject?
 
-let json = data?.jsonValue()
-let jsonObject:AnyObject? = json?.0
-print(json?.0)
-let error:NSError? = json?.1
-print(json?.1)
-
-
-//parse json
-public func parseJSON(block:(AnyObject,NSError?)->Void)
-data?.parseJSON({ (obj, error) in
-            print(obj)
-            print(error)
-        })
 ```
-- NSURLSession 
+- NRLSession 
 ```swift
-//create a request and start 
-//optional parameters: method,parameters,headers
-NSURLSession.dataTaskWith("url", completionHandler: { (data, response, error) in
-                
-            })
+
 ```
-- NSURLRequest 
+- URLRequest 
 ```swift
 //create a request instance
 //optional parameters: method,parameters,headers
-let request:NSMutableURLRequest? = NSURLRequest.request("url", method: "GET", parameters: nil)
+ public static func request(_ url:String, method:String?="GET", parameters:[String:String]?=[:],headers: [String: String]? = [:]) -> URLRequest
+ 
+ URLRequest.request("", method: "", parameters: nil, headers: nil)
 ```
 
-- NSOperationQueue
+- OperationQueue
 ```swift
-        NSOperationQueue.main {
+        OperationQueue.main {
             let thread = NSThread.currentThread()
             print("main:\(thread) threadPriority:\(thread.threadPriority)")
             //main:<NSThread: 0x7ffb83c02030>{number = 1, name = main} threadPriority:0.758064516129032
         }
-        NSOperationQueue.background {
+        OperationQueue.background {
             let thread = NSThread.currentThread()
             print("background:\(thread) threadPriority:\(thread.threadPriority)")
             //background:<NSThread: 0x7ffb83dc79e0>{number = 4, name = (null)} threadPriority:0.0
         }
-        NSOperationQueue.userInteractive {
+        OperationQueue.userInteractive {
             let thread = NSThread.currentThread()
             print("userInteractive:\(thread) threadPriority:\(thread.threadPriority)")
             //userInteractive:<NSThread: 0x7ffb83d6ec50>{number = 2, name = (null)} threadPriority:0.5
         }
-        NSOperationQueue.globalQueue {
+        OperationQueue.globalQueue {
             let thread = NSThread.currentThread()
             print("globalQueue:\(thread) threadPriority:\(thread.threadPriority)")
             //globalQueue:<NSThread: 0x7ffb83c42d20>{number = 3, name = (null)} threadPriority:0.5
@@ -87,11 +74,13 @@ print(string.length)//5
 - NSDate
 ```swift
 // Get just one calendar unit value
-public func date.numberForComponent(unit:NSCalendarUnit)->Int
+ public func numberFor(component unit:Calendar.Unit)->Int{
 
+date.numberFor(component: .year)
+//2016
 
-let date = NSDate()
-print("year:\(date.numberForComponent(.Year)) month:\(date.numberForComponent(.Month)) day:\(date.numberForComponent(.Day))")
+let date = Date()
+print("year:\(date.numberForComponent(.year)) month:\(date.numberForComponent(.month)) day:\(date.numberForComponent(.day))")
 //year:2016 month:6 day:15
         
 ```
