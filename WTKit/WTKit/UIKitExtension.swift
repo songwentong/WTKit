@@ -244,11 +244,13 @@ extension UIDevice{
         硬盘空间
      */
     public func diskSpace()->Int64{
-        var attributes:[String : AnyObject]?
+        var attributes: [FileAttributeKey : AnyObject]
         var fileSystemSize:Int64 = 0
         do{
             try attributes = FileManager.default.attributesOfItem(atPath: NSHomeDirectory())
-            fileSystemSize = (attributes![FileAttributeKey.systemSize.rawValue]?.int64Value)!
+//            fileSystemSize = (attributes![attributes.systemSize.rawValue]?.int64Value)!
+//            fileSystemSize = attributes[FileAttributeKey.fileSystemSize]
+            fileSystemSize = attributes[FileAttributeKey.systemSize]!.int64Value
         }catch{
             
         }
@@ -259,12 +261,12 @@ extension UIDevice{
         可用空间
     */
     public func diskSpaceFree()->Int64{
-        var attributes:[String : AnyObject]?
+        var attributes:[FileAttributeKey : AnyObject]
         var fileSystemSize:Int64 = 0
         do{
             try attributes = FileManager.default.attributesOfItem(atPath: NSHomeDirectory())
 //            attributes?["aaa"]!
-            fileSystemSize = (attributes?[FileAttributeKey.systemFreeSize.rawValue]?.int64Value)!
+            fileSystemSize = attributes[FileAttributeKey.systemFreeSize]!.int64Value
         }catch{
             
         }
@@ -686,7 +688,7 @@ extension UIViewController{
     //弹出Alert
     public func showAlert(_ title:String?, message:String? , duration:Double){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        OperationQueue.main.addOperation { 
+        OperationQueue.main.addOperation {
             self.present(alert, animated: true) {
                 self.performBlock({
                     alert.dismiss(animated: true, completion: {
