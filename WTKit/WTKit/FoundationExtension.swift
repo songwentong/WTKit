@@ -69,7 +69,7 @@ public func DEBUGBlock(_ block:() -> Void){
     安全的回到主线程
 */
 public func safeSyncInMain(_ block:()->Void)->Void{
-    if Thread.current().isMainThread {
+    if Thread.current.isMainThread {
         block()
     }else{
         DispatchQueue.main.sync(execute: block)
@@ -139,7 +139,7 @@ extension URLSession{
     */
     public static func cachedDataTaskWithRequest(_ request:URLRequest , completionHandler:(Data?, URLResponse?, NSError?) -> Void)->Void{
         let cache = URLCache.sharedURLCacheForRequests()
-        let task = URLSession.shared().dataTask(with: request) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             OperationQueue.main({
                 
                 completionHandler(data,response,error)
@@ -372,13 +372,13 @@ extension URLCache{
         数据缓存
      */
     public static func sharedURLCacheForRequests()->URLCache{
-        var cache = objc_getAssociatedObject(OperationQueue.main(), &sharedURLCacheForRequestsKey)
+        var cache = objc_getAssociatedObject(OperationQueue.main, &sharedURLCacheForRequestsKey)
         if cache is URLCache {
             
         }else{
             //0M memory, 1G Disk
             cache = URLCache(memoryCapacity: 0, diskCapacity: 1*1024*1024*1024, diskPath: "sharedURLCacheForRequestsKey")
-            objc_setAssociatedObject(OperationQueue.main(), &sharedURLCacheForRequestsKey, cache, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(OperationQueue.main, &sharedURLCacheForRequestsKey, cache, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
         }
         return cache as! URLCache
@@ -460,7 +460,7 @@ extension OperationQueue{
      回到主线程做事情
      */
     public static func main(_ block: () -> Swift.Void)->Void{
-        OperationQueue.main().addOperation(block)
+        OperationQueue.main.addOperation(block)
     }
 }
 extension Operation{
@@ -522,7 +522,7 @@ public func +=(lhs: inout Data, rhs: Data){
 }
 extension Date{
     public func numberFor(component unit:Calendar.Unit)->Int{
-        return Calendar.current().component(unit, from: self)
+        return Calendar.current.component(unit, from: self)
     }
     public var year:Int{
         get{
@@ -557,7 +557,7 @@ extension Date{
     public func stringWithDateFormat(_ format:String)->String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
-        dateFormatter.locale = Locale.current()
+        dateFormatter.locale = Locale.current
         return dateFormatter.string(from: self)
     }
     
@@ -685,7 +685,7 @@ public let kWTReachabilityChangedNotification = "kWTReachabilityChangedNotificat
 func ReachabilityCallback(_ reachability:SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutablePointer<Void>?) {
         assert(info != nil)
         let noteObject = Unmanaged<WTReachability>.fromOpaque(OpaquePointer(info!)).takeUnretainedValue()
-    NotificationCenter.default().post(name: Notification.Name(rawValue: kWTReachabilityChangedNotification), object: noteObject, userInfo: nil)
+    NotificationCenter.default.post(name: Notification.Name(rawValue: kWTReachabilityChangedNotification), object: noteObject, userInfo: nil)
 }
 public class WTReachability:NSObject{
     
@@ -773,7 +773,7 @@ public class WTReachability:NSObject{
         }
         
         
-        if flags.intersection(.iswwan) == .iswwan {
+        if flags.intersection(.isWWAN) == .isWWAN {
             returnValue = .reachableViaWWAN
         }
         

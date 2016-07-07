@@ -105,19 +105,19 @@ extension UIApplication{
        
 // MARK: - 版本号/build号/bundleID/程序名
     public class func appBundleName()->String{
-            return Bundle.main().objectForInfoDictionaryKey("CFBundleName") as! String
+            return Bundle.main.objectForInfoDictionaryKey("CFBundleName") as! String
     }
     
     public class func appBundleID()->String{
-        return Bundle.main().objectForInfoDictionaryKey("CFBundleIdentifier") as! String
+        return Bundle.main.objectForInfoDictionaryKey("CFBundleIdentifier") as! String
     }
     
     public class func buildVersion()->String{
-        return Bundle.main().objectForInfoDictionaryKey("CFBundleVersion") as! String
+        return Bundle.main.objectForInfoDictionaryKey("CFBundleVersion") as! String
     }
     
     public static func appVersion()->String{
-        return Bundle.main().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
+        return Bundle.main.objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
     }
     
     public static func documentsPath()->String{
@@ -169,7 +169,7 @@ extension UIApplication{
         let first = self.isFirstLaunchMethod()
         shared().isFirstLaunchEver = first
         
-        var versionArray:[String]! = UserDefaults.standard().array(forKey: UIApplicationVersionsKey) as? Array<String>
+        var versionArray:[String]! = UserDefaults.standard.array(forKey: UIApplicationVersionsKey) as? Array<String>
         if versionArray == nil {
             versionArray = Array()
         }
@@ -178,7 +178,7 @@ extension UIApplication{
         }
         
         
-        var buildArray:[String]! = UserDefaults.standard().array(forKey: UIApplicationBuildsKey) as? Array<String>
+        var buildArray:[String]! = UserDefaults.standard.array(forKey: UIApplicationBuildsKey) as? Array<String>
         if buildArray == nil {
             buildArray = Array()
         }
@@ -187,16 +187,16 @@ extension UIApplication{
         }
         
         
-        UserDefaults.standard().setValue(versionArray, forKey: UIApplicationVersionsKey)
-        UserDefaults.standard().setValue(buildArray, forKey: UIApplicationBuildsKey)
+        UserDefaults.standard.setValue(versionArray, forKey: UIApplicationVersionsKey)
+        UserDefaults.standard.setValue(buildArray, forKey: UIApplicationBuildsKey)
 //        WTLog(versionArray)
 //        WTLog(buildArray)
-        UserDefaults.standard().synchronize()
+        UserDefaults.standard.synchronize()
     }
     
     private class func isFirstLaunchMethod()->Bool{
         var isFirstLaunchEver = true
-        let versionArray:[String]? = UserDefaults.standard().array(forKey: UIApplicationVersionsKey) as? Array<String>
+        let versionArray:[String]? = UserDefaults.standard.array(forKey: UIApplicationVersionsKey) as? Array<String>
         if versionArray != nil {
             if versionArray!.contains(self.appVersion()) {
                 isFirstLaunchEver = false
@@ -247,7 +247,7 @@ extension UIDevice{
         var attributes:[String : AnyObject]?
         var fileSystemSize:Int64 = 0
         do{
-            try attributes = FileManager.default().attributesOfItem(atPath: NSHomeDirectory())
+            try attributes = FileManager.default.attributesOfItem(atPath: NSHomeDirectory())
             fileSystemSize = (attributes![FileAttributeKey.systemSize.rawValue]?.int64Value)!
         }catch{
             
@@ -262,7 +262,7 @@ extension UIDevice{
         var attributes:[String : AnyObject]?
         var fileSystemSize:Int64 = 0
         do{
-            try attributes = FileManager.default().attributesOfItem(atPath: NSHomeDirectory())
+            try attributes = FileManager.default.attributesOfItem(atPath: NSHomeDirectory())
 //            attributes?["aaa"]!
             fileSystemSize = (attributes?[FileAttributeKey.systemFreeSize.rawValue]?.int64Value)!
         }catch{
@@ -282,7 +282,7 @@ extension UIDevice{
         物理内存
      */
     public func memoryTotal()->UInt64{
-        let mem = ProcessInfo.processInfo().physicalMemory;
+        let mem = ProcessInfo.processInfo.physicalMemory;
         return mem;
     }
     
@@ -439,7 +439,7 @@ public class ImageDownloadOperaion:Operation{
             
             
             //weak self 使用场景:self 可能为空    unowned 使用场景:self 不能为空
-            let task =  URLSession.shared().dataTask(with: request, completionHandler: { [weak self](data, response, error1) -> Void in
+            let task =  URLSession.shared.dataTask(with: request, completionHandler: { [weak self](data, response, error1) -> Void in
                     if(error1 == nil){
                         OperationQueue.globalQueue({ 
                             let image = UIImage(data: data!)
@@ -686,7 +686,7 @@ extension UIViewController{
     //弹出Alert
     public func showAlert(_ title:String?, message:String? , duration:Double){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        OperationQueue.main().addOperation { 
+        OperationQueue.main.addOperation { 
             self.present(alert, animated: true) {
                 self.performBlock({
                     alert.dismiss(animated: true, completion: {

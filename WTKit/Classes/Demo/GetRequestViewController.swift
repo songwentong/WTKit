@@ -23,7 +23,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
     override func viewDidLoad() {
         //        requestButton.enabled = false
         
-        var url = UserDefaults.standard().string(forKey: lastURLKey)
+        var url = UserDefaults.standard.string(forKey: lastURLKey)
         if url == nil {
             url = "http://www.baidu.com"
         }
@@ -84,9 +84,9 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
             if methodSegment.selectedSegmentIndex == 1 {
                 method = "POST"
             }
-            UserDefaults.standard().set(urlTextField.text, forKey: lastURLKey)
+            UserDefaults.standard.set(urlTextField.text, forKey: lastURLKey)
             let request = URLRequest.request(string!, method: method, parameters: parameters, headers: nil)
-            let task = URLSession.shared().dataTask(with: request, completionHandler: { (data, response, error) in
+            let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
                 OperationQueue.main({ 
                     self.hideLoadingView()
                     self.requestButton.isEnabled = true

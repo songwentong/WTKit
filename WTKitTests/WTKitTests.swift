@@ -59,7 +59,7 @@ class WTKitTests: XCTestCase {
     
     
     func testNSDate(){
-//        NotificationCenter.default().addObserver(forName: NSNotification.Name(rawValue: kWTReachabilityChangedNotification), object: nil, queue: nil) { [weak self](notification) in
+//        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: kWTReachabilityChangedNotification), object: nil, queue: nil) { [weak self](notification) in
 //            
 //        }
 //        let date = Date()

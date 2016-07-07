@@ -23,7 +23,7 @@ class ReachabilityVC: UIViewController {
         super.viewDidLoad()
         self.summaryLabel.isHidden = true
         
-        NotificationCenter.default().addObserver(forName: NSNotification.Name(rawValue: kWTReachabilityChangedNotification), object: nil, queue: nil) { [weak self](notification) in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: kWTReachabilityChangedNotification), object: nil, queue: nil) { [weak self](notification) in
             
             let reachability:WTReachability = notification.object as! WTReachability
             
@@ -81,7 +81,7 @@ class ReachabilityVC: UIViewController {
         }
     }
     deinit{
-        NotificationCenter.default().removeObserver(self, name: NSNotification.Name(rawValue: kWTReachabilityChangedNotification), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: kWTReachabilityChangedNotification), object: nil)
         WTLog("deinit")
         
     }

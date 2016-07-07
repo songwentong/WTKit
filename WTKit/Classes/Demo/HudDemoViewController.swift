@@ -118,7 +118,7 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
             let hud = WTHudView.showHudInView(view, animatied: true)
             hud.mode = .pieProgress
             timer = Timer(timeInterval: 1, target: self, selector: #selector(HudDemoViewController.addProgress), userInfo: nil, repeats: true)
-            RunLoop.main().add(timer!, forMode: RunLoopMode.commonModes)
+            RunLoop.main.add(timer!, forMode: RunLoopMode.commonModes)
             
             
             

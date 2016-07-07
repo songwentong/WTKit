@@ -22,7 +22,7 @@ class AnimationImageVIew: UIImageView {
     private lazy var link:CADisplayLink = {
         self.linkIsInit = true
         let aLink:CADisplayLink = CADisplayLink(target: self, selector: #selector(AnimationImageVIew.play(_:)));
-        aLink.add(to: RunLoop.main(), forMode: RunLoopMode.commonModes.rawValue)
+        aLink.add(to: RunLoop.main, forMode: RunLoopMode(rawValue: RunLoopMode.commonModes.rawValue))
         return aLink;
     }()
     

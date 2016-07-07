@@ -35,13 +35,13 @@ extension UIViewController{
         可以用于设置默认的loading的文字
      */
     public class func setDefaultLoadingText(_ string:String){
-        UserDefaults.standard().set(string, forKey: UIViewControllerWTKitDefaultLoadingTextKey)
+        UserDefaults.standard.set(string, forKey: UIViewControllerWTKitDefaultLoadingTextKey)
     }
     /*!
         获取默认的loading文字
      */
     public class func defaultLoadingText()->String{
-        var text:String? = UserDefaults.standard().string(forKey: UIViewControllerWTKitDefaultLoadingTextKey)
+        var text:String? = UserDefaults.standard.string(forKey: UIViewControllerWTKitDefaultLoadingTextKey)
         if text == nil {
             text = "Loading..."
         }
