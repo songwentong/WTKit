@@ -14,7 +14,7 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
     override func viewDidLoad() {
         super.viewDidLoad()
         let url = "http://ww1.sinaimg.cn/mw690/47449485gw1f51dz245iaj20pa0fcdja.jpg"
-        uploadButton.setImageWith(url, forState: UIControlState())
+        uploadButton.setImageWith(url, forState: UIControlState.normal)
         
     }
     deinit{
@@ -27,6 +27,21 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
     }
 
     @IBAction func uploadPressed(_ sender: AnyObject) {
+        var request = URLRequest(url: URL(string: "https://httpbin.org/image")!)
+        request.setValue("image/png", forHTTPHeaderField: "accept")
+        let image = uploadButton.image(for: UIControlState.normal)
+        let data = image?.toData()
+        print(data)
+        let up = URLSession.shared.uploadTask(with: request, from: data) { (data, response, error) in
+            if data != nil{
+                let string = data?.toUTF8String()
+                print(string);
+                if string?.length == 0{
+                    //成功
+                }
+            }
+        }
+        up.resume()
 //        let request = URLRequest.upLoadFile("ttp://localhost:9000/cgi-bin/PostIt.py", method: "POST", parameters: nil, body: nil);
 //        URLSession.dataTaskWithRequest(request as URLRequest) { (data, response, eror) in
         

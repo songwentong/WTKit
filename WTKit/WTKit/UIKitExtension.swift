@@ -511,6 +511,14 @@ extension UIImage{
         return URLCache.sharedURLCacheForRequests()
     }
     
+    public func toData()->Data?{
+        var data = UIImageJPEGRepresentation(self, CGFloat(1))
+        if data == nil {
+            data = UIImagePNGRepresentation(self)
+        }
+        return data
+    }
+    
 
     //创建一个可以缓存图片的operation
     public class func imageOperationWithURL(_ url:String, completionHandler: (image:UIImage?,error:NSError?)->Void)->ImageDownloadOperaion!{
