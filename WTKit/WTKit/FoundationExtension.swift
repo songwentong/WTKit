@@ -108,35 +108,26 @@ func bridgeTransfer<T : AnyObject>(ptr : UnsafePointer<Void>) -> T {
 
 
 extension URLSession{
-    /*
-    /*!
-        创建一个请求然后发送
-     */
-    public class func dataTaskWith(_ url:String, method:String?="GET", parameters:[String:String]?=[:],headers: [String: String]? = [:], completionHandler: (Data?, URLResponse?, NSError?) -> Void) ->URLSessionDataTask{
-        
-        let request = URLRequest.request(url,method: method,parameters: parameters,headers: headers)
-        let task = URLSession.shared().dataTask(with: request) { (data, response, error) in
-            OperationQueue.main()
-            completionHandler(data,response,error)
-        }
-        
-        task.resume()
+//    private static let sharedInstance = URLSession(configuration: URLSessionConfiguration(), delegate: WTURLSessionDelegate(), delegateQueue: OperationQueue())
+//    public class var shared: URLSession {
+//        get{
+//            return sharedInstance
+//        }
+//    }
+    
+    public static func wtDataTask(with request:URLRequest,delegate:URLSessionDelegate,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->URLSessionDataTask{
+//        let task = URLSession.sharedInstance.dataTask(with: request)
+//        URLSession.sharedInstance.delegate
+//        task.resume()
+        let delegate = WTURLSessionDelegate()
+        delegate.completionHandler = completionHandler
+        let configuration = URLSessionConfiguration.default
+        let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
+        let task = session.dataTask(with: request)
+//        task.resume()
         return task
     }
     
-    /*!
-        创建并执行请求
-     */
-    public static func dataTaskWithRequest(_ request:URLRequest , completionHandler: (Data?, URLResponse?, NSError?) -> Void)->URLSessionDataTask{
-        let task = URLSession.shared().dataTask(with: request) { (data, response, error) in
-            OperationQueue.main({
-                completionHandler(data,response,error)
-            })
-        }
-        task.resume()
-        return task
-    }
-    */
     public static func cachedDataTaskWithRequest(_ request:URLRequest , completionHandler:(Data?, URLResponse?, NSError?) -> Void)->Void{
         let cache = URLCache.sharedURLCacheForRequests()
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -154,13 +145,96 @@ extension URLSession{
         let cachedResponseForRequest = cache.cachedResponse(for: request)
         //如果有本地保存,就直接使用
         if cachedResponseForRequest != nil {
-            OperationQueue.main({ 
+            OperationQueue.main({
                 completionHandler(cachedResponseForRequest?.data,cachedResponseForRequest?.response,nil)
             })
         }else{
             task.resume()
         }
+        
+    }
+    
+    
+}
 
+/*
+    提供凭据
+ */
+public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
+    
+    
+    private static let sharedInstance = WTURLSessionDelegate()
+    var credential: URLCredential?
+    var completionHandler: ((Data?, URLResponse?, NSError?) -> Swift.Void)?
+    
+    public class var shared: WTURLSessionDelegate {
+        get{
+            return sharedInstance
+        }
+    }
+    
+    
+    
+    
+    // MARK: Delegate Methods
+    
+    public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: NSError?){
+        completionHandler?(data,response,error)
+    }
+    
+    
+    
+    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
+
+        let disposition: Foundation.URLSession.AuthChallengeDisposition = .performDefaultHandling
+        if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
+
+        }
+        completionHandler(disposition,credential)
+    }
+    
+    
+    
+//    #if !os(OSX)
+    public func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession){
+        completionHandler?(data,response,nil)
+    }
+//    #endif
+    
+    
+    
+    // MARK: URLSessionTaskDelegate
+    var error: NSError?
+    public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: NSError?){
+        self.error = error
+        completionHandler?(data,response,error)
+    }
+    
+    
+    // MARK: URLSessionDataDelegate
+    var expectedContentLength:Int64?
+    var response:URLResponse?
+    var data:Data?
+    var dataTask: URLSessionDataTask?
+    
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
+        self.dataTask = dataTask
+        expectedContentLength = response.expectedContentLength
+        self.response = response
+        data = Data()
+        completionHandler(URLSession.ResponseDisposition.allow)
+    }
+    
+    
+    
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome downloadTask: URLSessionDownloadTask){
+    }
+    
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome streamTask: URLSessionStreamTask){
+    }
+    
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
+        self.data? += data
     }
 }
  

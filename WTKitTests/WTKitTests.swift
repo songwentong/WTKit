@@ -28,6 +28,10 @@ class WTKitTests: XCTestCase {
         _ = URLRequest.request("", method: "")
         _ = URLRequest.request("", method: "", parameters: nil)
         _ = URLRequest.request("", method: "", parameters: nil, headers: nil)
+        let reqeust = URLRequest.request("http://www.baidu.com")
+        let session = URLSession.shared
+//        session.delegate = WTURLSessionDelegate()
+        
     }
     
     func testUIApplication(){
@@ -55,6 +59,12 @@ class WTKitTests: XCTestCase {
             print(obj)
             print(error)
         })
+    }
+    
+    func testWTURLSessionDelegate(){
+//        let delegate = WTURLSessionDelegate()
+//        let session = URLSession(configuration: URLSessionConfiguration(), delegate: delegate ,delegateQueue:nil)
+//        session.delegate = delegate
     }
     
     

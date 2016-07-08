@@ -86,8 +86,9 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
             }
             UserDefaults.standard.set(urlTextField.text, forKey: lastURLKey)
             let request = URLRequest.request(string!, method: method, parameters: parameters, headers: nil)
-            let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-                OperationQueue.main({ 
+            let delegate = WTURLSessionDelegate()
+            let task = URLSession.wtDataTask(with: request, delegate: delegate, completionHandler: { (data, response, error) in
+                OperationQueue.main({
                     self.hideLoadingView()
                     self.requestButton.isEnabled = true
                     
@@ -111,13 +112,17 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                     }else{
                         self.showHudWithTip("请求失败")
                     }
-
+                    
                 })
-                
+
             })
             task.resume()
-            
-
+            /*
+            let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+             
+            })
+            task.resume()
+            */
         }else{
             
         }
