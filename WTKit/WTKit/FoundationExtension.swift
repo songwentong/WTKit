@@ -81,7 +81,7 @@ public func safeSyncInMain(_ block:()->Void)->Void{
 /*!
     延时执行的代码块
  */
-public func performOperationWithBlock(_ block:()->Void, afterDelay:TimeInterval){
+public func performOperation(with block:()->Void, afterDelay:TimeInterval){
     //Swift 不允许数据在计算中损失,所以需要在计算的时候转换以下类型
     let time = Int64(afterDelay * Double(NSEC_PER_SEC))
     let t = DispatchTime.now() + Double(time) / Double(NSEC_PER_SEC)
@@ -89,8 +89,6 @@ public func performOperationWithBlock(_ block:()->Void, afterDelay:TimeInterval)
 }
 
 func bridge<T : AnyObject>(obj : T) -> UnsafePointer<Void> {
-//    return UnsafePointer(OpaquePointer(bitPattern: Unmanaged.passUnretained(obj) ))
-    
     return UnsafePointer(Unmanaged.passUnretained(obj).toOpaque())
     // return unsafeAddress(of: obj) // ***
 }

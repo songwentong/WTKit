@@ -27,9 +27,7 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
         }
         
         tableView.refreshHeader = RefreshHeader.headerWithRefreshing({  [weak self]()in
-            
-            performOperationWithBlock({ [weak self]()in
-                
+            performOperation(with: {[weak self]()in
                 if self != nil{
                     self?.dataList.insert("refresh one time", at: 0)
                     self?.tableView.stopLoading()
@@ -39,7 +37,6 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
                     self?.tableView.insertRows(at: [indexPath], with: .none)
                     self?.tableView.endUpdates()
                 }
-                
                 }, afterDelay: 2.0)
             
         })
