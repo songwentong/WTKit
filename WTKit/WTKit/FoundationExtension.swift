@@ -115,12 +115,12 @@ extension URLSession{
 //        }
 //    }
     
-    public static func wtDataTask(with request:URLRequest,delegate:URLSessionDelegate,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->URLSessionDataTask{
-//        let task = URLSession.sharedInstance.dataTask(with: request)
-//        URLSession.sharedInstance.delegate
-//        task.resume()
+    public static func wtDataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->URLSessionDataTask{
+
         let delegate = WTURLSessionDelegate()
         delegate.completionHandler = completionHandler
+        delegate.credential = credential
+        
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
         let task = session.dataTask(with: request)
@@ -164,6 +164,8 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     
     private static let sharedInstance = WTURLSessionDelegate()
+    
+    //网址凭据
     var credential: URLCredential?
     var completionHandler: ((Data?, URLResponse?, NSError?) -> Swift.Void)?
     

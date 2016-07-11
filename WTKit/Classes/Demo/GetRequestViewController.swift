@@ -87,9 +87,8 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
             
             UserDefaults.standard.set(urlTextField.text, forKey: lastURLKey)
             let request = URLRequest.request(string!, method: method, parameters: parameters, headers: nil)
-            let delegate = WTURLSessionDelegate()
-//            delegate.credential = URLCredential(user: "user", password: "password", persistence: URLCredential.Persistence.permanent)
-            let task = URLSession.wtDataTask(with: request, delegate: delegate, completionHandler: { (data, response, error) in
+//            let credential = URLCredential(user: "user", password: "password", persistence: URLCredential.Persistence.permanent)
+            let task = URLSession.wtDataTask(with: request, completionHandler: { (data, response, error) in
                 OperationQueue.main({
                     self.hideLoadingView()
                     self.requestButton.isEnabled = true
