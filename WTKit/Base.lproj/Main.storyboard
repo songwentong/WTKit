@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11129.15" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pA6-d5-UNj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11163.2" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pA6-d5-UNj">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11103.10"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11133"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,10 +23,10 @@
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="3jQ-60-igf">
-                                        <frame key="frameInset" minY="55.5" width="375" height="44"/>
+                                        <frame key="frameInset" minY="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3jQ-60-igf" id="fct-7V-UNj">
-                                            <frame key="frameInset" width="375" height="43.5"/>
+                                            <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -163,10 +163,10 @@ Internet traffic will be routed through it.</string>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="V4h-3e-YEW">
-                                        <frame key="frameInset" minY="55.5" width="375" height="44"/>
+                                        <frame key="frameInset" minY="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="V4h-3e-YEW" id="Mdp-rr-hSL">
-                                            <frame key="frameInset" width="375" height="43.5"/>
+                                            <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -251,16 +251,23 @@ Internet traffic will be routed through it.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ev-Vx-CH5">
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="OCo-m4-8CM" firstAttribute="leading" secondItem="WJK-D3-B2p" secondAttribute="leading" id="4BA-pK-2oW"/>
                             <constraint firstItem="G4j-Op-Jed" firstAttribute="top" secondItem="uqJ-S7-uUA" secondAttribute="bottom" id="8G1-Yj-s5F"/>
+                            <constraint firstItem="7Ev-Vx-CH5" firstAttribute="centerX" secondItem="uqJ-S7-uUA" secondAttribute="centerX" id="9YE-1r-iQf"/>
                             <constraint firstItem="OCo-m4-8CM" firstAttribute="top" secondItem="m6r-Bm-p9r" secondAttribute="bottom" id="A1c-ty-JS0"/>
                             <constraint firstAttribute="trailing" secondItem="OCo-m4-8CM" secondAttribute="trailing" id="CNR-Lq-Rak"/>
                             <constraint firstItem="uqJ-S7-uUA" firstAttribute="top" secondItem="OCo-m4-8CM" secondAttribute="bottom" id="JTb-IK-LPc"/>
                             <constraint firstItem="uqJ-S7-uUA" firstAttribute="leading" secondItem="WJK-D3-B2p" secondAttribute="leading" id="lXp-rX-uSD"/>
+                            <constraint firstItem="7Ev-Vx-CH5" firstAttribute="centerY" secondItem="uqJ-S7-uUA" secondAttribute="centerY" id="lc2-fE-kEu"/>
                             <constraint firstAttribute="trailing" secondItem="uqJ-S7-uUA" secondAttribute="trailing" id="qe9-nk-Nob"/>
+                            <constraint firstItem="7Ev-Vx-CH5" firstAttribute="height" secondItem="uqJ-S7-uUA" secondAttribute="height" id="rbt-kH-gmd"/>
+                            <constraint firstItem="7Ev-Vx-CH5" firstAttribute="width" secondItem="uqJ-S7-uUA" secondAttribute="width" constant="1" id="wlj-AQ-RYT"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="kSf-zz-Zd6">
@@ -288,6 +295,7 @@ Internet traffic will be routed through it.</string>
                         <outlet property="resultTextView" destination="uqJ-S7-uUA" id="TUd-re-9TA"/>
                         <outlet property="rightItem" destination="xky-f4-Pqc" id="QdS-sF-bfn"/>
                         <outlet property="urlTextField" destination="O4c-AD-pFm" id="sbs-zs-vtj"/>
+                        <outlet property="webView" destination="7Ev-Vx-CH5" id="Tv0-mW-tvI"/>
                         <segue destination="hvT-cm-Sgn" kind="show" identifier="parameters" id="J8G-Kd-saP"/>
                     </connections>
                 </viewController>
@@ -340,10 +348,10 @@ Internet traffic will be routed through it.</string>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="ppa-MW-IE5">
-                                        <frame key="frameInset" minY="55.5" width="375" height="44"/>
+                                        <frame key="frameInset" minY="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ppa-MW-IE5" id="lIv-LE-mKj">
-                                            <frame key="frameInset" width="375" height="43.5"/>
+                                            <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -628,10 +636,10 @@ Internet traffic will be routed through it.</string>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="H7i-0Q-mvH">
-                                        <frame key="frameInset" minY="55.5" width="375" height="44"/>
+                                        <frame key="frameInset" minY="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H7i-0Q-mvH" id="L1E-KO-Stb">
-                                            <frame key="frameInset" width="375" height="43.5"/>
+                                            <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sbS-fm-9uy">

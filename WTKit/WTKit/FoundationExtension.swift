@@ -128,24 +128,21 @@ extension URLSession{
         delegate.shouldCache = true
         
         let configuration = URLSessionConfiguration.default
+//        configuration.urlCache = URLCache.sharedURLCacheForRequests()
         let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
         let task = session.dataTask(with: request)
         return task
     }
     
     public static func wtCachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:(Data?, URLResponse?, NSError?) -> Void)->URLSessionDataTask{
-        let cache = URLCache.sharedURLCacheForRequests()
+//        let cache = URLCache.sharedURLCacheForRequests()
+        
         let delegate = WTURLSessionDelegate()
-        delegate.completionHandler = { (data, response, error) in
-            completionHandler(data,response,error)
-            if error == nil{
-                //保存当前请求
-                cache.storeCachedResponse(CachedURLResponse.init(response: response!, data: data!, userInfo: nil, storagePolicy: .allowed), for: request)
-            }
-        }
+        delegate.completionHandler = completionHandler
         delegate.shouldCache = true
         delegate.credential = credential
         let configuration = URLSessionConfiguration.default
+        configuration.urlCache = URLCache.sharedURLCacheForRequests()
         let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
         var myRequest = request
         myRequest.cachePolicy = .returnCacheDataDontLoad
@@ -168,18 +165,34 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     //网址凭据
     var credential: URLCredential?
     var completionHandler: ((Data?, URLResponse?, NSError?) -> Swift.Void)?
+    var expectedContentLength:Int64?
+    var response:URLResponse?
+    var data:Data?
+    var dataTask: URLSessionDataTask?
+    var error: NSError?
     
-    public class var shared: WTURLSessionDelegate {
-        get{
-            return sharedInstance
-        }
-    }
     
     
     private func finish(){
         OperationQueue.main {
             self.completionHandler?(self.data,self.response,self.error)
         }
+    }
+    
+    private func trustIsValid(_ trust:SecTrust) -> Bool {
+        var isValid = false
+        
+        var result = SecTrustResultType.invalid
+        let status = SecTrustEvaluate(trust, &result)
+        
+        if status == errSecSuccess {
+            let unspecified = SecTrustResultType.unspecified
+            let proceed = SecTrustResultType.proceed
+            
+            isValid = result == unspecified || result == proceed
+        }
+        
+        return isValid
     }
     
     // MARK: Delegate Methods
@@ -206,40 +219,22 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     }
     
     
-    private func trustIsValid(_ trust:SecTrust) -> Bool {
-        var isValid = false
-        
-        var result = SecTrustResultType.invalid
-        let status = SecTrustEvaluate(trust, &result)
-        
-        if status == errSecSuccess {
-            let unspecified = SecTrustResultType.unspecified
-            let proceed = SecTrustResultType.proceed
-            
-            isValid = result == unspecified || result == proceed
-        }
-        
-        return isValid
-    }
+    
 
     
-    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: (CachedURLResponse?) -> Swift.Void){
-        if shouldCache {
-            completionHandler(proposedResponse)
-        }
-    }
     
     
-//    #if !os(OSX)
+    
+    #if !os(OSX)
     public func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession){
         finish()
     }
-//    #endif
+    #endif
     
     
     
     // MARK: URLSessionTaskDelegate
-    var error: NSError?
+    
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: NSError?){
         self.error = error
         finish()
@@ -249,10 +244,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     
     // MARK: URLSessionDataDelegate
-    var expectedContentLength:Int64?
-    var response:URLResponse?
-    var data:Data?
-    var dataTask: URLSessionDataTask?
+
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
         self.dataTask = dataTask
@@ -262,7 +254,11 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         completionHandler(URLSession.ResponseDisposition.allow)
     }
     
-    
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: (CachedURLResponse?) -> Swift.Void){
+        if shouldCache {
+            completionHandler(proposedResponse)
+        }
+    }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome downloadTask: URLSessionDownloadTask){
     }

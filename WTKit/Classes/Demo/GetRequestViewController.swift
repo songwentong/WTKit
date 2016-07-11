@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
     
+    @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var requestButton: UIButton!
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var resultTextView: UITextView!
@@ -96,9 +97,10 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                 
                 if error == nil{
                     
-                    
+                    self.webView.loadHTMLString((data?.toUTF8String())!, baseURL: nil);
                     let string = data?.toUTF8String()
-                    
+                    self.webView.isHidden = true
+//                    self.resultTextView.isHidden = true
                     
                     self.resultTextView.text = string
                     self.resultTextView.flashScrollIndicators()
