@@ -32,7 +32,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
         checkTextLength()
         super.viewDidLoad()
         
-//        self.navigationItem.hidesBackButton = true
+        //        self.navigationItem.hidesBackButton = true
     }
     deinit{
         WTLog("deinit")
@@ -46,7 +46,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        WTPrint(self.navigationItem.leftBarButtonItem)
+        //        WTPrint(self.navigationItem.leftBarButtonItem)
     }
     
     //根据当时文本框的内容来控制按钮是否可用
@@ -61,11 +61,11 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
         }
     }
     @IBAction func methodChanged(_ sender: AnyObject) {
-//        var enabled = true
-//        if methodSegment.selectedSegmentIndex==0 {
-//            enabled = false
-//        }
-//        rightItem.enabled = enabled
+        //        var enabled = true
+        //        if methodSegment.selectedSegmentIndex==0 {
+        //            enabled = false
+        //        }
+        //        rightItem.enabled = enabled
     }
     @IBAction func rightItemPressed(_ sender: AnyObject) {
         self.performSegue(withIdentifier: "parameters", sender: nil)
@@ -74,9 +74,9 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
     @IBAction func requestButtonPressed(_ sender: AnyObject) {
         let string = urlTextField.text
         if string != nil {
-//            let request = NSMutableURLRequest.request(string!)
-//            let queue = NSURLSession.sharedSession().delegateQueue
-//            WTPrint(queue)
+            //            let request = NSMutableURLRequest.request(string!)
+            //            let queue = NSURLSession.sharedSession().delegateQueue
+            //            WTPrint(queue)
             
             self.showLoadingView()
             requestButton.isEnabled = false
@@ -87,50 +87,49 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
             
             UserDefaults.standard.set(urlTextField.text, forKey: lastURLKey)
             let request = URLRequest.request(string!, method: method, parameters: parameters, headers: nil)
-//            let credential = URLCredential(user: "user", password: "password", persistence: URLCredential.Persistence.permanent)
+            //            let credential = URLCredential(user: "user", password: "password", persistence: URLCredential.Persistence.permanent)
             let task = URLSession.wtDataTask(with: request, completionHandler: { (data, response, error) in
-                OperationQueue.main({
-                    self.hideLoadingView()
-                    self.requestButton.isEnabled = true
+                
+                self.hideLoadingView()
+                self.requestButton.isEnabled = true
+                
+                if error == nil{
                     
-                    if error == nil{
-                        
-                        
-                        let string = data?.toUTF8String()
-                        
-                        
-                        self.resultTextView.text = string
-                        self.resultTextView.flashScrollIndicators()
-                        
-                        
-                        
-                        if (string?.length == 0){
-                            self.showHudWithTip("请求成功,数据不是UTF8格式")
-                        }else{
-                            self.showHudWithTip("请求成功")
-                        }
-                        
+                    
+                    let string = data?.toUTF8String()
+                    
+                    
+                    self.resultTextView.text = string
+                    self.resultTextView.flashScrollIndicators()
+                    
+                    
+                    
+                    if (string?.length == 0){
+                        self.showHudWithTip("请求成功,数据不是UTF8格式")
                     }else{
-                        self.showHudWithTip("请求失败")
+                        self.showHudWithTip("请求成功")
                     }
                     
-                })
-
+                }else{
+                    self.showHudWithTip("请求失败")
+                }
+                
+                
             })
             task.resume()
             /*
-            let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+             let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
              
-            })
-            task.resume()
-            */
+             })
+             task.resume()
+             */
         }else{
             
         }
         
         
     }
- 
+    
     override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         if let paraVC = segue.destinationViewController as? POSTParamatersVC {
             paraVC.delegate = self

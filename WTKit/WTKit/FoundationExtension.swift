@@ -176,12 +176,16 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     }
     
     
-    
+    private func finish(){
+        OperationQueue.main {
+            self.completionHandler?(self.data,self.response,self.error)
+        }
+    }
     
     // MARK: Delegate Methods
     
     public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: NSError?){
-        completionHandler?(data,response,error)
+        finish()
     }
     
     
@@ -199,7 +203,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
 //    #if !os(OSX)
     public func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession){
-        completionHandler?(data,response,nil)
+        finish()
     }
 //    #endif
     
@@ -209,8 +213,10 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     var error: NSError?
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: NSError?){
         self.error = error
-        completionHandler?(data,response,error)
+        finish()
     }
+    
+    
     
     
     // MARK: URLSessionDataDelegate

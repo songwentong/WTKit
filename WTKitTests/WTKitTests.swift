@@ -24,12 +24,21 @@ class WTKitTests: XCTestCase {
         testParseJSON()
     }
     func testReqeust(){
+        var request:URLRequest?
         _ = URLRequest.request("")
         _ = URLRequest.request("", method: "")
         _ = URLRequest.request("", method: "", parameters: nil)
-        _ = URLRequest.request("", method: "", parameters: nil, headers: nil)
-        let reqeust = URLRequest.request("http://www.baidu.com")
-        let session = URLSession.shared
+        request = URLRequest.request("http://www.baidu.com", method: "", parameters: nil, headers: nil)
+        let credential = URLCredential(user: "user", password: "pwd", persistence:URLCredential.Persistence.forSession)
+        var task = URLSession.wtDataTask(with: request!, credential: credential) { (data, response, error) in
+            
+        }
+        task = URLSession.wtDataTask(with: request!, completionHandler: { (data, response, error) in
+            
+        })
+        task.resume()
+//        let reqeust = URLRequest.request("http://www.baidu.com")
+//        let session = URLSession.shared
 //        session.delegate = WTURLSessionDelegate()
         
     }
@@ -86,21 +95,21 @@ class WTKitTests: XCTestCase {
         // This is an example of a functional test case.
         
         OperationQueue.main {
-            let thread = Thread.current()
+            let thread = Thread.current
             print("main:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
         }
         OperationQueue.background {
-            let thread = Thread.current()
+            let thread = Thread.current
             print("background:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
             
         }
         OperationQueue.userInteractive {
-            let thread = Thread.current()
+            let thread = Thread.current
             print("userInteractive:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
             
         }
         OperationQueue.globalQueue {
-            let thread = Thread.current()
+            let thread = Thread.current
             print("globalQueue:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
         }
 
