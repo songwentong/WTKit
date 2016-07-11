@@ -68,7 +68,7 @@ public func DEBUGBlock(_ block:() -> Void){
 /*!
     安全的回到主线程
 */
-public func safeSyncInMain(_ block:()->Void)->Void{
+public func safeSyncInMain(with block:()->Void)->Void{
     if Thread.current.isMainThread {
         block()
     }else{

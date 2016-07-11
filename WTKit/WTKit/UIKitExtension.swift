@@ -374,7 +374,7 @@ extension UIButton{
         
         OperationQueue.userInteractive {
             let operation = UIImage.imageOperationWithURL(url) { [weak self](image, error) in
-                    safeSyncInMain({
+                    safeSyncInMain(with: {
                         self?.setImage(image, for: forState)
                         self?.setNeedsLayout()
                         if complection != nil {
@@ -490,7 +490,6 @@ public class ImageDownloadOperaion:Operation{
 }
 
 extension UIImage{
-    
     
     /*!
      TODO
@@ -651,7 +650,7 @@ extension UIImageView{
         }
         OperationQueue.globalQueue {
             let operation = UIImage.imageOperationWithURL(url) { [weak self](image:UIImage?, error:NSError?) -> Void in
-                    safeSyncInMain({
+                    safeSyncInMain(with: {
                         self?.image = image
                         self?.setNeedsLayout()
                     })
@@ -671,10 +670,11 @@ extension UIImageView{
     public func sethighlightedImageWith(_ url:String?="" ,placeHolder:UIImage? = nil){
         safeSyncInMain {
             self.highlightedImage = placeHolder
+            self.setNeedsLayout()
         }
         OperationQueue.globalQueue {
             let operation = UIImage.imageOperationWithURL(url!) { [weak self](image:UIImage?, error:NSError?) -> Void in
-                safeSyncInMain({
+                safeSyncInMain(with: {
                     self?.highlightedImage = image;
                     self?.setNeedsLayout()
                 })
