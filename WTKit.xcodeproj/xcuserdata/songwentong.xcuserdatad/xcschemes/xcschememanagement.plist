@@ -4,8 +4,10 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>WTKit.xcscheme</key>
+		<key>WTKit.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
