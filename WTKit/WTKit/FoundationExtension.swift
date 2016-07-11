@@ -114,7 +114,7 @@ extension URLSession{
      */
     public static func wtDataTask(with url:String, method:String?="GET",parameters:[String:String]?=[:],headers: [String: String]? = [:] ,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->URLSessionDataTask{
         let request = URLRequest.request(url, method: method, parameters: parameters, headers: headers)
-        return self.wtDataTask(with: request, completionHandler: completionHandler)
+        return self.wtDataTask(with: request,credential:credential, completionHandler: completionHandler)
     }
  
     /*!
