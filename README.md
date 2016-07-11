@@ -43,6 +43,11 @@ data?.parseJSON({ (obj, error) in
 ```
 - NSURLSession 
 ```swift
+//task from url
+public static func wtDataTask(with url:String, method:String?="GET",parameters:[String:String]?=[:],headers: [String: String]? = [:] ,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->URLSessionDataTask
+//task from request
+public static func wtDataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->URLSessionDataTask
+
 //create a request and start 
 //optional parameters: method,parameters,headers
 NSURLSession.dataTaskWith("url", completionHandler: { (data, response, error) in
@@ -51,6 +56,9 @@ NSURLSession.dataTaskWith("url", completionHandler: { (data, response, error) in
 ```
 - NSURLRequest 
 ```swift
+// Creates and initializes a URLRequest with the given URL
+public static func request(_ url:String, method:String?="GET", parameters:[String:String]?=[:],headers: [String: String]?=[:]) -> URLRequest
+
 //create a request instance
 //optional parameters: method,parameters,headers
 let request:NSMutableURLRequest? = NSURLRequest.request("url", method: "GET", parameters: nil)
