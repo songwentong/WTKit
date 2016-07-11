@@ -108,13 +108,24 @@ func bridgeTransfer<T : AnyObject>(ptr : UnsafePointer<Void>) -> T {
 
 
 extension URLSession{
-//    private static let sharedInstance = URLSession(configuration: URLSessionConfiguration(), delegate: WTURLSessionDelegate(), delegateQueue: OperationQueue())
-//    public class var shared: URLSession {
-//        get{
-//            return sharedInstance
-//        }
-//    }
     
+    /*
+        便捷的请求方法.
+     */
+    public static func wtDataTask(with url:String, method:String?="GET",parameters:[String:String]?=[:],headers: [String: String]? = [:] ,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->URLSessionDataTask{
+        let request = URLRequest.request(url, method: method, parameters: parameters, headers: headers)
+        let delegate = WTURLSessionDelegate()
+        delegate.completionHandler = completionHandler
+        delegate.credential = credential
+        let configuration = URLSessionConfiguration.default
+        let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
+        let task = session.dataTask(with: request)
+        return task
+    }
+ 
+    /*!
+        根据请求对象,凭据来创建task
+     */
     public static func wtDataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->URLSessionDataTask{
 
         let delegate = WTURLSessionDelegate()
@@ -124,7 +135,6 @@ extension URLSession{
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
         let task = session.dataTask(with: request)
-//        task.resume()
         return task
     }
     
@@ -283,7 +293,7 @@ extension URLRequest{
         根据url,方法,参数和header创建一个请求
         方法默认是GET,参数默认是空,请求头默认是空
      */
-    public static func request(_ url:String, method:String?="GET", parameters:[String:String]?=[:],headers: [String: String]? = [:]) -> URLRequest{
+    public static func request(_ url:String, method:String?="GET", parameters:[String:String]?=[:],headers: [String: String]?=[:]) -> URLRequest{
         
         let queryString = self.queryString(from:parameters)!
         var request:URLRequest
