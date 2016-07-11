@@ -9,6 +9,7 @@
 import XCTest
 import WTKit
 class WTKitTests: XCTestCase {
+    let timeout: TimeInterval = 30.0
     
     override func setUp() {
         super.setUp()
@@ -128,4 +129,21 @@ class WTKitTests: XCTestCase {
         }
     }
     
+}
+class AuthenticationTestCase:WTKitTests{
+    let user = "user"
+    let password = "password"
+    var URLString = ""
+}
+class BasicAuthenticationTestCase:AuthenticationTestCase{
+    override func setUp() {
+        super.setUp()
+        URLString = "https://httpbin.org/basic-auth/\(user)/\(password)"
+    }
+    func testHTTPBasicAuthenticationWithInvalidCredentials() {
+        var request = URLRequest.request(URLString)
+        var task = URLSession.wtDataTask(with: request, credential: URLCredential(user: user,password: passwd)) { (data, response, error) in
+            
+        }
+    }
 }

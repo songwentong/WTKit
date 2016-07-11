@@ -31,7 +31,8 @@ class GifImageVC: UIViewController {
         
         //http://ww1.sinaimg.cn/bmiddle/006ajVGQgw1f4s8n25m5hg30b4081u0z.gif
         self.showLoadingView()
-        URLSession.cachedDataTaskWithRequest(URLRequest.request("http://ww1.sinaimg.cn/mw690/47449485jw1f4shxfge7lg208w04rkjn.gif") as URLRequest) { (data, response, error) in
+        let request = URLRequest.request("http://ww1.sinaimg.cn/mw690/47449485jw1f4shxfge7lg208w04rkjn.gif")
+        URLSession.cachedDataTask(with: request, credential: nil) { (data, response, error) in
             if data != nil {
                 
                 OperationQueue.main({
@@ -44,7 +45,6 @@ class GifImageVC: UIViewController {
                     self.imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(GifImageVC.imageTap(_:))))
                 })
             }
-            
         }
        
 //

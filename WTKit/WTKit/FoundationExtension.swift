@@ -128,20 +128,21 @@ extension URLSession{
         return task
     }
     
-    public static func cachedDataTaskWithRequest(_ request:URLRequest , completionHandler:(Data?, URLResponse?, NSError?) -> Void)->Void{
+    public static func cachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:(Data?, URLResponse?, NSError?) -> Void)->Void{
         let cache = URLCache.sharedURLCacheForRequests()
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            OperationQueue.main({
-                
-                completionHandler(data,response,error)
-            })
-            
+        let delegate = WTURLSessionDelegate()
+        delegate.completionHandler = { (data, response, error) in
+            completionHandler(data,response,error)
             if error == nil{
                 //保存当前请求
                 cache.storeCachedResponse(CachedURLResponse.init(response: response!, data: data!, userInfo: nil, storagePolicy: .allowed), for: request)
             }
         }
+        delegate.credential = credential
         
+        let configuration = URLSessionConfiguration.default
+        let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
+        let task = session.dataTask(with: request)
         let cachedResponseForRequest = cache.cachedResponse(for: request)
         //如果有本地保存,就直接使用
         if cachedResponseForRequest != nil {
@@ -164,6 +165,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     
     private static let sharedInstance = WTURLSessionDelegate()
+    var shouldCache = false
     
     //网址凭据
     var credential: URLCredential?
@@ -222,6 +224,12 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         return isValid
     }
 
+    
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: (CachedURLResponse?) -> Swift.Void){
+        if shouldCache {
+            
+        }
+    }
     
     
 //    #if !os(OSX)
