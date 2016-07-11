@@ -274,6 +274,8 @@
 				TargetAttributes = {
 					E10605031C87DF990017A469 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = LR2DH4466E;
+						DevelopmentTeamName = "wen tong song";
 						LastSwiftMigration = 0800;
 					};
 					E1BDC3B21CD3477D002318D0 = {
