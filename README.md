@@ -50,9 +50,11 @@ public static func wtDataTask(with request:URLRequest,credential:URLCredential?=
 
 //create a request and start 
 //optional parameters: method,parameters,headers
-NSURLSession.dataTaskWith("url", completionHandler: { (data, response, error) in
-                
-            })
+let url = "http://www.baidu.com"
+let task = URLSession.wtDataTask(with: url) { (data, response, error) in
+            
+}
+task.resume()
 ```
 - NSURLRequest 
 ```swift
