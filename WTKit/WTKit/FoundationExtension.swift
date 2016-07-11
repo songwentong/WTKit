@@ -191,10 +191,12 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
-
+        
         let disposition: Foundation.URLSession.AuthChallengeDisposition = .performDefaultHandling
+        var credential:URLCredential? = self.credential
         if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
-
+            let serverTrust = challenge.protectionSpace.serverTrust
+            credential = URLCredential(trust: serverTrust!)
         }
         completionHandler(disposition,credential)
     }
