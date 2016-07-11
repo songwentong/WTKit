@@ -24,12 +24,17 @@ class WTKitTests: XCTestCase {
         
         testParseJSON()
     }
+    func textURLSession(){
+        let url = "http://www.baidu.com"
+        let task = URLSession.wtDataTask(with: url) { (data, response, error) in
+            
+        }
+        task.resume()
+    }
     func testReqeust(){
         
         
-        URLSession.wtDataTask(with: "http:/www.baidu.com", method: nil, parameters: nil, headers: nil, credential: nil) { (data, response, error) in
-            
-        }.resume()
+    
         
         var request:URLRequest?
         _ = URLRequest.request("")
