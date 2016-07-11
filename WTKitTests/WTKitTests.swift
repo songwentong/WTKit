@@ -24,12 +24,24 @@ class WTKitTests: XCTestCase {
         
         testParseJSON()
     }
-    func textURLSession(){
+    func testURLSession(){
         let url = "http://www.baidu.com"
         let task = URLSession.wtDataTask(with: url) { (data, response, error) in
             
         }
         task.resume()
+        
+        print("int max: \(Int.max)")
+        //int max: 9223372036854775807     iPhone SE
+        //int max: 2147483647   iPhone 5
+//        print("sizeOfInt \( sizeof(Int.self))")
+        //sizeOfInt 8   iPhone SE
+        //sizeOfInt 4   iPhone5
+        #if arch(x86_64)
+            print("x86_64 sizeOfInt \( sizeof(Int.self))")
+        #else
+            print("not x86_64 sizeOfInt \( sizeof(Int.self))")
+        #endif
     }
     func testReqeust(){
         
@@ -152,9 +164,9 @@ class BasicAuthenticationTestCase:AuthenticationTestCase{
         URLString = "https://httpbin.org/basic-auth/\(user)/\(password)"
     }
     func testHTTPBasicAuthenticationWithInvalidCredentials() {
-        var request = URLRequest.request(URLString)
-        var task = URLSession.wtDataTask(with: request, credential: URLCredential(user: user,password: passwd)) { (data, response, error) in
-            
-        }
+//        var request = URLRequest.request(URLString)
+//        var task = URLSession.wtDataTask(with: request, credential: URLCredential(user: user,password: passwd)) { (data, response, error) in
+        
+//        }
     }
 }

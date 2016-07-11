@@ -549,6 +549,7 @@ extension URLCache{
             
         }else{
             //0M memory, 1G Disk
+//            let diskCapacity:Int = 4 * 1024 * 1024 * 1024
             cache = URLCache(memoryCapacity: 0, diskCapacity: 1*1024*1024*1024, diskPath: "sharedURLCacheForRequestsKey")
             objc_setAssociatedObject(OperationQueue.main, &sharedURLCacheForRequestsKey, cache, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
