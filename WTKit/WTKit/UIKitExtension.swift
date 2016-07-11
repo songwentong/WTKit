@@ -647,6 +647,7 @@ extension UIImageView{
     public func setImage(with url:String ,placeHolder:UIImage? = nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil)->Void{
         safeSyncInMain { 
             self.image = placeHolder
+            self.setNeedsLayout()
         }
         OperationQueue.globalQueue {
             let operation = UIImage.imageOperationWithURL(url) { [weak self](image:UIImage?, error:NSError?) -> Void in
