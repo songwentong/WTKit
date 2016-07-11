@@ -196,11 +196,32 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         var credential:URLCredential? = self.credential
         if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
             let serverTrust = challenge.protectionSpace.serverTrust
-            credential = URLCredential(trust: serverTrust!)
+            if serverTrust != nil {
+                if self.trustIsValid(serverTrust!) {
+                    credential = URLCredential(trust: serverTrust!)
+                }
+            }
         }
         completionHandler(disposition,credential)
     }
     
+    
+    private func trustIsValid(_ trust:SecTrust) -> Bool {
+        var isValid = false
+        
+        var result = SecTrustResultType.invalid
+        let status = SecTrustEvaluate(trust, &result)
+        
+        if status == errSecSuccess {
+            let unspecified = SecTrustResultType.unspecified
+            let proceed = SecTrustResultType.proceed
+            
+            isValid = result == unspecified || result == proceed
+        }
+        
+        return isValid
+    }
+
     
     
 //    #if !os(OSX)

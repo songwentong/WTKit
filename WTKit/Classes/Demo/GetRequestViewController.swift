@@ -73,6 +73,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
     
     @IBAction func requestButtonPressed(_ sender: AnyObject) {
         let string = urlTextField.text
+        
         if string != nil {
             //            let request = NSMutableURLRequest.request(string!)
             //            let queue = NSURLSession.sharedSession().delegateQueue
@@ -84,8 +85,8 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
             if methodSegment.selectedSegmentIndex == 1 {
                 method = "POST"
             }
-            
-            UserDefaults.standard.set(urlTextField.text, forKey: lastURLKey)
+//            string = "https://httpbin.org"
+            UserDefaults.standard.set(string, forKey: lastURLKey)
             let request = URLRequest.request(string!, method: method, parameters: parameters, headers: nil)
             //            let credential = URLCredential(user: "user", password: "password", persistence: URLCredential.Persistence.permanent)
             let task = URLSession.wtDataTask(with: request, completionHandler: { (data, response, error) in
