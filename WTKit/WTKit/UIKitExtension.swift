@@ -344,27 +344,26 @@ extension UIControl{
 
 //图片下载的key
 private var UIButtonImageDownloadOperationKey:Void?
+private var WTUIButtonImageDownloadTaskKey:Void?
 extension UIButton{
-    
-    internal var imageOperation:ImageDownloadOperaion?{
+    internal var wtImageTask:URLSessionDataTask?{
         get{
-            let operation = objc_getAssociatedObject(self, &UIButtonImageDownloadOperationKey)
-            if operation == nil {
-                return nil
-            }
-            return operation as? ImageDownloadOperaion
+            let task = objc_getAssociatedObject(self, &WTUIButtonImageDownloadTaskKey)
+            return task as? URLSessionDataTask
         }
         set{
-            let operation = self.imageOperation
-            
-            if (operation != nil) {
-                operation?.cancel()
+            let task = objc_getAssociatedObject(self, &WTUIButtonImageDownloadTaskKey)
+            if task != nil {
+                if task is URLSessionDataTask {
+                    let myTask:URLSessionDataTask = task as! URLSessionDataTask
+                    myTask.cancel()
+                }
             }
-            
-            
-            objc_setAssociatedObject(self, &UIButtonImageDownloadOperationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &WTUIButtonImageDownloadTaskKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
+    
+    
 
 // MARK: - 设置一张网络图片,并缓存下来
     public func setImageWith(_ url:String, forState:UIControlState,placeHolder:UIImage?=nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil) {
@@ -373,121 +372,22 @@ extension UIButton{
         }
         
         OperationQueue.userInteractive {
-            let operation = UIImage.imageOperationWithURL(url) { [weak self](image, error) in
-                    safeSyncInMain(with: {
-                        self?.setImage(image, for: forState)
-                        self?.setNeedsLayout()
-                        if complection != nil {
-                            complection!(image:image,error: error)
-                        }
-                        
-                    })
-            };
-            self.imageOperation = operation
-            operation?.start()
-        }
-    }
-    
-    public func cancelDownloadingImage(){
-        self.imageOperation = nil
-    }
-}
-
-
-
-
-//下载图片的operation
-public class ImageDownloadOperaion:Operation{
-
-    var _cancelled = false // Our read-write mirror of the super's read-only executing property
-    override public func cancel(){
-        self.isCancelled = true
-    }
-    
-    /// Override read-only superclass property as read-write.
-    override public var isCancelled: Bool {
-        get { return _cancelled }
-        set {
-            willChangeValue(forKey: "isExecuting")
-            _cancelled = newValue
-            didChangeValue(forKey: "isExecuting")
-        }
-    }
-    
-    let url:String
-    let completionHandler: (image:UIImage?,error:NSError?)->Void
-    init(url:String,completionHandler: (image:UIImage?,error:NSError?)->Void) {
-        self.completionHandler = completionHandler
-        self.url = url
-        super.init()
-    }
-    
-    
-     deinit{
-//        WTLog("ImageDownloadOperaion deinit")
-    }
-    override public func main() {
-        
-        let request = URLRequest(url: URL.init(string: url)!)
-        
-        let sharedURLCache = UIImage.sharedURLCache()
-        
-        //找到对应的缓存
-        let cachedResponseForRequest = sharedURLCache.cachedResponse(for: request);
-        
-        
-        
-        if (cachedResponseForRequest == nil){
-            
-            
-            //weak self 使用场景:self 可能为空    unowned 使用场景:self 不能为空
-            let task =  URLSession.shared.dataTask(with: request, completionHandler: { [weak self](data, response, error1) -> Void in
-                    if(error1 == nil){
-                        OperationQueue.globalQueue({ 
-                            let image = UIImage(data: data!)
-                            
-                            if self != nil{
-                                if(!self!.isCancelled){
-                                    self!.completionHandler(image: image, error:error1)
-                                }
-                            }
-                            
-                            
-                            let responseToCache = CachedURLResponse(response: response!, data: data!, userInfo: nil, storagePolicy: URLCache.StoragePolicy.allowed)
-                            sharedURLCache.storeCachedResponse(responseToCache, for:request )
-                        })
-                        
-                        
-                        
-                    }else{
-                        if (self != nil){
-                            if(!self!.isCancelled){
-                                self!.completionHandler(image: nil, error: error1)
-                            }
-                        }
-                        
-                        
+            let task = UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
+                safeSyncInMain(with: { 
+                    self?.setImage(image, for: forState)
+                    self?.setNeedsLayout()
+                    if complection != nil {
+                        complection!(image:image,error: error)
                     }
-                    
                 })
-                task.resume()
-            
-        }else{
-            OperationQueue.globalQueue({ 
-                let image = UIImage(data: (cachedResponseForRequest?.data)!)
-                if !self.isCancelled {
-                    self.completionHandler(image: image, error: nil)
-                }
             })
-            
-            
-            
+            self.wtImageTask = task
+            task.resume()
         }
-        
     }
-
     
 }
+
 
 extension UIImage{
     
@@ -519,10 +419,26 @@ extension UIImage{
     }
     
 
-    //创建一个可以缓存图片的operation
-    public class func imageOperationWithURL(_ url:String, completionHandler: (image:UIImage?,error:NSError?)->Void)->ImageDownloadOperaion!{
-        return ImageDownloadOperaion.init(url: url, completionHandler: completionHandler)
+    
+    public class func cachedImageDataTask(with url:String, complection:(image:UIImage?,error:NSError?)->Void )->URLSessionDataTask{
+        let request = URLRequest.request(url)
+        
+        
+        let myTask = URLSession.wtCachedDataTask(with: request, completionHandler: { (data, response, error) in
+            var image:UIImage?
+            if (data != nil){
+                 image = UIImage(data: data!)
+            }
+            
+            complection(image: image,error: error)
+            
+        })
+        
+        return myTask
+        
+        
     }
+    
     //创建一个带圆角的图片
     public func imageWithRoundCornerRadius(_ radius:CGFloat) -> UIImage{
     
@@ -592,51 +508,49 @@ extension UIImage{
 //图片下载的键值对
 private var UIImageViewImageDownloadKey:Void?
 private var UIImageViewHighLightedImageDownloadKey:Void?
+private var WTUIImageViewImageDataTaskKey:Void?
+private var WTUIImageViewHighLightedImageDataTaskKey:Void?
 extension UIImageView{
     
     public static func clearAllImageCache(){
         UIImage.sharedURLCache().removeAllCachedResponses()
     }
     
-    
-
-    internal var imageOperation:ImageDownloadOperaion?{
+    internal var wtImageTask:URLSessionDataTask?{
         get{
-            let operation = objc_getAssociatedObject(self, &UIImageViewImageDownloadKey)
-            if operation == nil {
-                return nil
-            }
-            return operation as? ImageDownloadOperaion
+            let task = objc_getAssociatedObject(self, &WTUIImageViewImageDataTaskKey)
+            return task as? URLSessionDataTask
         }
         set{
-            let operation = self.imageOperation
-                if (operation != nil) {
-                    operation?.cancel()
+            let task = objc_getAssociatedObject(self, &WTUIImageViewImageDataTaskKey)
+            if task != nil {
+                if task is URLSessionDataTask {
+                    let myTask:URLSessionDataTask = task as! URLSessionDataTask
+                    myTask.cancel()
                 }
-            objc_setAssociatedObject(self, &UIImageViewImageDownloadKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }
+            objc_setAssociatedObject(self, &WTUIImageViewImageDataTaskKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
-    internal var highlightedImageOperation:ImageDownloadOperaion?{
+    internal var wtHighLightedImageTask:URLSessionDataTask?{
         get{
-            let operation = objc_getAssociatedObject(self, &UIImageViewHighLightedImageDownloadKey)
-            if operation == nil {
-                return nil
-            }
-            return operation as? ImageDownloadOperaion
+            let task = objc_getAssociatedObject(self, &WTUIImageViewHighLightedImageDataTaskKey)
+            return task as? URLSessionDataTask
         }
         set{
-            let operation = self.imageOperation
-            if (operation?.isExecuting == true) {
-                operation?.cancel()
+            let task = objc_getAssociatedObject(self, &WTUIImageViewHighLightedImageDataTaskKey)
+            if task != nil {
+                if task is URLSessionDataTask {
+                    let myTask:URLSessionDataTask = task as! URLSessionDataTask
+                    myTask.cancel()
+                }
             }
-            objc_setAssociatedObject(self, &UIImageViewHighLightedImageDownloadKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &WTUIImageViewHighLightedImageDataTaskKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
+    
 
-    public static func cacheImageWith(url:String){
-        
-    }
     
 // MARK: - 设置一张网络图片,并缓存下来
     /*!
@@ -650,40 +564,41 @@ extension UIImageView{
             self.setNeedsLayout()
         }
         OperationQueue.globalQueue {
-            let operation = UIImage.imageOperationWithURL(url) { [weak self](image:UIImage?, error:NSError?) -> Void in
-                    safeSyncInMain(with: {
-                        self?.image = image
-                        self?.setNeedsLayout()
-                    })
-                if complection != nil{
-                    complection!(image:image,error:error)
-                }
-            }
+            let task =  UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
+                            safeSyncInMain(with: {
+                                    self?.image = image
+                                    self?.setNeedsLayout()
+                                })
+                        if complection != nil {
+                                complection!(image:image,error:error)
+                        }
+                })
+            self.wtImageTask = task
+            task.resume()
             
-            self.imageOperation = operation
-            operation?.start()
         }
     }
     
     /*!
         设置高亮图
      */
-    public func sethighlightedImageWith(_ url:String?="" ,placeHolder:UIImage? = nil){
+    public func sethighlightedImageWith(_ url:String ,placeHolder:UIImage? = nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil)->Void{
         safeSyncInMain {
             self.highlightedImage = placeHolder
             self.setNeedsLayout()
         }
         OperationQueue.globalQueue {
-            let operation = UIImage.imageOperationWithURL(url!) { [weak self](image:UIImage?, error:NSError?) -> Void in
+            let task =  UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
                 safeSyncInMain(with: {
-                    self?.highlightedImage = image;
+                    self?.image = image
                     self?.setNeedsLayout()
                 })
-                
-            }
-            
-            self.highlightedImageOperation = operation
-            operation?.start()
+                if complection != nil {
+                    complection!(image:image,error:error)
+                }
+                })
+            self.wtHighLightedImageTask = task
+            task.resume()
         }
     }
     

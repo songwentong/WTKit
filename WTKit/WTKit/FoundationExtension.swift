@@ -125,6 +125,7 @@ extension URLSession{
         let delegate = WTURLSessionDelegate()
         delegate.completionHandler = completionHandler
         delegate.credential = credential
+        delegate.shouldCache = true
         
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
@@ -132,7 +133,7 @@ extension URLSession{
         return task
     }
     
-    public static func cachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:(Data?, URLResponse?, NSError?) -> Void)->Void{
+    public static func wtCachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:(Data?, URLResponse?, NSError?) -> Void)->URLSessionDataTask{
         let cache = URLCache.sharedURLCacheForRequests()
         let delegate = WTURLSessionDelegate()
         delegate.completionHandler = { (data, response, error) in
@@ -142,21 +143,14 @@ extension URLSession{
                 cache.storeCachedResponse(CachedURLResponse.init(response: response!, data: data!, userInfo: nil, storagePolicy: .allowed), for: request)
             }
         }
+        delegate.shouldCache = true
         delegate.credential = credential
-        
         let configuration = URLSessionConfiguration.default
         let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
-        let task = session.dataTask(with: request)
-        let cachedResponseForRequest = cache.cachedResponse(for: request)
-        //如果有本地保存,就直接使用
-        if cachedResponseForRequest != nil {
-            OperationQueue.main({
-                completionHandler(cachedResponseForRequest?.data,cachedResponseForRequest?.response,nil)
-            })
-        }else{
-            task.resume()
-        }
-        
+        var myRequest = request
+        myRequest.cachePolicy = .returnCacheDataDontLoad
+        let task = session.dataTask(with: myRequest)
+        return task
     }
     
     
@@ -231,7 +225,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: (CachedURLResponse?) -> Swift.Void){
         if shouldCache {
-            
+            completionHandler(proposedResponse)
         }
     }
     
