@@ -165,7 +165,6 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     //网址凭据
     var credential: URLCredential?
     var completionHandler: ((Data?, URLResponse?, NSError?) -> Swift.Void)?
-    var expectedContentLength:Int64?
     var response:URLResponse?
     var data:Data?
     var dataTask: URLSessionDataTask?
@@ -248,7 +247,6 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
         self.dataTask = dataTask
-        expectedContentLength = response.expectedContentLength
         self.response = response
         data = Data()
         completionHandler(URLSession.ResponseDisposition.allow)
