@@ -145,8 +145,9 @@ extension URLSession{
         configuration.urlCache = URLCache.sharedURLCacheForRequests()
         let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
         var myRequest = request
-        myRequest.cachePolicy = .returnCacheDataDontLoad
+        myRequest.cachePolicy = .returnCacheDataElseLoad
         let task = session.dataTask(with: myRequest)
+        
         return task
     }
     
@@ -248,14 +249,26 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
         self.dataTask = dataTask
         self.response = response
-        data = Data()
-        completionHandler(URLSession.ResponseDisposition.allow)
+        session.configuration.urlCache?.getCachedResponse(for: dataTask, completionHandler: { [weak self](cachedURLResponse) in
+            if cachedURLResponse != nil{
+                self?.data = cachedURLResponse?.data
+                self?.response = cachedURLResponse?.response
+                completionHandler(URLSession.ResponseDisposition.cancel)
+            }else{
+                self?.data = Data()
+                completionHandler(URLSession.ResponseDisposition.allow)
+            }
+        })
+        
     }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: (CachedURLResponse?) -> Swift.Void){
-        if shouldCache {
-            completionHandler(proposedResponse)
+        if self.error == nil {
+            if shouldCache {
+                completionHandler(proposedResponse)
+            }
         }
+        
     }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome downloadTask: URLSessionDownloadTask){
