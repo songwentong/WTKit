@@ -167,7 +167,10 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     var credential: URLCredential?
     var completionHandler: ((Data?, URLResponse?, NSError?) -> Swift.Void)?
     var response:URLResponse?
-    var data:Data = Data()
+    
+    
+    //懒加载,需要的时候创建对象
+    lazy var data:Data = Data()
     var dataTask: URLSessionDataTask?
     var error: NSError?
     
