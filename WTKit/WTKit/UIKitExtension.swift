@@ -111,7 +111,9 @@ extension UIApplication{
     
     
   
-    
+    public class func openSettings(){
+        UIApplication.shared().openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+    }
     
        
 // MARK: - 版本号/build号/bundleID/程序名

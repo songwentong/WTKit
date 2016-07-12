@@ -17,8 +17,17 @@ public protocol WTSocketSessionDelegate:NSObjectProtocol{
 public class WTSocketSession:NSObject{
     weak var delegate:WTSocketSessionDelegate?
     var request:URLRequest?
+    var delegateQueue:OperationQueue?
+    var inputStream:InputStream?
+    var outputStream:OutputStream?
+    override init(){
+//        CFStreamCreatePairWithSocket(<#T##alloc: CFAllocator!##CFAllocator!#>, <#T##sock: CFSocketNativeHandle##CFSocketNativeHandle#>, <#T##readStream: UnsafeMutablePointer<Unmanaged<CFReadStream>?>!##UnsafeMutablePointer<Unmanaged<CFReadStream>?>!#>, <#T##writeStream: UnsafeMutablePointer<Unmanaged<CFWriteStream>?>!##UnsafeMutablePointer<Unmanaged<CFWriteStream>?>!#>)
+    }
     public func open(){
     }
     public func close(){
+    }
+    public func send(data:AnyObject){
+        
     }
 }
