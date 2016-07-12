@@ -67,6 +67,14 @@ class WTKitTests: XCTestCase {
         
     }
     
+    func testColorStatus(){
+        for i in 0...255{
+            let status = Float(Float(i) * 0.01)
+            let color = UIColor.wtStatusColor(with: status)
+            print("color: \(color)")
+        }
+    }
+    
     func testUIApplication(){
         /*
         UIApplication.track()

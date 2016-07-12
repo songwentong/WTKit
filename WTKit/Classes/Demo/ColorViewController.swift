@@ -11,6 +11,7 @@ import UIKit
 class ColorViewController: UIViewController {
     @IBOutlet weak var colorView: UIView!
     @IBOutlet weak var textView: UITextField!
+    @IBOutlet weak var mySlider: UISlider!
     deinit{
         WTLog("deinit")
     }
@@ -39,6 +40,11 @@ class ColorViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func sliderValueChanged(_ sender: AnyObject) {
+        let color = UIColor.wtStatusColor(with: mySlider.value)
+        WTLog("myColor \(color)")
+        colorView.backgroundColor = color
+    }
 
     /*
     // MARK: - Navigation

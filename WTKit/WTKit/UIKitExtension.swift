@@ -91,6 +91,17 @@ extension UIColor{
         color = UIColor(red: randomColorValue(), green: randomColorValue(), blue: randomColorValue(), alpha: 1.0);
         return color
     }
+    
+    
+    
+    //传入0-1   0是最差   1是最好
+    public class func wtStatusColor(with status:Float)->UIColor{
+        let myStatus = max(min(status, 1), 0)
+        let red:CGFloat = CGFloat (myStatus * 2)
+        let green:CGFloat = CGFloat (myStatus * -2 + 2)
+        return UIColor.init(red: red, green: green, blue: 0, alpha: 1)
+    }
+    
 }
 
 private let UIApplicationVersionsKey = "WTKit UIapplication versions key"

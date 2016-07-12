@@ -16,17 +16,17 @@
                         <viewControllerLayoutGuide type="bottom" id="zfh-2V-DuU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="LtN-un-XQJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="43L-0z-BUE">
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="3jQ-60-igf">
-                                        <frame key="frameInset" minY="56" width="375" height="44"/>
+                                        <frame key="frameInset" minY="56" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3jQ-60-igf" id="fct-7V-UNj">
-                                            <frame key="frameInset" width="375" height="43"/>
+                                            <frame key="frameInset" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -64,7 +64,7 @@
                         <viewControllerLayoutGuide type="bottom" id="pHU-E7-8cw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vyN-gB-YeZ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="eRa-Fg-Lbf">
@@ -156,17 +156,17 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="9eM-Kb-oMm">
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="V4h-3e-YEW">
-                                        <frame key="frameInset" minY="56" width="375" height="44"/>
+                                        <frame key="frameInset" minY="56" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="V4h-3e-YEW" id="Mdp-rr-hSL">
-                                            <frame key="frameInset" width="375" height="43"/>
+                                            <frame key="frameInset" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -213,7 +213,7 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="G4j-Op-Jed"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WJK-D3-B2p">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OCo-m4-8CM">
@@ -312,7 +312,7 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="xUs-Sg-sEs"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ECq-Ry-ZW5">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -341,17 +341,17 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="P8T-Ka-MeU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mKB-1h-OlE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="O8W-WB-ZUt">
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="ppa-MW-IE5">
-                                        <frame key="frameInset" minY="56" width="375" height="44"/>
+                                        <frame key="frameInset" minY="56" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ppa-MW-IE5" id="lIv-LE-mKj">
-                                            <frame key="frameInset" width="375" height="43"/>
+                                            <frame key="frameInset" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -388,7 +388,7 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="7cC-71-VSC"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="h5D-5h-hw2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请注意根据代码中的提示来启动服务器接收文件" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWQ-sl-9sG">
@@ -447,7 +447,7 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="kna-wA-nGe"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Sfp-7I-Iax">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g4F-8w-0re">
@@ -459,7 +459,6 @@ Internet traffic will be routed through it.</string>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="#00ff00" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f5f-3Q-yQJ">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="FYf-zn-HCj"/>
-                                    <constraint firstAttribute="width" constant="200" id="YYL-yk-CZo"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -467,19 +466,39 @@ Internet traffic will be routed through it.</string>
                                     <action selector="editChanged:" destination="aYe-8M-Edg" eventType="editingChanged" id="T1O-ss-q0C"/>
                                 </connections>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="警告色" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ptM-kq-lj9">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="rhD-D4-aJb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="GDb-ex-WCG">
+                                <connections>
+                                    <action selector="sliderValueChanged:" destination="aYe-8M-Edg" eventType="valueChanged" id="AzZ-nq-PUP"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="f5f-3Q-yQJ" secondAttribute="trailing" constant="20" id="1ae-6o-s0U"/>
                             <constraint firstItem="f5f-3Q-yQJ" firstAttribute="top" secondItem="g4F-8w-0re" secondAttribute="bottom" constant="40" id="8du-Dh-jqF"/>
                             <constraint firstItem="g4F-8w-0re" firstAttribute="leading" secondItem="Sfp-7I-Iax" secondAttribute="leading" constant="10" id="EZz-MI-FLP"/>
+                            <constraint firstItem="f5f-3Q-yQJ" firstAttribute="leading" secondItem="Sfp-7I-Iax" secondAttribute="leading" constant="20" id="GFD-iG-XAh"/>
+                            <constraint firstItem="ptM-kq-lj9" firstAttribute="leading" secondItem="Sfp-7I-Iax" secondAttribute="leading" constant="20" id="LfA-sE-Qq5"/>
                             <constraint firstAttribute="trailing" secondItem="g4F-8w-0re" secondAttribute="trailing" constant="10" id="R7R-lA-kq3"/>
+                            <constraint firstItem="GDb-ex-WCG" firstAttribute="top" secondItem="ptM-kq-lj9" secondAttribute="bottom" constant="19" id="WsZ-ZD-Jcz"/>
+                            <constraint firstItem="GDb-ex-WCG" firstAttribute="leading" secondItem="Sfp-7I-Iax" secondAttribute="leading" constant="30" id="ae3-e0-fnS"/>
                             <constraint firstItem="g4F-8w-0re" firstAttribute="top" secondItem="S9G-pZ-0V3" secondAttribute="bottom" constant="10" id="f7u-I8-6pk"/>
-                            <constraint firstItem="f5f-3Q-yQJ" firstAttribute="centerX" secondItem="g4F-8w-0re" secondAttribute="centerX" id="jqJ-M4-kFO"/>
+                            <constraint firstAttribute="trailing" secondItem="GDb-ex-WCG" secondAttribute="trailing" constant="30" id="liK-2Z-ghf"/>
+                            <constraint firstItem="ptM-kq-lj9" firstAttribute="top" secondItem="f5f-3Q-yQJ" secondAttribute="bottom" constant="17" id="vHu-1m-jji"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="颜色获取" id="vVy-17-tI7"/>
                     <connections>
                         <outlet property="colorView" destination="g4F-8w-0re" id="vEb-An-Sgq"/>
+                        <outlet property="mySlider" destination="GDb-ex-WCG" id="RiW-9H-CE4"/>
                         <outlet property="textView" destination="f5f-3Q-yQJ" id="O9Y-h6-d5z"/>
                     </connections>
                 </viewController>
@@ -496,7 +515,7 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="g87-vu-ufZ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iI2-Kg-7QX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://img0.bdstatic.com/img/image/c9e2596284f50ce95cbed0d756fdd22b1409207983.jpg" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9WD-J3-Jy5">
@@ -581,7 +600,7 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="OBw-Yr-jFp"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="YRt-kh-n6y">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8FP-eG-UQX" customClass="AnimationImageVIew" customModule="WTKit" customModuleProvider="target"/>
@@ -611,7 +630,7 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="6SJ-Y8-EIz"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Lyt-BL-VGE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -629,17 +648,17 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="dlh-C4-t7Z"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2sj-vx-K3v">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="cBq-7r-PNW">
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="H7i-0Q-mvH">
-                                        <frame key="frameInset" minY="56" width="375" height="44"/>
+                                        <frame key="frameInset" minY="56" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H7i-0Q-mvH" id="L1E-KO-Stb">
-                                            <frame key="frameInset" width="375" height="43"/>
+                                            <frame key="frameInset" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sbS-fm-9uy">
