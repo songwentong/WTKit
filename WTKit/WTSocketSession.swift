@@ -17,4 +17,8 @@ public protocol WTSocketSessionDelegate:NSObjectProtocol{
 public class WTSocketSession:NSObject{
     weak var delegate:WTSocketSessionDelegate?
     var request:URLRequest?
+    public func open(){
+    }
+    public func close(){
+    }
 }
