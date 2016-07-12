@@ -167,7 +167,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     var credential: URLCredential?
     var completionHandler: ((Data?, URLResponse?, NSError?) -> Swift.Void)?
     var response:URLResponse?
-    var data:Data?
+    var data:Data = Data()
     var dataTask: URLSessionDataTask?
     var error: NSError?
     
@@ -249,16 +249,8 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
         self.dataTask = dataTask
         self.response = response
-        session.configuration.urlCache?.getCachedResponse(for: dataTask, completionHandler: { [weak self](cachedURLResponse) in
-            if cachedURLResponse != nil{
-                self?.data = cachedURLResponse?.data
-                self?.response = cachedURLResponse?.response
-                completionHandler(URLSession.ResponseDisposition.cancel)
-            }else{
-                self?.data = Data()
-                completionHandler(URLSession.ResponseDisposition.allow)
-            }
-        })
+        completionHandler(URLSession.ResponseDisposition.allow)
+
         
     }
     
@@ -278,7 +270,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
-        self.data? += data
+        self.data += data
     }
 }
  
