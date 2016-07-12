@@ -24,6 +24,7 @@
 		E106050F1C87DF990017A469 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E106050E1C87DF990017A469 /* Assets.xcassets */; };
 		E10605121C87DF990017A469 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E10605101C87DF990017A469 /* LaunchScreen.storyboard */; };
 		E1348BF21D0276AB00FA03E0 /* ImageUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1348BF11D0276AB00FA03E0 /* ImageUploadVC.swift */; };
+		E14419EC1D34D1CC0083D0CD /* WTSocketSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14419EB1D34D1CC0083D0CD /* WTSocketSession.swift */; };
 		E1558EC41D081592003653D1 /* QRCodeScanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1558EC31D081592003653D1 /* QRCodeScanVC.swift */; };
 		E155B85C1D12EBD500655DB1 /* TableRefreshVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155B85B1D12EBD500655DB1 /* TableRefreshVC.swift */; };
 		E187C5781D19075F001EDD2D /* ReachabilityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E187C5771D19075F001EDD2D /* ReachabilityVC.swift */; };
@@ -69,6 +70,7 @@
 		E10605111C87DF990017A469 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E10605131C87DF990017A469 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1348BF11D0276AB00FA03E0 /* ImageUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadVC.swift; sourceTree = "<group>"; };
+		E14419EB1D34D1CC0083D0CD /* WTSocketSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTSocketSession.swift; sourceTree = "<group>"; };
 		E1558EC31D081592003653D1 /* QRCodeScanVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QRCodeScanVC.swift; path = Classes/Demo/QRCodeScanVC.swift; sourceTree = "<group>"; };
 		E155B85B1D12EBD500655DB1 /* TableRefreshVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRefreshVC.swift; sourceTree = "<group>"; };
 		E187C5771D19075F001EDD2D /* ReachabilityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReachabilityVC.swift; path = Classes/Demo/ReachabilityVC.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				9B09B50A1D00045E00B66E60 /* CustomExtension.swift */,
 				9B09B50B1D00045E00B66E60 /* FoundationExtension.swift */,
 				9B09B50C1D00045E00B66E60 /* UIKitExtension.swift */,
+				E14419EB1D34D1CC0083D0CD /* WTSocketSession.swift */,
 			);
 			name = WTKit;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				9B09B5181D00049700B66E60 /* ColorViewController.swift in Sources */,
 				9B09B50F1D00045E00B66E60 /* FoundationExtension.swift in Sources */,
 				9B09B50D1D00045E00B66E60 /* AnimationImageVIew.swift in Sources */,
+				E14419EC1D34D1CC0083D0CD /* WTSocketSession.swift in Sources */,
 				E155B85C1D12EBD500655DB1 /* TableRefreshVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
