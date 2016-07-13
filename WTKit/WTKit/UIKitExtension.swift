@@ -471,8 +471,17 @@ extension UIImage{
     }
     
     //TODO做成一个圆形的图
-    public func imageRoundedToCircle()->UIImage{
-        return self
+    public func imageRoundedToCircle() -> UIImage{
+        let d = min(self.size.width, self.size.height)
+        let r = d * 0.5
+        let rect = CGRect(x: 0,y: 0,width: d,height: d)
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: d,height: d), false, 0.0)
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: r)
+        path.addClip()
+        draw(in: rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
     }
     
     //根据滤镜名称和参数返回新的图片对象
