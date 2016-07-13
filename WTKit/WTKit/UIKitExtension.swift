@@ -433,11 +433,11 @@ extension UIImage{
     
 
     
-    public class func cachedImageDataTask(with url:String, complection:(image:UIImage?,error:NSError?)->Void )->URLSessionDataTask{
+    public class func cachedImageDataTask(with url:String,credential:URLCredential?=nil, complection:(image:UIImage?,error:NSError?)->Void )->URLSessionDataTask{
         let request = URLRequest.request(url)
         
         
-        let myTask = URLSession.wtCachedDataTask(with: request, completionHandler: { (data, response, error) in
+        let myTask = URLSession.wtCachedDataTask(with: request,credential:credential, completionHandler: { (data, response, error) in
             var image:UIImage?
             if (data != nil){
                  image = UIImage(data: data!)
@@ -469,6 +469,12 @@ extension UIImage{
         
         return resultImage!
     }
+    
+    //TODO做成一个圆形的图
+    public func imageRoundedToCircle()->UIImage{
+        return self
+    }
+    
     //根据滤镜名称和参数返回新的图片对象
     public func imageWithFilter(_ filterName:String,parameters:[String:AnyObject]?=nil) ->UIImage?{
         
