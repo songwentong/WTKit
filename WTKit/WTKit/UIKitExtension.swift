@@ -472,13 +472,22 @@ extension UIImage{
     
     //TODO做成一个圆形的图
     public func imageRoundedToCircle() -> UIImage{
+        let width = self.size.width
+        let height = self.size.height
         let d = min(self.size.width, self.size.height)
         let r = d * 0.5
         let rect = CGRect(x: 0,y: 0,width: d,height: d)
         UIGraphicsBeginImageContextWithOptions(CGSize(width: d,height: d), false, 0.0)
         let path = UIBezierPath(roundedRect: rect, cornerRadius: r)
         path.addClip()
-        draw(in: rect)
+        
+        var drawRect:CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
+        if height > width {
+            drawRect = CGRect(x: 0, y: (height - d)/2, width: d, height: d)
+        }else{
+            drawRect = CGRect(x: (width - d)/2, y: 0, width: d, height: d)
+        }
+        draw(in: drawRect)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image!
