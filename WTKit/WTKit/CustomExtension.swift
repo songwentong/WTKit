@@ -8,7 +8,6 @@
 #if os(iOS)
 import Foundation
 import UIKit
-    
 private let UIViewControllerWTKitDefaultLoadingTextKey = "UIViewControllerWTKitDefaultLoadingTextKey"
 extension UIViewController{
     
@@ -444,6 +443,7 @@ extension UIView
 
     
 }
+    /*
 //K 线图
 public class KlineView:UIView{
     
@@ -470,5 +470,5 @@ public protocol KlineViewDataSource:NSObjectProtocol{
 
 public protocol KlineViewDelegate:NSObjectProtocol{
     
-}
+}*/
 #endif

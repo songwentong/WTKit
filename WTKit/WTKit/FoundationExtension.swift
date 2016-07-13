@@ -727,6 +727,11 @@ extension Date{
             return numberFor(component:.hour)
         }
     }
+    public var weekOfYear:Int{
+        get{
+            return numberFor(component: .weekOfYear)
+        }
+    }
     public var minute:Int{
         get{
             return numberFor(component:.minute)

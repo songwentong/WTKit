@@ -20,8 +20,13 @@ public class WTSocketSession:NSObject{
     var delegateQueue:OperationQueue?
     var inputStream:InputStream?
     var outputStream:OutputStream?
+    var allowsUntrustedSSLCertificates:Boolean = false
     override init(){
-//        CFStreamCreatePairWithSocket(<#T##alloc: CFAllocator!##CFAllocator!#>, <#T##sock: CFSocketNativeHandle##CFSocketNativeHandle#>, <#T##readStream: UnsafeMutablePointer<Unmanaged<CFReadStream>?>!##UnsafeMutablePointer<Unmanaged<CFReadStream>?>!#>, <#T##writeStream: UnsafeMutablePointer<Unmanaged<CFWriteStream>?>!##UnsafeMutablePointer<Unmanaged<CFWriteStream>?>!#>)
+        delegateQueue = OperationQueue()
+//        var port = 80
+//        var readStream
+//        var writeStream
+//        CFStreamCreatePairWithSocketToHost(nil, request?.url?.host, port, brid, &writeStream)
     }
     public func open(){
     }
