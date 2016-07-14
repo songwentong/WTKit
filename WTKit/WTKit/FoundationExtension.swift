@@ -261,8 +261,10 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         if self.error == nil {
             if shouldCache {
                 completionHandler(proposedResponse)
+                return
             }
         }
+        completionHandler(nil)
         
     }
     
