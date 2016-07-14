@@ -125,7 +125,7 @@ extension URLSession{
         let delegate = WTURLSessionDelegate()
         delegate.completionHandler = completionHandler
         delegate.credential = credential
-        delegate.shouldCache = true
+        
         
         let configuration = URLSessionConfiguration.default
 //        configuration.urlCache = URLCache.sharedURLCacheForRequests()
@@ -139,7 +139,7 @@ extension URLSession{
         
         let delegate = WTURLSessionDelegate()
         delegate.completionHandler = completionHandler
-        delegate.shouldCache = true
+        
         delegate.credential = credential
         let configuration = URLSessionConfiguration.default
         configuration.urlCache = URLCache.sharedURLCacheForRequests()
@@ -161,7 +161,6 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     
     private static let sharedInstance = WTURLSessionDelegate()
-    var shouldCache = false
     
     //网址凭据
     var credential: URLCredential?
@@ -259,7 +258,8 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: (CachedURLResponse?) -> Swift.Void){
         if self.error == nil {
-            if shouldCache {
+            let cachePolicy = dataTask.originalRequest?.cachePolicy
+            if cachePolicy == .returnCacheDataElseLoad {
                 completionHandler(proposedResponse)
                 return
             }
