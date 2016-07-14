@@ -135,6 +135,7 @@ extension URLSession{
         WTURLSessionDelegate.sharedInstance[task] = myTask
         myTask.completionHandler = completionHandler
         myTask.credential = credential
+        WTURLSessionDelegate.sharedInstance.credential = credential
         return myTask
     }
     
@@ -150,6 +151,7 @@ extension URLSession{
         WTURLSessionDelegate.sharedInstance[task] = myTask
         myTask.completionHandler = completionHandler
         myTask.credential = credential
+        WTURLSessionDelegate.sharedInstance.credential = credential
         return myTask
     }
     
