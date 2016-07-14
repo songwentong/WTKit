@@ -26,9 +26,11 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
         
         var url = UserDefaults.standard.string(forKey: lastURLKey)
         if url == nil {
-            url = "http://www.baidu.com"
+            url = "https://www.apple.com"
+        }else{
+            urlTextField.text = url
         }
-        urlTextField.text = url
+        
         
         checkTextLength()
         super.viewDidLoad()
