@@ -139,6 +139,30 @@ extension URLSession{
         return myTask
     }
     
+    public static func wtUploadTask(with request:URLRequest,from bodyData:Data,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
+        let session = self.wtSharedInstance
+        let task = session.uploadTask(with: request, from: bodyData)
+        let myTask = WTURLSessionTask(task: task)
+        WTURLSessionDelegate.sharedInstance[task] = myTask
+        myTask.completionHandler = completionHandler
+        myTask.credential = credential
+        WTURLSessionDelegate.sharedInstance.credential = credential
+        return myTask
+    }
+    
+    public static func wtDownloadTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
+    
+        let session = self.wtSharedInstance
+        let task = session.downloadTask(with: request)
+        let myTask = WTURLSessionTask(task: task)
+        WTURLSessionDelegate.sharedInstance[task] = myTask
+        myTask.completionHandler = completionHandler
+        myTask.credential = credential
+        WTURLSessionDelegate.sharedInstance.credential = credential
+        return myTask
+    }
+    
+    
     public static func wtCachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
         
         
@@ -216,6 +240,22 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
         self.error = error
         finish()
     }
+    
+    
+    
+    //URLSessionDownloadDelegate
+    public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL){
+    
+    }
+    
+    public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64){
+        
+    }
+    
+    public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64){
+        
+    }
+
 }
 
 /*
