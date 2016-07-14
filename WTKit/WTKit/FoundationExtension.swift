@@ -129,16 +129,8 @@ extension URLSession{
         根据请求对象,凭据来创建task
      */
     public static func wtDataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
-
-//        let delegate = WTURLSessionDelegate()
-//        delegate.completionHandler = completionHandler
-//        delegate.credential = credential
-        
-        
-//        let configuration = URLSessionConfiguration.default
         let session = self.wtSharedInstance
         let task = session.dataTask(with: request)
-        
         let myTask = WTURLSessionTask(task: task)
         WTURLSessionDelegate.sharedInstance[task] = myTask
         myTask.completionHandler = completionHandler
@@ -146,20 +138,19 @@ extension URLSession{
         return myTask
     }
     
-    public static func wtCachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:(Data?, URLResponse?, NSError?) -> Void)->URLSessionDataTask{
-//        let cache = URLCache.sharedURLCacheForRequests()
+    public static func wtCachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
         
-        let delegate = WTURLSessionDelegate()
-        delegate.completionHandler = completionHandler
         
-        delegate.credential = credential
 //        let configuration = URLSessionConfiguration.default
         let session = self.wtSharedInstance
         var myRequest = request
         myRequest.cachePolicy = .returnCacheDataElseLoad
         let task = session.dataTask(with: myRequest)
-        
-        return task
+        let myTask = WTURLSessionTask(task: task)
+        WTURLSessionDelegate.sharedInstance[task] = myTask
+        myTask.completionHandler = completionHandler
+        myTask.credential = credential
+        return myTask
     }
     
     
@@ -207,6 +198,18 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
         self.data += data
     }
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: (CachedURLResponse?) -> Swift.Void){
+        if self.error == nil {
+            let cachePolicy = dataTask.originalRequest?.cachePolicy
+            if cachePolicy == .returnCacheDataElseLoad {
+                completionHandler(proposedResponse)
+                return
+            }
+        }
+        completionHandler(nil)
+        
+    }
+    
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: NSError?){
         self.error = error
         finish()
@@ -225,22 +228,14 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     //网址凭据
     var credential: URLCredential?
-    var completionHandler: ((Data?, URLResponse?, NSError?) -> Swift.Void)?
-    var response:URLResponse?
+//    var completionHandler: ((Data?, URLResponse?, NSError?) -> Swift.Void)?
+//    var response:URLResponse?
     
     
     //懒加载,需要的时候创建对象
-    lazy var data:Data = Data()
-    var dataTask: URLSessionDataTask?
-    var error: NSError?
-
-    
-    private func finish(){
-        OperationQueue.main {
-            self.completionHandler?(self.data,self.response,self.error)
-        }
-    }
-    
+//    lazy var data:Data = Data()
+//    var dataTask: URLSessionDataTask?
+//    var error: NSError?
     
     private var taskDelegates: [Int: WTURLSessionTask] = [:]
     private let delegateQueue = OperationQueue()
@@ -277,7 +272,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     // MARK: Delegate Methods
     
     public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: NSError?){
-        finish()
+        
     }
     
     
@@ -318,8 +313,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         if let myTask = self[task] {
             myTask.urlSession(session, task: task, didCompleteWithError: error)
         }else{
-            self.error = error
-            finish()
+
         }
         
     }
@@ -334,8 +328,6 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         if let task = self[dataTask] {
             task.urlSession(session, dataTask: dataTask, didReceive: response, completionHandler: completionHandler)
         }else{
-            self.dataTask = dataTask
-            self.response = response
             completionHandler(URLSession.ResponseDisposition.allow)
         }
         
@@ -344,14 +336,12 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: (CachedURLResponse?) -> Swift.Void){
-        if self.error == nil {
-            let cachePolicy = dataTask.originalRequest?.cachePolicy
-            if cachePolicy == .returnCacheDataElseLoad {
-                completionHandler(proposedResponse)
-                return
-            }
+        if let task = self[dataTask]{
+            task.urlSession(session, dataTask: dataTask, willCacheResponse: proposedResponse, completionHandler: completionHandler)
+        }else{
+            completionHandler(nil)
         }
-        completionHandler(nil)
+        
         
     }
     
@@ -365,7 +355,6 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         if let task = self[dataTask] {
             task.urlSession(session, dataTask: dataTask, didReceive: data)
         }else{
-            self.data += data
         }
         
     }

@@ -359,16 +359,16 @@ extension UIControl{
 private var UIButtonImageDownloadOperationKey:Void?
 private var WTUIButtonImageDownloadTaskKey:Void?
 extension UIButton{
-    internal var wtImageTask:URLSessionDataTask?{
+    internal var wtImageTask:WTURLSessionTask?{
         get{
             let task = objc_getAssociatedObject(self, &WTUIButtonImageDownloadTaskKey)
-            return task as? URLSessionDataTask
+            return task as? WTURLSessionTask
         }
         set{
             let task = objc_getAssociatedObject(self, &WTUIButtonImageDownloadTaskKey)
             if task != nil {
                 if task is URLSessionDataTask {
-                    let myTask:URLSessionDataTask = task as! URLSessionDataTask
+                    let myTask:WTURLSessionTask = task as! WTURLSessionTask
                     myTask.cancel()
                 }
             }
@@ -433,7 +433,7 @@ extension UIImage{
     
 
     
-    public class func cachedImageDataTask(with url:String,credential:URLCredential?=nil, complection:(image:UIImage?,error:NSError?)->Void )->URLSessionDataTask{
+    public class func cachedImageDataTask(with url:String,credential:URLCredential?=nil, complection:(image:UIImage?,error:NSError?)->Void )->WTURLSessionTask{
         let request = URLRequest.request(url)
         
         
@@ -553,16 +553,16 @@ extension UIImageView{
         UIImage.sharedURLCache().removeAllCachedResponses()
     }
     
-    internal var wtImageTask:URLSessionDataTask?{
+    internal var wtImageTask:WTURLSessionTask?{
         get{
             let task = objc_getAssociatedObject(self, &WTUIImageViewImageDataTaskKey)
-            return task as? URLSessionDataTask
+            return task as? WTURLSessionTask
         }
         set{
             let task = objc_getAssociatedObject(self, &WTUIImageViewImageDataTaskKey)
             if task != nil {
                 if task is URLSessionDataTask {
-                    let myTask:URLSessionDataTask = task as! URLSessionDataTask
+                    let myTask:WTURLSessionTask = task as! WTURLSessionTask
                     myTask.cancel()
                 }
             }
@@ -570,16 +570,16 @@ extension UIImageView{
         }
     }
     
-    internal var wtHighLightedImageTask:URLSessionDataTask?{
+    internal var wtHighLightedImageTask:WTURLSessionTask?{
         get{
             let task = objc_getAssociatedObject(self, &WTUIImageViewHighLightedImageDataTaskKey)
-            return task as? URLSessionDataTask
+            return task as? WTURLSessionTask
         }
         set{
             let task = objc_getAssociatedObject(self, &WTUIImageViewHighLightedImageDataTaskKey)
             if task != nil {
                 if task is URLSessionDataTask {
-                    let myTask:URLSessionDataTask = task as! URLSessionDataTask
+                    let myTask:WTURLSessionTask = task as! WTURLSessionTask
                     myTask.cancel()
                 }
             }
