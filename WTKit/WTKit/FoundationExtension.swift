@@ -188,13 +188,13 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
             self.completionHandler?(self.data,self.response,self.error)
         }
     }
+
     
     //URLSessionDataTaskDelegate
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
         self.response = response
         completionHandler(URLSession.ResponseDisposition.allow)
     }
-
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
         self.data += data
     }
@@ -253,6 +253,14 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         }
     }
     
+    
+    
+    // MARK: Delegate Methods
+    
+    public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: NSError?){
+        
+    }
+    
     private func trustIsValid(_ trust:SecTrust) -> Bool {
         var isValid = false
         
@@ -268,14 +276,6 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         
         return isValid
     }
-    
-    // MARK: Delegate Methods
-    
-    public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: NSError?){
-        
-    }
-    
-    
     
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
         
@@ -301,7 +301,6 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     #if !os(OSX)
     public func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession){
-//        finish()
     }
     #endif
     
