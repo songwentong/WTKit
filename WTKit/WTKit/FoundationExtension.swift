@@ -109,10 +109,18 @@ func bridgeTransfer<T : AnyObject>(ptr : UnsafePointer<Void>) -> T {
 
 extension URLSession{
     
+    private static let wtSharedInstance:URLSession = {
+        let delegate = WTURLSessionDelegate.sharedInstance
+        let configuration = URLSessionConfiguration.default
+        configuration.urlCache = URLCache.sharedURLCacheForRequests()
+        let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
+        return session
+    }()
+    
     /*
         便捷的请求方法.
      */
-    public static func wtDataTask(with url:String, method:String?="GET",parameters:[String:String]?=[:],headers: [String: String]? = [:] ,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->URLSessionDataTask{
+    public static func wtDataTask(with url:String, method:String?="GET",parameters:[String:String]?=[:],headers: [String: String]? = [:] ,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
         let request = URLRequest.request(url, method: method, parameters: parameters, headers: headers)
         return self.wtDataTask(with: request,credential:credential, completionHandler: completionHandler)
     }
@@ -120,20 +128,22 @@ extension URLSession{
     /*!
         根据请求对象,凭据来创建task
      */
-    public static func wtDataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->URLSessionDataTask{
+    public static func wtDataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
 
-        let delegate = WTURLSessionDelegate()
-        delegate.completionHandler = completionHandler
-        delegate.credential = credential
+//        let delegate = WTURLSessionDelegate()
+//        delegate.completionHandler = completionHandler
+//        delegate.credential = credential
         
         
-        let configuration = URLSessionConfiguration.default
-        let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
+//        let configuration = URLSessionConfiguration.default
+        let session = self.wtSharedInstance
         let task = session.dataTask(with: request)
         
         let myTask = WTURLSessionTask(task: task)
         WTURLSessionDelegate.sharedInstance[task] = myTask
-        return task
+        myTask.completionHandler = completionHandler
+        myTask.credential = credential
+        return myTask
     }
     
     public static func wtCachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:(Data?, URLResponse?, NSError?) -> Void)->URLSessionDataTask{
@@ -143,9 +153,8 @@ extension URLSession{
         delegate.completionHandler = completionHandler
         
         delegate.credential = credential
-        let configuration = URLSessionConfiguration.default
-        configuration.urlCache = URLCache.sharedURLCacheForRequests()
-        let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
+//        let configuration = URLSessionConfiguration.default
+        let session = self.wtSharedInstance
         var myRequest = request
         myRequest.cachePolicy = .returnCacheDataElseLoad
         let task = session.dataTask(with: myRequest)
@@ -189,15 +198,18 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
         }
     }
     
-    
     //URLSessionDataTaskDelegate
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
         self.response = response
         completionHandler(URLSession.ResponseDisposition.allow)
     }
-    
+
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
         self.data += data
+    }
+    public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: NSError?){
+        self.error = error
+        finish()
     }
 }
 
@@ -294,7 +306,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     #if !os(OSX)
     public func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession){
-        finish()
+//        finish()
     }
     #endif
     
@@ -303,8 +315,13 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     // MARK: URLSessionTaskDelegate
     
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: NSError?){
-        self.error = error
-        finish()
+        if let myTask = self[task] {
+            myTask.urlSession(session, task: task, didCompleteWithError: error)
+        }else{
+            self.error = error
+            finish()
+        }
+        
     }
     
     
@@ -314,9 +331,14 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
 
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
-        self.dataTask = dataTask
-        self.response = response
-        completionHandler(URLSession.ResponseDisposition.allow)
+        if let task = self[dataTask] {
+            task.urlSession(session, dataTask: dataTask, didReceive: response, completionHandler: completionHandler)
+        }else{
+            self.dataTask = dataTask
+            self.response = response
+            completionHandler(URLSession.ResponseDisposition.allow)
+        }
+        
 
         
     }
@@ -340,7 +362,12 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
-        self.data += data
+        if let task = self[dataTask] {
+            task.urlSession(session, dataTask: dataTask, didReceive: data)
+        }else{
+            self.data += data
+        }
+        
     }
 }
  
