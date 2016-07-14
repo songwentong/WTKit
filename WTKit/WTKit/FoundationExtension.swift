@@ -128,9 +128,11 @@ extension URLSession{
         
         
         let configuration = URLSessionConfiguration.default
-//        configuration.urlCache = URLCache.sharedURLCacheForRequests()
         let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
         let task = session.dataTask(with: request)
+        
+        let myTask = WTURLSessionTask(task: task)
+        WTURLSessionDelegate.sharedInstance[task] = myTask
         return task
     }
     
@@ -154,13 +156,60 @@ extension URLSession{
     
 }
 
+public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
+    //网址凭据
+    public var credential: URLCredential?
+    public var completionHandler: ((Data?, URLResponse?, NSError?) -> Swift.Void)?
+    public var response:URLResponse?
+    
+    
+    //懒加载,需要的时候创建对象
+    public lazy var data:Data = Data()
+    public let task: URLSessionTask
+    public var error: NSError?
+    
+    
+    init(task: URLSessionTask) {
+        self.task = task
+    }
+    
+    public func resume(){
+        task.resume()
+    }
+    public func suspend(){
+        task.suspend()
+    }
+    public func cancel(){
+        task.cancel()
+    }
+    
+    private func finish(){
+        OperationQueue.main {
+            self.completionHandler?(self.data,self.response,self.error)
+        }
+    }
+    
+    
+    //URLSessionDataTaskDelegate
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
+        self.response = response
+        completionHandler(URLSession.ResponseDisposition.allow)
+    }
+    
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
+        self.data += data
+    }
+}
+
 /*
     提供凭据
  */
 public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     
-    private static let sharedInstance = WTURLSessionDelegate()
+    private static let sharedInstance = {
+        return WTURLSessionDelegate()
+    }()
     
     //网址凭据
     var credential: URLCredential?
@@ -172,12 +221,28 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     lazy var data:Data = Data()
     var dataTask: URLSessionDataTask?
     var error: NSError?
-    
-    
+
     
     private func finish(){
         OperationQueue.main {
             self.completionHandler?(self.data,self.response,self.error)
+        }
+    }
+    
+    
+    private var taskDelegates: [Int: WTURLSessionTask] = [:]
+    private let delegateQueue = OperationQueue()
+    public subscript(task: URLSessionTask) -> WTURLSessionTask? {
+        get{
+            var result:WTURLSessionTask?
+            let operation = BlockOperation {[unowned self] in
+                result = self.taskDelegates[task.taskIdentifier]
+            }
+            delegateQueue.addOperations([operation], waitUntilFinished: true)
+            return result
+        }
+        set{
+            taskDelegates[task.taskIdentifier] = newValue
         }
     }
     
