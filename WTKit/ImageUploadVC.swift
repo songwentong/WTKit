@@ -14,7 +14,7 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
     override func viewDidLoad() {
         super.viewDidLoad()
         let url = "http://ww1.sinaimg.cn/mw690/47449485gw1f51dz245iaj20pa0fcdja.jpg"
-        uploadButton.setImageWith(url, forState: UIControlState.normal)
+        uploadButton.setImage(with:url, for: UIControlState.normal)
         
     }
     deinit{

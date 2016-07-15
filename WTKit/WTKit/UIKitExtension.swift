@@ -379,21 +379,41 @@ extension UIButton{
     
 
 // MARK: - 设置一张网络图片,并缓存下来
-    public func setImageWith(_ url:String, forState:UIControlState,placeHolder:UIImage?=nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil) {
+    public func setImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil) {
         safeSyncInMain { 
-            self.setImage(placeHolder, for: forState)
+            self.setImage(placeHolder, for: state)
         }
         
         OperationQueue.userInteractive {
             let task = UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
                 safeSyncInMain(with: { 
-                    self?.setImage(image, for: forState)
+                    self?.setImage(image, for: state)
                     self?.setNeedsLayout()
                     if complection != nil {
                         complection!(image:image,error: error)
                     }
                 })
             })
+            self.wtImageTask = task
+            task.resume()
+        }
+    }
+    
+    public func setBackgroundImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil) {
+        safeSyncInMain {
+            self.setBackgroundImage(placeHolder, for:state)
+        }
+        
+        OperationQueue.userInteractive {
+            let task = UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
+                safeSyncInMain(with: {
+                    self?.setBackgroundImage(image, for:state)
+                    self?.setNeedsLayout()
+                    if complection != nil {
+                        complection!(image:image,error: error)
+                    }
+                })
+                })
             self.wtImageTask = task
             task.resume()
         }
@@ -600,7 +620,7 @@ extension UIImageView{
             self.image = placeHolder
             self.setNeedsLayout()
         }
-        OperationQueue.globalQueue {
+        OperationQueue.userInteractive {
             let task =  UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
                             safeSyncInMain(with: {
                                     self?.image = image
@@ -624,7 +644,7 @@ extension UIImageView{
             self.highlightedImage = placeHolder
             self.setNeedsLayout()
         }
-        OperationQueue.globalQueue {
+        OperationQueue.userInteractive {
             let task =  UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
                 safeSyncInMain(with: {
                     self?.image = image
