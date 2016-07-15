@@ -407,7 +407,7 @@ extension URLRequest{
         根据url,方法,参数和header创建一个请求
         方法默认是GET,参数默认是空,请求头默认是空
      */
-    public static func request(with url:String, method:String?="GET", parameters:[String:String]?=[:],headers: [String: String]?=[:]) -> URLRequest{
+    public static func request(with url:String, method:String?="GET", parameters:[String:String]?=nil,headers: [String: String]?=nil) -> URLRequest{
         
         let queryString = self.queryString(from:parameters)
         var request:URLRequest

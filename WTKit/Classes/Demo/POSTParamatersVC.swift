@@ -21,21 +21,22 @@ protocol POSTParamatersVCDelegate:NSObjectProtocol{
 class POSTParamatersVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    var parameters:[String] = []
-    var values:[String] = []
+    lazy var parameters = [String]()
+    lazy var values = [String]()
     weak var delegate:POSTParamatersVCDelegate?
     
     
     required init?(coder aDecoder: NSCoder) {
-        parameters = [String]()
-        values = [String]()
+        
+        
         super.init(coder: aDecoder)
     }
     
+    deinit {
+        WTLog("deinit")
+    }
+    
     override func viewDidLoad() {
-        if parameters.count == 0 {
-            addNewParameters()
-        }
         
         WTLog(parameters)
         super.viewDidLoad()
@@ -114,14 +115,12 @@ class POSTParamatersVC: UIViewController,UITableViewDataSource,UITableViewDelega
     
     func remove(_ sender:UIButton){
         let cell:UITableViewCell = sender.superview?.superview as! UITableViewCell
-        let indexPath = tableView.indexPath(for: cell)
-        if (parameters.count != 1 && indexPath != nil ){
-            parameters.remove(at: (indexPath! as NSIndexPath).row)
-            values.remove(at: (indexPath! as NSIndexPath).row)
-            
+        if let indexPath:IndexPath = tableView.indexPath(for: cell) {
+            parameters.remove(at: (indexPath as NSIndexPath).row)
+            values.remove(at: (indexPath as NSIndexPath).row)
             
             tableView.beginUpdates()
-            tableView.deleteRows(at: [indexPath!], with: .automatic)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
             tableView.endUpdates()
         }
 
