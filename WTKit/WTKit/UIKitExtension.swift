@@ -639,7 +639,7 @@ extension UIImageView{
     /*!
         设置高亮图
      */
-    public func sethighlightedImageWith(_ url:String ,placeHolder:UIImage? = nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil)->Void{
+    public func sethighlightedImage(with url:String ,placeHolder:UIImage? = nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil)->Void{
         safeSyncInMain {
             self.highlightedImage = placeHolder
             self.setNeedsLayout()
