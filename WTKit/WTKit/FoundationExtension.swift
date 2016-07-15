@@ -413,8 +413,10 @@ extension URLRequest{
         var request:URLRequest
         var urlString:String
         request = URLRequest(url: URL(string: url)!)
+        var myMethod:String = "GET"
         if let m:String = method {
-            request.httpMethod = m
+            myMethod = m
+            request.httpMethod = myMethod
         }
         let allHTTPHeaderFields = URLRequest.defaultHTTPHeaders
         request.allHTTPHeaderFields = allHTTPHeaderFields
@@ -424,7 +426,7 @@ extension URLRequest{
             }
         }
         
-        if(self.methodShouldAddQuery(method!)){
+        if(self.methodShouldAddQuery(myMethod)){
             urlString = url
             if let query:String = queryString {
                 urlString += "?"
