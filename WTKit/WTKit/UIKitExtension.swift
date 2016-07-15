@@ -356,8 +356,8 @@ extension UIControl{
 
 
 //图片下载的key
-private var UIButtonImageDownloadOperationKey:Void?
 private var WTUIButtonImageDownloadTaskKey:Void?
+private var WTUIButtonBackgroundImageDownloadTaskKey:Void?
 extension UIButton{
     internal var wtImageTask:WTURLSessionTask?{
         get{
@@ -373,6 +373,22 @@ extension UIButton{
                 }
             }
             objc_setAssociatedObject(self, &WTUIButtonImageDownloadTaskKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    internal var wtBackgroundImageTask:WTURLSessionTask?{
+        get{
+            let task = objc_getAssociatedObject(self, &WTUIButtonBackgroundImageDownloadTaskKey)
+            return task as? WTURLSessionTask
+        }
+        set{
+            let task = objc_getAssociatedObject(self, &WTUIButtonBackgroundImageDownloadTaskKey)
+            if task != nil {
+                if task is URLSessionDataTask {
+                    let myTask:WTURLSessionTask = task as! WTURLSessionTask
+                    myTask.cancel()
+                }
+            }
+            objc_setAssociatedObject(self, &WTUIButtonBackgroundImageDownloadTaskKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -563,8 +579,8 @@ extension UIImage{
 
 
 //图片下载的键值对
-private var UIImageViewImageDownloadKey:Void?
-private var UIImageViewHighLightedImageDownloadKey:Void?
+//private var UIImageViewImageDownloadKey:Void?
+//private var UIImageViewHighLightedImageDownloadKey:Void?
 private var WTUIImageViewImageDataTaskKey:Void?
 private var WTUIImageViewHighLightedImageDataTaskKey:Void?
 extension UIImageView{
