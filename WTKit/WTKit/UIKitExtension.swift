@@ -470,7 +470,7 @@ extension UIImage{
 
     
     public class func cachedImageDataTask(with url:String,credential:URLCredential?=nil, complection:(image:UIImage?,error:NSError?)->Void )->WTURLSessionTask{
-        let request = URLRequest.request(url)
+        let request = URLRequest.request(with: url)
         
         
         let myTask = URLSession.wtCachedDataTask(with: request,credential:credential, completionHandler: { (data, response, error) in
