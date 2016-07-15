@@ -413,7 +413,9 @@ extension URLRequest{
         var request:URLRequest
         var urlString:String
         request = URLRequest(url: URL(string: url)!)
-        request.httpMethod = method!
+        if let m:String = method {
+            request.httpMethod = m
+        }
         let allHTTPHeaderFields = URLRequest.defaultHTTPHeaders
         request.allHTTPHeaderFields = allHTTPHeaderFields
         if headers != nil {
