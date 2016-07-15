@@ -409,7 +409,7 @@ extension URLRequest{
      */
     public static func request(with url:String, method:String?="GET", parameters:[String:String]?=[:],headers: [String: String]?=[:]) -> URLRequest{
         
-        let queryString = self.queryString(from:parameters)!
+        let queryString = self.queryString(from:parameters)
         var request:URLRequest
         var urlString:String
         request = URLRequest(url: URL(string: url)!)
@@ -423,11 +423,17 @@ extension URLRequest{
         }
         
         if(self.methodShouldAddQuery(method!)){
-            urlString = String(format: "%@?%@", url,queryString)
+            urlString = url
+            if let query:String = queryString {
+                urlString += "?"
+                urlString += query
+            }
             request.url = URL(string: urlString)
         }else{
             urlString = url
-            request.httpBody = queryString.toUTF8Data()
+            if let query:String = queryString {
+                request.httpBody = query.toUTF8Data()
+            }  
         }
         return request
     }
@@ -508,7 +514,7 @@ extension URLRequest{
         //        Array
         //        Dictionary
         if parameters == nil {
-            return ""
+            return nil
         }
         var components: [(String, String)] = Array()
         for (key) in parameters!.keys.sorted(isOrderedBefore: <){
