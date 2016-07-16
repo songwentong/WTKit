@@ -24,12 +24,10 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
     override func viewDidLoad() {
         //        requestButton.enabled = false
         
-        var url = UserDefaults.standard.string(forKey: lastURLKey)
-        if url == nil {
-            url = "https://www.apple.com"
-        }else{
+        if let url:String = UserDefaults.standard.string(forKey: lastURLKey){
             urlTextField.text = url
         }
+        
         
         
         checkTextLength()
