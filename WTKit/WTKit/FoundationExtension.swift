@@ -109,13 +109,14 @@ func bridgeTransfer<T : AnyObject>(ptr : UnsafePointer<Void>) -> T {
 
 extension URLSession{
     
-    private static let wtSharedInstance:URLSession = {
+    
+    public static func wtSharedInstance()->URLSession{
         let delegate = WTURLSessionDelegate.sharedInstance
         let configuration = URLSessionConfiguration.default
         configuration.urlCache = URLCache.sharedURLCacheForRequests()
         let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
         return session
-    }()
+    }
     
     /*
         便捷的请求方法.
@@ -129,7 +130,7 @@ extension URLSession{
         根据请求对象,凭据来创建task
      */
     public static func wtDataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
-        let session = self.wtSharedInstance
+        let session = self.wtSharedInstance()
         let task = session.dataTask(with: request)
         let myTask = WTURLSessionTask(task: task)
         WTURLSessionDelegate.sharedInstance[task] = myTask
@@ -140,7 +141,7 @@ extension URLSession{
     }
     
     public static func wtUploadTask(with request:URLRequest,from bodyData:Data,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
-        let session = self.wtSharedInstance
+        let session = self.wtSharedInstance()
         let task = session.uploadTask(with: request, from: bodyData)
         let myTask = WTURLSessionTask(task: task)
         WTURLSessionDelegate.sharedInstance[task] = myTask
@@ -152,7 +153,7 @@ extension URLSession{
     
     public static func wtDownloadTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
     
-        let session = self.wtSharedInstance
+        let session = self.wtSharedInstance()
         let task = session.downloadTask(with: request)
         let myTask = WTURLSessionTask(task: task)
         WTURLSessionDelegate.sharedInstance[task] = myTask
@@ -167,7 +168,7 @@ extension URLSession{
         
         
 //        let configuration = URLSessionConfiguration.default
-        let session = self.wtSharedInstance
+        let session = self.wtSharedInstance()
         var myRequest = request
         myRequest.cachePolicy = .returnCacheDataElseLoad
         let task = session.dataTask(with: myRequest)

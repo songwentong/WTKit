@@ -43,16 +43,20 @@ class WTKitTests: XCTestCase {
             print("not x86_64 sizeOfInt \( sizeof(Int.self))")
         #endif
     }
+    func testSession(){
+        let session = URLSession.wtSharedInstance()
+        XCTAssertNil(session.delegate, "session delegate should not be nil")
+    }
     func testReqeust(){
         
         
     
         
         var request:URLRequest?
-        _ = URLRequest.request("")
-        _ = URLRequest.request("", method: "")
-        _ = URLRequest.request("", method: "", parameters: nil)
-        request = URLRequest.request("http://www.baidu.com", method: "", parameters: nil, headers: nil)
+        _ = URLRequest.request(with: "")
+        _ = URLRequest.request(with:"", method: "")
+        _ = URLRequest.request(with:"", method: "", parameters: nil)
+        request = URLRequest.request(with:"http://www.baidu.com", method: "", parameters: nil, headers: nil)
         let credential = URLCredential(user: "user", password: "pwd", persistence:URLCredential.Persistence.forSession)
         var task = URLSession.wtDataTask(with: request!, credential: credential) { (data, response, error) in
             
