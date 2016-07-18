@@ -32,6 +32,8 @@ class ReachabilityVC: UIViewController {
             
             self?.updateInterfaceWithReachability(reachability)
             
+            
+            
         }
         
         WTReachability.reachabilityForInternetConnection { [weak self](reachability) in
@@ -45,7 +47,9 @@ class ReachabilityVC: UIViewController {
             
         }
         updateInterfaceWithReachability(reachability)
-
+//        let fps = FPSLabel()
+//        fps.frame = CGRect(x: 0, y: 300, width: 320, height: 20)
+//        view.addSubview(fps)
     }
     
     func updateInterfaceWithReachability(_ reachability:WTReachability){
