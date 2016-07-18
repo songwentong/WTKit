@@ -217,27 +217,31 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
     }
     
     private func finish(){
+        
         OperationQueue.globalQueue {
             if let _ = self.imageHandler{
                 let image = UIImage(data: self.data)
-                self.imageHandler?(image:image,error:self.error)
-            }
-            
-            if let _ = self.jsonHandler{
-                if let myData:Data = self.data{
-                myData.parseJSON({ (object, error) in
-                    OperationQueue.main({
-                        self.jsonHandler?(anyObject:object)
-                    })
-                    
+                OperationQueue.main({ 
+                    self.imageHandler?(image:image,error:self.error)
                 })
-                }
                 
             }
             
-            OperationQueue.main {
-                self.completionHandler?(data:self.data,response:self.response,error:self.error)
+            if let _ = self.jsonHandler{
+                self.data.parseJSON({ (object, error) in
+                    OperationQueue.main({
+                        self.jsonHandler?(anyObject:object)
+                    })
+                })
+                
+                
             }
+            
+            
+        }
+        
+        OperationQueue.main {
+            self.completionHandler?(data:self.data,response:self.response,error:self.error)
         }
         
     }
