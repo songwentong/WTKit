@@ -295,6 +295,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
 
 }
 
+public typealias challengeHandler = (challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?)) -> Swift.Void
 /*
     提供凭据
  */
@@ -307,14 +308,8 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     //网址凭据
     var credential: URLCredential?
-//    var completionHandler: ((Data?, URLResponse?, NSError?) -> Swift.Void)?
-//    var response:URLResponse?
+
     
-    
-    //懒加载,需要的时候创建对象
-//    lazy var data:Data = Data()
-//    var dataTask: URLSessionDataTask?
-//    var error: NSError?
     
     private var taskDelegates: [Int: WTURLSessionTask] = [:]
     private let delegateQueue = OperationQueue()
@@ -331,7 +326,8 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
             taskDelegates[task.taskIdentifier] = newValue
         }
     }
-    
+  
+    public var challengeHandler:challengeHandler?
     
     
     // MARK: Delegate Methods
@@ -357,6 +353,9 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     }
     
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
+//        if (challengeHandler != nil) {
+//            challengeHandler?(challenge: challenge,completionHandler: completionHandler)
+//        }
         
         let disposition: Foundation.URLSession.AuthChallengeDisposition = .performDefaultHandling
         var credential:URLCredential? = self.credential
