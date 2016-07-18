@@ -228,7 +228,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
             }
             
             if let _ = self.jsonHandler{
-                self.data.parseJSON({ (object, error) in
+                self.data.parseJSON(handler: { (object, error) in
                     OperationQueue.main({
                         self.jsonHandler?(anyObject:object,error:error)
                     })
@@ -848,7 +848,7 @@ extension Data{
     /*!
         Create a Foundation object from JSON data.
      */
-    public func parseJSON(_ block:(AnyObject?,NSError?)->Void){
+    public func parseJSON(handler block:(AnyObject?,NSError?)->Void){
         var obj:AnyObject = "not a json"
         var theError:NSError?
         do{
@@ -1003,9 +1003,9 @@ extension String{
         return (self as NSString).integerValue
     }
     
-    public func parseJSON(_ block:jsonHandler)->Void{
+    public func parseJSON(handler block:jsonHandler)->Void{
         let data = self.data(using: String.Encoding.utf8)
-        data?.parseJSON(block)
+        data?.parseJSON(handler: block)
     }
     
     public func toUTF8Data()->Data{
