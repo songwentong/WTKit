@@ -187,6 +187,12 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
     //网址凭据
     public var credential: URLCredential?
     public var completionHandler: ((Data?, URLResponse?, NSError?) -> Swift.Void)?
+    /*
+     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
+     self.data += data
+     }
+     */
+    public var progressHandler:((countOfBytesReceived: Int64 ,countOfBytesExpectedToReceive: Int64) -> Void)?
     public var response:URLResponse?
     
     
@@ -223,7 +229,13 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
         completionHandler(URLSession.ResponseDisposition.allow)
     }
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
+        
         self.data += data
+        OperationQueue.main { 
+            self.progressHandler?(countOfBytesReceived: dataTask.countOfBytesReceived,countOfBytesExpectedToReceive: dataTask.countOfBytesExpectedToReceive)
+        }
+        
+        
     }
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: (CachedURLResponse?) -> Swift.Void){
         if self.error == nil {
