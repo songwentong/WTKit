@@ -182,17 +182,18 @@ extension URLSession{
     
     
 }
-
+public typealias progressHandler = ((countOfBytesReceived: Int64 ,countOfBytesExpectedToReceive: Int64) -> Void)
+public typealias completionHandler = ((data:Data?, response:URLResponse?, error:NSError?) -> Swift.Void)
 public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
     //网址凭据
     public var credential: URLCredential?
-    public var completionHandler: ((Data?, URLResponse?, NSError?) -> Swift.Void)?
+    public var completionHandler: completionHandler?
     /*
      public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
      self.data += data
      }
      */
-    public var progressHandler:((countOfBytesReceived: Int64 ,countOfBytesExpectedToReceive: Int64) -> Void)?
+    public var progressHandler:progressHandler?
     public var response:URLResponse?
     
     
@@ -218,7 +219,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
     
     private func finish(){
         OperationQueue.main {
-            self.completionHandler?(self.data,self.response,self.error)
+            self.completionHandler?(data:self.data,response:self.response,error:self.error)
         }
     }
 
