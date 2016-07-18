@@ -184,16 +184,15 @@ extension URLSession{
 }
 public typealias progressHandler = ((countOfBytesReceived: Int64 ,countOfBytesExpectedToReceive: Int64) -> Void)
 public typealias completionHandler = ((data:Data?, response:URLResponse?, error:NSError?) -> Swift.Void)
+public typealias jsonHandler = (anyObject:AnyObject)->Void
+public typealias imageHandler = (image:UIImage?,error:NSError?)->Void
 public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
     //网址凭据
     public var credential: URLCredential?
     public var completionHandler: completionHandler?
-    /*
-     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
-     self.data += data
-     }
-     */
     public var progressHandler:progressHandler?
+    public var jsonHandler:jsonHandler?
+    public var imageHandler:imageHandler?
     public var response:URLResponse?
     
     
@@ -218,9 +217,29 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
     }
     
     private func finish(){
-        OperationQueue.main {
-            self.completionHandler?(data:self.data,response:self.response,error:self.error)
+        OperationQueue.globalQueue {
+            if let _ = self.imageHandler{
+                let image = UIImage(data: self.data)
+                self.imageHandler?(image:image,error:self.error)
+            }
+            
+            if let _ = self.jsonHandler{
+                if let myData:Data = self.data{
+                myData.parseJSON({ (object, error) in
+                    OperationQueue.main({
+                        self.jsonHandler?(anyObject:object)
+                    })
+                    
+                })
+                }
+                
+            }
+            
+            OperationQueue.main {
+                self.completionHandler?(data:self.data,response:self.response,error:self.error)
+            }
         }
+        
     }
 
     
