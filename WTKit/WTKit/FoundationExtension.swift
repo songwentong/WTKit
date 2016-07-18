@@ -184,7 +184,7 @@ extension URLSession{
 }
 public typealias progressHandler = ((countOfBytesReceived: Int64 ,countOfBytesExpectedToReceive: Int64) -> Void)
 public typealias completionHandler = ((data:Data?, response:URLResponse?, error:NSError?) -> Swift.Void)
-public typealias jsonHandler = (anyObject:AnyObject)->Void
+public typealias jsonHandler = (anyObject:AnyObject?,error:NSError?)->Void
 public typealias imageHandler = (image:UIImage?,error:NSError?)->Void
 public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
     //网址凭据
@@ -230,7 +230,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
             if let _ = self.jsonHandler{
                 self.data.parseJSON({ (object, error) in
                     OperationQueue.main({
-                        self.jsonHandler?(anyObject:object)
+                        self.jsonHandler?(anyObject:object,error:error)
                     })
                 })
                 
@@ -848,7 +848,7 @@ extension Data{
     /*!
         Create a Foundation object from JSON data.
      */
-    public func parseJSON(_ block:(AnyObject,NSError?)->Void){
+    public func parseJSON(_ block:(AnyObject?,NSError?)->Void){
         var obj:AnyObject = "not a json"
         var theError:NSError?
         do{
@@ -1003,9 +1003,8 @@ extension String{
         return (self as NSString).integerValue
     }
     
-    public func parseJSON(_ block: (AnyObject,NSError?)->Void)->Void{
+    public func parseJSON(_ block:jsonHandler)->Void{
         let data = self.data(using: String.Encoding.utf8)
-        
         data?.parseJSON(block)
     }
     
