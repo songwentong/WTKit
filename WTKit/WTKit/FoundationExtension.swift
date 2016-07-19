@@ -106,6 +106,9 @@ func bridgeTransfer<T : AnyObject>(ptr : UnsafePointer<Void>) -> T {
     return Unmanaged<T>.fromOpaque(ptr).takeRetainedValue()
 }
 
+public enum httpMethod:String{
+     case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
+}
 
 extension URLSession{
     
@@ -438,6 +441,45 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
 }
  
 extension URLRequest{
+    
+    /*!
+        创建一个URLRequest实例
+     */
+    public static func wtRequest(with url:String , method:httpMethod? = .GET, parameters:[String:String]?=nil,headers: [String: String]?=nil) -> URLRequest{
+        let queryString = self.queryString(from:parameters)
+        var request:URLRequest
+        var urlString:String
+        
+        request = URLRequest(url: URL(string: url)!)
+        var myMethod:httpMethod = .GET
+        if let m:httpMethod = method {
+            myMethod = m
+            request.httpMethod = myMethod.rawValue
+        }
+        let allHTTPHeaderFields = URLRequest.defaultHTTPHeaders
+        request.allHTTPHeaderFields = allHTTPHeaderFields
+        if headers != nil {
+            for (key,value) in headers!{
+                request.setValue(value, forHTTPHeaderField: key)
+            }
+        }
+        
+        if(self.methodShouldAddQuery(request.httpMethod)){
+            urlString = url
+            if let query:String = queryString {
+                urlString += "?"
+                urlString += query
+            }
+            request.url = URL(string: urlString)
+        }else{
+            urlString = url
+            if let query:String = queryString {
+                request.httpBody = query.toUTF8Data()
+            }
+        }
+        return request
+    }
+
     
     /*!
         根据url,方法,参数和header创建一个请求

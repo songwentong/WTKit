@@ -82,13 +82,13 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
             
             self.showLoadingView()
             requestButton.isEnabled = false
-            var method = "GET"
+            var method:httpMethod = .GET
             if methodSegment.selectedSegmentIndex == 1 {
-                method = "POST"
+                method = .POST
             }
 //            string = "https://httpbin.org"
             UserDefaults.standard.set(string, forKey: lastURLKey)
-            let request = URLRequest.request(with: string!, method: method, parameters: parameters, headers: nil)
+            let request = URLRequest.wtRequest(with: string!, method: method, parameters: parameters, headers: nil)
             //            let credential = URLCredential(user: "user", password: "password", persistence: URLCredential.Persistence.permanent)
             let task = URLSession.wtDataTask(with: request, completionHandler: { (data, response, error) in
                 

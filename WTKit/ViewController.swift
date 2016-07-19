@@ -46,7 +46,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         // Do any additional setup after loading the view, typically from a nib.
 //        WTLog(self.view.viewController())
 //        aaa(UILabel().text!)
-        
+//        print(httpMethod.GET.rawValue)
         
         UIApplication.firstLaunchForBuild { [weak self](isFirstLaunchEver) in
             if isFirstLaunchEver{
