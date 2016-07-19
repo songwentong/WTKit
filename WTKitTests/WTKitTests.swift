@@ -51,12 +51,12 @@ class WTKitTests: XCTestCase {
         
         
     
-        
+        /*
         var request:URLRequest?
-        _ = URLRequest.request(with: "")
-        _ = URLRequest.request(with:"", method: "")
-        _ = URLRequest.request(with:"", method: "", parameters: nil)
-        request = URLRequest.request(with:"http://www.baidu.com", method: "", parameters: nil, headers: nil)
+        _ = URLRequest.wtRequest(with: "")
+        _ = URLRequest.wtRequest(with:"", method: "")
+        _ = URLRequest.wtRequest(with:"", method: "", parameters: nil)
+        request = URLRequest.wtRequest(with:"http://www.baidu.com", method: "", parameters: nil, headers: nil)
         let credential = URLCredential(user: "user", password: "pwd", persistence:URLCredential.Persistence.forSession)
         var task = URLSession.wt_dataTask(with: request!, credential: credential) { (data, response, error) in
             
@@ -65,6 +65,7 @@ class WTKitTests: XCTestCase {
             
         })
         task.resume()
+ */
 //        let reqeust = URLRequest.request("http://www.baidu.com")
 //        let session = URLSession.shared
 //        session.delegate = WTURLSessionDelegate()
@@ -76,6 +77,13 @@ class WTKitTests: XCTestCase {
             let status = Float(Float(i) * 0.01)
             let color = UIColor.wtStatusColor(with: status)
             print("color: \(color)")
+        }
+    }
+    
+    func testInt(){
+        for i in 0...100{
+            let y = Int.wt_fibonacci(number: i)
+            print("\(i):\(y)")
         }
     }
     
@@ -100,7 +108,7 @@ class WTKitTests: XCTestCase {
             
         }
         let data = "dasdada".data(using: String.Encoding.utf8)
-        data?.parseJSON({ (obj, error) in
+        data?.parseJSON(handler: { (obj, error) in
             print(obj)
             print(error)
         })
