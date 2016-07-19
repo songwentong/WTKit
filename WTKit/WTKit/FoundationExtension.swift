@@ -538,7 +538,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
 
 }
 
-public typealias challengeHandler = (challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?)) -> Swift.Void
+public typealias challengeHandler = (challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void)
 /*
     提供凭据
  */
@@ -583,10 +583,15 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         var isValid = false
         
         var result = SecTrustResultType.invalid
+        //评估这个信任
         let status = SecTrustEvaluate(trust, &result)
         
+        //评估成功
         if status == errSecSuccess {
+            
+            //用户未指定
             let unspecified = SecTrustResultType.unspecified
+            //总是信任
             let proceed = SecTrustResultType.proceed
             
             isValid = result == unspecified || result == proceed
@@ -599,17 +604,29 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
 //        if (challengeHandler != nil) {
 //            challengeHandler?(challenge: challenge,completionHandler: completionHandler)
 //        }
+        /*
+         public typealias challengeHandler = (challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void)
+         */
+//        if let handler:challengeHandler = challengeHandler{
+//            handler(challenge:challenge,completionHandler:)
+//        }
+        
+        
         
         let disposition: Foundation.URLSession.AuthChallengeDisposition = .performDefaultHandling
         var credential:URLCredential? = self.credential
+        //1.认证方法是服务端信任
         if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
-            let serverTrust = challenge.protectionSpace.serverTrust
-            if serverTrust != nil {
-                if self.trustIsValid(serverTrust!) {
-                    credential = URLCredential(trust: serverTrust!)
+            //2.如果服务端信任存在
+            if let serverTrust = challenge.protectionSpace.serverTrust {
+                //3.验证服务端的信任
+                if self.trustIsValid(serverTrust) {
+                    //4.如果验证成功了,使用服务端的信任创建凭据
+                    credential = URLCredential(trust: serverTrust)
                 }
             }
         }
+        //使用凭据,note:这里必须调用,否则可能会产生内存泄漏
         completionHandler(disposition,credential)
     }
     
@@ -1067,7 +1084,7 @@ extension String{
 
     //TODO MD5
     
-    //"$¥231＄￥"
+    //"$＄¥￥231"
     /*!
         半角的RMB符号，加删除线的时候比较方便,不会和数字看起来不同
         Half-width
