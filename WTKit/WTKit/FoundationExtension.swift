@@ -694,6 +694,8 @@ extension UInt{
         }else{
             return number * wt_factorial(number: (number - 1))
         }
+        
+        
     }
 }
 extension Int{
@@ -704,7 +706,9 @@ extension Int{
         斐波那契数列,用递归实现的,容易出现栈溢出,推荐用颗粒化来做
      */
     public static func wt_fibonacci(number:UInt)->UInt{
-    
+        if number < 0 {
+            return 0
+        }
         if number <= 1 {
             return 1
         }else{
