@@ -690,17 +690,10 @@ extension Int{
     /*!
         斐波那契数列,用递归实现的,容易出现栈溢出,推荐用颗粒化来做
      */
-    public static func wt_fibonacci(number:Int)->Int{
+    public static func wt_fibonacci(number:UInt)->UInt{
     
         if number <= 1 {
-            switch number {
-            case 0:
-                return 1
-            case 1:
-                return 1
-            default:
-                return 0
-            }
+            return 1
         }else{
             return wt_fibonacci(number: number - 2) + wt_fibonacci(number: number - 1)
         }
