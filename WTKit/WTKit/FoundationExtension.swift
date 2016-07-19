@@ -706,6 +706,20 @@ extension Int{
         }
     }
     
+    /*
+    public static func wt_fibonacciCurry(number:Int)->Int{
+        var total:Int = 0
+        func sum(number1:Int)->Int{
+            if number1 == 1 || number1 == 0 {
+                return 1
+            }else{
+                return sum(number1: number1 - 2) + sum(number1: number1 - 1)
+            }
+        }
+        return sum(number1: number - 2) + sum(number1: number - 1)
+    }
+ */
+    
 
     public func isEven() -> Bool{
         return (self%2) == 0

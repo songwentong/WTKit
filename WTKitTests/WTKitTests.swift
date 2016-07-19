@@ -87,6 +87,15 @@ class WTKitTests: XCTestCase {
         }
     }
     
+    /*
+    func testWTcurry(){
+        for i in 0...100 {
+            let y = Int.wt_fibonacciCurry(number: i)
+            print("\(i):\(y)")
+        }
+    }
+ */
+    
     func testUIApplication(){
         /*
         UIApplication.track()
