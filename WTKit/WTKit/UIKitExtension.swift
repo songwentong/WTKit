@@ -456,7 +456,7 @@
          */
         
         public class func sharedURLCache() -> URLCache {
-            return URLCache.sharedURLCacheForRequests()
+            return URLCache.wt_sharedURLCacheForRequests()
         }
         
         public func toData()->Data?{

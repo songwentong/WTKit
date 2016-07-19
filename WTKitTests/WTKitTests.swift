@@ -44,7 +44,7 @@ class WTKitTests: XCTestCase {
         #endif
     }
     func testSession(){
-        let session = URLSession.wtSharedInstance()
+        let session = URLSession.wt_sharedInstance()
         XCTAssertNil(session.delegate, "session delegate should not be nil")
     }
     func testReqeust(){
