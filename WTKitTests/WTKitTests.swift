@@ -26,7 +26,7 @@ class WTKitTests: XCTestCase {
     }
     func testURLSession(){
         let url = "http://www.baidu.com"
-        let task = URLSession.wtDataTask(with: url) { (data, response, error) in
+        let task = URLSession.wt_dataTask(with: url) { (data, response, error) in
             
         }
         task.resume()
@@ -58,10 +58,10 @@ class WTKitTests: XCTestCase {
         _ = URLRequest.request(with:"", method: "", parameters: nil)
         request = URLRequest.request(with:"http://www.baidu.com", method: "", parameters: nil, headers: nil)
         let credential = URLCredential(user: "user", password: "pwd", persistence:URLCredential.Persistence.forSession)
-        var task = URLSession.wtDataTask(with: request!, credential: credential) { (data, response, error) in
+        var task = URLSession.wt_dataTask(with: request!, credential: credential) { (data, response, error) in
             
         }
-        task = URLSession.wtDataTask(with: request!, completionHandler: { (data, response, error) in
+        task = URLSession.wt_dataTask(with: request!, completionHandler: { (data, response, error) in
             
         })
         task.resume()
@@ -177,7 +177,7 @@ class BasicAuthenticationTestCase:AuthenticationTestCase{
     }
     func testHTTPBasicAuthenticationWithInvalidCredentials() {
 //        var request = URLRequest.request(URLString)
-//        var task = URLSession.wtDataTask(with: request, credential: URLCredential(user: user,password: passwd)) { (data, response, error) in
+//        var task = URLSession.wt_dataTask(with: request, credential: URLCredential(user: user,password: passwd)) { (data, response, error) in
         
 //        }
     }
