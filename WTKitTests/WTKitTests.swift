@@ -82,7 +82,7 @@ class WTKitTests: XCTestCase {
     
     func testInt(){
         for i in 0...100{
-            let y = Int.wt_fibonacci(number: i)
+            let y = Int.wt_fibonacci(number: UInt(i))
             print("\(i):\(y)")
         }
     }
