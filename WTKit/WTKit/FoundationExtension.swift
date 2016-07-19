@@ -124,8 +124,8 @@ extension URLSession{
     /*
         便捷的请求方法.
      */
-    public static func wtDataTask(with url:String, method:String?="GET",parameters:[String:String]?=[:],headers: [String: String]? = [:] ,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
-        let request = URLRequest.request(with: url, method: method, parameters: parameters, headers: headers)
+    public static func wtDataTask(with url:String, method:httpMethod? = .GET,parameters:[String:String]?=[:],headers: [String: String]? = [:] ,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
+        let request = URLRequest.wtRequest(with: url, method: method, parameters: parameters, headers: headers)
         return self.wtDataTask(with: request,credential:credential, completionHandler: completionHandler)
     }
  
@@ -464,7 +464,7 @@ extension URLRequest{
             }
         }
         
-        if(self.methodShouldAddQuery(request.httpMethod)){
+        if(self.methodShouldAddQuery(request.httpMethod!)){
             urlString = url
             if let query:String = queryString {
                 urlString += "?"
@@ -485,6 +485,7 @@ extension URLRequest{
         根据url,方法,参数和header创建一个请求
         方法默认是GET,参数默认是空,请求头默认是空
      */
+    /*
     public static func request(with url:String, method:String?="GET", parameters:[String:String]?=nil,headers: [String: String]?=nil) -> URLRequest{
         
         let queryString = self.queryString(from:parameters)
@@ -519,6 +520,7 @@ extension URLRequest{
         }
         return request
     }
+    */
     
      public static let defaultHTTPHeaders: [String: String] = {
         let acceptEncoding: String = "gzip;q=1.0, compress;q=0.5"

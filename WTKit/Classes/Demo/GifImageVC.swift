@@ -31,7 +31,7 @@ class GifImageVC: UIViewController {
         
         //http://ww1.sinaimg.cn/bmiddle/006ajVGQgw1f4s8n25m5hg30b4081u0z.gif
         self.showLoadingView()
-        let request = URLRequest.request(with: "http://ww1.sinaimg.cn/mw690/47449485jw1f4shxfge7lg208w04rkjn.gif")
+        let request = URLRequest.wtRequest(with: "http://ww1.sinaimg.cn/mw690/47449485jw1f4shxfge7lg208w04rkjn.gif")
         _ = URLSession.wtCachedDataTask(with: request, credential: nil) { (data, response, error) in
             if data != nil {
                 
