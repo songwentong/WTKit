@@ -87,6 +87,13 @@ class WTKitTests: XCTestCase {
         }
     }
     
+    func testwt_factorial(){
+        for i in 1...10{
+            let y = UInt.wt_factorial(number: UInt(i))
+            print("\(i):\(y)")
+        }
+    }
+    
     /*
     func testWTcurry(){
         for i in 0...100 {

@@ -682,7 +682,20 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
  
 
 
-
+extension UInt{
+    
+    
+    /*!
+        计算阶乘
+     */
+    public static func wt_factorial(number:UInt)->UInt{
+        if number == 1 {
+            return 1
+        }else{
+            return number * wt_factorial(number: (number - 1))
+        }
+    }
+}
 extension Int{
     
     
@@ -698,6 +711,8 @@ extension Int{
             return wt_fibonacci(number: number - 2) + wt_fibonacci(number: number - 1)
         }
     }
+    
+    
     
     /*
     public static func wt_fibonacciCurry(number:Int)->Int{
