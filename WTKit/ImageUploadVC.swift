@@ -5,7 +5,9 @@
 //  Created by SongWentong on 6/4/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+/*
+    这是一个图片上传女的demo,需要设置一下http的头,然后添加图片数据就可以了
+ */
 import UIKit
 
 class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {

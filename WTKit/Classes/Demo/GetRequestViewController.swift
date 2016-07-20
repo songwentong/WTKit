@@ -5,7 +5,13 @@
 //  Created by SongWentong on 4/21/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+/*
+    这是一个基本的请求例子,可以执行GET和POST请求,提供参数可填写(在新页面)
+    在填写完URL之后点击请求即可开始请求
+    请求完成后如果是utf-8的字符串的话可以返回显示出来,不是的话就只能提示数据无法解析
+    请求完成/失败会在底部使用tip提示
+ 
+ */
 import UIKit
 import Foundation
 class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {

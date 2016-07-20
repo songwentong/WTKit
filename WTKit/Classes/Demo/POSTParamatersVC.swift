@@ -5,7 +5,11 @@
 //  Created by SongWentong on 4/29/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+/*
+    这是一个请求的参数页面,用于添加和去掉参数
+    点击底部的add就可以填写参数,每个参数有key和value可以填写,右边的减号用于删除某个参数
+ 
+ */
 import UIKit
 
 /*!

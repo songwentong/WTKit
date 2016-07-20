@@ -5,7 +5,9 @@
 //  Created by SongWentong on 5/26/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+/*
+    这是一个gif图的demo,这个gif图是用displaylink来绘制的,不会被一些事件打断,效果更好
+ */
 import UIKit
 
 class GifImageVC: UIViewController {

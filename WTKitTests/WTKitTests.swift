@@ -94,6 +94,13 @@ class WTKitTests: XCTestCase {
         }
     }
     
+    
+    func testOperationQueue(){
+        let queue = OperationQueue()
+        queue.isSuspended = false
+    }
+    
+    
     /*
     func testWTcurry(){
         for i in 0...100 {

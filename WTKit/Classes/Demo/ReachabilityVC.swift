@@ -5,7 +5,9 @@
 //  Created by SongWentong on 6/21/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+/*  
+    这是一个Reachability的使用,非常简单,看代码就可以了
+ */
 import UIKit
 
 class ReachabilityVC: UIViewController {

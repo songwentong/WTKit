@@ -5,7 +5,10 @@
 //  Created by SongWentong on 6/16/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+/*
+    这是一个下拉刷新的demo
+    只需要设置一下刷新头就可以了,然后在需要停止刷新的时候调用停止就可以了
+ */
 import UIKit
 
 class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegate{

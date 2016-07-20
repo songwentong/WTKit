@@ -5,7 +5,9 @@
 //  Created by SongWentong on 5/20/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+/*
+    一个便捷的设置颜色的方法
+ */
 import UIKit
 
 class ColorViewController: UIViewController {
