@@ -37,9 +37,24 @@ public func toUTF8String()->String
 public func parseJson()->AnyObject?
 
 ```
-- NRLSession 
+- URLSession 
 ```swift
-
+let url = "https://www.apple.com"
+        let task = URLSession.wt_dataTask(with: url) { (data, response, error) in
+            //do somthing
+            print(data)
+        }
+        // set image
+        task.imageHandler = (image:UIImage?,error:NSError?){
+            imageView.image = image
+        }
+        // or get json
+        task.jsonHandler =  (anyObject:AnyObject?,error:NSError?){
+            
+            print(AnyObject)
+        }
+        
+        task.resume()
 ```
 - URLRequest 
 ```swift
