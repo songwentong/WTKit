@@ -45,15 +45,14 @@ let url = "https://www.apple.com"
             print(data)
         }
         // set image
-        task.imageHandler = (image:UIImage?,error:NSError?){
+        let imageView:UIImageView = UIImageView()
+        task.imageHandler = {(image:UIImage?,error:NSError?) in
             imageView.image = image
         }
         // or get json
-        task.jsonHandler =  (anyObject:AnyObject?,error:NSError?){
-            
-            print(AnyObject)
+        task.jsonHandler = {(anyObject:AnyObject?,error:NSError?) in
+            print(anyObject)
         }
-        
         task.resume()
 ```
 - URLRequest 
