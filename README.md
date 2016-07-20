@@ -7,8 +7,15 @@ Swift Extensions
 
 
 - WTPrint 
+this method only print at debug mode
 ```swift
-//this method only print at debug mode
+public func WTPrint<T>(_ items:T,
+             separator: String = " ",
+             terminator: String = "\n",
+             file: String = #file,
+             method: String = #function,
+             line: Int = #line)
+
 WTPrint("wt print \(self)")
 //AppDelegate.swift[19], application(_:didFinishLaunchingWithOptions:) wt print <WTKit.AppDelegate: 0x7fde38509d80>
 
