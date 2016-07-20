@@ -685,6 +685,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome downloadTask: URLSessionDownloadTask){
     }
     
+    @available(iOS 9.0, *)
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome streamTask: URLSessionStreamTask){
     }
     

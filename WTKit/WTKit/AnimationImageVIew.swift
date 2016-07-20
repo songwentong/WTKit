@@ -117,8 +117,8 @@ class AnimationImageVIew: UIImageView {
             self.currentFrameIndex = 0
             self.iamgesource = imageSource
             if let properties = CGImageSourceCopyProperties(imageSource, nil),
-                gifInfo = (properties as NSDictionary)[kCGImagePropertyGIFDictionary as String] as? NSDictionary,
-                loopCount = gifInfo[kCGImagePropertyGIFLoopCount as String] as? Int {
+                let gifInfo = (properties as NSDictionary)[kCGImagePropertyGIFDictionary as String] as? NSDictionary,
+                let loopCount = gifInfo[kCGImagePropertyGIFLoopCount as String] as? Int {
                 self.loopCount = loopCount
             }
             if link.isPaused && curFrame != nil {
