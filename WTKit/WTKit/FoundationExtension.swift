@@ -819,6 +819,44 @@ extension NSObject{
     }
     
     
+    /*!
+        非递归遍历
+     */
+    /*
+    public static func wt_tarversal(with obj:AnyObject){
+        
+        func tarversalOneDepth(with objects:AnyObject)->[AnyObject]{
+            
+            
+            var result = [AnyObject]()
+            if let array:[AnyObject] = objects as? Array<AnyObject>{
+                for t in array{
+                    if let u:[AnyObject] = t as?Array<AnyObject> {
+                        result.append(contentsOf: u)
+                    }else if let v:[String:AnyObject] = t as? Dictionary<String,AnyObject>{
+                        result.append(contentsOf: v.values)
+                    }
+            }
+                }
+        return result
+            
+        }
+        
+        var tempArray = [AnyObject]()
+        tempArray.append(obj)
+        
+        
+        repeat{
+            let r = tarversalOneDepth(with: tempArray)
+            for a in r{
+                print("print : \(a)")
+            }
+            tempArray = r
+        }while (tempArray.count != 0)
+        
+    }
+    */
+    
 }
 
 //数据缓存
