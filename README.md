@@ -39,7 +39,7 @@ public func parseJson()->AnyObject?
 ```
 - URLSession 
 ```swift
-let url = "https://www.apple.com"
+        let url = "https://www.apple.com"
         let task = URLSession.wt_dataTask(with: url) { (data, response, error) in
             //do somthing
             print(data)
