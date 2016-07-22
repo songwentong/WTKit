@@ -8,25 +8,25 @@
 
 import Foundation
 #if os(iOS)
-import SystemConfiguration
-import CoreFoundation
-import CoreGraphics
-//    import MobileCoreServices
-import UIKit
+    import SystemConfiguration
+    import CoreFoundation
+    import CoreGraphics
+    //    import MobileCoreServices
+    import UIKit
 #elseif os(OSX)
     import CoreServices
 #endif
 
 // MARK: - 用于DEBUG模式的print,强烈推荐使用
 /*!
-    用于DEBUG模式的log
+ 用于DEBUG模式的log
  */
 public func WTPrint<T>(_ items:T,
-             separator: String = " ",
-             terminator: String = "\n",
-             file: String = #file,
-             method: String = #function,
-             line: Int = #line)
+                    separator: String = " ",
+                    terminator: String = "\n",
+                    file: String = #file,
+                    method: String = #function,
+                    line: Int = #line)
 {
     #if DEBUG
         print("\((file as NSString).lastPathComponent)[\(line)], \(method)")
@@ -35,8 +35,8 @@ public func WTPrint<T>(_ items:T,
 }
 
 /*!
-    用于WTKit内部log
-    只有在debug下并且WTKitLogMode是true的情况下输出
+ 用于WTKit内部log
+ 只有在debug下并且WTKitLogMode是true的情况下输出
  */
 private let WTKitLogMode:Bool = true
 public func WTLog(
@@ -66,8 +66,8 @@ public func DEBUGBlock(_ block:() -> Void){
 }
 
 /*!
-    安全的回到主线程
-*/
+ 安全的回到主线程
+ */
 public func safeSyncInMain(with block:()->Void)->Void{
     if Thread.current.isMainThread {
         block()
@@ -79,7 +79,7 @@ public func safeSyncInMain(with block:()->Void)->Void{
 
 // MARK: - 延时执行的代码块
 /*!
-    延时执行的代码块
+ 延时执行的代码块
  */
 public func performOperation(with block:()->Void, afterDelay:TimeInterval){
     //Swift 不允许数据在计算中损失,所以需要在计算的时候转换以下类型
@@ -107,7 +107,7 @@ func bridgeTransfer<T : AnyObject>(ptr : UnsafePointer<Void>) -> T {
 }
 
 public enum httpMethod:String{
-     case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
+    case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
 }
 extension URLRequest{
     
@@ -362,15 +362,15 @@ extension URLSession{
     }
     
     /*
-        便捷的请求方法.
+     便捷的请求方法.
      */
     public static func wt_dataTask(with url:String, method:httpMethod? = .GET,parameters:[String:String]?=[:],headers: [String: String]? = [:] ,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
         let request = URLRequest.wt_request(with: url, method: method, parameters: parameters, headers: headers)
         return self.wt_dataTask(with: request,credential:credential, completionHandler: completionHandler)
     }
- 
+    
     /*!
-        根据请求对象,凭据来创建task
+     根据请求对象,凭据来创建task
      */
     public static func wt_dataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
         let session = self.wt_sharedInstance()
@@ -395,7 +395,7 @@ extension URLSession{
     }
     
     public static func wt_downloadTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
-    
+        
         let session = self.wt_sharedInstance()
         let task = session.downloadTask(with: request)
         let myTask = WTURLSessionTask(task: task)
@@ -410,7 +410,7 @@ extension URLSession{
     public static func wt_cachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
         
         
-//        let configuration = URLSessionConfiguration.default
+        //        let configuration = URLSessionConfiguration.default
         let session = self.wt_sharedInstance()
         var myRequest = request
         myRequest.cachePolicy = .returnCacheDataElseLoad
@@ -464,7 +464,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
         OperationQueue.globalQueue {
             if let _ = self.imageHandler{
                 let image = UIImage(data: self.data)
-                OperationQueue.main({ 
+                OperationQueue.main({
                     self.imageHandler?(image:image,error:self.error)
                 })
                 
@@ -488,7 +488,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
         }
         
     }
-
+    
     
     //URLSessionDataTaskDelegate
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
@@ -498,7 +498,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
         
         self.data += data
-        OperationQueue.main { 
+        OperationQueue.main {
             self.progressHandler?(countOfBytesReceived: dataTask.countOfBytesReceived,countOfBytesExpectedToReceive: dataTask.countOfBytesExpectedToReceive)
         }
         
@@ -525,7 +525,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
     
     //URLSessionDownloadDelegate
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL){
-    
+        
     }
     
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64){
@@ -535,12 +535,12 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64){
         
     }
-
+    
 }
 
 public typealias challengeHandler = (challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void)
 /*
-    提供凭据
+ 提供凭据
  */
 public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
@@ -551,7 +551,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     //网址凭据
     var credential: URLCredential?
-
+    
     
     
     private var taskDelegates: [Int: WTURLSessionTask] = [:]
@@ -569,7 +569,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
             taskDelegates[task.taskIdentifier] = newValue
         }
     }
-  
+    
     public var challengeHandler:challengeHandler?
     
     
@@ -601,15 +601,15 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     }
     
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
-//        if (challengeHandler != nil) {
-//            challengeHandler?(challenge: challenge,completionHandler: completionHandler)
-//        }
+        //        if (challengeHandler != nil) {
+        //            challengeHandler?(challenge: challenge,completionHandler: completionHandler)
+        //        }
         /*
          public typealias challengeHandler = (challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void)
          */
-//        if let handler:challengeHandler = challengeHandler{
-//            handler(challenge:challenge,completionHandler:)
-//        }
+        //        if let handler:challengeHandler = challengeHandler{
+        //            handler(challenge:challenge,completionHandler:)
+        //        }
         
         
         
@@ -632,7 +632,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     
     
-
+    
     
     
     
@@ -650,7 +650,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         if let myTask = self[task] {
             myTask.urlSession(session, task: task, didCompleteWithError: error)
         }else{
-
+            
         }
         
     }
@@ -659,7 +659,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     
     // MARK: URLSessionDataDelegate
-
+    
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
         if let task = self[dataTask] {
@@ -668,7 +668,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
             completionHandler(URLSession.ResponseDisposition.allow)
         }
         
-
+        
         
     }
     
@@ -697,14 +697,14 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         
     }
 }
- 
+
 
 
 extension UInt{
     
     
     /*!
-        计算阶乘
+     计算阶乘
      */
     public static func wt_factorial(number:UInt)->UInt{
         if number == 1 {
@@ -721,7 +721,7 @@ extension Int{
     
     
     /*!
-        斐波那契数列,用递归实现的,容易出现栈溢出,推荐用颗粒化来做
+     斐波那契数列,用递归实现的,容易出现栈溢出,推荐用颗粒化来做
      */
     public static func wt_fibonacci(number:UInt)->UInt{
         if number < 0 {
@@ -737,20 +737,20 @@ extension Int{
     
     
     /*
-    public static func wt_fibonacciCurry(number:Int)->Int{
-        var total:Int = 0
-        func sum(number1:Int)->Int{
-            if number1 == 1 || number1 == 0 {
-                return 1
-            }else{
-                return sum(number1: number1 - 2) + sum(number1: number1 - 1)
-            }
-        }
-        return sum(number1: number - 2) + sum(number1: number - 1)
-    }
- */
+     public static func wt_fibonacciCurry(number:Int)->Int{
+     var total:Int = 0
+     func sum(number1:Int)->Int{
+     if number1 == 1 || number1 == 0 {
+     return 1
+     }else{
+     return sum(number1: number1 - 2) + sum(number1: number1 - 1)
+     }
+     }
+     return sum(number1: number - 2) + sum(number1: number - 1)
+     }
+     */
     
-
+    
     public func isEven() -> Bool{
         return (self%2) == 0
     }
@@ -775,14 +775,14 @@ extension NSObject{
     
     
     /*!
-        交换实例方法
+     交换实例方法
      */
     public static func exchangeInstanceImplementations(_ func1:Selector , func2:Selector){
         method_exchangeImplementations(class_getInstanceMethod(self, func1), class_getInstanceMethod(self, func2));
     }
     
     /*!
-        交换类方法
+     交换类方法
      */
     public static func exchangeClassImplementations(_ func1:Selector , func2:Selector){
         method_exchangeImplementations(class_getClassMethod(self, func1), class_getClassMethod(self, func2));
@@ -794,13 +794,13 @@ extension NSObject{
         let time = Int64(afterDelay * Double(NSEC_PER_SEC))
         let t = DispatchTime.now() + Double(time) / Double(NSEC_PER_SEC)
         DispatchQueue.main.after(when: t, execute: block)
-//        DispatchQueue.main.after(when: t, block: block)
-    
+        //        DispatchQueue.main.after(when: t, block: block)
+        
     }
     
     /*!
-        递归遍历:先深度
-        note:必须是可用的的json对象
+     递归遍历:先深度
+     note:必须是可用的的json对象
      */
     public static func traversal(_ obj:AnyObject){
         if JSONSerialization.isValidJSONObject(obj) {
@@ -820,42 +820,42 @@ extension NSObject{
     
     
     /*!
-        非递归遍历
+     非递归遍历
      */
     /*
-    public static func wt_tarversal(with obj:AnyObject){
-        
-        func tarversalOneDepth(with objects:AnyObject)->[AnyObject]{
-            
-            
-            var result = [AnyObject]()
-            if let array:[AnyObject] = objects as? Array<AnyObject>{
-                for t in array{
-                    if let u:[AnyObject] = t as?Array<AnyObject> {
-                        result.append(contentsOf: u)
-                    }else if let v:[String:AnyObject] = t as? Dictionary<String,AnyObject>{
-                        result.append(contentsOf: v.values)
-                    }
-            }
-                }
-        return result
-            
-        }
-        
-        var tempArray = [AnyObject]()
-        tempArray.append(obj)
-        
-        
-        repeat{
-            let r = tarversalOneDepth(with: tempArray)
-            for a in r{
-                print("print : \(a)")
-            }
-            tempArray = r
-        }while (tempArray.count != 0)
-        
-    }
-    */
+     public static func wt_tarversal(with obj:AnyObject){
+     
+     func tarversalOneDepth(with objects:AnyObject)->[AnyObject]{
+     
+     
+     var result = [AnyObject]()
+     if let array:[AnyObject] = objects as? Array<AnyObject>{
+     for t in array{
+     if let u:[AnyObject] = t as?Array<AnyObject> {
+     result.append(contentsOf: u)
+     }else if let v:[String:AnyObject] = t as? Dictionary<String,AnyObject>{
+     result.append(contentsOf: v.values)
+     }
+     }
+     }
+     return result
+     
+     }
+     
+     var tempArray = [AnyObject]()
+     tempArray.append(obj)
+     
+     
+     repeat{
+     let r = tarversalOneDepth(with: tempArray)
+     for a in r{
+     print("print : \(a)")
+     }
+     tempArray = r
+     }while (tempArray.count != 0)
+     
+     }
+     */
     
 }
 
@@ -864,7 +864,7 @@ private var wt_sharedURLCacheForRequestsKey:Void?
 extension URLCache{
     
     /*!
-        数据缓存
+     数据缓存
      */
     public static func wt_sharedURLCacheForRequests()->URLCache{
         var cache = objc_getAssociatedObject(OperationQueue.main, &wt_sharedURLCacheForRequestsKey)
@@ -872,7 +872,7 @@ extension URLCache{
             
         }else{
             //0M memory, 1G Disk
-//            let diskCapacity:Int = 4 * 1024 * 1024 * 1024
+            //            let diskCapacity:Int = 4 * 1024 * 1024 * 1024
             cache = URLCache(memoryCapacity: 0, diskCapacity: 1*1024*1024*1024, diskPath: "wt_sharedURLCacheForRequestsKey")
             objc_setAssociatedObject(OperationQueue.main, &wt_sharedURLCacheForRequestsKey, cache, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
@@ -882,45 +882,45 @@ extension URLCache{
     }
     
     
-
+    
 }
 extension Array{
     
     /*!
-        排序方法,这个方法的效率很垃圾,不要尝试使用,想优化的帮我优化一下吧.
-        mutating 代表该方法将会改变该对象的内部结构,比如排序什么的.
+     排序方法,这个方法的效率很垃圾,不要尝试使用,想优化的帮我优化一下吧.
+     mutating 代表该方法将会改变该对象的内部结构,比如排序什么的.
      */
     /*
-    public mutating func wtSort( _ isOrderedBefore: @noescape(Array.Iterator.Element, Array.Iterator.Element) -> Bool)->Array!{
-        //        let result = self;
-        let count = self.count-1
-        for i in 0..<count{
-            var obj1 = self[i]
-            var obj2 = self[i+1]
-            if(isOrderedBefore(obj1,obj2) == true){
-                swap(&obj1, &obj2)
-            }
-        }
-        for i in 0..<count{
-            let obj1 = self[i]
-            let obj2 = self[i+1]
-            if(isOrderedBefore(obj1,obj2) == true){
-                self.wtSort(isOrderedBefore)
-            }
-        }
-        
-        return self
-    }
- */
+     public mutating func wtSort( _ isOrderedBefore: @noescape(Array.Iterator.Element, Array.Iterator.Element) -> Bool)->Array!{
+     //        let result = self;
+     let count = self.count-1
+     for i in 0..<count{
+     var obj1 = self[i]
+     var obj2 = self[i+1]
+     if(isOrderedBefore(obj1,obj2) == true){
+     swap(&obj1, &obj2)
+     }
+     }
+     for i in 0..<count{
+     let obj1 = self[i]
+     let obj2 = self[i+1]
+     if(isOrderedBefore(obj1,obj2) == true){
+     self.wtSort(isOrderedBefore)
+     }
+     }
+     
+     return self
+     }
+     */
     
-
     
-
+    
+    
 }
 extension OperationQueue{
     
     
-// MARK: - 快捷线程切换
+    // MARK: - 快捷线程切换
     /*!
      到默认的全局队列做事情
      优先级是默认的
@@ -931,14 +931,14 @@ extension OperationQueue{
     
     
     /*!
-        优先级:交互级的
+     优先级:交互级的
      */
     public static func userInteractive(_ block:()->Void)->Void{
         globalQueue(.qosUserInteractive, block: block)
     }
     
     /*!
-        后台执行
+     后台执行
      */
     public static func background(_ block:()->Void)->Void{
         globalQueue(.qosBackground, block: block)
@@ -946,7 +946,7 @@ extension OperationQueue{
     
     
     /*!
-        进入一个全局的队列来做事情,可以设定优先级
+     进入一个全局的队列来做事情,可以设定优先级
      */
     public static func globalQueue(_ priority:DispatchQueue.GlobalAttributes,block:()->Void)->Void{
         DispatchQueue.global(attributes: priority).async(execute: block)
@@ -960,7 +960,7 @@ extension OperationQueue{
     }
 }
 extension Operation{
-
+    
 }
 
 extension Dictionary{
@@ -969,7 +969,7 @@ extension Dictionary{
 extension Data{
     
     /*!
-        utf-8 string
+     utf-8 string
      */
     public func toUTF8String()->String{
         let string = String.init(data: self, encoding: String.Encoding.utf8)
@@ -980,7 +980,7 @@ extension Data{
     }
     
     /*!
-        Create a Foundation object from JSON data.
+     Create a Foundation object from JSON data.
      */
     public func parseJson()->AnyObject?{
         var obj:AnyObject? = nil
@@ -992,7 +992,7 @@ extension Data{
     }
     
     /*!
-        Create a Foundation object from JSON data.
+     Create a Foundation object from JSON data.
      */
     public func parseJSON(handler block:(AnyObject?,NSError?)->Void){
         var obj:AnyObject = "not a json"
@@ -1005,7 +1005,7 @@ extension Data{
         block(obj,theError)
     }
     //public func +(lhs: Date, rhs: TimeInterval) -> Date
-
+    
     
 }
 //public func +(lhs: [String],rhs: [String]) -> [String]{
@@ -1120,16 +1120,16 @@ extension RegularExpression{
 }
 
 extension String{
-
+    
     //TODO MD5
     
     //"$＄¥￥231"
     /*!
-        半角的RMB符号，加删除线的时候比较方便,不会和数字看起来不同
-        Half-width
-        注意:如果是全角的和数字放在一起加删除线不会连接在一起
+     半角的RMB符号，加删除线的时候比较方便,不会和数字看起来不同
+     Half-width
+     注意:如果是全角的和数字放在一起加删除线不会连接在一起
      
-        ¥ 全角 ￥半角
+     ¥ 全角 ￥半角
      */
     public static func RMBSymbol()->String{
         return "¥"
@@ -1186,7 +1186,7 @@ extension String{
         }
         return data!
     }
- 
+    
     
     #if os(iOS)
     /*!
@@ -1201,141 +1201,141 @@ extension String{
 
 
 #if os(iOS)
-// MARK: - Reachbility
-public enum WTNetworkStatus:UInt{
-    //无连接
-    case notReachable = 0
-    //Wi-Fi
-    case reachableViaWiFi = 1
-    //蜂窝数据
-    case reachableViaWWAN = 2
-}
-public let kWTReachabilityChangedNotification = "kWTReachabilityChangedNotification"
-func ReachabilityCallback(_ reachability:SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutablePointer<Void>?) {
+    // MARK: - Reachbility
+    public enum WTNetworkStatus:UInt{
+        //无连接
+        case notReachable = 0
+        //Wi-Fi
+        case reachableViaWiFi = 1
+        //蜂窝数据
+        case reachableViaWWAN = 2
+    }
+    public let kWTReachabilityChangedNotification = "kWTReachabilityChangedNotification"
+    func ReachabilityCallback(_ reachability:SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutablePointer<Void>?) {
         assert(info != nil)
         let noteObject = Unmanaged<WTReachability>.fromOpaque(info!).takeUnretainedValue()
-    NotificationCenter.default.post(name: Notification.Name(rawValue: kWTReachabilityChangedNotification), object: noteObject, userInfo: nil)
-}
-public class WTReachability:NSObject{
-    
-    var _reachabilityRef:SCNetworkReachability?
-    
-    /*!
-     * Use to check the reachability of a given host name.
-     */
-    public class func reachabilityWithHostName(_ hostName:String)->WTReachability{
+        NotificationCenter.default.post(name: Notification.Name(rawValue: kWTReachabilityChangedNotification), object: noteObject, userInfo: nil)
+    }
+    public class WTReachability:NSObject{
         
-        var returnValue:WTReachability?
-        let reachability = SCNetworkReachabilityCreateWithName(nil, hostName);
-        if reachability != nil {
-            returnValue = WTReachability()
-            returnValue?._reachabilityRef = reachability
+        var _reachabilityRef:SCNetworkReachability?
+        
+        /*!
+         * Use to check the reachability of a given host name.
+         */
+        public class func reachabilityWithHostName(_ hostName:String)->WTReachability{
+            
+            var returnValue:WTReachability?
+            let reachability = SCNetworkReachabilityCreateWithName(nil, hostName);
+            if reachability != nil {
+                returnValue = WTReachability()
+                returnValue?._reachabilityRef = reachability
+            }
+            return returnValue!
         }
-        return returnValue!
-    }
-    
-    /*!
-     * Use to check the reachability of a given IP address.
-     */
-    public class func reachabilityWithAddress(_ hostAddress: UnsafePointer<sockaddr>)->WTReachability?{
-        let reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, hostAddress);
-        var returnValue:WTReachability?
-        if reachability != nil {
-            returnValue = WTReachability()
-            returnValue?._reachabilityRef = reachability
+        
+        /*!
+         * Use to check the reachability of a given IP address.
+         */
+        public class func reachabilityWithAddress(_ hostAddress: UnsafePointer<sockaddr>)->WTReachability?{
+            let reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, hostAddress);
+            var returnValue:WTReachability?
+            if reachability != nil {
+                returnValue = WTReachability()
+                returnValue?._reachabilityRef = reachability
+            }
+            return returnValue
+            
         }
-        return returnValue
-    
-    }
-    
-    /*!
-     * Checks whether the default route is available. Should be used by applications that do not connect to a particular host.
-     */
-    public class func reachabilityForInternetConnection(_ complection:(reachability:WTReachability)->Void) -> Void{
-        var zeroAddress = sockaddr_in()
-        zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
-        zeroAddress.sin_family = sa_family_t(AF_INET)
-        withUnsafePointer(&zeroAddress, {
-            let reachability:WTReachability = WTReachability.reachabilityWithAddress(UnsafePointer($0))!
-            complection(reachability:reachability)
-        })
-    }
-    
-    public func startNotifier()->Bool{
-        var returnValue = false
         
-        var context:SCNetworkReachabilityContext = SCNetworkReachabilityContext()
-        //public var info: UnsafeMutablePointer<Swift.Void>?
-        //public init(_ from: OpaquePointer)
+        /*!
+         * Checks whether the default route is available. Should be used by applications that do not connect to a particular host.
+         */
+        public class func reachabilityForInternetConnection(_ complection:(reachability:WTReachability)->Void) -> Void{
+            var zeroAddress = sockaddr_in()
+            zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
+            zeroAddress.sin_family = sa_family_t(AF_INET)
+            withUnsafePointer(&zeroAddress, {
+                let reachability:WTReachability = WTReachability.reachabilityWithAddress(UnsafePointer($0))!
+                complection(reachability:reachability)
+            })
+        }
         
-        context.info = UnsafeMutablePointer(bridge(obj: self))
-        
-        if SCNetworkReachabilitySetCallback(_reachabilityRef!, ReachabilityCallback, &context) {
-            if SCNetworkReachabilityScheduleWithRunLoop(_reachabilityRef!, CFRunLoopGetCurrent(), RunLoopMode.defaultRunLoopMode.rawValue) {
-                returnValue = true
+        public func startNotifier()->Bool{
+            var returnValue = false
+            
+            var context:SCNetworkReachabilityContext = SCNetworkReachabilityContext()
+            //public var info: UnsafeMutablePointer<Swift.Void>?
+            //public init(_ from: OpaquePointer)
+            
+            context.info = UnsafeMutablePointer(bridge(obj: self))
+            
+            if SCNetworkReachabilitySetCallback(_reachabilityRef!, ReachabilityCallback, &context) {
+                if SCNetworkReachabilityScheduleWithRunLoop(_reachabilityRef!, CFRunLoopGetCurrent(), RunLoopMode.defaultRunLoopMode.rawValue) {
+                    returnValue = true
+                }
+            }
+            return returnValue
+        }
+        public func stopNotifier(){
+            if _reachabilityRef != nil {
+                SCNetworkReachabilityUnscheduleFromRunLoop(_reachabilityRef!, CFRunLoopGetCurrent(), RunLoopMode.defaultRunLoopMode.rawValue)
             }
         }
-        return returnValue
-    }
-    public func stopNotifier(){
-        if _reachabilityRef != nil {
-            SCNetworkReachabilityUnscheduleFromRunLoop(_reachabilityRef!, CFRunLoopGetCurrent(), RunLoopMode.defaultRunLoopMode.rawValue)
-        }
-    }
-    
-    func networkStatusForFlags(_ flags:SCNetworkReachabilityFlags)->WTNetworkStatus{
-        if !flags.contains(.reachable) {
-            return .notReachable
-        }
         
-        var returnValue:WTNetworkStatus = .notReachable
-        
-        
-        if !flags.contains(.connectionRequired) {
-            returnValue = .reachableViaWiFi
-        }
-        
-        if flags.contains(.connectionOnDemand) || flags.contains(.connectionOnTraffic) {
-            if !flags.contains(.interventionRequired) {
+        func networkStatusForFlags(_ flags:SCNetworkReachabilityFlags)->WTNetworkStatus{
+            if !flags.contains(.reachable) {
+                return .notReachable
+            }
+            
+            var returnValue:WTNetworkStatus = .notReachable
+            
+            
+            if !flags.contains(.connectionRequired) {
                 returnValue = .reachableViaWiFi
             }
+            
+            if flags.contains(.connectionOnDemand) || flags.contains(.connectionOnTraffic) {
+                if !flags.contains(.interventionRequired) {
+                    returnValue = .reachableViaWiFi
+                }
+            }
+            
+            
+            if flags.intersection(.isWWAN) == .isWWAN {
+                returnValue = .reachableViaWWAN
+            }
+            
+            return returnValue
         }
         
-        
-        if flags.intersection(.isWWAN) == .isWWAN {
-            returnValue = .reachableViaWWAN
+        func connectionRequired()->Bool{
+            assert(_reachabilityRef != nil)
+            var flags:SCNetworkReachabilityFlags = .reachable
+            if SCNetworkReachabilityGetFlags(_reachabilityRef!, &flags) {
+                return (flags.contains(.connectionRequired))
+            }
+            return false
         }
         
-        return returnValue
-    }
-    
-    func connectionRequired()->Bool{
-        assert(_reachabilityRef != nil)
-        var flags:SCNetworkReachabilityFlags = .reachable
-        if SCNetworkReachabilityGetFlags(_reachabilityRef!, &flags) {
-            return (flags.contains(.connectionRequired))
+        /*!
+         当前网络状态
+         */
+        public func currentReachabilityStatus()->WTNetworkStatus{
+            assert(_reachabilityRef != nil)
+            let returnValue:WTNetworkStatus = .notReachable
+            var flags:SCNetworkReachabilityFlags = .reachable
+            if SCNetworkReachabilityGetFlags(_reachabilityRef!, &flags) {
+                return networkStatusForFlags(flags)
+            }
+            return returnValue
         }
-        return false
-    }
-    
-    /*!
-        当前网络状态
-     */
-    public func currentReachabilityStatus()->WTNetworkStatus{
-        assert(_reachabilityRef != nil)
-        let returnValue:WTNetworkStatus = .notReachable
-        var flags:SCNetworkReachabilityFlags = .reachable
-        if SCNetworkReachabilityGetFlags(_reachabilityRef!, &flags) {
-            return networkStatusForFlags(flags)
+        
+        deinit {
+            stopNotifier()
         }
-        return returnValue
+        
     }
-    
-    deinit {
-        stopNotifier()
-    }
-    
-}
 #endif
 /*
  print 的源码
