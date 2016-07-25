@@ -218,6 +218,50 @@ class WTKitTests: XCTestCase {
         }
     }
     
+    
+    func testFlatMap1(){
+        let numbers = ["1", "2", "three", "///4///", "5"]
+        let mapped: [Int?] = numbers.map { str in Int(str) }
+        // [1, 2, nil, nil, 5]
+        print(mapped)
+        
+        let flatMapped: [Int] = numbers.flatMap { str in Int(str) }
+        // [1, 2, 5]
+        print(flatMapped)
+        
+    }
+    func testFlatMap2(){
+        let numbers = [1, 2, 3, 4]
+        
+        let mapped = numbers.map { Array(repeating: $0, count: $0) }
+        // [[1], [2, 2], [3, 3, 3], [4, 4, 4, 4]]
+        print(mapped)
+        
+        let flatMapped = numbers.flatMap {Array(repeating: $0, count: $0) }
+        // [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
+        print(flatMapped)
+    }
+    
+    func testMap1(){
+        let cast = ["Vivien", "Marlon", "Kim", "Karl"]
+        let lowercaseNames = cast.map { $0.lowercased() }
+        // 'lowercaseNames' == ["vivien", "marlon", "kim", "karl"]
+        print(lowercaseNames)
+        let letterCounts = cast.map { $0.characters.count }
+        // 'letterCounts' == [6, 6, 3, 4]
+        print(letterCounts)
+    }
+    
+    func testMap2(){
+        let cast = ["Vivien", "Marlon", "Kim", "Karl"]
+        let lowercaseNames = cast.map { $0.lowercased() }
+        // 'lowercaseNames' == ["vivien", "marlon", "kim", "karl"]
+        print(lowercaseNames)
+        let letterCounts = cast.map { $0.characters.count }
+        // 'letterCounts' == [6, 6, 3, 4]
+        print(letterCounts)
+    }
+    
 }
 class AuthenticationTestCase:WTKitTests{
     let user = "user"
