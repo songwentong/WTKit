@@ -112,7 +112,7 @@ task.jsonHandler = {(object:AnyObject?,error:NSError?) in
 
 ### 认证
 
-认证使用的系统框架的认证[`URLCredential` 和 `URLAuthenticationChallenge`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSURLAuthenticationChallenge_Class/Reference/Reference.html).
+认证使用的系统框架的认证[`URLCredential`和`URLAuthenticationChallenge`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSURLAuthenticationChallenge_Class/Reference/Reference.html).
 
 **支持的认证方案**
 
