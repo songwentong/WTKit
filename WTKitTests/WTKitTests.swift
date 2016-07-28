@@ -30,12 +30,12 @@ class WTKitTests: XCTestCase {
             //do somthing
             print(data)
         }
-        // set image
+
         
         task.imageHandler = {(image:UIImage?,error:NSError?) in
             print(image)
         }
-        // or get json
+
         task.jsonHandler = {(object:AnyObject?,error:NSError?) in
             print(object)
         }
@@ -44,55 +44,28 @@ class WTKitTests: XCTestCase {
         }
         task.resume()
         
-        print("int max: \(Int.max)")
+
+        
+    }
+    
+    func testArch(){
+        //        print("int max: \(Int.max)")
         //int max: 9223372036854775807     iPhone SE
         //int max: 2147483647   iPhone 5
-//        print("sizeOfInt \( sizeof(Int.self))")
+        //        print("sizeOfInt \( sizeof(Int.self))")
         //sizeOfInt 8   iPhone SE
         //sizeOfInt 4   iPhone5
         #if arch(x86_64)
             print("x86_64 sizeOfInt \( sizeof(Int.self))")
+            print(Int.max)
         #else
             print("not x86_64 sizeOfInt \( sizeof(Int.self))")
+            print(Int.max)
         #endif
     }
     func testSession(){
         let session = URLSession.wt_sharedInstance()
         XCTAssertNil(session.delegate, "session delegate should not be nil")
-    }
-    func testReqeust(){
-        let task = URLSession.wt_dataTask(with: "https://www.apple.com") { (data, response, error) in
-            print(response) //服务端响应
-            print(data)     //服务端数据
-            print(error)    //得到的错误
-        }
-        //self.completionHandler?(data:self.data,response:self.response,error:self.error)
-        //(string:String?,error:NSError?)->Void
-        task.stringHandler =
-        
-        
-        
-        task.resume()
-    
-        /*
-        var request:URLRequest?
-        _ = URLRequest.wtRequest(with: "")
-        _ = URLRequest.wtRequest(with:"", method: "")
-        _ = URLRequest.wtRequest(with:"", method: "", parameters: nil)
-        request = URLRequest.wtRequest(with:"http://www.baidu.com", method: "", parameters: nil, headers: nil)
-        let credential = URLCredential(user: "user", password: "pwd", persistence:URLCredential.Persistence.forSession)
-        var task = URLSession.wt_dataTask(with: request!, credential: credential) { (data, response, error) in
-            
-        }
-        task = URLSession.wt_dataTask(with: request!, completionHandler: { (data, response, error) in
-            
-        })
-        task.resume()
- */
-//        let reqeust = URLRequest.request("http://www.baidu.com")
-//        let session = URLSession.shared
-//        session.delegate = WTURLSessionDelegate()
-        
     }
     
     func testColorStatus(){
