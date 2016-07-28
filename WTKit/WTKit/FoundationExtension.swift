@@ -364,7 +364,7 @@ extension URLSession{
     /*
      便捷的请求方法.
      */
-    public static func wt_dataTask(with url:String, method:httpMethod? = .GET,parameters:[String:String]?=[:],headers: [String: String]? = [:] ,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
+    public static func wt_dataTask(with url:String, method:httpMethod? = .GET,parameters:[String:String]?=[:],headers: [String: String]? = [:] ,credential:URLCredential?=nil,completionHandler:completionHandler)->WTURLSessionTask{
         let request = URLRequest.wt_request(with: url, method: method, parameters: parameters, headers: headers)
         return self.wt_dataTask(with: request,credential:credential, completionHandler: completionHandler)
     }
@@ -372,7 +372,7 @@ extension URLSession{
     /*!
      根据请求对象,凭据来创建task
      */
-    public static func wt_dataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
+    public static func wt_dataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:completionHandler)->WTURLSessionTask{
         let session = self.wt_sharedInstance()
         let task = session.dataTask(with: request)
         let myTask = WTURLSessionTask(task: task)
@@ -383,7 +383,7 @@ extension URLSession{
         return myTask
     }
     
-    public static func wt_uploadTask(with request:URLRequest,from bodyData:Data,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
+    public static func wt_uploadTask(with request:URLRequest,from bodyData:Data,credential:URLCredential?=nil,completionHandler:completionHandler)->WTURLSessionTask{
         let session = self.wt_sharedInstance()
         let task = session.uploadTask(with: request, from: bodyData)
         let myTask = WTURLSessionTask(task: task)
@@ -394,7 +394,7 @@ extension URLSession{
         return myTask
     }
     
-    public static func wt_downloadTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
+    public static func wt_downloadTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:completionHandler)->WTURLSessionTask{
         
         let session = self.wt_sharedInstance()
         let task = session.downloadTask(with: request)
@@ -407,7 +407,7 @@ extension URLSession{
     }
     
     
-    public static func wt_cachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:(Data?, URLResponse?, NSError?) -> Void)->WTURLSessionTask{
+    public static func wt_cachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:completionHandler)->WTURLSessionTask{
         
         
         //        let configuration = URLSessionConfiguration.default
