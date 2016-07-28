@@ -429,13 +429,17 @@ public typealias progressHandler = ((countOfBytesReceived: Int64 ,countOfBytesEx
 public typealias completionHandler = ((data:Data?, response:URLResponse?, error:NSError?) -> Swift.Void)
 public typealias jsonHandler = (anyObject:AnyObject?,error:NSError?)->Void
 public typealias imageHandler = (image:UIImage?,error:NSError?)->Void
+public typealias stringHandler = (string:String?,error:NSError?)->Void
 public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
     //网址凭据
     public var credential: URLCredential?
-    public var completionHandler: completionHandler?
-    public var progressHandler:progressHandler?
+    public var completionHandler:completionHandler?
     public var jsonHandler:jsonHandler?
     public var imageHandler:imageHandler?
+    public var stringHandler:stringHandler?
+    
+    
+    public var progressHandler:progressHandler?
     public var response:URLResponse?
     
     
@@ -478,6 +482,13 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
                 })
                 
                 
+            }
+            
+            if let _ = self.stringHandler{
+                let string = String.init(data: self.data, encoding: String.Encoding.utf8)
+                OperationQueue.main {
+                    self.stringHandler?(string:string,error:self.error)
+                }
             }
             
             

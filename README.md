@@ -2,7 +2,7 @@
 # WTKit
 [![Build Status](https://travis-ci.org/swtlovewtt/WTKit.svg?branch=master)](https://travis-ci.org/swtlovewtt/WTKit)
 
-WTKit是我的swift开发积累
+WTKit是我和朋友们的swift开发积累
 
 ## 功能
 - [x] 方便的请求/响应方法
@@ -16,10 +16,33 @@ WTKit是我的swift开发积累
 - [x] 常用Hud提示
 - [x] 应用新版本首次启动区分
 - [x] 更多
+## 开发环境
+- iOS 8.0+ / Mac OS X 10.9+ / tvOS 9.0+ / watchOS 2.0+
+- Xcode 8.0+
 
-# Foundation 扩展
+## 集成
+把WTKit下的四个文件拷贝进应用就可以了
 
-- WTPrint
+## 和我交流
+
+- 如果你 **找到一个bug**, 打开一个 issue.
+- 如果你 **有一个功能请求**, 打开一个 issue.
+- 如果你 **想来做出贡献**, 可以提交一个pull 的请求.
+
+## 安装
+>WTKit需要iOS8或者 OS X Mavericks (10.9)
+
+### CocoaPods
+
+暂未集成
+
+### 手动安装
+把WTKit下的几个文件拷贝过来即可
+
+## 使用
+
+### WTPrint
+
 用于方便的查看放钱输出所在的文件,方法,行数,并且在DEBUG模式下输出
 
 ```swift
@@ -34,6 +57,24 @@ WTPrint("wt print \(self)")
 //AppDelegate.swift[19], application(_:didFinishLaunchingWithOptions:) wt print <WTKit.AppDelegate: 0x7fde38509d80>
 ```
 > 注意,swift需要设置一下debug: Build Settings -> Other Swift Flags -> Debug -> -D DEBUG
+
+### 创建请求
+
+```swift
+import WTKit
+URLSession.wt_dataTask(with: "https://www.apple.com") { (data, response, error) in
+              print(response) //服务端响应
+              print(data)     //服务端数据
+              print(error)    //得到的错误
+        }
+```
+> WTKit中的网络请求是异步完成的.
+
+### 结果处理
+- 数据
+- 字符串
+- 图片
+- JSON
 
 - NSObject
 
@@ -239,7 +280,7 @@ tableView.refreshHeader?.setTitle("下拉刷新", forState: .PullDownToRefresh)
 tableView.refreshHeader?.setTitle("松开刷新", forState: .ReleaseToRefresh)
 tableView.refreshHeader?.dateStyle = "yyyy-MM-dd"
 tableView.refreshHeader?.lastUpdateText = "上次刷新时间"
-//custom arrow image
+//下拉刷新的箭头地址
 tableView.refreshHeader?.arrowImageURL = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"
 
 ```

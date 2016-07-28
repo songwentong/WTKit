@@ -58,7 +58,11 @@ class WTKitTests: XCTestCase {
         XCTAssertNil(session.delegate, "session delegate should not be nil")
     }
     func testReqeust(){
-        
+        URLSession.wt_dataTask(with: "https://www.apple.com") { (data, response, error) in
+            print(response) //服务端响应
+            print(data)     //服务端数据
+            print(error)    //得到的错误
+        }
         
     
         /*
