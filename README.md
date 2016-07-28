@@ -27,7 +27,7 @@ WTKit是我和朋友们的swift开发积累
 
 - 如果你 **找到一个bug**, 打开一个 issue.
 - 如果你 **有一个功能请求**, 打开一个 issue.
-- 如果你 **想来做出贡献**, 可以提交一个pull 的请求.
+- 如果你 **想来做出贡献**, 可以提交一个pull request.
 
 ## 安装
 >WTKit需要iOS8或者 OS X Mavericks (10.9)
