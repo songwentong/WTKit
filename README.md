@@ -2,12 +2,25 @@
 # WTKit
 [![Build Status](https://travis-ci.org/swtlovewtt/WTKit.svg?branch=master)](https://travis-ci.org/swtlovewtt/WTKit)
 
-Swift Extensions
-# Foundation Extensions
+WTKit是我的swift开发积累
 
+## 功能
+- [x] 方便的请求/响应方法
+- [x] debug输出
+- [x] 方便的线程切换
+- [x] 网络状态监听(Reachability)
+- [x] UIColor快捷创建
+- [x] UIButton和UIImageVie的图片缓存
+- [x] UITableView下拉刷新
+- [x] UIView截屏为图片
+- [x] 常用Hud提示
+- [x] 应用新版本首次启动区分
+- [x] 更多
+
+# Foundation 扩展
 
 - WTPrint
-this method only print at debug mode
+用于方便的查看放钱输出所在的文件,方法,行数,并且在DEBUG模式下输出
 
 ```swift
 public func WTPrint<T>(_ items:T,
@@ -18,16 +31,9 @@ public func WTPrint<T>(_ items:T,
              line: Int = #line)
 
 WTPrint("wt print \(self)")
-
-
-DEBUGBlock {
-
-        }
-
+//AppDelegate.swift[19], application(_:didFinishLaunchingWithOptions:) wt print <WTKit.AppDelegate: 0x7fde38509d80>
 ```
-AppDelegate.swift[19], application(_:didFinishLaunchingWithOptions:) wt print <WTKit.AppDelegate: 0x7fde38509d80>
-//note: Build Settings -> Other Swift Flags -> Debug -> -D DEBUG
-
+> 注意,swift需要设置一下debug: Build Settings -> Other Swift Flags -> Debug -> -D DEBUG
 
 - NSObject
 
@@ -69,29 +75,31 @@ public func parseJson()->AnyObject?
 //optional parameters: method,parameters,headers
  public static func request(_ url:String, method:String?="GET", parameters:[String:String]?=[:],headers: [String: String]? = [:]) -> URLRequest
 
- URLRequest.request("", method: "", parameters: nil, headers: nil)
+ URLRequest.request(with:"", method: "", parameters: nil, headers: nil)
+ URLRequest.request(with:"")
 ```
+> 不需要填的参数可以不填
 
 - OperationQueue
 
 ```swift
-        OperationQueue.main {
-            let thread = Thread.current()
-            print("main:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
-        }
-        OperationQueue.background {
-            let thread = Thread.current()
-            print("background:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
+OperationQueue.main {
+    let thread = Thread.current()
+    print("main:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
+}
+OperationQueue.background {
+    let thread = Thread.current()
+    print("background:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
 
-        }
-        OperationQueue.userInteractive {
-            let thread = Thread.current()
-            print("userInteractive:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
-        }
-        OperationQueue.globalQueue {
-            let thread = Thread.current()
-            print("globalQueue:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
-        }
+}
+OperationQueue.userInteractive {
+    let thread = Thread.current()
+    print("userInteractive:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
+}
+OperationQueue.globalQueue {
+    let thread = Thread.current()
+    print("globalQueue:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
+}
 
 /*
 //print
@@ -142,7 +150,7 @@ NotificationCenter.default().addObserver(forName: NSNotification.Name(rawValue: 
 UIColor.colorWithHexString("#3")//result is #333333
 UIColor.colorWithHexString("333333")//result is #333333
 UIColor.colorWithHexString("#333333")//result is #333333
-UIColor.colorWithHexString("ff0000",alpha: 0.5)//red colour with alpha : 0.5
+UIColor.colorWithHexString("ff0000",alpha: 0.5)//red color with alpha : 0.5
 ```
 - UIApplication
 
@@ -164,21 +172,25 @@ UIApplication.firstLaunchForBuild { [weak self](isFirstLaunchEver) in
             }
         }
 ```
+> firstLaunchForBuild 这个方法在应用内多次条用效果是一样的,只要是首次启动,
+  无论调用几次都是首次启动,请放心使用
+
 - UIButton
+请求图片后缓存到本地
 
 ```swift
-// request image from internet(address is url),the set the image for the state,
-// the place holder will be the default image
+
 requestButton.setImageWith("url", forState: .Normal,placeHolder: nil)
 ```
 - UIImage
 
-```swift
+图片切成圆角的
 
-// create a rounded corner image for reciver
+```swift
 let image:UIImage = (self.imageView.image?.imageWithRoundCornerRadius(30))
 ```
 - UIImageView
+请求图片,并缓存到本地,下次设置图片读取缓存的
 
 ```swift
 //set image with a url
@@ -189,37 +201,39 @@ imageView.sethighlightedImageWith("url", placeHolder: placeHolderImage)
 
 ```
 - UIViewController
+loading提示框和和tip
 
 ```swift
-//show loading activity indicator
+//显示loading
 self.showLoadingView()
 
-//hide loading activity indicator
+//隐藏loading
 self.hideLoadingView()
 
 
-//show tip with String
+//底部的小tip
 self.showHudWithTip("热烈欢迎")
 ```
 
 - UIView
+UIView截屏
 
 ```swift
 let image:UIImage = self.view.snapShot()//get a snap shot image
 let pdf:Data = self.view.pdf()//get a pdf shot
 ```
-- UIScrollView 
-
+- UIScrollView
+下拉刷新
 ```swift
-//pull to refresh(very useful)
+//这里设置一下刷新头,把刷新方法写到block中
 self.tableView.refreshHeader = RefreshHeader.headerWithRefreshing({
             printf("refresh data from internet")
         })
 
-//stop refresh        
+//停止刷新
 self.tableView.stopLoading()
 
-//Localizations
+//本地化设置,有默认的,是英文的
 tableView.refreshHeader?.setTitle("加载中...", forState: .Loading)
 tableView.refreshHeader?.setTitle("下拉刷新", forState: .PullDownToRefresh)
 tableView.refreshHeader?.setTitle("松开刷新", forState: .ReleaseToRefresh)
@@ -232,10 +246,10 @@ tableView.refreshHeader?.arrowImageURL = "http://ww4.sinaimg.cn/mw690/47449485jw
 - CALayer
 
 ```swift
-//create snapshot
+//创建UIImage的截屏
 let image:UIImage =  self.view.layer.snapShot()
-//pause layer animation
+//暂停动画
 self.view.layer.pauseAnimation()
-//resume layer animation
+//继续动画
 self.view.layer.resumeAnimation()
 ```
