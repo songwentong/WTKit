@@ -126,12 +126,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                 
             })
             task.resume()
-            /*
-             let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-             
-             })
-             task.resume()
-             */
+
         }else{
             
         }
