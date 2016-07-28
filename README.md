@@ -71,10 +71,93 @@ URLSession.wt_dataTask(with: "https://www.apple.com") { (data, response, error) 
 > WTKit中的网络请求是异步完成的.
 
 ### 结果处理
-- 数据
+
+- 数据响应
 - 字符串
 - 图片
 - JSON
+
+#### 数据响应
+
+```swift
+let task = URLSession.wt_dataTask(with: "https://www.apple.com") { (data, response, error) in
+            print(response)
+            print(data)     
+            print(error)    
+        }
+```
+#### 字符串
+
+```swift
+task.stringHandler = {(string:String?,error:NSError?)in
+            print(string)
+        }
+```
+#### 图片
+
+```swift
+task.imageHandler = {(image:UIImage?,error:NSError?) in
+            print(image)
+        }
+```
+#### JSON
+
+```swift
+task.jsonHandler = {(object:AnyObject?,error:NSError?) in
+            print(object)
+        }
+```
+
+
+### 认证
+
+认证使用的系统框架的认证[`URLCredential`和`URLAuthenticationChallenge`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSURLAuthenticationChallenge_Class/Reference/Reference.html).
+
+**支持的认证方案**
+
+- [HTTP Basic](http://en.wikipedia.org/wiki/Basic_access_authentication)
+- [HTTP Digest](http://en.wikipedia.org/wiki/Digest_access_authentication)
+- [Kerberos](http://en.wikipedia.org/wiki/Kerberos_%28protocol%29)
+- [NTLM](http://en.wikipedia.org/wiki/NT_LAN_Manager)
+
+## 高级用法
+
+> WTKit 的请求方法基于 `NSURLSession` 和 Foundation URL Loading System 编写. 为了熟悉这个框架, 它推荐你熟悉网络底层的概念和功能.
+
+**推荐阅读**
+
+- [URL Loading System Programming Guide](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/URLLoadingSystem/URLLoadingSystem.html)
+- [NSURLSession Class Reference](https://developer.apple.com/library/mac/documentation/Foundation/Reference/NSURLSession_class/Introduction/Introduction.html#//apple_ref/occ/cl/NSURLSession)
+- [NSURLCache Class Reference](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSURLCache_Class/Reference/Reference.html#//apple_ref/occ/cl/NSURLCache)
+- [NSURLAuthenticationChallenge Class Reference](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSURLAuthenticationChallenge_Class/Reference/Reference.html)
+
+
+#### App Transport Security (ATS)
+由于苹果强制使用https协议,http的请求已经被拒绝,苹果的ATS系统重写了整个认证系统,除非你在app的plist内配置ATS设置禁用来允许你的app评估服务端信任
+
+如果你遇到了这样的问题,你可以在`Info.plist`解决这个问题
+```xml
+<dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>example.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<!-- Optional: Specify minimum TLS version -->
+				<key>NSTemporaryExceptionMinimumTLSVersion</key>
+				<string>TLSv1.2</string>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+```  
 
 - NSObject
 
@@ -294,3 +377,8 @@ self.view.layer.pauseAnimation()
 //继续动画
 self.view.layer.resumeAnimation()
 ```
+
+
+## 证书
+
+WTKit发布在MIT证书下,详情请看LICENSE

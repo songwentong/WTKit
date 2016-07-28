@@ -31,13 +31,16 @@ class WTKitTests: XCTestCase {
             print(data)
         }
         // set image
-        let imageView:UIImageView = UIImageView()
+        
         task.imageHandler = {(image:UIImage?,error:NSError?) in
-            imageView.image = image
+            print(image)
         }
         // or get json
-        task.jsonHandler = {(anyObject:AnyObject?,error:NSError?) in
-            print(anyObject)
+        task.jsonHandler = {(object:AnyObject?,error:NSError?) in
+            print(object)
+        }
+        task.stringHandler = {(string:String?,error:NSError?)in
+            print(string)
         }
         task.resume()
         
@@ -58,12 +61,18 @@ class WTKitTests: XCTestCase {
         XCTAssertNil(session.delegate, "session delegate should not be nil")
     }
     func testReqeust(){
-        URLSession.wt_dataTask(with: "https://www.apple.com") { (data, response, error) in
+        let task = URLSession.wt_dataTask(with: "https://www.apple.com") { (data, response, error) in
             print(response) //服务端响应
             print(data)     //服务端数据
             print(error)    //得到的错误
         }
+        //self.completionHandler?(data:self.data,response:self.response,error:self.error)
+        //(string:String?,error:NSError?)->Void
+        task.stringHandler =
         
+        
+        
+        task.resume()
     
         /*
         var request:URLRequest?

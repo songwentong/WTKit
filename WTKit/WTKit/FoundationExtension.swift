@@ -427,7 +427,7 @@ extension URLSession{
 }
 public typealias progressHandler = ((countOfBytesReceived: Int64 ,countOfBytesExpectedToReceive: Int64) -> Void)
 public typealias completionHandler = ((data:Data?, response:URLResponse?, error:NSError?) -> Swift.Void)
-public typealias jsonHandler = (anyObject:AnyObject?,error:NSError?)->Void
+public typealias jsonHandler = (object:AnyObject?,error:NSError?)->Void
 public typealias imageHandler = (image:UIImage?,error:NSError?)->Void
 public typealias stringHandler = (string:String?,error:NSError?)->Void
 public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
@@ -477,7 +477,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate{
             if let _ = self.jsonHandler{
                 self.data.parseJSON(handler: { (object, error) in
                     OperationQueue.main({
-                        self.jsonHandler?(anyObject:object,error:error)
+                        self.jsonHandler?(object:object,error:error)
                     })
                 })
                 
