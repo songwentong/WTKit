@@ -25,14 +25,16 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for _ in 0...10{
-        dataList.append("pull down to refresh")
+        for _ in 0...0{
+            dataList.append("下拉来刷新")
         }
         
         tableView.refreshHeader = RefreshHeader.headerWithRefreshing({  [weak self]()in
             performOperation(with: {[weak self]()in
                 if self != nil{
-                    self?.dataList.insert("refresh one time", at: 0)
+                    if let count:Int = self?.dataList.count{
+                        self?.dataList.insert("刷新次数:\(count)", at: 0)
+                    }
                     self?.tableView.stopLoading()
                     self?.tableView.beginUpdates()
                     let indexPath = IndexPath(row: 0, section: 0)
