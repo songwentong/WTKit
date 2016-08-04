@@ -62,7 +62,7 @@ class AnimationImageVIew: UIImageView {
         }
         
     }
-    override func isAnimating() -> Bool {
+    override var isAnimating:Bool {
         if linkIsInit {
             return !link.isPaused
         }
@@ -78,7 +78,7 @@ class AnimationImageVIew: UIImageView {
     
     override internal func startAnimating() {
     
-        if self.isAnimating() {
+        if self.isAnimating {
             return
         }else{
             if linkIsInit {

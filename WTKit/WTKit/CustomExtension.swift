@@ -8,6 +8,8 @@
 #if os(iOS)
 import Foundation
 import UIKit
+import CoreGraphics
+    
 private let UIViewControllerWTKitDefaultLoadingTextKey = "UIViewControllerWTKitDefaultLoadingTextKey"
 extension UIViewController{
     
@@ -139,17 +141,20 @@ public class WTPieProgressView:UIView{
         }
     }
     
+    
     public override func draw(_ rect: CGRect) {
-
         let ctx = UIGraphicsGetCurrentContext()
-        self.layer.allowsGroupOpacity = false
         let cPoint = CGPoint(x: rect.size.width / 2, y: rect.size.height / 2)
-        let color = UIColor.colorWithHexString("fof8ff", alpha: 0.6)
         let radius = rect.size.width / 2
+    
+        ctx?.addArc(centerX: cPoint.x, y: cPoint.y, radius: radius-2, startAngle:0,endAngle:CGFloat(M_PI)*2, clockwise: 0);
+        UIColor.white.setStroke();
+        ctx?.drawPath(using:CGPathDrawingMode.stroke);
+        
         ctx?.moveTo(x: cPoint.x, y: cPoint.y);
-        ctx?.setFillColor(color.cgColor.components!);
-        ctx?.addArc(centerX: cPoint.x, y: cPoint.y, radius: radius, startAngle: CGFloat(M_PI*3/2),endAngle: CGFloat(M_PI*3/2)+CGFloat(M_PI)*2*progress, clockwise: 0);
-        ctx?.fillPath();
+        ctx?.addArc(centerX: cPoint.x, y: cPoint.y, radius: radius-4, startAngle: CGFloat(M_PI*3/2),endAngle: CGFloat(M_PI*3/2)+CGFloat(M_PI)*2*progress, clockwise: 0);
+        #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).setFill();
+        ctx?.drawPath(using: CGPathDrawingMode.fill);
     }
     
 }
@@ -157,7 +162,7 @@ public class WTPieProgressView:UIView{
 public class WTProgressIndicatorView:UIView{
   
     public  var strokeColor:UIColor =  UIColor.white.withAlphaComponent(0.8)
-    public  var lineWidth:CGFloat = 2.0
+    public  var lineWidth:CGFloat = 1.5
     public  var radius:CGFloat = 20.0{
         didSet{
             self.resetLayer()
