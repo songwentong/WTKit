@@ -353,12 +353,16 @@ extension URLRequest{
 extension URLSession{
     
     
-    public static func wt_sharedInstance()->URLSession{
+    private static func wt_sharedInstance()->URLSession{
         let delegate = WTURLSessionDelegate.sharedInstance
         let configuration = URLSessionConfiguration.default
         configuration.urlCache = URLCache.wt_sharedURLCacheForRequests()
         let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
         return session
+    }
+    
+    private static func wt_sessionWith(configuration:URLSessionConfiguration, delegate: URLSessionDelegate?, delegateQueue queue: OperationQueue?){
+        
     }
     
     /*
@@ -835,7 +839,7 @@ extension NSObject{
      note:必须是可用的的json对象
      */
     public static func traversal(_ obj:AnyObject){
-        if JSONSerialization.isValidJSONObject(obj) {
+//        if JSONSerialization.isValidJSONObject(obj) {
             if let array = obj as? Array<AnyObject> {
                 for item in array{
                     traversal(item)
@@ -845,9 +849,51 @@ extension NSObject{
                     traversal(value)
                 }
             }else {
-                print(obj)
+                print("----------  \(obj)")
             }
-        }
+//        }
+    }
+    
+    
+    /*!
+        遍历,层次遍历
+     */
+    
+    public static func wt_traversal(with obj:AnyObject){
+        //当前层数
+        var theLevel = 0
+        
+        //所有的数据
+        var levels = [AnyObject]()
+        levels.append(obj)
+        
+        //仓前曾的数组
+        var currentLevel:[AnyObject] = [AnyObject]()
+        
+        
+        print("start t")
+        repeat{
+            currentLevel = [AnyObject]()
+            let currentObject:AnyObject = levels[theLevel]
+            
+            if let array = currentObject as? [AnyObject]{
+                print(array)
+                currentLevel.append(contentsOf: array)
+            }else if let dict = currentObject as? Dictionary<String,AnyObject>{
+                print(dict)
+                for (_,v) in dict{
+                    print(v)
+                    currentLevel.append(v)
+                }
+//                currentLevel.append(contentsOf: dict.values)
+            }else{
+                print(currentObject)
+            }
+            theLevel = theLevel + 1
+            levels.append(currentLevel)
+        }while currentLevel.count != 0
+        print("end t")
+        
     }
     
     

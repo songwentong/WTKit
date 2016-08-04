@@ -99,17 +99,19 @@ class WTKitTests: XCTestCase {
     
     
     //{"NewKey 3": "a","NewKey 2": {"NewKey 2": {"NewKey": "b"},"NewKey": "c"},"NewKey": {"NewKey": "d"}}
-    /*
+    
     func testWTT(){
         let string = "{\"NewKey 3\": \"a\",\"NewKey 2\": {\"NewKey 2\": {\"NewKey\": \"b\"},\"NewKey\": \"c\"},\"NewKey\": {\"NewKey\": \"d\"}}"
         string.parseJSON { (anyObject, error) in
             if let json:AnyObject = anyObject{
-                NSObject.wt_tarversal(with: json)
+
+//                NSObject.traversal(json)
+                NSObject.wt_traversal(with: json)
                 
             }
         }
     }
-    */
+    
     /*
     func testWTcurry(){
         for i in 0...100 {
