@@ -55,7 +55,7 @@ class POSTRequestViewController: UIViewController,UITextFieldDelegate {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
 //        segue.destinationViewController
-        let destinationViewController = segue.destinationViewController
+        let destinationViewController = segue.destination
         if (destinationViewController is POSTParamatersVC) {
             parametersVC = destinationViewController as? POSTParamatersVC
         }

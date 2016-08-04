@@ -57,13 +57,13 @@ public class WTTipView:UIView{
         label.numberOfLines = 2
         label.font = UIFont.systemFont(ofSize: 14)
         label.text = "test";
-        label.backgroundColor = UIColor.clear()
+        label.backgroundColor = UIColor.clear
         
         self.activity = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         super.init(frame: frame)
         self.layer.cornerRadius = 5.0
         self.clipsToBounds = true
-        self.backgroundColor = UIColor.red()
+        self.backgroundColor = UIColor.red
         self.addSubview(label)
 //        self.addSubview(activity)
 //        self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(1.0)
@@ -76,8 +76,8 @@ public class WTTipView:UIView{
     }
     public func showTip(_ tip:NSString){
         
-        let screenWidth = UIScreen.main().bounds.width
-        let screenHeight = UIScreen.main().bounds.height
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
         var tipHeght:CGFloat = 30
         let size = tip.boundingRect(with: CGSize(width: 300, height: 60), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 14)], context: nil)
         var width = size.width
@@ -91,8 +91,8 @@ public class WTTipView:UIView{
         self.label.frame = CGRect(x: 10, y: (tipHeght - height - 6)/2, width: width, height: height + 6)
         self.label.text = tip as String
         backgroundColor = UIColor.colorWithHexString("3", alpha: 0.2)
-        label.textColor = UIColor.white()
-        let window = UIApplication.shared().windows[0]
+        label.textColor = UIColor.white
+        let window = UIApplication.shared.windows[0]
         window.addSubview(self)
         
         self.alpha = 0
@@ -156,7 +156,7 @@ public class WTPieProgressView:UIView{
     
 public class WTProgressIndicatorView:UIView{
   
-    public  var strokeColor:UIColor =  UIColor.white().withAlphaComponent(0.8)
+    public  var strokeColor:UIColor =  UIColor.white.withAlphaComponent(0.8)
     public  var lineWidth:CGFloat = 2.0
     public  var radius:CGFloat = 20.0{
         didSet{
@@ -179,8 +179,8 @@ public class WTProgressIndicatorView:UIView{
         let aCenter = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
         let path = UIBezierPath(arcCenter: aCenter, radius: self.radius, startAngle: CGFloat(M_PI*3/2), endAngle: CGFloat(M_PI/2 + M_PI*5), clockwise: true)
         let layer = CAShapeLayer()
-        layer.contentsScale = UIScreen.main().scale
-        layer.fillColor = UIColor.clear().cgColor
+        layer.contentsScale = UIScreen.main.scale
+        layer.fillColor = UIColor.clear.cgColor
         layer.strokeColor = self.strokeColor.cgColor
         layer.lineWidth = self.lineWidth
         layer.lineCap = kCALineCapRound
@@ -228,7 +228,7 @@ public class WTHudView:UIView{
         }
     }
     public var defaultBgColor:UIColor = UIColor.colorWithHexString("3", alpha: 0.5)
-    public var defaultTitleColor:UIColor = UIColor.white()
+    public var defaultTitleColor:UIColor = UIColor.white
     private var backgroundView:UIView?
     public var indicatorView:UIView?
     private(set) public var detailText:String?
@@ -279,7 +279,7 @@ public class WTHudView:UIView{
             break
         case.pieProgress:
             let indicatorView = WTPieProgressView()
-            indicatorView.backgroundColor = UIColor.clear()
+            indicatorView.backgroundColor = UIColor.clear
             self.indicatorView = indicatorView
             backgroundView!.addSubview(indicatorView)
             break

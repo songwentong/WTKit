@@ -34,7 +34,7 @@
             
             switch hString.length {
             case 0:
-                return UIColor.red();
+                return UIColor.red;
             case 1:
                 return UIColor.colorWithHexString(hString+hString);
             case 2:
@@ -56,7 +56,7 @@
                 let color = UIColor(red: red, green: green, blue: blue,alpha: alpha!)
                 return color;
             default:
-                return UIColor.red();
+                return UIColor.red;
             }
         }
         
@@ -112,25 +112,25 @@
         
         
         public class func openSettings(){
-            UIApplication.shared().openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+            UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
         }
         
         
         // MARK: - 版本号/build号/bundleID/程序名
         public class func appBundleName()->String{
-            return Bundle.main.objectForInfoDictionaryKey("CFBundleName") as! String
+            return Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
         }
         
         public class func appBundleID()->String{
-            return Bundle.main.objectForInfoDictionaryKey("CFBundleIdentifier") as! String
+            return Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as! String
         }
         
         public class func buildVersion()->String{
-            return Bundle.main.objectForInfoDictionaryKey("CFBundleVersion") as! String
+            return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
         }
         
         public static func appVersion()->String{
-            return Bundle.main.objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
+            return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         }
         
         public static func documentsPath()->String{
@@ -151,7 +151,7 @@
          */
         public static func firstLaunchForBuild(_ block:(isFirstLaunchEver:Bool)->Void){
             self.track()
-            block(isFirstLaunchEver: shared().isFirstLaunchEver)
+            block(isFirstLaunchEver: shared.isFirstLaunchEver)
             
         }
         
@@ -168,7 +168,7 @@
                 return isFirst!
             }
             set{
-                objc_setAssociatedObject(UIApplication.shared(), &UIApplicationIsFirstEver, newValue, .OBJC_ASSOCIATION_ASSIGN)
+                objc_setAssociatedObject(UIApplication.shared, &UIApplicationIsFirstEver, newValue, .OBJC_ASSOCIATION_ASSIGN)
             }
         }
         
@@ -180,7 +180,7 @@
         private static func track(){
             
             let first = self.isFirstLaunchMethod()
-            shared().isFirstLaunchEver = first
+            shared.isFirstLaunchEver = first
             
             var versionArray:[String]! = UserDefaults.standard.array(forKey: UIApplicationVersionsKey) as? Array<String>
             if versionArray == nil {
@@ -220,23 +220,23 @@
     }
     extension UIScreen{
         public static func screenWidth()->CGFloat{
-            return UIScreen.main().bounds.width
+            return UIScreen.main.bounds.width
         }
         public static func screenHeight()->CGFloat{
-            return UIScreen.main().bounds.height
+            return UIScreen.main.bounds.height
         }
     }
     extension UIDevice{
         public static func systemVersion()->String{
-            return UIDevice.current().systemVersion
+            return UIDevice.current.systemVersion
         }
         public static func systemFloatVersion()->Float{
-            return UIDevice.current().systemVersion.floatValue
+            return UIDevice.current.systemVersion.floatValue
         }
         
         //
         public static func uuidString()->String{
-            return (UIDevice.current().identifierForVendor?.uuidString)!
+            return (UIDevice.current.identifierForVendor?.uuidString)!
         }
         
         
@@ -552,7 +552,7 @@
             return UIImage(cgImage: cgImageRef!, scale: scale, orientation: imageOrientation)
         }
         
-        public static func gifImageWith(_ data:Data, scale:CGFloat?=UIScreen.main().scale)->UIImage?{
+        public static func gifImageWith(_ data:Data, scale:CGFloat?=UIScreen.main.scale)->UIImage?{
             var image:UIImage?
             let source = CGImageSourceCreateWithData(data, nil)
             let count = CGImageSourceGetCount(source!)
@@ -747,8 +747,8 @@
         }
         
         public func viewController()->UIViewController?{
-            if self.next() is UIViewController {
-                return self.next() as? UIViewController
+            if self.next is UIViewController {
+                return self.next as? UIViewController
             }else{
                 return nil
             }
@@ -850,7 +850,7 @@
             arrowImageView.frame = CGRect(x: 30, y: 0, width: 30, height: frame.height)
             activityIndicator.frame = arrowImageView.frame
             activityIndicator.hidesWhenStopped = true
-            self.backgroundColor = UIColor.white()
+            self.backgroundColor = UIColor.white
             
         }
         private func configLayoutConstraint(){
@@ -1317,9 +1317,9 @@
         func updateVisible(){
             if enabled {
                 if activityCount>0 {
-                    UIApplication.shared().isNetworkActivityIndicatorVisible = true
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = true
                 }else{
-                    UIApplication.shared().isNetworkActivityIndicatorVisible = false
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 }
             }
         }

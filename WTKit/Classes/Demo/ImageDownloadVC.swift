@@ -53,14 +53,22 @@ class ImageDownloadVC: UIViewController {
         if (imageView.image != nil) {
             let image = imageView.image
             var blurredImage:UIImage?
-            DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes(rawValue: UInt64(0))).async(execute: { 
+            OperationQueue.globalQueue({ 
                 blurredImage = image!.imageWithFilter("CIGaussianBlur", parameters: ["inputRadius":5])
-                if (blurredImage != nil){
-                    DispatchQueue.main.async(execute: { 
-                       self.imageView.image = blurredImage
-                    })
+                if blurredImage != nil {
+                    OperationQueue.main {
+                        self.imageView.image = blurredImage
+                    }
                 }
             })
+//            DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes(rawValue: UInt64(0))).async(execute: { 
+//                blurredImage = image!.imageWithFilter("CIGaussianBlur", parameters: ["inputRadius":5])
+//                if (blurredImage != nil){
+//                    DispatchQueue.main.async(execute: { 
+//                       
+//                    })
+//                }
+//            })
         }
     }
     

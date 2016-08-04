@@ -40,7 +40,7 @@ class GifImageVC: UIViewController {
                 OperationQueue.main({
                     self.hideLoadingView()
                     self.imageView = self.view.viewWithTag(1) as! AnimationImageVIew
-                    self.imageView.backgroundColor = UIColor.white()
+                    self.imageView.backgroundColor = UIColor.white
                     let image = WTImage(data:data!)
                     self.imageView.image = image
                     self.imageView.isUserInteractionEnabled = true

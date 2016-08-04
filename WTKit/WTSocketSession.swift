@@ -11,7 +11,7 @@ public protocol WTSocketSessionDelegate:NSObjectProtocol{
     func socket(socket:WTSocketSession, didReceiveMessage:AnyObject)
     func socketdidOpen(socket:WTSocketSession)
     func socket(socket:WTSocketSession, didfailWithError:NSError)
-    func socket(socket:WTSocketSession, didCloseWIthCode:Int, reason:String, wasClean:Boolean)
+    func socket(socket:WTSocketSession, didCloseWIthCode:Int, reason:String, wasClean:DarwinBoolean)
     func socker(socket:WTSocketSession, didReceivePong:Data)
 }
 public class WTSocketSession:NSObject{
@@ -20,7 +20,7 @@ public class WTSocketSession:NSObject{
     var delegateQueue:OperationQueue?
     var inputStream:InputStream?
     var outputStream:OutputStream?
-    var allowsUntrustedSSLCertificates:Boolean = false
+    var allowsUntrustedSSLCertificates:DarwinBoolean = false
     override init(){
         delegateQueue = OperationQueue()
 //        var port = 80

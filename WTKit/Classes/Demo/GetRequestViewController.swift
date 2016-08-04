@@ -135,7 +135,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let paraVC = segue.destinationViewController as? POSTParamatersVC {
+        if let paraVC = segue.destination as? POSTParamatersVC {
             paraVC.delegate = self
             if parameters != nil {
                 for (key,value) in parameters!{

@@ -85,7 +85,9 @@ public func performOperation(with block:()->Void, afterDelay:TimeInterval){
     //Swift 不允许数据在计算中损失,所以需要在计算的时候转换以下类型
     let time = Int64(afterDelay * Double(NSEC_PER_SEC))
     let t = DispatchTime.now() + Double(time) / Double(NSEC_PER_SEC)
-    DispatchQueue.main.after(when: t, execute: block)
+//    DispatchQueue.main.after(when: t, execute: block)
+    DispatchQueue.main.asyncAfter(deadline: t, execute: block)
+    
 }
 
 func bridge<T : AnyObject>(obj : T) -> UnsafePointer<Void> {
@@ -270,10 +272,13 @@ extension URLRequest{
             return nil
         }
         var components: [(String, String)] = Array()
-        for (key) in parameters!.keys.sorted(isOrderedBefore: <){
+        for (key) in parameters!.keys.sorted(by: { (s1, s2) -> Bool in
+            return s1 < s2;
+        }){
             let value = parameters![key]!
             components.append((key, value))
         }
+        
         let result = (components.map{ "\($0)=\($1)" } as [String]).joined(separator: "&")
         let allowedCharacterSet = CharacterSet.urlQueryAllowed
         return result.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet)!
@@ -430,10 +435,10 @@ extension URLSession{
     
 }
 public typealias progressHandler = ((countOfBytesReceived: Int64 ,countOfBytesExpectedToReceive: Int64) -> Void)
-public typealias completionHandler = ((data:Data?, response:URLResponse?, error:NSError?) -> Swift.Void)
-public typealias jsonHandler = (object:AnyObject?,error:NSError?)->Void
-public typealias imageHandler = (image:UIImage?,error:NSError?)->Void
-public typealias stringHandler = (string:String?,error:NSError?)->Void
+public typealias completionHandler = ((data:Data?, response:URLResponse?, error:Error?) -> Swift.Void)
+public typealias jsonHandler = (object:AnyObject?,error:Error?)->Void
+public typealias imageHandler = (image:UIImage?,error:Error?)->Void
+public typealias stringHandler = (string:String?,error:Error?)->Void
 
 
 public typealias challengeHandler = ((Foundation.URLSession, URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, URLCredential?))
@@ -454,7 +459,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
     //懒加载,需要的时候创建对象
     public lazy var data:Data = Data()
     public let task: URLSessionTask
-    public var error: NSError?
+    public var error: Error?
     
     
     init(task: URLSessionTask) {
@@ -560,7 +565,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
         
     }
     
-    public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: NSError?){
+    public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
         self.error = error
         finish()
     }
@@ -616,7 +621,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     // MARK: Delegate Methods
     
-    public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: NSError?){
+    public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?){
         
     }
     
@@ -682,7 +687,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     // MARK: URLSessionTaskDelegate
     
-    public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: NSError?){
+    public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
         if let myTask = self[task] {
             myTask.urlSession(session, task: task, didCompleteWithError: error)
         }else{
@@ -828,8 +833,9 @@ extension NSObject{
     public func performBlock(_ block: () -> Void , afterDelay:Double){
         //Swift 不允许数据在计算中损失,所以需要在计算的时候转换以下类型
         let time = Int64(afterDelay * Double(NSEC_PER_SEC))
-        let t = DispatchTime.now() + Double(time) / Double(NSEC_PER_SEC)
-        DispatchQueue.main.after(when: t, execute: block)
+        let t:DispatchTime = DispatchTime.now() + Double(time) / Double(NSEC_PER_SEC)
+        DispatchQueue.main.asyncAfter(deadline: t, execute: block)
+//        DispatchQueue.main.after(when: t, execute: block)
         //        DispatchQueue.main.after(when: t, block: block)
         
     }
@@ -1004,7 +1010,7 @@ extension OperationQueue{
      优先级是默认的
      */
     public static func globalQueue(_ block: () -> Void)->Void{
-        globalQueue(.qosDefault,block: block)
+        globalQueue(.default,block: block)
     }
     
     
@@ -1012,22 +1018,24 @@ extension OperationQueue{
      优先级:交互级的
      */
     public static func userInteractive(_ block:()->Void)->Void{
-        globalQueue(.qosUserInteractive, block: block)
+        globalQueue(.userInteractive, block: block)
     }
     
     /*!
      后台执行
      */
     public static func background(_ block:()->Void)->Void{
-        globalQueue(.qosBackground, block: block)
+        globalQueue(.background, block: block)
     }
     
     
     /*!
      进入一个全局的队列来做事情,可以设定优先级
      */
-    public static func globalQueue(_ priority:DispatchQueue.GlobalAttributes,block:()->Void)->Void{
-        DispatchQueue.global(attributes: priority).async(execute: block)
+    public static func globalQueue(_ priority:DispatchQoS.QoSClass,block:()->Void)->Void{
+//        DispatchQueue.global(qos: <#T##DispatchQoS.QoSClass#>)
+        DispatchQueue.global(qos: priority).async(execute: block)
+//        DispatchQueue.global(attributes: priority).async(execute: block)
     }
     
     /*!
@@ -1098,6 +1106,7 @@ public func +(lhs: Data, rhs: Data) -> Data{
 public func +=(lhs: inout Data, rhs: Data){
     lhs.append(rhs)
 }
+/*
 extension Date{
     public func numberFor(component unit:Calendar.Unit)->Int{
         return Calendar.current.component(unit, from: self)
@@ -1146,51 +1155,52 @@ extension Date{
     
     
 }
-extension Predicate{
+ */
+extension NSPredicate{
 }
 
-extension RegularExpression{
+extension NSRegularExpression{
     
-    public static func wt_englishWord()->RegularExpression{
-        var r:RegularExpression?
+    public static func wt_englishWord()->NSRegularExpression{
+        var r:NSRegularExpression?
         do{
-            try r = RegularExpression(pattern: "^\\w+$", options: [])
+            try r = NSRegularExpression(pattern: "^\\w+$", options: [])
         } catch _{
         }
         
         return r!
     }
-    public static func wt_eMail()->RegularExpression{
-        var r:RegularExpression?
+    public static func wt_eMail()->NSRegularExpression{
+        var r:NSRegularExpression?
         do{
-            try r = RegularExpression(pattern: "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?", options: [])
+            try r = NSRegularExpression(pattern: "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?", options: [])
         } catch _{
         }
         
         return r!
     }
-    public static func wt_phoneNumber()->RegularExpression{
-        var r:RegularExpression?
+    public static func wt_phoneNumber()->NSRegularExpression{
+        var r:NSRegularExpression?
         do{
-            try r = RegularExpression(pattern: "^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$", options: [])
+            try r = NSRegularExpression(pattern: "^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$", options: [])
         } catch _{
         }
         
         return r!
     }
     
-    public static func wt_ipv4()->RegularExpression{
-        var r:RegularExpression?
+    public static func wt_ipv4()->NSRegularExpression{
+        var r:NSRegularExpression?
         do{
-            try r = RegularExpression(pattern: "\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b", options: [])
+            try r = NSRegularExpression(pattern: "\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b", options: [])
         } catch _{
         }
         return r!
     }
-    public static func wt_ipv6()->RegularExpression{
-        var r:RegularExpression?
+    public static func wt_ipv6()->NSRegularExpression{
+        var r:NSRegularExpression?
         do{
-            try r = RegularExpression(pattern: "(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))", options: [])
+            try r = NSRegularExpression(pattern: "(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))", options: [])
         } catch _{
         }
         return r!

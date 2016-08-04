@@ -66,7 +66,7 @@ class AnimationImageVIew: UIImageView {
         if linkIsInit {
             return !link.isPaused
         }
-        return super.isAnimating()
+        return super.isAnimating
        
     }
     override func display(_ layer: CALayer) {
