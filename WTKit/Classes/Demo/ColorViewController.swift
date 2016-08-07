@@ -14,6 +14,7 @@ class ColorViewController: UIViewController {
     @IBOutlet weak var colorView: UIView!
     @IBOutlet weak var textView: UITextField!
     @IBOutlet weak var mySlider: UISlider!
+    @IBOutlet weak var antiColorView: UIView!
     deinit{
         WTLog("deinit")
     }
@@ -28,7 +29,9 @@ class ColorViewController: UIViewController {
     private func reSetColors(){
         if textView.text != nil{
             colorView.backgroundColor = UIColor.colorWithHexString(textView.text!)
-            self.view.backgroundColor = colorView.backgroundColor?.antiColor();
+            antiColorView.backgroundColor = colorView.backgroundColor?.antiColor()
+//            WTLog("r \(colorView.backgroundColor)")
+            WTLog(antiColorView.backgroundColor)
         }
         
     }
@@ -44,8 +47,10 @@ class ColorViewController: UIViewController {
     
     @IBAction func sliderValueChanged(_ sender: AnyObject) {
         let color = UIColor.wtStatusColor(with: mySlider.value)
-        WTLog("myColor \(color)")
         colorView.backgroundColor = color
+        antiColorView.backgroundColor = colorView.backgroundColor?.antiColor()
+        WTLog(colorView.backgroundColor)
+        WTLog(antiColorView.backgroundColor)
     }
 
     /*
