@@ -646,6 +646,10 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         return isValid
     }
     
+    /*!
+     
+      参考:https://developer.apple.com/library/ios/technotes/tn2232/_index.html#//apple_ref/doc/uid/DTS40012884
+     */
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
         
         var disposition: Foundation.URLSession.AuthChallengeDisposition = .performDefaultHandling

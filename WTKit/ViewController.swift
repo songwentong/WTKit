@@ -57,7 +57,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
                 self?.showHudWithTip("欢迎回来")
             }
         }
-        
+//        print(self.view.recursiveDescription);
         
         
     }
