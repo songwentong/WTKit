@@ -434,24 +434,28 @@ extension URLSession{
     
     
 }
+//进度获取
 public typealias progressHandler = ((countOfBytesReceived: Int64 ,countOfBytesExpectedToReceive: Int64) -> Void)
+//完成回调
 public typealias completionHandler = ((data:Data?, response:URLResponse?, error:Error?) -> Swift.Void)
+//json解析回调
 public typealias jsonHandler = (object:AnyObject?,error:Error?)->Void
+//图片下载回调
 public typealias imageHandler = (image:UIImage?,error:Error?)->Void
+//字符串回调
 public typealias stringHandler = (string:String?,error:Error?)->Void
-
-
+//凭证回调
 public typealias challengeHandler = ((Foundation.URLSession, URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, URLCredential?))
 
 public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDelegate{
     //网址凭据
     public var credential: URLCredential?
+    //完成回调
     public var completionHandler:completionHandler?
     public var jsonHandler:jsonHandler?
     public var imageHandler:imageHandler?
     public var stringHandler:stringHandler?
-    
-    
+    //进度获取
     public var progressHandler:progressHandler?
     public var response:URLResponse?
     public var challengeHandler:challengeHandler?
