@@ -460,10 +460,20 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
     public var response:URLResponse?
     public var challengeHandler:challengeHandler?
     
+    public var originTask:URLSessionTask{
+        get{
+            return task;
+        }
+    }
+    
+    /*
+        这里的task和data是私有的,原因在于不允许外界修改,想要得到原始的task只需要调用otigintask就可以了
+     */
+    //原始的task
+    private let task: URLSessionTask
     //懒加载,需要的时候创建对象
-    public lazy var data:Data = Data()
-    public let task: URLSessionTask
-    public var error: Error?
+    private lazy var data:Data = Data()
+    private var error: Error?
     
     
     init(task: URLSessionTask) {
