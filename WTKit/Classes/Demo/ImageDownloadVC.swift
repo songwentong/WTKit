@@ -41,7 +41,7 @@ class ImageDownloadVC: UIViewController {
     }
     
     @IBAction func cornerRaius(_ sender: AnyObject) {
-            OperationQueue.userInteractive({
+            OperationQueue.userInteractive(execute: {
                 let image = self.imageView.image?.imageWithRoundCornerRadius(30)
                 OperationQueue.main({ 
                     self.imageView.image = image
@@ -53,7 +53,7 @@ class ImageDownloadVC: UIViewController {
         if (imageView.image != nil) {
             let image = imageView.image
             var blurredImage:UIImage?
-            OperationQueue.globalQueue({ 
+            OperationQueue.globalQueue(execute: {
                 blurredImage = image!.imageWithFilter("CIGaussianBlur", parameters: ["inputRadius":5 as AnyObject])
                 if blurredImage != nil {
                     OperationQueue.main {

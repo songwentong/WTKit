@@ -1028,7 +1028,7 @@ extension OperationQueue{
      优先级是默认的
      */
     public static func globalQueue(execute work: @escaping @convention(block) () -> Swift.Void)->Void{
-        globalQueue(.default,execute: work)
+        globalQueue(qos: .default,execute: work)
     }
     
     
@@ -1036,26 +1036,24 @@ extension OperationQueue{
      优先级:交互级的
      */
     public static func userInteractive(execute work: @escaping @convention(block) () -> Swift.Void)->Void{
-        globalQueue(.userInteractive, execute: work)
+        globalQueue(qos: .userInteractive, execute: work)
     }
     
     /*!
      后台执行
      */
     public static func background(execute work: @escaping @convention(block) () -> Swift.Void)->Void{
-        globalQueue(.background, execute: work)
+        globalQueue(qos: .background, execute: work)
     }
     
     
     /*!
      进入一个全局的队列来做事情,可以设定优先级
      */
-    public static func globalQueue(_ priority:DispatchQoS.QoSClass,execute work: @escaping @convention(block) () -> Swift.Void)->Void{
-//        DispatchQueue.global(qos: <#T##DispatchQoS.QoSClass#>)
-//        DispatchQueue.global(qos: priority).async(execute: block)
+    public static func globalQueue(qos:DispatchQoS.QoSClass,execute work: @escaping @convention(block) () -> Swift.Void)->Void{
         
         
-        DispatchQueue.global(qos: priority).async {
+        DispatchQueue.global(qos: qos).async {
             work()
         }
 //        DispatchQueue.global(attributes: priority).async(execute: block)
