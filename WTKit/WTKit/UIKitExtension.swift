@@ -257,13 +257,15 @@
          硬盘空间
          */
         public func diskSpace()->Int64{
-            var attributes: [FileAttributeKey : AnyObject]
+            var attributes: [FileAttributeKey : Any]
             var fileSystemSize:Int64 = 0
             do{
-                try attributes = FileManager.default.attributesOfItem(atPath: NSHomeDirectory())
+                let fm = FileManager.default;
+                try attributes = fm.attributesOfFileSystem(forPath: NSHomeDirectory())
+//                try attributes = FileManager.default.attributesOfItem(atPath: NSHomeDirectory())
                 //            fileSystemSize = (attributes![attributes.systemSize.rawValue]?.int64Value)!
                 //            fileSystemSize = attributes[FileAttributeKey.fileSystemSize]
-                fileSystemSize = attributes[FileAttributeKey.systemSize]!.int64Value
+                fileSystemSize = attributes[FileAttributeKey.systemSize]?.int64Value
             }catch{
                 
             }
@@ -395,7 +397,7 @@
         
         
         // MARK: - 设置一张网络图片,并缓存下来
-        public func setImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:((_ image:UIImage?,error:NSError?)->Void)?=nil) {
+        public func setImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:((_ image:UIImage?,_ error:NSError?)->Void)?=nil) {
             safeSyncInMain {
                 self.setImage(placeHolder, for: state)
             }
@@ -415,7 +417,7 @@
             }
         }
         
-        public func setBackgroundImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:((_ image:UIImage?,error:NSError?)->Void)?=nil) {
+        public func setBackgroundImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:((_ image:UIImage?,_ error:NSError?)->Void)?=nil) {
             safeSyncInMain {
                 self.setBackgroundImage(placeHolder, for:state)
             }
@@ -469,7 +471,7 @@
         
         
         
-        public class func cachedImageDataTask(with url:String,credential:URLCredential?=nil, complection:(_ image:UIImage?,error:NSError?)->Void )->WTURLSessionTask{
+        public class func cachedImageDataTask(with url:String,credential:URLCredential?=nil, complection:(_ image:UIImage?,_ error:NSError?)->Void )->WTURLSessionTask{
             let request = URLRequest.wt_request(with: url)
             
             
@@ -631,7 +633,7 @@
          swift 中对于方法做了优化,无需写多个方法来设置不同参数,写一个全的,然后需要填几个参数就填几个
          不想填的就填一个不加逗号就可以了.
          */
-        public func setImage(with url:String ,placeHolder:UIImage? = nil,complection:((_ image:UIImage?,error:NSError?)->Void)?=nil)->Void{
+        public func setImage(with url:String ,placeHolder:UIImage? = nil,complection:((_ image:UIImage?,_ error:NSError?)->Void)?=nil)->Void{
             safeSyncInMain {
                 self.image = placeHolder
                 self.setNeedsLayout()
@@ -655,7 +657,7 @@
         /*!
          设置高亮图
          */
-        public func sethighlightedImage(with url:String ,placeHolder:UIImage? = nil,complection:((_ image:UIImage?,error:NSError?)->Void)?=nil)->Void{
+        public func sethighlightedImage(with url:String ,placeHolder:UIImage? = nil,complection:((_ image:UIImage?,_ error:NSError?)->Void)?=nil)->Void{
             safeSyncInMain {
                 self.highlightedImage = placeHolder
                 self.setNeedsLayout()

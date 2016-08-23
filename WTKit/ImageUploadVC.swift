@@ -55,7 +55,7 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
     }
     
     @available(iOS 2.0, *)
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
+    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
         WTPrint(info)
         let image:UIImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
         uploadButton.setImage(image, for: UIControlState())
@@ -64,7 +64,7 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
         }
     }
     @available(iOS 2.0, *)
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
+    internal func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
         picker.dismiss(animated: true) { 
             
         }

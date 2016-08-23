@@ -437,13 +437,13 @@ extension URLSession{
 //进度获取
 public typealias progressHandler = ((_ countOfBytesReceived: Int64 ,_ countOfBytesExpectedToReceive: Int64) -> Void)
 //完成回调
-public typealias completionHandler = ((_ data:Data?, response:URLResponse?, error:Error?) -> Swift.Void)
+public typealias completionHandler = ((_ data:Data?, _ response:URLResponse?, _ error:Error?) -> Swift.Void)
 //json解析回调
-public typealias jsonHandler = (_ object:AnyObject?,error:Error?)->Void
+public typealias jsonHandler = (_ object:AnyObject?,_ error:Error?)->Void
 //图片下载回调
-public typealias imageHandler = (image:UIImage?,_ error:Error?)->Void
+public typealias imageHandler = (_ image:UIImage?,_ error:Error?)->Void
 //字符串回调
-public typealias stringHandler = (_ string:String?,error:Error?)->Void
+public typealias stringHandler = (_ string:String?,_ error:Error?)->Void
 //凭证回调
 public typealias challengeHandler = ((Foundation.URLSession, URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, URLCredential?))
 
@@ -605,7 +605,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
 public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     
-    private static let sharedInstance = {
+    static let sharedInstance = {
         return WTURLSessionDelegate()
     }()
     
@@ -1027,40 +1027,47 @@ extension OperationQueue{
      到默认的全局队列做事情
      优先级是默认的
      */
-    public static func globalQueue(_ block: () -> Void)->Void{
-        globalQueue(.default,block: block)
+    public static func globalQueue(execute work: @escaping @convention(block) () -> Swift.Void)->Void{
+        globalQueue(.default,execute: work)
     }
     
     
     /*!
      优先级:交互级的
      */
-    public static func userInteractive(_ block:()->Void)->Void{
-        globalQueue(.userInteractive, block: block)
+    public static func userInteractive(execute work: @escaping @convention(block) () -> Swift.Void)->Void{
+        globalQueue(.userInteractive, execute: work)
     }
     
     /*!
      后台执行
      */
-    public static func background(_ block:()->Void)->Void{
-        globalQueue(.background, block: block)
+    public static func background(execute work: @escaping @convention(block) () -> Swift.Void)->Void{
+        globalQueue(.background, execute: work)
     }
     
     
     /*!
      进入一个全局的队列来做事情,可以设定优先级
      */
-    public static func globalQueue(_ priority:DispatchQoS.QoSClass,block:()->Void)->Void{
+    public static func globalQueue(_ priority:DispatchQoS.QoSClass,execute work: @escaping @convention(block) () -> Swift.Void)->Void{
 //        DispatchQueue.global(qos: <#T##DispatchQoS.QoSClass#>)
-        DispatchQueue.global(qos: priority).async(execute: block)
+//        DispatchQueue.global(qos: priority).async(execute: block)
+        
+        
+        DispatchQueue.global(qos: priority).async {
+            work()
+        }
 //        DispatchQueue.global(attributes: priority).async(execute: block)
     }
     
     /*!
      回到主线程做事情
      */
-    public static func main(_ block: () -> Swift.Void)->Void{
-        OperationQueue.main.addOperation(block)
+    public static func main(_ block: @escaping () -> Swift.Void)->Void{
+        OperationQueue.main.addOperation {
+            block()
+        }
     }
 }
 extension Operation{

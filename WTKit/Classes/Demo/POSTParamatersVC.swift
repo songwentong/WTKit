@@ -150,7 +150,7 @@ class POSTParamatersVC: UIViewController,UITableViewDataSource,UITableViewDelega
             let cell2:UITableViewCell = sender.superview?.superview as!UITableViewCell
             let indexPath2 = self.tableView.indexPath(for: cell2)
             if ( indexPath2 != nil && tf.text != nil ) {
-                if (self.parameters.count > (indexPath2 as NSIndexPath?)?.row){
+                if (self.parameters.count > ((indexPath2 as NSIndexPath?)?.row)!){
                     self.parameters[(indexPath2! as NSIndexPath).row] = tf.text!
                 }else{
                     self.parameters.append(tf.text!)
