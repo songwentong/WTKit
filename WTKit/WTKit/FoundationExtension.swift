@@ -81,7 +81,7 @@ public func safeSyncInMain(with block:()->Void)->Void{
 /*!
  延时执行的代码块
  */
-public func performOperation(with block:()->Void, afterDelay:TimeInterval){
+public func performOperation(with block:@escaping ()->Void, afterDelay:TimeInterval){
     //Swift 不允许数据在计算中损失,所以需要在计算的时候转换以下类型
     let time = Int64(afterDelay * Double(NSEC_PER_SEC))
     let t = DispatchTime.now() + Double(time) / Double(NSEC_PER_SEC)
@@ -435,15 +435,15 @@ extension URLSession{
     
 }
 //进度获取
-public typealias progressHandler = ((countOfBytesReceived: Int64 ,countOfBytesExpectedToReceive: Int64) -> Void)
+public typealias progressHandler = ((_ countOfBytesReceived: Int64 ,_ countOfBytesExpectedToReceive: Int64) -> Void)
 //完成回调
-public typealias completionHandler = ((data:Data?, response:URLResponse?, error:Error?) -> Swift.Void)
+public typealias completionHandler = ((_ data:Data?, response:URLResponse?, error:Error?) -> Swift.Void)
 //json解析回调
-public typealias jsonHandler = (object:AnyObject?,error:Error?)->Void
+public typealias jsonHandler = (_ object:AnyObject?,error:Error?)->Void
 //图片下载回调
-public typealias imageHandler = (image:UIImage?,error:Error?)->Void
+public typealias imageHandler = (image:UIImage?,_ error:Error?)->Void
 //字符串回调
-public typealias stringHandler = (string:String?,error:Error?)->Void
+public typealias stringHandler = (_ string:String?,error:Error?)->Void
 //凭证回调
 public typealias challengeHandler = ((Foundation.URLSession, URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, URLCredential?))
 
@@ -1357,7 +1357,7 @@ extension String{
         /*!
          * Checks whether the default route is available. Should be used by applications that do not connect to a particular host.
          */
-        public class func reachabilityForInternetConnection(_ complection:(reachability:WTReachability)->Void) -> Void{
+        public class func reachabilityForInternetConnection(_ complection:(_ reachability:WTReachability)->Void) -> Void{
             var zeroAddress = sockaddr_in()
             zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
             zeroAddress.sin_family = sa_family_t(AF_INET)

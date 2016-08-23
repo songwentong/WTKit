@@ -149,9 +149,9 @@
         /*!
          非常好用的方法,用于处理首次启动需要做的事情
          */
-        public static func firstLaunchForBuild(_ block:(isFirstLaunchEver:Bool)->Void){
+        public static func firstLaunchForBuild(_ block:(_ isFirstLaunchEver:Bool)->Void){
             self.track()
-            block(isFirstLaunchEver: shared.isFirstLaunchEver)
+            block(shared.isFirstLaunchEver)
             
         }
         
@@ -321,7 +321,7 @@
                 objc_setAssociatedObject(self, &UIControlTargetActionBlockKeys, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
         }
-        public func addtarget(_ block:(sender:UIControl)->Void, forControlEvents controlEvents: UIControlEvents)->Void{
+        public func addtarget(_ block:(_ sender:UIControl)->Void, forControlEvents controlEvents: UIControlEvents)->Void{
             let taBlock = UIControlTABlock()
             taBlock.block = block
             let selector = #selector(UIControlTABlock.run(_:))
@@ -333,7 +333,7 @@
         }
         
         class UIControlTABlock:NSObject{
-            var block:((sender:UIControl)->Void)?
+            var block:((_ sender:UIControl)->Void)?
             var event:UIControlEvents?
             
             override init() {
@@ -395,7 +395,7 @@
         
         
         // MARK: - 设置一张网络图片,并缓存下来
-        public func setImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil) {
+        public func setImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:((_ image:UIImage?,error:NSError?)->Void)?=nil) {
             safeSyncInMain {
                 self.setImage(placeHolder, for: state)
             }
@@ -415,7 +415,7 @@
             }
         }
         
-        public func setBackgroundImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil) {
+        public func setBackgroundImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:((_ image:UIImage?,error:NSError?)->Void)?=nil) {
             safeSyncInMain {
                 self.setBackgroundImage(placeHolder, for:state)
             }
@@ -469,7 +469,7 @@
         
         
         
-        public class func cachedImageDataTask(with url:String,credential:URLCredential?=nil, complection:(image:UIImage?,error:NSError?)->Void )->WTURLSessionTask{
+        public class func cachedImageDataTask(with url:String,credential:URLCredential?=nil, complection:(_ image:UIImage?,error:NSError?)->Void )->WTURLSessionTask{
             let request = URLRequest.wt_request(with: url)
             
             
@@ -631,7 +631,7 @@
          swift 中对于方法做了优化,无需写多个方法来设置不同参数,写一个全的,然后需要填几个参数就填几个
          不想填的就填一个不加逗号就可以了.
          */
-        public func setImage(with url:String ,placeHolder:UIImage? = nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil)->Void{
+        public func setImage(with url:String ,placeHolder:UIImage? = nil,complection:((_ image:UIImage?,error:NSError?)->Void)?=nil)->Void{
             safeSyncInMain {
                 self.image = placeHolder
                 self.setNeedsLayout()
@@ -655,7 +655,7 @@
         /*!
          设置高亮图
          */
-        public func sethighlightedImage(with url:String ,placeHolder:UIImage? = nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil)->Void{
+        public func sethighlightedImage(with url:String ,placeHolder:UIImage? = nil,complection:((_ image:UIImage?,error:NSError?)->Void)?=nil)->Void{
             safeSyncInMain {
                 self.highlightedImage = placeHolder
                 self.setNeedsLayout()
@@ -1018,9 +1018,9 @@
             //        self.scrollView?.removeObserver(self, forKeyPath: "dragging")
         }
         
-        public override func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
+        public func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutableRawPointer) {
             if keyPath == contentOffset() {
-                self.scrollViewContentOffsetDidChange(change)
+                self.scrollViewContentOffsetDidChange(change as AnyObject?)
                 
                 
             }else if keyPath == contentSize(){
@@ -1123,7 +1123,7 @@
         
     }
     extension UITableView{
-        public func updateWithClosure(_ table:(table:UITableView)->Void){
+        public func updateWithClosure(_ table:(_ table:UITableView)->Void){
             self.beginUpdates()
             table(table:self)
             self.endUpdates()

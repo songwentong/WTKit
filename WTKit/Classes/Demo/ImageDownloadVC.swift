@@ -54,7 +54,7 @@ class ImageDownloadVC: UIViewController {
             let image = imageView.image
             var blurredImage:UIImage?
             OperationQueue.globalQueue({ 
-                blurredImage = image!.imageWithFilter("CIGaussianBlur", parameters: ["inputRadius":5])
+                blurredImage = image!.imageWithFilter("CIGaussianBlur", parameters: ["inputRadius":5 as AnyObject])
                 if blurredImage != nil {
                     OperationQueue.main {
                         self.imageView.image = blurredImage
