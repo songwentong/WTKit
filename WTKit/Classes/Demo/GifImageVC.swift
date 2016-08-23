@@ -37,7 +37,7 @@ class GifImageVC: UIViewController {
         let task = URLSession.wt_cachedDataTask(with: request, credential: nil) { (data, response, error) in
             if data != nil {
                 
-                OperationQueue.main({
+                OperationQueue.toMain({
                     self.hideLoadingView()
                     self.imageView = self.view.viewWithTag(1) as! AnimationImageVIew
                     self.imageView.backgroundColor = UIColor.white

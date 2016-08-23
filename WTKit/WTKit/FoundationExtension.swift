@@ -437,7 +437,7 @@ extension URLSession{
 //进度获取
 public typealias progressHandler = ((_ countOfBytesReceived: Int64 ,_ countOfBytesExpectedToReceive: Int64) -> Void)
 //完成回调
-public typealias completionHandler = ((_ data:Data?, _ response:URLResponse?, _ error:Error?) -> Swift.Void)
+public typealias completionHandler = @escaping (Data?, URLResponse?, Error?) -> Swift.Void
 //json解析回调
 public typealias jsonHandler = (_ object:AnyObject?,_ error:Error?)->Void
 //图片下载回调
@@ -495,16 +495,16 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
         OperationQueue.globalQueue {
             if let _ = self.imageHandler{
                 let image = UIImage(data: self.data)
-                OperationQueue.main({
-                    self.imageHandler?(image:image,error:self.error)
+                OperationQueue.toMain({
+                    self.imageHandler?(image,self.error)
                 })
                 
             }
             
             if let _ = self.jsonHandler{
                 self.data.parseJSON(handler: { (object, error) in
-                    OperationQueue.main({
-                        self.jsonHandler?(object:object,error:error)
+                    OperationQueue.toMain({
+                        self.jsonHandler?(object,error)
                     })
                 })
                 
@@ -513,22 +513,22 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
             
             if let _ = self.stringHandler{
                 let string = String.init(data: self.data, encoding: String.Encoding.utf8)
-                OperationQueue.main {
-                    self.stringHandler?(string:string,error:self.error)
+                OperationQueue.toMain {
+                    self.stringHandler?(string,self.error)
                 }
             }
             
             
         }
         
-        OperationQueue.main {
-            self.completionHandler?(data:self.data,response:self.response,error:self.error)
+        OperationQueue.toMain {
+            self.completionHandler?(self.data,self.response,self.error)
         }
         
     }
     
     
-    public func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
+    @nonobjc public func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
         var disposition: Foundation.URLSession.AuthChallengeDisposition = .performDefaultHandling
         var credential:URLCredential? = self.credential
         
@@ -554,7 +554,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
     
     
     //URLSessionDataTaskDelegate
-    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
+    @nonobjc public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
         self.response = response
         completionHandler(URLSession.ResponseDisposition.allow)
     }
@@ -567,7 +567,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
         
         
     }
-    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: (CachedURLResponse?) -> Swift.Void){
+    @nonobjc public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: (CachedURLResponse?) -> Swift.Void){
         if self.error == nil {
             let cachePolicy = dataTask.originalRequest?.cachePolicy
             if cachePolicy == .returnCacheDataElseLoad {
@@ -664,7 +664,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
      
       参考:https://developer.apple.com/library/ios/technotes/tn2232/_index.html#//apple_ref/doc/uid/DTS40012884
      */
-    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
+    @nonobjc public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
         
         var disposition: Foundation.URLSession.AuthChallengeDisposition = .performDefaultHandling
         var credential:URLCredential? = self.credential
@@ -720,7 +720,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     // MARK: URLSessionDataDelegate
     
     
-    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
+    @nonobjc public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
         if let task = self[dataTask] {
             task.urlSession(session, dataTask: dataTask, didReceive: response, completionHandler: completionHandler)
         }else{
@@ -731,7 +731,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         
     }
     
-    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: (CachedURLResponse?) -> Swift.Void){
+    @nonobjc public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: (CachedURLResponse?) -> Swift.Void){
         if let task = self[dataTask]{
             task.urlSession(session, dataTask: dataTask, willCacheResponse: proposedResponse, completionHandler: completionHandler)
         }else{
@@ -848,7 +848,7 @@ extension NSObject{
     }
     
     
-    public func performBlock(_ block: () -> Void , afterDelay:Double){
+    public func performBlock(_ block: @escaping () -> Void , afterDelay:Double){
         //Swift 不允许数据在计算中损失,所以需要在计算的时候转换以下类型
         let time = Int64(afterDelay * Double(NSEC_PER_SEC))
         let t:DispatchTime = DispatchTime.now() + Double(time) / Double(NSEC_PER_SEC)
@@ -914,7 +914,7 @@ extension NSObject{
                 print(currentObject)
             }
             theLevel = theLevel + 1
-            levels.append(currentLevel)
+            levels.append(currentLevel as AnyObject)
         }while currentLevel.count != 0
         print("end t")
         
@@ -1052,17 +1052,18 @@ extension OperationQueue{
      */
     public static func globalQueue(qos:DispatchQoS.QoSClass,execute work: @escaping @convention(block) () -> Swift.Void)->Void{
         
-        
-        DispatchQueue.global(qos: qos).async {
-            work()
-        }
+        DispatchQueue.global(qos: qos).async(execute: work);
+//        DispatchQueue.global(qos: qos).async {
+//            work()
+//        }
 //        DispatchQueue.global(attributes: priority).async(execute: block)
     }
     
     /*!
      回到主线程做事情
      */
-    public static func main(_ block: @escaping () -> Swift.Void)->Void{
+    public static func toMain(_ block: @escaping () -> Swift.Void)->Void{
+        
         OperationQueue.main.addOperation {
             block()
         }
@@ -1304,7 +1305,7 @@ extension String{
      *  用于计算文字高度
      */
     public func boundingRectWithSize(_ size: CGSize, options: NSStringDrawingOptions, attributes: [String : AnyObject]?, context: NSStringDrawingContext?) -> CGRect{
-        let string:NSString = self
+        let string:NSString = self as NSString
         return string.boundingRect(with: size, options: options, attributes: attributes, context: context)
     }
     #endif
@@ -1364,7 +1365,7 @@ extension String{
          */
         public class func reachabilityForInternetConnection(_ complection:(_ reachability:WTReachability)->Void) -> Void{
             var zeroAddress = sockaddr_in()
-            zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
+            zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
             zeroAddress.sin_family = sa_family_t(AF_INET)
             withUnsafePointer(&zeroAddress, {
                 let reachability:WTReachability = WTReachability.reachabilityWithAddress(UnsafePointer($0))!

@@ -39,7 +39,6 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         dataList.append(["title":"下拉刷新","segue":"TableRefreshVC"])
         dataList.append(["title":"二维码扫描","segue":"QRCodeScanVC"])
         dataList.append(["title":"Reachability","segue":"reachability"])
-        
         super.init(coder: aDecoder)
     }
 // MARK: View Lifecycle

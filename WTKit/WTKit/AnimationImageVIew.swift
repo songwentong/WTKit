@@ -168,7 +168,7 @@ class WTImage:UIImage{
     internal var iamgeSource:ImageSource?
 
     override init?(data: Data) {
-        let imageSourceRef = CGImageSourceCreateWithData(data, nil);
+        let imageSourceRef = CGImageSourceCreateWithData(data as CFData, nil);
         self.iamgeSource = ImageSource(imageref: imageSourceRef!)
         super.init(data: data)
     }

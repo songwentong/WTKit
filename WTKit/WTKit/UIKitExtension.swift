@@ -349,7 +349,7 @@
             
             func run(_ sender:UIControl){
                 if block != nil{
-                    block?(sender: sender)
+                    block?(sender)
                 }
             }
         }
@@ -428,7 +428,7 @@
                         self?.setBackgroundImage(image, for:state)
                         self?.setNeedsLayout()
                         if complection != nil {
-                            complection!(image:image,error: error)
+                            complection!(image,error)
                         }
                     })
                     })
@@ -481,7 +481,7 @@
                     image = UIImage(data: data!)
                 }
                 
-                complection(image: image,error: error)
+                complection(image,error)
                 
             })
             
@@ -556,7 +556,7 @@
         
         public static func gifImageWith(_ data:Data, scale:CGFloat?=UIScreen.main.scale)->UIImage?{
             var image:UIImage?
-            let source = CGImageSourceCreateWithData(data, nil)
+            let source = CGImageSourceCreateWithData(data as CFData, nil)
             let count = CGImageSourceGetCount(source!)
             if count <= 1 {
                 image = UIImage(data: data)
@@ -669,7 +669,7 @@
                         self?.setNeedsLayout()
                     })
                     if complection != nil {
-                        complection!(image:image,error:error)
+                        complection!(image,error)
                     }
                     })
                 self.wtHighLightedImageTask = task
