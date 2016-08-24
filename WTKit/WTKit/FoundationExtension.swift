@@ -1326,11 +1326,7 @@ extension String{
         case reachableViaWWAN = 2
     }
     public let kWTReachabilityChangedNotification = "kWTReachabilityChangedNotification"
-    func ReachabilityCallback(_ reachability:SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutableRawPointer) {
-//        assert(info != nil)
-        let noteObject = Unmanaged<WTReachability>.fromOpaque(info).takeUnretainedValue()
-        NotificationCenter.default.post(name: Notification.Name(rawValue: kWTReachabilityChangedNotification), object: noteObject, userInfo: nil)
-    }
+    
     public class WTReachability:NSObject{
         
         var _reachabilityRef:SCNetworkReachability?
