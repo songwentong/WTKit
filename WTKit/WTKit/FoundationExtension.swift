@@ -85,30 +85,30 @@ public func performOperation(with block:@escaping ()->Void, afterDelay:TimeInter
     //Swift 不允许数据在计算中损失,所以需要在计算的时候转换以下类型
     let time = Int64(afterDelay * Double(NSEC_PER_SEC))
     let t = DispatchTime.now() + Double(time) / Double(NSEC_PER_SEC)
-//    DispatchQueue.main.after(when: t, execute: block)
+    //    DispatchQueue.main.after(when: t, execute: block)
     DispatchQueue.main.asyncAfter(deadline: t, execute: block)
     
 }
 /*
-func bridge<T : AnyObject>(obj : T) -> UnsafeRawPointer {
-//    return UnsafeRawPointer(bitPattern: Unmanaged.passUnretained(obj).toOpaque())
-    return UnsafePointer(Unmanaged.passUnretained(obj).toOpaque())
-    // return unsafeAddress(of: obj) // ***
-}
-
-func bridge<T : AnyObject>(ptr : UnsafeRawPointer) -> T {
-    return Unmanaged<T>.fromOpaque(ptr).takeUnretainedValue()
-    // return unsafeBitCast(ptr, to: T.self) // ***
-}
-
-func bridgeRetained<T : AnyObject>(obj : T) -> UnsafeRawPointer {
-    return UnsafePointer( Unmanaged.passRetained(obj).toOpaque())
-}
-
-func bridgeTransfer<T : AnyObject>(ptr : UnsafeRawPointer) -> T {
-    return Unmanaged<T>.fromOpaque(ptr).takeRetainedValue()
-}
-*/
+ func bridge<T : AnyObject>(obj : T) -> UnsafeRawPointer {
+ //    return UnsafeRawPointer(bitPattern: Unmanaged.passUnretained(obj).toOpaque())
+ return UnsafePointer(Unmanaged.passUnretained(obj).toOpaque())
+ // return unsafeAddress(of: obj) // ***
+ }
+ 
+ func bridge<T : AnyObject>(ptr : UnsafeRawPointer) -> T {
+ return Unmanaged<T>.fromOpaque(ptr).takeUnretainedValue()
+ // return unsafeBitCast(ptr, to: T.self) // ***
+ }
+ 
+ func bridgeRetained<T : AnyObject>(obj : T) -> UnsafeRawPointer {
+ return UnsafePointer( Unmanaged.passRetained(obj).toOpaque())
+ }
+ 
+ func bridgeTransfer<T : AnyObject>(ptr : UnsafeRawPointer) -> T {
+ return Unmanaged<T>.fromOpaque(ptr).takeRetainedValue()
+ }
+ */
 
 public enum httpMethod:String{
     case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
@@ -401,7 +401,7 @@ extension URLSession{
         WTURLSessionDelegate.sharedInstance[task] = myTask
         myTask.completionHandler = completionHandler
         myTask.credential = credential
-//        WTURLSessionDelegate.sharedInstance.credential = credential
+        //        WTURLSessionDelegate.sharedInstance.credential = credential
         return myTask
     }
     
@@ -413,7 +413,7 @@ extension URLSession{
         WTURLSessionDelegate.sharedInstance[task] = myTask
         myTask.completionHandler = completionHandler
         myTask.credential = credential
-//        WTURLSessionDelegate.sharedInstance.credential = credential
+        //        WTURLSessionDelegate.sharedInstance.credential = credential
         return myTask
     }
     
@@ -430,7 +430,7 @@ extension URLSession{
         WTURLSessionDelegate.sharedInstance[task] = myTask
         myTask.completionHandler = completionHandler
         myTask.credential = credential
-//        WTURLSessionDelegate.sharedInstance.credential = credential
+        //        WTURLSessionDelegate.sharedInstance.credential = credential
         return myTask
     }
     
@@ -470,7 +470,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
     }
     
     /*
-        这里的task和data是私有的,原因在于不允许外界修改,想要得到原始的task只需要调用otigintask就可以了
+     这里的task和data是私有的,原因在于不允许外界修改,想要得到原始的task只需要调用otigintask就可以了
      */
     //原始的task
     private var task: URLSessionTask
@@ -665,7 +665,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     /*!
      
-      参考:https://developer.apple.com/library/ios/technotes/tn2232/_index.html#//apple_ref/doc/uid/DTS40012884
+     参考:https://developer.apple.com/library/ios/technotes/tn2232/_index.html#//apple_ref/doc/uid/DTS40012884
      */
     @nonobjc public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
         
@@ -856,7 +856,7 @@ extension NSObject{
         let time = Int64(afterDelay * Double(NSEC_PER_SEC))
         let t:DispatchTime = DispatchTime.now() + Double(time) / Double(NSEC_PER_SEC)
         DispatchQueue.main.asyncAfter(deadline: t, execute: block)
-//        DispatchQueue.main.after(when: t, execute: block)
+        //        DispatchQueue.main.after(when: t, execute: block)
         //        DispatchQueue.main.after(when: t, block: block)
         
     }
@@ -866,24 +866,24 @@ extension NSObject{
      note:必须是可用的的json对象
      */
     public static func traversal(_ obj:AnyObject){
-//        if JSONSerialization.isValidJSONObject(obj) {
-            if let array = obj as? Array<AnyObject> {
-                for item in array{
-                    traversal(item)
-                }
-            }else if let dict = obj as? Dictionary<String,AnyObject>{
-                for (_,value) in dict{
-                    traversal(value)
-                }
-            }else {
-                print("----------  \(obj)")
+        //        if JSONSerialization.isValidJSONObject(obj) {
+        if let array = obj as? Array<AnyObject> {
+            for item in array{
+                traversal(item)
             }
-//        }
+        }else if let dict = obj as? Dictionary<String,AnyObject>{
+            for (_,value) in dict{
+                traversal(value)
+            }
+        }else {
+            print("----------  \(obj)")
+        }
+        //        }
     }
     
     
     /*!
-        遍历,层次遍历
+     遍历,层次遍历
      */
     
     public static func wt_traversal(with obj:AnyObject){
@@ -912,7 +912,7 @@ extension NSObject{
                     print(v)
                     currentLevel.append(v)
                 }
-//                currentLevel.append(contentsOf: dict.values)
+                //                currentLevel.append(contentsOf: dict.values)
             }else{
                 print(currentObject)
             }
@@ -1056,10 +1056,10 @@ extension OperationQueue{
     public static func globalQueue(qos:DispatchQoS.QoSClass,execute work: @escaping @convention(block) () -> Swift.Void)->Void{
         
         DispatchQueue.global(qos: qos).async(execute: work);
-//        DispatchQueue.global(qos: qos).async {
-//            work()
-//        }
-//        DispatchQueue.global(attributes: priority).async(execute: block)
+        //        DispatchQueue.global(qos: qos).async {
+        //            work()
+        //        }
+        //        DispatchQueue.global(attributes: priority).async(execute: block)
     }
     
     /*!
@@ -1134,54 +1134,54 @@ public func +=(lhs: inout Data, rhs: Data){
     lhs.append(rhs)
 }
 /*
-extension Date{
-    public func numberFor(component unit:Calendar.Unit)->Int{
-        return Calendar.current.component(unit, from: self)
-    }
-    public var year:Int{
-        get{
-            return numberFor(component: .year)
-        }
-    }
-    public var month:Int{
-        get{
-            return numberFor(component:.month)
-        }
-    }
-    public var day:Int{
-        get{
-            return numberFor(component:.day)
-        }
-    }
-    public var hour:Int{
-        get{
-            return numberFor(component:.hour)
-        }
-    }
-    public var weekOfYear:Int{
-        get{
-            return numberFor(component: .weekOfYear)
-        }
-    }
-    public var minute:Int{
-        get{
-            return numberFor(component:.minute)
-        }
-    }
-    public var second:Int{
-        get{
-            return numberFor(component:.second)
-        }
-    }
-    public func stringWithDateFormat(_ format:String)->String{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        dateFormatter.locale = Locale.current
-        return dateFormatter.string(from: self)
-    }
-    
-    
-}
+ extension Date{
+ public func numberFor(component unit:Calendar.Unit)->Int{
+ return Calendar.current.component(unit, from: self)
+ }
+ public var year:Int{
+ get{
+ return numberFor(component: .year)
+ }
+ }
+ public var month:Int{
+ get{
+ return numberFor(component:.month)
+ }
+ }
+ public var day:Int{
+ get{
+ return numberFor(component:.day)
+ }
+ }
+ public var hour:Int{
+ get{
+ return numberFor(component:.hour)
+ }
+ }
+ public var weekOfYear:Int{
+ get{
+ return numberFor(component: .weekOfYear)
+ }
+ }
+ public var minute:Int{
+ get{
+ return numberFor(component:.minute)
+ }
+ }
+ public var second:Int{
+ get{
+ return numberFor(component:.second)
+ }
+ }
+ public func stringWithDateFormat(_ format:String)->String{
+ let dateFormatter = DateFormatter()
+ dateFormatter.dateFormat = format
+ dateFormatter.locale = Locale.current
+ return dateFormatter.string(from: self)
+ }
+ 
+ 
+ }
  */
 extension NSPredicate{
 }
@@ -1315,142 +1315,142 @@ extension String{
 }
 
 
-#if os(iOS)
-    // MARK: - Reachbility
-    public enum WTNetworkStatus:UInt{
-        //无连接
-        case notReachable = 0
-        //Wi-Fi
-        case reachableViaWiFi = 1
-        //蜂窝数据
-        case reachableViaWWAN = 2
-    }
-    public let kWTReachabilityChangedNotification = "kWTReachabilityChangedNotification"
+
+// MARK: - Reachbility
+public enum WTNetworkStatus:UInt{
+    //无连接
+    case notReachable = 0
+    //Wi-Fi
+    case reachableViaWiFi = 1
+    //蜂窝数据
+    case reachableViaWWAN = 2
+}
+public let kWTReachabilityChangedNotification = "kWTReachabilityChangedNotification"
+
+public class WTReachability:NSObject{
     
-    public class WTReachability:NSObject{
+    var _reachabilityRef:SCNetworkReachability?
+    
+    /*!
+     * Use to check the reachability of a given host name.
+     */
+    public class func reachabilityWithHostName(_ hostName:String)->WTReachability{
         
-        var _reachabilityRef:SCNetworkReachability?
+        var returnValue:WTReachability?
+        let reachability = SCNetworkReachabilityCreateWithName(nil, hostName);
+        if reachability != nil {
+            returnValue = WTReachability()
+            returnValue?._reachabilityRef = reachability
+        }
+        return returnValue!
+    }
+    
+    /*!
+     * Use to check the reachability of a given IP address.
+     */
+    public class func reachabilityWithAddress(_ hostAddress: UnsafePointer<sockaddr>)->WTReachability?{
+        let reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, hostAddress);
+        var returnValue:WTReachability?
+        if reachability != nil {
+            returnValue = WTReachability()
+            returnValue?._reachabilityRef = reachability
+        }
+        return returnValue
         
-        /*!
-         * Use to check the reachability of a given host name.
-         */
-        public class func reachabilityWithHostName(_ hostName:String)->WTReachability{
-            
-            var returnValue:WTReachability?
-            let reachability = SCNetworkReachabilityCreateWithName(nil, hostName);
-            if reachability != nil {
-                returnValue = WTReachability()
-                returnValue?._reachabilityRef = reachability
-            }
-            return returnValue!
+    }
+    
+    /*!
+     * Checks whether the default route is available. Should be used by applications that do not connect to a particular host.
+     */
+    /*
+     public class func reachabilityForInternetConnection(_ complection:(_ reachability:WTReachability)->Void) -> Void{
+     var zeroAddress = sockaddr_in()
+     zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
+     zeroAddress.sin_family = sa_family_t(AF_INET)
+     withUnsafePointer(to: &zeroAddress, {
+     let reachability:WTReachability = WTReachability.reachabilityWithAddress(UnsafePointer($0))!
+     complection(reachability)
+     })
+     }
+     */
+    
+    public func startNotifier()->Bool{
+        //            var returnValue = false
+        
+        var context:SCNetworkReachabilityContext = SCNetworkReachabilityContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil);
+        
+        context.info = Unmanaged.passUnretained(self).toOpaque()
+        
+        //The function to be called when the reachability of the target changes.  If NULL, the current client for the target is removed.
+        let callout:SystemConfiguration.SCNetworkReachabilityCallBack? = {(reachbility, flag, pointer) in
+            let noteObject = Unmanaged<WTReachability>.fromOpaque(pointer!).takeUnretainedValue()
+            NotificationCenter.default.post(name: Notification.Name(rawValue: kWTReachabilityChangedNotification), object: noteObject, userInfo: nil)
         }
         
-        /*!
-         * Use to check the reachability of a given IP address.
-         */
-        public class func reachabilityWithAddress(_ hostAddress: UnsafePointer<sockaddr>)->WTReachability?{
-            let reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, hostAddress);
-            var returnValue:WTReachability?
-            if reachability != nil {
-                returnValue = WTReachability()
-                returnValue?._reachabilityRef = reachability
-            }
-            return returnValue
-            
+        let callbackEnabled = SCNetworkReachabilitySetCallback(_reachabilityRef!, callout, &context)
+        
+        return callbackEnabled
+    }
+    public func stopNotifier(){
+        if _reachabilityRef != nil {
+            SCNetworkReachabilityUnscheduleFromRunLoop(_reachabilityRef!, CFRunLoopGetCurrent(), RunLoopMode.defaultRunLoopMode.rawValue as CFString)
+        }
+    }
+    
+    func networkStatusForFlags(_ flags:SCNetworkReachabilityFlags)->WTNetworkStatus{
+        if !flags.contains(.reachable) {
+            return .notReachable
         }
         
-        /*!
-         * Checks whether the default route is available. Should be used by applications that do not connect to a particular host.
-         */
-        /*
-        public class func reachabilityForInternetConnection(_ complection:(_ reachability:WTReachability)->Void) -> Void{
-            var zeroAddress = sockaddr_in()
-            zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
-            zeroAddress.sin_family = sa_family_t(AF_INET)
-            withUnsafePointer(to: &zeroAddress, {
-                let reachability:WTReachability = WTReachability.reachabilityWithAddress(UnsafePointer($0))!
-                complection(reachability)
-            })
-        }
- */
+        var returnValue:WTNetworkStatus = .notReachable
         
-        public func startNotifier()->Bool{
-//            var returnValue = false
-            
-            var context:SCNetworkReachabilityContext = SCNetworkReachabilityContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil);
-            
-            context.info = Unmanaged.passUnretained(self).toOpaque()
-            
-            //The function to be called when the reachability of the target changes.  If NULL, the current client for the target is removed.
-            let callout:SystemConfiguration.SCNetworkReachabilityCallBack? = {(reachbility, flag, pointer) in
-                let noteObject = Unmanaged<WTReachability>.fromOpaque(pointer!).takeUnretainedValue()
-                NotificationCenter.default.post(name: Notification.Name(rawValue: kWTReachabilityChangedNotification), object: noteObject, userInfo: nil)
-            }
-            
-            let callbackEnabled = SCNetworkReachabilitySetCallback(_reachabilityRef!, callout, &context)
-            
-            return callbackEnabled
-        }
-        public func stopNotifier(){
-            if _reachabilityRef != nil {
-                SCNetworkReachabilityUnscheduleFromRunLoop(_reachabilityRef!, CFRunLoopGetCurrent(), RunLoopMode.defaultRunLoopMode.rawValue as CFString)
-            }
+        
+        if !flags.contains(.connectionRequired) {
+            returnValue = .reachableViaWiFi
         }
         
-        func networkStatusForFlags(_ flags:SCNetworkReachabilityFlags)->WTNetworkStatus{
-            if !flags.contains(.reachable) {
-                return .notReachable
-            }
-            
-            var returnValue:WTNetworkStatus = .notReachable
-            
-            
-            if !flags.contains(.connectionRequired) {
+        if flags.contains(.connectionOnDemand) || flags.contains(.connectionOnTraffic) {
+            if !flags.contains(.interventionRequired) {
                 returnValue = .reachableViaWiFi
             }
-            
-            if flags.contains(.connectionOnDemand) || flags.contains(.connectionOnTraffic) {
-                if !flags.contains(.interventionRequired) {
-                    returnValue = .reachableViaWiFi
-                }
-            }
-            
-            
-            if flags.intersection(.isWWAN) == .isWWAN {
-                returnValue = .reachableViaWWAN
-            }
-            
-            return returnValue
         }
         
-        func connectionRequired()->Bool{
-            assert(_reachabilityRef != nil)
-            var flags:SCNetworkReachabilityFlags = .reachable
-            if SCNetworkReachabilityGetFlags(_reachabilityRef!, &flags) {
-                return (flags.contains(.connectionRequired))
-            }
-            return false
+        
+        if flags.intersection(.isWWAN) == .isWWAN {
+            returnValue = .reachableViaWWAN
         }
         
-        /*!
-         当前网络状态
-         */
-        public func currentReachabilityStatus()->WTNetworkStatus{
-            assert(_reachabilityRef != nil)
-            let returnValue:WTNetworkStatus = .notReachable
-            var flags:SCNetworkReachabilityFlags = .reachable
-            if SCNetworkReachabilityGetFlags(_reachabilityRef!, &flags) {
-                return networkStatusForFlags(flags)
-            }
-            return returnValue
-        }
-        
-        deinit {
-            stopNotifier()
-        }
-        
+        return returnValue
     }
-#endif
+    
+    func connectionRequired()->Bool{
+        assert(_reachabilityRef != nil)
+        var flags:SCNetworkReachabilityFlags = .reachable
+        if SCNetworkReachabilityGetFlags(_reachabilityRef!, &flags) {
+            return (flags.contains(.connectionRequired))
+        }
+        return false
+    }
+    
+    /*!
+     当前网络状态
+     */
+    public func currentReachabilityStatus()->WTNetworkStatus{
+        assert(_reachabilityRef != nil)
+        let returnValue:WTNetworkStatus = .notReachable
+        var flags:SCNetworkReachabilityFlags = .reachable
+        if SCNetworkReachabilityGetFlags(_reachabilityRef!, &flags) {
+            return networkStatusForFlags(flags)
+        }
+        return returnValue
+    }
+    
+    deinit {
+        stopNotifier()
+    }
+    
+}
+
 /*
  print 的源码
  @inline(never)
