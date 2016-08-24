@@ -265,7 +265,7 @@
 //                try attributes = FileManager.default.attributesOfItem(atPath: NSHomeDirectory())
                 //            fileSystemSize = (attributes![attributes.systemSize.rawValue]?.int64Value)!
                 //            fileSystemSize = attributes[FileAttributeKey.fileSystemSize]
-                fileSystemSize = attributes[FileAttributeKey.systemSize]?.int64Value
+                fileSystemSize = (attributes[FileAttributeKey.systemSize] as AnyObject).int64Value
             }catch{
                 
             }
@@ -276,7 +276,7 @@
          可用空间
          */
         public func diskSpaceFree()->Int64{
-            var attributes:[FileAttributeKey : AnyObject]
+            var attributes:[FileAttributeKey : Any]
             var fileSystemSize:Int64 = 0
             do{
                 try attributes = FileManager.default.attributesOfItem(atPath: NSHomeDirectory())
@@ -397,7 +397,7 @@
         
         
         // MARK: - 设置一张网络图片,并缓存下来
-        public func setImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:((_ image:UIImage?,_ error:NSError?)->Void)?=nil) {
+        public func setImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:imageHandler?=nil) {
             safeSyncInMain {
                 self.setImage(placeHolder, for: state)
             }
@@ -408,7 +408,7 @@
                         self?.setImage(image, for: state)
                         self?.setNeedsLayout()
                         if complection != nil {
-                            complection!(image:image,error: error)
+                            complection!(image,error)
                         }
                     })
                     })
@@ -417,7 +417,7 @@
             }
         }
         
-        public func setBackgroundImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:((_ image:UIImage?,_ error:NSError?)->Void)?=nil) {
+        public func setBackgroundImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:imageHandler?=nil) {
             safeSyncInMain {
                 self.setBackgroundImage(placeHolder, for:state)
             }
@@ -471,7 +471,7 @@
         
         
         
-        public class func cachedImageDataTask(with url:String,credential:URLCredential?=nil, complection:(_ image:UIImage?,_ error:NSError?)->Void )->WTURLSessionTask{
+        public class func cachedImageDataTask(with url:String,credential:URLCredential?=nil, complection:imageHandler )->WTURLSessionTask{
             let request = URLRequest.wt_request(with: url)
             
             
@@ -633,7 +633,7 @@
          swift 中对于方法做了优化,无需写多个方法来设置不同参数,写一个全的,然后需要填几个参数就填几个
          不想填的就填一个不加逗号就可以了.
          */
-        public func setImage(with url:String ,placeHolder:UIImage? = nil,complection:((_ image:UIImage?,_ error:NSError?)->Void)?=nil)->Void{
+        public func setImage(with url:String ,placeHolder:UIImage? = nil,complection:imageHandler?=nil)->Void{
             safeSyncInMain {
                 self.image = placeHolder
                 self.setNeedsLayout()
@@ -645,7 +645,7 @@
                         self?.setNeedsLayout()
                     })
                     if complection != nil {
-                        complection!(image:image,error:error)
+                        complection!(image,error)
                     }
                     })
                 self.wtImageTask = task
@@ -657,7 +657,7 @@
         /*!
          设置高亮图
          */
-        public func sethighlightedImage(with url:String ,placeHolder:UIImage? = nil,complection:((_ image:UIImage?,_ error:NSError?)->Void)?=nil)->Void{
+        public func sethighlightedImage(with url:String ,placeHolder:UIImage? = nil,complection:imageHandler?=nil)->Void{
             safeSyncInMain {
                 self.highlightedImage = placeHolder
                 self.setNeedsLayout()
@@ -970,7 +970,7 @@
             }
         }
         
-        public class func headerWithRefreshing(_ block:()->Void)->RefreshHeader{
+        public class func headerWithRefreshing(_ block:@escaping ()->Void)->RefreshHeader{
             let width = UIScreen.screenWidth()
             let height:CGFloat = 60
             let header = RefreshHeader(frame: CGRect(x: 0,y: -height,width: width,height: height))
@@ -1039,7 +1039,7 @@
                     
                     //如果正在拖拽,就刷新一下状态
                     if self.state != .loading {
-                        if self.scrollView?.contentOffset.y > -refreshHeight {
+                        if (self.scrollView?.contentOffset.y)! > -refreshHeight {
                             self.state = .pullDownToRefresh
                         }else
                         {
@@ -1127,7 +1127,7 @@
     extension UITableView{
         public func updateWithClosure(_ table:(_ table:UITableView)->Void){
             self.beginUpdates()
-            table(table:self)
+            table(self)
             self.endUpdates()
         }
         

@@ -151,7 +151,7 @@ public class WTPieProgressView:UIView{
         UIColor.white.setStroke();
         ctx?.drawPath(using:CGPathDrawingMode.stroke);
         
-        ctx?.moveTo(x: cPoint.x, y: cPoint.y);
+        ctx?.move(x: cPoint.x, y: cPoint.y);
         ctx?.addArc(centerX: cPoint.x, y: cPoint.y, radius: radius-4, startAngle: CGFloat(M_PI*3/2),endAngle: CGFloat(M_PI*3/2)+CGFloat(M_PI)*2*progress, clockwise: 0);
         #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).setFill();
         ctx?.drawPath(using: CGPathDrawingMode.fill);

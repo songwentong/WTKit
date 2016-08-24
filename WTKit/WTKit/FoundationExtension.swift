@@ -439,7 +439,7 @@ public typealias progressHandler = ((_ countOfBytesReceived: Int64 ,_ countOfByt
 //完成回调
 public typealias completionHandler = @escaping (Data?, URLResponse?, Error?) -> Swift.Void
 //json解析回调
-public typealias jsonHandler = (_ object:AnyObject?,_ error:Error?)->Void
+public typealias jsonHandler = (_ object:Any?,_ error:Error?)->Void
 //图片下载回调
 public typealias imageHandler = (_ image:UIImage?,_ error:Error?)->Void
 //字符串回调
@@ -1092,8 +1092,8 @@ extension Data{
     /*!
      Create a Foundation object from JSON data.
      */
-    public func parseJson()->AnyObject?{
-        var obj:AnyObject? = nil
+    public func parseJson()->Any?{
+        var obj:Any
         do{
             try obj = JSONSerialization.jsonObject(with: self, options: [])
         } catch _{
@@ -1367,9 +1367,9 @@ extension String{
             var zeroAddress = sockaddr_in()
             zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
             zeroAddress.sin_family = sa_family_t(AF_INET)
-            withUnsafePointer(&zeroAddress, {
+            withUnsafePointer(to: &zeroAddress, {
                 let reachability:WTReachability = WTReachability.reachabilityWithAddress(UnsafePointer($0))!
-                complection(reachability:reachability)
+                complection(reachability)
             })
         }
         
@@ -1383,7 +1383,7 @@ extension String{
             context.info = UnsafeMutablePointer(bridge(obj: self))
             
             if SCNetworkReachabilitySetCallback(_reachabilityRef!, ReachabilityCallback, &context) {
-                if SCNetworkReachabilityScheduleWithRunLoop(_reachabilityRef!, CFRunLoopGetCurrent(), RunLoopMode.defaultRunLoopMode.rawValue) {
+                if SCNetworkReachabilityScheduleWithRunLoop(_reachabilityRef!, CFRunLoopGetCurrent(), RunLoopMode.defaultRunLoopMode.rawValue as CFString) {
                     returnValue = true
                 }
             }
@@ -1391,7 +1391,7 @@ extension String{
         }
         public func stopNotifier(){
             if _reachabilityRef != nil {
-                SCNetworkReachabilityUnscheduleFromRunLoop(_reachabilityRef!, CFRunLoopGetCurrent(), RunLoopMode.defaultRunLoopMode.rawValue)
+                SCNetworkReachabilityUnscheduleFromRunLoop(_reachabilityRef!, CFRunLoopGetCurrent(), RunLoopMode.defaultRunLoopMode.rawValue as CFString)
             }
         }
         
