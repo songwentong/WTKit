@@ -96,16 +96,16 @@ func bridge<T : AnyObject>(obj : T) -> UnsafeRawPointer {
     // return unsafeAddress(of: obj) // ***
 }
 
-func bridge<T : AnyObject>(ptr : UnsafePointer<Void>) -> T {
+func bridge<T : AnyObject>(ptr : UnsafeRawPointer) -> T {
     return Unmanaged<T>.fromOpaque(ptr).takeUnretainedValue()
     // return unsafeBitCast(ptr, to: T.self) // ***
 }
 
-func bridgeRetained<T : AnyObject>(obj : T) -> UnsafePointer<Void> {
+func bridgeRetained<T : AnyObject>(obj : T) -> UnsafeRawPointer {
     return UnsafePointer( Unmanaged.passRetained(obj).toOpaque())
 }
 
-func bridgeTransfer<T : AnyObject>(ptr : UnsafePointer<Void>) -> T {
+func bridgeTransfer<T : AnyObject>(ptr : UnsafeRawPointer) -> T {
     return Unmanaged<T>.fromOpaque(ptr).takeRetainedValue()
 }
 
@@ -1325,9 +1325,9 @@ extension String{
         case reachableViaWWAN = 2
     }
     public let kWTReachabilityChangedNotification = "kWTReachabilityChangedNotification"
-    func ReachabilityCallback(_ reachability:SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutablePointer<Void>?) {
-        assert(info != nil)
-        let noteObject = Unmanaged<WTReachability>.fromOpaque(info!).takeUnretainedValue()
+    func ReachabilityCallback(_ reachability:SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutableRawPointer) {
+//        assert(info != nil)
+        let noteObject = Unmanaged<WTReachability>.fromOpaque(info).takeUnretainedValue()
         NotificationCenter.default.post(name: Notification.Name(rawValue: kWTReachabilityChangedNotification), object: noteObject, userInfo: nil)
     }
     public class WTReachability:NSObject{
