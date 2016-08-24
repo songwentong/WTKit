@@ -37,14 +37,8 @@ class ReachabilityVC: UIViewController {
             
             
         }
+        _ = WTReachability.reachabilityWithHostName("https://www.apple.com").startNotifier()
         
-        WTReachability.reachabilityForInternetConnection { [weak self](reachability) in
-            self?.internetReachability = reachability
-            if reachability.startNotifier(){
-            }
-            
-            self?.updateInterfaceWithReachability(reachability)
-        }
         if reachability.startNotifier() {
             
         }

@@ -1096,7 +1096,7 @@ extension Data{
      Create a Foundation object from JSON data.
      */
     public func parseJson()->Any?{
-        var obj:Any
+        var obj:Any?
         do{
             try obj = JSONSerialization.jsonObject(with: self, options: [])
         } catch _{
@@ -1108,7 +1108,7 @@ extension Data{
      Create a Foundation object from JSON data.
      */
     public func parseJSON(handler block:jsonHandler){
-        var obj:Any
+        var obj:Any? = nil
         var theError:NSError?
         do{
             try obj = JSONSerialization.jsonObject(with: self, options: .mutableLeaves)
@@ -1366,6 +1366,7 @@ extension String{
         /*!
          * Checks whether the default route is available. Should be used by applications that do not connect to a particular host.
          */
+        /*
         public class func reachabilityForInternetConnection(_ complection:(_ reachability:WTReachability)->Void) -> Void{
             var zeroAddress = sockaddr_in()
             zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
@@ -1375,6 +1376,7 @@ extension String{
                 complection(reachability)
             })
         }
+ */
         
         public func startNotifier()->Bool{
 //            var returnValue = false
