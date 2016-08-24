@@ -307,6 +307,7 @@
     
     //target - action block keys
     private var UIControlTargetActionBlockKeys:Void?
+    public typealias uiControlHandler = @escaping (UIControl)->Swift.Void
     extension UIControl{
         private var taBlockKeys:[UIControlTABlock]{
             get{
@@ -323,7 +324,7 @@
                 objc_setAssociatedObject(self, &UIControlTargetActionBlockKeys, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
         }
-        public func addtarget(_ block:(_ sender:UIControl)->Void, forControlEvents controlEvents: UIControlEvents)->Void{
+        public func addtarget(_ block:uiControlHandler, forControlEvents controlEvents: UIControlEvents)->Void{
             let taBlock = UIControlTABlock()
             taBlock.block = block
             let selector = #selector(UIControlTABlock.run(_:))
@@ -335,7 +336,7 @@
         }
         
         class UIControlTABlock:NSObject{
-            var block:((_ sender:UIControl)->Void)?
+            var block:uiControlHandler?
             var event:UIControlEvents?
             
             override init() {

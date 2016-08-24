@@ -90,7 +90,8 @@ public func performOperation(with block:@escaping ()->Void, afterDelay:TimeInter
     
 }
 
-func bridge<T : AnyObject>(obj : T) -> UnsafePointer<Void> {
+func bridge<T : AnyObject>(obj : T) -> UnsafeRawPointer {
+//    return UnsafeRawPointer(bitPattern: Unmanaged.passUnretained(obj).toOpaque())
     return UnsafePointer(Unmanaged.passUnretained(obj).toOpaque())
     // return unsafeAddress(of: obj) // ***
 }
@@ -446,6 +447,7 @@ public typealias imageHandler = (_ image:UIImage?,_ error:Error?)->Void
 public typealias stringHandler = (_ string:String?,_ error:Error?)->Void
 //凭证回调
 public typealias challengeHandler = ((Foundation.URLSession, URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, URLCredential?))
+
 
 public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDelegate{
     //网址凭据
