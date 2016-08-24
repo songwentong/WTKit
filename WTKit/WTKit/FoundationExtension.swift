@@ -1384,10 +1384,14 @@ extension String{
             var context:SCNetworkReachabilityContext = SCNetworkReachabilityContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil);
             
             context.info = Unmanaged.passUnretained(self).toOpaque()
-            let callbackEnabled = SCNetworkReachabilitySetCallback(_reachabilityRef!, { (reachbility, flag, pointer) in
+            
+            //The function to be called when the reachability of the target changes.  If NULL, the current client for the target is removed.
+            let callout:SystemConfiguration.SCNetworkReachabilityCallBack? = {(reachbility, flag, pointer) in
                 let noteObject = Unmanaged<WTReachability>.fromOpaque(pointer!).takeUnretainedValue()
                 NotificationCenter.default.post(name: Notification.Name(rawValue: kWTReachabilityChangedNotification), object: noteObject, userInfo: nil)
-                }, &context)
+            }
+            
+            let callbackEnabled = SCNetworkReachabilitySetCallback(_reachabilityRef!, callout, &context)
             
             return callbackEnabled
         }
