@@ -441,12 +441,12 @@ public typealias progressHandler = ((_ countOfBytesReceived: Int64 ,_ countOfByt
 //完成回调
 public typealias completionHandler = @escaping (Data?, URLResponse?, Error?) -> Swift.Void
 //json解析回调
-public typealias jsonHandler = (_ object:Any?,_ error:Error?)->Void
+public typealias jsonHandler = @escaping(_ object:Any?,_ error:Error?)->Void
 //图片下载回调
-public typealias imageHandler = (_ image:UIImage?,_ error:Error?)->Void
+public typealias imageHandler = @escaping(_ image:UIImage?,_ error:Error?)->Void
 //字符串回调
 public typealias stringHandler = (_ string:String?,_ error:Error?)->Void
-//凭证回调
+//凭证回调,把session和challenge传入,给出一个Disposition和URLCredential
 public typealias challengeHandler = ((Foundation.URLSession, URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, URLCredential?))
 
 
@@ -498,7 +498,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
         OperationQueue.globalQueue {
             if let _ = self.imageHandler{
                 let image = UIImage(data: self.data)
-                OperationQueue.toMain({
+                OperationQueue.toMain(execute: {
                     self.imageHandler?(image,self.error)
                 })
                 
@@ -506,7 +506,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
             
             if let _ = self.jsonHandler{
                 self.data.parseJSON(handler: { (object, error) in
-                    OperationQueue.toMain({
+                    OperationQueue.toMain(execute: {
                         self.jsonHandler?(object,error)
                     })
                 })
@@ -1065,11 +1065,11 @@ extension OperationQueue{
     /*!
      回到主线程做事情
      */
-    public static func toMain(_ block: @escaping () -> Swift.Void)->Void{
-        
-        OperationQueue.main.addOperation {
-            block()
-        }
+    public static func toMain(execute work: @escaping @convention(block) () -> Swift.Void)->Void{
+        DispatchQueue.main.async(execute: work)
+//        OperationQueue.main.addOperation {
+//            block()
+//        }
     }
 }
 extension Operation{

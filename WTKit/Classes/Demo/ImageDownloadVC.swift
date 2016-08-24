@@ -43,7 +43,7 @@ class ImageDownloadVC: UIViewController {
     @IBAction func cornerRaius(_ sender: AnyObject) {
             OperationQueue.userInteractive(execute: {
                 let image = self.imageView.image?.imageWithRoundCornerRadius(30)
-                OperationQueue.toMain({
+                OperationQueue.toMain(execute: {
                     self.imageView.image = image
                 })
             })
