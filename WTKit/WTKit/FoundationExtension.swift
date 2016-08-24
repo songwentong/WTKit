@@ -89,7 +89,7 @@ public func performOperation(with block:@escaping ()->Void, afterDelay:TimeInter
     DispatchQueue.main.asyncAfter(deadline: t, execute: block)
     
 }
-
+/*
 func bridge<T : AnyObject>(obj : T) -> UnsafeRawPointer {
 //    return UnsafeRawPointer(bitPattern: Unmanaged.passUnretained(obj).toOpaque())
     return UnsafePointer(Unmanaged.passUnretained(obj).toOpaque())
@@ -108,6 +108,7 @@ func bridgeRetained<T : AnyObject>(obj : T) -> UnsafeRawPointer {
 func bridgeTransfer<T : AnyObject>(ptr : UnsafeRawPointer) -> T {
     return Unmanaged<T>.fromOpaque(ptr).takeRetainedValue()
 }
+*/
 
 public enum httpMethod:String{
     case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
@@ -563,8 +564,8 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
         
         self.data += data
-        OperationQueue.main {
-            self.progressHandler?(countOfBytesReceived: dataTask.countOfBytesReceived,countOfBytesExpectedToReceive: dataTask.countOfBytesExpectedToReceive)
+        OperationQueue.toMain {
+            self.progressHandler?(dataTask.countOfBytesReceived,dataTask.countOfBytesExpectedToReceive)
         }
         
         
@@ -1376,20 +1377,17 @@ extension String{
         }
         
         public func startNotifier()->Bool{
-            var returnValue = false
+//            var returnValue = false
             
-            var context:SCNetworkReachabilityContext = SCNetworkReachabilityContext()
-            //public var info: UnsafeMutablePointer<Swift.Void>?
-            //public init(_ from: OpaquePointer)
+            var context:SCNetworkReachabilityContext = SCNetworkReachabilityContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil);
             
-            context.info = UnsafeMutablePointer(bridge(obj: self))
+            context.info = Unmanaged.passUnretained(self).toOpaque()
+            let callbackEnabled = SCNetworkReachabilitySetCallback(_reachabilityRef!, { (reachbility, flag, pointer) in
+                let noteObject = Unmanaged<WTReachability>.fromOpaque(pointer!).takeUnretainedValue()
+                NotificationCenter.default.post(name: Notification.Name(rawValue: kWTReachabilityChangedNotification), object: noteObject, userInfo: nil)
+                }, &context)
             
-            if SCNetworkReachabilitySetCallback(_reachabilityRef!, ReachabilityCallback, &context) {
-                if SCNetworkReachabilityScheduleWithRunLoop(_reachabilityRef!, CFRunLoopGetCurrent(), RunLoopMode.defaultRunLoopMode.rawValue as CFString) {
-                    returnValue = true
-                }
-            }
-            return returnValue
+            return callbackEnabled
         }
         public func stopNotifier(){
             if _reachabilityRef != nil {
