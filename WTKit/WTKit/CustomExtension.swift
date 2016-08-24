@@ -146,13 +146,16 @@ public class WTPieProgressView:UIView{
         let ctx = UIGraphicsGetCurrentContext()
         let cPoint = CGPoint(x: rect.size.width / 2, y: rect.size.height / 2)
         let radius = rect.size.width / 2
-    
-        ctx?.addArc(centerX: cPoint.x, y: cPoint.y, radius: radius-2, startAngle:0,endAngle:CGFloat(M_PI)*2, clockwise: 0);
+//    ctx?.addArc(tangent1End: <#T##CGPoint#>, tangent2End: <#T##CGPoint#>, radius: <#T##CGFloat#>)
+//        ctx?.addArc(centerX: cPoint.x, y: cPoint.y, radius: radius-2, startAngle:0,endAngle:CGFloat(M_PI)*2, clockwise: 0);
+        
+        
+        ctx?.addArc(center: cPoint, radius: radius-2, startAngle: 0, endAngle: CGFloat(M_PI)*2, clockwise: false)
         UIColor.white.setStroke();
         ctx?.drawPath(using:CGPathDrawingMode.stroke);
+        ctx?.move(to: cPoint)
+        ctx?.addArc(center: cPoint, radius: radius-4, startAngle: CGFloat(M_PI*3/2), endAngle: CGFloat(M_PI*3/2)+CGFloat(M_PI)*2*progress, clockwise: false)
         
-        ctx?.move(x: cPoint.x, y: cPoint.y);
-        ctx?.addArc(centerX: cPoint.x, y: cPoint.y, radius: radius-4, startAngle: CGFloat(M_PI*3/2),endAngle: CGFloat(M_PI*3/2)+CGFloat(M_PI)*2*progress, clockwise: 0);
         #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).setFill();
         ctx?.drawPath(using: CGPathDrawingMode.fill);
     }
