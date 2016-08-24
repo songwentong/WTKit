@@ -281,7 +281,7 @@
             do{
                 try attributes = FileManager.default.attributesOfItem(atPath: NSHomeDirectory())
                 //            attributes?["aaa"]!
-                fileSystemSize = attributes[FileAttributeKey.systemFreeSize]!.int64Value
+                fileSystemSize = (attributes[FileAttributeKey.systemFreeSize]as AnyObject).int64Value
             }catch{
                 
             }
@@ -795,7 +795,7 @@
         
         var refreshBlock:()->Void
         weak var scrollView:UIScrollView?
-        private var state:ScrollViewRefreshState{
+        fileprivate var state:ScrollViewRefreshState{
             willSet{
                 //            print(newValue)
             }
@@ -817,7 +817,7 @@
         private var timeLabel:UILabel
         
         
-        private var arrowImageView:UIImageView
+        fileprivate var arrowImageView:UIImageView
         private var activityIndicator:UIActivityIndicatorView
         private var lastUpdateDate:Date? = nil
         private var dateFormatter:DateFormatter = DateFormatter()

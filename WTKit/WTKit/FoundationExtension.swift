@@ -1104,8 +1104,8 @@ extension Data{
     /*!
      Create a Foundation object from JSON data.
      */
-    public func parseJSON(handler block:(AnyObject?,NSError?)->Void){
-        var obj:AnyObject = "not a json"
+    public func parseJSON(handler block:jsonHandler){
+        var obj:Any
         var theError:NSError?
         do{
             try obj = JSONSerialization.jsonObject(with: self, options: .mutableLeaves)
