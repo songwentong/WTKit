@@ -185,8 +185,8 @@ class WTImage:UIImage{
 
 extension CGImageSource{
     func gifPropertiesAtIndex(_ index:Int) -> [String:Double]? {
-        let properties = CGImageSourceCopyPropertiesAtIndex(self, index, nil) as Dictionary?
-        return properties?[kCGImagePropertyGIFDictionary as String] as? [String: Double]
+        let properties:[String:NSNumber] = (CGImageSourceCopyPropertiesAtIndex(self, index, nil) as! Dictionary?)!
+        return properties[kCGImagePropertyGIFDictionary as String] as? [String: Double]
     }
     func getDurationAtIndex(_ index:Int) -> Double {
         guard let property = self.gifPropertiesAtIndex(index) else {return 0.1}
