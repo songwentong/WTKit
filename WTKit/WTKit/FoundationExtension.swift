@@ -360,7 +360,7 @@ extension URLRequest{
 extension URLSession{
     
     
-    private static func wt_sharedInstance()->URLSession{
+    public static func wt_sharedInstance()->URLSession{
         let delegate = WTURLSessionDelegate.sharedInstance
         let configuration = URLSessionConfiguration.default
         configuration.urlCache = URLCache.wt_sharedURLCacheForRequests()
@@ -462,7 +462,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
     public var progressHandler:progressHandler?
     public var response:URLResponse?
     public var challengeHandler:challengeHandler?
-    
+    public var useRequestingIfHave:Bool = false
     public var originTask:URLSessionTask{
         get{
             return task;
@@ -484,6 +484,9 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
     }
     
     public func resume(){
+        if useRequestingIfHave {
+            
+        }
         task.resume()
     }
     public func suspend(){
