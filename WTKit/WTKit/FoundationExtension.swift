@@ -1022,10 +1022,34 @@ extension Array{
     
     
 }
+
+extension DispatchQueue{
+    //安全同步到主线程
+    public static func safeSyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
+    
+        let main = DispatchQueue.main
+        if Thread.isMainThread {
+            main.async(execute: work)
+        }else{
+            main.sync(execute: work)
+        }
+    }
+    
+    //异步回到主线程
+    public static func asyncMain(execute work: @escaping @convention(block) () -> Swift.Void){
+        DispatchQueue.main.async(execute: work)
+    }
+    
+    //到分线程中
+    public static func asyncGlobalQueue(execute work: @escaping @convention(block) () -> Swift.Void){
+        DispatchQueue.global().async(execute: work)
+    }
+}
+
 extension OperationQueue{
     
     
-    // MARK: - 快捷线程切换
+    
     /*!
      到默认的全局队列做事情
      优先级是默认的
