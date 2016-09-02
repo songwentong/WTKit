@@ -1036,7 +1036,7 @@ extension DispatchQueue{
     }
     
     //异步回到主线程
-    public static func asyncMain(execute work: @escaping @convention(block) () -> Swift.Void){
+    public static func asyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
         DispatchQueue.main.async(execute: work)
     }
     
