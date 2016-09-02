@@ -643,7 +643,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
             delegateQueue.addOperations([operation], waitUntilFinished: true)
             return result
         }
-        set{
+        set(newValue){
             let operation = BlockOperation.init { [weak self] in
                 self?.taskDelegates[task.taskIdentifier] = newValue
             }
