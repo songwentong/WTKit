@@ -621,18 +621,31 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     
     private var taskDelegates: [Int: WTURLSessionTask] = [:]
-    private let delegateQueue = OperationQueue()
-    public subscript(task: URLSessionTask) -> WTURLSessionTask? {
+    private let delegateQueue:OperationQueue
+    private let lock = NSLock()
+    override init() {
+        delegateQueue = OperationQueue()
+        delegateQueue.maxConcurrentOperationCount = 1;
+        super.init()
+        
+        
+    }
+    
+    open subscript(task: URLSessionTask) -> WTURLSessionTask? {
         get{
             var result:WTURLSessionTask?
-            let operation = BlockOperation {[unowned self] in
-                result = self.taskDelegates[task.taskIdentifier]
+            let operation = BlockOperation.init { [weak self] in
+                result = self?.taskDelegates[task.taskIdentifier]
             }
             delegateQueue.addOperations([operation], waitUntilFinished: true)
             return result
         }
         set{
-            taskDelegates[task.taskIdentifier] = newValue
+            let operation = BlockOperation.init { [weak self] in
+                self?.taskDelegates[task.taskIdentifier] = newValue
+            }
+            delegateQueue.addOperations([operation], waitUntilFinished: false)
+            
         }
     }
     
