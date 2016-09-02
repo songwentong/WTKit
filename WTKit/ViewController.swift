@@ -48,7 +48,13 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
 //        WTLog(self.view.viewController())
 //        aaa(UILabel().text!)
 //        print(httpMethod.GET.rawValue)
-        
+        /*
+        WTLog("\(URLSession.wt_sharedInstance)")
+        WTLog("\(URLSession.wt_sharedInstance)")
+        WTLog("\(URLSession.wt_sharedInstance)")
+        WTLog("\(URLSession.wt_sharedInstance)")
+ */
+        /*
         UIApplication.firstLaunchForBuild { [weak self](isFirstLaunchEver) in
             if isFirstLaunchEver{
                 self?.showHudWithTip("热烈欢迎")
@@ -56,6 +62,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
                 self?.showHudWithTip("欢迎回来")
             }
         }
+ */
 //        print(self.view.recursiveDescription);
         
         

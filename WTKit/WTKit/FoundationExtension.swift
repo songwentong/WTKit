@@ -360,13 +360,22 @@ extension URLRequest{
 extension URLSession{
     
     
-    public static func wt_sharedInstance()->URLSession{
+//    public static func wt_sharedInstance()->URLSession{
+//        let delegate = WTURLSessionDelegate.sharedInstance
+//        let configuration = URLSessionConfiguration.default
+//        configuration.urlCache = URLCache.wt_sharedURLCacheForRequests()
+//        let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
+//        return session
+//    }
+    
+    @nonobjc open static let wt_sharedInstance:URLSession = {
         let delegate = WTURLSessionDelegate.sharedInstance
         let configuration = URLSessionConfiguration.default
         configuration.urlCache = URLCache.wt_sharedURLCacheForRequests()
         let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
         return session
-    }
+    
+    }()
     
     private static func wt_sessionWith(configuration:URLSessionConfiguration, delegate: URLSessionDelegate?, delegateQueue queue: OperationQueue?){
         
@@ -384,7 +393,7 @@ extension URLSession{
      根据请求对象,凭据来创建task
      */
     public static func wt_dataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:completionHandler)->WTURLSessionTask{
-        let session = self.wt_sharedInstance()
+        let session = self.wt_sharedInstance
         let task = session.dataTask(with: request)
         let myTask = WTURLSessionTask(task: task)
         WTURLSessionDelegate.sharedInstance[task] = myTask
@@ -395,7 +404,7 @@ extension URLSession{
     }
     
     public static func wt_uploadTask(with request:URLRequest,from bodyData:Data,credential:URLCredential?=nil,completionHandler:completionHandler)->WTURLSessionTask{
-        let session = self.wt_sharedInstance()
+        let session = self.wt_sharedInstance
         let task = session.uploadTask(with: request, from: bodyData)
         let myTask = WTURLSessionTask(task: task)
         WTURLSessionDelegate.sharedInstance[task] = myTask
@@ -407,7 +416,7 @@ extension URLSession{
     
     public static func wt_downloadTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:completionHandler)->WTURLSessionTask{
         
-        let session = self.wt_sharedInstance()
+        let session = self.wt_sharedInstance
         let task = session.downloadTask(with: request)
         let myTask = WTURLSessionTask(task: task)
         WTURLSessionDelegate.sharedInstance[task] = myTask
@@ -422,7 +431,7 @@ extension URLSession{
         
         
         //        let configuration = URLSessionConfiguration.default
-        let session = self.wt_sharedInstance()
+        let session = self.wt_sharedInstance
         var myRequest = request
         myRequest.cachePolicy = .returnCacheDataElseLoad
         let task = session.dataTask(with: myRequest)
@@ -611,7 +620,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
 public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     
-    static let sharedInstance = {
+    @nonobjc static let sharedInstance = {
         return WTURLSessionDelegate()
     }()
     
@@ -627,8 +636,6 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         delegateQueue = OperationQueue()
         delegateQueue.maxConcurrentOperationCount = 1;
         super.init()
-        
-        
     }
     
     open subscript(task: URLSessionTask) -> WTURLSessionTask? {
@@ -645,7 +652,6 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
                 self?.taskDelegates[task.taskIdentifier] = newValue
             }
             delegateQueue.addOperations([operation], waitUntilFinished: false)
-            
         }
     }
     
@@ -987,7 +993,7 @@ extension URLCache{
     /*!
      数据缓存
      */
-    public static func wt_sharedURLCacheForRequests()->URLCache{
+    @nonobjc public static func wt_sharedURLCacheForRequests()->URLCache{
         var cache = objc_getAssociatedObject(OperationQueue.main, &wt_sharedURLCacheForRequestsKey)
         if cache is URLCache {
             
