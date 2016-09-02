@@ -368,7 +368,7 @@ extension URLSession{
 //        return session
 //    }
     
-    @nonobjc open static let wt_sharedInstance:URLSession = {
+    @nonobjc public static let wt_sharedInstance:URLSession = {
         let delegate = WTURLSessionDelegate.sharedInstance
         let configuration = URLSessionConfiguration.default
         configuration.urlCache = URLCache.wt_sharedURLCacheForRequests()
@@ -376,10 +376,6 @@ extension URLSession{
         return session
     
     }()
-    
-    private static func wt_sessionWith(configuration:URLSessionConfiguration, delegate: URLSessionDelegate?, delegateQueue queue: OperationQueue?){
-        
-    }
     
     /*
      便捷的请求方法.
