@@ -380,7 +380,7 @@ extension URLSession{
     /*
      便捷的请求方法.
      */
-    public static func wt_dataTask(with url:String, method:httpMethod? = .GET,parameters:[String:String]?=[:],headers: [String: String]? = [:] ,credential:URLCredential?=nil,completionHandler:completionHandler)->WTURLSessionTask{
+    public static func wt_dataTask(with url:String, method:httpMethod? = .GET,parameters:[String:String]?=[:],headers: [String: String]? = [:] ,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
         let request = URLRequest.wt_request(with: url, method: method, parameters: parameters, headers: headers)
         return self.wt_dataTask(with: request,credential:credential, completionHandler: completionHandler)
     }
@@ -388,7 +388,7 @@ extension URLSession{
     /*!
      根据请求对象,凭据来创建task
      */
-    public static func wt_dataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:completionHandler)->WTURLSessionTask{
+    public static func wt_dataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
         let session = self.wt_sharedInstance
         let task = session.dataTask(with: request)
         let myTask = WTURLSessionTask(task: task)
@@ -399,7 +399,7 @@ extension URLSession{
         return myTask
     }
     
-    public static func wt_uploadTask(with request:URLRequest,from bodyData:Data,credential:URLCredential?=nil,completionHandler:completionHandler)->WTURLSessionTask{
+    public static func wt_uploadTask(with request:URLRequest,from bodyData:Data,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
         let session = self.wt_sharedInstance
         let task = session.uploadTask(with: request, from: bodyData)
         let myTask = WTURLSessionTask(task: task)
@@ -410,7 +410,7 @@ extension URLSession{
         return myTask
     }
     
-    public static func wt_downloadTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:completionHandler)->WTURLSessionTask{
+    public static func wt_downloadTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
         
         let session = self.wt_sharedInstance
         let task = session.downloadTask(with: request)
@@ -423,7 +423,7 @@ extension URLSession{
     }
     
     
-    public static func wt_cachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:completionHandler)->WTURLSessionTask{
+    public static func wt_cachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:@escaping completionHandler)->WTURLSessionTask{
         
         
         //        let configuration = URLSessionConfiguration.default
@@ -444,11 +444,11 @@ extension URLSession{
 //进度获取
 public typealias progressHandler = ((_ countOfBytesReceived: Int64 ,_ countOfBytesExpectedToReceive: Int64) -> Void)
 //完成回调
-public typealias completionHandler = @escaping (Data?, URLResponse?, Error?) -> Swift.Void
+public typealias completionHandler = (Data?, URLResponse?, Error?) -> Swift.Void
 //json解析回调
-public typealias jsonHandler = @escaping(_ object:Any?,_ error:Error?)->Void
+public typealias jsonHandler = (_ object:Any?,_ error:Error?)->Void
 //图片下载回调
-public typealias imageHandler = @escaping(_ image:UIImage?,_ error:Error?)->Void
+public typealias imageHandler = (_ image:UIImage?,_ error:Error?)->Void
 //字符串回调
 public typealias stringHandler = (_ string:String?,_ error:Error?)->Void
 //凭证回调,把session和challenge传入,给出一个Disposition和URLCredential

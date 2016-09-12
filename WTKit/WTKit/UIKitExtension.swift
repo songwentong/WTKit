@@ -307,7 +307,7 @@
     
     //target - action block keys
     private var UIControlTargetActionBlockKeys:Void?
-    public typealias uiControlHandler = @escaping (UIControl)->Swift.Void
+    public typealias uiControlHandler = (UIControl)->Swift.Void
     extension UIControl{
         private var taBlockKeys:[UIControlTABlock]{
             get{
@@ -324,7 +324,7 @@
                 objc_setAssociatedObject(self, &UIControlTargetActionBlockKeys, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
         }
-        public func addtarget(_ block:uiControlHandler, forControlEvents controlEvents: UIControlEvents)->Void{
+        public func addtarget(_ block:@escaping uiControlHandler, forControlEvents controlEvents: UIControlEvents)->Void{
             let taBlock = UIControlTABlock()
             taBlock.block = block
             let selector = #selector(UIControlTABlock.run(_:))
@@ -472,7 +472,7 @@
         
         
         
-        public class func cachedImageDataTask(with url:String,credential:URLCredential?=nil, complection:imageHandler )->WTURLSessionTask{
+        public class func cachedImageDataTask(with url:String,credential:URLCredential?=nil, complection:@escaping imageHandler )->WTURLSessionTask{
             let request = URLRequest.wt_request(with: url)
             
             
