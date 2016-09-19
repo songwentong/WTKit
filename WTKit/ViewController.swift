@@ -48,12 +48,14 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
 //        WTLog(self.view.viewController())
 //        aaa(UILabel().text!)
 //        print(httpMethod.GET.rawValue)
-        /*
-        WTLog("\(URLSession.wt_sharedInstance)")
-        WTLog("\(URLSession.wt_sharedInstance)")
-        WTLog("\(URLSession.wt_sharedInstance)")
-        WTLog("\(URLSession.wt_sharedInstance)")
- */
+        
+//        for _ in 0...10{
+//            WTPrint("cache: \(URLCache.wt_sharedURLCacheForRequests)")
+//            WTLog("\(URLSession.wt_sharedInstance)")
+//        }
+        
+ 
+        
         /*
         UIApplication.firstLaunchForBuild { [weak self](isFirstLaunchEver) in
             if isFirstLaunchEver{
