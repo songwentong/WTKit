@@ -20,7 +20,7 @@ class ReachabilityVC: UIViewController {
     
     @IBOutlet weak var internetConnectionStatusField: UITextField!
     var reachability:WTReachability = WTReachability.reachabilityWithHostName("www.apple.com")
-    var internetReachability:WTReachability?
+    var internetReachability:WTReachability = WTReachability.reachabilityWithHostName("https://www.apple.com")
     override func viewDidLoad() {
         super.viewDidLoad()
         self.summaryLabel.isHidden = true
@@ -37,12 +37,12 @@ class ReachabilityVC: UIViewController {
             
             
         }
-        _ = WTReachability.reachabilityWithHostName("https://www.apple.com").startNotifier()
         
-        if reachability.startNotifier() {
-            
-        }
+        internetReachability.startNotifier()
+        reachability.startNotifier()
+        
         updateInterfaceWithReachability(reachability)
+        updateInterfaceWithReachability(internetReachability)
 //        let fps = FPSLabel()
 //        fps.frame = CGRect(x: 0, y: 300, width: 320, height: 20)
 //        view.addSubview(fps)
@@ -57,8 +57,9 @@ class ReachabilityVC: UIViewController {
         imageNames[WTNetworkStatus.notReachable] = "stop-32"
         imageNames[WTNetworkStatus.reachableViaWiFi] = "Airport"
         imageNames[WTNetworkStatus.reachableViaWWAN] = "WWAN5"
+        var status:WTNetworkStatus
         if reachability == self.reachability{
-            let status = reachability.currentReachabilityStatus()
+            status = reachability.currentReachabilityStatus()
             self.remoteHostStatusField.text = dict[status]
             
             self.remoteHostImageView.image = UIImage(named: imageNames[status]!)
@@ -75,11 +76,11 @@ class ReachabilityVC: UIViewController {
             }
             self.summaryLabel.text = baseLabelText
             
-//            let status = reachability.currentReachabilityStatus()
+//
+        }else if reachability == self.internetReachability{
+            status = reachability.currentReachabilityStatus()
             self.internetConnectionStatusField.text = dict[status]
             self.internetConnectionImageView.image = UIImage(named: imageNames[status]!)
-        }else if reachability == self.internetReachability{
-            
         }
     }
     deinit{
