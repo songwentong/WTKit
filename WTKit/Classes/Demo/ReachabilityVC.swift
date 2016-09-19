@@ -38,8 +38,8 @@ class ReachabilityVC: UIViewController {
             
         }
         
-        internetReachability.startNotifier()
-        reachability.startNotifier()
+        _ = internetReachability.startNotifier()
+        _ = reachability.startNotifier()
         
         updateInterfaceWithReachability(reachability)
         updateInterfaceWithReachability(internetReachability)
