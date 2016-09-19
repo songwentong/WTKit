@@ -398,7 +398,7 @@ extension UIButton{
     
     
     // MARK: - 设置一张网络图片,并缓存下来
-    public func setImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:imageHandler?=nil) {
+    public func wt_setImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:imageHandler?=nil) {
         safeSyncInMain {
             self.setImage(placeHolder, for: state)
         }
@@ -634,7 +634,7 @@ extension UIImageView{
      swift 中对于方法做了优化,无需写多个方法来设置不同参数,写一个全的,然后需要填几个参数就填几个
      不想填的就填一个不加逗号就可以了.
      */
-    public func setImage(with url:String ,placeHolder:UIImage? = nil,complection:imageHandler?=nil)->Void{
+    public func wt_setImage(with url:String ,placeHolder:UIImage? = nil,complection:imageHandler?=nil)->Void{
         safeSyncInMain {
             self.image = placeHolder
             self.setNeedsLayout()
@@ -788,7 +788,7 @@ public class RefreshHeader:UIView{
     public var arrowImageURL:String = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"{
         didSet{
             if oldValue != arrowImageURL {
-                arrowImageView.setImage(with:arrowImageURL)
+                arrowImageView.wt_setImage(with:arrowImageURL)
             }
         }
     }
@@ -831,7 +831,7 @@ public class RefreshHeader:UIView{
         timeLabel = UILabel()
         arrowImageView = UIImageView()
         //        arrowImageView.
-        arrowImageView.setImage(with:arrowImageURL)
+        arrowImageView.wt_setImage(with:arrowImageURL)
         activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         super.init(frame: frame)
         addSubview(titleLabel)
