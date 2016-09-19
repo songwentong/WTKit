@@ -371,7 +371,7 @@ extension URLSession{
     @nonobjc public static let wt_sharedInstance:URLSession = {
         let delegate = WTURLSessionDelegate.sharedInstance
         let configuration = URLSessionConfiguration.default
-        configuration.urlCache = URLCache.wt_sharedURLCacheForRequests()
+        configuration.urlCache = URLCache.wt_sharedURLCacheForRequests
         let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
         return session
     
@@ -986,23 +986,25 @@ extension NSObject{
 private var wt_sharedURLCacheForRequestsKey:Void?
 extension URLCache{
     
+    
+    /*
+     @nonobjc public static let wt_sharedInstance:URLSession = {
+     let delegate = WTURLSessionDelegate.sharedInstance
+     let configuration = URLSessionConfiguration.default
+     configuration.urlCache = URLCache.wt_sharedURLCacheForRequests()
+     let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
+     return session
+     
+     }()
+     */
     /*!
      数据缓存
      */
-    @nonobjc public static func wt_sharedURLCacheForRequests()->URLCache{
-        var cache = objc_getAssociatedObject(OperationQueue.main, &wt_sharedURLCacheForRequestsKey)
-        if cache is URLCache {
-            
-        }else{
-            //0M memory, 1G Disk
-            //            let diskCapacity:Int = 4 * 1024 * 1024 * 1024
-            cache = URLCache(memoryCapacity: 0, diskCapacity: 1*1024*1024*1024, diskPath: "wt_sharedURLCacheForRequestsKey")
-            objc_setAssociatedObject(OperationQueue.main, &wt_sharedURLCacheForRequestsKey, cache, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            
-        }
-        return cache as! URLCache
-        
-    }
+    @nonobjc public static let wt_sharedURLCacheForRequests:URLCache={
+        let cache = URLCache(memoryCapacity: 0, diskCapacity: 1*1024*1024*1024, diskPath: "wt_sharedURLCacheForRequestsKey")
+        return cache
+    }()
+    
     
     
     

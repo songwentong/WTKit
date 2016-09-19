@@ -459,7 +459,7 @@ extension UIImage{
      */
     
     public class func sharedURLCache() -> URLCache {
-        return URLCache.wt_sharedURLCacheForRequests()
+        return URLCache.wt_sharedURLCacheForRequests
     }
     
     public func toData()->Data?{
