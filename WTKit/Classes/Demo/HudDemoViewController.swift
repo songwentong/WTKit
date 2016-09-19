@@ -5,13 +5,15 @@
 //  Created by SongWentong on 5/9/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+/*
+    HUD的Demo
+ */
 import UIKit
 
 class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     var dataList:[String]
     @IBOutlet weak var tableView: UITableView!
-    var timer:NSTimer?
+    var timer:Timer?
     var progress:CGFloat = 0
     required init?(coder aDecoder: NSCoder){
         dataList = ["NormalLoadingView","text","progressLoadingView","pieProgressView"]
@@ -24,19 +26,19 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.refreshHeader = RefreshHeader.headerWithRefreshing({[weak self]()in
-            WTLog("refresh")
-            self?.performBlock({
-                self?.tableView.stopLoading()
-                }, afterDelay: 2)
-        })
+//        self.tableView.refreshHeader = RefreshHeader.headerWithRefreshing({[weak self]()in
+//            WTLog("refresh")
+//            self?.performBlock({
+//                self?.tableView.stopLoading()
+//                }, afterDelay: 2)
+//        })
 //        self.modalTransitionStyle
 //        tableView.separatorInset = UIEdgeInsetsMake(100, 0, 0, 0);
 //        tableView.contentInset = UIEdgeInsetsMake(100, 0, 0, 0);
     }
 
     func addProgress(){
-        progress += CGFloat(random()%100)/200
+        progress += CGFloat(arc4random()%100)/200
         let hud = WTHudView.hudViewForView(view)
         if (hud != nil) {
           let view = hud!.indicatorView as! WTPieProgressView
@@ -67,7 +69,7 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
     */
     // MARK: - UITableViewDataSource
     @available(iOS 2.0, *)
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return dataList.count;
     }
     
@@ -77,8 +79,8 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
     /*!
         这里只创建cell对象
      */
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         return cell
     }
     // MARK: - UITableViewDelegate
@@ -86,13 +88,13 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
     /*!
         在这里设置数据是为了保持良好的效率
      */
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath){
-        cell.textLabel?.text = dataList[indexPath.row];
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
+        cell.textLabel?.text = dataList[(indexPath as NSIndexPath).row];
     }
     
     @available(iOS 2.0, *)
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        switch indexPath.row {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        switch (indexPath as NSIndexPath).row {
         case 0:
             self.showLoadingView()
             self.performBlock({
@@ -117,8 +119,12 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
             }
             let hud = WTHudView.showHudInView(view, animatied: true)
             hud.mode = .pieProgress
-            timer = NSTimer(timeInterval: 1, target: self, selector: #selector(HudDemoViewController.addProgress), userInfo: nil, repeats: true)
-            NSRunLoop.mainRunLoop().addTimer(timer!, forMode: kCFRunLoopCommonModes as String)
+            timer = Timer(timeInterval: 1, target: self, selector: #selector(HudDemoViewController.addProgress), userInfo: nil, repeats: true)
+            RunLoop.main.add(timer!, forMode: RunLoopMode.commonModes)
+            
+            
+            
+//            RunLoop.main().add(timer!, forMode: )
             break
         default:
             break

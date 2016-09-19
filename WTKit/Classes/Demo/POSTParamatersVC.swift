@@ -5,7 +5,11 @@
 //  Created by SongWentong on 4/29/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+/*
+    这是一个请求的参数页面,用于添加和去掉参数
+    点击底部的add就可以填写参数,每个参数有key和value可以填写,右边的减号用于删除某个参数
+ 
+ */
 import UIKit
 
 /*!
@@ -16,38 +20,39 @@ import UIKit
  这样的目的在于只允许class遵循,不允许struce或者enum遵循
  */
 protocol POSTParamatersVCDelegate:NSObjectProtocol{
-    func willDisAppear(vc:POSTParamatersVC, parameters:[String:String]?)
+    func willDisAppear(_ vc:POSTParamatersVC, parameters:[String:String]?)
 }
 class POSTParamatersVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    var parameters:[String] = []
-    var values:[String] = []
+    lazy var parameters = [String]()
+    lazy var values = [String]()
     weak var delegate:POSTParamatersVCDelegate?
     
     
     required init?(coder aDecoder: NSCoder) {
-        parameters = [String]()
-        values = [String]()
+        
+        
         super.init(coder: aDecoder)
     }
     
+    deinit {
+        WTLog("deinit")
+    }
+    
     override func viewDidLoad() {
-        if parameters.count == 0 {
-            addNewParameters()
-        }
         
         WTLog(parameters)
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         self.delegate?.willDisAppear(self, parameters: currentParameters())
         super.viewWillDisappear(animated)
     }
     
-    @IBAction func addPressed(sender: AnyObject) {
+    @IBAction func addPressed(_ sender: AnyObject) {
         addNewParameters()
     }
     
@@ -62,18 +67,18 @@ class POSTParamatersVC: UIViewController,UITableViewDataSource,UITableViewDelega
         }
         return dict
     }
-    @IBAction func showPressed(sender: AnyObject) {
+    @IBAction func showPressed(_ sender: AnyObject) {
         do{
-            let data = try NSJSONSerialization.dataWithJSONObject(self.currentParameters(), options: NSJSONWritingOptions())
-            let string = String.init(data: data, encoding: NSUTF8StringEncoding)
+            let data = try JSONSerialization.data(withJSONObject: self.currentParameters(), options: JSONSerialization.WritingOptions())
+            let string = String.init(data: data, encoding: String.Encoding.utf8)
 //            self.showAlert("parameters", message: string, duration: 1)
-            let alert = UIAlertController(title: "parameters", message: string, preferredStyle: .Alert)
+            let alert = UIAlertController(title: "parameters", message: string, preferredStyle: .alert)
             
-                self.presentViewController(alert, animated: true) {
+                self.present(alert, animated: true) {
         
                 }
-            alert.addAction(UIAlertAction.init(title: "OK", style: .Default, handler: { (action) in
-                alert.dismissViewControllerAnimated(true, completion: nil)
+            alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (action) in
+                alert.dismiss(animated: true, completion: nil)
             }))
         }catch let error as NSError{
             WTPrint(error)
@@ -102,91 +107,89 @@ class POSTParamatersVC: UIViewController,UITableViewDataSource,UITableViewDelega
     func addNewParameters(){
         parameters.append("")
         values.append("")
-        let indexPath = NSIndexPath(forRow: parameters.count-1, inSection: 0)
+        let indexPath = IndexPath(row: parameters.count-1, section: 0)
         tableView.beginUpdates()
-        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        tableView.insertRows(at: [indexPath], with: .automatic)
         tableView.endUpdates()
     }
     
-    func add(sender:UIButton?){
+    func add(_ sender:UIButton?){
         addNewParameters()
     }
     
-    func remove(sender:UIButton){
+    func remove(_ sender:UIButton){
         let cell:UITableViewCell = sender.superview?.superview as! UITableViewCell
-        let indexPath = tableView.indexPathForCell(cell)
-        if (parameters.count != 1 && indexPath != nil ){
-            parameters.removeAtIndex(indexPath!.row)
-            values.removeAtIndex(indexPath!.row)
-            
+        if let indexPath:IndexPath = tableView.indexPath(for: cell) {
+            parameters.remove(at: (indexPath as NSIndexPath).row)
+            values.remove(at: (indexPath as NSIndexPath).row)
             
             tableView.beginUpdates()
-            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
             tableView.endUpdates()
         }
 
         
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
         textField.resignFirstResponder()
         return true
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return parameters.count
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let keyTextField:UITextField = cell.viewWithTag(1) as! UITextField
         keyTextField.addtarget({ (sender) in
             let tf:UITextField = sender as! UITextField
             let cell2:UITableViewCell = sender.superview?.superview as!UITableViewCell
-            let indexPath2 = self.tableView.indexPathForCell(cell2)
+            let indexPath2 = self.tableView.indexPath(for: cell2)
             if ( indexPath2 != nil && tf.text != nil ) {
-                if (self.parameters.count > indexPath2?.row){
-                    self.parameters[indexPath2!.row] = tf.text!
+                if (self.parameters.count > ((indexPath2 as NSIndexPath?)?.row)!){
+                    self.parameters[(indexPath2! as NSIndexPath).row] = tf.text!
                 }else{
                     self.parameters.append(tf.text!)
                 }
             }
                 WTLog(self.currentParameters())
-            }, forControlEvents:.EditingChanged)
+            }, forControlEvents:.editingChanged)
         keyTextField.delegate = self
         let valueTf:UITextField = cell.viewWithTag(2) as! UITextField
         valueTf.addtarget({ (sender) in
             let tf:UITextField = sender as! UITextField
             let cell2:UITableViewCell = sender.superview?.superview as!UITableViewCell
-            let indexPath2 = self.tableView.indexPathForCell(cell2)
+            let indexPath2 = self.tableView.indexPath(for: cell2)
             if(indexPath2 != nil && tf.text != nil){
-                self.values[indexPath2!.row] = tf.text!
+                self.values[(indexPath2! as NSIndexPath).row] = tf.text!
             }
             WTLog(self.currentParameters())
-            }, forControlEvents: .EditingChanged)
+            }, forControlEvents: .editingChanged)
         valueTf.delegate = self
         
         let buttonAdd:UIButton = cell.contentView.viewWithTag(3) as! UIButton
-        buttonAdd.addTarget(self, action: #selector(POSTParamatersVC.add(_:)), forControlEvents: .TouchUpInside)
+        buttonAdd.addTarget(self, action: #selector(POSTParamatersVC.add(_:)), for: .touchUpInside)
         
         let removeButton:UIButton  = cell.contentView.viewWithTag(4) as! UIButton
-        removeButton.addTarget(self, action: #selector(POSTParamatersVC.remove(_:)), forControlEvents: .TouchUpInside)
+        removeButton.addTarget(self, action: #selector(POSTParamatersVC.remove(_:)), for: .touchUpInside)
         return cell
     }
     
     
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath){
-        if indexPath.row >= parameters.count {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
+        if (indexPath as NSIndexPath).row >= parameters.count {
             return;
         }
         let keyTextField:UITextField = cell.viewWithTag(1) as! UITextField
-        let key = parameters[indexPath.row]
+        let key = parameters[(indexPath as NSIndexPath).row]
         keyTextField.text = key
         let valueTextField:UITextField = cell.viewWithTag(2) as! UITextField
-        valueTextField.text = values[indexPath.row]
+        valueTextField.text = values[(indexPath as NSIndexPath).row]
         
     }
 }

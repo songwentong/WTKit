@@ -5,7 +5,9 @@
 //  Created by SongWentong on 5/26/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+/*
+    这是一个gif图的demo,这个gif图是用displaylink来绘制的,不会被一些事件打断,效果更好
+ */
 import UIKit
 
 class GifImageVC: UIViewController {
@@ -31,22 +33,22 @@ class GifImageVC: UIViewController {
         
         //http://ww1.sinaimg.cn/bmiddle/006ajVGQgw1f4s8n25m5hg30b4081u0z.gif
         self.showLoadingView()
-        NSURLSession.cachedDataTaskWithRequest(NSURLRequest.request("http://ww1.sinaimg.cn/mw690/47449485jw1f4shxfge7lg208w04rkjn.gif")) { (data, response, error) in
+        let request = URLRequest.wt_request(with: "http://ww1.sinaimg.cn/mw690/47449485jw1f4shxfge7lg208w04rkjn.gif")
+        let task = URLSession.wt_cachedDataTask(with: request, credential: nil) { (data, response, error) in
             if data != nil {
                 
-                NSOperationQueue.main({
+                OperationQueue.toMain(execute: {
                     self.hideLoadingView()
                     self.imageView = self.view.viewWithTag(1) as! AnimationImageVIew
-                    self.imageView.backgroundColor = UIColor.whiteColor()
+                    self.imageView.backgroundColor = UIColor.white
                     let image = WTImage(data:data!)
                     self.imageView.image = image
-                    self.imageView.userInteractionEnabled = true
+                    self.imageView.isUserInteractionEnabled = true
                     self.imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(GifImageVC.imageTap(_:))))
                 })
             }
-            
         }
-       
+        task.resume()
 //
 //        imageView!.image = UIImage.gitImageWith(data,scale: 1)
 ////        imageView.layer.pauseAnimation()
@@ -57,8 +59,8 @@ class GifImageVC: UIViewController {
 //        }
 //        
     }
-    func imageTap(geture:UITapGestureRecognizer) {
-        if imageView.isAnimating() {
+    func imageTap(_ geture:UITapGestureRecognizer) {
+        if imageView.isAnimating {
             imageView.stopAnimating()
         }else{
             imageView.startAnimating()

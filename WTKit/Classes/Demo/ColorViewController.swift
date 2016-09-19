@@ -5,12 +5,16 @@
 //  Created by SongWentong on 5/20/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+/*
+    一个便捷的设置颜色的方法
+ */
 import UIKit
 
 class ColorViewController: UIViewController {
     @IBOutlet weak var colorView: UIView!
     @IBOutlet weak var textView: UITextField!
+    @IBOutlet weak var mySlider: UISlider!
+    @IBOutlet weak var antiColorView: UIView!
     deinit{
         WTLog("deinit")
     }
@@ -25,12 +29,14 @@ class ColorViewController: UIViewController {
     private func reSetColors(){
         if textView.text != nil{
             colorView.backgroundColor = UIColor.colorWithHexString(textView.text!)
-            self.view.backgroundColor = colorView.backgroundColor?.antiColor();
+            antiColorView.backgroundColor = colorView.backgroundColor?.antiColor()
+//            WTLog("r \(colorView.backgroundColor)")
+            WTLog(antiColorView.backgroundColor)
         }
         
     }
     
-    @IBAction func editChanged(sender: AnyObject) {
+    @IBAction func editChanged(_ sender: AnyObject) {
         reSetColors()
     }
 
@@ -39,6 +45,13 @@ class ColorViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func sliderValueChanged(_ sender: AnyObject) {
+        let color = UIColor.wtStatusColor(with: mySlider.value)
+        colorView.backgroundColor = color
+        antiColorView.backgroundColor = colorView.backgroundColor?.antiColor()
+        WTLog(colorView.backgroundColor)
+        WTLog(antiColorView.backgroundColor)
+    }
 
     /*
     // MARK: - Navigation

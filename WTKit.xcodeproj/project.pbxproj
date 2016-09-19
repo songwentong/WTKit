@@ -24,6 +24,7 @@
 		E106050F1C87DF990017A469 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E106050E1C87DF990017A469 /* Assets.xcassets */; };
 		E10605121C87DF990017A469 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E10605101C87DF990017A469 /* LaunchScreen.storyboard */; };
 		E1348BF21D0276AB00FA03E0 /* ImageUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1348BF11D0276AB00FA03E0 /* ImageUploadVC.swift */; };
+		E14419EC1D34D1CC0083D0CD /* WTSocketSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14419EB1D34D1CC0083D0CD /* WTSocketSession.swift */; };
 		E1558EC41D081592003653D1 /* QRCodeScanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1558EC31D081592003653D1 /* QRCodeScanVC.swift */; };
 		E155B85C1D12EBD500655DB1 /* TableRefreshVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155B85B1D12EBD500655DB1 /* TableRefreshVC.swift */; };
 		E187C5781D19075F001EDD2D /* ReachabilityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E187C5771D19075F001EDD2D /* ReachabilityVC.swift */; };
@@ -69,6 +70,7 @@
 		E10605111C87DF990017A469 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E10605131C87DF990017A469 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1348BF11D0276AB00FA03E0 /* ImageUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadVC.swift; sourceTree = "<group>"; };
+		E14419EB1D34D1CC0083D0CD /* WTSocketSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTSocketSession.swift; sourceTree = "<group>"; };
 		E1558EC31D081592003653D1 /* QRCodeScanVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QRCodeScanVC.swift; path = Classes/Demo/QRCodeScanVC.swift; sourceTree = "<group>"; };
 		E155B85B1D12EBD500655DB1 /* TableRefreshVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRefreshVC.swift; sourceTree = "<group>"; };
 		E187C5771D19075F001EDD2D /* ReachabilityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReachabilityVC.swift; path = Classes/Demo/ReachabilityVC.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 		E10604FB1C87DF990017A469 = {
 			isa = PBXGroup;
 			children = (
+				E1BDC3CB1CD347E8002318D0 /* Res */,
 				E10605061C87DF990017A469 /* WTKit */,
 				E1BDC3B41CD3477D002318D0 /* WTKitTests */,
 				E1BDC3C21CD347B8002318D0 /* WTKitUITests */,
@@ -129,7 +132,6 @@
 		E10605061C87DF990017A469 /* WTKit */ = {
 			isa = PBXGroup;
 			children = (
-				E1BDC3CB1CD347E8002318D0 /* Res */,
 				E14E39D01CC8AE35008D2DE7 /* WTKit */,
 				E14E39CF1CC8AE2E008D2DE7 /* Classes */,
 			);
@@ -172,6 +174,7 @@
 				9B09B50A1D00045E00B66E60 /* CustomExtension.swift */,
 				9B09B50B1D00045E00B66E60 /* FoundationExtension.swift */,
 				9B09B50C1D00045E00B66E60 /* UIKitExtension.swift */,
+				E14419EB1D34D1CC0083D0CD /* WTSocketSession.swift */,
 			);
 			name = WTKit;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 				E10605101C87DF990017A469 /* LaunchScreen.storyboard */,
 			);
 			name = Res;
+			path = WTKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,18 +272,23 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = SongWentong;
 				TargetAttributes = {
 					E10605031C87DF990017A469 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = LR2DH4466E;
+						DevelopmentTeamName = "wen tong song";
+						LastSwiftMigration = 0800;
 					};
 					E1BDC3B21CD3477D002318D0 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 						TestTargetID = E10605031C87DF990017A469;
 					};
 					E1BDC3C01CD347B8002318D0 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 						TestTargetID = E10605031C87DF990017A469;
 					};
 				};
@@ -353,6 +362,7 @@
 				9B09B5181D00049700B66E60 /* ColorViewController.swift in Sources */,
 				9B09B50F1D00045E00B66E60 /* FoundationExtension.swift in Sources */,
 				9B09B50D1D00045E00B66E60 /* AnimationImageVIew.swift in Sources */,
+				E14419EC1D34D1CC0083D0CD /* WTSocketSession.swift in Sources */,
 				E155B85C1D12EBD500655DB1 /* TableRefreshVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,11 +507,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = WTKit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mike.WTKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -512,10 +524,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = WTKit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mike.WTKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -530,6 +545,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mike.WTKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WTKit.app/WTKit";
 			};
 			name = Debug;
@@ -544,6 +560,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mike.WTKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WTKit.app/WTKit";
 			};
 			name = Release;
@@ -557,6 +575,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mike.WTKitUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = WTKit;
 			};
 			name = Debug;
@@ -571,6 +590,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mike.WTKitUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = WTKit;
 			};
 			name = Release;

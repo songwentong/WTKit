@@ -26,37 +26,49 @@ class ImageDownloadVC: UIViewController {
     /*!
         清空缓存
      */
-    @IBAction func clearCache(sender: AnyObject) {
+    @IBAction func clearCache(_ sender: AnyObject) {
         UIImageView.clearAllImageCache()
+        self.showHudWithTip("缓存已清空")
     }
-    @IBAction func requestPress(sender: AnyObject) {
+    @IBAction func requestPress(_ sender: AnyObject) {
         if urlTextField.text != nil {
-            imageView.setImageWith(urlTextField.text!)
+//            imageView.setImageWith(urlTextField.text! ,placeHolder:nil,complection: )
+            imageView.setImage(with: urlTextField.text!, placeHolder: nil, complection: { (image, error) in
+                
+            })
         }
         
     }
     
-    @IBAction func cornerRaius(sender: AnyObject) {
-            NSOperationQueue.userInteractive({
+    @IBAction func cornerRaius(_ sender: AnyObject) {
+            OperationQueue.userInteractive(execute: {
                 let image = self.imageView.image?.imageWithRoundCornerRadius(30)
-                NSOperationQueue.main({ 
+                OperationQueue.toMain(execute: {
                     self.imageView.image = image
                 })
             })
     }
     
-    @IBAction func blurredImage(sender: AnyObject) {
+    @IBAction func blurredImage(_ sender: AnyObject) {
         if (imageView.image != nil) {
             let image = imageView.image
             var blurredImage:UIImage?
-            dispatch_async(dispatch_get_global_queue(0, 0), { 
-                blurredImage = image!.imageWithFilter("CIGaussianBlur", parameters: ["inputRadius":5])
-                if (blurredImage != nil){
-                    dispatch_async(dispatch_get_main_queue(), { 
-                       self.imageView.image = blurredImage
-                    })
+            OperationQueue.globalQueue(execute: {
+                blurredImage = image!.imageWithFilter("CIGaussianBlur", parameters: ["inputRadius":5 as AnyObject])
+                if blurredImage != nil {
+                    OperationQueue.toMain {
+                        self.imageView.image = blurredImage
+                    }
                 }
             })
+//            DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes(rawValue: UInt64(0))).async(execute: { 
+//                blurredImage = image!.imageWithFilter("CIGaussianBlur", parameters: ["inputRadius":5])
+//                if (blurredImage != nil){
+//                    DispatchQueue.main.async(execute: { 
+//                       
+//                    })
+//                }
+//            })
         }
     }
     

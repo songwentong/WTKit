@@ -5,8 +5,11 @@
 //  Created by SongWentong on 3/3/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+/*
+    Demo列表,点击title进入单个demo,底部的tip可以用来区分是否是首次登陆.
+ */
 import UIKit
+import SystemConfiguration
 /*!
     todo list
     1.做一个图片上传和下载的测试
@@ -36,7 +39,6 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         dataList.append(["title":"下拉刷新","segue":"TableRefreshVC"])
         dataList.append(["title":"二维码扫描","segue":"QRCodeScanVC"])
         dataList.append(["title":"Reachability","segue":"reachability"])
-        
         super.init(coder: aDecoder)
     }
 // MARK: View Lifecycle
@@ -45,7 +47,14 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         // Do any additional setup after loading the view, typically from a nib.
 //        WTLog(self.view.viewController())
 //        aaa(UILabel().text!)
-        
+//        print(httpMethod.GET.rawValue)
+        /*
+        WTLog("\(URLSession.wt_sharedInstance)")
+        WTLog("\(URLSession.wt_sharedInstance)")
+        WTLog("\(URLSession.wt_sharedInstance)")
+        WTLog("\(URLSession.wt_sharedInstance)")
+ */
+        /*
         UIApplication.firstLaunchForBuild { [weak self](isFirstLaunchEver) in
             if isFirstLaunchEver{
                 self?.showHudWithTip("热烈欢迎")
@@ -53,23 +62,24 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
                 self?.showHudWithTip("欢迎回来")
             }
         }
-        
+ */
+//        print(self.view.recursiveDescription);
         
         
     }
 //    func aaa(a:String="ccc"){
 //        WTLog(a)
 //    }
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let indexPath = tableView.indexPathForSelectedRow
         if(indexPath != nil){
-            tableView.deselectRowAtIndexPath(indexPath!, animated: true)
+            tableView.deselectRow(at: indexPath!, animated: true)
         }
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         //        segue.destinationViewController
@@ -84,17 +94,17 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
 }
 // MARK: - UITableViewDataSource
 extension ViewController{
-    internal func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return dataList.count
     }
     
-    @available(iOS 2.0, *)
-    internal func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    @objc(tableView:cellForRowAtIndexPath:) @available(iOS 2.0, *)
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         return  cell!
     }
-    internal func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+    internal func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         return "Demo 列表"
     } // fixed font style. use custom view (UILabel) if you want something different
 
@@ -102,13 +112,13 @@ extension ViewController{
 // MARK: - UITableViewDelegate
 extension ViewController{
 
-    internal func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath){
-        cell.textLabel?.text = dataList[indexPath.row]["title"]
+    @objc(tableView:willDisplayCell:forRowAtIndexPath:) internal func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
+        cell.textLabel?.text = dataList[(indexPath as NSIndexPath).row]["title"]
     }
     
     
-    internal func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        let segue = dataList[indexPath.row]["segue"]
-        self.performSegueWithIdentifier(segue!, sender: nil);
+    @objc(tableView:didSelectRowAtIndexPath:) internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        let segue = dataList[(indexPath as NSIndexPath).row]["segue"]
+        self.performSegue(withIdentifier: segue!, sender: nil);
     }
 }

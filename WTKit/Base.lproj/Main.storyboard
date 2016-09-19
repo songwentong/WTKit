@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pA6-d5-UNj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11185.3" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pA6-d5-UNj">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11151.4"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--下拉刷新-->
@@ -15,18 +17,17 @@
                         <viewControllerLayoutGuide type="bottom" id="zfh-2V-DuU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="LtN-un-XQJ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="43L-0z-BUE">
-                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="3jQ-60-igf">
-                                        <rect key="frame" x="0.0" y="50" width="600" height="44"/>
+                                        <frame key="frameInset" minY="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3jQ-60-igf" id="fct-7V-UNj">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <frame key="frameInset" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -38,7 +39,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="43L-0z-BUE" firstAttribute="leading" secondItem="LtN-un-XQJ" secondAttribute="leading" id="WFg-oF-DXd"/>
                             <constraint firstItem="zfh-2V-DuU" firstAttribute="top" secondItem="43L-0z-BUE" secondAttribute="bottom" id="boY-B9-I4P"/>
@@ -53,7 +54,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wif-ic-QZX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2936" y="-7"/>
+            <point key="canvasLocation" x="4588" y="-1267"/>
         </scene>
         <!--Reachability-->
         <scene sceneID="jDh-TO-DE2">
@@ -64,20 +65,16 @@
                         <viewControllerLayoutGuide type="bottom" id="pHU-E7-8cw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vyN-gB-YeZ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="eRa-Fg-Lbf">
-                                <rect key="frame" x="20" y="100" width="32" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="QlH-zd-jmT"/>
                                 </constraints>
                             </imageView>
-                            <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="YhS-W6-JgO">
-                                <rect key="frame" x="20" y="167" width="32" height="32"/>
-                            </imageView>
+                            <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="YhS-W6-JgO"/>
                             <textField opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="3Wc-OO-tDx">
-                                <rect key="frame" x="60" y="100" width="520" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="ddV-YR-z1Z"/>
                                 </constraints>
@@ -89,34 +86,30 @@
                                     </mask>
                                 </variation>
                             </textField>
-                            <textField opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Remote Host:" clearsOnBeginEditing="YES" minimumFontSize="29" translatesAutoresizingMaskIntoConstraints="NO" id="PyV-Eg-kME">
-                                <rect key="frame" x="20" y="72" width="103" height="20"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TCP/IP Routing Available" clearsOnBeginEditing="YES" minimumFontSize="29" translatesAutoresizingMaskIntoConstraints="NO" id="9vZ-is-pXE">
-                                <rect key="frame" x="20" y="139" width="181" height="20"/>
+                            <textField opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TCP/IP Routing Available" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="9vZ-is-pXE">
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="14" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="rxM-Or-kwI">
-                                <rect key="frame" x="20" y="207" width="271" height="62"/>
                                 <string key="text">Cellular data network is available.
 Internet traffic will be routed through it.</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" clearsOnBeginEditing="YES" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="O5L-fD-2EJ">
-                                <rect key="frame" x="60" y="167" width="520" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="bVK-Tq-EVx"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Remote Host:" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="PyV-Eg-kME">
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="eRa-Fg-Lbf" firstAttribute="top" secondItem="3Wc-OO-tDx" secondAttribute="top" id="0Gw-cS-tWp"/>
                             <constraint firstItem="YhS-W6-JgO" firstAttribute="centerY" secondItem="O5L-fD-2EJ" secondAttribute="centerY" id="35h-UT-uzd"/>
@@ -128,9 +121,11 @@ Internet traffic will be routed through it.</string>
                             <constraint firstItem="PyV-Eg-kME" firstAttribute="top" secondItem="Qt7-4x-sNc" secondAttribute="bottom" constant="8" symbolic="YES" id="FVo-Bf-C5q"/>
                             <constraint firstItem="3Wc-OO-tDx" firstAttribute="leading" secondItem="eRa-Fg-Lbf" secondAttribute="trailing" constant="8" symbolic="YES" id="Gq2-k5-sYv"/>
                             <constraint firstItem="eRa-Fg-Lbf" firstAttribute="centerY" secondItem="3Wc-OO-tDx" secondAttribute="centerY" id="JLe-Uq-oEO"/>
+                            <constraint firstAttribute="trailing" secondItem="PyV-Eg-kME" secondAttribute="trailing" constant="191" id="MSU-dT-RdZ"/>
                             <constraint firstItem="rxM-Or-kwI" firstAttribute="top" secondItem="YhS-W6-JgO" secondAttribute="bottom" constant="8" symbolic="YES" id="RBT-MX-tR5"/>
                             <constraint firstItem="PyV-Eg-kME" firstAttribute="leading" secondItem="vyN-gB-YeZ" secondAttribute="leadingMargin" id="Tda-Sb-5BX"/>
                             <constraint firstItem="3Wc-OO-tDx" firstAttribute="leading" secondItem="O5L-fD-2EJ" secondAttribute="leading" id="Uhv-OI-gSu"/>
+                            <constraint firstAttribute="trailing" secondItem="9vZ-is-pXE" secondAttribute="trailing" constant="10" id="YVP-Dw-vfo"/>
                             <constraint firstItem="9vZ-is-pXE" firstAttribute="leading" secondItem="YhS-W6-JgO" secondAttribute="leading" id="bge-2x-Nwg"/>
                             <constraint firstItem="9vZ-is-pXE" firstAttribute="top" secondItem="eRa-Fg-Lbf" secondAttribute="bottom" constant="8" symbolic="YES" id="mRq-Ts-wSl"/>
                             <constraint firstItem="PyV-Eg-kME" firstAttribute="leading" secondItem="eRa-Fg-Lbf" secondAttribute="leading" id="nlA-VI-mXz"/>
@@ -151,7 +146,7 @@ Internet traffic will be routed through it.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8WU-xE-gh1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3588" y="-92"/>
+            <point key="canvasLocation" x="6172" y="-489"/>
         </scene>
         <!--Demo列表-->
         <scene sceneID="tne-QT-ifu">
@@ -162,18 +157,17 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="9eM-Kb-oMm">
-                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="V4h-3e-YEW">
-                                        <rect key="frame" x="0.0" y="50" width="600" height="44"/>
+                                        <frame key="frameInset" minY="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="V4h-3e-YEW" id="Mdp-rr-hSL">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <frame key="frameInset" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -184,7 +178,7 @@ Internet traffic will be routed through it.</string>
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="9eM-Kb-oMm" secondAttribute="trailing" id="Ecp-RS-pKG"/>
                             <constraint firstItem="9eM-Kb-oMm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="usx-IZ-7m9"/>
@@ -220,14 +214,12 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="G4j-Op-Jed"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WJK-D3-B2p">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OCo-m4-8CM">
-                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://www.baidu.com" borderStyle="roundedRect" placeholder="http://www.baidu.com" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O4c-AD-pFm">
-                                        <rect key="frame" x="10" y="7" width="530" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="https://www.apple.com" borderStyle="roundedRect" placeholder="http://www.baidu.com" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O4c-AD-pFm">
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
@@ -235,47 +227,54 @@ Internet traffic will be routed through it.</string>
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l05-sQ-aPJ">
-                                        <rect key="frame" x="555" y="7" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="voc-Yh-oaR"/>
+                                        </constraints>
                                         <state key="normal" title="请求"/>
                                         <connections>
                                             <action selector="requestButtonPressed:" destination="HYq-sl-5fu" eventType="touchUpInside" id="4uK-9f-9Dl"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="l05-sQ-aPJ" firstAttribute="leading" secondItem="O4c-AD-pFm" secondAttribute="trailing" constant="15" id="4Ox-ec-dcT"/>
+                                    <constraint firstItem="l05-sQ-aPJ" firstAttribute="leading" secondItem="O4c-AD-pFm" secondAttribute="trailing" constant="10" id="3dl-xy-KjJ"/>
                                     <constraint firstItem="l05-sQ-aPJ" firstAttribute="centerY" secondItem="OCo-m4-8CM" secondAttribute="centerY" id="5GB-ZA-Mrp"/>
-                                    <constraint firstAttribute="trailing" secondItem="O4c-AD-pFm" secondAttribute="trailing" constant="60" id="Kvg-AS-dsX"/>
                                     <constraint firstItem="O4c-AD-pFm" firstAttribute="centerY" secondItem="OCo-m4-8CM" secondAttribute="centerY" id="M2m-YM-nCG"/>
-                                    <constraint firstAttribute="trailing" secondItem="l05-sQ-aPJ" secondAttribute="trailing" constant="15" id="RZy-sd-ezu"/>
+                                    <constraint firstAttribute="trailing" secondItem="l05-sQ-aPJ" secondAttribute="trailing" constant="10" id="RZy-sd-ezu"/>
                                     <constraint firstAttribute="height" constant="44" id="SG0-2h-vHE"/>
                                     <constraint firstItem="O4c-AD-pFm" firstAttribute="leading" secondItem="OCo-m4-8CM" secondAttribute="leading" constant="10" id="dCc-AC-FPS"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uqJ-S7-uUA">
-                                <rect key="frame" x="0.0" y="108" width="600" height="443"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ev-Vx-CH5">
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="OCo-m4-8CM" firstAttribute="leading" secondItem="WJK-D3-B2p" secondAttribute="leading" id="4BA-pK-2oW"/>
                             <constraint firstItem="G4j-Op-Jed" firstAttribute="top" secondItem="uqJ-S7-uUA" secondAttribute="bottom" id="8G1-Yj-s5F"/>
+                            <constraint firstItem="7Ev-Vx-CH5" firstAttribute="centerX" secondItem="uqJ-S7-uUA" secondAttribute="centerX" id="9YE-1r-iQf"/>
                             <constraint firstItem="OCo-m4-8CM" firstAttribute="top" secondItem="m6r-Bm-p9r" secondAttribute="bottom" id="A1c-ty-JS0"/>
                             <constraint firstAttribute="trailing" secondItem="OCo-m4-8CM" secondAttribute="trailing" id="CNR-Lq-Rak"/>
                             <constraint firstItem="uqJ-S7-uUA" firstAttribute="top" secondItem="OCo-m4-8CM" secondAttribute="bottom" id="JTb-IK-LPc"/>
                             <constraint firstItem="uqJ-S7-uUA" firstAttribute="leading" secondItem="WJK-D3-B2p" secondAttribute="leading" id="lXp-rX-uSD"/>
+                            <constraint firstItem="7Ev-Vx-CH5" firstAttribute="centerY" secondItem="uqJ-S7-uUA" secondAttribute="centerY" id="lc2-fE-kEu"/>
                             <constraint firstAttribute="trailing" secondItem="uqJ-S7-uUA" secondAttribute="trailing" id="qe9-nk-Nob"/>
+                            <constraint firstItem="7Ev-Vx-CH5" firstAttribute="height" secondItem="uqJ-S7-uUA" secondAttribute="height" id="rbt-kH-gmd"/>
+                            <constraint firstItem="7Ev-Vx-CH5" firstAttribute="width" secondItem="uqJ-S7-uUA" secondAttribute="width" constant="1" id="wlj-AQ-RYT"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="kSf-zz-Zd6">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Gjs-8m-Jgr">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <rect key="frame" x="8" y="7" width="210" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="GET"/>
@@ -297,12 +296,13 @@ Internet traffic will be routed through it.</string>
                         <outlet property="resultTextView" destination="uqJ-S7-uUA" id="TUd-re-9TA"/>
                         <outlet property="rightItem" destination="xky-f4-Pqc" id="QdS-sF-bfn"/>
                         <outlet property="urlTextField" destination="O4c-AD-pFm" id="sbs-zs-vtj"/>
+                        <outlet property="webView" destination="7Ev-Vx-CH5" id="Tv0-mW-tvI"/>
                         <segue destination="hvT-cm-Sgn" kind="show" identifier="parameters" id="J8G-Kd-saP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LhY-QV-4xS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3588" y="596"/>
+            <point key="canvasLocation" x="5205.6000000000004" y="726.38680659670172"/>
         </scene>
         <!--POST请求-->
         <scene sceneID="6rh-MP-QrC">
@@ -313,9 +313,9 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="xUs-Sg-sEs"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ECq-Ry-ZW5">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="POST请求" id="Aga-P9-isi">
                         <barButtonItem key="rightBarButtonItem" title="参数-&gt;" id="NNo-mX-oCT">
@@ -331,7 +331,7 @@ Internet traffic will be routed through it.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V5G-eF-nsF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3574" y="1264"/>
+            <point key="canvasLocation" x="4553" y="1239"/>
         </scene>
         <!--Hud Demo-->
         <scene sceneID="l0D-GP-ym4">
@@ -342,18 +342,17 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="P8T-Ka-MeU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mKB-1h-OlE">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="O8W-WB-ZUt">
-                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="ppa-MW-IE5">
-                                        <rect key="frame" x="0.0" y="50" width="600" height="44"/>
+                                        <frame key="frameInset" minY="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ppa-MW-IE5" id="lIv-LE-mKj">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <frame key="frameInset" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -364,7 +363,7 @@ Internet traffic will be routed through it.</string>
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="O8W-WB-ZUt" secondAttribute="trailing" id="Hht-Sq-sGm"/>
                             <constraint firstItem="O8W-WB-ZUt" firstAttribute="leading" secondItem="mKB-1h-OlE" secondAttribute="leading" id="PGb-an-JjF"/>
@@ -379,7 +378,7 @@ Internet traffic will be routed through it.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MHd-IP-BsO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3581" y="1991"/>
+            <point key="canvasLocation" x="4930" y="2268"/>
         </scene>
         <!--图片上传-->
         <scene sceneID="pAg-Nh-V5c">
@@ -390,17 +389,15 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="7cC-71-VSC"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="h5D-5h-hw2">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请注意根据代码中的提示来启动服务器接收文件" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWQ-sl-9sG">
-                                <rect key="frame" x="0.0" y="525" width="600" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebi-qI-lHo">
-                                <rect key="frame" x="10" y="74" width="580" height="130"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="u7g-t9-XSn"/>
                                 </constraints>
@@ -409,13 +406,12 @@ Internet traffic will be routed through it.</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击图片来上传" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dvd-rI-Ljt">
-                                <rect key="frame" x="18" y="223" width="119" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="7cC-71-VSC" firstAttribute="top" secondItem="dWQ-sl-9sG" secondAttribute="bottom" constant="8" id="8ER-tZ-G52"/>
                             <constraint firstItem="dWQ-sl-9sG" firstAttribute="leading" secondItem="h5D-5h-hw2" secondAttribute="leading" id="8x7-OB-0jB"/>
@@ -441,7 +437,7 @@ Internet traffic will be routed through it.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pCx-Ko-ygD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4191" y="2248"/>
+            <point key="canvasLocation" x="6020" y="2269"/>
         </scene>
         <!--颜色获取-->
         <scene sceneID="RIk-UW-C4M">
@@ -452,21 +448,27 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="kna-wA-nGe"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Sfp-7I-Iax">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g4F-8w-0re">
-                                <rect key="frame" x="10" y="74" width="580" height="128"/>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.08322906494" alpha="1" colorSpace="calibratedRGB"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lrR-qa-QME">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.08322906494" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="lrR-qa-QME" secondAttribute="trailing" id="9vk-wM-AVm"/>
+                                    <constraint firstItem="lrR-qa-QME" firstAttribute="top" secondItem="g4F-8w-0re" secondAttribute="top" id="FVQ-eb-oe1"/>
                                     <constraint firstAttribute="height" constant="128" id="asc-N3-dh3"/>
+                                    <constraint firstItem="lrR-qa-QME" firstAttribute="width" secondItem="g4F-8w-0re" secondAttribute="width" multiplier="0.5" id="mZi-ic-0Os"/>
+                                    <constraint firstAttribute="bottom" secondItem="lrR-qa-QME" secondAttribute="bottom" id="qIn-iT-oQZ"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="#00ff00" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f5f-3Q-yQJ">
-                                <rect key="frame" x="200" y="242" width="200" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="FYf-zn-HCj"/>
-                                    <constraint firstAttribute="width" constant="200" id="YYL-yk-CZo"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -474,25 +476,46 @@ Internet traffic will be routed through it.</string>
                                     <action selector="editChanged:" destination="aYe-8M-Edg" eventType="editingChanged" id="T1O-ss-q0C"/>
                                 </connections>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="警告色" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ptM-kq-lj9">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="rhD-D4-aJb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="GDb-ex-WCG">
+                                <connections>
+                                    <action selector="sliderValueChanged:" destination="aYe-8M-Edg" eventType="valueChanged" id="AzZ-nq-PUP"/>
+                                </connections>
+                            </slider>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="f5f-3Q-yQJ" secondAttribute="trailing" constant="20" id="1ae-6o-s0U"/>
                             <constraint firstItem="f5f-3Q-yQJ" firstAttribute="top" secondItem="g4F-8w-0re" secondAttribute="bottom" constant="40" id="8du-Dh-jqF"/>
                             <constraint firstItem="g4F-8w-0re" firstAttribute="leading" secondItem="Sfp-7I-Iax" secondAttribute="leading" constant="10" id="EZz-MI-FLP"/>
+                            <constraint firstItem="f5f-3Q-yQJ" firstAttribute="leading" secondItem="Sfp-7I-Iax" secondAttribute="leading" constant="20" id="GFD-iG-XAh"/>
+                            <constraint firstItem="ptM-kq-lj9" firstAttribute="leading" secondItem="Sfp-7I-Iax" secondAttribute="leading" constant="20" id="LfA-sE-Qq5"/>
                             <constraint firstAttribute="trailing" secondItem="g4F-8w-0re" secondAttribute="trailing" constant="10" id="R7R-lA-kq3"/>
+                            <constraint firstItem="GDb-ex-WCG" firstAttribute="top" secondItem="ptM-kq-lj9" secondAttribute="bottom" constant="19" id="WsZ-ZD-Jcz"/>
+                            <constraint firstItem="GDb-ex-WCG" firstAttribute="leading" secondItem="Sfp-7I-Iax" secondAttribute="leading" constant="30" id="ae3-e0-fnS"/>
                             <constraint firstItem="g4F-8w-0re" firstAttribute="top" secondItem="S9G-pZ-0V3" secondAttribute="bottom" constant="10" id="f7u-I8-6pk"/>
-                            <constraint firstItem="f5f-3Q-yQJ" firstAttribute="centerX" secondItem="g4F-8w-0re" secondAttribute="centerX" id="jqJ-M4-kFO"/>
+                            <constraint firstAttribute="trailing" secondItem="GDb-ex-WCG" secondAttribute="trailing" constant="30" id="liK-2Z-ghf"/>
+                            <constraint firstItem="ptM-kq-lj9" firstAttribute="top" secondItem="f5f-3Q-yQJ" secondAttribute="bottom" constant="17" id="vHu-1m-jji"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="颜色获取" id="vVy-17-tI7"/>
                     <connections>
+                        <outlet property="antiColorView" destination="lrR-qa-QME" id="0Kj-t3-6dS"/>
                         <outlet property="colorView" destination="g4F-8w-0re" id="vEb-An-Sgq"/>
+                        <outlet property="mySlider" destination="GDb-ex-WCG" id="RiW-9H-CE4"/>
                         <outlet property="textView" destination="f5f-3Q-yQJ" id="O9Y-h6-d5z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9u7-yn-01C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3588" y="2684"/>
+            <point key="canvasLocation" x="4119" y="2457"/>
         </scene>
         <!--图片下载-->
         <scene sceneID="b75-Yd-rzH">
@@ -503,16 +526,14 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="g87-vu-ufZ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iI2-Kg-7QX">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="http://img0.bdstatic.com/img/image/c9e2596284f50ce95cbed0d756fdd22b1409207983.jpg" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9WD-J3-Jy5">
-                                <rect key="frame" x="20" y="83" width="500" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29g-vO-vuD">
-                                <rect key="frame" x="542" y="83" width="46" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="PsT-Rc-qKf"/>
                                     <constraint firstAttribute="width" constant="46" id="cPQ-7Y-Md5"/>
@@ -523,21 +544,18 @@ Internet traffic will be routed through it.</string>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XtM-LI-VLA">
-                                <rect key="frame" x="140" y="140" width="320" height="320"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="320" id="0Bb-Hp-ZAY"/>
                                     <constraint firstAttribute="width" constant="320" id="DpT-s2-1bi"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63S-oz-0uj">
-                                <rect key="frame" x="520" y="115" width="60" height="30"/>
                                 <state key="normal" title="清空缓存"/>
                                 <connections>
                                     <action selector="clearCache:" destination="H4n-XQ-9v0" eventType="touchUpInside" id="Rr1-mQ-WJQ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jf2-pG-WR9">
-                                <rect key="frame" x="70" y="490" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="vJa-cK-DC4"/>
                                 </constraints>
@@ -547,7 +565,6 @@ Internet traffic will be routed through it.</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0a-lF-mxy">
-                                <rect key="frame" x="473" y="489" width="57" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="PB0-7F-Ncf"/>
                                 </constraints>
@@ -557,7 +574,7 @@ Internet traffic will be routed through it.</string>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="b0a-lF-mxy" secondAttribute="trailing" constant="50" id="BSd-l0-3Dj"/>
                             <constraint firstItem="9WD-J3-Jy5" firstAttribute="top" secondItem="oOs-bP-SQy" secondAttribute="bottom" constant="19" id="G8h-93-5rV"/>
@@ -583,7 +600,7 @@ Internet traffic will be routed through it.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JBt-qc-bxH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3556" y="3457"/>
+            <point key="canvasLocation" x="3274" y="3413"/>
         </scene>
         <!--Gif ImageVC-->
         <scene sceneID="Fc2-sz-7Hp">
@@ -594,14 +611,12 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="OBw-Yr-jFp"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="YRt-kh-n6y">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8FP-eG-UQX" customClass="AnimationImageVIew" customModule="WTKit" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8FP-eG-UQX" customClass="AnimationImageVIew" customModule="WTKit" customModuleProvider="target"/>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="8FP-eG-UQX" firstAttribute="centerX" secondItem="YRt-kh-n6y" secondAttribute="centerX" id="FkW-J5-907"/>
                             <constraint firstItem="8FP-eG-UQX" firstAttribute="centerY" secondItem="YRt-kh-n6y" secondAttribute="centerY" id="IKg-GT-kBj"/>
@@ -615,7 +630,7 @@ Internet traffic will be routed through it.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7UG-0C-NyV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3867" y="4155"/>
+            <point key="canvasLocation" x="4647" y="3741"/>
         </scene>
         <!--Code ScanVC-->
         <scene sceneID="bvp-0G-U2Y">
@@ -626,14 +641,14 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="6SJ-Y8-EIz"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Lyt-BL-VGE">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pVG-c9-tsP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4497" y="319"/>
+            <point key="canvasLocation" x="4785" y="-154"/>
         </scene>
         <!--参数-->
         <scene sceneID="U8P-KM-xum">
@@ -644,22 +659,20 @@ Internet traffic will be routed through it.</string>
                         <viewControllerLayoutGuide type="bottom" id="dlh-C4-t7Z"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2sj-vx-K3v">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="cBq-7r-PNW">
-                                <rect key="frame" x="0.0" y="64" width="600" height="443"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="H7i-0Q-mvH">
-                                        <rect key="frame" x="0.0" y="50" width="600" height="44"/>
+                                        <frame key="frameInset" minY="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H7i-0Q-mvH" id="L1E-KO-Stb">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <frame key="frameInset" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sbS-fm-9uy">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="43"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="O5T-2A-GS6"/>
                                                     </constraints>
@@ -667,13 +680,11 @@ Internet traffic will be routed through it.</string>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="value" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FsM-im-bQ5">
-                                                    <rect key="frame" x="50" y="0.0" width="500" height="43"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                                 <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p0l-Lp-xPJ">
-                                                    <rect key="frame" x="554" y="0.0" width="46" height="43"/>
-                                                    <color key="backgroundColor" red="1" green="0.25343615930000002" blue="0.5133593837" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="1" green="0.25343615930000002" blue="0.5133593837" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="46" id="oSU-0T-UAj"/>
                                                     </constraints>
@@ -681,7 +692,6 @@ Internet traffic will be routed through it.</string>
                                                     <state key="normal" title="-"/>
                                                 </button>
                                                 <button hidden="YES" opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pTa-DU-7Kb">
-                                                    <rect key="frame" x="508" y="0.0" width="46" height="38"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="46" id="0Zu-a4-zhP"/>
                                                     </constraints>
@@ -713,15 +723,14 @@ Internet traffic will be routed through it.</string>
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDS-r6-EvS">
-                                <rect key="frame" x="0.0" y="507" width="600" height="44"/>
-                                <color key="backgroundColor" red="1" green="0.25343615930000002" blue="0.5133593837" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="0.25343615930000002" blue="0.5133593837" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Add"/>
                                 <connections>
                                     <action selector="addPressed:" destination="hvT-cm-Sgn" eventType="touchUpInside" id="Nhv-Yf-Y3j"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="dlh-C4-t7Z" firstAttribute="top" secondItem="hDS-r6-EvS" secondAttribute="bottom" id="0zv-aA-s4E"/>
                             <constraint firstItem="cBq-7r-PNW" firstAttribute="top" secondItem="AQ9-Sg-6GD" secondAttribute="bottom" id="48t-6s-IXA"/>
@@ -746,7 +755,7 @@ Internet traffic will be routed through it.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bth-3u-Zv0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4455" y="1170"/>
+            <point key="canvasLocation" x="6905" y="1189"/>
         </scene>
         <!--网络请求-->
         <scene sceneID="Odo-Ke-9XS">
@@ -772,7 +781,7 @@ Internet traffic will be routed through it.</string>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="4Eb-p0-fGZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="FHZ-1G-SdE" kind="relationship" relationship="viewControllers" id="fyQ-Zx-sOR"/>
@@ -780,7 +789,7 @@ Internet traffic will be routed through it.</string>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6KM-yv-X06" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="475" y="450"/>
+            <point key="canvasLocation" x="647" y="802"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

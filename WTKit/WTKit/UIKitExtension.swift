@@ -5,7 +5,7 @@
 //  Created by SongWentong on 4/21/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-#if os(iOS)
+
 import Foundation
 import UIKit
 import ImageIO
@@ -19,14 +19,14 @@ extension UIColor{
      根据字符串和alpha给出颜色
      如果给出的是一个不正常的字符串,会返回红色
      */
-    public class func colorWithHexString(string:String,alpha:CGFloat?=1.0) -> UIColor{
+    public class func colorWithHexString(_ string:String,alpha:CGFloat?=1.0) -> UIColor{
         //        let s = NSScanner(string: string)
         let mutableCharSet = NSMutableCharacterSet()
-        mutableCharSet.addCharactersInString("#")
-        mutableCharSet.formUnionWithCharacterSet(NSCharacterSet.whitespaceCharacterSet());
+        mutableCharSet.addCharacters(in: "#")
+        mutableCharSet.formUnion(with: CharacterSet.whitespaces);
         
         
-        let hString = string.stringByTrimmingCharactersInSet(mutableCharSet)
+        let hString = string.trimmingCharacters(in: mutableCharSet as CharacterSet)
         DEBUGBlock {
             //            NSLog("%@", hString)
         }
@@ -34,7 +34,7 @@ extension UIColor{
         
         switch hString.length {
         case 0:
-            return UIColor.redColor();
+            return UIColor.red;
         case 1:
             return UIColor.colorWithHexString(hString+hString);
         case 2:
@@ -45,27 +45,27 @@ extension UIColor{
             let b = hString[4..<6]
             var rInt:UInt32 = 0x0,gInt:UInt32 = 0x0,bInt:UInt32 = 0x0
             
-            NSScanner.init(string: r).scanHexInt(&rInt)
-            NSScanner.init(string: g).scanHexInt(&gInt)
-            NSScanner.init(string: b).scanHexInt(&bInt)
+            Scanner.init(string: r).scanHexInt32(&rInt)
+            Scanner.init(string: g).scanHexInt32(&gInt)
+            Scanner.init(string: b).scanHexInt32(&bInt)
             
             let red = CGFloat(rInt)/255.0
             let green = CGFloat(gInt)/255.0
             let blue = CGFloat(bInt)/255.0
-//            WTLog("\(red) \(green) \(blue)")
+            //            WTLog("\(red) \(green) \(blue)")
             let color = UIColor(red: red, green: green, blue: blue,alpha: alpha!)
             return color;
         default:
-            return UIColor.redColor();
+            return UIColor.red;
         }
     }
     
-    public func intFromString(string:String)->UInt32{
+    public func intFromString(_ string:String)->UInt32{
         var intValue:UInt32 = 0x0;
-        NSScanner.init(string:string).scanHexInt(&intValue)
+        Scanner.init(string:string).scanHexInt32(&intValue)
         return intValue
     }
-
+    
     
     public func antiColor()->UIColor{
         var r:CGFloat=0
@@ -82,7 +82,7 @@ extension UIColor{
     }
     
     private class func randomColorValue()->CGFloat{
-        return CGFloat(random())%255.0
+        return CGFloat(arc4random()).truncatingRemainder(dividingBy: 255.0)
     }
     
     //随机产生一个颜色
@@ -91,6 +91,17 @@ extension UIColor{
         color = UIColor(red: randomColorValue(), green: randomColorValue(), blue: randomColorValue(), alpha: 1.0);
         return color
     }
+    
+    
+    
+    //传入0-1   0是最差   1是最好
+    public class func wtStatusColor(with status:Float)->UIColor{
+        let myStatus = max(min(status, 1), 0)
+        let red:CGFloat = min(1, CGFloat (myStatus * 2))
+        let green:CGFloat = min(1, CGFloat (myStatus * -2 + 2))
+        return UIColor.init(red: red, green: green, blue: 0, alpha: 1)
+    }
+    
 }
 
 private let UIApplicationVersionsKey = "WTKit UIapplication versions key"
@@ -99,25 +110,27 @@ private var UIApplicationIsFirstEver:Void?
 extension UIApplication{
     
     
-  
+    
+    public class func openSettings(){
+        UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+    }
     
     
-       
-// MARK: - 版本号/build号/bundleID/程序名
+    // MARK: - 版本号/build号/bundleID/程序名
     public class func appBundleName()->String{
-            return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleName") as! String
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
     }
     
     public class func appBundleID()->String{
-        return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleIdentifier") as! String
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as! String
     }
     
     public class func buildVersion()->String{
-        return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     }
     
     public static func appVersion()->String{
-        return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     }
     
     public static func documentsPath()->String{
@@ -125,51 +138,51 @@ extension UIApplication{
     }
     
     public static func libraryPath()->String{
-    return String(format: "%@/Library",NSHomeDirectory())
+        return String(format: "%@/Library",NSHomeDirectory())
     }
     
     
-// MARK: - 版本记录以及是否是本次build首次启动
+    // MARK: - 版本记录以及是否是本次build首次启动
     
     
     
     /*!
-        非常好用的方法,用于处理首次启动需要做的事情
+     非常好用的方法,用于处理首次启动需要做的事情
      */
-    public static func firstLaunchForBuild(block:(isFirstLaunchEver:Bool)->Void){
+    public static func firstLaunchForBuild(_ block:(_ isFirstLaunchEver:Bool)->Void){
         self.track()
-        block(isFirstLaunchEver: sharedApplication().isFirstLaunchEver)
+        block(shared.isFirstLaunchEver)
         
     }
     
     /*!
-        是否是当前版本的首次启动
+     是否是当前版本的首次启动
      */
     private var isFirstLaunchEver:Bool{
-    get{
-        var isFirst:Bool? = objc_getAssociatedObject(self, &UIApplicationIsFirstEver) as? Bool
-        if isFirst == nil {
-            isFirst = UIApplication.isFirstLaunchMethod()
-            objc_setAssociatedObject(self, &UIApplicationIsFirstEver, isFirst, .OBJC_ASSOCIATION_ASSIGN)
+        get{
+            var isFirst:Bool? = objc_getAssociatedObject(self, &UIApplicationIsFirstEver) as? Bool
+            if isFirst == nil {
+                isFirst = UIApplication.isFirstLaunchMethod()
+                objc_setAssociatedObject(self, &UIApplicationIsFirstEver, isFirst, .OBJC_ASSOCIATION_ASSIGN)
+            }
+            return isFirst!
         }
-        return isFirst!
-        }
-    set{
-            objc_setAssociatedObject(UIApplication.sharedApplication(), &UIApplicationIsFirstEver, newValue, .OBJC_ASSOCIATION_ASSIGN)
+        set{
+            objc_setAssociatedObject(UIApplication.shared, &UIApplicationIsFirstEver, newValue, .OBJC_ASSOCIATION_ASSIGN)
         }
     }
-
     
-
+    
+    
     /*!
-        记录一下当前版本
+     记录一下当前版本
      */
     private static func track(){
         
         let first = self.isFirstLaunchMethod()
-        sharedApplication().isFirstLaunchEver = first
+        shared.isFirstLaunchEver = first
         
-        var versionArray:[String]! = NSUserDefaults.standardUserDefaults().arrayForKey(UIApplicationVersionsKey) as? Array<String>
+        var versionArray:[String]! = UserDefaults.standard.array(forKey: UIApplicationVersionsKey) as? Array<String>
         if versionArray == nil {
             versionArray = Array()
         }
@@ -178,7 +191,7 @@ extension UIApplication{
         }
         
         
-        var buildArray:[String]! = NSUserDefaults.standardUserDefaults().arrayForKey(UIApplicationBuildsKey) as? Array<String>
+        var buildArray:[String]! = UserDefaults.standard.array(forKey: UIApplicationBuildsKey) as? Array<String>
         if buildArray == nil {
             buildArray = Array()
         }
@@ -187,16 +200,16 @@ extension UIApplication{
         }
         
         
-        NSUserDefaults.standardUserDefaults().setValue(versionArray, forKey: UIApplicationVersionsKey)
-        NSUserDefaults.standardUserDefaults().setValue(buildArray, forKey: UIApplicationBuildsKey)
-//        WTLog(versionArray)
-//        WTLog(buildArray)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.setValue(versionArray, forKey: UIApplicationVersionsKey)
+        UserDefaults.standard.setValue(buildArray, forKey: UIApplicationBuildsKey)
+        //        WTLog(versionArray)
+        //        WTLog(buildArray)
+        UserDefaults.standard.synchronize()
     }
     
     private class func isFirstLaunchMethod()->Bool{
         var isFirstLaunchEver = true
-        let versionArray:[String]? = NSUserDefaults.standardUserDefaults().arrayForKey(UIApplicationVersionsKey) as? Array<String>
+        let versionArray:[String]? = UserDefaults.standard.array(forKey: UIApplicationVersionsKey) as? Array<String>
         if versionArray != nil {
             if versionArray!.contains(self.appVersion()) {
                 isFirstLaunchEver = false
@@ -207,48 +220,52 @@ extension UIApplication{
 }
 extension UIScreen{
     public static func screenWidth()->CGFloat{
-        return CGRectGetWidth(UIScreen.mainScreen().bounds)
+        return UIScreen.main.bounds.width
     }
     public static func screenHeight()->CGFloat{
-        return CGRectGetHeight(UIScreen.mainScreen().bounds)
+        return UIScreen.main.bounds.height
     }
 }
 extension UIDevice{
     public static func systemVersion()->String{
-        return UIDevice.currentDevice().systemVersion
+        return UIDevice.current.systemVersion
     }
     public static func systemFloatVersion()->Float{
-        return UIDevice.currentDevice().systemVersion.floatValue
+        return UIDevice.current.systemVersion.floatValue
     }
     
     //
     public static func uuidString()->String{
-        return (UIDevice.currentDevice().identifierForVendor?.UUIDString)!
+        return (UIDevice.current.identifierForVendor?.uuidString)!
     }
     
     
     /*!
-        is iPhone
+     is iPhone
      */
     public static func isPhone()->Bool{
         
-        if UI_USER_INTERFACE_IDIOM() == .Phone {
+        if UI_USER_INTERFACE_IDIOM() == .phone {
             return true
         }
         return false
     }
     
     
-// MARK: - 磁盘空间/可用空间/已用空间
+    // MARK: - 磁盘空间/可用空间/已用空间
     /*!
-        硬盘空间
+     硬盘空间
      */
     public func diskSpace()->Int64{
-        var attributes:[String : AnyObject]?
+        var attributes: [FileAttributeKey : Any]
         var fileSystemSize:Int64 = 0
         do{
-           try attributes = NSFileManager.defaultManager().attributesOfItemAtPath(NSHomeDirectory())
-            fileSystemSize = (attributes![NSFileSystemSize]?.longLongValue)!
+            let fm = FileManager.default;
+            try attributes = fm.attributesOfFileSystem(forPath: NSHomeDirectory())
+            //                try attributes = FileManager.default.attributesOfItem(atPath: NSHomeDirectory())
+            //            fileSystemSize = (attributes![attributes.systemSize.rawValue]?.int64Value)!
+            //            fileSystemSize = attributes[FileAttributeKey.fileSystemSize]
+            fileSystemSize = (attributes[FileAttributeKey.systemSize] as AnyObject).int64Value
         }catch{
             
         }
@@ -256,14 +273,15 @@ extension UIDevice{
     }
     
     /*!
-        可用空间
-    */
+     可用空间
+     */
     public func diskSpaceFree()->Int64{
-        var attributes:[String : AnyObject]?
+        var attributes:[FileAttributeKey : Any]
         var fileSystemSize:Int64 = 0
         do{
-            try attributes = NSFileManager.defaultManager().attributesOfItemAtPath(NSHomeDirectory())
-            fileSystemSize = (attributes![NSFileSystemFreeSize]?.longLongValue)!
+            try attributes = FileManager.default.attributesOfItem(atPath: NSHomeDirectory())
+            //            attributes?["aaa"]!
+            fileSystemSize = (attributes[FileAttributeKey.systemFreeSize]as AnyObject).int64Value
         }catch{
             
         }
@@ -271,17 +289,17 @@ extension UIDevice{
     }
     
     /*!
-        已用空间
+     已用空间
      */
     public func diskSpaceUsed()->Int64{
         return diskSpace() - diskSpaceFree()
     }
     
     /*!
-        物理内存
+     物理内存
      */
     public func memoryTotal()->UInt64{
-        let mem = NSProcessInfo.processInfo().physicalMemory;
+        let mem = ProcessInfo.processInfo.physicalMemory;
         return mem;
     }
     
@@ -289,35 +307,36 @@ extension UIDevice{
 
 //target - action block keys
 private var UIControlTargetActionBlockKeys:Void?
+public typealias uiControlHandler = (UIControl)->Swift.Void
 extension UIControl{
     private var taBlockKeys:[UIControlTABlock]{
-    get{
-    var obj = objc_getAssociatedObject(self, &UIControlTargetActionBlockKeys)
-    if( obj is Array<UIControlTABlock> ){
-    
-    }else{
-    obj = [UIControlTABlock]()
-    objc_setAssociatedObject(self, &UIControlTargetActionBlockKeys, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-    }
-    return obj as! Array<UIControlTABlock>
-    }
+        get{
+            var obj = objc_getAssociatedObject(self, &UIControlTargetActionBlockKeys)
+            if( obj is Array<UIControlTABlock> ){
+                
+            }else{
+                obj = [UIControlTABlock]()
+                objc_setAssociatedObject(self, &UIControlTargetActionBlockKeys, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
+            return obj as! Array<UIControlTABlock>
+        }
         set{
             objc_setAssociatedObject(self, &UIControlTargetActionBlockKeys, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    public func addtarget(block:(sender:UIControl)->Void, forControlEvents controlEvents: UIControlEvents)->Void{
+    public func addtarget(_ block:@escaping uiControlHandler, forControlEvents controlEvents: UIControlEvents)->Void{
         let taBlock = UIControlTABlock()
         taBlock.block = block
         let selector = #selector(UIControlTABlock.run(_:))
-        self.addTarget(taBlock, action: selector, forControlEvents: controlEvents)
+        self.addTarget(taBlock, action: selector, for: controlEvents)
         self.taBlockKeys.append(taBlock)
     }
-    public func reciveEvent(sender:UIControl){
+    public func reciveEvent(_ sender:UIControl){
         
     }
     
     class UIControlTABlock:NSObject{
-        var block:((sender:UIControl)->Void)?
+        var block:uiControlHandler?
         var event:UIControlEvents?
         
         override init() {
@@ -329,214 +348,197 @@ extension UIControl{
             WTLog("deinit")
         }
         
-        func run(sender:UIControl){
+        func run(_ sender:UIControl){
             if block != nil{
-                block?(sender: sender)
+                block?(sender)
             }
         }
     }
- 
+    
 }
 
 
 //图片下载的key
-private var UIButtonImageDownloadOperationKey:Void?
+private var WTUIButtonImageDownloadTaskKey:Void?
+private var WTUIButtonBackgroundImageDownloadTaskKey:Void?
 extension UIButton{
-    
-    internal var imageOperation:ImageDownloadOperaion?{
+    internal var wtImageTask:WTURLSessionTask?{
         get{
-            let operation = objc_getAssociatedObject(self, &UIButtonImageDownloadOperationKey)
-            if operation == nil {
-                return nil
-            }
-            return operation as? ImageDownloadOperaion
+            let task = objc_getAssociatedObject(self, &WTUIButtonImageDownloadTaskKey)
+            return task as? WTURLSessionTask
         }
         set{
-            let operation = self.imageOperation
-            
-            if (operation != nil) {
-                operation?.cancel()
-            }
-            
-            
-            objc_setAssociatedObject(self, &UIButtonImageDownloadOperationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
-
-// MARK: - 设置一张网络图片,并缓存下来
-    public func setImageWith(url:String, forState:UIControlState,placeHolder:UIImage?=nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil) {
-        safeSyncInMain { 
-            self.setImage(placeHolder, forState: forState)
-        }
-        
-        NSOperationQueue.userInteractive {
-            let operation = UIImage.imageOperationWithURL(url) { [weak self](image, error) in
-                    safeSyncInMain({
-                        self?.setImage(image, forState: forState)
-                        self?.setNeedsLayout()
-                        if complection != nil {
-                            complection!(image:image,error: error)
-                        }
-                        
-                    })
-            };
-            self.imageOperation = operation
-            operation.start()
-        }
-    }
-    
-    public func cancelDownloadingImage(){
-        self.imageOperation = nil
-    }
-}
-
-
-
-
-//下载图片的operation
-public class ImageDownloadOperaion:NSOperation{
-
-    var _cancelled = false // Our read-write mirror of the super's read-only executing property
-    override public func cancel(){
-        self.cancelled = true
-    }
-    
-    /// Override read-only superclass property as read-write.
-    override public var cancelled: Bool {
-        get { return _cancelled }
-        set {
-            willChangeValueForKey("isExecuting")
-            _cancelled = newValue
-            didChangeValueForKey("isExecuting")
-        }
-    }
-    
-    let url:String
-    let completionHandler: (image:UIImage?,error:NSError?)->Void
-    init(url:String,completionHandler: (image:UIImage?,error:NSError?)->Void) {
-        self.completionHandler = completionHandler
-        self.url = url
-        super.init()
-    }
-    
-    
-     deinit{
-//        WTLog("ImageDownloadOperaion deinit")
-    }
-    override public func main() {
-        
-        let request = NSURLRequest(URL: NSURL.init(string: url)!)
-        
-        let sharedURLCache = UIImage.sharedURLCache()
-        
-        //找到对应的缓存
-        let cachedResponseForRequest = sharedURLCache.cachedResponseForRequest(request);
-        
-        
-        
-        if (cachedResponseForRequest == nil){
-            
-            
-            //weak self 使用场景:self 可能为空    unowned 使用场景:self 不能为空
-            let task =  NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { [weak self](data, response, error1) -> Void in
-                    if(error1 == nil){
-                        NSOperationQueue.globalQueue({ 
-                            let image = UIImage(data: data!)
-                            
-                            if self != nil{
-                                if(!self!.cancelled){
-                                    self!.completionHandler(image: image, error:error1)
-                                }
-                            }
-                            
-                            
-                            let responseToCache = NSCachedURLResponse(response: response!, data: data!, userInfo: nil, storagePolicy: NSURLCacheStoragePolicy.Allowed)
-                            sharedURLCache.storeCachedResponse(responseToCache, forRequest:request )
-                        })
-                        
-                        
-                        
-                    }else{
-                        if (self != nil){
-                            if(!self!.cancelled){
-                                self!.completionHandler(image: nil, error: error1)
-                            }
-                        }
-                        
-                        
-                    }
-                    
-                })
-                task.resume()
-            
-        }else{
-            NSOperationQueue.globalQueue({ 
-                let image = UIImage(data: (cachedResponseForRequest?.data)!)
-                if !self.cancelled {
-                    self.completionHandler(image: image, error: nil)
+            let task = objc_getAssociatedObject(self, &WTUIButtonImageDownloadTaskKey)
+            if task != nil {
+                if task is URLSessionDataTask {
+                    let myTask:WTURLSessionTask = task as! WTURLSessionTask
+                    myTask.cancel()
                 }
-            })
-            
-            
-            
+            }
+            objc_setAssociatedObject(self, &WTUIButtonImageDownloadTaskKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    internal var wtBackgroundImageTask:WTURLSessionTask?{
+        get{
+            let task = objc_getAssociatedObject(self, &WTUIButtonBackgroundImageDownloadTaskKey)
+            return task as? WTURLSessionTask
+        }
+        set{
+            let task = objc_getAssociatedObject(self, &WTUIButtonBackgroundImageDownloadTaskKey)
+            if task != nil {
+                if task is URLSessionDataTask {
+                    let myTask:WTURLSessionTask = task as! WTURLSessionTask
+                    myTask.cancel()
+                }
+            }
+            objc_setAssociatedObject(self, &WTUIButtonBackgroundImageDownloadTaskKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    
+    
+    // MARK: - 设置一张网络图片,并缓存下来
+    public func setImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:imageHandler?=nil) {
+        safeSyncInMain {
+            self.setImage(placeHolder, for: state)
         }
         
+        OperationQueue.userInteractive {
+            let task = UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
+                safeSyncInMain(with: {
+                    self?.setImage(image, for: state)
+                    self?.setNeedsLayout()
+                    if complection != nil {
+                        complection!(image,error)
+                    }
+                })
+                })
+            self.wtImageTask = task
+            task.resume()
+        }
     }
-
+    
+    public func setBackgroundImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:imageHandler?=nil) {
+        safeSyncInMain {
+            self.setBackgroundImage(placeHolder, for:state)
+        }
+        
+        OperationQueue.userInteractive {
+            let task = UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
+                safeSyncInMain(with: {
+                    self?.setBackgroundImage(image, for:state)
+                    self?.setNeedsLayout()
+                    if complection != nil {
+                        complection!(image,error)
+                    }
+                })
+                })
+            self.wtImageTask = task
+            task.resume()
+        }
+    }
     
 }
+
 
 extension UIImage{
     
-    
     /*!
      TODO
-    public func convertToPDF()->NSData{
-        
-    }
-    */
+     public func convertToPDF()->NSData{
+     
+     }
+     */
     
     
     /*
-      TODO gif
-    public class func gifImageWithData(data:NSData)->UIImage{
-    
-    }
+     TODO gif
+     public class func gifImageWithData(data:NSData)->UIImage{
+     
+     }
      */
     
-    public class func sharedURLCache() -> NSURLCache {
-        return NSURLCache.sharedURLCacheForRequests()
+    public class func sharedURLCache() -> URLCache {
+        return URLCache.wt_sharedURLCacheForRequests()
     }
     
-
-    //创建一个可以缓存图片的operation
-    public class func imageOperationWithURL(url:String, completionHandler: (image:UIImage?,error:NSError?)->Void)->ImageDownloadOperaion!{
-        return ImageDownloadOperaion.init(url: url, completionHandler: completionHandler)
+    public func toData()->Data?{
+        var data = UIImageJPEGRepresentation(self, CGFloat(1))
+        if data == nil {
+            data = UIImagePNGRepresentation(self)
+        }
+        return data
     }
+    
+    
+    
+    public class func cachedImageDataTask(with url:String,credential:URLCredential?=nil, complection:@escaping imageHandler )->WTURLSessionTask{
+        let request = URLRequest.wt_request(with: url)
+        
+        
+        let myTask = URLSession.wt_cachedDataTask(with: request,credential:credential, completionHandler: { (data, response, error) in
+            var image:UIImage?
+            if (data != nil){
+                image = UIImage(data: data!)
+            }
+            
+            complection(image,error)
+            
+        })
+        
+        return myTask
+        
+        
+    }
+    
     //创建一个带圆角的图片
-    public func imageWithRoundCornerRadius(radius:CGFloat) -> UIImage{
-    
+    public func imageWithRoundCornerRadius(_ radius:CGFloat) -> UIImage{
+        
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         
-        let clipPath = UIBezierPath(roundedRect: CGRect(origin: CGPointZero,size: size), cornerRadius: radius)
+        let clipPath = UIBezierPath(roundedRect: CGRect(origin: CGPoint.zero,size: size), cornerRadius: radius)
         
         clipPath.addClip()
         
-        drawInRect(CGRect(origin: CGPointZero, size: size))
+        draw(in: CGRect(origin: CGPoint.zero, size: size))
         
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
         
-        return resultImage
+        return resultImage!
     }
+    
+    //TODO做成一个圆形的图
+    public func imageRoundedToCircle() -> UIImage{
+        let width = self.size.width
+        let height = self.size.height
+        let d = min(self.size.width, self.size.height)
+        let r = d * 0.5
+        let rect = CGRect(x: 0,y: 0,width: d,height: d)
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: d,height: d), false, 0.0)
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: r)
+        path.addClip()
+        
+        var drawRect:CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
+        if height > width {
+            drawRect = CGRect(x: 0, y: (height - d)/2, width: d, height: d)
+        }else{
+            drawRect = CGRect(x: (width - d)/2, y: 0, width: d, height: d)
+        }
+        draw(in: drawRect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
+    
     //根据滤镜名称和参数返回新的图片对象
-    public func imageWithFilter(filterName:String,parameters:[String:AnyObject]?=nil) ->UIImage?{
+    public func imageWithFilter(_ filterName:String,parameters:[String:AnyObject]?=nil) ->UIImage?{
         
-        var image: CoreImage.CIImage? = CIImage
+        var image: CoreImage.CIImage? = ciImage
         
-        if image == nil, let CGImage = self.CGImage {
-            image = CoreImage.CIImage(CGImage: CGImage)
+        if image == nil, let CGImage = self.cgImage {
+            image = CoreImage.CIImage(cgImage: CGImage)
         }
         guard let coreImage = image else { return nil }
         
@@ -548,14 +550,14 @@ extension UIImage{
         guard let filter = CIFilter(name: filterName, withInputParameters: parameters) else { return nil }
         guard let outputImage = filter.outputImage else { return nil }
         
-        let cgImageRef = context.createCGImage(outputImage, fromRect: outputImage.extent)
+        let cgImageRef = context.createCGImage(outputImage, from: outputImage.extent)
         
-        return UIImage(CGImage: cgImageRef, scale: scale, orientation: imageOrientation)
+        return UIImage(cgImage: cgImageRef!, scale: scale, orientation: imageOrientation)
     }
     
-    public static func gifImageWith(data:NSData, scale:CGFloat?=UIScreen.mainScreen().scale)->UIImage?{
+    public static func gifImageWith(_ data:Data, scale:CGFloat?=UIScreen.main.scale)->UIImage?{
         var image:UIImage?
-        let source = CGImageSourceCreateWithData(data, nil)
+        let source = CGImageSourceCreateWithData(data as CFData, nil)
         let count = CGImageSourceGetCount(source!)
         if count <= 1 {
             image = UIImage(data: data)
@@ -565,11 +567,11 @@ extension UIImage{
             for i in 0...count-1{
                 let cgImage = CGImageSourceCreateImageAtIndex(source!, i, nil)
                 duration += (source?.getDurationAtIndex(i))!
-                images.append(UIImage(CGImage: cgImage!, scale: scale!, orientation: UIImageOrientation.Up))
+                images.append(UIImage(cgImage: cgImage!, scale: scale!, orientation: UIImageOrientation.up))
                 
                 
             }
-            image = UIImage.animatedImageWithImages(images, duration: duration)
+            image = UIImage.animatedImage(with: images, duration: duration)
         }
         return image
     }
@@ -580,96 +582,99 @@ extension UIImage{
 
 
 //图片下载的键值对
-private var UIImageViewImageDownloadKey:Void?
-private var UIImageViewHighLightedImageDownloadKey:Void?
+//private var UIImageViewImageDownloadKey:Void?
+//private var UIImageViewHighLightedImageDownloadKey:Void?
+private var WTUIImageViewImageDataTaskKey:Void?
+private var WTUIImageViewHighLightedImageDataTaskKey:Void?
 extension UIImageView{
     
     public static func clearAllImageCache(){
         UIImage.sharedURLCache().removeAllCachedResponses()
     }
     
-
-
-    internal var imageOperation:ImageDownloadOperaion?{
+    internal var wtImageTask:WTURLSessionTask?{
         get{
-            let operation = objc_getAssociatedObject(self, &UIImageViewImageDownloadKey)
-            if operation == nil {
-                return nil
-            }
-            return operation as? ImageDownloadOperaion
+            let task = objc_getAssociatedObject(self, &WTUIImageViewImageDataTaskKey)
+            return task as? WTURLSessionTask
         }
         set{
-            let operation = self.imageOperation
-                if (operation != nil) {
-                    operation?.cancel()
+            let task = objc_getAssociatedObject(self, &WTUIImageViewImageDataTaskKey)
+            if task != nil {
+                if task is URLSessionDataTask {
+                    let myTask:WTURLSessionTask = task as! WTURLSessionTask
+                    myTask.cancel()
                 }
-            objc_setAssociatedObject(self, &UIImageViewImageDownloadKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }
+            objc_setAssociatedObject(self, &WTUIImageViewImageDataTaskKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
-    internal var highlightedImageOperation:ImageDownloadOperaion?{
+    internal var wtHighLightedImageTask:WTURLSessionTask?{
         get{
-            let operation = objc_getAssociatedObject(self, &UIImageViewHighLightedImageDownloadKey)
-            if operation == nil {
-                return nil
-            }
-            return operation as? ImageDownloadOperaion
+            let task = objc_getAssociatedObject(self, &WTUIImageViewHighLightedImageDataTaskKey)
+            return task as? WTURLSessionTask
         }
         set{
-            let operation = self.imageOperation
-            if (operation?.executing == true) {
-                operation?.cancel()
-            }
-            objc_setAssociatedObject(self, &UIImageViewHighLightedImageDownloadKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
-
-    
-    
-// MARK: - 设置一张网络图片,并缓存下来
-    /*!
-        给出URL来请求图片
-        swift 中对于方法做了优化,无需写多个方法来设置不同参数,写一个全的,然后需要填几个参数就填几个
-        不想填的就填一个不加逗号就可以了.
-     */
-    func setImageWith(url:String ,placeHolder:UIImage? = nil,complection:((image:UIImage?,error:NSError?)->Void)?=nil)->Void{
-        safeSyncInMain { 
-            self.image = placeHolder
-        }
-        NSOperationQueue.globalQueue {
-            let operation = UIImage.imageOperationWithURL(url) { [weak self](image:UIImage?, error:NSError?) -> Void in
-                    safeSyncInMain({
-                        self?.image = image
-                        self?.setNeedsLayout()
-                    })
-                if complection != nil{
-                    complection!(image:image,error:error)
+            let task = objc_getAssociatedObject(self, &WTUIImageViewHighLightedImageDataTaskKey)
+            if task != nil {
+                if task is URLSessionDataTask {
+                    let myTask:WTURLSessionTask = task as! WTURLSessionTask
+                    myTask.cancel()
                 }
             }
-            
-            self.imageOperation = operation
-            operation.start()
+            objc_setAssociatedObject(self, &WTUIImageViewHighLightedImageDataTaskKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
+    
+    
+    // MARK: - 设置一张网络图片,并缓存下来
     /*!
-        设置高亮图
+     给出URL来请求图片
+     swift 中对于方法做了优化,无需写多个方法来设置不同参数,写一个全的,然后需要填几个参数就填几个
+     不想填的就填一个不加逗号就可以了.
      */
-    func sethighlightedImageWith(url:String?="" ,placeHolder:UIImage? = nil){
+    public func setImage(with url:String ,placeHolder:UIImage? = nil,complection:imageHandler?=nil)->Void{
         safeSyncInMain {
-            self.highlightedImage = placeHolder
+            self.image = placeHolder
+            self.setNeedsLayout()
         }
-        NSOperationQueue.globalQueue {
-            let operation = UIImage.imageOperationWithURL(url!) { [weak self](image:UIImage?, error:NSError?) -> Void in
-                safeSyncInMain({
-                    self?.highlightedImage = image;
+        OperationQueue.userInteractive {
+            let task =  UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
+                safeSyncInMain(with: {
+                    self?.image = image
                     self?.setNeedsLayout()
                 })
-                
-            }
+                if complection != nil {
+                    complection!(image,error)
+                }
+                })
+            self.wtImageTask = task
+            task.resume()
             
-            self.highlightedImageOperation = operation
-            operation.start()
+        }
+    }
+    
+    /*!
+     设置高亮图
+     */
+    public func sethighlightedImage(with url:String ,placeHolder:UIImage? = nil,complection:imageHandler?=nil)->Void{
+        safeSyncInMain {
+            self.highlightedImage = placeHolder
+            self.setNeedsLayout()
+        }
+        OperationQueue.userInteractive {
+            let task =  UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
+                safeSyncInMain(with: {
+                    self?.image = image
+                    self?.setNeedsLayout()
+                })
+                if complection != nil {
+                    complection!(image,error)
+                }
+                })
+            self.wtHighLightedImageTask = task
+            task.resume()
         }
     }
     
@@ -681,12 +686,12 @@ extension UIImageView{
 
 extension UIViewController{
     //弹出Alert
-    public func showAlert(title:String?, message:String? , duration:Double){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        NSOperationQueue.mainQueue().addOperationWithBlock { 
-            self.presentViewController(alert, animated: true) {
+    public func showAlert(_ title:String?, message:String? , duration:Double){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        OperationQueue.main.addOperation {
+            self.present(alert, animated: true) {
                 self.performBlock({
-                    alert.dismissViewControllerAnimated(true, completion: {
+                    alert.dismiss(animated: true, completion: {
                         
                     })
                     }, afterDelay: duration)
@@ -696,7 +701,7 @@ extension UIViewController{
     
     
     
-
+    
 }
 
 
@@ -704,30 +709,30 @@ extension UIView{
     //绘制截图
     public func snapShot() -> UIImage!{
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, true, 0)
-        self.drawViewHierarchyInRect(self.bounds, afterScreenUpdates: true)
+        self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         return image;
     }
     
     /*!
-        将UIView绘制成PDF
+     将UIView绘制成PDF
      */
-    public func pdf()->NSData{
+    public func pdf()->Data{
         let pdfData = NSMutableData()
         UIGraphicsBeginPDFContextToData(pdfData, self.bounds, nil);
         UIGraphicsBeginPDFPage();
         let pdfContext:CGContext? = UIGraphicsGetCurrentContext();
-        self.layer.renderInContext(pdfContext!)
+        self.layer.render(in: pdfContext!)
         UIGraphicsEndPDFContext();
         
-        return pdfData
+        return pdfData as Data
     }
     
     
     /*!
-        创建一个可缩放
+     创建一个可缩放
      */
-    public func setViewForImage(image:UIImage){
+    public func setViewForImage(_ image:UIImage){
         
         let scrollview = UIScrollView(frame: self.bounds)
         addSubview(scrollview)
@@ -736,7 +741,7 @@ extension UIView{
     
     
     /*!
-        清空所有子视图
+     清空所有子视图
      */
     public func removeAllSubViews(){
         while self.subviews.count != 0 {
@@ -745,8 +750,8 @@ extension UIView{
     }
     
     public func viewController()->UIViewController?{
-        if self.nextResponder() is UIViewController {
-            return self.nextResponder() as? UIViewController
+        if self.next is UIViewController {
+            return self.next as? UIViewController
         }else{
             return nil
         }
@@ -755,12 +760,12 @@ extension UIView{
 
 extension UIWebView{
     /*!
-        缓存网页
+     缓存网页
      */
-    public func loadRequest(request: NSURLRequest, useCache:Bool){
-        let req:NSMutableURLRequest = request.mutableCopy() as! NSMutableURLRequest
+    public func loadRequest(_ request: URLRequest, useCache:Bool){
+        let req:NSMutableURLRequest = (request as NSURLRequest).mutableCopy() as! NSMutableURLRequest
         if useCache {
-            req.cachePolicy = .ReturnCacheDataElseLoad
+            req.cachePolicy = .returnCacheDataElseLoad
         }
         loadRequest(request)
     }
@@ -783,7 +788,7 @@ public class RefreshHeader:UIView{
     public var arrowImageURL:String = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"{
         didSet{
             if oldValue != arrowImageURL {
-                arrowImageView.setImageWith(arrowImageURL)
+                arrowImageView.setImage(with:arrowImageURL)
             }
         }
     }
@@ -791,16 +796,16 @@ public class RefreshHeader:UIView{
     
     var refreshBlock:()->Void
     weak var scrollView:UIScrollView?
-    private var state:ScrollViewRefreshState{
+    fileprivate var state:ScrollViewRefreshState{
         willSet{
-//            print(newValue)
+            //            print(newValue)
         }
         didSet{
             if oldValue != state {
                 updateTitle()
             }else{
                 //equal, no need to update title
-//                print("no need to update")
+                //                print("no need to update")
             }
             
             
@@ -808,25 +813,26 @@ public class RefreshHeader:UIView{
     }
     public var refreshHeight:CGFloat
     
-
+    
     private var titleLabel:UILabel
     private var timeLabel:UILabel
     
-   
-    private var arrowImageView:UIImageView
+    
+    fileprivate var arrowImageView:UIImageView
     private var activityIndicator:UIActivityIndicatorView
-    private var lastUpdateDate:NSDate? = nil
-    private var dateFormatter:NSDateFormatter = NSDateFormatter()
+    private var lastUpdateDate:Date? = nil
+    private var dateFormatter:DateFormatter = DateFormatter()
     
     override init(frame: CGRect) {
         self.refreshBlock = {}
-        state = .PullDownToRefresh
-        refreshHeight = CGRectGetHeight(frame)
+        state = .pullDownToRefresh
+        refreshHeight = frame.height
         titleLabel = UILabel()
         timeLabel = UILabel()
         arrowImageView = UIImageView()
-        arrowImageView.setImageWith(arrowImageURL)
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        //        arrowImageView.
+        arrowImageView.setImage(with:arrowImageURL)
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         super.init(frame: frame)
         addSubview(titleLabel)
         addSubview(timeLabel)
@@ -834,20 +840,20 @@ public class RefreshHeader:UIView{
         addSubview(activityIndicator)
         
         
-//        titleLabel.frame = CGRectMake(0, 0, UIScreen.screenWidth(), 40)
+        //        titleLabel.frame = CGRectMake(0, 0, UIScreen.screenWidth(), 40)
         self.configLayoutConstraint()
-        titleLabel.textAlignment = .Center
+        titleLabel.textAlignment = .center
         
         
         
-//        timeLabel.frame = CGRectMake(0, 40, UIScreen.screenWidth(), 20)
-        timeLabel.textAlignment = .Center
-        timeLabel.font = UIFont.systemFontOfSize(12)
+        //        timeLabel.frame = CGRectMake(0, 40, UIScreen.screenWidth(), 20)
+        timeLabel.textAlignment = .center
+        timeLabel.font = UIFont.systemFont(ofSize: 12)
         timeLabel.textColor = UIColor.colorWithHexString("3")
-        arrowImageView.frame = CGRectMake(30, 0, 30, CGRectGetHeight(frame))
+        arrowImageView.frame = CGRect(x: 30, y: 0, width: 30, height: frame.height)
         activityIndicator.frame = arrowImageView.frame
         activityIndicator.hidesWhenStopped = true
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         
     }
     private func configLayoutConstraint(){
@@ -856,10 +862,10 @@ public class RefreshHeader:UIView{
         var constraints = [NSLayoutConstraint]()
         //这里的左侧和右侧 用Leading和Trailing的原因是为了适应各国语言的书写顺序,通常都是
         //从左向右的,但是个别国家的书写顺序是从右向左的,所以要注意一下
-        var left = NSLayoutConstraint(item: titleLabel, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
-        var right = NSLayoutConstraint(item: titleLabel, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
-        var top = NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0)
-        var height = NSLayoutConstraint(item: titleLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
+        var left = NSLayoutConstraint(item: titleLabel, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0)
+        var right = NSLayoutConstraint(item: titleLabel, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0)
+        var top = NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0)
+        var height = NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 40)
         constraints.append(left)
         constraints.append(right)
         constraints.append(top)
@@ -868,10 +874,10 @@ public class RefreshHeader:UIView{
         
         
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
-        left = NSLayoutConstraint(item: timeLabel, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1, constant: 0)
-        right = NSLayoutConstraint(item: timeLabel, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1, constant: 0)
-        top = NSLayoutConstraint(item: timeLabel, attribute: .Top, relatedBy: .Equal, toItem:titleLabel, attribute: .Bottom, multiplier: 1, constant: 0)
-        height = NSLayoutConstraint(item: timeLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 20)
+        left = NSLayoutConstraint(item: timeLabel, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: 0)
+        right = NSLayoutConstraint(item: timeLabel, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 0)
+        top = NSLayoutConstraint(item: timeLabel, attribute: .top, relatedBy: .equal, toItem:titleLabel, attribute: .bottom, multiplier: 1, constant: 0)
+        height = NSLayoutConstraint(item: timeLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 20)
         constraints.append(left)
         constraints.append(right)
         constraints.append(top)
@@ -880,13 +886,13 @@ public class RefreshHeader:UIView{
         
         
         if UIDevice.systemFloatVersion() >= 8.0 {
-            NSLayoutConstraint.activateConstraints(constraints)
+            NSLayoutConstraint.activate(constraints)
         }else{
             self.addConstraints(constraints)
         }
         
-//        self.addConstraints(constraints)
-//        self.updateConstraintsIfNeeded()
+        //        self.addConstraints(constraints)
+        //        self.updateConstraintsIfNeeded()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -897,23 +903,23 @@ public class RefreshHeader:UIView{
     }
     
     public enum ScrollViewRefreshState:Int{
-        case PullDownToRefresh
-        case ReleaseToRefresh
-        case Loading
+        case pullDownToRefresh
+        case releaseToRefresh
+        case loading
     }
     
     /*!
-        这个方法来设置不同状态的文案
+     这个方法来设置不同状态的文案
      */
-    public func setTitle(title:String, forState:ScrollViewRefreshState){
+    public func setTitle(_ title:String, forState:ScrollViewRefreshState){
         switch forState {
-        case .PullDownToRefresh:
+        case .pullDownToRefresh:
             pullDownToRefreshText = title
             break
-        case .ReleaseToRefresh:
+        case .releaseToRefresh:
             releaseToRefreshText = title
             break
-        case .Loading:
+        case .loading:
             loadingText = title
             break
         }
@@ -921,58 +927,61 @@ public class RefreshHeader:UIView{
     }
     
     private func updateTitle(){
-//        WTLog("update title")
+        //        WTLog("update title")
         activityIndicator.stopAnimating()
-        self.arrowImageView.hidden = false
+        self.arrowImageView.isHidden = false
         switch state {
-        case .PullDownToRefresh:
+        case .pullDownToRefresh:
             titleLabel.text = pullDownToRefreshText
-            UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                self.arrowImageView.transform = CGAffineTransformMakeRotation(0)
+            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                self.arrowImageView.transform = CGAffineTransform(rotationAngle: 0)
                 }, completion: nil)
             if lastUpdateDate != nil {
                 dateFormatter.dateFormat = dateStyle
-                timeLabel.text = "\(lastUpdateText)\(dateFormatter.stringFromDate(lastUpdateDate!))"
+                timeLabel.text = "\(lastUpdateText)\(dateFormatter.string(from: lastUpdateDate!))"
             }
             break
-        case .ReleaseToRefresh:
+        case .releaseToRefresh:
             titleLabel.text = releaseToRefreshText
-            UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                self.arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                self.arrowImageView.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
                 }, completion: nil)
             break
-        case .Loading:
+        case .loading:
             titleLabel.text = loadingText
-            self.arrowImageView.hidden = true
+            self.arrowImageView.isHidden = true
             activityIndicator.startAnimating()
-            self.lastUpdateDate = NSDate()
+            self.lastUpdateDate = Date()
             refreshBlock()
-//
-            UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
+            //
+            var options = UIViewAnimationOptions()
+            options = options.union(UIViewAnimationOptions.beginFromCurrentState)
+            options = options.union(UIViewAnimationOptions.curveEaseOut)
+            UIView.animate(withDuration: 0.1, delay: 0, options: options, animations: {
                 self.scrollView?.contentInset = UIEdgeInsetsMake((self.refreshHeight), 0, 0, 0);
-//                self.scrollView?.setContentOffset(CGPointMake(0, -self.refreshHeight), animated: true)
-                self.scrollView?.contentOffset = CGPointMake(0, -self.refreshHeight)
                 self.alpha = 1.0
             }) { (finish) in
                 
             }
+            let offset = CGPoint(x: 0, y: -self.refreshHeight)
+            self.scrollView?.setContentOffset(offset, animated: true)
             self.setNeedsDisplay()
             
             break
         }
     }
-
-    public class func headerWithRefreshing(block:()->Void)->RefreshHeader{
+    
+    public class func headerWithRefreshing(_ block:@escaping ()->Void)->RefreshHeader{
         let width = UIScreen.screenWidth()
         let height:CGFloat = 60
-        let header = RefreshHeader(frame: CGRectMake(0,-height,width,height))
+        let header = RefreshHeader(frame: CGRect(x: 0,y: -height,width: width,height: height))
         header.refreshBlock = block
         
         return header
     }
     
-    public override func willMoveToSuperview(newSuperview: UIView?) {
-        super.willMoveToSuperview(newSuperview)
+    public override func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview)
         
         
         if newSuperview is UIScrollView {
@@ -983,8 +992,8 @@ public class RefreshHeader:UIView{
         }
     }
     
-    public override func willMoveToWindow(newWindow: UIWindow?) {
-        super.willMoveToWindow(newWindow)
+    public override func willMove(toWindow newWindow: UIWindow?) {
+        super.willMove(toWindow: newWindow)
         if newWindow == nil {
             removeObservers()
         }
@@ -1000,64 +1009,64 @@ public class RefreshHeader:UIView{
         return "contentSize"
     }
     private func addObservers(){
-//        self.scrollView?.contentOffset
-//        self.scrollView?.dragging
-        self.scrollView?.addObserver(self, forKeyPath: contentOffset(), options: .New, context: nil)
-        self.scrollView?.addObserver(self, forKeyPath: contentSize(), options: .New, context: nil)
-//        self.scrollView?.addObserver(self, forKeyPath: "dragging", options: .New, context: nil)
+        //        self.scrollView?.contentOffset
+        //        self.scrollView?.dragging
+        self.scrollView?.addObserver(self, forKeyPath: contentOffset(), options: .new, context: nil)
+        self.scrollView?.addObserver(self, forKeyPath: contentSize(), options: .new, context: nil)
+        //        self.scrollView?.addObserver(self, forKeyPath: "dragging", options: .New, context: nil)
     }
     private func removeObservers(){
         self.scrollView?.removeObserver(self, forKeyPath: contentOffset())
         self.scrollView?.removeObserver(self, forKeyPath: contentSize())
-//        self.scrollView?.removeObserver(self, forKeyPath: "dragging")
+        //        self.scrollView?.removeObserver(self, forKeyPath: "dragging")
     }
     
-    public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    public func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutableRawPointer) {
         if keyPath == contentOffset() {
-            self.scrollViewContentOffsetDidChange(change)
-
-
+            self.scrollViewContentOffsetDidChange(change as AnyObject?)
+            
+            
         }else if keyPath == contentSize(){
             if self.scrollView != nil {
-                self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetWidth(self.scrollView!.frame), refreshHeight)
-//                titleLabel.layoutIfNeeded()
-//                timeLabel.layoutIfNeeded()
+                self.frame = CGRect(x: self.frame.minX, y: self.frame.minY, width: self.scrollView!.frame.width, height: refreshHeight)
+                //                titleLabel.layoutIfNeeded()
+                //                timeLabel.layoutIfNeeded()
             }
         }
     }
-    private func scrollViewContentOffsetDidChange(change:AnyObject?)->Void{
+    private func scrollViewContentOffsetDidChange(_ change:AnyObject?)->Void{
         if self.scrollView != nil {
-            if (self.scrollView!.dragging) {
+            if (self.scrollView!.isDragging) {
                 
                 //如果正在拖拽,就刷新一下状态
-                if self.state != .Loading {
-                    if self.scrollView?.contentOffset.y > -refreshHeight {
-                        self.state = .PullDownToRefresh
+                if self.state != .loading {
+                    if (self.scrollView?.contentOffset.y)! > -refreshHeight {
+                        self.state = .pullDownToRefresh
                     }else
                     {
-                        self.state = .ReleaseToRefresh
+                        self.state = .releaseToRefresh
                     }
                 }
-
+                
             }else{
-                if state == .ReleaseToRefresh {
-                    self.state = .Loading
+                if state == .releaseToRefresh {
+                    self.state = .loading
                 }
-
-
+                
+                
             }
         }
     }
     
     public func beginRefresh(){
-        if state == .Loading {
+        if state == .loading {
             return;
         }
-        self.state = .Loading
+        self.state = .loading
         
         
     }
-
+    
 }
 private var refreshHeaderKey:Void?
 extension UIScrollView{
@@ -1069,7 +1078,7 @@ extension UIScrollView{
         get{
             let r = objc_getAssociatedObject(self, &refreshHeaderKey)
             return r as? RefreshHeader
-
+            
         }
         set{
             let header = self.refreshHeader
@@ -1083,10 +1092,10 @@ extension UIScrollView{
         }
     }
     
-
+    
     // state 1.PullDownToRefresh 2.loading
     /*!
-        下拉
+     下拉
      */
     public func startRefresh()->Void{
         
@@ -1095,18 +1104,18 @@ extension UIScrollView{
     }
     
     /*!
-        回收
+     回收
      */
     public func stopLoading()->Void{
         
-        UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
             self.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-            self.contentOffset = CGPointMake(0, 0)
+            self.contentOffset = CGPoint(x: 0, y: 0)
             
         }) { (finish) in
-            self.refreshHeader?.arrowImageView.hidden = false
-            self.refreshHeader?.arrowImageView.transform = CGAffineTransformIdentity
-            self.refreshHeader?.state = .PullDownToRefresh
+            self.refreshHeader?.arrowImageView.isHidden = false
+            self.refreshHeader?.arrowImageView.transform = CGAffineTransform.identity
+            self.refreshHeader?.state = .pullDownToRefresh
         }
     }
     
@@ -1117,30 +1126,30 @@ extension UIScrollView{
     
 }
 extension UITableView{
-    public func updateWithClosure(table:(table:UITableView)->Void){
+    public func updateWithClosure(_ table:(_ table:UITableView)->Void){
         self.beginUpdates()
-        table(table:self)
+        table(self)
         self.endUpdates()
     }
-
-    public func insertRowAtIndexPath(indexPath: NSIndexPath, withRowAnimation animation: UITableViewRowAnimation){
-        self.insertRowsAtIndexPaths([indexPath], withRowAnimation: animation)
+    
+    public func insertRowAtIndexPath(_ indexPath: IndexPath, withRowAnimation animation: UITableViewRowAnimation){
+        self.insertRows(at: [indexPath], with: animation)
     }
     
-    public func insertRowAt(row row:Int, section:Int,withRowAnimation animation: UITableViewRowAnimation){
-        let indexPath = NSIndexPath(forRow: row, inSection: section)
+    public func insertRowAt(row:Int, section:Int,withRowAnimation animation: UITableViewRowAnimation){
+        let indexPath = IndexPath(row: row, section: section)
         self.insertRowAtIndexPath(indexPath, withRowAnimation: animation)
     }
     
     
     /*!
-        取消所有选中的cell
+     取消所有选中的cell
      */
-    public func clearSelectedRows(animated:Bool){
+    public func clearSelectedRows(_ animated:Bool){
         let indexPathsForSelectedRows = self.indexPathsForSelectedRows
         if indexPathsForSelectedRows != nil {
-            for(_, indexPath) in self.indexPathsForSelectedRows!.enumerate(){
-                self.deselectRowAtIndexPath(indexPath, animated: animated)
+            for(_, indexPath) in self.indexPathsForSelectedRows!.enumerated(){
+                self.deselectRow(at: indexPath, animated: animated)
             }
         }
     }
@@ -1151,34 +1160,75 @@ extension UICollectionView{
 }
 extension UITextView{
     public func selectAllText(){
-        let range = self.textRangeFromPosition(self.beginningOfDocument, toPosition: self.endOfDocument)
+        let range = self.textRange(from: self.beginningOfDocument, to: self.endOfDocument)
         self.selectedTextRange = range
     }
 }
 extension UICollectionView{
     //------------------图片查看----------------
 }
+public class FPSLabel:UIView{
+    lazy var fpslabel:UILabel = UILabel()
+    lazy var light:UIView = UIView()
+    var displayLink:CADisplayLink?
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        let sel = #selector(FPSLabel.wtdisplay(ca:))
+        displayLink = CADisplayLink(target: self, selector:sel)
+        displayLink?.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
+        addSubview(fpslabel)
+        addSubview(light)
+        light.frame = CGRect(x: 0, y: 0, width: 14, height: 14)
+        light.layer.cornerRadius = 7
+        fpslabel.frame = CGRect(x: 20, y: 0, width: 200, height: 14)
+    }
+    
+    deinit {
+        
+    }
+    
+    public func wtdisplay(ca:CADisplayLink){
+        let fps:Double = Double(1.0) / Double(ca.duration)
+        var percent:Double = 0
+        var preferredFramesPerSecond:Double = 0
+        if #available(iOS 10.0, *) {
+            
+            preferredFramesPerSecond = Double(ca.preferredFramesPerSecond)
+        } else {
+            preferredFramesPerSecond = 1/Double(ca.frameInterval)
+        }
+        percent = Double(fps / Double(preferredFramesPerSecond))
+        let color = UIColor.wtStatusColor(with: Float(1 - percent))
+        light.backgroundColor = color
+        fpslabel.text = String(format: "fps: %.2f", fps)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 extension CALayer{
     //绘制截图
     public func snapShot() -> UIImage!{
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0)
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0)
         let context = UIGraphicsGetCurrentContext()
-        self.renderInContext(context!)
+        self.render(in: context!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image;
     }
     
     /*!
-        暂停动画
+     暂停动画
      */
     public func pauseAnimation(){
-        let pausedTime = self.convertTime(CACurrentMediaTime(), fromLayer: nil)
+        let pausedTime = self.convertTime(CACurrentMediaTime(), from: nil)
         self.speed = 0.0;
         self.timeOffset = pausedTime;
     }
     /*!
-        继续动画
+     继续动画
      */
     public func resumeAnimation(){
         let pausedTime = self.timeOffset
@@ -1186,7 +1236,7 @@ extension CALayer{
         self.speed = 1.0;
         self.timeOffset = 0.0;
         self.beginTime = 0.0;
-        let timeSincePause = self.convertTime(CACurrentMediaTime(), fromLayer: nil) - pausedTime
+        let timeSincePause = self.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
         self.beginTime = timeSincePause;
         
         
@@ -1196,11 +1246,11 @@ extension NSLayoutConstraint{
     
 }
 
-    
+
 //CG Kit
 extension CGRect{
     public var centerPoint:CGPoint{
-        return CGPointMake(CGRectGetMidX(self), CGRectGetMinY(self))
+        return CGPoint(x: self.midX, y: self.minY)
     }
 }
 
@@ -1237,7 +1287,7 @@ public class ImageViewerView:UIView,UIScrollViewDelegate{
     public func resetScale()->Void{
         scrollView.zoomScale = 1.0
     }
-    public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView?{
+    public func viewForZooming(in scrollView: UIScrollView) -> UIView?{
         return imageView
     }
     
@@ -1245,6 +1295,7 @@ public class ImageViewerView:UIView,UIScrollViewDelegate{
         fatalError("init(coder:) has not been implemented")
     }
 }
+
 
 
 /*!
@@ -1269,11 +1320,11 @@ public class WTNetworkActivityIndicatorManager{
     func updateVisible(){
         if enabled {
             if activityCount>0 {
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
             }else{
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
         }
     }
 }
-#endif
+

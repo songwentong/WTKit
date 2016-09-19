@@ -5,7 +5,9 @@
 //  Created by SongWentong on 6/4/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+/*
+    这是一个图片上传女的demo,需要设置一下http的头,然后添加图片数据就可以了
+ */
 import UIKit
 
 class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -14,23 +16,38 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
     override func viewDidLoad() {
         super.viewDidLoad()
         let url = "http://ww1.sinaimg.cn/mw690/47449485gw1f51dz245iaj20pa0fcdja.jpg"
-        uploadButton.setImageWith(url, forState: .Normal)
+        uploadButton.setImage(with:url, for: UIControlState.normal)
         
     }
     deinit{
         WTLog("deinit")
     }
-    @IBAction func selectImage(sender: AnyObject) {
+    @IBAction func selectImage(_ sender: AnyObject) {
         let picker = UIImagePickerController()
         picker.delegate = self
-        self.presentViewController(picker, animated: true, completion: nil)
+        self.present(picker, animated: true, completion: nil)
     }
 
-    @IBAction func uploadPressed(sender: AnyObject) {
-        let request = NSURLRequest.upLoadFile("ttp://localhost:9000/cgi-bin/PostIt.py", method: "POST", parameters: nil, body: nil);
-        NSURLSession.dataTaskWithRequest(request) { (data, response, eror) in
-            
+    @IBAction func uploadPressed(_ sender: AnyObject) {
+        var request = URLRequest(url: URL(string: "https://httpbin.org/image")!)
+        request.setValue("image/png", forHTTPHeaderField: "accept")
+        let image = uploadButton.image(for: UIControlState.normal)
+        let data = image?.toData()
+        print(data)
+        let up = URLSession.shared.uploadTask(with: request, from: data) { (data, response, error) in
+            if data != nil{
+                let string = data?.toUTF8String()
+                print(string);
+                if string?.length == 0{
+                    //成功
+                }
+            }
         }
+        up.resume()
+//        let request = URLRequest.upLoadFile("ttp://localhost:9000/cgi-bin/PostIt.py", method: "POST", parameters: nil, body: nil);
+//        URLSession.dataTaskWithRequest(request as URLRequest) { (data, response, eror) in
+        
+//        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -38,17 +55,17 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
     }
     
     @available(iOS 2.0, *)
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
+    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
         WTPrint(info)
         let image:UIImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
-        uploadButton.setImage(image, forState: .Normal)
-        picker.dismissViewControllerAnimated(true) { 
+        uploadButton.setImage(image, for: UIControlState())
+        picker.dismiss(animated: true) { 
             
         }
     }
     @available(iOS 2.0, *)
-    func imagePickerControllerDidCancel(picker: UIImagePickerController){
-        picker.dismissViewControllerAnimated(true) { 
+    internal func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
+        picker.dismiss(animated: true) { 
             
         }
     }
