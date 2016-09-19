@@ -1011,29 +1011,34 @@ public class RefreshHeader:UIView{
     private func addObservers(){
         //        self.scrollView?.contentOffset
         //        self.scrollView?.dragging
-        self.scrollView?.addObserver(self, forKeyPath: contentOffset(), options: .new, context: nil)
-        self.scrollView?.addObserver(self, forKeyPath: contentSize(), options: .new, context: nil)
+//        WTLog(self.scrollView)
+        if let sc:UIScrollView = self.scrollView {
+            sc.addObserver(self, forKeyPath: contentOffset(), options: .new, context: nil)
+            sc.addObserver(self, forKeyPath: contentSize(), options: .new, context: nil)
+        }
+        
+        
         //        self.scrollView?.addObserver(self, forKeyPath: "dragging", options: .New, context: nil)
     }
     private func removeObservers(){
         self.scrollView?.removeObserver(self, forKeyPath: contentOffset())
         self.scrollView?.removeObserver(self, forKeyPath: contentSize())
-        //        self.scrollView?.removeObserver(self, forKeyPath: "dragging")
     }
-    
-    public func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutableRawPointer) {
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?){
         if keyPath == contentOffset() {
             self.scrollViewContentOffsetDidChange(change as AnyObject?)
-            
-            
         }else if keyPath == contentSize(){
             if self.scrollView != nil {
                 self.frame = CGRect(x: self.frame.minX, y: self.frame.minY, width: self.scrollView!.frame.width, height: refreshHeight)
                 //                titleLabel.layoutIfNeeded()
                 //                timeLabel.layoutIfNeeded()
             }
+        }else{
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
+    
+    
     private func scrollViewContentOffsetDidChange(_ change:AnyObject?)->Void{
         if self.scrollView != nil {
             if (self.scrollView!.isDragging) {

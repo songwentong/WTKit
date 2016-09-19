@@ -45,15 +45,13 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
                 }, afterDelay: 2.0)
             
         })
+        /*
         tableView.refreshHeader?.setTitle("加载中...", forState: .loading)
         tableView.refreshHeader?.setTitle("下拉刷新", forState: .pullDownToRefresh)
         tableView.refreshHeader?.setTitle("松开刷新", forState: .releaseToRefresh)
-//        tableView.refreshHeader?.dateStyle = ""
         tableView.refreshHeader?.lastUpdateText = "上次刷新时间"
-//        tableView.refreshHeader?.dateStyle = ""
- 
-//        tableView.refreshHeader?.arrowImageURL = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"
-        // Do any additional setup after loading the view.
+        tableView.refreshHeader?.arrowImageURL = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"
+        */
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
