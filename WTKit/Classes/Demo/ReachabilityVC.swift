@@ -74,10 +74,12 @@ class ReachabilityVC: UIViewController {
                 baseLabelText = "Cellular data network is active.\nInternet traffic will be routed through it."
             }
             self.summaryLabel.text = baseLabelText
-        }else if reachability == self.internetReachability{
-            let status = reachability.currentReachabilityStatus()
+            
+//            let status = reachability.currentReachabilityStatus()
             self.internetConnectionStatusField.text = dict[status]
             self.internetConnectionImageView.image = UIImage(named: imageNames[status]!)
+        }else if reachability == self.internetReachability{
+            
         }
     }
     deinit{

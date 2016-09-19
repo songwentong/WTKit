@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 public protocol WTSocketSessionDelegate:NSObjectProtocol{
     func socket(socket:WTSocketSession, didReceiveMessage:AnyObject)
     func socketdidOpen(socket:WTSocketSession)
