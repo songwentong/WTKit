@@ -35,20 +35,32 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
         let data = image?.toData()
 //        print(data)
         let up = URLSession.shared.uploadTask(with: request, from: data) { (data, response, error) in
+            OperationQueue.main.addOperation({ 
+                self.hideLoadingView()
+            })
             if data != nil{
                 let string = data?.toUTF8String()
 //                print(string);
                 if string?.length == 0{
                     //成功
+                    OperationQueue.main.addOperation({ 
+                       self.showHudWithTip("上传成功")
+                    })
+                    return
                 }
             }
+            OperationQueue.main.addOperation({ 
+                self.showHudWithTip("上传失败")
+            })
         }
         up.resume()
+        self.showLoadingView();
 //        let request = URLRequest.upLoadFile("ttp://localhost:9000/cgi-bin/PostIt.py", method: "POST", parameters: nil, body: nil);
 //        URLSession.dataTaskWithRequest(request as URLRequest) { (data, response, eror) in
         
 //        }
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -70,3 +82,5 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
         }
     }
 }
+
+
