@@ -35,23 +35,29 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
         let data = image?.toData()
 //        print(data)
         let up = URLSession.shared.uploadTask(with: request, from: data) { (data, response, error) in
-            OperationQueue.main.addOperation({ 
-                self.hideLoadingView()
-            })
+            
+            var finish = false
             if data != nil{
                 let string = data?.toUTF8String()
 //                print(string);
                 if string?.length == 0{
                     //成功
-                    OperationQueue.main.addOperation({ 
-                       self.showHudWithTip("上传成功")
-                    })
-                    return
+                    finish = true
                 }
             }
-            OperationQueue.main.addOperation({ 
-                self.showHudWithTip("上传失败")
+            if finish == true{
+                OperationQueue.main.addOperation({
+                    self.showHudWithTip("上传成功")
+                })
+            }else{
+                OperationQueue.main.addOperation({
+                    self.showHudWithTip("上传失败")
+                })
+            }
+            OperationQueue.main.addOperation({
+                self.hideLoadingView()
             })
+            
         }
         up.resume()
         self.showLoadingView();
