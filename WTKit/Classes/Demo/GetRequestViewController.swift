@@ -87,46 +87,52 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
             //            WTPrint(queue)
             
             self.showLoadingView()
-            requestButton.isEnabled = false
-            var method:httpMethod = .GET
-            if methodSegment.selectedSegmentIndex == 1 {
-                method = .POST
-            }
-//            string = "https://httpbin.org"
-            UserDefaults.standard.set(string, forKey: lastURLKey)
-            let request = URLRequest.wt_request(with: string!, method: method, parameters: parameters, headers: nil)
-            //            let credential = URLCredential(user: "user", password: "password", persistence: URLCredential.Persistence.permanent)
-            let task = URLSession.wt_dataTask(with: request, completionHandler: { (data, response, error) in
+            
+            
+            DispatchQueue.global().async {
+                self.requestButton.isEnabled = false
+                var method:httpMethod = .GET
+                if self.methodSegment.selectedSegmentIndex == 1 {
+                    method = .POST
+                }
+                //            string = "https://httpbin.org"
+                UserDefaults.standard.set(string, forKey: self.lastURLKey)
+                let request = URLRequest.wt_request(with: string!, method: method, parameters: self.parameters)
+                //            let credential = URLCredential(user: "user", password: "password", persistence: URLCredential.Persistence.permanent)
                 
-                self.hideLoadingView()
-                self.requestButton.isEnabled = true
-                
-                if error == nil{
+                let task = URLSession.wt_dataTask(with: request, completionHandler: { (data, response, error) in
                     
-                    self.webView.loadHTMLString((data?.toUTF8String())!, baseURL: nil);
-                    let string = data?.toUTF8String()
-                    self.webView.isHidden = true
-//                    self.resultTextView.isHidden = true
+                    self.hideLoadingView()
+                    self.requestButton.isEnabled = true
                     
-                    self.resultTextView.text = string
-                    self.resultTextView.flashScrollIndicators()
-                    
-                    
-                    
-                    if (string?.length == 0){
-                        self.showHudWithTip("请求成功,数据不是UTF8格式")
+                    if error == nil{
+                        
+                        self.webView.loadHTMLString((data?.toUTF8String())!, baseURL: nil);
+                        let string = data?.toUTF8String()
+                        self.webView.isHidden = true
+                        //                    self.resultTextView.isHidden = true
+                        
+                        self.resultTextView.text = string
+                        self.resultTextView.flashScrollIndicators()
+                        
+                        
+                        
+                        if (string?.length == 0){
+                            self.showHudWithTip("请求成功,数据不是UTF8格式")
+                        }else{
+                            self.showHudWithTip("请求成功")
+                        }
+                        
                     }else{
-                        self.showHudWithTip("请求成功")
+                        self.showHudWithTip("请求失败")
                     }
                     
-                }else{
-                    self.showHudWithTip("请求失败")
-                }
-                
-                
-            })
-            task.resume()
+                    
+                })
+                task.resume()
 
+            }
+            
         }else{
             
         }

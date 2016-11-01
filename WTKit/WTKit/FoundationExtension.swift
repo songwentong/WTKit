@@ -153,48 +153,6 @@ extension URLRequest{
         return request
     }
     
-    
-    /*!
-     根据url,方法,参数和header创建一个请求
-     方法默认是GET,参数默认是空,请求头默认是空
-     */
-    /*
-     public static func request(with url:String, method:String?="GET", parameters:[String:String]?=nil,headers: [String: String]?=nil) -> URLRequest{
-     
-     let queryString = self.queryString(from:parameters)
-     var request:URLRequest
-     var urlString:String
-     request = URLRequest(url: URL(string: url)!)
-     var myMethod:String = "GET"
-     if let m:String = method {
-     myMethod = m
-     request.httpMethod = myMethod
-     }
-     let allHTTPHeaderFields = URLRequest.defaultHTTPHeaders
-     request.allHTTPHeaderFields = allHTTPHeaderFields
-     if headers != nil {
-     for (key,value) in headers!{
-     request.setValue(value, forHTTPHeaderField: key)
-     }
-     }
-     
-     if(self.methodShouldAddQuery(myMethod)){
-     urlString = url
-     if let query:String = queryString {
-     urlString += "?"
-     urlString += query
-     }
-     request.url = URL(string: urlString)
-     }else{
-     urlString = url
-     if let query:String = queryString {
-     request.httpBody = query.toUTF8Data()
-     }
-     }
-     return request
-     }
-     */
-    
     public static let defaultHTTPHeaders: [String: String] = {
         let acceptEncoding: String = "gzip;q=1.0, compress;q=0.5"
         
@@ -441,16 +399,21 @@ extension URLSession{
     
     
 }
+
+/*
+ open func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask
+ */
+
 //进度获取
 public typealias progressHandler = ((_ countOfBytesReceived: Int64 ,_ countOfBytesExpectedToReceive: Int64) -> Void)
 //完成回调
-public typealias completionHandler = (Data?, URLResponse?, Error?) -> Swift.Void
+public typealias completionHandler = ((Data?, URLResponse?, Error?) -> Swift.Void)
 //json解析回调
-public typealias jsonHandler = (_ object:Any?,_ error:Error?)->Void
+public typealias jsonHandler = ((Any?,Error?)->Void)
 //图片下载回调
-public typealias imageHandler = (_ image:UIImage?,_ error:Error?)->Void
+public typealias imageHandler = ((UIImage?,Error?)->Void)
 //字符串回调
-public typealias stringHandler = (_ string:String?,_ error:Error?)->Void
+public typealias stringHandler = ((String?,Error?)->Void)
 //凭证回调,把session和challenge传入,给出一个Disposition和URLCredential
 public typealias challengeHandler = ((Foundation.URLSession, URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, URLCredential?))
 
@@ -1426,11 +1389,10 @@ public class WTReachability:NSObject{
         context.info = Unmanaged.passUnretained(self).toOpaque()
         
         //The function to be called when the reachability of the target changes.  If NULL, the current client for the target is removed.
-        let callout:SystemConfiguration.SCNetworkReachabilityCallBack? = {(reachbility, flag, pointer) in
+        let callout:SystemConfiguration.SCNetworkReachabilityCallBack = {(reachbility, flag, pointer) in
             let noteObject = Unmanaged<WTReachability>.fromOpaque(pointer!).takeUnretainedValue()
             NotificationCenter.default.post(name: Notification.Name(rawValue: kWTReachabilityChangedNotification), object: noteObject, userInfo: nil)
         }
-        
         let callbackEnabled = SCNetworkReachabilitySetCallback(_reachabilityRef!, callout, &context)
         
         return callbackEnabled

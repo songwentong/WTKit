@@ -28,10 +28,19 @@ class WTKitTests: XCTestCase {
         let url = "https://www.apple.com"
         let task = URLSession.wt_dataTask(with: url) { (data, response, error) in
             //do somthing
-            print(data)
+            
         }
-
-        
+        OperationQueue.main.addOperation { 
+            
+        }
+        /*
+         open func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask
+         */
+        //open func addOperation(_ block: @escaping () -> Swift.Void)
+        /*
+        task.imageHandler = {(image:UIImage?,error:NSError?) in
+            
+        }
         task.imageHandler = {(image:UIImage?,error:NSError?) in
             print(image)
         }
@@ -41,7 +50,7 @@ class WTKitTests: XCTestCase {
         }
         task.stringHandler = {(string:String?,error:NSError?)in
             print(string)
-        }
+        }*/
         task.resume()
         
 
@@ -56,16 +65,16 @@ class WTKitTests: XCTestCase {
         //sizeOfInt 8   iPhone SE
         //sizeOfInt 4   iPhone5
         #if arch(x86_64)
-            print("x86_64 sizeOfInt \( sizeof(Int.self))")
-            print(Int.max)
+//            print("x86_64 sizeOfInt \( sizeof(Int.self))")
+//            print(Int.max)
         #else
-            print("not x86_64 sizeOfInt \( sizeof(Int.self))")
-            print(Int.max)
+//            print("not x86_64 sizeOfInt \( sizeof(Int.self))")
+//            print(Int.max)
         #endif
     }
     func testSession(){
-        let session = URLSession.wt_sharedInstance()
-        XCTAssertNil(session.delegate, "session delegate should not be nil")
+//        let session = URLSession.wt_sharedInstance()
+//        XCTAssertNil(session.delegate, "session delegate should not be nil")
     }
     
     func testColorStatus(){
@@ -103,7 +112,7 @@ class WTKitTests: XCTestCase {
     func testWTT(){
         let string = "{\"NewKey 3\": \"a\",\"NewKey 2\": {\"NewKey 2\": {\"NewKey\": \"b\"},\"NewKey\": \"c\"},\"NewKey\": {\"NewKey\": \"d\"}}"
         string.parseJSON { (anyObject, error) in
-            if let json:AnyObject = anyObject{
+            if let json:AnyObject = anyObject as AnyObject?{
 
 //                NSObject.traversal(json)
                 NSObject.wt_traversal(with: json)
@@ -143,8 +152,8 @@ class WTKitTests: XCTestCase {
         }
         let data = "dasdada".data(using: String.Encoding.utf8)
         data?.parseJSON(handler: { (obj, error) in
-            print(obj)
-            print(error)
+//            print(obj ?? <#default value#>)
+//            print(error)
         })
     }
     
@@ -172,10 +181,10 @@ class WTKitTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         
-        OperationQueue.main {
-            let thread = Thread.current
-            print("main:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
-        }
+//        OperationQueue.main {
+//            let thread = Thread.current
+//            print("main:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")
+//        }
         OperationQueue.background {
             let thread = Thread.current
             print("background:\(thread) threadPriority:\(thread.threadPriority) qualityOfService:\(thread.qualityOfService.rawValue)")

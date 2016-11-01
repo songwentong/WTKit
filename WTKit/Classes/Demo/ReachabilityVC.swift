@@ -37,9 +37,16 @@ class ReachabilityVC: UIViewController {
             
             
         }
-        
-        _ = internetReachability.startNotifier()
-        _ = reachability.startNotifier()
+        if internetReachability.startNotifier() {
+            
+        }else{
+            WTLog("开启失败");
+        }
+        if reachability.startNotifier() {
+            
+        }else{
+            WTLog("失败")
+        }
         
         updateInterfaceWithReachability(reachability)
         updateInterfaceWithReachability(internetReachability)

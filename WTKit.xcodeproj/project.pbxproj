@@ -170,10 +170,10 @@
 		E14E39D01CC8AE35008D2DE7 /* WTKit */ = {
 			isa = PBXGroup;
 			children = (
-				9B09B5091D00045E00B66E60 /* AnimationImageVIew.swift */,
-				9B09B50A1D00045E00B66E60 /* CustomExtension.swift */,
 				9B09B50B1D00045E00B66E60 /* FoundationExtension.swift */,
 				9B09B50C1D00045E00B66E60 /* UIKitExtension.swift */,
+				9B09B5091D00045E00B66E60 /* AnimationImageVIew.swift */,
+				9B09B50A1D00045E00B66E60 /* CustomExtension.swift */,
 				E14419EB1D34D1CC0083D0CD /* WTSocketSession.swift */,
 			);
 			name = WTKit;
@@ -279,7 +279,7 @@
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = LR2DH4466E;
 						DevelopmentTeamName = "wen tong song";
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0810;
 					};
 					E1BDC3B21CD3477D002318D0 = {
 						CreatedOnToolsVersion = 7.3;
