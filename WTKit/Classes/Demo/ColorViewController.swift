@@ -30,8 +30,8 @@ class ColorViewController: UIViewController {
         if textView.text != nil{
             colorView.backgroundColor = UIColor.colorWithHexString(textView.text!)
             antiColorView.backgroundColor = colorView.backgroundColor?.antiColor()
-//            WTLog("r \(colorView.backgroundColor)")
-            WTLog(antiColorView.backgroundColor)
+            WTLog("color: \(colorView.backgroundColor)")
+//            WTLog(antiColorView.backgroundColor)
         }
         
     }
@@ -49,8 +49,8 @@ class ColorViewController: UIViewController {
         let color = UIColor.wtStatusColor(with: mySlider.value)
         colorView.backgroundColor = color
         antiColorView.backgroundColor = colorView.backgroundColor?.antiColor()
-        WTLog(colorView.backgroundColor)
-        WTLog(antiColorView.backgroundColor)
+//        WTLog(colorView.backgroundColor)
+//        WTLog(antiColorView.backgroundColor)
     }
 
     /*

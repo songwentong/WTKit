@@ -33,11 +33,11 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
         request.setValue("image/png", forHTTPHeaderField: "accept")
         let image = uploadButton.image(for: UIControlState.normal)
         let data = image?.toData()
-        print(data)
+//        print(data)
         let up = URLSession.shared.uploadTask(with: request, from: data) { (data, response, error) in
             if data != nil{
                 let string = data?.toUTF8String()
-                print(string);
+//                print(string);
                 if string?.length == 0{
                     //成功
                 }
