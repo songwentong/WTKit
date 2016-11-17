@@ -110,15 +110,21 @@ private var UIApplicationIsFirstEver:Void?
 extension UIApplication{
     
     
-    
+    /*
     public class func openSettings(){
         
         if #available(iOS 10.0, *) {
-            
+            let options = [String:Any]();
+            let url:URL = URL(string: UIApplicationOpenSettingsURLString)!;
+            UIApplication.shared.open(url, options: options, completionHandler: { (flag) in
+                
+            })
         }else{
             UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
         }
+        
     }
+    */
     
     
     // MARK: - 版本号/build号/bundleID/程序名

@@ -9,37 +9,20 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>WTKit.xcscheme_^#shared#^_</key>
+		<key>WTKit.xcscheme</key>
 		<dict>
-			<key>isShown</key>
-			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>E10605031C87DF990017A469</key>
+		<key>E17BDA1A1DDDC11A00CF5672</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E126BAB61DDDAD9D0075C5D1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E126BAE91DDDAF8F0075C5D1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E1BDC3B21CD3477D002318D0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E1BDC3C01CD347B8002318D0</key>
+		<key>E17BDA311DDDC14700CF5672</key>
 		<dict>
 			<key>primary</key>
 			<true/>

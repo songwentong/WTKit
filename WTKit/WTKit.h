@@ -3,7 +3,7 @@
 //  WTKit
 //
 //  Created by SongWentong on 2016/11/17.
-//  Copyright © 2016年 SongWentong. All rights reserved.
+//  Copyright © 2016年 songwentong. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
