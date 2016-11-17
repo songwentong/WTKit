@@ -21,8 +21,7 @@ class WTKitTests: XCTestCase {
         }
         _ = UIColor.colorWithHexString("333333",alpha: 0.5)
         
-        
-        testParseJSON()
+
     }
     func testURLSession(){
         let url = "https://www.apple.com"
@@ -33,24 +32,7 @@ class WTKitTests: XCTestCase {
         OperationQueue.main.addOperation { 
             
         }
-        /*
-         open func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask
-         */
-        //open func addOperation(_ block: @escaping () -> Swift.Void)
-        /*
-        task.imageHandler = {(image:UIImage?,error:NSError?) in
-            
-        }
-        task.imageHandler = {(image:UIImage?,error:NSError?) in
-            print(image)
-        }
 
-        task.jsonHandler = {(object:AnyObject?,error:NSError?) in
-            print(object)
-        }
-        task.stringHandler = {(string:String?,error:NSError?)in
-            print(string)
-        }*/
         task.resume()
         
 
@@ -107,28 +89,7 @@ class WTKitTests: XCTestCase {
     
     
     
-    //{"NewKey 3": "a","NewKey 2": {"NewKey 2": {"NewKey": "b"},"NewKey": "c"},"NewKey": {"NewKey": "d"}}
-    
-    func testWTT(){
-        let string = "{\"NewKey 3\": \"a\",\"NewKey 2\": {\"NewKey 2\": {\"NewKey\": \"b\"},\"NewKey\": \"c\"},\"NewKey\": {\"NewKey\": \"d\"}}"
-        string.parseJSON { (anyObject, error) in
-            if let json:AnyObject = anyObject as AnyObject?{
 
-//                NSObject.traversal(json)
-                NSObject.wt_traversal(with: json)
-                
-            }
-        }
-    }
-    
-    /*
-    func testWTcurry(){
-        for i in 0...100 {
-            let y = Int.wt_fibonacciCurry(number: i)
-            print("\(i):\(y)")
-        }
-    }
- */
     
     func testUIApplication(){
         /*
@@ -146,17 +107,7 @@ class WTKitTests: XCTestCase {
         print(string)
     }
     
-    func testParseJSON(){
-        "a string".parseJSON { (obj, error) in
-            
-        }
-        let data = "dasdada".data(using: String.Encoding.utf8)
-        data?.parseJSON(handler: { (obj, error) in
-//            print(obj ?? <#default value#>)
-//            print(error)
-        })
-    }
-    
+
     func testWTURLSessionDelegate(){
 //        let delegate = WTURLSessionDelegate()
 //        let session = URLSession(configuration: URLSessionConfiguration(), delegate: delegate ,delegateQueue:nil)

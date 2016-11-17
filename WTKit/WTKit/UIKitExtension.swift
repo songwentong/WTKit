@@ -983,7 +983,7 @@ public class RefreshHeader:UIView{
     public override func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
         
-        
+        removeObservers();
         if newSuperview is UIScrollView {
             self.scrollView = newSuperview as? UIScrollView
             addObservers()
@@ -991,13 +991,7 @@ public class RefreshHeader:UIView{
             
         }
     }
-    
-    public override func willMove(toWindow newWindow: UIWindow?) {
-        super.willMove(toWindow: newWindow)
-        if newWindow == nil {
-            removeObservers()
-        }
-    }
+
     
     private func contentOffset()->String{
         return "contentOffset"
@@ -1020,7 +1014,7 @@ public class RefreshHeader:UIView{
         
         //        self.scrollView?.addObserver(self, forKeyPath: "dragging", options: .New, context: nil)
     }
-    private func removeObservers(){
+    public func removeObservers(){
         self.scrollView?.removeObserver(self, forKeyPath: contentOffset())
         self.scrollView?.removeObserver(self, forKeyPath: contentSize())
     }

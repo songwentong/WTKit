@@ -19,6 +19,7 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
     
     deinit{
         WTLog("deinit")
+        tableView.refreshHeader?.removeObservers();
     }
     
     
@@ -87,6 +88,8 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         tableView.deselectRow(at: indexPath, animated: true)
+//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "TableRefreshVC")
+//        self.navigationController?.pushViewController(vc!, animated: true)
         tableView.startRefresh()
     }
     
