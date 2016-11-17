@@ -1071,8 +1071,13 @@ private var refreshHeaderKey:Void?
 extension UIScrollView{
     
     
-    
-    
+    open override func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview);
+        if newSuperview == nil {
+            self.refreshHeader?.removeObservers();
+        }
+    }
+ 
     public weak var refreshHeader:RefreshHeader?{
         get{
             let r = objc_getAssociatedObject(self, &refreshHeaderKey)

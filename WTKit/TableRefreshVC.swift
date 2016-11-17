@@ -19,7 +19,7 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
     
     deinit{
         WTLog("deinit")
-        tableView.refreshHeader?.removeObservers();
+//        tableView.refreshHeader?.removeObservers();
     }
     
     
