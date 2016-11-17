@@ -7,48 +7,63 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9B09B50D1D00045E00B66E60 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5091D00045E00B66E60 /* AnimationImageVIew.swift */; };
-		9B09B50E1D00045E00B66E60 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B50A1D00045E00B66E60 /* CustomExtension.swift */; };
-		9B09B50F1D00045E00B66E60 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B50B1D00045E00B66E60 /* FoundationExtension.swift */; };
-		9B09B5101D00045E00B66E60 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B50C1D00045E00B66E60 /* UIKitExtension.swift */; };
-		9B09B5181D00049700B66E60 /* ColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5111D00049700B66E60 /* ColorViewController.swift */; };
-		9B09B5191D00049700B66E60 /* GetRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5121D00049700B66E60 /* GetRequestViewController.swift */; };
-		9B09B51A1D00049700B66E60 /* GifImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5131D00049700B66E60 /* GifImageVC.swift */; };
-		9B09B51B1D00049700B66E60 /* HudDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5141D00049700B66E60 /* HudDemoViewController.swift */; };
-		9B09B51C1D00049700B66E60 /* ImageDownloadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5151D00049700B66E60 /* ImageDownloadVC.swift */; };
-		9B09B51D1D00049700B66E60 /* POSTParamatersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5161D00049700B66E60 /* POSTParamatersVC.swift */; };
-		9B09B51E1D00049700B66E60 /* POSTRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5171D00049700B66E60 /* POSTRequestViewController.swift */; };
-		E10605081C87DF990017A469 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10605071C87DF990017A469 /* AppDelegate.swift */; };
-		E106050A1C87DF990017A469 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10605091C87DF990017A469 /* ViewController.swift */; };
-		E106050D1C87DF990017A469 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E106050B1C87DF990017A469 /* Main.storyboard */; };
-		E106050F1C87DF990017A469 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E106050E1C87DF990017A469 /* Assets.xcassets */; };
-		E10605121C87DF990017A469 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E10605101C87DF990017A469 /* LaunchScreen.storyboard */; };
-		E1348BF21D0276AB00FA03E0 /* ImageUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1348BF11D0276AB00FA03E0 /* ImageUploadVC.swift */; };
-		E14419EC1D34D1CC0083D0CD /* WTSocketSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14419EB1D34D1CC0083D0CD /* WTSocketSession.swift */; };
-		E1558EC41D081592003653D1 /* QRCodeScanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1558EC31D081592003653D1 /* QRCodeScanVC.swift */; };
-		E155B85C1D12EBD500655DB1 /* TableRefreshVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155B85B1D12EBD500655DB1 /* TableRefreshVC.swift */; };
-		E187C5781D19075F001EDD2D /* ReachabilityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E187C5771D19075F001EDD2D /* ReachabilityVC.swift */; };
+		E126BACE1DDDADE40075C5D1 /* ColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5111D00049700B66E60 /* ColorViewController.swift */; };
+		E126BACF1DDDADE40075C5D1 /* GetRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5121D00049700B66E60 /* GetRequestViewController.swift */; };
+		E126BAD01DDDADE40075C5D1 /* GifImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5131D00049700B66E60 /* GifImageVC.swift */; };
+		E126BAD11DDDADE40075C5D1 /* HudDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5141D00049700B66E60 /* HudDemoViewController.swift */; };
+		E126BAD21DDDADE40075C5D1 /* ImageDownloadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5151D00049700B66E60 /* ImageDownloadVC.swift */; };
+		E126BAD31DDDADE40075C5D1 /* POSTParamatersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5161D00049700B66E60 /* POSTParamatersVC.swift */; };
+		E126BAD41DDDADE40075C5D1 /* POSTRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5171D00049700B66E60 /* POSTRequestViewController.swift */; };
+		E126BAD51DDDADE40075C5D1 /* ImageUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1348BF11D0276AB00FA03E0 /* ImageUploadVC.swift */; };
+		E126BAD61DDDADE40075C5D1 /* QRCodeScanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1558EC31D081592003653D1 /* QRCodeScanVC.swift */; };
+		E126BAD71DDDADE40075C5D1 /* TableRefreshVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155B85B1D12EBD500655DB1 /* TableRefreshVC.swift */; };
+		E126BAD81DDDADE40075C5D1 /* ReachabilityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E187C5771D19075F001EDD2D /* ReachabilityVC.swift */; };
+		E126BAD91DDDADE90075C5D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10605071C87DF990017A469 /* AppDelegate.swift */; };
+		E126BADA1DDDADE90075C5D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10605091C87DF990017A469 /* ViewController.swift */; };
+		E126BADB1DDDADE90075C5D1 /* Swift使用规范 in Resources */ = {isa = PBXBuildFile; fileRef = E1BDC3D01CD353E5002318D0 /* Swift使用规范 */; };
+		E126BADD1DDDADF30075C5D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E106050B1C87DF990017A469 /* Main.storyboard */; };
+		E126BADE1DDDADF50075C5D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E106050E1C87DF990017A469 /* Assets.xcassets */; };
+		E126BADF1DDDADFD0075C5D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E10605101C87DF990017A469 /* LaunchScreen.storyboard */; };
+		E126BAE01DDDAE600075C5D1 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B50B1D00045E00B66E60 /* FoundationExtension.swift */; };
+		E126BAE11DDDAE600075C5D1 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B50C1D00045E00B66E60 /* UIKitExtension.swift */; };
+		E126BAE21DDDAE600075C5D1 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5091D00045E00B66E60 /* AnimationImageVIew.swift */; };
+		E126BAE31DDDAE600075C5D1 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B50A1D00045E00B66E60 /* CustomExtension.swift */; };
+		E126BAE41DDDAE600075C5D1 /* WTSocketSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14419EB1D34D1CC0083D0CD /* WTSocketSession.swift */; };
+		E126BAEE1DDDAF8F0075C5D1 /* WTKit.h in Headers */ = {isa = PBXBuildFile; fileRef = E126BAEC1DDDAF8F0075C5D1 /* WTKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E126BAF11DDDAF8F0075C5D1 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E126BAEA1DDDAF8F0075C5D1 /* WTKit.framework */; };
+		E126BAF21DDDAF8F0075C5D1 /* WTKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E126BAEA1DDDAF8F0075C5D1 /* WTKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E126BAF71DDDAFA80075C5D1 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B50B1D00045E00B66E60 /* FoundationExtension.swift */; };
+		E126BAF81DDDAFA80075C5D1 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B50C1D00045E00B66E60 /* UIKitExtension.swift */; };
+		E126BAF91DDDAFA80075C5D1 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B5091D00045E00B66E60 /* AnimationImageVIew.swift */; };
+		E126BAFA1DDDAFA80075C5D1 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B09B50A1D00045E00B66E60 /* CustomExtension.swift */; };
+		E126BAFB1DDDAFA80075C5D1 /* WTSocketSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14419EB1D34D1CC0083D0CD /* WTSocketSession.swift */; };
 		E1BDC3B61CD3477D002318D0 /* WTKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BDC3B51CD3477D002318D0 /* WTKitTests.swift */; };
 		E1BDC3C41CD347B8002318D0 /* WTKitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BDC3C31CD347B8002318D0 /* WTKitUITests.swift */; };
-		E1BDC3D11CD353E5002318D0 /* Swift使用规范 in Resources */ = {isa = PBXBuildFile; fileRef = E1BDC3D01CD353E5002318D0 /* Swift使用规范 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E1BDC3B81CD3477D002318D0 /* PBXContainerItemProxy */ = {
+		E126BAEF1DDDAF8F0075C5D1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E10604FC1C87DF990017A469 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E10605031C87DF990017A469;
-			remoteInfo = WTKit;
-		};
-		E1BDC3C61CD347B8002318D0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E10604FC1C87DF990017A469 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E10605031C87DF990017A469;
+			remoteGlobalIDString = E126BAE91DDDAF8F0075C5D1;
 			remoteInfo = WTKit;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E126BAF61DDDAF8F0075C5D1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E126BAF21DDDAF8F0075C5D1 /* WTKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9B09B5091D00045E00B66E60 /* AnimationImageVIew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnimationImageVIew.swift; path = WTKit/AnimationImageVIew.swift; sourceTree = "<group>"; };
@@ -62,13 +77,16 @@
 		9B09B5151D00049700B66E60 /* ImageDownloadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageDownloadVC.swift; path = Classes/Demo/ImageDownloadVC.swift; sourceTree = "<group>"; };
 		9B09B5161D00049700B66E60 /* POSTParamatersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = POSTParamatersVC.swift; path = Classes/Demo/POSTParamatersVC.swift; sourceTree = "<group>"; };
 		9B09B5171D00049700B66E60 /* POSTRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = POSTRequestViewController.swift; path = Classes/Demo/POSTRequestViewController.swift; sourceTree = "<group>"; };
-		E10605041C87DF990017A469 /* WTKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WTKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E10605071C87DF990017A469 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E10605091C87DF990017A469 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E10605071C87DF990017A469 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../WTKit/AppDelegate.swift; sourceTree = "<group>"; };
+		E10605091C87DF990017A469 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../WTKit/ViewController.swift; sourceTree = "<group>"; };
 		E106050C1C87DF990017A469 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E106050E1C87DF990017A469 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E10605111C87DF990017A469 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E10605131C87DF990017A469 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E126BAB71DDDAD9D0075C5D1 /* WTKit Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WTKit Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E126BAEA1DDDAF8F0075C5D1 /* WTKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WTKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E126BAEC1DDDAF8F0075C5D1 /* WTKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTKit.h; sourceTree = "<group>"; };
+		E126BAED1DDDAF8F0075C5D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1348BF11D0276AB00FA03E0 /* ImageUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadVC.swift; sourceTree = "<group>"; };
 		E14419EB1D34D1CC0083D0CD /* WTSocketSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTSocketSession.swift; sourceTree = "<group>"; };
 		E1558EC31D081592003653D1 /* QRCodeScanVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QRCodeScanVC.swift; path = Classes/Demo/QRCodeScanVC.swift; sourceTree = "<group>"; };
@@ -80,11 +98,19 @@
 		E1BDC3C11CD347B8002318D0 /* WTKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WTKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1BDC3C31CD347B8002318D0 /* WTKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTKitUITests.swift; sourceTree = "<group>"; };
 		E1BDC3C51CD347B8002318D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E1BDC3D01CD353E5002318D0 /* Swift使用规范 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Swift使用规范"; sourceTree = "<group>"; };
+		E1BDC3D01CD353E5002318D0 /* Swift使用规范 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Swift使用规范"; path = "../WTKit/Swift使用规范"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E10605011C87DF990017A469 /* Frameworks */ = {
+		E126BAB41DDDAD9D0075C5D1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E126BAF11DDDAF8F0075C5D1 /* WTKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E126BAE61DDDAF8F0075C5D1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -111,10 +137,10 @@
 		E10604FB1C87DF990017A469 = {
 			isa = PBXGroup;
 			children = (
-				E1BDC3CB1CD347E8002318D0 /* Res */,
-				E10605061C87DF990017A469 /* WTKit */,
+				E126BAEB1DDDAF8F0075C5D1 /* WTKit */,
 				E1BDC3B41CD3477D002318D0 /* WTKitTests */,
 				E1BDC3C21CD347B8002318D0 /* WTKitUITests */,
+				E126BAB81DDDAD9D0075C5D1 /* WTKit Example */,
 				E10605051C87DF990017A469 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -122,18 +148,32 @@
 		E10605051C87DF990017A469 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E10605041C87DF990017A469 /* WTKit.app */,
 				E1BDC3B31CD3477D002318D0 /* WTKitTests.xctest */,
 				E1BDC3C11CD347B8002318D0 /* WTKitUITests.xctest */,
+				E126BAB71DDDAD9D0075C5D1 /* WTKit Example.app */,
+				E126BAEA1DDDAF8F0075C5D1 /* WTKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E10605061C87DF990017A469 /* WTKit */ = {
+		E126BAB81DDDAD9D0075C5D1 /* WTKit Example */ = {
+			isa = PBXGroup;
+			children = (
+				E145CF1D1CE0402D006B681A /* Demos */,
+				E10605071C87DF990017A469 /* AppDelegate.swift */,
+				E10605091C87DF990017A469 /* ViewController.swift */,
+				E1BDC3D01CD353E5002318D0 /* Swift使用规范 */,
+				E1BDC3CB1CD347E8002318D0 /* Res */,
+			);
+			path = "WTKit Example";
+			sourceTree = "<group>";
+		};
+		E126BAEB1DDDAF8F0075C5D1 /* WTKit */ = {
 			isa = PBXGroup;
 			children = (
 				E14E39D01CC8AE35008D2DE7 /* WTKit */,
-				E14E39CF1CC8AE2E008D2DE7 /* Classes */,
+				E126BAEC1DDDAF8F0075C5D1 /* WTKit.h */,
+				E126BAED1DDDAF8F0075C5D1 /* Info.plist */,
 			);
 			path = WTKit;
 			sourceTree = "<group>";
@@ -154,17 +194,7 @@
 				E187C5771D19075F001EDD2D /* ReachabilityVC.swift */,
 			);
 			name = Demos;
-			sourceTree = "<group>";
-		};
-		E14E39CF1CC8AE2E008D2DE7 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				E145CF1D1CE0402D006B681A /* Demos */,
-				E10605071C87DF990017A469 /* AppDelegate.swift */,
-				E10605091C87DF990017A469 /* ViewController.swift */,
-				E1BDC3D01CD353E5002318D0 /* Swift使用规范 */,
-			);
-			name = Classes;
+			path = ../WTKit;
 			sourceTree = "<group>";
 		};
 		E14E39D01CC8AE35008D2DE7 /* WTKit */ = {
@@ -206,19 +236,50 @@
 				E10605101C87DF990017A469 /* LaunchScreen.storyboard */,
 			);
 			name = Res;
-			path = WTKit;
+			path = ../WTKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		E126BAE71DDDAF8F0075C5D1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E126BAEE1DDDAF8F0075C5D1 /* WTKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		E10605031C87DF990017A469 /* WTKit */ = {
+		E126BAB61DDDAD9D0075C5D1 /* WTKit Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E10605161C87DF990017A469 /* Build configuration list for PBXNativeTarget "WTKit" */;
+			buildConfigurationList = E126BACD1DDDAD9D0075C5D1 /* Build configuration list for PBXNativeTarget "WTKit Example" */;
 			buildPhases = (
-				E10605001C87DF990017A469 /* Sources */,
-				E10605011C87DF990017A469 /* Frameworks */,
-				E10605021C87DF990017A469 /* Resources */,
+				E126BAB31DDDAD9D0075C5D1 /* Sources */,
+				E126BAB41DDDAD9D0075C5D1 /* Frameworks */,
+				E126BAB51DDDAD9D0075C5D1 /* Resources */,
+				E126BAF61DDDAF8F0075C5D1 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E126BAF01DDDAF8F0075C5D1 /* PBXTargetDependency */,
+			);
+			name = "WTKit Example";
+			productName = "WTKit Example";
+			productReference = E126BAB71DDDAD9D0075C5D1 /* WTKit Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E126BAE91DDDAF8F0075C5D1 /* WTKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E126BAF31DDDAF8F0075C5D1 /* Build configuration list for PBXNativeTarget "WTKit" */;
+			buildPhases = (
+				E126BAE51DDDAF8F0075C5D1 /* Sources */,
+				E126BAE61DDDAF8F0075C5D1 /* Frameworks */,
+				E126BAE71DDDAF8F0075C5D1 /* Headers */,
+				E126BAE81DDDAF8F0075C5D1 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -226,8 +287,8 @@
 			);
 			name = WTKit;
 			productName = WTKit;
-			productReference = E10605041C87DF990017A469 /* WTKit.app */;
-			productType = "com.apple.product-type.application";
+			productReference = E126BAEA1DDDAF8F0075C5D1 /* WTKit.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		E1BDC3B21CD3477D002318D0 /* WTKitTests */ = {
 			isa = PBXNativeTarget;
@@ -240,7 +301,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				E1BDC3B91CD3477D002318D0 /* PBXTargetDependency */,
 			);
 			name = WTKitTests;
 			productName = WTKitTests;
@@ -258,7 +318,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				E1BDC3C71CD347B8002318D0 /* PBXTargetDependency */,
 			);
 			name = WTKitUITests;
 			productName = WTKitUITests;
@@ -275,11 +334,16 @@
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = SongWentong;
 				TargetAttributes = {
-					E10605031C87DF990017A469 = {
-						CreatedOnToolsVersion = 7.2;
+					E126BAB61DDDAD9D0075C5D1 = {
+						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = LR2DH4466E;
-						DevelopmentTeamName = "wen tong song";
 						LastSwiftMigration = 0810;
+						ProvisioningStyle = Automatic;
+					};
+					E126BAE91DDDAF8F0075C5D1 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = LR2DH4466E;
+						ProvisioningStyle = Automatic;
 					};
 					E1BDC3B21CD3477D002318D0 = {
 						CreatedOnToolsVersion = 7.3;
@@ -306,7 +370,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E10605031C87DF990017A469 /* WTKit */,
+				E126BAE91DDDAF8F0075C5D1 /* WTKit */,
+				E126BAB61DDDAD9D0075C5D1 /* WTKit Example */,
 				E1BDC3B21CD3477D002318D0 /* WTKitTests */,
 				E1BDC3C01CD347B8002318D0 /* WTKitUITests */,
 			);
@@ -314,14 +379,21 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		E10605021C87DF990017A469 /* Resources */ = {
+		E126BAB51DDDAD9D0075C5D1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1BDC3D11CD353E5002318D0 /* Swift使用规范 in Resources */,
-				E10605121C87DF990017A469 /* LaunchScreen.storyboard in Resources */,
-				E106050F1C87DF990017A469 /* Assets.xcassets in Resources */,
-				E106050D1C87DF990017A469 /* Main.storyboard in Resources */,
+				E126BADD1DDDADF30075C5D1 /* Main.storyboard in Resources */,
+				E126BADE1DDDADF50075C5D1 /* Assets.xcassets in Resources */,
+				E126BADF1DDDADFD0075C5D1 /* LaunchScreen.storyboard in Resources */,
+				E126BADB1DDDADE90075C5D1 /* Swift使用规范 in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E126BAE81DDDAF8F0075C5D1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,28 +414,40 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		E10605001C87DF990017A469 /* Sources */ = {
+		E126BAB31DDDAD9D0075C5D1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B09B51A1D00049700B66E60 /* GifImageVC.swift in Sources */,
-				9B09B51C1D00049700B66E60 /* ImageDownloadVC.swift in Sources */,
-				9B09B5101D00045E00B66E60 /* UIKitExtension.swift in Sources */,
-				E1348BF21D0276AB00FA03E0 /* ImageUploadVC.swift in Sources */,
-				9B09B51E1D00049700B66E60 /* POSTRequestViewController.swift in Sources */,
-				9B09B5191D00049700B66E60 /* GetRequestViewController.swift in Sources */,
-				9B09B51D1D00049700B66E60 /* POSTParamatersVC.swift in Sources */,
-				9B09B51B1D00049700B66E60 /* HudDemoViewController.swift in Sources */,
-				9B09B50E1D00045E00B66E60 /* CustomExtension.swift in Sources */,
-				E187C5781D19075F001EDD2D /* ReachabilityVC.swift in Sources */,
-				E106050A1C87DF990017A469 /* ViewController.swift in Sources */,
-				E10605081C87DF990017A469 /* AppDelegate.swift in Sources */,
-				E1558EC41D081592003653D1 /* QRCodeScanVC.swift in Sources */,
-				9B09B5181D00049700B66E60 /* ColorViewController.swift in Sources */,
-				9B09B50F1D00045E00B66E60 /* FoundationExtension.swift in Sources */,
-				9B09B50D1D00045E00B66E60 /* AnimationImageVIew.swift in Sources */,
-				E14419EC1D34D1CC0083D0CD /* WTSocketSession.swift in Sources */,
-				E155B85C1D12EBD500655DB1 /* TableRefreshVC.swift in Sources */,
+				E126BAD91DDDADE90075C5D1 /* AppDelegate.swift in Sources */,
+				E126BAE21DDDAE600075C5D1 /* AnimationImageVIew.swift in Sources */,
+				E126BAD01DDDADE40075C5D1 /* GifImageVC.swift in Sources */,
+				E126BAD71DDDADE40075C5D1 /* TableRefreshVC.swift in Sources */,
+				E126BAE11DDDAE600075C5D1 /* UIKitExtension.swift in Sources */,
+				E126BACE1DDDADE40075C5D1 /* ColorViewController.swift in Sources */,
+				E126BACF1DDDADE40075C5D1 /* GetRequestViewController.swift in Sources */,
+				E126BAD41DDDADE40075C5D1 /* POSTRequestViewController.swift in Sources */,
+				E126BAE01DDDAE600075C5D1 /* FoundationExtension.swift in Sources */,
+				E126BAD21DDDADE40075C5D1 /* ImageDownloadVC.swift in Sources */,
+				E126BAE31DDDAE600075C5D1 /* CustomExtension.swift in Sources */,
+				E126BAD81DDDADE40075C5D1 /* ReachabilityVC.swift in Sources */,
+				E126BADA1DDDADE90075C5D1 /* ViewController.swift in Sources */,
+				E126BAD61DDDADE40075C5D1 /* QRCodeScanVC.swift in Sources */,
+				E126BAD31DDDADE40075C5D1 /* POSTParamatersVC.swift in Sources */,
+				E126BAD11DDDADE40075C5D1 /* HudDemoViewController.swift in Sources */,
+				E126BAE41DDDAE600075C5D1 /* WTSocketSession.swift in Sources */,
+				E126BAD51DDDADE40075C5D1 /* ImageUploadVC.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E126BAE51DDDAF8F0075C5D1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E126BAFA1DDDAFA80075C5D1 /* CustomExtension.swift in Sources */,
+				E126BAFB1DDDAFA80075C5D1 /* WTSocketSession.swift in Sources */,
+				E126BAF81DDDAFA80075C5D1 /* UIKitExtension.swift in Sources */,
+				E126BAF71DDDAFA80075C5D1 /* FoundationExtension.swift in Sources */,
+				E126BAF91DDDAFA80075C5D1 /* AnimationImageVIew.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,15 +470,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E1BDC3B91CD3477D002318D0 /* PBXTargetDependency */ = {
+		E126BAF01DDDAF8F0075C5D1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E10605031C87DF990017A469 /* WTKit */;
-			targetProxy = E1BDC3B81CD3477D002318D0 /* PBXContainerItemProxy */;
-		};
-		E1BDC3C71CD347B8002318D0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E10605031C87DF990017A469 /* WTKit */;
-			targetProxy = E1BDC3C61CD347B8002318D0 /* PBXContainerItemProxy */;
+			target = E126BAE91DDDAF8F0075C5D1 /* WTKit */;
+			targetProxy = E126BAEF1DDDAF8F0075C5D1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -505,37 +584,93 @@
 			};
 			name = Release;
 		};
-		E10605171C87DF990017A469 /* Debug */ = {
+		E126BACB1DDDAD9D0075C5D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				INFOPLIST_FILE = WTKit/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				DEVELOPMENT_TEAM = LR2DH4466E;
+				INFOPLIST_FILE = "$(SRCROOT)/WTKit/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "-D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mike.WTKit;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobimagic.WTKit-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
-		E10605181C87DF990017A469 /* Release */ = {
+		E126BACC1DDDAD9D0075C5D1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				INFOPLIST_FILE = WTKit/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				DEVELOPMENT_TEAM = LR2DH4466E;
+				INFOPLIST_FILE = "$(SRCROOT)/WTKit/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mike.WTKit;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mobimagic.WTKit-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		E126BAF41DDDAF8F0075C5D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = LR2DH4466E;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = WTKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobimagic.WTKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E126BAF51DDDAF8F0075C5D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = LR2DH4466E;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = WTKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobimagic.WTKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -612,14 +747,21 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E10605161C87DF990017A469 /* Build configuration list for PBXNativeTarget "WTKit" */ = {
+		E126BACD1DDDAD9D0075C5D1 /* Build configuration list for PBXNativeTarget "WTKit Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E10605171C87DF990017A469 /* Debug */,
-				E10605181C87DF990017A469 /* Release */,
+				E126BACB1DDDAD9D0075C5D1 /* Debug */,
+				E126BACC1DDDAD9D0075C5D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+		};
+		E126BAF31DDDAF8F0075C5D1 /* Build configuration list for PBXNativeTarget "WTKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E126BAF41DDDAF8F0075C5D1 /* Debug */,
+				E126BAF51DDDAF8F0075C5D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		E1BDC3BC1CD3477D002318D0 /* Build configuration list for PBXNativeTarget "WTKitTests" */ = {
 			isa = XCConfigurationList;

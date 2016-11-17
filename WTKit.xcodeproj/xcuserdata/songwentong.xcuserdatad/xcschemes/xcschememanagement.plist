@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>WTKit Example.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>WTKit.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
@@ -15,6 +20,16 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>E10605031C87DF990017A469</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E126BAB61DDDAD9D0075C5D1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E126BAE91DDDAF8F0075C5D1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

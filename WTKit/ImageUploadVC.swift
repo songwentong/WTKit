@@ -73,7 +73,7 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
     }
     
     @available(iOS 2.0, *)
-    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
+    fileprivate func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
         WTPrint(info)
         let image:UIImage = info["UIImagePickerControllerOriginalImage"] as! UIImage
         uploadButton.setImage(image, for: UIControlState())

@@ -26,7 +26,7 @@ class ColorViewController: UIViewController {
         // Do any additional setup after loading the view.
         reSetColors()
     }
-    private func reSetColors(){
+    fileprivate func reSetColors(){
         if textView.text != nil{
             colorView.backgroundColor = UIColor.colorWithHexString(textView.text!)
             antiColorView.backgroundColor = colorView.backgroundColor?.antiColor()

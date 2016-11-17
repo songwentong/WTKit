@@ -112,7 +112,12 @@ extension UIApplication{
     
     
     public class func openSettings(){
-        UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+        
+        if #available(iOS 10.0, *) {
+            
+        }else{
+            UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+        }
     }
     
     

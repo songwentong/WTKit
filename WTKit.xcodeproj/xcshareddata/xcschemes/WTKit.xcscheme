@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E10605031C87DF990017A469"
-               BuildableName = "WTKit.app"
+               BlueprintIdentifier = "E126BAE91DDDAF8F0075C5D1"
+               BuildableName = "WTKit.framework"
                BlueprintName = "WTKit"
                ReferencedContainer = "container:WTKit.xcodeproj">
             </BuildableReference>
@@ -52,8 +52,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E10605031C87DF990017A469"
-            BuildableName = "WTKit.app"
+            BlueprintIdentifier = "E126BAE91DDDAF8F0075C5D1"
+            BuildableName = "WTKit.framework"
             BlueprintName = "WTKit"
             ReferencedContainer = "container:WTKit.xcodeproj">
          </BuildableReference>
@@ -75,8 +75,8 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E10605031C87DF990017A469"
-            BuildableName = "WTKit.app"
+            BlueprintIdentifier = "E126BAE91DDDAF8F0075C5D1"
+            BuildableName = "WTKit.framework"
             BlueprintName = "WTKit"
             ReferencedContainer = "container:WTKit.xcodeproj">
          </BuildableReference>
@@ -106,8 +106,8 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E10605031C87DF990017A469"
-            BuildableName = "WTKit.app"
+            BlueprintIdentifier = "E126BAE91DDDAF8F0075C5D1"
+            BuildableName = "WTKit.framework"
             BlueprintName = "WTKit"
             ReferencedContainer = "container:WTKit.xcodeproj">
          </BuildableReference>
