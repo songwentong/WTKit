@@ -793,18 +793,7 @@ public class RefreshHeader:UIView{
     public var loadingText:String = "Loading..."
     public var lastUpdateText:String = "last update time:"
     public var dateStyle:String = "HH:mm"
-    /*!
-     图片地址可配置,也可设置为本地的地址
-     默认是这个箭头
-     */
-    public var arrowImageURL:String = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"{
-        didSet{
-            if oldValue != arrowImageURL {
-                arrowImageView.wt_setImage(with:arrowImageURL)
-            }
-        }
-    }
-    
+
     
     var refreshBlock:()->Void
     weak var scrollView:UIScrollView?
@@ -843,7 +832,8 @@ public class RefreshHeader:UIView{
         timeLabel = UILabel()
         arrowImageView = UIImageView()
         //        arrowImageView.
-        arrowImageView.wt_setImage(with:arrowImageURL)
+        let image = UIImage(named: "arrow.jpg")
+        arrowImageView.image = image
         activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         super.init(frame: frame)
         addSubview(titleLabel)

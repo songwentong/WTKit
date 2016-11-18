@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E11C6D911DDED785008D9471 /* arrow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E11C6D901DDED785008D9471 /* arrow.jpg */; };
+		E11C6D921DDED8D7008D9471 /* arrow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E11C6D901DDED785008D9471 /* arrow.jpg */; };
 		E17BDA201DDDC11A00CF5672 /* WTKit.h in Headers */ = {isa = PBXBuildFile; fileRef = E17BDA1E1DDDC11A00CF5672 /* WTKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E17BDA2A1DDDC12500CF5672 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
 		E17BDA2B1DDDC12500CF5672 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
@@ -35,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E11C6D901DDED785008D9471 /* arrow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = arrow.jpg; sourceTree = "<group>"; };
 		E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WTKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E17BDA1E1DDDC11A00CF5672 /* WTKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTKit.h; sourceTree = "<group>"; };
 		E17BDA1F1DDDC11A00CF5672 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,6 +104,7 @@
 		E17BDA1D1DDDC11A00CF5672 /* WTKit */ = {
 			isa = PBXGroup;
 			children = (
+				E11C6D901DDED785008D9471 /* arrow.jpg */,
 				E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */,
 				E17BDA271DDDC12500CF5672 /* CustomExtension.swift */,
 				E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */,
@@ -238,6 +242,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E11C6D911DDED785008D9471 /* arrow.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +253,7 @@
 				E17BDA5B1DDDC17D00CF5672 /* Swift使用规范 in Resources */,
 				E17BDA3F1DDDC14700CF5672 /* LaunchScreen.storyboard in Resources */,
 				E17BDA3C1DDDC14700CF5672 /* Assets.xcassets in Resources */,
+				E11C6D921DDED8D7008D9471 /* arrow.jpg in Resources */,
 				E17BDA3A1DDDC14700CF5672 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
