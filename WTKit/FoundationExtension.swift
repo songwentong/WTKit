@@ -224,23 +224,28 @@ extension URLRequest{
     
     
     //从参数转成字符串
-    static func queryString(from parameters:[String: String]?=[:])->String? {
+    static func queryString(from parameters:[String: Any]?=[:])->String? {
         
         //        Array
         //        Dictionary
         if parameters == nil {
             return nil
         }
-        var components: [(String, String)] = Array()
-        for (key) in parameters!.keys.sorted(by: { (s1, s2) -> Bool in
-            return s1 < s2;
-        }){
+        
+        
+        var components: [(String, Any)] = Array()
+        let allkeys = parameters?.keys.sorted(by: { (s1,s2) -> Bool in
+            return s1 < s2
+        })
+        for (key) in allkeys!{
             let value = parameters![key]!
             components.append((key, value))
         }
+
         
-        let result = (components.map{ "\($0)=\($1)" } as [String]).joined(separator: "&")
-        let allowedCharacterSet = CharacterSet.urlQueryAllowed
+        let result = (components.map{ "\($0)=\($1)"} as [String]).joined(separator: "&")
+        var allowedCharacterSet = CharacterSet.urlQueryAllowed
+        allowedCharacterSet.remove(charactersIn: ":#[]@!$&'()*+,;=")
         return result.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet)!
     }
     
@@ -528,7 +533,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
     
     
     //URLSessionDataTaskDelegate
-    @nonobjc public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void){
         self.response = response
         completionHandler(URLSession.ResponseDisposition.allow)
     }
@@ -704,7 +709,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     // MARK: URLSessionDataDelegate
     
     
-    @nonobjc public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Swift.Void){
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void){
         if let task = self[dataTask] {
             task.urlSession(session, dataTask: dataTask, didReceive: response, completionHandler: completionHandler)
         }else{

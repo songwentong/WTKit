@@ -139,8 +139,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
         
         
     }
-    
-    func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if let paraVC = segue.destination as? POSTParamatersVC {
             paraVC.delegate = self
             if parameters != nil {
@@ -152,6 +151,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
             
         }
     }
+    
     
     func willDisAppear(_ vc:POSTParamatersVC, parameters:[String:String]?=[:]){
         self.parameters = parameters
