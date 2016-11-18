@@ -547,15 +547,27 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
         
     }
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: @escaping (CachedURLResponse?) -> Swift.Void){
+        var shouldCache:Bool = false;
         if self.error == nil {
-            let cachePolicy = dataTask.originalRequest?.cachePolicy
-            if cachePolicy == .returnCacheDataElseLoad {
-                completionHandler(proposedResponse)
-                return
+            if let originalRequest = dataTask.originalRequest {
+                let cachePolicy:URLRequest.CachePolicy = originalRequest.cachePolicy
+                
+                switch cachePolicy {
+                case .returnCacheDataDontLoad:
+                    shouldCache = true;
+                case .returnCacheDataElseLoad:
+                    shouldCache = true;
+                default: break
+                }
+                
             }
+            
         }
-        completionHandler(nil)
-        
+        if shouldCache {
+            completionHandler(proposedResponse)
+        }else{
+            completionHandler(nil)
+        }
     }
     
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
