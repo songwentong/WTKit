@@ -23,7 +23,6 @@
 		E17BDA501DDDC15C00CF5672 /* HudDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA471DDDC15C00CF5672 /* HudDemoViewController.swift */; };
 		E17BDA511DDDC15D00CF5672 /* ImageDownloadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA481DDDC15C00CF5672 /* ImageDownloadVC.swift */; };
 		E17BDA521DDDC15D00CF5672 /* POSTParamatersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA491DDDC15C00CF5672 /* POSTParamatersVC.swift */; };
-		E17BDA531DDDC15D00CF5672 /* POSTRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA4A1DDDC15C00CF5672 /* POSTRequestViewController.swift */; };
 		E17BDA541DDDC15D00CF5672 /* QRCodeScanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA4B1DDDC15C00CF5672 /* QRCodeScanVC.swift */; };
 		E17BDA551DDDC15D00CF5672 /* ReachabilityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA4C1DDDC15C00CF5672 /* ReachabilityVC.swift */; };
 		E17BDA571DDDC17300CF5672 /* TableRefreshVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA561DDDC17300CF5672 /* TableRefreshVC.swift */; };
@@ -56,7 +55,6 @@
 		E17BDA471DDDC15C00CF5672 /* HudDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudDemoViewController.swift; sourceTree = "<group>"; };
 		E17BDA481DDDC15C00CF5672 /* ImageDownloadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloadVC.swift; sourceTree = "<group>"; };
 		E17BDA491DDDC15C00CF5672 /* POSTParamatersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POSTParamatersVC.swift; sourceTree = "<group>"; };
-		E17BDA4A1DDDC15C00CF5672 /* POSTRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POSTRequestViewController.swift; sourceTree = "<group>"; };
 		E17BDA4B1DDDC15C00CF5672 /* QRCodeScanVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScanVC.swift; sourceTree = "<group>"; };
 		E17BDA4C1DDDC15C00CF5672 /* ReachabilityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityVC.swift; sourceTree = "<group>"; };
 		E17BDA561DDDC17300CF5672 /* TableRefreshVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRefreshVC.swift; sourceTree = "<group>"; };
@@ -137,7 +135,6 @@
 				E17BDA471DDDC15C00CF5672 /* HudDemoViewController.swift */,
 				E17BDA481DDDC15C00CF5672 /* ImageDownloadVC.swift */,
 				E17BDA491DDDC15C00CF5672 /* POSTParamatersVC.swift */,
-				E17BDA4A1DDDC15C00CF5672 /* POSTRequestViewController.swift */,
 				E17BDA4B1DDDC15C00CF5672 /* QRCodeScanVC.swift */,
 				E17BDA4C1DDDC15C00CF5672 /* ReachabilityVC.swift */,
 				E17BDA341DDDC14700CF5672 /* AppDelegate.swift */,
@@ -277,7 +274,6 @@
 				E17BDA5C1DDDC1E900CF5672 /* AnimationImageVIew.swift in Sources */,
 				E17BDA5F1DDDC1E900CF5672 /* UIKitExtension.swift in Sources */,
 				E17BDA541DDDC15D00CF5672 /* QRCodeScanVC.swift in Sources */,
-				E17BDA531DDDC15D00CF5672 /* POSTRequestViewController.swift in Sources */,
 				E17BDA511DDDC15D00CF5672 /* ImageDownloadVC.swift in Sources */,
 				E17BDA371DDDC14700CF5672 /* ViewController.swift in Sources */,
 				E17BDA5D1DDDC1E900CF5672 /* CustomExtension.swift in Sources */,
