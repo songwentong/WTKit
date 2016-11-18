@@ -331,7 +331,7 @@ extension URLSession{
 //        return session
 //    }
     
-    @nonobjc public static let wt_sharedInstance:URLSession = {
+     public static let wt_sharedInstance:URLSession = {
         let delegate = WTURLSessionDelegate.sharedInstance
         let configuration = URLSessionConfiguration.default
         configuration.urlCache = URLCache.wt_sharedURLCacheForRequests
@@ -507,7 +507,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
     }
     
     
-    @nonobjc public func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
+     public func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
         var disposition: Foundation.URLSession.AuthChallengeDisposition = .performDefaultHandling
         var credential:URLCredential? = self.credential
         
@@ -546,7 +546,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
         
         
     }
-    @nonobjc public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: (CachedURLResponse?) -> Swift.Void){
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: @escaping (CachedURLResponse?) -> Swift.Void){
         if self.error == nil {
             let cachePolicy = dataTask.originalRequest?.cachePolicy
             if cachePolicy == .returnCacheDataElseLoad {
@@ -584,7 +584,7 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
 public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
     
     
-    @nonobjc static let sharedInstance = {
+     static let sharedInstance = {
         return WTURLSessionDelegate()
     }()
     
@@ -653,7 +653,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
      
      参考:https://developer.apple.com/library/ios/technotes/tn2232/_index.html#//apple_ref/doc/uid/DTS40012884
      */
-    @nonobjc public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
+     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
         
         var disposition: Foundation.URLSession.AuthChallengeDisposition = .performDefaultHandling
         var credential:URLCredential? = self.credential
@@ -720,7 +720,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDataDelegate{
         
     }
     
-    @nonobjc public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: (CachedURLResponse?) -> Swift.Void){
+     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: @escaping (CachedURLResponse?) -> Swift.Void){
         if let task = self[dataTask]{
             task.urlSession(session, dataTask: dataTask, willCacheResponse: proposedResponse, completionHandler: completionHandler)
         }else{
@@ -956,7 +956,7 @@ extension URLCache{
     
     
     /*
-     @nonobjc public static let wt_sharedInstance:URLSession = {
+      public static let wt_sharedInstance:URLSession = {
      let delegate = WTURLSessionDelegate.sharedInstance
      let configuration = URLSessionConfiguration.default
      configuration.urlCache = URLCache.wt_sharedURLCacheForRequests()
@@ -968,7 +968,7 @@ extension URLCache{
     /*!
      数据缓存
      */
-    @nonobjc public static let wt_sharedURLCacheForRequests:URLCache={
+     public static let wt_sharedURLCacheForRequests:URLCache={
         let cache = URLCache(memoryCapacity: 4*1024*1024, diskCapacity: 1*1024*1024*1024, diskPath: "wt_sharedURLCacheForRequestsKey")
         return cache
     }()
