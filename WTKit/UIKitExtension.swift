@@ -7,11 +7,12 @@
 //
 
 import Foundation
-import UIKit
-import ImageIO
 
 
-
+#if os(iOS)
+    import UIKit
+    import ImageIO
+    
 // MARK: - 官方类扩展
 extension UIColor{
     
@@ -103,7 +104,7 @@ extension UIColor{
     }
     
 }
-
+    
 private let UIApplicationVersionsKey = "WTKit UIapplication versions key"
 private let UIApplicationBuildsKey = "WTKit UIapplication builds key"
 private var UIApplicationIsFirstEver:Void?
@@ -111,20 +112,20 @@ extension UIApplication{
     
     
     /*
-    public class func openSettings(){
-        
-        if #available(iOS 10.0, *) {
-            let options = [String:Any]();
-            let url:URL = URL(string: UIApplicationOpenSettingsURLString)!;
-            UIApplication.shared.open(url, options: options, completionHandler: { (flag) in
-                
-            })
-        }else{
-            UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
-        }
-        
-    }
-    */
+     public class func openSettings(){
+     
+     if #available(iOS 10.0, *) {
+     let options = [String:Any]();
+     let url:URL = URL(string: UIApplicationOpenSettingsURLString)!;
+     UIApplication.shared.open(url, options: options, completionHandler: { (flag) in
+     
+     })
+     }else{
+     UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+     }
+     
+     }
+     */
     
     
     // MARK: - 版本号/build号/bundleID/程序名
@@ -423,7 +424,7 @@ extension UIButton{
                         complection!(image,error)
                     }
                 })
-                })
+            })
             self.wtImageTask = task
             task.resume()
         }
@@ -443,7 +444,7 @@ extension UIButton{
                         complection!(image,error)
                     }
                 })
-                })
+            })
             self.wtImageTask = task
             task.resume()
         }
@@ -659,7 +660,7 @@ extension UIImageView{
                 if complection != nil {
                     complection!(image,error)
                 }
-                })
+            })
             self.wtImageTask = task
             task.resume()
             
@@ -683,7 +684,7 @@ extension UIImageView{
                 if complection != nil {
                     complection!(image,error)
                 }
-                })
+            })
             self.wtHighLightedImageTask = task
             task.resume()
         }
@@ -705,7 +706,7 @@ extension UIViewController{
                     alert.dismiss(animated: true, completion: {
                         
                     })
-                    }, afterDelay: duration)
+                }, afterDelay: duration)
             }
         }
     }
@@ -946,7 +947,7 @@ public class RefreshHeader:UIView{
             titleLabel.text = pullDownToRefreshText
             UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                 self.arrowImageView.transform = CGAffineTransform(rotationAngle: 0)
-                }, completion: nil)
+            }, completion: nil)
             if lastUpdateDate != nil {
                 dateFormatter.dateFormat = dateStyle
                 timeLabel.text = "\(lastUpdateText)\(dateFormatter.string(from: lastUpdateDate!))"
@@ -956,7 +957,7 @@ public class RefreshHeader:UIView{
             titleLabel.text = releaseToRefreshText
             UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                 self.arrowImageView.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
-                }, completion: nil)
+            }, completion: nil)
             break
         case .loading:
             titleLabel.text = loadingText
@@ -1002,7 +1003,7 @@ public class RefreshHeader:UIView{
             
         }
     }
-
+    
     
     private func contentOffset()->String{
         return "contentOffset"
@@ -1016,7 +1017,7 @@ public class RefreshHeader:UIView{
     private func addObservers(){
         //        self.scrollView?.contentOffset
         //        self.scrollView?.dragging
-//        WTLog(self.scrollView)
+        //        WTLog(self.scrollView)
         if let sc:UIScrollView = self.scrollView {
             sc.addObserver(self, forKeyPath: contentOffset(), options: .new, context: nil)
             sc.addObserver(self, forKeyPath: contentSize(), options: .new, context: nil)
@@ -1088,7 +1089,7 @@ extension UIScrollView{
             self.refreshHeader?.removeObservers();
         }
     }
- 
+    
     public weak var refreshHeader:RefreshHeader?{
         get{
             let r = objc_getAssociatedObject(self, &refreshHeaderKey)
@@ -1342,4 +1343,12 @@ public class WTNetworkActivityIndicatorManager{
         }
     }
 }
+
+    
+#elseif os(OSX)
+    
+#endif
+
+
+
 
