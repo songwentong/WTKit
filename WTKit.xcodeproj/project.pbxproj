@@ -34,7 +34,24 @@
 		E17BDA5D1DDDC1E900CF5672 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
 		E17BDA5E1DDDC1E900CF5672 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E17BDA5F1DDDC1E900CF5672 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
+		E1D21AF91DE04D6D0011F302 /* WTKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */; };
+		E1D21AFB1DE04D6D0011F302 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */; };
+		E1D21B011DE053380011F302 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
+		E1D21B021DE053380011F302 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
+		E1D21B031DE053380011F302 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
+		E1D21B041DE053380011F302 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
+		E1D21B061DE054900011F302 /* JSONData in Resources */ = {isa = PBXBuildFile; fileRef = E1D21B051DE054900011F302 /* JSONData */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E1D21AFC1DE04D6D0011F302 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E17BDA121DDDC11A00CF5672 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E17BDA1A1DDDC11A00CF5672;
+			remoteInfo = WTKit;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		E11C6D901DDED785008D9471 /* arrow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = arrow.jpg; sourceTree = "<group>"; };
@@ -63,6 +80,10 @@
 		E17BDA561DDDC17300CF5672 /* TableRefreshVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRefreshVC.swift; sourceTree = "<group>"; };
 		E17BDA581DDDC17800CF5672 /* ImageUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadVC.swift; sourceTree = "<group>"; };
 		E17BDA5A1DDDC17D00CF5672 /* Swift使用规范 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Swift使用规范"; sourceTree = "<group>"; };
+		E1D21AF61DE04D6D0011F302 /* WTKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WTKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTKitTests.swift; sourceTree = "<group>"; };
+		E1D21AFA1DE04D6D0011F302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1D21B051DE054900011F302 /* JSONData */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JSONData; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +101,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E1D21AF31DE04D6D0011F302 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1D21AFB1DE04D6D0011F302 /* WTKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -88,6 +117,7 @@
 			children = (
 				E17BDA1D1DDDC11A00CF5672 /* WTKit */,
 				E17BDA331DDDC14700CF5672 /* WTKit Example */,
+				E1D21AF71DE04D6D0011F302 /* WTKitTests */,
 				E17BDA1C1DDDC11A00CF5672 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -97,6 +127,7 @@
 			children = (
 				E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */,
 				E17BDA321DDDC14700CF5672 /* WTKit Example.app */,
+				E1D21AF61DE04D6D0011F302 /* WTKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -145,6 +176,16 @@
 				E17BDA361DDDC14700CF5672 /* ViewController.swift */,
 			);
 			name = Classes;
+			sourceTree = "<group>";
+		};
+		E1D21AF71DE04D6D0011F302 /* WTKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				E1D21B051DE054900011F302 /* JSONData */,
+				E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */,
+				E1D21AFA1DE04D6D0011F302 /* Info.plist */,
+			);
+			path = WTKitTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,6 +237,24 @@
 			productReference = E17BDA321DDDC14700CF5672 /* WTKit Example.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E1D21AF51DE04D6D0011F302 /* WTKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1D21B001DE04D6D0011F302 /* Build configuration list for PBXNativeTarget "WTKitTests" */;
+			buildPhases = (
+				E1D21AF21DE04D6D0011F302 /* Sources */,
+				E1D21AF31DE04D6D0011F302 /* Frameworks */,
+				E1D21AF41DE04D6D0011F302 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E1D21AFD1DE04D6D0011F302 /* PBXTargetDependency */,
+			);
+			name = WTKitTests;
+			productName = WTKitTests;
+			productReference = E1D21AF61DE04D6D0011F302 /* WTKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -212,6 +271,11 @@
 						ProvisioningStyle = Automatic;
 					};
 					E17BDA311DDDC14700CF5672 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = QZFW9RQ778;
+						ProvisioningStyle = Automatic;
+					};
+					E1D21AF51DE04D6D0011F302 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = QZFW9RQ778;
 						ProvisioningStyle = Automatic;
@@ -233,6 +297,7 @@
 			targets = (
 				E17BDA1A1DDDC11A00CF5672 /* WTKit */,
 				E17BDA311DDDC14700CF5672 /* WTKit Example */,
+				E1D21AF51DE04D6D0011F302 /* WTKitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -255,6 +320,14 @@
 				E17BDA3C1DDDC14700CF5672 /* Assets.xcassets in Resources */,
 				E11C6D921DDED8D7008D9471 /* arrow.jpg in Resources */,
 				E17BDA3A1DDDC14700CF5672 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1D21AF41DE04D6D0011F302 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1D21B061DE054900011F302 /* JSONData in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,7 +368,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E1D21AF21DE04D6D0011F302 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1D21B031DE053380011F302 /* FoundationExtension.swift in Sources */,
+				E1D21B021DE053380011F302 /* CustomExtension.swift in Sources */,
+				E1D21AF91DE04D6D0011F302 /* WTKitTests.swift in Sources */,
+				E1D21B041DE053380011F302 /* UIKitExtension.swift in Sources */,
+				E1D21B011DE053380011F302 /* AnimationImageVIew.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E1D21AFD1DE04D6D0011F302 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E17BDA1A1DDDC11A00CF5672 /* WTKit */;
+			targetProxy = E1D21AFC1DE04D6D0011F302 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E17BDA381DDDC14700CF5672 /* Main.storyboard */ = {
@@ -482,6 +575,32 @@
 			};
 			name = Release;
 		};
+		E1D21AFE1DE04D6D0011F302 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = QZFW9RQ778;
+				INFOPLIST_FILE = WTKitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.songwentong.WTKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		E1D21AFF1DE04D6D0011F302 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = QZFW9RQ778;
+				INFOPLIST_FILE = WTKitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.songwentong.WTKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -511,6 +630,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		E1D21B001DE04D6D0011F302 /* Build configuration list for PBXNativeTarget "WTKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1D21AFE1DE04D6D0011F302 /* Debug */,
+				E1D21AFF1DE04D6D0011F302 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

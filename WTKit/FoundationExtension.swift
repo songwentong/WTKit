@@ -455,6 +455,9 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
     init(task: URLSessionTask) {
         self.task = task
     }
+    deinit {
+        WTLog("deinit")
+    }
     
     public func resume(){
         if useRequestingIfHave {
@@ -499,10 +502,12 @@ public class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDele
             
             
         }
-        
-        OperationQueue.toMain {
-            self.completionHandler?(self.data,self.response,self.error)
+        DispatchQueue.main.async { [weak self] in
+            self?.completionHandler?(self?.data,self?.response,self?.error)
         }
+//        OperationQueue.toMain {
+        
+//        }
         
     }
     
@@ -830,7 +835,41 @@ extension Int{
         return sumInternal(n, current: 0)
     }
 }
-
+extension JSONSerialization{
+    
+    
+    /*
+     JSON解析,去掉了null
+     */
+    public class func WTJSONObject(with data:Data,options opt:JSONSerialization.ReadingOptions = [])->Any?{
+        do {
+            var obj:Any = try jsonObject(with: data, options: opt)
+            obj = WTRemoveNull(with: obj)
+            return obj
+        } catch {
+        }
+        return nil
+    }
+    
+    public class func WTRemoveNull(with inputData:Any)->Any{
+        if let _ = inputData as? NSNull {
+            return ""
+        }else if let array = inputData as? [AnyObject]{
+            var returnArray:[Any] = [AnyObject]()
+            for item in array{
+                returnArray.append(WTRemoveNull(with: item))
+            }
+            return returnArray
+        }else if let dictionary = inputData as? [String:Any]{
+            var returnDict:[String:Any] = [String:Any]()
+            for(k,v)in dictionary{
+                returnDict.updateValue(WTRemoveNull(with: v), forKey: k)
+            }
+            return returnDict
+        }
+        return inputData
+    }
+}
 extension NSObject{
     
     
