@@ -179,21 +179,21 @@ public func parseJson()->AnyObject?
 
 ```swift
 
-        let url = "https://www.apple.com"
-        let task = URLSession.wt_dataTask(with: url) { (data, response, error) in
-            //do somthing
-            print(data)
-        }
-        // set image
-        let imageView:UIImageView = UIImageView()
-        task.imageHandler = {(image:UIImage?,error:NSError?) in
-            imageView.image = image
-        }
-        // or get json
-        task.jsonHandler = {(anyObject:AnyObject?,error:NSError?) in
-            print(anyObject)
-        }
-        task.resume()
+let url = "https://www.apple.com"
+let task = URLSession.wt_dataTask(with: url) { (data, response, error) in
+    //do somthing
+    print(data)
+}
+// set image
+let imageView:UIImageView = UIImageView()
+task.imageHandler = {(image:UIImage?,error:NSError?) in
+    imageView.image = image
+}
+// or get json
+task.jsonHandler = {(anyObject:AnyObject?,error:NSError?) in
+    print(anyObject)
+}
+task.resume()
 
 ```
 - URLRequest
