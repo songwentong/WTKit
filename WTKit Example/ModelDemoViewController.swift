@@ -1,0 +1,41 @@
+//
+//  ModelDemoViewController.swift
+//  WTKit
+//
+//  Created by SongWentong on 22/11/2016.
+//  Copyright © 2016 songwentong. All rights reserved.
+//
+
+import UIKit
+
+class ModelDemoViewController: UIViewController {
+
+    var weatherModel:WeatherModel = WeatherModel()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let jsonPath = Bundle.main.path(forResource: "JSONData", ofType: "")
+        let data = NSData(contentsOfFile: jsonPath!)
+        let jsonObject = JSONSerialization.WTJSONObject(with: data as! Data)!
+        weatherModel.wt(travel: jsonObject)
+        print("\(weatherModel)")
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}

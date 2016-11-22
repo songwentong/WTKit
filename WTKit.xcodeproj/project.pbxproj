@@ -34,13 +34,22 @@
 		E17BDA5D1DDDC1E900CF5672 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
 		E17BDA5E1DDDC1E900CF5672 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E17BDA5F1DDDC1E900CF5672 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
+		E19BA5151DE419C100BE512B /* JSONData in Resources */ = {isa = PBXBuildFile; fileRef = E1D21B051DE054900011F302 /* JSONData */; };
+		E19BA5161DE419C100BE512B /* DayDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19BA50F1DE4198A00BE512B /* DayDetailModel.swift */; };
+		E19BA5171DE419C100BE512B /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B111DE2A8E70011F302 /* WeatherModel.swift */; };
+		E19BA5181DE419C100BE512B /* DayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19BA50D1DE4195D00BE512B /* DayModel.swift */; };
+		E19BA5191DE419C100BE512B /* CurrentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19BA50A1DE410F100BE512B /* CurrentModel.swift */; };
+		E19BA51B1DE41D1000BE512B /* ModelDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19BA51A1DE41D1000BE512B /* ModelDemoViewController.swift */; };
+		E19BA51D1DE41E9100BE512B /* CurrentDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19BA51C1DE41E9100BE512B /* CurrentDetailModel.swift */; };
 		E1D21AF91DE04D6D0011F302 /* WTKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */; };
 		E1D21AFB1DE04D6D0011F302 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */; };
 		E1D21B011DE053380011F302 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
 		E1D21B021DE053380011F302 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
 		E1D21B031DE053380011F302 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E1D21B041DE053380011F302 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
-		E1D21B061DE054900011F302 /* JSONData in Resources */ = {isa = PBXBuildFile; fileRef = E1D21B051DE054900011F302 /* JSONData */; };
+		E1D21B0E1DE29B870011F302 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* JSONModel.swift */; };
+		E1D21B131DE2A9170011F302 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* JSONModel.swift */; };
+		E1D21B141DE2A9180011F302 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* JSONModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,10 +89,17 @@
 		E17BDA561DDDC17300CF5672 /* TableRefreshVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRefreshVC.swift; sourceTree = "<group>"; };
 		E17BDA581DDDC17800CF5672 /* ImageUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadVC.swift; sourceTree = "<group>"; };
 		E17BDA5A1DDDC17D00CF5672 /* Swift使用规范 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Swift使用规范"; sourceTree = "<group>"; };
+		E19BA50A1DE410F100BE512B /* CurrentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrentModel.swift; path = ../WTKitTests/CurrentModel.swift; sourceTree = "<group>"; };
+		E19BA50D1DE4195D00BE512B /* DayModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DayModel.swift; path = ../WTKitTests/DayModel.swift; sourceTree = "<group>"; };
+		E19BA50F1DE4198A00BE512B /* DayDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DayDetailModel.swift; path = ../WTKitTests/DayDetailModel.swift; sourceTree = "<group>"; };
+		E19BA51A1DE41D1000BE512B /* ModelDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelDemoViewController.swift; sourceTree = "<group>"; };
+		E19BA51C1DE41E9100BE512B /* CurrentDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentDetailModel.swift; sourceTree = "<group>"; };
 		E1D21AF61DE04D6D0011F302 /* WTKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WTKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTKitTests.swift; sourceTree = "<group>"; };
 		E1D21AFA1DE04D6D0011F302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E1D21B051DE054900011F302 /* JSONData */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JSONData; sourceTree = "<group>"; };
+		E1D21B051DE054900011F302 /* JSONData */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = JSONData; path = ../WTKitTests/JSONData; sourceTree = "<group>"; };
+		E1D21B0D1DE29B870011F302 /* JSONModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONModel.swift; sourceTree = "<group>"; };
+		E1D21B111DE2A8E70011F302 /* WeatherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeatherModel.swift; path = ../WTKitTests/WeatherModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,11 +152,12 @@
 			isa = PBXGroup;
 			children = (
 				E11C6D901DDED785008D9471 /* arrow.jpg */,
+				E17BDA1E1DDDC11A00CF5672 /* WTKit.h */,
 				E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */,
 				E17BDA271DDDC12500CF5672 /* CustomExtension.swift */,
 				E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */,
 				E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */,
-				E17BDA1E1DDDC11A00CF5672 /* WTKit.h */,
+				E1D21B0D1DE29B870011F302 /* JSONModel.swift */,
 				E17BDA1F1DDDC11A00CF5672 /* Info.plist */,
 			);
 			path = WTKit;
@@ -149,6 +166,7 @@
 		E17BDA331DDDC14700CF5672 /* WTKit Example */ = {
 			isa = PBXGroup;
 			children = (
+				E19BA5131DE4199900BE512B /* ModelDemo */,
 				E17BDA601DDDC36200CF5672 /* Classes */,
 				E17BDA5A1DDDC17D00CF5672 /* Swift使用规范 */,
 				E17BDA381DDDC14700CF5672 /* Main.storyboard */,
@@ -178,12 +196,25 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		E1D21AF71DE04D6D0011F302 /* WTKitTests */ = {
+		E19BA5131DE4199900BE512B /* ModelDemo */ = {
 			isa = PBXGroup;
 			children = (
 				E1D21B051DE054900011F302 /* JSONData */,
-				E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */,
+				E1D21B111DE2A8E70011F302 /* WeatherModel.swift */,
+				E19BA50D1DE4195D00BE512B /* DayModel.swift */,
+				E19BA50F1DE4198A00BE512B /* DayDetailModel.swift */,
+				E19BA50A1DE410F100BE512B /* CurrentModel.swift */,
+				E19BA51C1DE41E9100BE512B /* CurrentDetailModel.swift */,
+				E19BA51A1DE41D1000BE512B /* ModelDemoViewController.swift */,
+			);
+			name = ModelDemo;
+			sourceTree = "<group>";
+		};
+		E1D21AF71DE04D6D0011F302 /* WTKitTests */ = {
+			isa = PBXGroup;
+			children = (
 				E1D21AFA1DE04D6D0011F302 /* Info.plist */,
+				E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */,
 			);
 			path = WTKitTests;
 			sourceTree = "<group>";
@@ -268,6 +299,7 @@
 					E17BDA1A1DDDC11A00CF5672 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = QZFW9RQ778;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
 					E17BDA311DDDC14700CF5672 = {
@@ -319,6 +351,7 @@
 				E17BDA3F1DDDC14700CF5672 /* LaunchScreen.storyboard in Resources */,
 				E17BDA3C1DDDC14700CF5672 /* Assets.xcassets in Resources */,
 				E11C6D921DDED8D7008D9471 /* arrow.jpg in Resources */,
+				E19BA5151DE419C100BE512B /* JSONData in Resources */,
 				E17BDA3A1DDDC14700CF5672 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,7 +360,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1D21B061DE054900011F302 /* JSONData in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1D21B0E1DE29B870011F302 /* JSONModel.swift in Sources */,
 				E17BDA2B1DDDC12500CF5672 /* CustomExtension.swift in Sources */,
 				E17BDA2C1DDDC12500CF5672 /* FoundationExtension.swift in Sources */,
 				E17BDA2D1DDDC12500CF5672 /* UIKitExtension.swift in Sources */,
@@ -352,18 +385,25 @@
 				E17BDA521DDDC15D00CF5672 /* POSTParamatersVC.swift in Sources */,
 				E17BDA5C1DDDC1E900CF5672 /* AnimationImageVIew.swift in Sources */,
 				E17BDA5F1DDDC1E900CF5672 /* UIKitExtension.swift in Sources */,
+				E19BA51B1DE41D1000BE512B /* ModelDemoViewController.swift in Sources */,
 				E17BDA541DDDC15D00CF5672 /* QRCodeScanVC.swift in Sources */,
 				E17BDA511DDDC15D00CF5672 /* ImageDownloadVC.swift in Sources */,
 				E17BDA371DDDC14700CF5672 /* ViewController.swift in Sources */,
 				E17BDA5D1DDDC1E900CF5672 /* CustomExtension.swift in Sources */,
+				E19BA51D1DE41E9100BE512B /* CurrentDetailModel.swift in Sources */,
 				E17BDA591DDDC17800CF5672 /* ImageUploadVC.swift in Sources */,
 				E17BDA5E1DDDC1E900CF5672 /* FoundationExtension.swift in Sources */,
 				E17BDA4E1DDDC15C00CF5672 /* GetRequestViewController.swift in Sources */,
 				E17BDA551DDDC15D00CF5672 /* ReachabilityVC.swift in Sources */,
+				E19BA5191DE419C100BE512B /* CurrentModel.swift in Sources */,
+				E19BA5171DE419C100BE512B /* WeatherModel.swift in Sources */,
+				E19BA5161DE419C100BE512B /* DayDetailModel.swift in Sources */,
 				E17BDA4D1DDDC15C00CF5672 /* ColorViewController.swift in Sources */,
 				E17BDA501DDDC15C00CF5672 /* HudDemoViewController.swift in Sources */,
 				E17BDA351DDDC14700CF5672 /* AppDelegate.swift in Sources */,
+				E19BA5181DE419C100BE512B /* DayModel.swift in Sources */,
 				E17BDA4F1DDDC15C00CF5672 /* GifImageVC.swift in Sources */,
+				E1D21B131DE2A9170011F302 /* JSONModel.swift in Sources */,
 				E17BDA571DDDC17300CF5672 /* TableRefreshVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -376,6 +416,7 @@
 				E1D21B021DE053380011F302 /* CustomExtension.swift in Sources */,
 				E1D21AF91DE04D6D0011F302 /* WTKitTests.swift in Sources */,
 				E1D21B041DE053380011F302 /* UIKitExtension.swift in Sources */,
+				E1D21B141DE2A9180011F302 /* JSONModel.swift in Sources */,
 				E1D21B011DE053380011F302 /* AnimationImageVIew.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,6 +553,7 @@
 		E17BDA241DDDC11A00CF5672 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = QZFW9RQ778;
@@ -524,6 +566,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.songwentong.WTKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -531,6 +574,7 @@
 		E17BDA251DDDC11A00CF5672 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = QZFW9RQ778;
@@ -638,6 +682,7 @@
 				E1D21AFF1DE04D6D0011F302 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

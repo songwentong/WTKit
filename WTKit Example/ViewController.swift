@@ -38,12 +38,19 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         dataList.append(["title":"COLOR 创建","segue":"color"])
         dataList.append(["title":"下拉刷新","segue":"TableRefreshVC"])
         dataList.append(["title":"二维码扫描","segue":"QRCodeScanVC"])
+        dataList.append(["title":"JSONModel","segue":"modelDemo"])
         //        dataList.append(["title":"Reachability","segue":"reachability"])
         super.init(coder: aDecoder)
     }
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.view.tag = 100
+        self.view.setValue(100, forKey: "tag")
+//        objc_setAssociatedObject(self.view, "tag", 100, .OBJC_ASSOCIATION_ASSIGN)
+//        print("\(objc_getAssociatedObject(self.view, "tag"))")
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
         //        WTLog(self.view.viewController())
         //        aaa(UILabel().text!)
