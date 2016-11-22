@@ -58,9 +58,7 @@ WTKit是我和朋友们的swift开发积累
   "name": "Hong Kong",
   "province": "Hong Kong"
 }
-
 public class WeatherModel: NSObject,WTJSONModelProtocol {
-
     var tz:String?
     var area:String?
     var tz_name:String?
@@ -69,8 +67,6 @@ public class WeatherModel: NSObject,WTJSONModelProtocol {
     var province:String?
     var current:CurrentModel?
     var day:DayModel?
-
-
     public func WTJSONModelClass(for property:String)->AnyObject?{
         if (property == "current") {
             return CurrentModel()
@@ -81,7 +77,7 @@ public class WeatherModel: NSObject,WTJSONModelProtocol {
         return nil
     }
 }
-class CurrentModel: NSObject {
+public class CurrentModel: NSObject {
     var current_version:String?
     var weather:CurrentDetailModel?
     public func WTJSONModelClass(for property:String)->AnyObject?{
