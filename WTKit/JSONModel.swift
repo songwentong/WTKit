@@ -12,7 +12,7 @@ import Foundation
  我做这个方案完全是为了解决服务端的程序员数据结构错乱的情况
  比如要的是个数组,给了个字符串,要的是字符串给一个null.
  这个方案并不适合Int,Float类型
- 适合的类型有String,NSNumber,[Any],[String:Any]
+ 适合的类型有String,NSNumber,[AnyObject],[String:AnyObject]
  其中的Any对应的Class需要在协议中给出指定的类
  */
 @objc public protocol WTJSONModelProtocol:NSObjectProtocol {
@@ -26,10 +26,10 @@ import Foundation
 extension NSObject{
     
     public func wt(travel inputData:Any?){
-        if let dictionary = inputData as? [String:Any] {
+        if let dictionary = inputData as? [String:AnyObject] {
             var outCount:UInt32 = 0;
             let plist:UnsafeMutablePointer<objc_property_t?> = class_copyPropertyList(self.classForCoder,&outCount)
-            
+
             //遍历属性
             for i in 0..<outCount{
                 let property:objc_property_t = plist[Int(i)]!
@@ -80,10 +80,10 @@ extension NSObject{
                     }
                 }else if(className).contains("NSArray"){
                     
-                    if let array = dictionary[instanceVariableName] as? NSArray {
+                    if let array = dictionary[instanceVariableName] as? [AnyObject] {
                         let selector = #selector(WTJSONModelProtocol.WTJSONModelClass(for:))
                         if self.responds(to: selector){
-                            var myArray = [Any]()
+                            var myArray = [AnyObject]()
                             for item in array{
                                 let instance = self.perform(selector, with: instanceVariableName).takeUnretainedValue()
                                 instance.wt(travel: item)
@@ -101,8 +101,6 @@ extension NSObject{
                     }
                 }
                 }
-                
-                
             }
             
         }
