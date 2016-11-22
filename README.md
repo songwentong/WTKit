@@ -46,6 +46,7 @@ WTKit是我和朋友们的swift开发积累
 
 ### 自动Model解析功能
 用于自动把JSON数据读出来赋值给属性
+```swift
 {
   "tz": 8,
   "area": "HK",
@@ -57,7 +58,7 @@ WTKit是我和朋友们的swift开发积累
   "name": "Hong Kong",
   "province": "Hong Kong"
 }
-```swift
+
 public class WeatherModel: NSObject,WTJSONModelProtocol {
 
     var tz:String?
@@ -80,6 +81,14 @@ public class WeatherModel: NSObject,WTJSONModelProtocol {
         return nil
     }
 }
+class CurrentModel: NSObject {
+    var current_version:String?
+    var weather:CurrentDetailModel?
+    public func WTJSONModelClass(for property:String)->AnyObject?{
+        return CurrentDetailModel()
+    }
+}
+
 
 ```
 
