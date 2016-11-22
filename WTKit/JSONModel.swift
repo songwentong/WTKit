@@ -46,11 +46,6 @@ extension NSObject{
                 let propertygetAttributesArray:[String] = propertygetAttributesString.components(separatedBy: ",")
                 var className = ""
                 var instanceVariableName = ""
-//                var objc_AssociationPolicy:objc_AssociationPolicy = .OBJC_ASSOCIATION_ASSIGN
-//                var isStrong,isCopy,isNonatomic:Bool
-//                isStrong = false
-//                isCopy = false
-//                isNonatomic = false
                 for (item)in propertygetAttributesArray{
                     if item.substring(to: item.index(item.startIndex, offsetBy: 1)) == "T" {
                         //类型
@@ -71,50 +66,13 @@ extension NSObject{
                             instanceVariableName = instanceVariableName.removingPercentEncoding!
                         }
                     }
-                    /*
-                    if item.length == 1 && item.contains("&") {
-                        //strong
-                        isStrong = true
-                    }else{
-                        isStrong = false
-                    }
-                    if item.length == 1 && item.contains("C") {
-                        //copy
-                        isCopy = true
-                    }else{
-                        isCopy = false
-                    }
-                    if item.length == 1 && item.contains("N") {
-                        //nonatomic
-                        isNonatomic = true
-                    }else{
-                        isNonatomic = false
-                    }
-                    */
+
                     
                 }
-                /*
-                if isNonatomic {
-                    if isCopy{
-                        objc_AssociationPolicy = .OBJC_ASSOCIATION_COPY_NONATOMIC
-                    }
-                    if isStrong{
-                        objc_AssociationPolicy = .OBJC_ASSOCIATION_RETAIN_NONATOMIC
-                    }
-                }else
-                {
-                    if isCopy {
-                        objc_AssociationPolicy = .OBJC_ASSOCIATION_COPY
-                    }
-                    
-                    if isStrong {
-                        objc_AssociationPolicy = .OBJC_ASSOCIATION_RETAIN
-                    }
-                }
-                */
+/*
                 print("\(property) \(propertygetName) instanceVariableName:\(instanceVariableName) className: \(className) \(propertygetAttributes) \(propertygetNameString) propertygetAttributesString: \(propertygetAttributesString)  \n")
                 
-//                let result:Any? = self.wt(format: dictionary[instanceVariableName])
+*/
                 className = className.substring(from: className.startIndex)
                 className = className.substring(from: className.startIndex)
                 className = className.substring(to: className.endIndex)
