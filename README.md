@@ -89,7 +89,10 @@ class CurrentModel: NSObject {
     }
 }
 
+//一行代码解析
+weatherModel.wt(travel: jsonObject)
 
+注意,在包含自定义属性的类中实现一下WTJSONModelProtocol协议,让程序在运行时知道得到的数据是什么
 ```
 
 ### WTPrint
