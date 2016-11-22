@@ -71,15 +71,11 @@ public class WeatherModel: NSObject,WTJSONModelProtocol {
         if (property == "current") {
             return CurrentModel()
         }
-        if property == "day" {
-            return DayModel()
-        }
         return nil
     }
 }
 public class CurrentModel: NSObject {
     var current_version:String?
-    var weather:CurrentDetailModel?
     public func WTJSONModelClass(for property:String)->AnyObject?{
         return CurrentDetailModel()
     }
