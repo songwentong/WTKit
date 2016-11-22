@@ -19,22 +19,14 @@ public class WeatherModel: NSObject,WTJSONModelProtocol {
     var current:CurrentModel?
     var day:DayModel?
     
-    public func WTJSONModelValueForNull()->Any?{
-        return nil
-    }
-    
     
     public func WTJSONModelClass(for property:String)->AnyObject?{
-        
-      
         if (property == "current") {
             return CurrentModel()
         }
         if property == "day" {
             return DayModel()
         }
-        
-        
         return nil
     }
 }

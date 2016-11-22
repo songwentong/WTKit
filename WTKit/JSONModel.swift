@@ -17,12 +17,6 @@ import Foundation
  */
 @objc public protocol WTJSONModelProtocol:NSObjectProtocol {
     
-    
-    /// 数据为null时候的处理
-    ///
-    /// - Returns: 返回nil去掉此字段,通常建议返回空字符串("")
-    @objc optional func WTJSONModelValueForNull()->Any?
-    
     /// 对于某属性(目前是array和dictionary)的实例给出类型
     ///
     /// - Parameter property: 属性名

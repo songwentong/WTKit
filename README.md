@@ -15,6 +15,7 @@ WTKit是我和朋友们的swift开发积累
 - [x] UIView截屏为图片
 - [x] 常用Hud提示
 - [x] 应用新版本首次启动区分
+- [x] 自动Model解析功能
 - [x] 更多
 
 ## 开发环境
@@ -42,6 +43,45 @@ WTKit是我和朋友们的swift开发积累
 把WTKit下的几个文件拷贝过来即可
 
 ## 使用
+
+### 自动Model解析功能
+用于自动把JSON数据读出来赋值给属性
+{
+  "tz": 8,
+  "area": "HK",
+  "tz_name": "Asia/Hong_Kong",
+  "id": "101819729",
+  "current": {
+    "current_version": "69e14038fd7bbe93ec5a259e36b48173"
+  },
+  "name": "Hong Kong",
+  "province": "Hong Kong"
+}
+```swift
+public class WeatherModel: NSObject,WTJSONModelProtocol {
+
+    var tz:String?
+    var area:String?
+    var tz_name:String?
+    var id:String?
+    var name:String?
+    var province:String?
+    var current:CurrentModel?
+    var day:DayModel?
+
+
+    public func WTJSONModelClass(for property:String)->AnyObject?{
+        if (property == "current") {
+            return CurrentModel()
+        }
+        if property == "day" {
+            return DayModel()
+        }
+        return nil
+    }
+}
+
+```
 
 ### WTPrint
 
