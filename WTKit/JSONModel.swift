@@ -115,7 +115,9 @@ extension NSObject{
     /// NSArray和NSDictionary可能需要自定义为一个model类型
     public func WTSwiftModelString(_ className:String?="XXX")->String{
 
-        var stringToPrint = "import UIKit\nopen class \(className!):NSObject{\n"
+        var stringToPrint = ""
+        stringToPrint.append("\n\n//  this file is auto create by WTKit( https://github.com/swtlovewtt/WTKit )\n//  Thank you for use my json model maker\n\n\n")
+        stringToPrint.append("import UIKit\nopen class \(className!):NSObject{\n")
         if let printObject = self as? [String:AnyObject] {
             for (key,value) in printObject{
                 if let classForCoder = value.classForCoder {
