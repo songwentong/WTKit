@@ -25,6 +25,11 @@ import Foundation
 }
 extension NSObject{
     
+    
+    /// 遍历给出的JSON数据,赋值给本类(可嵌套,只要实现
+    /// WTJSONModelProtocol给出字段对应的自定义类型的对象即可)
+    ///
+    /// - Parameter inputData: 解析过的json数据
     public func wt(travel inputData:Any?){
         if let dictionary = inputData as? [String:AnyObject] {
             var outCount:UInt32 = 0;
@@ -129,7 +134,11 @@ extension NSObject{
 //        print("\(stringToPrint)")
     }
     
-    public  func attempConvertToJSON()->[String:Any]{
+    
+    /// 尝试把一个Model转换成JSON格式,便于本地化储存
+    ///
+    /// - Returns: 返回一个JSON格式数据
+    public  func WTAttempConvertToJSON()->[String:Any]{
         
             var result = [String:Any]()
             var outCount:UInt32 = 0;
@@ -184,7 +193,7 @@ extension NSObject{
                         var myArray = [Any]()
                         for item in array{
 //                            if let itemObject:AnyObject = item as? AnyObject{
-                                if let attemtJSON:AnyObject = (item as AnyObject).attempConvertToJSON as AnyObject? {
+                                if let attemtJSON:AnyObject = (item as AnyObject).WTAttempConvertToJSON as AnyObject? {
                                     myArray.append(attemtJSON)
 //                                }
                             }
