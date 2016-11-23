@@ -435,7 +435,7 @@ Internet traffic will be routed through it.</string>
         <!--Model Demo View Controller-->
         <scene sceneID="ISl-co-Wem">
             <objects>
-                <viewController id="kRr-sH-rAo" customClass="ModelDemoViewController" customModule="WTKit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="kRr-sH-rAo" customClass="ModelDemoViewController" customModule="WTKit_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QPA-xk-n21"/>
                         <viewControllerLayoutGuide type="bottom" id="MxB-AD-egh"/>
@@ -443,8 +443,47 @@ Internet traffic will be routed through it.</string>
                     <view key="view" contentMode="scaleToFill" id="obp-Fx-GUx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8Nz-iT-G1l">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xL3-9X-u0s">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xL3-9X-u0s" firstAttribute="leading" secondItem="obp-Fx-GUx" secondAttribute="leading" id="CQL-Bp-u6I"/>
+                            <constraint firstItem="xL3-9X-u0s" firstAttribute="top" secondItem="QPA-xk-n21" secondAttribute="bottom" id="PvK-26-m6T"/>
+                            <constraint firstItem="8Nz-iT-G1l" firstAttribute="height" secondItem="xL3-9X-u0s" secondAttribute="height" id="Vbo-pu-NVq"/>
+                            <constraint firstAttribute="trailing" secondItem="xL3-9X-u0s" secondAttribute="trailing" id="XbU-dD-tKG"/>
+                            <constraint firstItem="8Nz-iT-G1l" firstAttribute="centerX" secondItem="xL3-9X-u0s" secondAttribute="centerX" id="YRi-Fu-5LW"/>
+                            <constraint firstItem="8Nz-iT-G1l" firstAttribute="width" secondItem="xL3-9X-u0s" secondAttribute="width" id="tGe-pW-60Z"/>
+                            <constraint firstItem="MxB-AD-egh" firstAttribute="top" secondItem="xL3-9X-u0s" secondAttribute="bottom" id="ytx-b9-Kjr"/>
+                            <constraint firstItem="8Nz-iT-G1l" firstAttribute="centerY" secondItem="xL3-9X-u0s" secondAttribute="centerY" id="zIq-8J-hJC"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="UG3-xb-6aE">
+                        <nil key="title"/>
+                        <barButtonItem key="rightBarButtonItem" title="print" id="9W5-9o-MOz">
+                            <connections>
+                                <action selector="printProperty:" destination="kRr-sH-rAo" id="tMX-l4-r0o"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="jsonTextView" destination="xL3-9X-u0s" id="uc2-0j-Kex"/>
+                        <outlet property="propertyTextView" destination="8Nz-iT-G1l" id="I4K-sd-yK2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VjR-xg-hym" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

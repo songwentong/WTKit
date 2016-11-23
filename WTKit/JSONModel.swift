@@ -104,8 +104,100 @@ extension NSObject{
             }
             
         }
+    
+    
+    /// 尝试打印出一个json对应的Model属性
+    /// NSArray和NSDictionary可能需要自定义为一个model类型
+    public func printModel()->Swift.Void{
+        var stringToPrint = "open class XXX:NSObject{\n"
+        if let printObject = self as? [String:AnyObject] {
+            for (key,value) in printObject{
+                if let classForCoder = value.classForCoder {
+                    var string = NSStringFromClass(classForCoder)
+                    if string == "NSString" {
+                        string = "String"
+                    }else if string == "NSArray"{
+                        string = "[Any]"
+                    }
+                    stringToPrint.append("    var \(key):\(string)?\n")
+                }
+            }
+        }
+        stringToPrint.append("}")
+        print("\(stringToPrint)")
     }
     
+    public  func attempConvertToJSON()->[String:Any]{
+        
+            var result = [String:Any]()
+            var outCount:UInt32 = 0;
+            let plist:UnsafeMutablePointer<objc_property_t?> = class_copyPropertyList(self.classForCoder,&outCount)
+            
+            //遍历属性
+            for i in 0..<outCount{
+                let property:objc_property_t = plist[Int(i)]!
+//                let propertygetName:UnsafePointer<Int8> = property_getName(property)
+                let propertygetAttributes:UnsafePointer<Int8> = property_getAttributes(property)
+//                let propertygetNameString:String = String(cString: propertygetName)
+                let propertygetAttributesString:String = String(cString: propertygetAttributes)
+                let propertygetAttributesArray:[String] = propertygetAttributesString.components(separatedBy: ",")
+                var className = ""
+                var instanceVariableName = ""
+                for (item)in propertygetAttributesArray{
+                    if item.substring(to: item.index(item.startIndex, offsetBy: 1)) == "T" {
+                        //类型
+                        let typeString:String = item
+                        let classNameindex = typeString.index(typeString.startIndex, offsetBy: 1)
+                        className = typeString.substring(from: classNameindex)
+                        if let _ = className.removingPercentEncoding {
+                            className = className.removingPercentEncoding!
+                        }
+                    }
+                    if item.substring(to: item.index(item.startIndex, offsetBy: 1)) == "V"{
+                        //字段名
+                        let typeString:String = item
+                        let classNameindex = typeString.index(typeString.startIndex, offsetBy: 1)
+                        instanceVariableName = typeString.substring(from: classNameindex)
+                        //                        print("\(instanceVariableName)")
+                        if let _ = typeString.removingPercentEncoding {
+                            instanceVariableName = instanceVariableName.removingPercentEncoding!
+                        }
+                    }
+                    
+                    
+                }
+                /*
+                 print("\(property) \(propertygetName) instanceVariableName:\(instanceVariableName) className: \(className) \(propertygetAttributes) \(propertygetNameString) propertygetAttributesString: \(propertygetAttributesString)  \n")
+                 
+                 */
+                className = className.substring(from: className.startIndex)
+                className = className.substring(from: className.startIndex)
+                className = className.substring(to: className.endIndex)
+                if let value = self.value(forKey: instanceVariableName) {
+                    if let string = value as? String {
+                        result.updateValue(string, forKey: instanceVariableName)
+                    }else if let number = value as? NSNumber {
+                        result.updateValue(number, forKey: instanceVariableName)
+                    }else if let array = value as? [Any] {
+                        var myArray = [Any]()
+                        for item in array{
+//                            if let itemObject:AnyObject = item as? AnyObject{
+                                if let attemtJSON:AnyObject = (item as AnyObject).attempConvertToJSON as AnyObject? {
+                                    myArray.append(attemtJSON)
+//                                }
+                            }
+                        }
+                        result.updateValue(myArray, forKey: instanceVariableName)
+                    }else{
+                        
+                    }
+                }
+            }
+            return result
+        }
+    
+}
+
 
 
 
