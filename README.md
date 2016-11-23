@@ -45,9 +45,11 @@ WTKit是我和朋友们的swift开发积累
 ## 使用
 
 ### 自动Model解析功能
+```
 用于自动把JSON数据读出来赋值给属性
+视频地址教程(https://www.youtube.com/watch?v=kvj7Jkn0liw&feature=youtu.be)
 ```swift
-视频地址教程:https://www.youtube.com/watch?v=kvj7Jkn0liw&feature=youtu.be
+
 {
   "tz": 8,
   "area": "HK",
