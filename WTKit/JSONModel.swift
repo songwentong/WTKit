@@ -108,8 +108,9 @@ extension NSObject{
     
     /// 尝试打印出一个json对应的Model属性
     /// NSArray和NSDictionary可能需要自定义为一个model类型
-    public func printModel()->Swift.Void{
-        var stringToPrint = "open class XXX:NSObject{\n"
+    public func WTSwiftModelString(_ className:String?="XXX")->String{
+
+        var stringToPrint = "import UIKit\nopen class \(className!):NSObject{\n"
         if let printObject = self as? [String:AnyObject] {
             for (key,value) in printObject{
                 if let classForCoder = value.classForCoder {
@@ -124,7 +125,8 @@ extension NSObject{
             }
         }
         stringToPrint.append("}")
-        print("\(stringToPrint)")
+        return stringToPrint
+//        print("\(stringToPrint)")
     }
     
     public  func attempConvertToJSON()->[String:Any]{
