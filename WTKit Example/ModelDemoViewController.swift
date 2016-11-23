@@ -10,7 +10,6 @@ import UIKit
 
 class ModelDemoViewController: UIViewController,UITextViewDelegate {
     
-    var weatherModel:WeatherModel = WeatherModel()
     var segment:UISegmentedControl = UISegmentedControl(items: ["json","property","travel"])
     @IBOutlet weak var titleButton: UIButton!
     var jsonString:String = ""
@@ -28,6 +27,7 @@ class ModelDemoViewController: UIViewController,UITextViewDelegate {
                 jsonString = String.init(data: data, encoding: .utf8)!
                 jsonObject = JSONSerialization.WTJSONObject(with: data)! as AnyObject
                 jsonTextView.text = jsonString
+
             }catch{
                 
             }
@@ -35,8 +35,6 @@ class ModelDemoViewController: UIViewController,UITextViewDelegate {
         
         self.title = className
         
-        
-        weatherModel.wt(travel: jsonObject)
         
         //        let sel = #selector(ModelDemoViewController.segmentControlEvent(_:))
         //        self.segment.addTarget(self, action: sel, for: .valueChanged)
@@ -120,13 +118,13 @@ class ModelDemoViewController: UIViewController,UITextViewDelegate {
     @IBAction func writeToDisk(_ sender: Any) {
         do {
             let parseJsonResult = try JSONSerialization.jsonObject(with: jsonTextView.text.data(using: .utf8)!, options: [])
-            print("JSON 合法")
+//            print("JSON 合法")
             if let obj = parseJsonResult as? NSObject {
                 let filePath = desktopPath() + "/" + className! + ".swift"
                 let modelString = obj.WTSwiftModelString(className);
                 do {
                     try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
-                    print("写文件成功")
+                    print("写文件成功,请在桌面查看")
                 }catch{
                     print("写文件失败")
                 }

@@ -35,12 +35,7 @@
 		E17BDA5E1DDDC1E900CF5672 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E17BDA5F1DDDC1E900CF5672 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
 		E19BA5151DE419C100BE512B /* JSONData in Resources */ = {isa = PBXBuildFile; fileRef = E1D21B051DE054900011F302 /* JSONData */; };
-		E19BA5161DE419C100BE512B /* DayDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19BA50F1DE4198A00BE512B /* DayDetailModel.swift */; };
-		E19BA5171DE419C100BE512B /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B111DE2A8E70011F302 /* WeatherModel.swift */; };
-		E19BA5181DE419C100BE512B /* DayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19BA50D1DE4195D00BE512B /* DayModel.swift */; };
-		E19BA5191DE419C100BE512B /* CurrentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19BA50A1DE410F100BE512B /* CurrentModel.swift */; };
 		E19BA51B1DE41D1000BE512B /* ModelDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19BA51A1DE41D1000BE512B /* ModelDemoViewController.swift */; };
-		E19BA51D1DE41E9100BE512B /* CurrentDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19BA51C1DE41E9100BE512B /* CurrentDetailModel.swift */; };
 		E1D21AF91DE04D6D0011F302 /* WTKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */; };
 		E1D21AFB1DE04D6D0011F302 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */; };
 		E1D21B011DE053380011F302 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
@@ -89,17 +84,12 @@
 		E17BDA561DDDC17300CF5672 /* TableRefreshVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRefreshVC.swift; sourceTree = "<group>"; };
 		E17BDA581DDDC17800CF5672 /* ImageUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadVC.swift; sourceTree = "<group>"; };
 		E17BDA5A1DDDC17D00CF5672 /* Swift使用规范 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Swift使用规范"; sourceTree = "<group>"; };
-		E19BA50A1DE410F100BE512B /* CurrentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CurrentModel.swift; path = ../WTKitTests/CurrentModel.swift; sourceTree = "<group>"; };
-		E19BA50D1DE4195D00BE512B /* DayModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DayModel.swift; path = ../WTKitTests/DayModel.swift; sourceTree = "<group>"; };
-		E19BA50F1DE4198A00BE512B /* DayDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DayDetailModel.swift; path = ../WTKitTests/DayDetailModel.swift; sourceTree = "<group>"; };
 		E19BA51A1DE41D1000BE512B /* ModelDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelDemoViewController.swift; sourceTree = "<group>"; };
-		E19BA51C1DE41E9100BE512B /* CurrentDetailModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentDetailModel.swift; sourceTree = "<group>"; };
 		E1D21AF61DE04D6D0011F302 /* WTKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WTKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTKitTests.swift; sourceTree = "<group>"; };
 		E1D21AFA1DE04D6D0011F302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1D21B051DE054900011F302 /* JSONData */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = JSONData; path = ../WTKitTests/JSONData; sourceTree = "<group>"; };
 		E1D21B0D1DE29B870011F302 /* JSONModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONModel.swift; sourceTree = "<group>"; };
-		E1D21B111DE2A8E70011F302 /* WeatherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeatherModel.swift; path = ../WTKitTests/WeatherModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,11 +190,6 @@
 			isa = PBXGroup;
 			children = (
 				E1D21B051DE054900011F302 /* JSONData */,
-				E1D21B111DE2A8E70011F302 /* WeatherModel.swift */,
-				E19BA50D1DE4195D00BE512B /* DayModel.swift */,
-				E19BA50F1DE4198A00BE512B /* DayDetailModel.swift */,
-				E19BA50A1DE410F100BE512B /* CurrentModel.swift */,
-				E19BA51C1DE41E9100BE512B /* CurrentDetailModel.swift */,
 				E19BA51A1DE41D1000BE512B /* ModelDemoViewController.swift */,
 			);
 			name = ModelDemo;
@@ -390,18 +375,13 @@
 				E17BDA511DDDC15D00CF5672 /* ImageDownloadVC.swift in Sources */,
 				E17BDA371DDDC14700CF5672 /* ViewController.swift in Sources */,
 				E17BDA5D1DDDC1E900CF5672 /* CustomExtension.swift in Sources */,
-				E19BA51D1DE41E9100BE512B /* CurrentDetailModel.swift in Sources */,
 				E17BDA591DDDC17800CF5672 /* ImageUploadVC.swift in Sources */,
 				E17BDA5E1DDDC1E900CF5672 /* FoundationExtension.swift in Sources */,
 				E17BDA4E1DDDC15C00CF5672 /* GetRequestViewController.swift in Sources */,
 				E17BDA551DDDC15D00CF5672 /* ReachabilityVC.swift in Sources */,
-				E19BA5191DE419C100BE512B /* CurrentModel.swift in Sources */,
-				E19BA5171DE419C100BE512B /* WeatherModel.swift in Sources */,
-				E19BA5161DE419C100BE512B /* DayDetailModel.swift in Sources */,
 				E17BDA4D1DDDC15C00CF5672 /* ColorViewController.swift in Sources */,
 				E17BDA501DDDC15C00CF5672 /* HudDemoViewController.swift in Sources */,
 				E17BDA351DDDC14700CF5672 /* AppDelegate.swift in Sources */,
-				E19BA5181DE419C100BE512B /* DayModel.swift in Sources */,
 				E17BDA4F1DDDC15C00CF5672 /* GifImageVC.swift in Sources */,
 				E1D21B131DE2A9170011F302 /* JSONModel.swift in Sources */,
 				E17BDA571DDDC17300CF5672 /* TableRefreshVC.swift in Sources */,

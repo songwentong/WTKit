@@ -129,6 +129,7 @@ extension NSObject{
                 }
             }
         }
+        stringToPrint.append("    public func WTJSONModelClass(for property:String)->AnyObject?{\n        return nil\n    }\n")
         stringToPrint.append("}")
         return stringToPrint
 //        print("\(stringToPrint)")
