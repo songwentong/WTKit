@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ModelDemoViewController: UIViewController {
+class ModelDemoViewController: UIViewController,UITextViewDelegate {
     
     var weatherModel:WeatherModel = WeatherModel()
     var segment:UISegmentedControl = UISegmentedControl(items: ["json","property","travel"])
@@ -22,15 +22,17 @@ class ModelDemoViewController: UIViewController {
 //    var alertController:UIAlertController?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        do{
-            let data = try Data(contentsOf: Bundle.main.url(forResource: "JSONData", withExtension: nil)!)
-            jsonString = String.init(data: data, encoding: .utf8)!
-            jsonObject = JSONSerialization.WTJSONObject(with: data)! as AnyObject
-            jsonTextView.text = jsonString
-        }catch{
-            
+        if let url:URL = Bundle.main.url(forResource: "JSONData", withExtension: nil) {
+            do{
+                let data = try Data.init(contentsOf: url)
+                jsonString = String.init(data: data, encoding: .utf8)!
+                jsonObject = JSONSerialization.WTJSONObject(with: data)! as AnyObject
+                jsonTextView.text = jsonString
+            }catch{
+                
+            }
         }
+        
         self.title = className
         
         
@@ -115,17 +117,27 @@ class ModelDemoViewController: UIViewController {
         return ""
     }
     //写到桌面
-    @IBAction func writeToDesktop(_ sender: Any) {
-    if let obj = jsonObject as? NSObject {
-        let filePath = desktopPath() + "/" + className! + ".swift"
-        let modelString = obj.WTSwiftModelString(className);
+    @IBAction func writeToDisk(_ sender: Any) {
         do {
-            try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
+            let parseJsonResult = try JSONSerialization.jsonObject(with: jsonTextView.text.data(using: .utf8)!, options: [])
+            print("JSON 合法")
+            if let obj = parseJsonResult as? NSObject {
+                let filePath = desktopPath() + "/" + className! + ".swift"
+                let modelString = obj.WTSwiftModelString(className);
+                do {
+                    try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
+                    print("写文件成功")
+                }catch{
+                    print("写文件失败")
+                }
+            }else{
+                print("不是NSObject")
+            }
         }catch{
-        
-        }
+            print("JSON 不合法")
         }
     }
+    
 
     deinit {
         print("deinit")
@@ -137,6 +149,10 @@ class ModelDemoViewController: UIViewController {
     }
     
     
+    // MARK: - UITextViewDelegate
+    func textViewDidChange(_ textView: UITextView) {
+        
+    }
     /*
      // MARK: - Navigation
      
