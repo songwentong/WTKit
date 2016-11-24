@@ -28,7 +28,7 @@ extension NSObject{
     
     /// 遍历给出的JSON数据,赋值给本类(可嵌套,只要实现
     /// WTJSONModelProtocol给出字段对应的自定义类型的对象即可)
-    ///
+    /// null并没有读取,因为这个类型是没有意义的
     /// - Parameter inputData: 解析过的json数据
     public func wt(travel inputData:Any?){
         if let dictionary = inputData as? [String:AnyObject] {
