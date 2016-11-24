@@ -1,4 +1,6 @@
 {
+  "testnull": null,
+  "testboolean": true,
   "testdict": {
     
   },
