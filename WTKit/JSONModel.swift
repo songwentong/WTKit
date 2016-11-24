@@ -116,7 +116,7 @@ extension NSObject{
     public func WTSwiftModelString(_ className:String?="XXX")->String{
 
         var stringToPrint = ""
-        stringToPrint.append("\n\n//  this file is auto create by WTKit( https://github.com/swtlovewtt/WTKit )\n//  Thank you for use my json model maker\n\n\n")
+        stringToPrint.append("//\n//  \(className!).swift\n//\n//  this file is auto create by WTKit\n//  site:https://github.com/swtlovewtt/WTKit\n//  Thank you for use my json model maker\n//\n\n")
         stringToPrint.append("import UIKit\nopen class \(className!):NSObject{\n")
         if let printObject = self as? [String:AnyObject] {
             for (key,value) in printObject{
@@ -126,6 +126,8 @@ extension NSObject{
                         string = "String"
                     }else if string == "NSArray"{
                         string = "[Any]"
+                    }else if string == "NSDictionary"{
+                        string = "[String:Any]"
                     }
                     stringToPrint.append("    var \(key):\(string)?\n")
                 }
