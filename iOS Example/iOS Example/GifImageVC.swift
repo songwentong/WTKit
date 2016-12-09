@@ -43,7 +43,7 @@ class GifImageVC: UIViewController {
                 
                 OperationQueue.toMain(execute: {
                     self.hideLoadingView()
-                    self.imageView = self.view.viewWithTag(1) as! AnimationImageVIew
+                    self.imageView = self.view.viewWithTag(1) as! WTKit.AnimationImageVIew
                     self.imageView.backgroundColor = UIColor.white
                     let image = WTImage(data:data!)
                     self.imageView.image = image

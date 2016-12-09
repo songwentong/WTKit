@@ -366,7 +366,7 @@ open class WTURLSessionTask:NSObject,URLSessionTaskDelegate{
         task.cancel()
     }
     
-    private func finish(){
+    func finish(){
         
         OperationQueue.globalQueue {
             
@@ -389,8 +389,8 @@ open class WTURLSessionTask:NSObject,URLSessionTaskDelegate{
             
             
         }
-        DispatchQueue.main.async { [weak self] in
-            self?.completionHandler?(self?.data,self?.response,self?.error)
+        DispatchQueue.main.async {
+            self.completionHandler?(self.data,self.response,self.error)
         }
         //        OperationQueue.toMain {
         
@@ -421,6 +421,7 @@ open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
                 if cachedResponse != nil{
                     self.data = (cachedResponse?.data)!
                     self.response = cachedResponse?.response
+                    self.finish()
                 }else{
                     super.resume()
                 }

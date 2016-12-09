@@ -99,8 +99,8 @@
 		E15D28E51DFAB4620042E678 /* Base.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				E15D28E61DFAB4620042E678 /* LaunchScreen.storyboard */,
 				E15D28E81DFAB4620042E678 /* Main.storyboard */,
+				E15D28E61DFAB4620042E678 /* LaunchScreen.storyboard */,
 			);
 			path = Base.lproj;
 			sourceTree = "<group>";
