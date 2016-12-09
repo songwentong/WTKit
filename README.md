@@ -123,13 +123,12 @@ WTKit.dataTask(with: "https://www.apple.com") { (data, response, error) in
 
 - 数据响应
 - 字符串
-- 图片
 - JSON
 
 #### 数据响应
 
 ```swift
-let task = URLSession.wt_dataTask(with: "https://www.apple.com") { (data, response, error) in
+let task = WTKit.dataTask(with: "https://www.apple.com") { (data, response, error) in
             print(response)
             print(data)     
             print(error)    
@@ -140,13 +139,6 @@ let task = URLSession.wt_dataTask(with: "https://www.apple.com") { (data, respon
 ```swift
 task.stringHandler = {(string:String?,error:NSError?)in
             print(string)
-        }
-```
-#### 图片
-
-```swift
-task.imageHandler = {(image:UIImage?,error:NSError?) in
-            print(image)
         }
 ```
 #### JSON
