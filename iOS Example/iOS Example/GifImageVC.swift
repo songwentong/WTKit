@@ -34,7 +34,11 @@ class GifImageVC: UIViewController {
         //http://ww1.sinaimg.cn/bmiddle/006ajVGQgw1f4s8n25m5hg30b4081u0z.gif
         self.showLoadingView()
         let request = URLRequest.wt_request(with: "http://ww1.sinaimg.cn/mw690/47449485jw1f4shxfge7lg208w04rkjn.gif")
-        let task = URLSession.wt_cachedDataTask(with: request, credential: nil) { (data, response, error) in
+
+        
+        let task:WTURLSessionDataTask = dataTask(with: request)
+        task.cacheTime = -1
+        task.completionHandler = { (data, response, error) in
             if data != nil {
                 
                 OperationQueue.toMain(execute: {
@@ -47,8 +51,9 @@ class GifImageVC: UIViewController {
                     self.imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(GifImageVC.imageTap(_:))))
                 })
             }
-        }
         
+        
+        }
         task.resume()
 //
 //        imageView!.image = UIImage.gitImageWith(data,scale: 1)

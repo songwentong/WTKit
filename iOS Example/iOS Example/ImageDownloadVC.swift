@@ -27,7 +27,6 @@ class ImageDownloadVC: UIViewController {
         清空缓存
      */
     @IBAction func clearCache(_ sender: AnyObject) {
-        UIImageView.clearAllImageCache()
         self.showHudWithTip("缓存已清空")
     }
     @IBAction func requestPress(_ sender: AnyObject) {

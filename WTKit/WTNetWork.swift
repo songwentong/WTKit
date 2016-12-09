@@ -229,76 +229,76 @@ extension URLSession{
     //        return session
     //    }
     
-    public static let wt_sharedInstance:URLSession = {
-        let delegate = WTURLSessionManager.sharedInstance
-        let configuration = URLSessionConfiguration.default
-        configuration.urlCache = URLCache.wt_sharedURLCacheForRequests
-        let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
-        return session
-        
-    }()
+//    public static let wt_sharedInstance:URLSession = {
+//        let delegate = WTURLSessionManager.sharedInstance
+//        let configuration = URLSessionConfiguration.default
+//        configuration.urlCache = URLCache.wt_sharedURLCacheForRequests
+//        let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
+//        return session
+//        
+//    }()
     
     /*
      便捷的请求方法.
      */
-    public static func wt_dataTask(with url:String, method:httpMethod? = .GET,parameters:[String:String]?=[:],headers: [String: String]? = [:] ,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
-        let request = URLRequest.wt_request(with: url, method: method, parameters: parameters, headers: headers)
-        return self.wt_dataTask(with: request,credential:credential, completionHandler: completionHandler)
-    }
+//    public static func wt_dataTask(with url:String, method:httpMethod? = .GET,parameters:[String:String]?=[:],headers: [String: String]? = [:] ,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
+//        let request = URLRequest.wt_request(with: url, method: method, parameters: parameters, headers: headers)
+//        return self.wt_dataTask(with: request,credential:credential, completionHandler: completionHandler)
+//    }
     
     /*!
      根据请求对象,凭据来创建task
      */
-    public static func wt_dataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
-        let session = self.wt_sharedInstance
-        let task = session.dataTask(with: request)
-        let myTask = WTURLSessionTask(task: task)
-        WTURLSessionManager.sharedInstance[task] = myTask
-        myTask.completionHandler = completionHandler
-        myTask.credential = credential
-        //WTURLSessionManager.sharedInstance.credential = credential
-        return myTask
-    }
+//    public static func wt_dataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
+//        let session = self.wt_sharedInstance
+//        let task = session.dataTask(with: request)
+//        let myTask = WTURLSessionTask(task: task)
+//        WTURLSessionManager.sharedInstance[task] = myTask
+//        myTask.completionHandler = completionHandler
+//        myTask.credential = credential
+//        //WTURLSessionManager.sharedInstance.credential = credential
+//        return myTask
+//    }
     
-    public static func wt_uploadTask(with request:URLRequest,from bodyData:Data,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
-        let session = self.wt_sharedInstance
-        let task = session.uploadTask(with: request, from: bodyData)
-        let myTask = WTURLSessionTask(task: task)
-        WTURLSessionManager.sharedInstance[task] = myTask
-        myTask.completionHandler = completionHandler
-        myTask.credential = credential
-        //        WTURLSessionManager.sharedInstance.credential = credential
-        return myTask
-    }
+//    public static func wt_uploadTask(with request:URLRequest,from bodyData:Data,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
+//        let session = self.wt_sharedInstance
+//        let task = session.uploadTask(with: request, from: bodyData)
+//        let myTask = WTURLSessionTask(task: task)
+//        WTURLSessionManager.sharedInstance[task] = myTask
+//        myTask.completionHandler = completionHandler
+//        myTask.credential = credential
+//        //        WTURLSessionManager.sharedInstance.credential = credential
+//        return myTask
+//    }
     
-    public static func wt_downloadTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
-        
-        let session = self.wt_sharedInstance
-        let task = session.downloadTask(with: request)
-        let myTask = WTURLSessionTask(task: task)
-        WTURLSessionManager.sharedInstance[task] = myTask
-        myTask.completionHandler = completionHandler
-        myTask.credential = credential
-        //        WTURLSessionManager.sharedInstance.credential = credential
-        return myTask
-    }
+//    public static func wt_downloadTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
+//        
+//        let session = self.wt_sharedInstance
+//        let task = session.downloadTask(with: request)
+//        let myTask = WTURLSessionTask(task: task)
+//        WTURLSessionManager.sharedInstance[task] = myTask
+//        myTask.completionHandler = completionHandler
+//        myTask.credential = credential
+//        //        WTURLSessionManager.sharedInstance.credential = credential
+//        return myTask
+//    }
+//    
     
-    
-    public static func wt_cachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:@escaping completionHandler)->WTURLSessionTask{
-        
-        
-        //        let configuration = URLSessionConfiguration.default
-        let session = self.wt_sharedInstance
-        var myRequest = request
-        myRequest.cachePolicy = .returnCacheDataElseLoad
-        let task = session.dataTask(with: myRequest)
-        let myTask = WTURLSessionTask(task: task)
-        WTURLSessionManager.sharedInstance[task] = myTask
-        myTask.completionHandler = completionHandler
-        myTask.credential = credential
-        //        WTURLSessionManager.sharedInstance.credential = credential
-        return myTask
-    }
+//    public static func wt_cachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:@escaping completionHandler)->WTURLSessionTask{
+//        
+//        
+//        //        let configuration = URLSessionConfiguration.default
+//        let session = self.wt_sharedInstance
+//        var myRequest = request
+//        myRequest.cachePolicy = .returnCacheDataElseLoad
+//        let task = session.dataTask(with: myRequest)
+//        let myTask = WTURLSessionTask(task: task)
+//        WTURLSessionManager.sharedInstance[task] = myTask
+//        myTask.completionHandler = completionHandler
+//        myTask.credential = credential
+//        //        WTURLSessionManager.sharedInstance.credential = credential
+//        return myTask
+//    }
     
     
 }
@@ -408,6 +408,33 @@ open class WTURLSessionTask:NSObject,URLSessionTaskDelegate{
     
 }
 open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
+    open var dataTask:URLSessionDataTask
+    //-1代表永久,0代表不缓存
+    open var cacheTime:Int = 0
+    override init(task: URLSessionTask) {
+        dataTask = task as! URLSessionDataTask
+        super.init(task: task)
+    }
+    public override func resume(){
+        if cacheTime == -1 {
+            WTURLSessionManager.default.session?.configuration.urlCache?.getCachedResponse(for: dataTask, completionHandler: {(cachedResponse) in
+                if cachedResponse != nil{
+                    self.data = (cachedResponse?.data)!
+                    self.response = cachedResponse?.response
+                }else{
+                    super.resume()
+                }
+            })
+        }
+        
+    }
+    public override func suspend(){
+        super.suspend()
+    }
+    public override func cancel(){
+        super.cancel()
+    }
+    
     public func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
         var disposition: Foundation.URLSession.AuthChallengeDisposition = .performDefaultHandling
         var credential:URLCredential? = self.credential
@@ -462,6 +489,9 @@ open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
                 }
                 
             }
+            if cacheTime == -1 {
+                shouldCache = true;
+            }
             
         }
         if shouldCache {
@@ -503,7 +533,7 @@ open class WTURLSessionManager:NSObject{
         let configuration = URLSessionConfiguration.default
         return WTURLSessionManager(configuration: configuration)
     }()
-    
+    //
     private var taskDelegates: [Int: WTURLSessionTask] = [:]
     private let delegateQueue:OperationQueue
     private let taskSubscriptQueue:OperationQueue

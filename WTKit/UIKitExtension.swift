@@ -413,7 +413,7 @@ extension UIButton{
         }
         
         OperationQueue.userInteractive {
-            let task = UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
+            let task = UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image,error) in
                 safeSyncInMain(with: {
                     self?.setImage(image, for: state)
                     self?.setNeedsLayout()
@@ -422,6 +422,17 @@ extension UIButton{
                     }
                 })
             })
+            
+//            let task = UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
+//                safeSyncInMain(with: {
+//                    self?.setImage(image, for: state)
+//                    self?.setNeedsLayout()
+//                    if complection != nil {
+//                        complection!(image,error)
+//                    }
+//                })
+//            })
+            
             self.wtImageTask = task
             task.resume()
         }
@@ -433,7 +444,7 @@ extension UIButton{
         }
         
         OperationQueue.userInteractive {
-            let task = UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
+            let task = UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image, error) in
                 safeSyncInMain(with: {
                     self?.setBackgroundImage(image, for:state)
                     self?.setNeedsLayout()
@@ -466,10 +477,10 @@ extension UIImage{
      
      }
      */
-    
-    public class func sharedURLCache() -> URLCache {
-        return URLCache.wt_sharedURLCacheForRequests
-    }
+//    
+//    public class func sharedURLCache() -> URLCache {
+//        return URLCache.wt_sharedURLCacheForRequests
+//    }
     
     public func toData()->Data?{
         var data = UIImageJPEGRepresentation(self, CGFloat(1))
@@ -481,21 +492,17 @@ extension UIImage{
     
     
     
-    public class func cachedImageDataTask(with url:String,credential:URLCredential?=nil, complection:@escaping imageHandler )->WTURLSessionTask{
-        let request = URLRequest.wt_request(with: url)
-        
-        
-        let myTask = URLSession.wt_cachedDataTask(with: request,credential:credential, completionHandler: { (data, response, error) in
-            var image:UIImage?
-            if (data != nil){
-                image = UIImage(data: data!)
+    public class func cachedImageDataTask(with url:String,completionHandler:@escaping (UIImage?,Error?)->Void)->WTURLSessionTask{
+        let task = dataTask(with: url)
+        task.cacheTime = -1
+//        open func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask
+        task.completionHandler = {(data,reponse,error)in
+            if error == nil {
+                let image = UIImage(data:data!)
+                completionHandler(image,error)
             }
-            
-            complection(image,error)
-            
-        })
-        
-        return myTask
+        }
+        return task
     }
     
     //创建一个带圆角的图片
@@ -595,9 +602,6 @@ private var WTUIImageViewImageDataTaskKey:Void?
 private var WTUIImageViewHighLightedImageDataTaskKey:Void?
 extension UIImageView{
     
-    public static func clearAllImageCache(){
-        UIImage.sharedURLCache().removeAllCachedResponses()
-    }
     
     internal var wtImageTask:WTURLSessionTask?{
         get{
@@ -647,7 +651,7 @@ extension UIImageView{
             self.setNeedsLayout()
         }
         OperationQueue.userInteractive {
-            let task =  UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
+            let task =  UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image, error) in
                 safeSyncInMain(with: {
                     self?.image = image
                     self?.setNeedsLayout()
@@ -671,7 +675,7 @@ extension UIImageView{
             self.setNeedsLayout()
         }
         OperationQueue.userInteractive {
-            let task =  UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
+            let task =  UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image, error) in
                 safeSyncInMain(with: {
                     self?.image = image
                     self?.setNeedsLayout()

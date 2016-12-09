@@ -381,10 +381,10 @@ extension URLCache{
     /*!
      数据缓存
      */
-     public static let wt_sharedURLCacheForRequests:URLCache={
-        let cache = URLCache(memoryCapacity: 4*1024*1024, diskCapacity: 1*1024*1024*1024, diskPath: "wt_sharedURLCacheForRequestsKey")
-        return cache
-    }()
+//    public static let wt_sharedURLCacheForRequests:URLCache={
+//        let cache = URLCache(memoryCapacity: 4*1024*1024, diskCapacity: 1*1024*1024*1024, diskPath: "wt_sharedURLCacheForRequestsKey")
+//        return cache
+//    }()
     
     
     
