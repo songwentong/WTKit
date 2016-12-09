@@ -91,9 +91,23 @@
 		E15D28D01DFAB41F0042E678 /* iOS Example */ = {
 			isa = PBXGroup;
 			children = (
-				E15D28E31DFAB4620042E678 /* AppDelegate.swift */,
-				E15D28E41DFAB4620042E678 /* Assets.xcassets */,
-				E15D28E51DFAB4620042E678 /* Base.lproj */,
+				E15D290C1DFABA8E0042E678 /* Classes */,
+			);
+			path = "iOS Example";
+			sourceTree = "<group>";
+		};
+		E15D28E51DFAB4620042E678 /* Base.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				E15D28E61DFAB4620042E678 /* LaunchScreen.storyboard */,
+				E15D28E81DFAB4620042E678 /* Main.storyboard */,
+			);
+			path = Base.lproj;
+			sourceTree = "<group>";
+		};
+		E15D290C1DFABA8E0042E678 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
 				E15D28EA1DFAB4620042E678 /* ColorViewController.swift */,
 				E15D28EB1DFAB4620042E678 /* GetRequestViewController.swift */,
 				E15D28EC1DFAB4620042E678 /* GifImageVC.swift */,
@@ -107,18 +121,20 @@
 				E15D28F41DFAB4620042E678 /* Swift使用规范 */,
 				E15D28F51DFAB4620042E678 /* TableRefreshVC.swift */,
 				E15D28F61DFAB4620042E678 /* ViewController.swift */,
-				E15D28DD1DFAB41F0042E678 /* Info.plist */,
+				E15D28E31DFAB4620042E678 /* AppDelegate.swift */,
+				E15D290D1DFABAA20042E678 /* Supporting Files */,
 			);
-			path = "iOS Example";
+			name = Classes;
 			sourceTree = "<group>";
 		};
-		E15D28E51DFAB4620042E678 /* Base.lproj */ = {
+		E15D290D1DFABAA20042E678 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E15D28E61DFAB4620042E678 /* LaunchScreen.storyboard */,
-				E15D28E81DFAB4620042E678 /* Main.storyboard */,
+				E15D28E41DFAB4620042E678 /* Assets.xcassets */,
+				E15D28E51DFAB4620042E678 /* Base.lproj */,
+				E15D28DD1DFAB41F0042E678 /* Info.plist */,
 			);
-			path = Base.lproj;
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,6 +390,7 @@
 				E15D28E21DFAB41F0042E678 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
