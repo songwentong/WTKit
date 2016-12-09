@@ -10,7 +10,7 @@
     只需要设置一下刷新头就可以了,然后在需要停止刷新的时候调用停止就可以了
  */
 import UIKit
-
+import WTKit
 class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegate{
 
     

@@ -14,6 +14,7 @@
  */
 import UIKit
 import Foundation
+import WTKit
 class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
     
     @IBOutlet weak var webView: UIWebView!
@@ -99,8 +100,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                 UserDefaults.standard.set(string, forKey: self.lastURLKey)
                 let request = URLRequest.wt_request(with: string!, method: method, parameters: self.parameters)
                 //            let credential = URLCredential(user: "user", password: "password", persistence: URLCredential.Persistence.permanent)
-                
-                let task = URLSession.wt_dataTask(with: request, completionHandler: { [weak self](data, response, error) in
+                let task = WTKit.dataTask(with: request, completionHandler: { [weak self](data, response, error) in
                     
                     self?.hideLoadingView()
                     self?.requestButton.isEnabled = true
@@ -129,7 +129,8 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                     
                     
                 })
-                task.resume()
+                task.resume();
+
 
             }
             

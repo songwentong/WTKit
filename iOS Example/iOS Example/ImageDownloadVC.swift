@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import WTKit
 class ImageDownloadVC: UIViewController {
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!

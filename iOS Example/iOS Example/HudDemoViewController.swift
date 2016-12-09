@@ -9,7 +9,7 @@
     HUD的Demo
  */
 import UIKit
-
+import WTKit
 class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     var dataList:[String]
     @IBOutlet weak var tableView: UITableView!

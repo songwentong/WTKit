@@ -11,7 +11,7 @@
  
  */
 import UIKit
-
+import WTKit
 /*!
     解决delegate 必须使用weak的办法
  方法一:协议前加上@objc

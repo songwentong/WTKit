@@ -9,7 +9,7 @@
     一个便捷的设置颜色的方法
  */
 import UIKit
-
+import WTKit
 class ColorViewController: UIViewController {
     @IBOutlet weak var colorView: UIView!
     @IBOutlet weak var textView: UITextField!

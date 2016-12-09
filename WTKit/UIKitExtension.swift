@@ -7,12 +7,9 @@
 //
 
 import Foundation
-
-
-#if os(iOS)
-    import UIKit
-    import ImageIO
-    
+import UIKit
+import ImageIO
+public typealias imageHandler = ((UIImage?,Error?)->Void)
 // MARK: - 官方类扩展
 extension UIColor{
     
@@ -499,8 +496,6 @@ extension UIImage{
         })
         
         return myTask
-        
-        
     }
     
     //创建一个带圆角的图片
@@ -1335,9 +1330,7 @@ public class WTNetworkActivityIndicatorManager{
 }
 
     
-#elseif os(OSX)
-    
-#endif
+
 
 
 

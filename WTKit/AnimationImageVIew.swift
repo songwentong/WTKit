@@ -9,7 +9,7 @@
 import UIKit
 import ImageIO
 
-class AnimationImageVIew: UIImageView {
+open class AnimationImageVIew: UIImageView {
     
     
     private var iamgesource:CGImageSource? = nil
@@ -51,7 +51,7 @@ class AnimationImageVIew: UIImageView {
     }
     
     //MARK:override
-    override internal var image: UIImage?{
+    override open var image: UIImage?{
         
         didSet{
             if image != oldValue {
@@ -62,21 +62,21 @@ class AnimationImageVIew: UIImageView {
         }
         
     }
-    override var isAnimating:Bool {
+    override open var isAnimating:Bool {
         if linkIsInit {
             return !link.isPaused
         }
         return super.isAnimating
        
     }
-    override func display(_ layer: CALayer) {
+    override open func display(_ layer: CALayer) {
         if curFrame != nil {
             layer.contents = curFrame?.cgImage
         }
     }
     
     
-    override internal func startAnimating() {
+    override open func startAnimating() {
     
         if self.isAnimating {
             return
@@ -89,7 +89,7 @@ class AnimationImageVIew: UIImageView {
         
     }
     
-    override internal func stopAnimating() {
+    override open func stopAnimating() {
         super.stopAnimating()
         if linkIsInit {
             link.isPaused = true
@@ -97,12 +97,12 @@ class AnimationImageVIew: UIImageView {
         
     }
     
-    override func didMoveToWindow() {
+    override open func didMoveToWindow() {
         super.didMoveToWindow()
         self.didMove()
     }
     
-    override func didMoveToSuperview() {
+    override open func didMoveToSuperview() {
         super.didMoveToSuperview()
         self.didMove()
     }
@@ -164,20 +164,20 @@ class ImageSource {
 }
 
 //swift 不可以 as? CGImageSourceRef 类型转换，这里自定义class获取
-class WTImage:UIImage{
+public class WTImage:UIImage{
     internal var iamgeSource:ImageSource?
 
-    override init?(data: Data) {
+    public override init?(data: Data) {
         let imageSourceRef = CGImageSourceCreateWithData(data as CFData, nil);
         self.iamgeSource = ImageSource(imageref: imageSourceRef!)
         super.init(data: data)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    required convenience init(imageLiteralResourceName name: String) {
+    required convenience public init(imageLiteralResourceName name: String) {
         fatalError("init(imageLiteral:) has not been implemented")
     }
 

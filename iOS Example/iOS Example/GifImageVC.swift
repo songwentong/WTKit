@@ -9,7 +9,7 @@
     这是一个gif图的demo,这个gif图是用displaylink来绘制的,不会被一些事件打断,效果更好
  */
 import UIKit
-
+import WTKit
 class GifImageVC: UIViewController {
   
     

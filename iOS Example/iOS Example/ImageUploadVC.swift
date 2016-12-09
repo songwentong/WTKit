@@ -9,7 +9,7 @@
     这是一个图片上传女的demo,需要设置一下http的头,然后添加图片数据就可以了
  */
 import UIKit
-
+import WTKit
 class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var uploadButton: UIButton!

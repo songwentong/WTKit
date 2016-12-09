@@ -9,7 +9,7 @@
     这是一个Reachability的使用,非常简单,看代码就可以了
  */
 import UIKit
-
+import WTKit
 class ReachabilityVC: UIViewController {
 
     @IBOutlet weak var summaryLabel: UILabel!

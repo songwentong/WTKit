@@ -8,6 +8,7 @@
 
 import UIKit
 //二维码扫描
+import WTKit
 class QRCodeScanVC: UIViewController {
     deinit{
         WTLog("deinit")
