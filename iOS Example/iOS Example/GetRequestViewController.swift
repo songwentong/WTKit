@@ -84,7 +84,6 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
         
         if string != nil {
             //            let request = NSMutableURLRequest.request(string!)
-            //            let queue = NSURLSession.sharedSession().delegateQueue
             //            WTPrint(queue)
             
             self.showLoadingView()
@@ -109,7 +108,14 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                     
                 })
  */
-                let task = WTKit.dataTask(with: request, completionHandler: { [weak self](data, response, error) in
+                let task = WTKit.dataTask(with: request)
+                task.stringHandler = {(string,error)in
+                    WTLog("\(string)")
+                }
+                task.jsonHandler = {(json,error)in
+                    WTLog("\(json)")
+                }
+                task.completionHandler = { [weak self](data, response, error) in
                     
                     self?.hideLoadingView()
                     self?.requestButton.isEnabled = true
@@ -137,7 +143,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                     }
                     
                     
-                })
+                }
                 task.resume();
 
 

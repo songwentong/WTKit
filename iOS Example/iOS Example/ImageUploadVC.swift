@@ -61,10 +61,7 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
         }
         up.resume()
         self.showLoadingView();
-//        let request = URLRequest.upLoadFile("ttp://localhost:9000/cgi-bin/PostIt.py", method: "POST", parameters: nil, body: nil);
-//        URLSession.dataTaskWithRequest(request as URLRequest) { (data, response, eror) in
-        
-//        }
+
     }
     
     override func didReceiveMemoryWarning() {

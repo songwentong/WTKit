@@ -680,7 +680,7 @@ extension WTURLSessionManager:URLSessionDownloadDelegate{
     }
 }
 
-public func dataTask(with url:String, method:httpMethod? = .GET, parameters:[String:String]?=nil,headers: [String: String]?=nil,completionHandler:@escaping completionHandler) -> WTURLSessionDataTask{
+public func dataTask(with url:String, method:httpMethod? = .GET, parameters:[String:String]?=nil,headers: [String: String]?=nil) -> WTURLSessionDataTask{
     let queryString = URLRequest.queryString(from:parameters)
     var request:URLRequest
     var urlString:String
@@ -712,14 +712,13 @@ public func dataTask(with url:String, method:httpMethod? = .GET, parameters:[Str
             request.httpBody = query.toUTF8Data()
         }
     }
-    return dataTask(with: request, completionHandler: completionHandler)
+    return dataTask(with: request)
 }
 
-public func dataTask(with request:URLRequest,completionHandler:@escaping completionHandler)->WTURLSessionDataTask{
+public func dataTask(with request:URLRequest)->WTURLSessionDataTask{
     let task = WTURLSessionManager.default.session!.dataTask(with: request)
     let myTask = WTURLSessionDataTask(task: task)
     WTURLSessionManager.default[task] = myTask
-    myTask.completionHandler = completionHandler
     return myTask
 }
 open class WTURLSessionDelegate:NSObject{

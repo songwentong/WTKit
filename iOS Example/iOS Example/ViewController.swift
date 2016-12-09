@@ -50,18 +50,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
 //        objc_setAssociatedObject(self.view, "tag", 100, .OBJC_ASSOCIATION_ASSIGN)
 //        print("\(objc_getAssociatedObject(self.view, "tag"))")
         
-        
-        // Do any additional setup after loading the view, typically from a nib.
-        //        WTLog(self.view.viewController())
-        //        aaa(UILabel().text!)
-        //        print(httpMethod.GET.rawValue)
-        
-        //        for _ in 0...10{
-        //            WTPrint("cache: \(URLCache.wt_sharedURLCacheForRequests)")
-        //            WTLog("\(URLSession.wt_sharedInstance)")
-        //        }
-        
-        
+
         
         /*
          UIApplication.firstLaunchForBuild { [weak self](isFirstLaunchEver) in
