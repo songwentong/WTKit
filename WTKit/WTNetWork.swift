@@ -680,7 +680,42 @@ extension WTURLSessionManager:URLSessionDownloadDelegate{
     }
 }
 
-public func dataTask(with request:URLRequest,completionHandler:@escaping completionHandler)->WTURLSessionTask{
+public func dataTask(with url:String, method:httpMethod? = .GET, parameters:[String:String]?=nil,headers: [String: String]?=nil,completionHandler:@escaping completionHandler) -> WTURLSessionDataTask{
+    let queryString = URLRequest.queryString(from:parameters)
+    var request:URLRequest
+    var urlString:String
+    
+    request = URLRequest(url: URL(string: url)!)
+    var myMethod:httpMethod = .GET
+    if let m:httpMethod = method {
+        myMethod = m
+        request.httpMethod = myMethod.rawValue
+    }
+    let allHTTPHeaderFields = URLRequest.defaultHTTPHeaders
+    request.allHTTPHeaderFields = allHTTPHeaderFields
+    if headers != nil {
+        for (key,value) in headers!{
+            request.setValue(value, forHTTPHeaderField: key)
+        }
+    }
+    
+    if(URLRequest.methodShouldAddQuery(request.httpMethod!)){
+        urlString = url
+        if let query:String = queryString {
+            urlString += "?"
+            urlString += query
+        }
+        request.url = URL(string: urlString)
+    }else{
+        urlString = url
+        if let query:String = queryString {
+            request.httpBody = query.toUTF8Data()
+        }
+    }
+    return dataTask(with: request, completionHandler: completionHandler)
+}
+
+public func dataTask(with request:URLRequest,completionHandler:@escaping completionHandler)->WTURLSessionDataTask{
     let task = WTURLSessionManager.default.session!.dataTask(with: request)
     let myTask = WTURLSessionDataTask(task: task)
     WTURLSessionManager.default[task] = myTask

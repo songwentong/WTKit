@@ -100,6 +100,15 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                 UserDefaults.standard.set(string, forKey: self.lastURLKey)
                 let request = URLRequest.wt_request(with: string!, method: method, parameters: self.parameters)
                 //            let credential = URLCredential(user: "user", password: "password", persistence: URLCredential.Persistence.permanent)
+                //WTKit.dataTask(with: <#T##URLRequest#>, completionHandler: <#T##completionHandler##completionHandler##(Data?, URLResponse?, Error?) -> Void#>)
+//                WTKit.dataTask(with: request, completionHandler: { (data, response, error) in
+//
+//                })
+                /*
+                WTKit.dataTask(with: "", completionHandler: { (data, response, erro) in
+                    
+                })
+ */
                 let task = WTKit.dataTask(with: request, completionHandler: { [weak self](data, response, error) in
                     
                     self?.hideLoadingView()
