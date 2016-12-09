@@ -359,10 +359,10 @@ open class WTURLSessionTask:NSObject{
         }
         task.resume()
     }
-    public func suspend(){
+    func suspend(){
         task.suspend()
     }
-    public func cancel(){
+    func cancel(){
         task.cancel()
     }
     
@@ -455,10 +455,10 @@ open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
         }
         
     }
-    public override func suspend(){
+    override func suspend(){
         super.suspend()
     }
-    public override func cancel(){
+    override func cancel(){
         super.cancel()
     }
     
