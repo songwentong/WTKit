@@ -318,14 +318,12 @@ public typealias stringHandler = ((String?,Error?)->Void)
 //凭证回调,把session和challenge传入,给出一个Disposition和URLCredential
 public typealias challengeHandler = ((Foundation.URLSession, URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, URLCredential?))
 
-
-open class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDelegate{
+open class WTURLSessionTask:NSObject,URLSessionTaskDelegate{
     //网址凭据
     public var credential: URLCredential?
     //完成回调
     public var completionHandler:completionHandler?
     public var jsonHandler:jsonHandler?
-    public var imageHandler:imageHandler?
     public var stringHandler:stringHandler?
     //进度获取
     public var progressHandler:progressHandler?
@@ -342,10 +340,10 @@ open class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDelega
      这里的task和data是私有的,原因在于不允许外界修改,想要得到原始的task只需要调用otigintask就可以了
      */
     //原始的task
-    private var task: URLSessionTask
+    open var task: URLSessionTask
     //懒加载,需要的时候创建对象
-    private lazy var data:Data = Data()
-    private var error: Error?
+    open lazy var data:Data = Data()
+    open var error: Error?
     
     
     init(task: URLSessionTask) {
@@ -401,6 +399,15 @@ open class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDelega
     }
     
     
+
+    public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
+        self.error = error
+        finish()
+    }
+    
+    
+}
+open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
     public func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
         var disposition: Foundation.URLSession.AuthChallengeDisposition = .performDefaultHandling
         var credential:URLCredential? = self.credential
@@ -464,14 +471,8 @@ open class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDelega
         }
     }
     
-    public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
-        self.error = error
-        finish()
-    }
-    
-    
-    
-    //URLSessionDownloadDelegate
+}
+open class WTURLSessionDownloadTask:WTURLSessionTask,URLSessionDownloadDelegate{
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL){
         
     }
@@ -483,9 +484,10 @@ open class WTURLSessionTask:NSObject,URLSessionDataDelegate,URLSessionTaskDelega
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64){
         
     }
-    
 }
+open class WTURLSessionUploadTask:WTURLSessionTask{
 
+}
 
 open class WTURLSessionManager:NSObject{
     
@@ -613,7 +615,7 @@ extension WTURLSessionManager:URLSessionTaskDelegate{
 extension WTURLSessionManager:URLSessionDataDelegate{
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void){
-        if let task = self[dataTask] {
+        if let task = self[dataTask] as? WTURLSessionDataTask {
             task.urlSession(session, dataTask: dataTask, didReceive: response, completionHandler: completionHandler)
         }else{
             completionHandler(URLSession.ResponseDisposition.allow)
@@ -624,7 +626,7 @@ extension WTURLSessionManager:URLSessionDataDelegate{
     }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: @escaping (CachedURLResponse?) -> Swift.Void){
-        if let task = self[dataTask]{
+        if let task = self[dataTask] as? WTURLSessionDataTask{
             task.urlSession(session, dataTask: dataTask, willCacheResponse: proposedResponse, completionHandler: completionHandler)
         }else{
             completionHandler(nil)
@@ -641,7 +643,7 @@ extension WTURLSessionManager:URLSessionDataDelegate{
     }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
-        if let task = self[dataTask] {
+        if let task = self[dataTask] as? WTURLSessionDataTask {
             task.urlSession(session, dataTask: dataTask, didReceive: data)
         }else{
         }
@@ -680,7 +682,7 @@ extension WTURLSessionManager:URLSessionDownloadDelegate{
 
 public func dataTask(with request:URLRequest,completionHandler:@escaping completionHandler)->WTURLSessionTask{
     let task = WTURLSessionManager.default.session!.dataTask(with: request)
-    let myTask = WTURLSessionTask(task: task)
+    let myTask = WTURLSessionDataTask(task: task)
     WTURLSessionManager.default[task] = myTask
     myTask.completionHandler = completionHandler
     return myTask
