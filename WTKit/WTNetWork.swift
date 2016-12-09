@@ -318,7 +318,7 @@ public typealias stringHandler = ((String?,Error?)->Void)
 //凭证回调,把session和challenge传入,给出一个Disposition和URLCredential
 public typealias challengeHandler = ((Foundation.URLSession, URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, URLCredential?))
 
-open class WTURLSessionTask:NSObject,URLSessionTaskDelegate{
+open class WTURLSessionTask:NSObject{
     //网址凭据
     public var credential: URLCredential?
     //完成回调
@@ -353,7 +353,7 @@ open class WTURLSessionTask:NSObject,URLSessionTaskDelegate{
         WTLog("deinit")
     }
     
-    public func resume(){
+    func resume(){
         if useRequestingIfHave {
             
         }
@@ -370,72 +370,34 @@ open class WTURLSessionTask:NSObject,URLSessionTaskDelegate{
         
         OperationQueue.globalQueue {
             
-            if let _ = self.jsonHandler{
+            if let jsonHandler = self.jsonHandler{
                 self.data.parseJSON(handler: { (object, error) in
                     OperationQueue.toMain(execute: {
-                        self.jsonHandler?(object,error)
+                        jsonHandler(object,error)
                     })
                 })
                 
                 
             }
             
-            if let _ = self.stringHandler{
+            if let stringHandler = self.stringHandler{
                 let string = String.init(data: self.data, encoding: String.Encoding.utf8)
                 OperationQueue.toMain {
-                    self.stringHandler?(string,self.error)
+                    stringHandler(string,self.error)
                 }
             }
             
             
         }
         DispatchQueue.main.async {
-            self.completionHandler?(self.data,self.response,self.error)
+            if let completionHandler = self.completionHandler{
+                completionHandler(self.data,self.response,self.error)
+            }
         }
-        //        OperationQueue.toMain {
-        
-        //        }
-        
     }
-    
-    
-
-    public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
-        self.error = error
-        finish()
-    }
-    
     
 }
-open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
-    open var dataTask:URLSessionDataTask
-    //-1代表永久,0代表不缓存
-    open var cacheTime:Int = 0
-    override init(task: URLSessionTask) {
-        dataTask = task as! URLSessionDataTask
-        super.init(task: task)
-    }
-    public override func resume(){
-        if cacheTime == -1 {
-            WTURLSessionManager.default.session?.configuration.urlCache?.getCachedResponse(for: dataTask, completionHandler: {(cachedResponse) in
-                if cachedResponse != nil{
-                    self.data = (cachedResponse?.data)!
-                    self.response = cachedResponse?.response
-                    self.finish()
-                }else{
-                    super.resume()
-                }
-            })
-        }
-        
-    }
-    public override func suspend(){
-        super.suspend()
-    }
-    public override func cancel(){
-        super.cancel()
-    }
-    
+extension WTURLSessionTask:URLSessionTaskDelegate{
     public func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
         var disposition: Foundation.URLSession.AuthChallengeDisposition = .performDefaultHandling
         var credential:URLCredential? = self.credential
@@ -459,6 +421,48 @@ open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
         //使用凭据,note:这里必须调用,否则可能会产生内存泄漏
         completionHandler(disposition,credential)
     }
+    
+    public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
+        self.error = error
+        finish()
+        
+    }
+}
+open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
+    open var dataTask:URLSessionDataTask
+    //-1代表永久,0代表不缓存
+    open var cacheTime:Int = 0
+    override init(task: URLSessionTask) {
+        dataTask = task as! URLSessionDataTask
+        super.init(task: task)
+    }
+    deinit {
+        WTLog("deinit")
+    }
+    override func resume(){
+        if cacheTime == -1 {
+            WTURLSessionManager.default.session?.configuration.urlCache?.getCachedResponse(for: dataTask, completionHandler: {(cachedResponse) in
+                if cachedResponse != nil{
+                    self.data = (cachedResponse?.data)!
+                    self.response = cachedResponse?.response
+                    self.finish()
+                }else{
+                    super.resume()
+                }
+            })
+        }else{
+            super.resume()
+        }
+        
+    }
+    public override func suspend(){
+        super.suspend()
+    }
+    public override func cancel(){
+        super.cancel()
+    }
+    
+
     
     
     //URLSessionDataTaskDelegate
@@ -639,7 +643,7 @@ extension WTURLSessionManager:URLSessionTaskDelegate{
         }else{
             
         }
-        
+        self[task] = nil
     }
 }
 // MARK: - URLSessionDataDelegate
@@ -750,6 +754,7 @@ public func dataTask(with request:URLRequest)->WTURLSessionDataTask{
     let task = WTURLSessionManager.default.session!.dataTask(with: request)
     let myTask = WTURLSessionDataTask(task: task)
     WTURLSessionManager.default[task] = myTask
+    myTask.resume()
     return myTask
 }
 open class WTURLSessionDelegate:NSObject{

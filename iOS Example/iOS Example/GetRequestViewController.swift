@@ -144,7 +144,6 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                     
                     
                 }
-                task.resume();
 
 
             }

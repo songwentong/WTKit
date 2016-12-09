@@ -54,7 +54,6 @@ class GifImageVC: UIViewController {
         
         
         }
-        task.resume()
 //
 //        imageView!.image = UIImage.gitImageWith(data,scale: 1)
 ////        imageView.layer.pauseAnimation()
