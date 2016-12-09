@@ -111,7 +111,7 @@ WTPrint("wt print \(self)")
 
 ```swift
 import WTKit
-URLSession.wt_dataTask(with: "https://www.apple.com") { (data, response, error) in
+WTKit.dataTask(with: "https://www.apple.com") { (data, response, error) in
               print(response) //服务端响应
               print(data)     //服务端数据
               print(error)    //得到的错误
@@ -222,41 +222,6 @@ public func toUTF8String()->String
 public func parseJson()->AnyObject?
 
 ```
-- URLSession
-
-```swift
-
-let url = "https://www.apple.com"
-let task = URLSession.wt_dataTask(with: url) { (data, response, error) in
-    //do somthing
-    print(data)
-}
-// set image
-let imageView:UIImageView = UIImageView()
-task.imageHandler = {(image:UIImage?,error:NSError?) in
-    imageView.image = image
-}
-// or get json
-task.jsonHandler = {(anyObject:AnyObject?,error:NSError?) in
-    print(anyObject)
-}
-task.resume()
-
-```
-- URLRequest
-
-```swift
-// Creates and initializes a URLRequest with the given URL
-public static func request(_ url:String, method:String?="GET", parameters:[String:String]?=[:],headers: [String: String]?=[:]) -> URLRequest
-
-//create a request instance
-//optional parameters: method,parameters,headers
- public static func request(_ url:String, method:String?="GET", parameters:[String:String]?=[:],headers: [String: String]? = [:]) -> URLRequest
-
- URLRequest.request(with:"", method: "", parameters: nil, headers: nil)
- URLRequest.request(with:"")
-```
-> 不需要填的参数可以不填
 
 - OperationQueue
 
