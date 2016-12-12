@@ -507,16 +507,30 @@ open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
     }
     
 }
+
+
+//下载进度
+public typealias downloadProgressHandler = ((URLSession,URLSessionDownloadTask,Int64,Int64,Int64)->Swift.Void)
+public typealias downloadTaskDidFinishDownloadingToURL = ((URLSession, URLSessionDownloadTask, URL)->Void)
+
 open class WTURLSessionDownloadTask:WTURLSessionTask,URLSessionDownloadDelegate{
-    public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL){
-        
+    var downloadTaskFinishHandler:downloadTaskDidFinishDownloadingToURL?
+    var downloadProgressHandler:downloadProgressHandler?
+    public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL)
+    {
+        if let handler = downloadTaskFinishHandler {
+            handler(session,downloadTask,location)
+        }
     }
     
     public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64){
-        
+        if let handler = downloadProgressHandler {
+            handler(session,downloadTask,bytesWritten,totalBytesWritten,totalBytesExpectedToWrite)
+        }
     }
     
-    public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64){
+    public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64)
+    {
         
     }
 }
@@ -749,10 +763,25 @@ public func dataTask(with url:String, method:httpMethod? = .GET, parameters:[Str
     }
     return dataTask(with: request)
 }
-
+//data task
 public func dataTask(with request:URLRequest)->WTURLSessionDataTask{
     let task = WTURLSessionManager.default.session!.dataTask(with: request)
     let myTask = WTURLSessionDataTask(task: task)
+    WTURLSessionManager.default[task] = myTask
+    myTask.resume()
+    return myTask
+}
+//下载的task
+public func downloadTask(with request:URLRequest)->WTURLSessionDownloadTask{
+    let task = WTURLSessionManager.default.session!.downloadTask(with: request)
+    let myTask = WTURLSessionDownloadTask(task:task)
+    WTURLSessionManager.default[task] = myTask
+    myTask.resume()
+    return myTask
+}
+public func uploadTask(with request:URLRequest)->WTURLSessionUploadTask{
+    let task = WTURLSessionManager.default.session!.downloadTask(with: request)
+    let myTask = WTURLSessionUploadTask(task:task)
     WTURLSessionManager.default[task] = myTask
     myTask.resume()
     return myTask
