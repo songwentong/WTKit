@@ -353,16 +353,16 @@ open class WTURLSessionTask:NSObject{
         WTLog("deinit")
     }
     
-    func resume(){
+    open func resume(){
         if useRequestingIfHave {
             
         }
         task.resume()
     }
-    func suspend(){
+    open func suspend(){
         task.suspend()
     }
-    func cancel(){
+    open func cancel(){
         task.cancel()
     }
     
@@ -439,7 +439,7 @@ open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
     deinit {
         WTLog("deinit")
     }
-    override func resume(){
+    open override func resume(){
         if cacheTime == -1 {
             WTURLSessionManager.default.session?.configuration.urlCache?.getCachedResponse(for: dataTask, completionHandler: {(cachedResponse) in
                 if cachedResponse != nil{
@@ -455,10 +455,10 @@ open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
         }
         
     }
-    override func suspend(){
+    open override func suspend(){
         super.suspend()
     }
-    override func cancel(){
+    open override func cancel(){
         super.cancel()
     }
     
