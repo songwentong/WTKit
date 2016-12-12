@@ -780,7 +780,7 @@ public func downloadTask(with request:URLRequest)->WTURLSessionDownloadTask{
     return myTask
 }
 public func uploadTask(with request:URLRequest)->WTURLSessionUploadTask{
-    let task = WTURLSessionManager.default.session!.downloadTask(with: request)
+    let task = WTURLSessionManager.default.session!.uploadTask(withStreamedRequest: request)
     let myTask = WTURLSessionUploadTask(task:task)
     WTURLSessionManager.default[task] = myTask
     myTask.resume()
