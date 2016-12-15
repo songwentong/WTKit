@@ -144,7 +144,26 @@ extension URLRequest{
         let result = (components.map{ "\($0)=\($1)"} as [String]).joined(separator: "&")
         var allowedCharacterSet = CharacterSet.urlQueryAllowed
         allowedCharacterSet.remove(charactersIn: ":#[]@!$&'()*+,;=")
-        return result.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet)!
+        var urlEncodeString = ""
+        if #available(iOS 8.3, *) {
+            urlEncodeString = result.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? result
+        }else{
+            let batchSize = 50
+            var index = result.startIndex
+            
+            while index != result.endIndex {
+                let startIndex = index
+                let endIndex = result.index(index, offsetBy: batchSize, limitedBy: result.endIndex) ?? result.endIndex
+                let range = startIndex..<endIndex
+                
+                let substring = result.substring(with: range)
+                
+                urlEncodeString += substring.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? substring
+                
+                index = endIndex
+            }
+        }
+        return urlEncodeString
     }
     
     // MARK: Multipart 请求
