@@ -175,7 +175,7 @@
 					E17BDA1A1DDDC11A00CF5672 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = QZFW9RQ778;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					E1D21AF51DE04D6D0011F302 = {
