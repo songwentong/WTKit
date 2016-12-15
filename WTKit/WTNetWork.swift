@@ -386,27 +386,20 @@ open class WTURLSessionTask:NSObject{
     }
     
     func finish(){
-        
-        OperationQueue.globalQueue {
-            
+        DispatchQueue.global().async {
             if let jsonHandler = self.jsonHandler{
                 self.data.parseJSON(handler: { (object, error) in
-                    OperationQueue.toMain(execute: {
+                    DispatchQueue.main.async {
                         jsonHandler(object,error)
-                    })
+                    }
                 })
-                
-                
             }
-            
             if let stringHandler = self.stringHandler{
                 let string = String.init(data: self.data, encoding: String.Encoding.utf8)
-                OperationQueue.toMain {
+                DispatchQueue.main.async {
                     stringHandler(string,self.error)
                 }
             }
-            
-            
         }
         DispatchQueue.main.async {
             if let completionHandler = self.completionHandler{
