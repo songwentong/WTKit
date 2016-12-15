@@ -16,7 +16,7 @@ extension URLRequest{
     /*!
      创建一个URLRequest实例
      */
-    public static func wt_request(with url:String , method:httpMethod? = .GET, parameters:[String:String]?=nil,headers: [String: String]?=nil) -> URLRequest{
+    fileprivate static func wt_request(with url:String , method:httpMethod? = .GET, parameters:[String:String]?=nil,headers: [String: String]?=nil) -> URLRequest{
         let queryString = self.queryString(from:parameters)
         var request:URLRequest
         var urlString:String
