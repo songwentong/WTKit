@@ -5,7 +5,7 @@
 //  Created by SongWentong on 4/21/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
 //
-
+#if os(iOS)
 import Foundation
 import UIKit
 import ImageIO
@@ -1332,7 +1332,7 @@ public class WTNetworkActivityIndicatorManager{
         }
     }
 }
-
+#endif
 
 
 

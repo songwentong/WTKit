@@ -107,18 +107,42 @@
 		E17BDA1D1DDDC11A00CF5672 /* WTKit */ = {
 			isa = PBXGroup;
 			children = (
-				E11C6D901DDED785008D9471 /* arrow.jpg */,
 				E17BDA1E1DDDC11A00CF5672 /* WTKit.h */,
-				E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */,
-				E17BDA271DDDC12500CF5672 /* CustomExtension.swift */,
-				E119D92B1DFAA3CA00BCCCE2 /* WTNetWork.swift */,
-				E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */,
-				E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */,
-				E1D21B0D1DE29B870011F302 /* JSONModel.swift */,
-				E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */,
+				E1C0C9BD1E07BA66000B8F50 /* Foundation */,
+				E1C0C9BC1E07BA4F000B8F50 /* NetWork */,
+				E1C0C9BB1E07BA39000B8F50 /* iOS */,
 				E17BDA1F1DDDC11A00CF5672 /* Info.plist */,
 			);
 			path = WTKit;
+			sourceTree = "<group>";
+		};
+		E1C0C9BB1E07BA39000B8F50 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				E11C6D901DDED785008D9471 /* arrow.jpg */,
+				E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */,
+				E17BDA271DDDC12500CF5672 /* CustomExtension.swift */,
+				E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */,
+				E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		E1C0C9BC1E07BA4F000B8F50 /* NetWork */ = {
+			isa = PBXGroup;
+			children = (
+				E119D92B1DFAA3CA00BCCCE2 /* WTNetWork.swift */,
+			);
+			name = NetWork;
+			sourceTree = "<group>";
+		};
+		E1C0C9BD1E07BA66000B8F50 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */,
+				E1D21B0D1DE29B870011F302 /* JSONModel.swift */,
+			);
+			name = Foundation;
 			sourceTree = "<group>";
 		};
 		E1D21AF71DE04D6D0011F302 /* WTKitTests */ = {
@@ -572,6 +596,7 @@
 				E1C0C9AF1E07AB79000B8F50 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E1D21B001DE04D6D0011F302 /* Build configuration list for PBXNativeTarget "WTKitTests" */ = {
 			isa = XCConfigurationList;

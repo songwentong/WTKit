@@ -5,7 +5,7 @@
 //  Created by SongWentong on 19/12/2016.
 //  Copyright © 2016 songwentong. All rights reserved.
 //
-
+#if os(iOS)
 import Foundation
 import SystemConfiguration
 public enum WTNetworkStatus:UInt{
@@ -140,3 +140,5 @@ open class WTReachability:NSObject{
     }
     
 }
+#else
+#endif
