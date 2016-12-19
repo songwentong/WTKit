@@ -377,7 +377,7 @@ extension UIButton{
             return task as? WTURLSessionTask
         }
         set{
-            if let task = objc_getAssociatedObject(self, &WTUIButtonImageDownloadTaskKey) as? WTURLSessionTask{
+            if let task:WTURLSessionTask = objc_getAssociatedObject(self, &WTUIButtonImageDownloadTaskKey) as? WTURLSessionTask{
                 task.cancel()
             }
             objc_setAssociatedObject(self, &WTUIButtonImageDownloadTaskKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
