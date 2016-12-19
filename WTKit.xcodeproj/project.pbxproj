@@ -14,6 +14,13 @@
 		E17BDA2B1DDDC12500CF5672 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
 		E17BDA2C1DDDC12500CF5672 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E17BDA2D1DDDC12500CF5672 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
+		E1C0C9B11E07ABE2000B8F50 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
+		E1C0C9B21E07ABE2000B8F50 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
+		E1C0C9B31E07ABE2000B8F50 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E119D92B1DFAA3CA00BCCCE2 /* WTNetWork.swift */; };
+		E1C0C9B41E07ABE2000B8F50 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
+		E1C0C9B61E07ABE2000B8F50 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* JSONModel.swift */; };
+		E1C0C9B71E07ABF5000B8F50 /* arrow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E11C6D901DDED785008D9471 /* arrow.jpg */; };
+		E1C0C9B91E07AC3E000B8F50 /* WTReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */; };
 		E1D21AF91DE04D6D0011F302 /* WTKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */; };
 		E1D21AFB1DE04D6D0011F302 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */; };
 		E1D21B011DE053380011F302 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
@@ -44,6 +51,8 @@
 		E17BDA271DDDC12500CF5672 /* CustomExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomExtension.swift; sourceTree = "<group>"; };
 		E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtension.swift; sourceTree = "<group>"; };
 		E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtension.swift; sourceTree = "<group>"; };
+		E1C0C9A81E07AB79000B8F50 /* WTKitMacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WTKitMacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTReachability.swift; sourceTree = "<group>"; };
 		E1D21AF61DE04D6D0011F302 /* WTKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WTKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTKitTests.swift; sourceTree = "<group>"; };
 		E1D21AFA1DE04D6D0011F302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -52,6 +61,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		E17BDA171DDDC11A00CF5672 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1C0C9A41E07AB79000B8F50 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -83,6 +99,7 @@
 			children = (
 				E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */,
 				E1D21AF61DE04D6D0011F302 /* WTKitTests.xctest */,
+				E1C0C9A81E07AB79000B8F50 /* WTKitMacOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,6 +115,7 @@
 				E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */,
 				E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */,
 				E1D21B0D1DE29B870011F302 /* JSONModel.swift */,
+				E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */,
 				E17BDA1F1DDDC11A00CF5672 /* Info.plist */,
 			);
 			path = WTKit;
@@ -123,6 +141,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E1C0C9A51E07AB79000B8F50 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -142,6 +167,24 @@
 			name = WTKit;
 			productName = WTKit;
 			productReference = E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E1C0C9A71E07AB79000B8F50 /* WTKitMacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1C0C9AD1E07AB79000B8F50 /* Build configuration list for PBXNativeTarget "WTKitMacOS" */;
+			buildPhases = (
+				E1C0C9A31E07AB79000B8F50 /* Sources */,
+				E1C0C9A41E07AB79000B8F50 /* Frameworks */,
+				E1C0C9A51E07AB79000B8F50 /* Headers */,
+				E1C0C9A61E07AB79000B8F50 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WTKitMacOS;
+			productName = WTKitMacOS;
+			productReference = E1C0C9A81E07AB79000B8F50 /* WTKitMacOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		E1D21AF51DE04D6D0011F302 /* WTKitTests */ = {
@@ -178,6 +221,11 @@
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
+					E1C0C9A71E07AB79000B8F50 = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = QZFW9RQ778;
+						ProvisioningStyle = Automatic;
+					};
 					E1D21AF51DE04D6D0011F302 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = QZFW9RQ778;
@@ -200,6 +248,7 @@
 			targets = (
 				E17BDA1A1DDDC11A00CF5672 /* WTKit */,
 				E1D21AF51DE04D6D0011F302 /* WTKitTests */,
+				E1C0C9A71E07AB79000B8F50 /* WTKitMacOS */,
 			);
 		};
 /* End PBXProject section */
@@ -210,6 +259,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E11C6D911DDED785008D9471 /* arrow.jpg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1C0C9A61E07AB79000B8F50 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1C0C9B71E07ABF5000B8F50 /* arrow.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,10 +286,23 @@
 			files = (
 				E1D21B0E1DE29B870011F302 /* JSONModel.swift in Sources */,
 				E17BDA2B1DDDC12500CF5672 /* CustomExtension.swift in Sources */,
+				E1C0C9B91E07AC3E000B8F50 /* WTReachability.swift in Sources */,
 				E119D92C1DFAA3CA00BCCCE2 /* WTNetWork.swift in Sources */,
 				E17BDA2C1DDDC12500CF5672 /* FoundationExtension.swift in Sources */,
 				E17BDA2D1DDDC12500CF5672 /* UIKitExtension.swift in Sources */,
 				E17BDA2A1DDDC12500CF5672 /* AnimationImageVIew.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1C0C9A31E07AB79000B8F50 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1C0C9B11E07ABE2000B8F50 /* AnimationImageVIew.swift in Sources */,
+				E1C0C9B21E07ABE2000B8F50 /* CustomExtension.swift in Sources */,
+				E1C0C9B31E07ABE2000B8F50 /* WTNetWork.swift in Sources */,
+				E1C0C9B41E07ABE2000B8F50 /* FoundationExtension.swift in Sources */,
+				E1C0C9B61E07ABE2000B8F50 /* JSONModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +472,52 @@
 			};
 			name = Release;
 		};
+		E1C0C9AE1E07AB79000B8F50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = QZFW9RQ778;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = WTKitMacOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.songwentong.WTKitMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		E1C0C9AF1E07AB79000B8F50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = QZFW9RQ778;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = WTKitMacOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.songwentong.WTKitMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		E1D21AFE1DE04D6D0011F302 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -448,6 +564,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		E1C0C9AD1E07AB79000B8F50 /* Build configuration list for PBXNativeTarget "WTKitMacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1C0C9AE1E07AB79000B8F50 /* Debug */,
+				E1C0C9AF1E07AB79000B8F50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		E1D21B001DE04D6D0011F302 /* Build configuration list for PBXNativeTarget "WTKitTests" */ = {
 			isa = XCConfigurationList;
