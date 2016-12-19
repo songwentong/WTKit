@@ -18,7 +18,7 @@ public enum WTNetworkStatus:UInt{
 }
 public let kWTReachabilityChangedNotification = "kWTReachabilityChangedNotification"
 
-public class WTReachability:NSObject{
+open class WTReachability:NSObject{
     
     var _reachabilityRef:SCNetworkReachability?
     
