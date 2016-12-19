@@ -408,19 +408,20 @@ extension UIButton{
     
     // MARK: - 设置一张网络图片,并缓存下来
     public func wt_setImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:imageHandler?=nil) {
-        safeSyncInMain {
+        DispatchQueue.safeSyncInMain {
             self.setImage(placeHolder, for: state)
         }
+
         
         OperationQueue.userInteractive {
             let task = UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image,error) in
-                safeSyncInMain(with: {
+                DispatchQueue.safeSyncInMain{
                     self?.setImage(image, for: state)
                     self?.setNeedsLayout()
                     if complection != nil {
                         complection!(image,error)
                     }
-                })
+                }
             })
             
 //            let task = UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
@@ -439,19 +440,19 @@ extension UIButton{
     }
     
     public func setBackgroundImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:imageHandler?=nil) {
-        safeSyncInMain {
+        DispatchQueue.safeSyncInMain {
             self.setBackgroundImage(placeHolder, for:state)
         }
         
         OperationQueue.userInteractive {
             let task = UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image, error) in
-                safeSyncInMain(with: {
+                DispatchQueue.safeSyncInMain {
                     self?.setBackgroundImage(image, for:state)
                     self?.setNeedsLayout()
                     if complection != nil {
                         complection!(image,error)
                     }
-                })
+                }
             })
             self.wtImageTask = task
             task.resume()
@@ -646,16 +647,16 @@ extension UIImageView{
      不想填的就填一个不加逗号就可以了.
      */
     public func wt_setImage(with url:String ,placeHolder:UIImage? = nil,complection:imageHandler?=nil)->Void{
-        safeSyncInMain {
+        DispatchQueue.safeSyncInMain {
             self.image = placeHolder
             self.setNeedsLayout()
         }
         OperationQueue.userInteractive {
             let task =  UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image, error) in
-                safeSyncInMain(with: {
+                DispatchQueue.safeSyncInMain {
                     self?.image = image
                     self?.setNeedsLayout()
-                })
+                }
                 if complection != nil {
                     complection!(image,error)
                 }
@@ -670,16 +671,16 @@ extension UIImageView{
      设置高亮图
      */
     public func sethighlightedImage(with url:String ,placeHolder:UIImage? = nil,complection:imageHandler?=nil)->Void{
-        safeSyncInMain {
+        DispatchQueue.safeSyncInMain {
             self.highlightedImage = placeHolder
             self.setNeedsLayout()
         }
         OperationQueue.userInteractive {
             let task =  UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image, error) in
-                safeSyncInMain(with: {
+                DispatchQueue.safeSyncInMain {
                     self?.image = image
                     self?.setNeedsLayout()
-                })
+                }
                 if complection != nil {
                     complection!(image,error)
                 }

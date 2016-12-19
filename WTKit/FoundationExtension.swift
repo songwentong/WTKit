@@ -65,17 +65,6 @@ public func DEBUGBlock(_ block:() -> Void){
     #endif
 }
 
-/*!
- 安全的回到主线程
- */
-public func safeSyncInMain(with block:()->Void)->Void{
-    if Thread.current.isMainThread {
-        block()
-    }else{
-        DispatchQueue.main.sync(execute: block)
-    }
-}
-
 
 // MARK: - 延时执行的代码块
 /*!
@@ -427,7 +416,6 @@ extension Array{
 extension DispatchQueue{
     //安全同步到主线程
     public static func safeSyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
-    
         let main = DispatchQueue.main
         if Thread.isMainThread {
             main.async(execute: work)
@@ -445,6 +433,7 @@ extension DispatchQueue{
     public static func asyncGlobalQueue(execute work: @escaping @convention(block) () -> Swift.Void){
         DispatchQueue.global().async(execute: work)
     }
+    
 }
 
 extension OperationQueue{
