@@ -1333,9 +1333,6 @@ public class WTNetworkActivityIndicatorManager{
     }
 }
 
-    
-
-
 
 
 

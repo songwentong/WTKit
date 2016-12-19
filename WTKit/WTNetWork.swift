@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if os(iOS)
+import UIKit
+#endif
 public enum httpMethod:String{
     case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
 }
@@ -344,6 +347,9 @@ open class WTURLSessionTask:NSObject{
     public var completionHandler:completionHandler?
     public var jsonHandler:jsonHandler?
     public var stringHandler:stringHandler?
+    #if os(iOS)
+    public var imageHandler:((UIImage?,Error?)->Void)?
+    #endif
     //进度获取
     public var progressHandler:progressHandler?
     public var response:URLResponse?
@@ -400,6 +406,14 @@ open class WTURLSessionTask:NSObject{
                     stringHandler(string,self.error)
                 }
             }
+            #if os(iOS)
+                if let imageHandler = self.imageHandler{
+                    let image = UIImage.init(data: self.data)
+                    DispatchQueue.main.async {
+                        imageHandler(image,self.error)
+                    }
+                }
+            #endif
         }
         DispatchQueue.main.async {
             if let completionHandler = self.completionHandler{
