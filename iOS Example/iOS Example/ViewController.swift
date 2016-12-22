@@ -46,7 +46,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.view.tag = 100
-        self.view.setValue(100, forKey: "tag")
+//        self.view.setValue(100, forKey: "tag")
 //        objc_setAssociatedObject(self.view, "tag", 100, .OBJC_ASSOCIATION_ASSIGN)
 //        print("\(objc_getAssociatedObject(self.view, "tag"))")
         
