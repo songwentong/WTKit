@@ -24,7 +24,8 @@
 		E15D29051DFAB4620042E678 /* Swift使用规范 in Resources */ = {isa = PBXBuildFile; fileRef = E15D28F41DFAB4620042E678 /* Swift使用规范 */; };
 		E15D29061DFAB4620042E678 /* TableRefreshVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28F51DFAB4620042E678 /* TableRefreshVC.swift */; };
 		E15D29071DFAB4620042E678 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28F61DFAB4620042E678 /* ViewController.swift */; };
-		E1A7D2B71E0B835E00CF9A69 /* WTKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1A7D2C61E0BA17D00CF9A69 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */; };
+		E1A7D2C71E0BA17D00CF9A69 /* WTKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,16 +50,23 @@
 			remoteGlobalIDString = E1C0C9A81E07AB79000B8F50;
 			remoteInfo = WTKitMacOS;
 		};
+		E1A7D2C81E0BA17D00CF9A69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E1A7D2AB1E0B82D900CF9A69 /* WTKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E17BDA1A1DDDC11A00CF5672;
+			remoteInfo = WTKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		E15D290B1DFAB4C60042E678 /* Embed Frameworks */ = {
+		E1A7D2CA1E0BA17D00CF9A69 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E1A7D2B71E0B835E00CF9A69 /* WTKit.framework in Embed Frameworks */,
+				E1A7D2C71E0BA17D00CF9A69 /* WTKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -93,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1A7D2C61E0BA17D00CF9A69 /* WTKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,11 +194,12 @@
 				E15D28CA1DFAB41F0042E678 /* Sources */,
 				E15D28CB1DFAB41F0042E678 /* Frameworks */,
 				E15D28CC1DFAB41F0042E678 /* Resources */,
-				E15D290B1DFAB4C60042E678 /* Embed Frameworks */,
+				E1A7D2CA1E0BA17D00CF9A69 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E1A7D2C91E0BA17D00CF9A69 /* PBXTargetDependency */,
 			);
 			name = "iOS Example";
 			productName = "iOS Example";
@@ -298,6 +308,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E1A7D2C91E0BA17D00CF9A69 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = WTKit;
+			targetProxy = E1A7D2C81E0BA17D00CF9A69 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E15D28E61DFAB4620042E678 /* LaunchScreen.storyboard */ = {
@@ -415,6 +433,7 @@
 		E15D28E11DFAB41F0042E678 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = QZFW9RQ778;
@@ -430,6 +449,7 @@
 		E15D28E21DFAB41F0042E678 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = QZFW9RQ778;
