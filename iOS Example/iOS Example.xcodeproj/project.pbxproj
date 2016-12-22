@@ -24,9 +24,32 @@
 		E15D29051DFAB4620042E678 /* Swift使用规范 in Resources */ = {isa = PBXBuildFile; fileRef = E15D28F41DFAB4620042E678 /* Swift使用规范 */; };
 		E15D29061DFAB4620042E678 /* TableRefreshVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28F51DFAB4620042E678 /* TableRefreshVC.swift */; };
 		E15D29071DFAB4620042E678 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28F61DFAB4620042E678 /* ViewController.swift */; };
-		E1B5BF311DFAE0AB0003BA36 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B5BF301DFAE0AB0003BA36 /* WTKit.framework */; };
-		E1B5BF321DFAE0AB0003BA36 /* WTKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1B5BF301DFAE0AB0003BA36 /* WTKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1A7D2B71E0B835E00CF9A69 /* WTKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E1A7D2B11E0B82D900CF9A69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E1A7D2AB1E0B82D900CF9A69 /* WTKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E17BDA1B1DDDC11A00CF5672;
+			remoteInfo = WTKit;
+		};
+		E1A7D2B31E0B82D900CF9A69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E1A7D2AB1E0B82D900CF9A69 /* WTKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1D21AF61DE04D6D0011F302;
+			remoteInfo = WTKitTests;
+		};
+		E1A7D2B51E0B82D900CF9A69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E1A7D2AB1E0B82D900CF9A69 /* WTKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1C0C9A81E07AB79000B8F50;
+			remoteInfo = WTKitMacOS;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		E15D290B1DFAB4C60042E678 /* Embed Frameworks */ = {
@@ -35,7 +58,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E1B5BF321DFAE0AB0003BA36 /* WTKit.framework in Embed Frameworks */,
+				E1A7D2B71E0B835E00CF9A69 /* WTKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,7 +85,7 @@
 		E15D28F41DFAB4620042E678 /* Swift使用规范 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Swift使用规范"; sourceTree = "<group>"; };
 		E15D28F51DFAB4620042E678 /* TableRefreshVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRefreshVC.swift; sourceTree = "<group>"; };
 		E15D28F61DFAB4620042E678 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E1B5BF301DFAE0AB0003BA36 /* WTKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WTKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1A7D2AB1E0B82D900CF9A69 /* WTKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WTKit.xcodeproj; path = ../WTKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +93,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1B5BF311DFAE0AB0003BA36 /* WTKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,9 +102,9 @@
 		E15D28C51DFAB41E0042E678 = {
 			isa = PBXGroup;
 			children = (
-				E1B5BF301DFAE0AB0003BA36 /* WTKit.framework */,
 				E15D28D01DFAB41F0042E678 /* iOS Example */,
 				E15D28CF1DFAB41F0042E678 /* Products */,
+				E1A7D2AB1E0B82D900CF9A69 /* WTKit.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,6 +165,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		E1A7D2AC1E0B82D900CF9A69 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */,
+				E1A7D2B41E0B82D900CF9A69 /* WTKitTests.xctest */,
+				E1A7D2B61E0B82D900CF9A69 /* WTKitMacOS.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -193,12 +225,42 @@
 			mainGroup = E15D28C51DFAB41E0042E678;
 			productRefGroup = E15D28CF1DFAB41F0042E678 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = E1A7D2AC1E0B82D900CF9A69 /* Products */;
+					ProjectRef = E1A7D2AB1E0B82D900CF9A69 /* WTKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				E15D28CD1DFAB41F0042E678 /* iOS Example */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = WTKit.framework;
+			remoteRef = E1A7D2B11E0B82D900CF9A69 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E1A7D2B41E0B82D900CF9A69 /* WTKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = WTKitTests.xctest;
+			remoteRef = E1A7D2B31E0B82D900CF9A69 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E1A7D2B61E0B82D900CF9A69 /* WTKitMacOS.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = WTKitMacOS.framework;
+			remoteRef = E1A7D2B51E0B82D900CF9A69 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E15D28CC1DFAB41F0042E678 /* Resources */ = {

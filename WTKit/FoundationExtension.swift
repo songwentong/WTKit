@@ -422,6 +422,7 @@ extension DispatchQueue{
         }else{
             main.sync(execute: work)
         }
+//        print("425 wt test")
     }
     
     //异步回到主线程

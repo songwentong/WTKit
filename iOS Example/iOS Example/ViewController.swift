@@ -50,7 +50,9 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
 //        objc_setAssociatedObject(self.view, "tag", 100, .OBJC_ASSOCIATION_ASSIGN)
 //        print("\(objc_getAssociatedObject(self.view, "tag"))")
         
-
+        DispatchQueue.safeSyncInMain {
+            
+        }
         
         /*
          UIApplication.firstLaunchForBuild { [weak self](isFirstLaunchEver) in
