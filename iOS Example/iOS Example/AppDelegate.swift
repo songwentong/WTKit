@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import WTKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -16,7 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]?)
         -> Bool
     {
-        
+        print("hello world(print)")
+        print("\(launchOptions) \(Date())")
+        WTKit.WTPrint("hello world(wtprint)")
+        WTKit.WTLog("hello world(wtlog)")
         return true
     }
     
@@ -34,10 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        WTKit.WTPrint("")
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        WTKit.WTPrint("")
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

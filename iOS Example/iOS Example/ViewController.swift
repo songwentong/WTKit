@@ -10,6 +10,7 @@
  */
 import UIKit
 import SystemConfiguration
+import WTKit
 /*!
  todo list
  1.做一个图片上传和下载的测试
@@ -49,7 +50,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
 //        self.view.setValue(100, forKey: "tag")
 //        objc_setAssociatedObject(self.view, "tag", 100, .OBJC_ASSOCIATION_ASSIGN)
 //        print("\(objc_getAssociatedObject(self.view, "tag"))")
-        
+        WTKit.WTPrint("");
         DispatchQueue.safeSyncInMain {
             
         }
