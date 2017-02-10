@@ -475,6 +475,29 @@ extension UIImage{
      }
      */
     
+    //如果没有alpha通道,就去掉
+    public func removeAlphaIfNeeded()->UIImage{
+        if self.images != nil{
+            return self
+        }
+        if let imageRef = self.cgImage{
+            if let alpha:CGImageAlphaInfo? = imageRef.alphaInfo{
+                switch alpha {
+                case .last:
+                case .first:
+                case .premultipliedLast:
+                case .premultipliedFirst:
+                    return self
+                    
+                default:
+                    
+                }
+            }
+            
+        }
+        return self
+    }
+    
     public func toData()->Data?{
         var data = UIImageJPEGRepresentation(self, CGFloat(1))
         if data == nil {
