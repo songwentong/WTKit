@@ -475,28 +475,54 @@ extension UIImage{
      }
      */
     
+    /*
     //如果没有alpha通道,就去掉
     public func removeAlphaIfNeeded()->UIImage{
         if self.images != nil{
             return self
         }
-        if let imageRef = self.cgImage{
-            if let alpha:CGImageAlphaInfo? = imageRef.alphaInfo{
+        if let cgImage = self.cgImage{
+            if let alpha:CGImageAlphaInfo? = cgImage.alphaInfo{
                 switch alpha {
-                case .last:
-                case .first:
-                case .premultipliedLast:
-                case .premultipliedFirst:
+                case .last: fallthrough
+                case .first: fallthrough
+                case .premultipliedLast: fallthrough
+                case .premultipliedFirst: fallthrough
                     return self
                     
                 default:
+                    return self
+                }
+            }
+            
+            let width = cgImage.width
+            let height = cgImage.height
+            if var colorSpace:CGColorSpace = cgImage.colorSpace{
+                if let model:CGColorSpaceModel = colorSpace.model{
+                    let unsupportedColorSpace = true
+                    switch model {
+                    case .monochrome:
+                        fallthrough
+                    case .unknown
+                        fallthrough
+                    case .indexed:
+                        unsupportedColorSpace = false
+                    default:
+                        
+                    }
+                    if unsupportedColorSpace{
+                        colorSpace = CGColorSpaceCreateDeviceRGB()
+                    }
+                    let context:CGContext = CGContext.init(data: NULL, width: width, height: height, bitsPerComponent: <#T##Int#>, bytesPerRow: <#T##Int#>, space: <#T##CGColorSpace#>, bitmapInfo: <#T##UInt32#>)
                     
                 }
             }
             
+            
         }
         return self
     }
+    */
     
     public func toData()->Data?{
         var data = UIImageJPEGRepresentation(self, CGFloat(1))
