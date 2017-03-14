@@ -24,9 +24,6 @@ import Foundation
     @objc optional func WTJSONModelClass(for property:String)->AnyObject?
     
 }
-extension WTJSONModelProtocol{
-
-}
 extension NSObject{
     
     

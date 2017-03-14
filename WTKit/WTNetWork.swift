@@ -10,8 +10,19 @@ import Foundation
 #if os(iOS)
 import UIKit
 #endif
-public enum httpMethod:String{
-    case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
+/// HTTP method definitions.
+///
+/// See https://tools.ietf.org/html/rfc7231#section-4.3
+public enum HTTPMethod:String{
+    case options = "OPTIONS"
+    case get     = "GET"
+    case head    = "HEAD"
+    case post    = "POST"
+    case put     = "PUT"
+    case patch   = "PATCH"
+    case delete  = "DELETE"
+    case trace   = "TRACE"
+    case connect = "CONNECT"
 }
 
 extension URLRequest{
@@ -19,14 +30,14 @@ extension URLRequest{
     /*!
      创建一个URLRequest实例
      */
-    fileprivate static func wt_request(with url:String , method:httpMethod? = .GET, parameters:[String:String]?=nil,headers: [String: String]?=nil) -> URLRequest{
+    fileprivate static func wt_request(with url:String , method:HTTPMethod?, parameters:[String:String]?=nil,headers: [String: String]?=nil) -> URLRequest{
         let queryString = self.queryString(from:parameters)
         var request:URLRequest
         var urlString:String
         
         request = URLRequest(url: URL(string: url)!)
-        var myMethod:httpMethod = .GET
-        if let m:httpMethod = method {
+        var myMethod:HTTPMethod
+        if let m:HTTPMethod = method {
             myMethod = m
             request.httpMethod = myMethod.rawValue
         }
@@ -239,90 +250,6 @@ extension URLRequest{
         request.setValue(NSNumber(value: HTTPBody.count).stringValue, forHTTPHeaderField: "Content-Length")
         return request
     }
-}
-extension URLSession{
-    
-    
-    //    public static func wt_sharedInstance()->URLSession{
-    //        let delegate = WTURLSessionManager.sharedInstance
-    //        let configuration = URLSessionConfiguration.default
-    //        configuration.urlCache = URLCache.wt_sharedURLCacheForRequests()
-    //        let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
-    //        return session
-    //    }
-    
-//    public static let wt_sharedInstance:URLSession = {
-//        let delegate = WTURLSessionManager.sharedInstance
-//        let configuration = URLSessionConfiguration.default
-//        configuration.urlCache = URLCache.wt_sharedURLCacheForRequests
-//        let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: OperationQueue())
-//        return session
-//        
-//    }()
-    
-    /*
-     便捷的请求方法.
-     */
-//    public static func wt_dataTask(with url:String, method:httpMethod? = .GET,parameters:[String:String]?=[:],headers: [String: String]? = [:] ,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
-//        let request = URLRequest.wt_request(with: url, method: method, parameters: parameters, headers: headers)
-//        return self.wt_dataTask(with: request,credential:credential, completionHandler: completionHandler)
-//    }
-    
-    /*!
-     根据请求对象,凭据来创建task
-     */
-//    public static func wt_dataTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
-//        let session = self.wt_sharedInstance
-//        let task = session.dataTask(with: request)
-//        let myTask = WTURLSessionTask(task: task)
-//        WTURLSessionManager.sharedInstance[task] = myTask
-//        myTask.completionHandler = completionHandler
-//        myTask.credential = credential
-//        //WTURLSessionManager.sharedInstance.credential = credential
-//        return myTask
-//    }
-    
-//    public static func wt_uploadTask(with request:URLRequest,from bodyData:Data,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
-//        let session = self.wt_sharedInstance
-//        let task = session.uploadTask(with: request, from: bodyData)
-//        let myTask = WTURLSessionTask(task: task)
-//        WTURLSessionManager.sharedInstance[task] = myTask
-//        myTask.completionHandler = completionHandler
-//        myTask.credential = credential
-//        //        WTURLSessionManager.sharedInstance.credential = credential
-//        return myTask
-//    }
-    
-//    public static func wt_downloadTask(with request:URLRequest,credential:URLCredential?=nil,completionHandler:@escaping completionHandler)->WTURLSessionTask{
-//        
-//        let session = self.wt_sharedInstance
-//        let task = session.downloadTask(with: request)
-//        let myTask = WTURLSessionTask(task: task)
-//        WTURLSessionManager.sharedInstance[task] = myTask
-//        myTask.completionHandler = completionHandler
-//        myTask.credential = credential
-//        //        WTURLSessionManager.sharedInstance.credential = credential
-//        return myTask
-//    }
-//    
-    
-//    public static func wt_cachedDataTask(with request:URLRequest ,credential:URLCredential?=nil, completionHandler:@escaping completionHandler)->WTURLSessionTask{
-//        
-//        
-//        //        let configuration = URLSessionConfiguration.default
-//        let session = self.wt_sharedInstance
-//        var myRequest = request
-//        myRequest.cachePolicy = .returnCacheDataElseLoad
-//        let task = session.dataTask(with: myRequest)
-//        let myTask = WTURLSessionTask(task: task)
-//        WTURLSessionManager.sharedInstance[task] = myTask
-//        myTask.completionHandler = completionHandler
-//        myTask.credential = credential
-//        //        WTURLSessionManager.sharedInstance.credential = credential
-//        return myTask
-//    }
-    
-    
 }
 
 /*
@@ -609,6 +536,10 @@ open class WTURLSessionManager:NSObject{
         }
     }
     
+//    open func dataTask(with url:String, method:httpMethod){
+    
+//    }
+    
     public var challengeHandler:challengeHandler?
     
     static func trustIsValid(_ trust:SecTrust) -> Bool {
@@ -755,7 +686,7 @@ extension WTURLSessionManager:URLSessionDownloadDelegate{
     }
 }
 
-public func dataTask(with url:String, method:httpMethod? = .GET, parameters:[String:String]?=nil,headers: [String: String]?=nil) -> WTURLSessionDataTask{
+public func dataTask(with url:String, method:HTTPMethod?, parameters:[String:String]?=nil,headers: [String: String]?=nil) -> WTURLSessionDataTask{
     let request = URLRequest.wt_request(with: url, method: method, parameters: parameters, headers: headers);
     return dataTask(with: request)
 }
@@ -781,10 +712,4 @@ public func uploadTask(with request:URLRequest)->WTURLSessionUploadTask{
     WTURLSessionManager.default[task] = myTask
     myTask.resume()
     return myTask
-}
-open class WTURLSessionDelegate:NSObject{
-    
-}
-extension WTURLSessionDelegate:URLSessionDelegate{
-
 }

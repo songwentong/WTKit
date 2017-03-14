@@ -385,7 +385,7 @@ extension DispatchQueue{
     
     //安全同步到主线程
     public static func safeSyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
-        let main = DispatchQueue.main
+        let main:DispatchQueue = DispatchQueue.main
         if Thread.isMainThread {
             main.async(execute: work)
         }else{
