@@ -14,6 +14,7 @@
 		E17BDA2B1DDDC12500CF5672 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
 		E17BDA2C1DDDC12500CF5672 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E17BDA2D1DDDC12500CF5672 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
+		E18B9FAC1E77D6450013EFA8 /* WTWebImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B9FAB1E77D6450013EFA8 /* WTWebImage.swift */; };
 		E1C0C9B11E07ABE2000B8F50 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
 		E1C0C9B21E07ABE2000B8F50 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
 		E1C0C9B31E07ABE2000B8F50 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E119D92B1DFAA3CA00BCCCE2 /* WTNetWork.swift */; };
@@ -51,6 +52,7 @@
 		E17BDA271DDDC12500CF5672 /* CustomExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomExtension.swift; sourceTree = "<group>"; };
 		E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtension.swift; sourceTree = "<group>"; };
 		E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtension.swift; sourceTree = "<group>"; };
+		E18B9FAB1E77D6450013EFA8 /* WTWebImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTWebImage.swift; sourceTree = "<group>"; };
 		E1C0C9A81E07AB79000B8F50 /* WTKitMacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WTKitMacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTReachability.swift; sourceTree = "<group>"; };
 		E1D21AF61DE04D6D0011F302 /* WTKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WTKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,9 +110,10 @@
 			isa = PBXGroup;
 			children = (
 				E17BDA1E1DDDC11A00CF5672 /* WTKit.h */,
+				E1C0C9BC1E07BA4F000B8F50 /* NetWork */,
+				E18B9FAA1E77D5DF0013EFA8 /* WebImage */,
 				E18B9F9C1E77CCFF0013EFA8 /* JSONModel */,
 				E1C0C9BD1E07BA66000B8F50 /* Foundation */,
-				E1C0C9BC1E07BA4F000B8F50 /* NetWork */,
 				E1C0C9BB1E07BA39000B8F50 /* iOS */,
 				E17BDA1F1DDDC11A00CF5672 /* Info.plist */,
 			);
@@ -125,13 +128,21 @@
 			name = JSONModel;
 			sourceTree = "<group>";
 		};
+		E18B9FAA1E77D5DF0013EFA8 /* WebImage */ = {
+			isa = PBXGroup;
+			children = (
+				E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */,
+				E18B9FAB1E77D6450013EFA8 /* WTWebImage.swift */,
+			);
+			name = WebImage;
+			sourceTree = "<group>";
+		};
 		E1C0C9BB1E07BA39000B8F50 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
 				E11C6D901DDED785008D9471 /* arrow.jpg */,
 				E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */,
 				E17BDA271DDDC12500CF5672 /* CustomExtension.swift */,
-				E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */,
 				E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */,
 			);
 			name = iOS;
@@ -323,6 +334,7 @@
 				E17BDA2C1DDDC12500CF5672 /* FoundationExtension.swift in Sources */,
 				E17BDA2D1DDDC12500CF5672 /* UIKitExtension.swift in Sources */,
 				E17BDA2A1DDDC12500CF5672 /* AnimationImageVIew.swift in Sources */,
+				E18B9FAC1E77D6450013EFA8 /* WTWebImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
