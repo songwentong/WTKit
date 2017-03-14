@@ -366,6 +366,23 @@ extension Array{
 }
 
 extension DispatchQueue{
+    public static func backgroundQueue()->DispatchQueue{
+        return DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
+    }
+    public static func utilityQueue()->DispatchQueue{
+        return DispatchQueue.global(qos: DispatchQoS.QoSClass.utility)
+    }
+    public static func userInitiatedQueue()->DispatchQueue{
+        return DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated)
+    }
+    public static func userInteractiveQueue()->DispatchQueue{
+        return DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
+    }
+    
+    public static func globalQueue()->DispatchQueue{
+        return DispatchQueue(label: "globalQueue");
+    }
+    
     //安全同步到主线程
     public static func safeSyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
         let main = DispatchQueue.main
