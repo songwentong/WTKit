@@ -108,12 +108,21 @@
 			isa = PBXGroup;
 			children = (
 				E17BDA1E1DDDC11A00CF5672 /* WTKit.h */,
+				E18B9F9C1E77CCFF0013EFA8 /* JSONModel */,
 				E1C0C9BD1E07BA66000B8F50 /* Foundation */,
 				E1C0C9BC1E07BA4F000B8F50 /* NetWork */,
 				E1C0C9BB1E07BA39000B8F50 /* iOS */,
 				E17BDA1F1DDDC11A00CF5672 /* Info.plist */,
 			);
 			path = WTKit;
+			sourceTree = "<group>";
+		};
+		E18B9F9C1E77CCFF0013EFA8 /* JSONModel */ = {
+			isa = PBXGroup;
+			children = (
+				E1D21B0D1DE29B870011F302 /* JSONModel.swift */,
+			);
+			name = JSONModel;
 			sourceTree = "<group>";
 		};
 		E1C0C9BB1E07BA39000B8F50 /* iOS */ = {
@@ -140,7 +149,6 @@
 			isa = PBXGroup;
 			children = (
 				E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */,
-				E1D21B0D1DE29B870011F302 /* JSONModel.swift */,
 			);
 			name = Foundation;
 			sourceTree = "<group>";

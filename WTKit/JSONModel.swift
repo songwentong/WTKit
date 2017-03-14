@@ -22,10 +22,19 @@ import Foundation
     /// - Parameter property: 属性名
     /// - Returns: 给出实例
     @objc optional func WTJSONModelClass(for property:String)->AnyObject?
+    
+}
+extension WTJSONModelProtocol{
+
 }
 extension NSObject{
     
     
+    public func travelWTJSONModel(with data:Data){
+        if let dict = data.parseJson(){
+            self.wt(travel: dict)
+        }
+    }
     /// 遍历给出的JSON数据,赋值给本类(可嵌套,只要实现
     /// WTJSONModelProtocol给出字段对应的自定义类型的对象即可)
     /// null并没有读取,因为这个类型是没有意义的
@@ -116,8 +125,9 @@ extension NSObject{
     public func WTSwiftModelString(_ className:String?="XXX")->String{
 
         var stringToPrint = ""
-        stringToPrint.append("//\n//  \(className!).swift\n//\n//  this file is auto create by WTKit\n//  site:https://github.com/swtlovewtt/WTKit\n//  Thank you for use my json model maker\n//\n\n")
-        stringToPrint.append("import UIKit\nopen class \(className!):NSObject{\n")
+        stringToPrint += "//\n//  \(className!).swift\n//\n//  this file is auto create by WTKit\n//  site:https://github.com/swtlovewtt/WTKit\n//  Thank you for use my json model maker\n//\n\n"
+        stringToPrint += "import WTKit\n"
+        stringToPrint += "import UIKit\nopen class \(className!):NSObject{\n"
         if let printObject = self as? [String:AnyObject] {
             for (key,value) in printObject{
                 if let classForCoder = value.classForCoder {
@@ -129,12 +139,14 @@ extension NSObject{
                     }else if string == "NSDictionary"{
                         string = "[String:Any]"
                     }
-                    stringToPrint.append("    var \(key):\(string)?\n")
+                    stringToPrint += "    var \(key):\(string)?\n"
                 }
             }
         }
-        stringToPrint.append("    public func WTJSONModelClass(for property:String)->AnyObject?{\n        return nil\n    }\n")
-        stringToPrint.append("}")
+        stringToPrint += "}\n"
+        stringToPrint += "extension \(className!):WTJSONModelProtocol{\n"
+        stringToPrint += "    public func WTJSONModelClass(for property:String)->AnyObject?{\n        return nil\n    }\n"
+        stringToPrint += "}"
         return stringToPrint
 //        print("\(stringToPrint)")
     }
@@ -213,7 +225,55 @@ extension NSObject{
         }
     
 }
-
+extension JSONSerialization{
+    
+    
+    /*
+     JSON解析,去掉了null
+     */
+    public class func WTJSONObject(with data:Data,options opt:JSONSerialization.ReadingOptions = [])->Any?{
+        do {
+            var obj:Any = try jsonObject(with: data, options: opt)
+            if let result = WTRemoveNull(with: obj, replaceNullWith: { () -> Any? in
+                return ""
+            }) {
+                obj = result
+            }
+            return obj
+        } catch {
+        }
+        return nil
+    }
+    
+    
+    /*
+     把已知的数据结构改动一下,遍历所有的数据,找到null,然后把它替换成需要的数据
+     如果穿nil,会把这个字段去掉,建议直接返回空字符串("")
+     */
+    public class func WTRemoveNull(with inputData:Any, replaceNullWith:(()->Any?))->Any?{
+        if let _ = inputData as? NSNull {
+            let c = replaceNullWith()
+            return c
+        }else if let array = inputData as? [Any]{
+            var returnArray:[Any] = [Any]()
+            for item:Any in array{
+                if let result = WTRemoveNull(with: item, replaceNullWith: replaceNullWith) {
+                    returnArray.append(result)
+                }
+            }
+            return returnArray
+        }else if let dictionary = inputData as? [String:Any]{
+            var returnDict:[String:Any] = [String:Any]()
+            for(k,v)in dictionary{
+                if let result = WTRemoveNull(with: v, replaceNullWith: replaceNullWith){
+                    returnDict.updateValue(result, forKey: k)
+                }
+            }
+            return returnDict
+        }
+        return inputData
+    }
+}
 
 
 

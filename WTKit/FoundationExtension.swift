@@ -171,55 +171,7 @@ extension Int{
         return sumInternal(n, current: 0)
     }
 }
-extension JSONSerialization{
-    
-    
-    /*
-     JSON解析,去掉了null
-     */
-    public class func WTJSONObject(with data:Data,options opt:JSONSerialization.ReadingOptions = [])->Any?{
-        do {
-            var obj:Any = try jsonObject(with: data, options: opt)
-            if let result = WTRemoveNull(with: obj, replaceNullWith: { () -> Any? in
-                return ""
-            }) {
-                obj = result
-            }
-            return obj
-        } catch {
-        }
-        return nil
-    }
-    
-    
-    /*
-        把已知的数据结构改动一下,遍历所有的数据,找到null,然后把它替换成需要的数据
-        如果穿nil,会把这个字段去掉,建议直接返回空字符串("")
-     */
-    public class func WTRemoveNull(with inputData:Any, replaceNullWith:(()->Any?))->Any?{
-        if let _ = inputData as? NSNull {
-            let c = replaceNullWith()
-            return c
-        }else if let array = inputData as? [Any]{
-            var returnArray:[Any] = [Any]()
-            for item:Any in array{
-                if let result = WTRemoveNull(with: item, replaceNullWith: replaceNullWith) {
-                    returnArray.append(result)
-                }
-            }
-            return returnArray
-        }else if let dictionary = inputData as? [String:Any]{
-            var returnDict:[String:Any] = [String:Any]()
-            for(k,v)in dictionary{
-                if let result = WTRemoveNull(with: v, replaceNullWith: replaceNullWith){
-                    returnDict.updateValue(result, forKey: k)
-                }
-            }
-            return returnDict
-        }
-        return inputData
-    }
-}
+
 
 extension NSObject{
     

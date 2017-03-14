@@ -475,6 +475,28 @@ extension UIImage{
      }
      */
     
+    
+    /*
+        Returns whether the image contains an alpha component.
+        图片是否包含alpha 通道 true包含 false不包含
+     */
+    public var wt_containsAlphaComponent: Bool {
+        let alphaInfo = cgImage?.alphaInfo
+        
+        return (
+            alphaInfo == .first ||
+                alphaInfo == .last ||
+                alphaInfo == .premultipliedFirst ||
+                alphaInfo == .premultipliedLast
+        )
+    }
+    
+    /*
+     Returns whether the image is opaque.
+     图片是否是不透明的 true 不透明 false透明
+     */
+    public var wt_isOpaque: Bool { return !wt_containsAlphaComponent }
+    
     /*
     //如果没有alpha通道,就去掉
     public func removeAlphaIfNeeded()->UIImage{
@@ -482,41 +504,41 @@ extension UIImage{
             return self
         }
         if let cgImage = self.cgImage{
-            if let alpha:CGImageAlphaInfo? = cgImage.alphaInfo{
-                switch alpha {
+            switch cgImage.alphaInfo {
                 case .last: fallthrough
                 case .first: fallthrough
                 case .premultipliedLast: fallthrough
-                case .premultipliedFirst: fallthrough
+                case .premultipliedFirst:
                     return self
                     
-                default:
-                    return self
+                default: break
                 }
-            }
+            
             
             let width = cgImage.width
             let height = cgImage.height
             if var colorSpace:CGColorSpace = cgImage.colorSpace{
-                if let model:CGColorSpaceModel = colorSpace.model{
-                    let unsupportedColorSpace = true
+                 let model:CGColorSpaceModel = colorSpace.model
+                    var unsupportedColorSpace = true
                     switch model {
                     case .monochrome:
                         fallthrough
-                    case .unknown
+                    case .unknown:
                         fallthrough
                     case .indexed:
                         unsupportedColorSpace = false
+                        break
                     default:
-                        
+                        break
                     }
                     if unsupportedColorSpace{
                         colorSpace = CGColorSpaceCreateDeviceRGB()
                     }
-                    let context:CGContext = CGContext.init(data: NULL, width: width, height: height, bitsPerComponent: <#T##Int#>, bytesPerRow: <#T##Int#>, space: <#T##CGColorSpace#>, bitmapInfo: <#T##UInt32#>)
-                    
+//                    let space = colorSpace.colors
+//                    let context:CGContext = CGContext.init(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 4*width, space: <#T##CGColorSpace#>, bitmapInfo: <#T##UInt32#>)
+                
                 }
-            }
+            
             
             
         }
