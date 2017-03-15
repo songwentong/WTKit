@@ -15,11 +15,16 @@
 ///   - parameters: <#parameters description#>
 ///   - headers: <#headers description#>
 /// - Returns: <#return value description#>
-public func dataTask(with url:String, method:HTTPMethod = .get, parameters:[String:String]?=nil,headers: [String: String]?=nil)->WTURLSessionDataTask
+public func dataTask(with url:String, method:HTTPMethod = .get, parameters:[String:Any]? = nil,headers: [String: String]? = nil)->WTURLSessionDataTask
 {
     if let myURL:URL = URL.init(string: url){
         var request = URLRequest(url: myURL)
         request.httpMethod = method.rawValue
+        if let headers = headers{
+            for (key,value) in headers{
+                request.setValue(value , forHTTPHeaderField: key)
+            }
+        }
         do{
             let encodedURLRequest = try WTURLSessionManager.sharedInstance.encode(request, with: parameters)
             return WTKit.dataTask(with: encodedURLRequest)
