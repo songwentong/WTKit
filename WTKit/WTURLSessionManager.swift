@@ -30,41 +30,6 @@ extension URLRequest{
     /*!
      创建一个URLRequest实例
      */
-    fileprivate static func wt_request(with url:String , method:HTTPMethod?, parameters:[String:String]?=nil,headers: [String: String]?=nil) -> URLRequest{
-        let queryString = self.queryString(from:parameters)
-        var request:URLRequest
-        var urlString:String
-        
-        request = URLRequest(url: URL(string: url)!)
-        var myMethod:HTTPMethod
-        if let m:HTTPMethod = method {
-            myMethod = m
-            request.httpMethod = myMethod.rawValue
-        }
-        let allHTTPHeaderFields = URLRequest.defaultHTTPHeaders
-        request.allHTTPHeaderFields = allHTTPHeaderFields
-        if headers != nil {
-            for (key,value) in headers!{
-                request.setValue(value, forHTTPHeaderField: key)
-            }
-        }
-        
-        if(self.methodShouldAddQuery(request.httpMethod!)){
-            urlString = url
-            if queryString.length != 0 {
-                urlString += "?"
-                urlString += queryString
-            }
-            request.url = URL(string: urlString)
-        }else{
-            urlString = url
-            if queryString.length != 0 {
-                request.httpBody = queryString.toUTF8Data()
-            }
-        }
-        return request
-    }
-    
     public static let defaultHTTPHeaders: [String: String] = {
         let acceptEncoding: String = "gzip;q=1.0, compress;q=0.5"
         
@@ -122,63 +87,6 @@ extension URLRequest{
             "User-Agent": userAgent
         ]
     }()
-    
-    
-    //需要拼接query 的方法
-    static func methodShouldAddQuery(_ method:String)->Bool{
-        let query = ["GET","HEAD","DELETE"]
-        if(query.contains(method)){
-            return true
-        }else{
-            return false
-        }
-    }
-    
-    
-    //从参数转成字符串
-    static func queryString(from parameters:[String: Any]?=[:])->String {
-        
-        //        Array
-        //        Dictionary
-        if parameters == nil {
-            return ""
-        }
-        
-        
-        var components: [(String, Any)] = Array()
-        let allkeys = parameters?.keys.sorted(by: { (s1,s2) -> Bool in
-            return s1 < s2
-        })
-        for (key) in allkeys!{
-            let value = parameters![key]!
-            components.append((key, value))
-        }
-        
-        
-        let result = (components.map{ "\($0)=\($1)"} as [String]).joined(separator: "&")
-        var allowedCharacterSet = CharacterSet.urlQueryAllowed
-        allowedCharacterSet.remove(charactersIn: ":#[]@!$&'()*+,;=")
-        var urlEncodeString = ""
-        if #available(iOS 8.3, *) {
-            urlEncodeString = result.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? result
-        }else{
-            let batchSize = 50
-            var index = result.startIndex
-            
-            while index != result.endIndex {
-                let startIndex = index
-                let endIndex = result.index(index, offsetBy: batchSize, limitedBy: result.endIndex) ?? result.endIndex
-                let range = startIndex..<endIndex
-                
-                let substring = result.substring(with: range)
-                
-                urlEncodeString += substring.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? substring
-                
-                index = endIndex
-            }
-        }
-        return urlEncodeString
-    }
     
     // MARK: Multipart 请求
     /*!
@@ -256,245 +164,12 @@ extension URLRequest{
  open func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask
  */
 
-//进度获取
-public typealias progressHandler = ((_ countOfBytesReceived: Int64 ,_ countOfBytesExpectedToReceive: Int64) -> Void)
-//完成回调
-public typealias completionHandler = ((Data?, URLResponse?, Error?) -> Swift.Void)
-//json解析回调
-public typealias jsonHandler = ((Any?,Error?)->Void)
-//字符串回调
-public typealias stringHandler = ((String?,Error?)->Void)
-//凭证回调,把session和challenge传入,给出一个Disposition和URLCredential
-public typealias challengeHandler = ((Foundation.URLSession, URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, URLCredential?))
 
-open class WTURLSessionTask:NSObject{
-    //网址凭据
-    public var credential: URLCredential?
-    //完成回调
-    public var completionHandler:completionHandler?
-    public var jsonHandler:jsonHandler?
-    public var stringHandler:stringHandler?
-    #if os(iOS)
-    public var imageHandler:((UIImage?,Error?)->Void)?
-    #endif
-    //进度获取
-    public var progressHandler:progressHandler?
-    public var response:URLResponse?
-    public var challengeHandler:challengeHandler?
-    public var useRequestingIfHave:Bool = false
-    public var originTask:URLSessionTask{
-        get{
-            return task;
-        }
-    }
-    
-    /*
-     这里的task和data是私有的,原因在于不允许外界修改,想要得到原始的task只需要调用otigintask就可以了
-     */
-    //原始的task
-    open var task: URLSessionTask
-    //懒加载,需要的时候创建对象
-    open lazy var data:Data = Data()
-    open var error: Error?
-    
-    
-    init(task: URLSessionTask) {
-        self.task = task
-    }
-    deinit {
-        WTLog("deinit")
-    }
-    
-    open func resume(){
-        if useRequestingIfHave {
-            
-        }
-        task.resume()
-    }
-    open func suspend(){
-        task.suspend()
-    }
-    open func cancel(){
-        task.cancel()
-    }
-    
-    func finish(){
-        DispatchQueue.global().async {
-            if let jsonHandler = self.jsonHandler{
-                self.data.parseJSON(handler: { (object, error) in
-                    DispatchQueue.main.async {
-                        jsonHandler(object,error)
-                    }
-                })
-            }
-            if let stringHandler = self.stringHandler{
-                let string = String.init(data: self.data, encoding: String.Encoding.utf8)
-                DispatchQueue.main.async {
-                    stringHandler(string,self.error)
-                }
-            }
-            #if os(iOS)
-                if let imageHandler = self.imageHandler{
-                    let image = UIImage.init(data: self.data)
-                    DispatchQueue.main.async {
-                        imageHandler(image,self.error)
-                    }
-                }
-            #endif
-        }
-        DispatchQueue.main.async {
-            if let completionHandler = self.completionHandler{
-                completionHandler(self.data,self.response,self.error)
-            }
-        }
-    }
-    
-}
-extension WTURLSessionTask:URLSessionTaskDelegate{
-    public func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
-        var disposition: Foundation.URLSession.AuthChallengeDisposition = .performDefaultHandling
-        var credential:URLCredential? = self.credential
-        
-        if let handler:challengeHandler = challengeHandler {
-            
-            (disposition, credential) = handler(session, challenge)
-            
-        } else if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
-            //1.认证方法是服务端信任
-            
-            //2.如果服务端信任存在
-            if let serverTrust = challenge.protectionSpace.serverTrust {
-                //3.验证服务端的信任
-                if WTURLSessionManager.trustIsValid(serverTrust) {
-                    //4.如果验证成功了,使用服务端的信任创建凭据
-                    credential = URLCredential(trust: serverTrust)
-                }
-            }
-        }
-        //使用凭据,note:这里必须调用,否则可能会产生内存泄漏
-        completionHandler(disposition,credential)
-    }
-    
-    public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
-        self.error = error
-        finish()
-        
-    }
-}
-open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
-    open var dataTask:URLSessionDataTask
-    //-1代表永久,0代表不缓存
-    open var cacheTime:Int = 0
-    override init(task: URLSessionTask) {
-        dataTask = task as! URLSessionDataTask
-        super.init(task: task)
-    }
-    deinit {
-        WTLog("deinit")
-    }
-    open override func resume(){
-        if cacheTime == -1 {
-            WTURLSessionManager.default.session?.configuration.urlCache?.getCachedResponse(for: dataTask, completionHandler: {(cachedResponse) in
-                if cachedResponse != nil{
-                    self.data = (cachedResponse?.data)!
-                    self.response = cachedResponse?.response
-                    self.finish()
-                }else{
-                    super.resume()
-                }
-            })
-        }else{
-            super.resume()
-        }
-        
-    }
-    open override func suspend(){
-        super.suspend()
-    }
-    open override func cancel(){
-        super.cancel()
-    }
-    
-    
-    
-    
-    //URLSessionDataTaskDelegate
-    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void){
-        self.response = response
-        completionHandler(URLSession.ResponseDisposition.allow)
-    }
-    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
-        
-        self.data += data
-        OperationQueue.toMain {
-            self.progressHandler?(dataTask.countOfBytesReceived,dataTask.countOfBytesExpectedToReceive)
-        }
-        
-        
-    }
-    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: @escaping (CachedURLResponse?) -> Swift.Void){
-        var shouldCache:Bool = false;
-        if self.error == nil {
-            if let originalRequest = dataTask.originalRequest {
-                let cachePolicy:URLRequest.CachePolicy = originalRequest.cachePolicy
-                
-                switch cachePolicy {
-                case .returnCacheDataDontLoad:
-                    shouldCache = true;
-                case .returnCacheDataElseLoad:
-                    shouldCache = true;
-                default: break
-                }
-                
-            }
-            if cacheTime == -1 {
-                shouldCache = true;
-            }
-            
-        }
-        if shouldCache {
-            completionHandler(proposedResponse)
-        }else{
-            completionHandler(nil)
-        }
-    }
-    
-}
-
-
-//下载进度
-public typealias downloadProgressHandler = ((URLSession,URLSessionDownloadTask,Int64,Int64,Int64)->Swift.Void)
-public typealias downloadTaskDidFinishDownloadingToURL = ((URLSession, URLSessionDownloadTask, URL)->Void)
-
-open class WTURLSessionDownloadTask:WTURLSessionTask,URLSessionDownloadDelegate{
-    var downloadTaskFinishHandler:downloadTaskDidFinishDownloadingToURL?
-    var downloadProgressHandler:downloadProgressHandler?
-    public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL)
-    {
-        if let handler = downloadTaskFinishHandler {
-            handler(session,downloadTask,location)
-        }
-    }
-    
-    public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64){
-        if let handler = downloadProgressHandler {
-            handler(session,downloadTask,bytesWritten,totalBytesWritten,totalBytesExpectedToWrite)
-        }
-    }
-    
-    public func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64)
-    {
-        
-    }
-}
-open class WTURLSessionUploadTask:WTURLSessionTask{
-    
-}
 
 open class WTURLSessionManager:NSObject{
     
     
-    static let sharedInstance = {
+    open static let sharedInstance = {
         return WTURLSessionManager()
     }()
     
@@ -536,32 +211,6 @@ open class WTURLSessionManager:NSObject{
         }
     }
     
-    
-    
-    public func encode(_ urlRequest: URLRequest, with parameters:[String:String]?) throws -> URLRequest{
-        var urlRequest = urlRequest
-        guard let parameters = parameters else { return urlRequest }
-        if let method = HTTPMethod(rawValue: urlRequest.httpMethod ?? "GET"), encodesParametersInURL(with: method) {
-            guard let url = urlRequest.url else {
-                return urlRequest
-            }
-            if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false), !parameters.isEmpty {
-                var percentEncodedQuery = urlComponents.percentEncodedQuery.map{ $0 + "&" } ?? ""
-                percentEncodedQuery += URLRequest.queryString(from: parameters)
-                urlRequest.url = urlComponents.url
-            }
-        }
-        return urlRequest
-    }
-    private func encodesParametersInURL(with method: HTTPMethod) -> Bool {
-        switch method {
-        case .get, .head, .delete:
-            return true
-        default:
-            return false
-        }
-    }
-    
     public var challengeHandler:challengeHandler?
     
     static func trustIsValid(_ trust:SecTrust) -> Bool {
@@ -587,6 +236,126 @@ open class WTURLSessionManager:NSObject{
     
     
 }
+extension NSNumber {
+    fileprivate var isBool: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
+}
+
+
+// MARK: - encode and query
+extension WTURLSessionManager{
+    
+    private func query(_ parameters: [String: Any]) -> String {
+        var components: [(String, String)] = []
+        
+        for key in parameters.keys.sorted(by: <) {
+            let value = parameters[key]!
+            components += queryComponents(fromKey: key, value: value)
+        }
+        
+        return components.map { "\($0)=\($1)" }.joined(separator: "&")
+    }
+    public func encode(_ urlRequest: URLRequest, with parameters:[String:Any]?) throws -> URLRequest{
+        var urlRequest = urlRequest
+        guard let parameters = parameters else { return urlRequest }
+        if let method = HTTPMethod(rawValue: urlRequest.httpMethod ?? "GET"), encodesParametersInURL(with: method) {
+            guard let url = urlRequest.url else {
+                return urlRequest
+            }
+            if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false), !parameters.isEmpty {
+                var percentEncodedQuery = urlComponents.percentEncodedQuery.map{ $0 + "&" } ?? ""
+                percentEncodedQuery += query(parameters)
+                urlRequest.url = urlComponents.url
+            }
+        }
+        return urlRequest
+    }
+    private func encodesParametersInURL(with method: HTTPMethod) -> Bool {
+        switch method {
+        case .get, .head, .delete:
+            return true
+        default:
+            return false
+        }
+    }
+    public func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
+        var components: [(String, String)] = []
+        if let dictionary = value as? [String: Any] {
+            for (nestedKey, value) in dictionary {
+                components += queryComponents(fromKey: "\(key)[\(nestedKey)]", value: value)
+            }
+        }else if let array = value as? [Any] {
+            for value in array {
+                components += queryComponents(fromKey: "\(key)[]", value: value)
+            }
+        }else if let value = value as? NSNumber {
+            if value.isBool {
+                components.append((escape(key), escape((value.boolValue ? "1" : "0"))))
+            } else {
+                components.append((escape(key), escape("\(value)")))
+            }
+        }
+        return components
+    }
+    
+    /// Returns a percent-escaped string following RFC 3986 for a query string key or value.
+    ///
+    /// RFC 3986 states that the following characters are "reserved" characters.
+    ///
+    /// - General Delimiters: ":", "#", "[", "]", "@", "?", "/"
+    /// - Sub-Delimiters: "!", "$", "&", "'", "(", ")", "*", "+", ",", ";", "="
+    ///
+    /// In RFC 3986 - Section 3.4, it states that the "?" and "/" characters should not be escaped to allow
+    /// query strings to include a URL. Therefore, all "reserved" characters with the exception of "?" and "/"
+    /// should be percent-escaped in the query string.
+    ///
+    /// - parameter string: The string to be percent-escaped.
+    ///
+    /// - returns: The percent-escaped string.
+    public func escape(_ string: String) -> String {
+        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
+        let subDelimitersToEncode = "!$&'()*+,;="
+        
+        var allowedCharacterSet = CharacterSet.urlQueryAllowed
+        allowedCharacterSet.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
+        
+        var escaped = ""
+        
+        //==========================================================================================================
+        //
+        //  Batching is required for escaping due to an internal bug in iOS 8.1 and 8.2. Encoding more than a few
+        //  hundred Chinese characters causes various malloc error crashes. To avoid this issue until iOS 8 is no
+        //  longer supported, batching MUST be used for encoding. This introduces roughly a 20% overhead. For more
+        //  info, please refer to:
+        //
+        //      - https://github.com/Alamofire/Alamofire/issues/206
+        //
+        //==========================================================================================================
+        
+        if #available(iOS 8.3, *) {
+            escaped = string.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? string
+        } else {
+            let batchSize = 50
+            var index = string.startIndex
+            
+            while index != string.endIndex {
+                let startIndex = index
+                let endIndex = string.index(index, offsetBy: batchSize, limitedBy: string.endIndex) ?? string.endIndex
+                let range = startIndex..<endIndex
+                
+                let substring = string.substring(with: range)
+                
+                escaped += substring.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? substring
+                
+                index = endIndex
+            }
+        }
+        
+        return escaped
+    }
+    
+
+}
+
 // MARK: - URLSessionDelegate
 extension WTURLSessionManager:URLSessionDelegate{
     public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?){
