@@ -24,7 +24,10 @@ import Foundation
     @objc optional func WTJSONModelClass(for property:String)->AnyObject?
     
 }
-extension NSObject{
+public class SWTModel: NSObject{
+    
+}
+extension NSObject {
     
     
     public func travelWTJSONModel(with data:Data){
@@ -125,10 +128,12 @@ extension NSObject{
         dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
         let dateString = dateFormatter.string(from: date)
         var stringToPrint = ""
-        stringToPrint += "//\n//  \(className).swift\n//\n//  this file is auto create by WTKit on \(dateString).\n"
+        stringToPrint += "//\n//  \(className).swift\n"
+        stringToPrint += "//\n//  this file is auto create by WTKit on \(dateString).\n"
         stringToPrint += "//  site:https://github.com/swtlovewtt/WTKit\n//  Thank you for use my json model maker\n//\n\n"
         stringToPrint += "import WTKit\n"
-        stringToPrint += "import UIKit\nopen class \(className):NSObject{\n"
+        stringToPrint += "import UIKit\n"
+        stringToPrint += "open class \(className): NSObject {\n"
         if let printObject = self as? [String:AnyObject] {
             for (key,value) in printObject{
                 if let classForCoder = value.classForCoder {
@@ -226,7 +231,7 @@ extension NSObject{
         }
     
 }
-extension JSONSerialization{
+extension JSONSerialization {
     
     
     /*

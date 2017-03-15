@@ -27,6 +27,8 @@ class ImageDownloadVC: UIViewController {
         清空缓存
      */
     @IBAction func clearCache(_ sender: AnyObject) {
+        WTURLSessionManager.default.session?.configuration.urlCache?.removeAllCachedResponses()
+        imageView.image = nil
         self.showHudWithTip("缓存已清空")
     }
     @IBAction func requestPress(_ sender: AnyObject) {

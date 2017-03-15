@@ -28,11 +28,6 @@ public enum HTTPMethod:String{
 
 open class WTURLSessionManager:NSObject{
     
-    
-    open static let sharedInstance = {
-        return WTURLSessionManager()
-    }()
-    
     open var startRequestsImmediately: Bool = true
     
     //网址凭据
@@ -41,6 +36,7 @@ open class WTURLSessionManager:NSObject{
     open static let `default`: WTURLSessionManager = {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = defaultHTTPHeaders
+        configuration.urlCache = URLCache.init(memoryCapacity: 1024*1024*4, diskCapacity: 1024*1024*1024, diskPath: "WTURLSessionManagerDefaultCache")
         return WTURLSessionManager(configuration: configuration)
     }()
     //
@@ -108,8 +104,8 @@ open class WTURLSessionManager:NSObject{
             }
         }
         do{
-            let encodedURLRequest = try WTURLSessionManager.sharedInstance.encode(request, with: parameters)
-            return WTURLSessionManager.sharedInstance.dataTask(with: encodedURLRequest)
+            let encodedURLRequest = try WTURLSessionManager.default.encode(request, with: parameters)
+            return WTURLSessionManager.default.dataTask(with: encodedURLRequest)
         }catch{
         }
         return WTURLSessionDataTask(task: URLSessionTask());
@@ -362,18 +358,34 @@ extension WTURLSessionManager:URLSessionTaskDelegate{
 }
 // MARK: - URLSessionDataDelegate
 extension WTURLSessionManager:URLSessionDataDelegate{
-    
-    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void){
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void)
+    {
         if let task = self[dataTask] as? WTURLSessionDataTask {
             task.urlSession(session, dataTask: dataTask, didReceive: response, completionHandler: completionHandler)
         }else{
             completionHandler(URLSession.ResponseDisposition.allow)
         }
-        
-        
+    }
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome downloadTask: URLSessionDownloadTask){
+        if let task = self[dataTask] as? WTURLSessionDataTask {
+            task.urlSession(session, dataTask: dataTask, didBecome: downloadTask)
+        }else{
+        }
+    }
+    @available(iOS 9.0, *)
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome streamTask: URLSessionStreamTask){
+        if let _ = self[dataTask] as? WTURLSessionDataTask {
+            
+        }else{
+        }
+    }
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
+        if let task = self[dataTask] as? WTURLSessionDataTask {
+            task.urlSession(session, dataTask: dataTask, didReceive: data)
+        }else{
+        }
         
     }
-    
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: @escaping (CachedURLResponse?) -> Swift.Void){
         if let task = self[dataTask] as? WTURLSessionDataTask{
             task.urlSession(session, dataTask: dataTask, willCacheResponse: proposedResponse, completionHandler: completionHandler)
@@ -383,23 +395,8 @@ extension WTURLSessionManager:URLSessionDataDelegate{
         
         
     }
-    
-    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome downloadTask: URLSessionDownloadTask){
-    }
-    
-    @available(iOS 9.0, *)
-    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome streamTask: URLSessionStreamTask){
-    }
-    
-    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
-        if let task = self[dataTask] as? WTURLSessionDataTask {
-            task.urlSession(session, dataTask: dataTask, didReceive: data)
-        }else{
-        }
-        
-    }
 }
-// MARK: - URLSessionDataDelegate
+// MARK: - URLSessionDownloadDelegate
 extension WTURLSessionManager:URLSessionDownloadDelegate{
     /* Sent when a download task that has completed a download.  The delegate should
      * copy or move the file at the given location to a new location as it will be
@@ -429,4 +426,9 @@ extension WTURLSessionManager:URLSessionDownloadDelegate{
     }
 }
 
+
+// MARK: - URLSessionStreamDelegate
+extension WTURLSessionManager:URLSessionStreamDelegate{
+
+}
 

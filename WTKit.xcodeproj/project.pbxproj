@@ -134,8 +134,8 @@
 		E18B9FAA1E77D5DF0013EFA8 /* WebImage */ = {
 			isa = PBXGroup;
 			children = (
-				E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */,
 				E18B9FAB1E77D6450013EFA8 /* WTWebImage.swift */,
+				E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */,
 			);
 			name = WebImage;
 			sourceTree = "<group>";
@@ -484,6 +484,7 @@
 		E17BDA241DDDC11A00CF5672 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
@@ -505,6 +506,7 @@
 		E17BDA251DDDC11A00CF5672 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;

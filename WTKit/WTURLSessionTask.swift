@@ -152,8 +152,6 @@ extension WTURLSessionTask:URLSessionTaskDelegate{
 open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
     
     open var dataTask:URLSessionDataTask
-    //-1代表永久,0代表不缓存
-    open var cacheTime:Int = 0
     override init(task: URLSessionTask) {
         dataTask = task as! URLSessionDataTask
         super.init(task: task)
@@ -162,20 +160,7 @@ open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
         WTLog("deinit")
     }
     open override func resume(){
-        if cacheTime == -1 {
-            WTURLSessionManager.default.session?.configuration.urlCache?.getCachedResponse(for: dataTask, completionHandler: {(cachedResponse) in
-                if cachedResponse != nil{
-                    self.data = (cachedResponse?.data)!
-                    self.response = cachedResponse?.response
-                    self.finish()
-                }else{
-                    super.resume()
-                }
-            })
-        }else{
-            super.resume()
-        }
-        
+        super.resume()
     }
     open override func suspend(){
         super.suspend()
@@ -201,25 +186,19 @@ open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
         
         
     }
+    
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome downloadTask: URLSessionDownloadTask)
+    {
+        
+    }
+    @available(iOS 9.0, *)
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome streamTask: URLSessionStreamTask){
+        
+    }
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: @escaping (CachedURLResponse?) -> Swift.Void){
         var shouldCache:Bool = false;
-        if self.error == nil {
-            if let originalRequest = dataTask.originalRequest {
-                let cachePolicy:URLRequest.CachePolicy = originalRequest.cachePolicy
-                
-                switch cachePolicy {
-                case .returnCacheDataDontLoad:
-                    shouldCache = true;
-                case .returnCacheDataElseLoad:
-                    shouldCache = true;
-                default: break
-                }
-                
-            }
-            if cacheTime == -1 {
-                shouldCache = true;
-            }
-            
+        if dataTask.originalRequest?.cachePolicy == .returnCacheDataElseLoad {
+            shouldCache = true
         }
         if shouldCache {
             completionHandler(proposedResponse)

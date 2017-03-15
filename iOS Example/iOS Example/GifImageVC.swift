@@ -37,7 +37,6 @@ class GifImageVC: UIViewController {
 
         
         let task:WTURLSessionDataTask = WTKit.dataTask(with: "http://ww1.sinaimg.cn/mw690/47449485jw1f4shxfge7lg208w04rkjn.gif")
-        task.cacheTime = -1
         task.completionHandler = { (data, response, error) in
             if data != nil {
                 
