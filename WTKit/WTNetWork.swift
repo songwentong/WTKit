@@ -6,6 +6,34 @@
 //  Copyright © 2016 songwentong. All rights reserved.
 //
 
+public protocol URLConvertible {
+    /// Returns a URL that conforms to RFC 2396 or throws an `Error`.
+    ///
+    /// - throws: An `Error` if the type cannot be converted to a `URL`.
+    ///
+    /// - returns: A URL or throws an `Error`.
+    func asURL() -> URL
+}
+
+extension String: URLConvertible {
+    /// Returns a URL if `self` represents a valid URL string that conforms to RFC 2396 or throws an `AFError`.
+    ///
+    /// - throws: An `AFError.invalidURL` if `self` is not a valid URL string.
+    ///
+    /// - returns: A URL or throws an `AFError`.
+    public func asURL() -> URL {
+        if let url = URL(string: self){
+            return url
+        }
+        return URL.init(string: "")!
+    }
+}
+
+extension URL: URLConvertible {
+    /// Returns self.
+    public func asURL() -> URL { return self }
+}
+
 // MARK: - Data Request
 /// 常规data task
 ///
@@ -15,24 +43,9 @@
 ///   - parameters: <#parameters description#>
 ///   - headers: <#headers description#>
 /// - Returns: <#return value description#>
-public func dataTask(with url:String, method:HTTPMethod = .get, parameters:[String:Any]? = nil,headers: [String: String]? = nil)->WTURLSessionDataTask
+public func dataTask(with url:URLConvertible, method:HTTPMethod = .get, parameters:[String:Any]? = nil,headers: [String: String]? = nil)->WTURLSessionDataTask
 {
-    if let myURL:URL = URL.init(string: url){
-        var request = URLRequest(url: myURL)
-        request.httpMethod = method.rawValue
-        if let headers = headers{
-            for (key,value) in headers{
-                request.setValue(value , forHTTPHeaderField: key)
-            }
-        }
-        do{
-            let encodedURLRequest = try WTURLSessionManager.sharedInstance.encode(request, with: parameters)
-            return WTURLSessionManager.sharedInstance.dataTask(with: encodedURLRequest)
-        }catch{
-        }
-        
-    }
-    return WTURLSessionDataTask(task: URLSessionTask());
+    return WTURLSessionManager.default.dataTask(with: url, method: method, parameters: parameters, headers: headers)
 }
 private func aaa(){
 

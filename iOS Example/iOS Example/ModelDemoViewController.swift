@@ -14,7 +14,7 @@ class ModelDemoViewController: UIViewController,UITextViewDelegate {
     @IBOutlet weak var titleButton: UIButton!
     var jsonString:String = ""
     var jsonObject:AnyObject?
-    var className:String? = "XXX"
+    var className:String? = "ClassName"
     var alertControl:UIAlertController?
     @IBOutlet weak var jsonTextView: UITextView!
     @IBOutlet weak var propertyTextView: UITextView!
@@ -121,7 +121,7 @@ class ModelDemoViewController: UIViewController,UITextViewDelegate {
 //            print("JSON 合法")
             if let obj = parseJsonResult as? NSObject {
                 let filePath = desktopPath() + "/" + className! + ".swift"
-                let modelString = obj.WTSwiftModelString(className);
+                let modelString = obj.WTSwiftModelString(className!);
                 do {
                     try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
                     print("写文件成功,请在桌面查看")

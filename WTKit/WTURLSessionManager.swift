@@ -98,6 +98,23 @@ open class WTURLSessionManager:NSObject{
     }
     
     
+    public func dataTask(with url:URLConvertible, method:HTTPMethod = .get, parameters:[String:Any]? = nil,headers: [String: String]? = nil)->WTURLSessionDataTask
+    {
+        var request = URLRequest(url: url.asURL())
+        request.httpMethod = method.rawValue
+        if let headers = headers{
+            for (key,value) in headers{
+                request.setValue(value , forHTTPHeaderField: key)
+            }
+        }
+        do{
+            let encodedURLRequest = try WTURLSessionManager.sharedInstance.encode(request, with: parameters)
+            return WTURLSessionManager.sharedInstance.dataTask(with: encodedURLRequest)
+        }catch{
+        }
+        return WTURLSessionDataTask(task: URLSessionTask());
+    }
+    
     //data task
     public func dataTask(with request:URLRequest)->WTURLSessionDataTask{
         let task = WTURLSessionManager.default.session!.dataTask(with: request)

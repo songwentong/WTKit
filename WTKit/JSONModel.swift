@@ -119,12 +119,16 @@ extension NSObject{
     
     /// 尝试打印出一个json对应的Model属性
     /// NSArray和NSDictionary可能需要自定义为一个model类型
-    public func WTSwiftModelString(_ className:String?="XXX")->String{
-
+    public func WTSwiftModelString(_ className:String = "XXX")->String{
+        let date:Date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
+        let dateString = dateFormatter.string(from: date)
         var stringToPrint = ""
-        stringToPrint += "//\n//  \(className!).swift\n//\n//  this file is auto create by WTKit\n//  site:https://github.com/swtlovewtt/WTKit\n//  Thank you for use my json model maker\n//\n\n"
+        stringToPrint += "//\n//  \(className).swift\n//\n//  this file is auto create by WTKit on \(dateString).\n"
+        stringToPrint += "//  site:https://github.com/swtlovewtt/WTKit\n//  Thank you for use my json model maker\n//\n\n"
         stringToPrint += "import WTKit\n"
-        stringToPrint += "import UIKit\nopen class \(className!):NSObject{\n"
+        stringToPrint += "import UIKit\nopen class \(className):NSObject{\n"
         if let printObject = self as? [String:AnyObject] {
             for (key,value) in printObject{
                 if let classForCoder = value.classForCoder {
@@ -141,7 +145,7 @@ extension NSObject{
             }
         }
         stringToPrint += "}\n"
-        stringToPrint += "extension \(className!):WTJSONModelProtocol{\n"
+        stringToPrint += "extension \(className):WTJSONModelProtocol{\n"
         stringToPrint += "    public func WTJSONModelClass(for property:String)->AnyObject?{\n        return nil\n    }\n"
         stringToPrint += "}"
         return stringToPrint
