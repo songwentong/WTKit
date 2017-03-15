@@ -42,7 +42,10 @@ public func dataTask(with request:URLRequest)->WTURLSessionDataTask{
     let task = WTURLSessionManager.default.session!.dataTask(with: request)
     let myTask = WTURLSessionDataTask(task: task)
     WTURLSessionManager.default[task] = myTask
-    myTask.resume()
+    if myTask.startRequestsImmediately{
+        myTask.resume()
+    }
+    
     return myTask
 }
 //下载的task

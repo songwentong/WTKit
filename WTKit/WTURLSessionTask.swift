@@ -150,6 +150,7 @@ extension WTURLSessionTask:URLSessionTaskDelegate{
     }
 }
 open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
+    open var startRequestsImmediately: Bool = true
     open var dataTask:URLSessionDataTask
     //-1代表永久,0代表不缓存
     open var cacheTime:Int = 0

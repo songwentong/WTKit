@@ -25,146 +25,6 @@ public enum HTTPMethod:String{
     case connect = "CONNECT"
 }
 
-extension URLRequest{
-    
-    /*!
-     创建一个URLRequest实例
-     */
-    public static let defaultHTTPHeaders: [String: String] = {
-        let acceptEncoding: String = "gzip;q=1.0, compress;q=0.5"
-        
-        // Accept-Language HTTP Header; see https://tools.ietf.org/html/rfc7231#section-5.3.5
-        let acceptLanguage = Locale.preferredLanguages.prefix(6).enumerated().map { index, languageCode in
-            let quality = 1.0 - (Double(index) * 0.1)
-            return "\(languageCode);q=\(quality)"
-            }.joined(separator: ", ")
-        
-        // User-Agent Header; see https://tools.ietf.org/html/rfc7231#section-5.5.3
-        let userAgent: String = {
-            if let info = Bundle.main.infoDictionary {
-                let executable = info[kCFBundleExecutableKey as String] as? String ?? "Unknown"
-                let bundle = info[kCFBundleIdentifierKey as String] as? String ?? "Unknown"
-                let version = info[kCFBundleVersionKey as String] as? String ?? "Unknown"
-                
-                let osNameVersion: String = {
-                    let versionString: String
-                    
-                    if #available(OSX 10.10, *) {
-                        let version = ProcessInfo.processInfo.operatingSystemVersion
-                        versionString = "\(version.majorVersion).\(version.minorVersion).\(version.patchVersion)"
-                    } else {
-                        versionString = "10.9"
-                    }
-                    
-                    let osName: String = {
-                        #if os(iOS)
-                            return "iOS"
-                        #elseif os(watchOS)
-                            return "watchOS"
-                        #elseif os(tvOS)
-                            return "tvOS"
-                        #elseif os(OSX)
-                            return "OS X"
-                        #elseif os(Linux)
-                            return "Linux"
-                        #else
-                            return "Unknown"
-                        #endif
-                    }()
-                    
-                    return "\(osName) \(versionString)"
-                }()
-                
-                return "\(executable)/\(bundle) (\(version); \(osNameVersion))"
-            }
-            
-            return "WTKit"
-        }()
-        
-        return [
-            "Accept-Encoding": acceptEncoding,
-            "Accept-Language": acceptLanguage,
-            "User-Agent": userAgent
-        ]
-    }()
-    
-    // MARK: Multipart 请求
-    /*!
-     注释
-     body中
-     name            参数名
-     filename        文件名
-     contentType     内容类型
-     content         内容
-     
-     */
-    public static func upLoadFile(_ url:String, method:String,parameters:[String:String]?=[:],body:[[String:AnyObject]]?=[])->URLRequest {
-        let boundary = "Boundary+1F52B974B3E5F39D"
-        let theURL = URL(string: url)
-        var request = URLRequest(url: theURL!)
-        request.httpMethod = method
-        var HTTPBody = Data()
-        
-        
-        //加上开头
-        HTTPBody.append(String(format: "--%@\r\n", boundary).data(using: String.Encoding.utf8)!)
-        
-        
-        
-        //把相关参数加上
-        if parameters != nil {
-            for (key,value) in parameters!{
-                let header = String(format: "Content-Disposition: form-data; name=\"%@\"\r\n\r\n", key)
-                HTTPBody.append(header.data(using: String.Encoding.utf8)!)
-                HTTPBody.append(value.data(using: String.Encoding.utf8)!)
-                HTTPBody.append(String(format: "--%@\r\n", boundary).data(using: String.Encoding.utf8)!)
-            }
-        }
-        
-        
-        
-        //枚举把相关的数据加上
-        if body != nil {
-            for(part) in body!{
-                
-                //把字典的数值取出来
-                let name = part["name"] as! String
-                let filename = part["filename"] as! String
-                let contentType = part["contentType"] as! String
-                let content = part["content"] as! Data
-                
-                let disposition:String = String(format: "Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", name, filename)
-                let contentTypeString:String = String(format: "Content-Type: %@\r\n\r\n", contentType)
-                HTTPBody.append(disposition.data(using: String.Encoding.utf8)!)
-                HTTPBody.append(contentTypeString.data(using: String.Encoding.utf8)!)
-                HTTPBody.append(content)
-                HTTPBody.append(String(format: "--%@\r\n", boundary).data(using: String.Encoding.utf8)!)
-            }
-        }
-        
-        
-        //加上结尾
-        HTTPBody.append(String(format: "\r\n--%@--\r\n", boundary).data(using: String.Encoding.utf8)!)
-        
-        
-        request.httpBody = HTTPBody as Data
-        
-        
-        //告知边界的字符串
-        let contentType = String(format: "multipart/form-data; boundary=%@", boundary)
-        request.setValue(contentType, forHTTPHeaderField: "Content-Type")
-        
-        //告知数据长度
-        request.setValue(NSNumber(value: HTTPBody.count).stringValue, forHTTPHeaderField: "Content-Length")
-        return request
-    }
-}
-
-/*
- open func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask
- */
-
-
 
 open class WTURLSessionManager:NSObject{
     
@@ -178,6 +38,7 @@ open class WTURLSessionManager:NSObject{
     
     open static let `default`: WTURLSessionManager = {
         let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = defaultHTTPHeaders
         return WTURLSessionManager(configuration: configuration)
     }()
     //
@@ -243,6 +104,67 @@ extension NSNumber {
 
 // MARK: - encode and query
 extension WTURLSessionManager{
+    
+    /*!
+     创建一个URLRequest实例
+     */
+    public static let defaultHTTPHeaders: [String: String] = {
+        let acceptEncoding: String = "gzip;q=1.0, compress;q=0.5"
+        
+        // Accept-Language HTTP Header; see https://tools.ietf.org/html/rfc7231#section-5.3.5
+        let acceptLanguage = Locale.preferredLanguages.prefix(6).enumerated().map { index, languageCode in
+            let quality = 1.0 - (Double(index) * 0.1)
+            return "\(languageCode);q=\(quality)"
+            }.joined(separator: ", ")
+        
+        // User-Agent Header; see https://tools.ietf.org/html/rfc7231#section-5.5.3
+        let userAgent: String = {
+            if let info = Bundle.main.infoDictionary {
+                let executable = info[kCFBundleExecutableKey as String] as? String ?? "Unknown"
+                let bundle = info[kCFBundleIdentifierKey as String] as? String ?? "Unknown"
+                let version = info[kCFBundleVersionKey as String] as? String ?? "Unknown"
+                
+                let osNameVersion: String = {
+                    let versionString: String
+                    
+                    if #available(OSX 10.10, *) {
+                        let version = ProcessInfo.processInfo.operatingSystemVersion
+                        versionString = "\(version.majorVersion).\(version.minorVersion).\(version.patchVersion)"
+                    } else {
+                        versionString = "10.9"
+                    }
+                    
+                    let osName: String = {
+                        #if os(iOS)
+                            return "iOS"
+                        #elseif os(watchOS)
+                            return "watchOS"
+                        #elseif os(tvOS)
+                            return "tvOS"
+                        #elseif os(OSX)
+                            return "OS X"
+                        #elseif os(Linux)
+                            return "Linux"
+                        #else
+                            return "Unknown"
+                        #endif
+                    }()
+                    
+                    return "\(osName) \(versionString)"
+                }()
+                
+                return "\(executable)/\(bundle) (\(version); \(osNameVersion))"
+            }
+            
+            return "WTKit"
+        }()
+        
+        return [
+            "Accept-Encoding": acceptEncoding,
+            "Accept-Language": acceptLanguage,
+            "User-Agent": userAgent
+        ]
+    }()
     
     private func query(_ parameters: [String: Any]) -> String {
         var components: [(String, String)] = []
