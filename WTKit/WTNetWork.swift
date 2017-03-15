@@ -136,12 +136,12 @@ extension URLRequest{
     
     
     //从参数转成字符串
-    static func queryString(from parameters:[String: Any]?=[:])->String? {
+    static func queryString(from parameters:[String: Any]?=[:])->String {
         
         //        Array
         //        Dictionary
         if parameters == nil {
-            return nil
+            return ""
         }
         
         
@@ -536,9 +536,42 @@ open class WTURLSessionManager:NSObject{
         }
     }
     
-//    open func dataTask(with url:String, method:httpMethod){
-    
-//    }
+    open func dataTask(with url:String, method:HTTPMethod, parameters:[String:String]?=nil,headers: [String: String]?=nil)->WTURLSessionDataTask{
+        if let myURL:URL = URL.init(string: url) {
+            var request = URLRequest(url: myURL)
+            request.httpMethod = method.rawValue
+            do{
+                let encodedURLRequest = try encode(request, with: parameters)
+                return WTKit.dataTask(with: encodedURLRequest)
+            }catch{
+            }
+            
+        }
+        return WTURLSessionDataTask(task: URLSessionTask());
+    }
+    public func encode(_ urlRequest: URLRequest, with parameters:[String:String]?) throws -> URLRequest{
+        var urlRequest = urlRequest
+        guard let parameters = parameters else { return urlRequest }
+        if let method = HTTPMethod(rawValue: urlRequest.httpMethod ?? "GET"), encodesParametersInURL(with: method) {
+            guard let url = urlRequest.url else {
+                return urlRequest
+            }
+            if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false), !parameters.isEmpty {
+                var percentEncodedQuery = urlComponents.percentEncodedQuery.map{ $0 + "&" } ?? ""
+                percentEncodedQuery += URLRequest.queryString(from: parameters)
+                urlRequest.url = urlComponents.url
+            }
+        }
+        return urlRequest
+    }
+    private func encodesParametersInURL(with method: HTTPMethod) -> Bool {
+        switch method {
+        case .get, .head, .delete:
+            return true
+        default:
+            return false
+        }
+    }
     
     public var challengeHandler:challengeHandler?
     
