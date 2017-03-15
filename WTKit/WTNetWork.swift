@@ -27,7 +27,7 @@ public func dataTask(with url:String, method:HTTPMethod = .get, parameters:[Stri
         }
         do{
             let encodedURLRequest = try WTURLSessionManager.sharedInstance.encode(request, with: parameters)
-            return WTKit.dataTask(with: encodedURLRequest)
+            return WTURLSessionManager.sharedInstance.dataTask(with: encodedURLRequest)
         }catch{
         }
         
@@ -37,17 +37,7 @@ public func dataTask(with url:String, method:HTTPMethod = .get, parameters:[Stri
 private func aaa(){
 
 }
-//data task
-public func dataTask(with request:URLRequest)->WTURLSessionDataTask{
-    let task = WTURLSessionManager.default.session!.dataTask(with: request)
-    let myTask = WTURLSessionDataTask(task: task)
-    WTURLSessionManager.default[task] = myTask
-    if myTask.startRequestsImmediately{
-        myTask.resume()
-    }
-    
-    return myTask
-}
+
 //下载的task
 public func downloadTask(with request:URLRequest)->WTURLSessionDownloadTask{
     let task = WTURLSessionManager.default.session!.downloadTask(with: request)

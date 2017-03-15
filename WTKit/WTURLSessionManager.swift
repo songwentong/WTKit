@@ -33,6 +33,8 @@ open class WTURLSessionManager:NSObject{
         return WTURLSessionManager()
     }()
     
+    open var startRequestsImmediately: Bool = true
+    
     //网址凭据
     var credential: URLCredential?
     
@@ -95,6 +97,17 @@ open class WTURLSessionManager:NSObject{
         return isValid
     }
     
+    
+    //data task
+    public func dataTask(with request:URLRequest)->WTURLSessionDataTask{
+        let task = WTURLSessionManager.default.session!.dataTask(with: request)
+        let myTask = WTURLSessionDataTask(task: task)
+        WTURLSessionManager.default[task] = myTask
+        if startRequestsImmediately {
+            myTask.resume()
+        }
+        return myTask
+    }
     
 }
 extension NSNumber {
