@@ -9,8 +9,12 @@
 import Foundation
 //进度获取
 public typealias progressHandler = ((_ countOfBytesReceived: Int64 ,_ countOfBytesExpectedToReceive: Int64) -> Void)
-//完成回调
+//完成回调,包含成功,失败和数据,推荐使用
 public typealias completionHandler = ((Data?, URLResponse?, Error?) -> Swift.Void)
+//成功回调
+public typealias finishHandler = (Data?,URLResponse?)->Void
+//失败回调
+public typealias failedHandler = (Error?)->Void
 //json解析回调
 public typealias jsonHandler = ((Any?,Error?)->Void)
 //字符串回调
@@ -24,6 +28,8 @@ open class WTURLSessionTask:NSObject{
     //完成回调
     public var completionHandler:completionHandler?
     public var jsonHandler:jsonHandler?
+    public var finishHandler:finishHandler?
+    public var failedHandler:failedHandler?
     public var stringHandler:stringHandler?
     #if os(iOS)
     public var imageHandler:((UIImage?,Error?)->Void)?
@@ -70,7 +76,7 @@ open class WTURLSessionTask:NSObject{
     }
     
     func finish(){
-        DispatchQueue.global().async {
+        DispatchQueue.utilityQueue().async {
             if let jsonHandler = self.jsonHandler{
                 self.data.parseJSON(handler: { (object, error) in
                     DispatchQueue.main.async {
@@ -97,6 +103,17 @@ open class WTURLSessionTask:NSObject{
             if let completionHandler = self.completionHandler{
                 completionHandler(self.data,self.response,self.error)
             }
+            if let error = self.error{
+                if let failedHandler = self.failedHandler{
+                    failedHandler(error)
+                }
+            }else {
+                if let finishHandler = self.finishHandler{
+                    finishHandler(self.data,self.response)
+                }
+            }
+            
+            
         }
     }
     
