@@ -51,15 +51,15 @@ extension URLRequest{
         
         if(self.methodShouldAddQuery(request.httpMethod!)){
             urlString = url
-            if let query:String = queryString {
+            if queryString.length != 0 {
                 urlString += "?"
-                urlString += query
+                urlString += queryString
             }
             request.url = URL(string: urlString)
         }else{
             urlString = url
-            if let query:String = queryString {
-                request.httpBody = query.toUTF8Data()
+            if queryString.length != 0 {
+                request.httpBody = queryString.toUTF8Data()
             }
         }
         return request
