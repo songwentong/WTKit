@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E119D92C1DFAA3CA00BCCCE2 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E119D92B1DFAA3CA00BCCCE2 /* WTNetWork.swift */; };
 		E11C6D911DDED785008D9471 /* arrow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E11C6D901DDED785008D9471 /* arrow.jpg */; };
 		E17BDA201DDDC11A00CF5672 /* WTKit.h in Headers */ = {isa = PBXBuildFile; fileRef = E17BDA1E1DDDC11A00CF5672 /* WTKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E17BDA2A1DDDC12500CF5672 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
 		E17BDA2B1DDDC12500CF5672 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
 		E17BDA2C1DDDC12500CF5672 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E17BDA2D1DDDC12500CF5672 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
+		E1857FD71E78DDE80082F385 /* WTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD61E78DDE80082F385 /* WTURLSessionManager.swift */; };
+		E1857FDA1E78E01A0082F385 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD91E78E01A0082F385 /* WTNetWork.swift */; };
 		E18B9FAC1E77D6450013EFA8 /* WTWebImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B9FAB1E77D6450013EFA8 /* WTWebImage.swift */; };
 		E1C0C9B11E07ABE2000B8F50 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
 		E1C0C9B21E07ABE2000B8F50 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
-		E1C0C9B31E07ABE2000B8F50 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E119D92B1DFAA3CA00BCCCE2 /* WTNetWork.swift */; };
 		E1C0C9B41E07ABE2000B8F50 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E1C0C9B61E07ABE2000B8F50 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* JSONModel.swift */; };
 		E1C0C9B71E07ABF5000B8F50 /* arrow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E11C6D901DDED785008D9471 /* arrow.jpg */; };
@@ -43,7 +43,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E119D92B1DFAA3CA00BCCCE2 /* WTNetWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTNetWork.swift; sourceTree = "<group>"; };
 		E11C6D901DDED785008D9471 /* arrow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = arrow.jpg; sourceTree = "<group>"; };
 		E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WTKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E17BDA1E1DDDC11A00CF5672 /* WTKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTKit.h; sourceTree = "<group>"; };
@@ -52,6 +51,8 @@
 		E17BDA271DDDC12500CF5672 /* CustomExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomExtension.swift; sourceTree = "<group>"; };
 		E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtension.swift; sourceTree = "<group>"; };
 		E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtension.swift; sourceTree = "<group>"; };
+		E1857FD61E78DDE80082F385 /* WTURLSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTURLSessionManager.swift; sourceTree = "<group>"; };
+		E1857FD91E78E01A0082F385 /* WTNetWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTNetWork.swift; sourceTree = "<group>"; };
 		E18B9FAB1E77D6450013EFA8 /* WTWebImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTWebImage.swift; sourceTree = "<group>"; };
 		E1C0C9A81E07AB79000B8F50 /* WTKitMacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WTKitMacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTReachability.swift; sourceTree = "<group>"; };
@@ -151,7 +152,8 @@
 		E1C0C9BC1E07BA4F000B8F50 /* NetWork */ = {
 			isa = PBXGroup;
 			children = (
-				E119D92B1DFAA3CA00BCCCE2 /* WTNetWork.swift */,
+				E1857FD91E78E01A0082F385 /* WTNetWork.swift */,
+				E1857FD61E78DDE80082F385 /* WTURLSessionManager.swift */,
 			);
 			name = NetWork;
 			sourceTree = "<group>";
@@ -328,13 +330,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1D21B0E1DE29B870011F302 /* JSONModel.swift in Sources */,
+				E1857FD71E78DDE80082F385 /* WTURLSessionManager.swift in Sources */,
 				E17BDA2B1DDDC12500CF5672 /* CustomExtension.swift in Sources */,
 				E1C0C9B91E07AC3E000B8F50 /* WTReachability.swift in Sources */,
-				E119D92C1DFAA3CA00BCCCE2 /* WTNetWork.swift in Sources */,
 				E17BDA2C1DDDC12500CF5672 /* FoundationExtension.swift in Sources */,
 				E17BDA2D1DDDC12500CF5672 /* UIKitExtension.swift in Sources */,
 				E17BDA2A1DDDC12500CF5672 /* AnimationImageVIew.swift in Sources */,
 				E18B9FAC1E77D6450013EFA8 /* WTWebImage.swift in Sources */,
+				E1857FDA1E78E01A0082F385 /* WTNetWork.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,7 +347,6 @@
 			files = (
 				E1C0C9B11E07ABE2000B8F50 /* AnimationImageVIew.swift in Sources */,
 				E1C0C9B21E07ABE2000B8F50 /* CustomExtension.swift in Sources */,
-				E1C0C9B31E07ABE2000B8F50 /* WTNetWork.swift in Sources */,
 				E1C0C9B41E07ABE2000B8F50 /* FoundationExtension.swift in Sources */,
 				E1C0C9B61E07ABE2000B8F50 /* JSONModel.swift in Sources */,
 			);

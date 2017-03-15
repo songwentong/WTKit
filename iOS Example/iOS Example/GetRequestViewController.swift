@@ -91,9 +91,9 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
             
             DispatchQueue.global().async {
                 self.requestButton.isEnabled = false
-                var method:httpMethod = .GET
+                var method:HTTPMethod = .get
                 if self.methodSegment.selectedSegmentIndex == 1 {
-                    method = .POST
+                    method = .post
                 }
                 //            string = "https://httpbin.org"
                 UserDefaults.standard.set(string, forKey: self.lastURLKey)
