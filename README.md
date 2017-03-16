@@ -118,7 +118,6 @@ task.completionHandler = { [weak self](data, response, error) in
               print(data)     //服务端数据
               print(error)    //得到的错误
         }
-task.resume()
 ```
 > WTKit中的网络请求是异步完成的.
 
