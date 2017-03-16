@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9BF8E75D1E7A8465009F548A /* Hud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8E75C1E7A8465009F548A /* Hud.swift */; };
 		E11C6D911DDED785008D9471 /* arrow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E11C6D901DDED785008D9471 /* arrow.jpg */; };
 		E17BDA201DDDC11A00CF5672 /* WTKit.h in Headers */ = {isa = PBXBuildFile; fileRef = E17BDA1E1DDDC11A00CF5672 /* WTKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E17BDA2A1DDDC12500CF5672 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9BF8E75C1E7A8465009F548A /* Hud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hud.swift; sourceTree = "<group>"; };
 		E11C6D901DDED785008D9471 /* arrow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = arrow.jpg; sourceTree = "<group>"; };
 		E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WTKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E17BDA1E1DDDC11A00CF5672 /* WTKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTKit.h; sourceTree = "<group>"; };
@@ -93,6 +95,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9BF8E75B1E7A8356009F548A /* Hud */ = {
+			isa = PBXGroup;
+			children = (
+				9BF8E75C1E7A8465009F548A /* Hud.swift */,
+			);
+			name = Hud;
+			sourceTree = "<group>";
+		};
 		E17BDA111DDDC11A00CF5672 = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				E17BDA1E1DDDC11A00CF5672 /* WTKit.h */,
+				9BF8E75B1E7A8356009F548A /* Hud */,
 				E1C0C9BC1E07BA4F000B8F50 /* NetWork */,
 				E18B9FAA1E77D5DF0013EFA8 /* WebImage */,
 				E18B9F9C1E77CCFF0013EFA8 /* JSONModel */,
@@ -335,6 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BF8E75D1E7A8465009F548A /* Hud.swift in Sources */,
 				E1857FDC1E78E3490082F385 /* WTURLSessionTask.swift in Sources */,
 				E1D21B0E1DE29B870011F302 /* JSONModel.swift in Sources */,
 				E1857FD71E78DDE80082F385 /* WTURLSessionManager.swift in Sources */,
