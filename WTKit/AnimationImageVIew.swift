@@ -23,6 +23,7 @@ open class AnimationImageVIew: UIImageView {
         self.linkIsInit = true
         let aLink:CADisplayLink = CADisplayLink(target: self, selector: #selector(AnimationImageVIew.play(_:)));
         aLink.add(to: RunLoop.main, forMode: RunLoopMode(rawValue: RunLoopMode.commonModes.rawValue))
+        aLink.isPaused = true
         return aLink;
     }()
     
@@ -189,12 +190,12 @@ extension CGImageSource{
         return properties?[kCGImagePropertyGIFDictionary] as? [String: Double]
     }
     func getDurationAtIndex(_ index:Int) -> Double {
+        
         guard let property = self.gifPropertiesAtIndex(index) else {return 0.1}
-        let dur = property[kCGImagePropertyGIFDelayTime as String]! as NSNumber
-        if dur.doubleValue < 0.011 {
-            return 0.1
-        }
-        return dur.doubleValue
+        let unclampedDelay = property[kCGImagePropertyGIFUnclampedDelayTime as String] as Double?
+        let delay = property[kCGImagePropertyGIFDelayTime as String]as Double?
+        let dur = unclampedDelay ?? delay ?? 0.0
+        return dur > 0.011 ? dur:0.100
     }
     
 }
