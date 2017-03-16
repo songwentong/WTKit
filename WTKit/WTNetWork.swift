@@ -5,7 +5,7 @@
 //  Created by SongWentong on 09/12/2016.
 //  Copyright © 2016 songwentong. All rights reserved.
 //
-
+import Foundation
 public protocol URLConvertible {
     /// Returns a URL that conforms to RFC 2396 or throws an `Error`.
     ///

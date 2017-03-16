@@ -23,6 +23,9 @@
 		E1C0C9B61E07ABE2000B8F50 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* JSONModel.swift */; };
 		E1C0C9B71E07ABF5000B8F50 /* arrow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E11C6D901DDED785008D9471 /* arrow.jpg */; };
 		E1C0C9B91E07AC3E000B8F50 /* WTReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */; };
+		E1D0B0D81E7A728900E01200 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD91E78E01A0082F385 /* WTNetWork.swift */; };
+		E1D0B0D91E7A728900E01200 /* WTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD61E78DDE80082F385 /* WTURLSessionManager.swift */; };
+		E1D0B0DA1E7A728900E01200 /* WTURLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FDB1E78E3490082F385 /* WTURLSessionTask.swift */; };
 		E1D21AF91DE04D6D0011F302 /* WTKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */; };
 		E1D21AFB1DE04D6D0011F302 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */; };
 		E1D21B011DE053380011F302 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
@@ -349,6 +352,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1D0B0D81E7A728900E01200 /* WTNetWork.swift in Sources */,
+				E1D0B0D91E7A728900E01200 /* WTURLSessionManager.swift in Sources */,
+				E1D0B0DA1E7A728900E01200 /* WTURLSessionTask.swift in Sources */,
 				E1C0C9B11E07ABE2000B8F50 /* AnimationImageVIew.swift in Sources */,
 				E1C0C9B21E07ABE2000B8F50 /* CustomExtension.swift in Sources */,
 				E1C0C9B41E07ABE2000B8F50 /* FoundationExtension.swift in Sources */,
