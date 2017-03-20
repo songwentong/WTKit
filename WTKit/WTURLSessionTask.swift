@@ -7,6 +7,12 @@
 //
 
 import Foundation
+#if os(macOS)
+    import AppKit
+#endif
+#if os(iOS)
+    import UIKit
+#endif
 //进度获取
 public typealias progressHandler = ((_ countOfBytesReceived: Int64 ,_ countOfBytesExpectedToReceive: Int64) -> Void)
 //完成回调,包含成功,失败和数据,推荐使用
@@ -33,6 +39,9 @@ open class WTURLSessionTask:NSObject{
     public var stringHandler:stringHandler?
     #if os(iOS)
     public var imageHandler:((UIImage?,Error?)->Void)?
+    #endif
+    #if os(macOS)
+    public var imageHandler:((NSImage?,Error?)->Void)?
     #endif
     //进度获取
     public var progressHandler:progressHandler?
@@ -93,6 +102,14 @@ open class WTURLSessionTask:NSObject{
             #if os(iOS)
                 if let imageHandler = self.imageHandler{
                     let image = UIImage.init(data: self.data)
+                    DispatchQueue.main.async {
+                        imageHandler(image,self.error)
+                    }
+                }
+            #endif
+            #if os(macOS)
+                if let imageHandler = self.imageHandler{
+                    let image = NSImage.init(data: self.data)
                     DispatchQueue.main.async {
                         imageHandler(image,self.error)
                     }
