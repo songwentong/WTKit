@@ -47,54 +47,35 @@ extension UIImage{
      */
     public var wt_isOpaque: Bool { return !wt_containsAlphaComponent }
     
-    /*
+    
      //如果没有alpha通道,就去掉
      public func removeAlphaIfNeeded()->UIImage{
-     if self.images != nil{
-     return self
+        guard wt_containsAlphaComponent else {
+            return self
+        }
+        guard self.cgImage != nil else {
+            return self
+        }
+        guard self.cgImage?.colorSpace != nil else {
+            return self
+        }
+        let width = cgImage!.width
+        let height = cgImage!.height
+        let kBytesPerPixel = 4
+        let bytesPerRow = kBytesPerPixel * width
+        let bitmapInfo = CGBitmapInfo.init(rawValue: CGImageAlphaInfo.noneSkipLast.rawValue)
+        let context = CGContext.init(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow, space: cgImage!.colorSpace!, bitmapInfo: bitmapInfo.rawValue)
+        if context == nil {
+            return self
+        }
+        context?.draw(cgImage!, in: CGRect.init(x: 0, y: 0, width: width, height: height))
+        if let makeImage =  context?.makeImage(){
+            let imageWithoutAlpha = UIImage.init(cgImage: makeImage)
+            return imageWithoutAlpha;
+        }
+        return self
      }
-     if let cgImage = self.cgImage{
-     switch cgImage.alphaInfo {
-     case .last: fallthrough
-     case .first: fallthrough
-     case .premultipliedLast: fallthrough
-     case .premultipliedFirst:
-     return self
-     
-     default: break
-     }
-     
-     
-     let width = cgImage.width
-     let height = cgImage.height
-     if var colorSpace:CGColorSpace = cgImage.colorSpace{
-     let model:CGColorSpaceModel = colorSpace.model
-     var unsupportedColorSpace = true
-     switch model {
-     case .monochrome:
-     fallthrough
-     case .unknown:
-     fallthrough
-     case .indexed:
-     unsupportedColorSpace = false
-     break
-     default:
-     break
-     }
-     if unsupportedColorSpace{
-     colorSpace = CGColorSpaceCreateDeviceRGB()
-     }
-     //                    let space = colorSpace.colors
-     //                    let context:CGContext = CGContext.init(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 4*width, space: <#T##CGColorSpace#>, bitmapInfo: <#T##UInt32#>)
-     
-     }
-     
-     
-     
-     }
-     return self
-     }
-     */
+ 
     
     public func toData()->Data?{
         var data = UIImageJPEGRepresentation(self, CGFloat(1))
