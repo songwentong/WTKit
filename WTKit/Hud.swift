@@ -107,14 +107,14 @@ public class WTPieProgressView:UIView{
         let cPoint = CGPoint(x: rect.size.width / 2, y: rect.size.height / 2)
         let radius = rect.size.width / 2
         //    ctx?.addArc(tangent1End: <#T##CGPoint#>, tangent2End: <#T##CGPoint#>, radius: <#T##CGFloat#>)
-        //        ctx?.addArc(centerX: cPoint.x, y: cPoint.y, radius: radius-2, startAngle:0,endAngle:CGFloat(M_PI)*2, clockwise: 0);
+        //        ctx?.addArc(centerX: cPoint.x, y: cPoint.y, radius: radius-2, startAngle:0,endAngle:CGFloat(Double.pi)*2, clockwise: 0);
         
         
-        ctx?.addArc(center: cPoint, radius: radius-2, startAngle: 0, endAngle: CGFloat(M_PI)*2, clockwise: false)
+        ctx?.addArc(center: cPoint, radius: radius-2, startAngle: 0, endAngle: CGFloat(Double.pi)*2, clockwise: false)
         UIColor.white.setStroke();
         ctx?.drawPath(using:CGPathDrawingMode.stroke);
         ctx?.move(to: cPoint)
-        ctx?.addArc(center: cPoint, radius: radius-4, startAngle: CGFloat(M_PI*3/2), endAngle: CGFloat(M_PI*3/2)+CGFloat(M_PI)*2*progress, clockwise: false)
+        ctx?.addArc(center: cPoint, radius: radius-4, startAngle: CGFloat(Double.pi*3/2), endAngle: CGFloat(Double.pi*3/2)+CGFloat(Double.pi)*2*progress, clockwise: false)
         
         #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).setFill();
         ctx?.drawPath(using: CGPathDrawingMode.fill);
@@ -145,7 +145,7 @@ public class WTProgressIndicatorView:UIView{
             self.animationLayer?.removeFromSuperlayer()
         }
         let aCenter = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
-        let path = UIBezierPath(arcCenter: aCenter, radius: self.radius, startAngle: CGFloat(M_PI*3/2), endAngle: CGFloat(M_PI/2 + M_PI*5), clockwise: true)
+        let path = UIBezierPath(arcCenter: aCenter, radius: self.radius, startAngle: CGFloat(Double.pi*3/2), endAngle: CGFloat(Double.pi/2 + Double.pi*5), clockwise: true)
         let layer = CAShapeLayer()
         layer.contentsScale = UIScreen.main.scale
         layer.fillColor = UIColor.clear.cgColor

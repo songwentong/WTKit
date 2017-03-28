@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         -> Bool
     {
         print("hello world(print)")
-        print("\(launchOptions) \(Date())")
+        print("\(String(describing: launchOptions)) \(Date())")
         WTKit.WTPrint("hello world(wtprint)")
         WTKit.WTLog("hello world(wtlog)")
         return true

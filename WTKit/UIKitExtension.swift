@@ -620,7 +620,7 @@ public class RefreshHeader:UIView{
         case .releaseToRefresh:
             titleLabel.text = releaseToRefreshText
             UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-                self.arrowImageView.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+                self.arrowImageView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
             }, completion: nil)
             break
         case .loading:

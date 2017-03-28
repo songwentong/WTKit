@@ -30,7 +30,7 @@ class ColorViewController: UIViewController {
         if textView.text != nil{
             colorView.backgroundColor = UIColor.colorWithHexString(textView.text!)
             antiColorView.backgroundColor = colorView.backgroundColor?.antiColor()
-            WTLog("color: \(colorView.backgroundColor)")
+            WTLog("color: \(String(describing: colorView.backgroundColor))")
 //            WTLog(antiColorView.backgroundColor)
         }
         

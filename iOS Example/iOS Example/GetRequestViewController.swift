@@ -100,10 +100,10 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
 //                let request = URLRequest.wt_request(with: string!, method: method, parameters: self.parameters)
                 let task = WTKit.dataTask(with: string!, method: method, parameters: nil, headers: nil)
                 task.stringHandler = {(string,error)in
-                    WTLog("\(string)")
+                    WTLog("\(String(describing: string))")
                 }
                 task.jsonHandler = {(json,error)in
-                    WTLog("\(json)")
+                    WTLog("\(String(describing: json))")
                 }
                 task.completionHandler = { [weak self](data, response, error) in
                     
