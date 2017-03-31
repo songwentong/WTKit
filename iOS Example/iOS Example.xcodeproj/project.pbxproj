@@ -24,6 +24,7 @@
 		E15D29051DFAB4620042E678 /* Swift使用规范 in Resources */ = {isa = PBXBuildFile; fileRef = E15D28F41DFAB4620042E678 /* Swift使用规范 */; };
 		E15D29061DFAB4620042E678 /* TableRefreshVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28F51DFAB4620042E678 /* TableRefreshVC.swift */; };
 		E15D29071DFAB4620042E678 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28F61DFAB4620042E678 /* ViewController.swift */; };
+		E18061FC1E8E1AF30042247E /* ImageListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18061FB1E8E1AF30042247E /* ImageListVC.swift */; };
 		E18B9F9F1E77D25B0013EFA8 /* JSONData in Resources */ = {isa = PBXBuildFile; fileRef = E18B9F9E1E77D25B0013EFA8 /* JSONData */; };
 		E18B9FA91E77D4EC0013EFA8 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B9FA81E77D4EC0013EFA8 /* WeatherModel.swift */; };
 		E1A7D2C61E0BA17D00CF9A69 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */; };
@@ -95,6 +96,7 @@
 		E15D28F41DFAB4620042E678 /* Swift使用规范 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Swift使用规范"; sourceTree = "<group>"; };
 		E15D28F51DFAB4620042E678 /* TableRefreshVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRefreshVC.swift; sourceTree = "<group>"; };
 		E15D28F61DFAB4620042E678 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E18061FB1E8E1AF30042247E /* ImageListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageListVC.swift; sourceTree = "<group>"; };
 		E18B9F9E1E77D25B0013EFA8 /* JSONData */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JSONData; sourceTree = "<group>"; };
 		E18B9FA81E77D4EC0013EFA8 /* WeatherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		E1A7D2AB1E0B82D900CF9A69 /* WTKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WTKit.xcodeproj; path = ../WTKit.xcodeproj; sourceTree = "<group>"; };
@@ -160,11 +162,12 @@
 				E15D28F01DFAB4620042E678 /* ModelDemoViewController.swift */,
 				E15D28F11DFAB4620042E678 /* POSTParamatersVC.swift */,
 				E15D28F21DFAB4620042E678 /* QRCodeScanVC.swift */,
+				E18061FB1E8E1AF30042247E /* ImageListVC.swift */,
 				E15D28F31DFAB4620042E678 /* ReachabilityVC.swift */,
-				E15D28F41DFAB4620042E678 /* Swift使用规范 */,
 				E15D28F51DFAB4620042E678 /* TableRefreshVC.swift */,
 				E15D28F61DFAB4620042E678 /* ViewController.swift */,
 				E15D28E31DFAB4620042E678 /* AppDelegate.swift */,
+				E15D28F41DFAB4620042E678 /* Swift使用规范 */,
 				E15D290D1DFABAA20042E678 /* Supporting Files */,
 			);
 			name = Classes;
@@ -303,6 +306,7 @@
 				E15D28FD1DFAB4620042E678 /* GifImageVC.swift in Sources */,
 				E15D28FC1DFAB4620042E678 /* GetRequestViewController.swift in Sources */,
 				E15D29001DFAB4620042E678 /* ImageUploadVC.swift in Sources */,
+				E18061FC1E8E1AF30042247E /* ImageListVC.swift in Sources */,
 				E15D28FE1DFAB4620042E678 /* HudDemoViewController.swift in Sources */,
 				E15D29041DFAB4620042E678 /* ReachabilityVC.swift in Sources */,
 				E15D29011DFAB4620042E678 /* ModelDemoViewController.swift in Sources */,

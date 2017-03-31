@@ -34,6 +34,7 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
         //        dataList.append(["title":"POST请求","segue":"post"])
         dataList.append(["title":"图片上传","segue":"uploadImage"])
         dataList.append(["title":"图片下载","segue":"imageDownload"])
+        dataList.append(["title":"图片列表","segue":"imageListVC"]);
         dataList.append(["title":"Gif 图","segue":"gif"])
         dataList.append(["title":"HUD","segue":"hud"])
         dataList.append(["title":"COLOR 创建","segue":"color"])

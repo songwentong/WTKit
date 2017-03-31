@@ -184,6 +184,28 @@ extension UIImage{
     
     
 }
+
+
+extension UIView{
+    private static var WTUIViewIndicatorKey:Void?
+    internal var wt_ActivityIndicator:UIActivityIndicatorView{
+        get{
+            if let myIndicate = objc_getAssociatedObject(self, &UIView.WTUIViewIndicatorKey) as? UIActivityIndicatorView{
+                return myIndicate
+            }else{
+                let indicate = UIActivityIndicatorView.init(activityIndicatorStyle: .white)
+                self.addSubview(indicate)
+                indicate.translatesAutoresizingMaskIntoConstraints = false
+                self.addConstraint(NSLayoutConstraint.init(item: indicate, attribute: .centerX, relatedBy:.equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
+                self.addConstraint(NSLayoutConstraint.init(item: indicate, attribute: .centerY, relatedBy:.equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
+                indicate.hidesWhenStopped = true
+                objc_setAssociatedObject(self, &UIView.WTUIViewIndicatorKey, indicate, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                return indicate
+            }
+        }
+    }
+}
+
 //图片下载的key
 private var WTUIButtonImageDownloadTaskKey:Void?
 private var WTUIButtonBackgroundImageDownloadTaskKey:Void?
@@ -324,6 +346,9 @@ extension UIImageView{
      不想填的就填一个不加逗号就可以了.
      */
     public func wt_setImage(with url:String ,placeHolder:UIImage? = nil,complection:imageHandler?=nil)->Void{
+        if placeHolder == nil {
+            self.wt_ActivityIndicator.startAnimating()
+        }
         DispatchQueue.safeSyncInMain {
             self.image = placeHolder
             self.setNeedsLayout()
@@ -331,6 +356,7 @@ extension UIImageView{
         OperationQueue.userInteractive {
             let task =  UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image, error) in
                 DispatchQueue.safeSyncInMain {
+                    self?.wt_ActivityIndicator.stopAnimating()
                     self?.image = image
                     self?.setNeedsLayout()
                 }
