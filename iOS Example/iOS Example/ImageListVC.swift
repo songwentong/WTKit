@@ -39,6 +39,10 @@ open class ImageListVC:UIViewController{
     deinit {
         
     }
+    
+    @IBAction func clearCache(_ sender: Any) {
+        WTURLSessionManager.default.session?.configuration.urlCache?.removeAllCachedResponses()
+    }
 }
 extension ImageListVC:UITableViewDataSource{
     
@@ -70,5 +74,11 @@ extension ImageListVC:UITableViewDelegate{
         if let label:UILabel = cell.contentView.viewWithTag(2) as? UILabel{
             label.text = "Image #\(indexPath.row)"
         }
+    }
+    
+    
+    @available(iOS 2.0, *)
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        return 60
     }
 }

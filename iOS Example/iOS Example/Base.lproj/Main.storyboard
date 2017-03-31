@@ -386,7 +386,11 @@ Internet traffic will be routed through it.</string>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="00Y-Pz-Fy3">
-                        <barButtonItem key="rightBarButtonItem" title="Clear Cache" id="MYz-S7-N2Y"/>
+                        <barButtonItem key="rightBarButtonItem" title="Clear Cache" id="MYz-S7-N2Y">
+                            <connections>
+                                <action selector="clearCache:" destination="jVp-IL-WPL" id="3Kr-DF-dvY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="wF2-Yl-qaz" id="eO3-pd-HdG"/>

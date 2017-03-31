@@ -1,11 +1,11 @@
 关于方法的声明
 1.传入的参数最好加上类型判断,如果类型不合适 直接=nil
 举个栗子
-public class func request(url:String, method:String, parameters:[String:String]?=[:],headers: [String: String]? = [:]) -> NSMutableURLRequest?{
+public class func request(url:String, method:String, parameters:[String:String]? = [:],headers: [String: String]? = [:]) -> NSMutableURLRequest?{
 
 2.传出参数,在能明确的给出类型的时候最好直接给出一个无需去判断的类型.
 举个例子
-public class func request(url:String, method:String, parameters:[String:String]?=[:],headers: [String: String]? = [:]) -> NSMutableURLRequest?{
+public class func request(url:String, method:String, parameters:[String:String]? = [:],headers: [String: String]? = [:]) -> NSMutableURLRequest?{
 
 3.不需要对一个方法去不停的简化,一个多参数的方法,如果只想设置第一个参数就只填一个参数就好了,不需要
   把其他的参数填nil,也不需要逗号分隔.这样做有一个好处,省下了好多方法,但是在声明方法的时候最好去
