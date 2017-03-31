@@ -32,13 +32,14 @@ extension UIImage{
      */
     public var wt_containsAlphaComponent: Bool {
         let alphaInfo = cgImage?.alphaInfo
-        
-        return (
+        let anyAlpha = (
             alphaInfo == .first ||
                 alphaInfo == .last ||
                 alphaInfo == .premultipliedFirst ||
                 alphaInfo == .premultipliedLast
         )
+        
+        return anyAlpha
     }
     
     /*
@@ -48,34 +49,35 @@ extension UIImage{
     public var wt_isOpaque: Bool { return !wt_containsAlphaComponent }
     
     
-     //如果没有alpha通道,就去掉
-     public func removeAlphaIfNeeded()->UIImage{
-        guard wt_containsAlphaComponent else {
+    //如果没有alpha通道,就去掉
+    public func decodedImage()->UIImage{
+        guard !wt_containsAlphaComponent else {
             return self
         }
-        guard self.cgImage != nil else {
+        guard let cgImage = self.cgImage else {
             return self
         }
-        guard self.cgImage?.colorSpace != nil else {
+        guard let colorSpace = cgImage.colorSpace else {
             return self
         }
-        let width = cgImage!.width
-        let height = cgImage!.height
+        WTLog("decodedImage")
+        let width = cgImage.width
+        let height = cgImage.height
         let kBytesPerPixel = 4
         let bytesPerRow = kBytesPerPixel * width
         let bitmapInfo = CGBitmapInfo.init(rawValue: CGImageAlphaInfo.noneSkipLast.rawValue)
-        let context = CGContext.init(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow, space: cgImage!.colorSpace!, bitmapInfo: bitmapInfo.rawValue)
+        let context = CGContext.init(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
         if context == nil {
             return self
         }
-        context?.draw(cgImage!, in: CGRect.init(x: 0, y: 0, width: width, height: height))
+        context?.draw(cgImage, in: CGRect.init(x: 0, y: 0, width: width, height: height))
         if let makeImage =  context?.makeImage(){
             let imageWithoutAlpha = UIImage.init(cgImage: makeImage)
             return imageWithoutAlpha;
         }
         return self
-     }
- 
+    }
+    
     
     public func toData()->Data?{
         var data = UIImageJPEGRepresentation(self, CGFloat(1))
@@ -188,19 +190,24 @@ extension UIImage{
 
 extension UIView{
     private static var WTUIViewIndicatorKey:Void?
-    internal var wt_ActivityIndicator:UIActivityIndicatorView{
-        get{
+    public func wt_addActivityIndicator()->Void{
+        DispatchQueue.main.async {
+            let indicate = UIActivityIndicatorView.init(activityIndicatorStyle: .white)
+            self.addSubview(indicate)
+            indicate.isHidden = false
+            indicate.translatesAutoresizingMaskIntoConstraints = false
+            self.addConstraint(NSLayoutConstraint.init(item: indicate, attribute: .centerX, relatedBy:.equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
+            self.addConstraint(NSLayoutConstraint.init(item: indicate, attribute: .centerY, relatedBy:.equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
+            indicate.startAnimating()
+            indicate.hidesWhenStopped = true
+//            indicate.backgroundColor = UIColor.red
+            objc_setAssociatedObject(self, &UIView.WTUIViewIndicatorKey, indicate, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    public func wt_removeActivityIndicator(){
+        DispatchQueue.main.async {
             if let myIndicate = objc_getAssociatedObject(self, &UIView.WTUIViewIndicatorKey) as? UIActivityIndicatorView{
-                return myIndicate
-            }else{
-                let indicate = UIActivityIndicatorView.init(activityIndicatorStyle: .white)
-                self.addSubview(indicate)
-                indicate.translatesAutoresizingMaskIntoConstraints = false
-                self.addConstraint(NSLayoutConstraint.init(item: indicate, attribute: .centerX, relatedBy:.equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
-                self.addConstraint(NSLayoutConstraint.init(item: indicate, attribute: .centerY, relatedBy:.equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
-                indicate.hidesWhenStopped = true
-                objc_setAssociatedObject(self, &UIView.WTUIViewIndicatorKey, indicate, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-                return indicate
+                myIndicate.removeFromSuperview()
             }
         }
     }
@@ -346,20 +353,31 @@ extension UIImageView{
      不想填的就填一个不加逗号就可以了.
      */
     public func wt_setImage(with url:String ,placeHolder:UIImage? = nil,complection:imageHandler?=nil)->Void{
-        if placeHolder == nil {
-            self.wt_ActivityIndicator.startAnimating()
-        }
+        
+//        if placeHolder == nil {
+            self.wt_addActivityIndicator()
+//        }
         DispatchQueue.safeSyncInMain {
             self.image = placeHolder
             self.setNeedsLayout()
         }
+        
         OperationQueue.userInteractive {
             let task =  UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image, error) in
-                DispatchQueue.safeSyncInMain {
-                    self?.wt_ActivityIndicator.stopAnimating()
-                    self?.image = image
-                    self?.setNeedsLayout()
+                if error != nil {
+//                    print("\(String(describing: error))")
                 }
+                if let getImage = image{
+                    OperationQueue.userInteractive {
+                        let image2 = getImage.decodedImage()
+                        DispatchQueue.safeSyncInMain {
+                            self?.image = image2
+                            self?.setNeedsLayout()
+                            self?.wt_removeActivityIndicator()
+                        }
+                    }
+                }
+                
                 if complection != nil {
                     complection!(image,error)
                 }

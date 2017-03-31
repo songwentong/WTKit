@@ -58,7 +58,14 @@ extension ImageListVC:UITableViewDataSource{
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
+        if let imageView:UIImageView = cell.contentView.viewWithTag(1) as? UIImageView{
+            imageView.wt_setImage(with: imageURLList[indexPath.row])
+        }else{
+            print("image view not found")
+        }
+        if let label:UILabel = cell.contentView.viewWithTag(2) as? UILabel{
+            label.text = "Image #\(indexPath.row)"
+        }
         
         
         return cell
@@ -67,13 +74,8 @@ extension ImageListVC:UITableViewDataSource{
 extension ImageListVC:UITableViewDelegate{
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
-        print("will show indexPath:\(indexPath.row)")
-        if let imageView:UIImageView = cell.contentView.viewWithTag(1) as? UIImageView{
-            imageView.wt_setImage(with: imageURLList[indexPath.row])
-        }
-        if let label:UILabel = cell.contentView.viewWithTag(2) as? UILabel{
-            label.text = "Image #\(indexPath.row)"
-        }
+//        print("will show indexPath:\(indexPath.row)")
+
     }
     
     
