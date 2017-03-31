@@ -38,7 +38,7 @@ public func WTPrint<T>(_ items:T,
  用于WTKit内部log
  只有在debug下并且WTKitLogMode是true的情况下输出
  */
-private let WTKitLogMode:Bool = true
+private let WTKitLogMode:Bool = false
 public func WTLog(
     _ items: Any...,
     separator: String = " ",

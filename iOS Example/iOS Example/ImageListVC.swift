@@ -63,6 +63,7 @@ extension ImageListVC:UITableViewDataSource{
 extension ImageListVC:UITableViewDelegate{
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
+        print("will show indexPath:\(indexPath.row)")
         if let imageView:UIImageView = cell.contentView.viewWithTag(1) as? UIImageView{
             imageView.wt_setImage(with: imageURLList[indexPath.row])
         }

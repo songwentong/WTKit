@@ -68,7 +68,7 @@ open class WTURLSessionTask:NSObject{
         self.task = task
     }
     deinit {
-        WTLog("deinit")
+//        WTLog("deinit")
     }
     
     open func resume(){
