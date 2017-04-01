@@ -287,12 +287,17 @@ extension UIButton{
         
         OperationQueue.userInteractive {
             let task = UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image, error) in
-                DispatchQueue.safeSyncInMain {
-                    self?.setBackgroundImage(image, for:state)
-                    self?.setNeedsLayout()
-                    if complection != nil {
-                        complection!(image,error)
+                if image != nil{
+                    DispatchQueue.userInteractiveQueue().async {
+                        let decodeImage = image?.decodedImage()
+                        DispatchQueue.safeSyncInMain {
+                            self?.setBackgroundImage(decodeImage, for:state)
+                            self?.setNeedsLayout()
+                        }
                     }
+                }
+                if complection != nil {
+                    complection!(image,error)
                 }
             })
             self.wtImageTask = task
