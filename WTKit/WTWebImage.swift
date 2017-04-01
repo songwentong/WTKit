@@ -257,24 +257,23 @@ extension UIButton{
         
         OperationQueue.userInteractive {
             let task = UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image,error) in
-                DispatchQueue.safeSyncInMain{
-                    self?.setImage(image, for: state)
-                    self?.setNeedsLayout()
+                if image != nil{
+                    DispatchQueue.userInteractiveQueue().async {
+                        let decodeImage = image?.decodedImage()
+                        DispatchQueue.safeSyncInMain{
+                            self?.setImage(decodeImage, for: state)
+                            self?.setNeedsLayout()
+                        }
+                    }
+                }
+                
+                DispatchQueue.main.async {
                     if complection != nil {
                         complection!(image,error)
                     }
                 }
+                
             })
-            
-            //            let task = UIImage.cachedImageDataTask(with: url, complection: { [weak self](image, error) in
-            //                safeSyncInMain(with: {
-            //                    self?.setImage(image, for: state)
-            //                    self?.setNeedsLayout()
-            //                    if complection != nil {
-            //                        complection!(image,error)
-            //                    }
-            //                })
-            //            })
             
             self.wtImageTask = task
             task.resume()
@@ -367,6 +366,7 @@ extension UIImageView{
                 if error != nil {
 //                    print("\(String(describing: error))")
                 }
+                //如果取到图片了,设置一下,否则就返回错误
                 if let getImage = image{
                     OperationQueue.userInteractive {
                         let image2 = getImage.decodedImage()
