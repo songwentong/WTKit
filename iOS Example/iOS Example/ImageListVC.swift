@@ -88,8 +88,10 @@ extension ImageListVC:UITableViewDelegate{
         if let imageView:UIImageView = cell.contentView.viewWithTag(1) as? UIImageView{
 //            imageView.wt_setImage(with: imageURLList[indexPath.row])
             imageView.wt_setImage(with: imageURLList[indexPath.row],  completionHandler: { (data, response, error) in
-                if let d = data{
-                    print("\(d.imageType())")
+                if let d:Data = data{
+                    if d.count > 0{
+                        print("\(d.imageType())")
+                    }
                 }
             })
         }else{

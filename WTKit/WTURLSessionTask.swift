@@ -102,8 +102,9 @@ open class WTURLSessionTask:NSObject{
             #if os(iOS)
                 if let imageHandler = self.imageHandler{
                     let image = UIImage.init(data: self.data)
+                    let decode = image?.decodedImage()
                     DispatchQueue.main.async {
-                        imageHandler(image,self.error)
+                        imageHandler(decode,self.error)
                     }
                 }
             #endif

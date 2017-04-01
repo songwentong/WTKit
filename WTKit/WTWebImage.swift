@@ -292,20 +292,16 @@ extension UIButton{
         OperationQueue.userInteractive {
             let task = UIImage.cachedImageDataTask(with: url, imageHandler: { [weak self](image,error) in
                 if image != nil{
-                    DispatchQueue.userInteractiveQueue().async {
-                        let decodeImage = image?.decodedImage()
-                        DispatchQueue.safeSyncInMain{
-                            self?.setImage(decodeImage, for: state)
-                            self?.setNeedsLayout()
-                        }
+                    DispatchQueue.safeSyncInMain{
+                        self?.setImage(image, for: state)
+                        self?.setNeedsLayout()
                     }
                 }
                 
-                DispatchQueue.main.async {
-                    if complection != nil {
+                if complection != nil {
                         complection!(image,error)
-                    }
                 }
+                
                 
             })
             
@@ -314,7 +310,7 @@ extension UIButton{
         }
     }
     
-    public func setBackgroundImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:imageHandler?=nil) {
+    public func setBackgroundImage(with url:String, for state:UIControlState,placeHolder:UIImage? = nil,complection:imageHandler? = nil) {
         DispatchQueue.safeSyncInMain {
             self.setBackgroundImage(placeHolder, for:state)
         }
@@ -322,13 +318,12 @@ extension UIButton{
         OperationQueue.userInteractive {
             let task = UIImage.cachedImageDataTask(with: url, imageHandler: { [weak self](image, error) in
                 if image != nil{
-                    DispatchQueue.userInteractiveQueue().async {
-                        let decodeImage = image?.decodedImage()
+                    
                         DispatchQueue.safeSyncInMain {
-                            self?.setBackgroundImage(decodeImage, for:state)
+                            self?.setBackgroundImage(image, for:state)
                             self?.setNeedsLayout()
                         }
-                    }
+                    
                 }
                 if complection != nil {
                     complection!(image,error)
@@ -407,14 +402,13 @@ extension UIImageView{
                 }
                 //如果取到图片了,设置一下,否则就返回错误
                 if let getImage = image{
-                    OperationQueue.userInteractive {
-                        let image2 = getImage.decodedImage()
-                        DispatchQueue.safeSyncInMain {
-                            self?.image = image2
+ 
+                    DispatchQueue.safeSyncInMain {
+                            self?.image = getImage
                             self?.setNeedsLayout()
                             self?.wt_removeActivityIndicator()
-                        }
                     }
+                    
                 }
                 
                 if imageHandler != nil {
@@ -440,13 +434,13 @@ extension UIImageView{
         OperationQueue.userInteractive {
             let task =  UIImage.cachedImageDataTask(with: url, imageHandler: { [weak self](image, error) in
                 if image != nil{
-                    DispatchQueue.userInteractiveQueue().async {
-                        let decode = image?.decodedImage()
+
+       
                         DispatchQueue.safeSyncInMain {
-                            self?.image = decode
+                            self?.image = image
                             self?.setNeedsLayout()
                         }
-                    }
+                    
                 }
                 if complection != nil {
                     complection!(image,error)
