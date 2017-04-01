@@ -8,6 +8,41 @@
 //
 import Foundation
 import ImageIO
+
+public enum WTImageFormat:Int{
+    case Undefined
+    case JPEG
+    case PNG
+    case GIF
+    case TIFF
+    case WebP
+}
+extension Data{
+    public func imageType()->WTImageFormat{
+        if self.count == 0 {
+            return .Undefined
+        }
+        var buffer = [UInt8](repeating: 0, count: 1)
+        copyBytes(to: &buffer, count: 1)
+        if buffer == [0xFF] {
+        //jpg
+            return .JPEG
+        }else if buffer == [0x89] {
+        //png
+            return .PNG
+        }else if buffer == [0x47]{
+         //gif
+            return .GIF
+        }else if( buffer == [0x49] || buffer == [0x4D]){
+        //tiff
+            return .TIFF
+        }else if buffer == [0x52]{
+        //webp
+            return .WebP
+        }
+        return .Undefined
+    }
+}
 extension UIImage{
     
     /*!
@@ -89,13 +124,12 @@ extension UIImage{
     
     
     
-    public class func cachedImageDataTask(with url:String,completionHandler:@escaping (UIImage?,Error?)->Void)->WTURLSessionTask{
+    public class func cachedImageDataTask(with url:String,imageHandler:imageHandler? = nil,completionHandler:completionHandler? = nil)->WTURLSessionTask{
         var request = URLRequest(url: url.asURL())
         request.cachePolicy = .returnCacheDataElseLoad
         let task = WTURLSessionManager.default.dataTask(with: request)
-        task.imageHandler = {(image,error) in
-            completionHandler(image,error)
-        }
+        task.imageHandler = imageHandler
+        task.completionHandler = completionHandler
         return task
     }
     
@@ -256,7 +290,7 @@ extension UIButton{
         
         
         OperationQueue.userInteractive {
-            let task = UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image,error) in
+            let task = UIImage.cachedImageDataTask(with: url, imageHandler: { [weak self](image,error) in
                 if image != nil{
                     DispatchQueue.userInteractiveQueue().async {
                         let decodeImage = image?.decodedImage()
@@ -286,7 +320,7 @@ extension UIButton{
         }
         
         OperationQueue.userInteractive {
-            let task = UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image, error) in
+            let task = UIImage.cachedImageDataTask(with: url, imageHandler: { [weak self](image, error) in
                 if image != nil{
                     DispatchQueue.userInteractiveQueue().async {
                         let decodeImage = image?.decodedImage()
@@ -356,7 +390,7 @@ extension UIImageView{
      swift 中对于方法做了优化,无需写多个方法来设置不同参数,写一个全的,然后需要填几个参数就填几个
      不想填的就填一个不加逗号就可以了.
      */
-    public func wt_setImage(with url:String ,placeHolder:UIImage? = nil,complection:imageHandler?=nil)->Void{
+    public func wt_setImage(with url:String ,placeHolder:UIImage? = nil,imageHandler:imageHandler? = nil,completionHandler:completionHandler? = nil)->Void{
         
 //        if placeHolder == nil {
             self.wt_addActivityIndicator()
@@ -367,7 +401,7 @@ extension UIImageView{
         }
         
         OperationQueue.userInteractive {
-            let task =  UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image, error) in
+            let task =  UIImage.cachedImageDataTask(with: url, imageHandler: { [weak self](image, error) in
                 if error != nil {
 //                    print("\(String(describing: error))")
                 }
@@ -383,10 +417,12 @@ extension UIImageView{
                     }
                 }
                 
-                if complection != nil {
-                    complection!(image,error)
+                if imageHandler != nil {
+                    imageHandler!(image,error)
                 }
-            })
+                
+                
+            }, completionHandler: completionHandler)
             self.wtImageTask = task
             task.resume()
             
@@ -402,7 +438,7 @@ extension UIImageView{
             self.setNeedsLayout()
         }
         OperationQueue.userInteractive {
-            let task =  UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image, error) in
+            let task =  UIImage.cachedImageDataTask(with: url, imageHandler: { [weak self](image, error) in
                 if image != nil{
                     DispatchQueue.userInteractiveQueue().async {
                         let decode = image?.decodedImage()

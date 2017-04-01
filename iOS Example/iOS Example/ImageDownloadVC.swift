@@ -34,9 +34,12 @@ class ImageDownloadVC: UIViewController {
     @IBAction func requestPress(_ sender: AnyObject) {
         if urlTextField.text != nil {
 //            imageView.setImageWith(urlTextField.text! ,placeHolder:nil,complection: )
-            imageView.wt_setImage(with: urlTextField.text!, placeHolder: nil, complection: { (image, error) in
+            imageView.wt_setImage(with: urlTextField.text!, placeHolder: nil, imageHandler: { (image, error) in
+                
+            },completionHandler: {(d,r,e)in
                 
             })
+            
         }
         
     }

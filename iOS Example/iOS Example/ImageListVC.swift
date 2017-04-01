@@ -86,7 +86,12 @@ extension ImageListVC:UITableViewDelegate{
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
 //        print("will show indexPath:\(indexPath.row)")
         if let imageView:UIImageView = cell.contentView.viewWithTag(1) as? UIImageView{
-            imageView.wt_setImage(with: imageURLList[indexPath.row])
+//            imageView.wt_setImage(with: imageURLList[indexPath.row])
+            imageView.wt_setImage(with: imageURLList[indexPath.row],  completionHandler: { (data, response, error) in
+                if let d = data{
+                    print("\(d.imageType())")
+                }
+            })
         }else{
             print("image view not found")
         }

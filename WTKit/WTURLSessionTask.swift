@@ -38,7 +38,7 @@ open class WTURLSessionTask:NSObject{
     public var failedHandler:failedHandler?
     public var stringHandler:stringHandler?
     #if os(iOS)
-    public var imageHandler:((UIImage?,Error?)->Void)?
+    public var imageHandler:imageHandler?
     #endif
     #if os(macOS)
     public var imageHandler:((NSImage?,Error?)->Void)?
