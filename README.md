@@ -27,8 +27,7 @@ WTKit is my Code accumulation
 - Swift 3.0
 
 ## Installation
-把WTKit下的四个文件拷贝进应用就可以了
-
+Copy sources from WTKit
 ## 和我交流
 
 - 如果你 **找到一个bug**, 打开一个 issue.
