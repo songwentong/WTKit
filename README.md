@@ -60,6 +60,7 @@ use for create model classes from json data automatically,and their instance can
   "name": "Hong Kong",
   "province": "Hong Kong"
 }
+//WTKit can read json and parse to class like below,the model class's instances can update json value to their properties
 public class WeatherModel: NSObject,WTJSONModelProtocol {
     var tz:String?
     var area:String?
