@@ -45,7 +45,7 @@ copy sources from WTKit
 ## Usage
 
 ### Automatically create model classes
-use for create model classes from json data,and their instance can set property from json data
+use for create model classes from json data automatically,and their instance can auto update property from json data
 - [Video Guide(YouTube)](https://www.youtube.com/watch?v=kvj7Jkn0liw&feature=youtu.be)
 - [Video Guide(youku)](http://v.youku.com/v_show/id_XMTgzMTkxMDYzNg==.html)
 ```swift
