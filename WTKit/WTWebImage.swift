@@ -391,16 +391,21 @@ extension UIImageView{
     /*!
      设置高亮图
      */
-    public func sethighlightedImage(with url:String ,placeHolder:UIImage? = nil,complection:imageHandler?=nil)->Void{
+    public func wt_sethighlightedImage(with url:String ,placeHolder:UIImage? = nil,complection:imageHandler?=nil)->Void{
         DispatchQueue.safeSyncInMain {
             self.highlightedImage = placeHolder
             self.setNeedsLayout()
         }
         OperationQueue.userInteractive {
             let task =  UIImage.cachedImageDataTask(with: url, completionHandler: { [weak self](image, error) in
-                DispatchQueue.safeSyncInMain {
-                    self?.image = image
-                    self?.setNeedsLayout()
+                if image != nil{
+                    DispatchQueue.userInteractiveQueue().async {
+                        let decode = image?.decodedImage()
+                        DispatchQueue.safeSyncInMain {
+                            self?.image = decode
+                            self?.setNeedsLayout()
+                        }
+                    }
                 }
                 if complection != nil {
                     complection!(image,error)
