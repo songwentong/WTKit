@@ -4,6 +4,9 @@
 
 WTKit is my Code accumulation
 
+[中文Readme](https://github.com/swtlovewtt/WTKit/blob/master/README_中文.md)
+
+
 ## 功能
 - [x] Convenient request / response method
 - [x] debug print
