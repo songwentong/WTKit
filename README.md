@@ -2,21 +2,21 @@
 # WTKit
 [![Build Status](https://travis-ci.org/swtlovewtt/WTKit.svg?branch=master)](https://travis-ci.org/swtlovewtt/WTKit)
 
-WTKit是我和朋友们的swift开发积累
+WTKit is my Code accumulation
 
 ## 功能
-- [x] 方便的请求/响应方法
-- [x] debug输出
-- [x] 方便的线程切换
-- [x] 网络状态监听(Reachability)
-- [x] UIColor快捷创建
-- [x] UIButton和UIImageVie的图片缓存
-- [x] UITableView下拉刷新
-- [x] UIView截屏为图片
-- [x] 常用Hud提示
-- [x] 应用新版本首次启动区分
-- [x] 自动创建Model,解析数据,归档功能
-- [x] 更多
+- [x] Convenient request / response method
+- [x] debug print
+- [x] Convenient thread Switch
+- [x] network status observe
+- [x] Convenient UIColor create
+- [x] UIButton and UIImageVie image download,cache
+- [x] UITableView pull to refresh
+- [x] UIView screenshot image
+- [x] Hud
+- [x] launch time count for build
+- [x] auto create Model from json,auto set value from json data,auto write to json
+- [x] More
 
 ## 开发环境
 - iOS 8.0+ / Mac OS X 10.9+ / tvOS 9.0+ / watchOS 2.0+
