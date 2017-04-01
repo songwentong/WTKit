@@ -5,7 +5,7 @@
 //  Created by SongWentong on 14/03/2017.
 //  Copyright © 2017 songwentong. All rights reserved.
 //  https://github.com/swtlovewtt/WTKit
-
+//
 import Foundation
 import ImageIO
 extension UIImage{

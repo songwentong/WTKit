@@ -5,6 +5,7 @@
 //  Created by 李能 on 16/5/30.
 //  Copyright © 2016年 SongWentong. All rights reserved.
 //  https://github.com/swtlovewtt/WTKit
+//
 #if os(iOS)
 import UIKit
 import ImageIO
