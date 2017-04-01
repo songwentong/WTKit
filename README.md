@@ -86,7 +86,7 @@ public class CurrentModel: NSObject {
 //一行代码解析
 weatherModel.wt(travel: jsonObject)
 
-注意,在包含自定义属性的类中实现一下WTJSONModelProtocol协议,让程序在运行时知道得到的数据是什么
+Note that the WTJSONModelProtocol protocol is implemented in the class that contains the custom properties so that the program knows what data is available at runtime
 ```
 
 ### WTPrint
@@ -356,15 +356,15 @@ let pdf:Data = self.view.pdf()//get a pdf shot
 - UIScrollView
 pull to refresh 
 ```swift
-//这里设置一下刷新头,把刷新方法写到block中
+//closure to refresh
 self.tableView.refreshHeader = RefreshHeader.headerWithRefreshing({
             printf("refresh data from internet")
         })
 
-//停止刷新
+//stop Loading
 self.tableView.stopLoading()
 
-//本地化设置,有默认的,是英文的
+//local settings,default is English
 tableView.refreshHeader?.setTitle("加载中...", forState: .Loading)
 tableView.refreshHeader?.setTitle("下拉刷新", forState: .PullDownToRefresh)
 tableView.refreshHeader?.setTitle("松开刷新", forState: .ReleaseToRefresh)
