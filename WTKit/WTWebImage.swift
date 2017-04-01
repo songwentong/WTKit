@@ -86,6 +86,9 @@ extension UIImage{
     
     //如果没有alpha通道,就去掉
     public func decodedImage()->UIImage{
+        if self.images != nil {
+            return self
+        }
         guard !wt_containsAlphaComponent else {
             return self
         }
