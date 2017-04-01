@@ -28,15 +28,15 @@ WTKit is my Code accumulation
 
 ## Installation
 Copy sources from WTKit
-## 和我交流
+## Communication
 
-- 如果你 **找到一个bug**, 打开一个 issue.
-- 如果你 **有一个功能请求**, 打开一个 issue.
-- 如果你 **想来做出贡献**, 可以提交一个pull request.
+- if you  **found a bug**, open an issue.
+- if you  **have a feature request**, open an issue.
+- if you  **want to contribute**, submit a pull request.
 
 ### CocoaPods
 
-暂未集成
+not integrate yet
 
 ### Manually
 copy sources from WTKit
@@ -304,11 +304,11 @@ UIApplication.firstLaunchForBuild { [weak self](isFirstLaunchEver) in
             }
         }
 ```
-> firstLaunchForBuild 这个方法在应用内多次条用效果是一样的,只要是首次启动,
-  无论调用几次都是首次启动,请放心使用
+> firstLaunchForBuild This method in the application of multiple times with the effect is the same, as long as the first start,
+   Regardless of the number of calls are the first time to start, please rest assured that use
 
 - UIButton
-请求图片后缓存到本地
+Request the image then caching to the local
 
 ```swift
 
@@ -316,13 +316,13 @@ requestButton.setImageWith("url", forState: .Normal,placeHolder: nil)
 ```
 - UIImage
 
-图片切成圆角的
+The picture is cut into rounded corners
 
 ```swift
 let image:UIImage = (self.imageView.image?.imageWithRoundCornerRadius(30))
 ```
 - UIImageView
-请求图片,并缓存到本地,下次设置图片读取缓存的
+Request the picture, and cache it locally, the next time you set the image to read the cache
 
 ```swift
 //set image with a url
@@ -333,7 +333,7 @@ imageView.sethighlightedImageWith("url", placeHolder: placeHolderImage)
 
 ```
 - UIViewController
-loading提示框和和tip
+loading and tip
 
 ```swift
 //显示loading
@@ -348,14 +348,13 @@ self.showHudWithTip("热烈欢迎")
 ```
 
 - UIView
-UIView截屏
-
+UIView screen shot
 ```swift
 let image:UIImage = self.view.snapShot()//get a snap shot image
 let pdf:Data = self.view.pdf()//get a pdf shot
 ```
 - UIScrollView
-下拉刷新
+pull to refresh 
 ```swift
 //这里设置一下刷新头,把刷新方法写到block中
 self.tableView.refreshHeader = RefreshHeader.headerWithRefreshing({
@@ -378,11 +377,11 @@ tableView.refreshHeader?.arrowImageURL = "http://ww4.sinaimg.cn/mw690/47449485jw
 - CALayer
 
 ```swift
-//创建UIImage的截屏
+
 let image:UIImage =  self.view.layer.snapShot()
-//暂停动画
+//pause animation
 self.view.layer.pauseAnimation()
-//继续动画
+//resume animation
 self.view.layer.resumeAnimation()
 ```
 
