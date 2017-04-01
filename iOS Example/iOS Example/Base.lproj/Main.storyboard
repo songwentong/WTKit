@@ -323,7 +323,7 @@ Internet traffic will be routed through it.</string>
             </objects>
             <point key="canvasLocation" x="5205.6000000000004" y="726.38680659670172"/>
         </scene>
-        <!--Title-->
+        <!--WebImage-->
         <scene sceneID="0lz-fK-iUw">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="jVp-IL-WPL" customClass="ImageListVC" customModule="iOS_Example" customModuleProvider="target" sceneMemberID="viewController">
@@ -369,6 +369,9 @@ Internet traffic will be routed through it.</string>
                                                 <constraint firstItem="hio-bS-b6Q" firstAttribute="leading" secondItem="lr8-V4-Ac1" secondAttribute="trailing" constant="20" id="xne-YH-4vq"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="xpk-5K-top" kind="show" id="CEE-F3-cUf"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -385,7 +388,7 @@ Internet traffic will be routed through it.</string>
                             <constraint firstAttribute="trailing" secondItem="wF2-Yl-qaz" secondAttribute="trailing" id="ymD-LH-xxg"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="00Y-Pz-Fy3">
+                    <navigationItem key="navigationItem" title="WebImage" id="00Y-Pz-Fy3">
                         <barButtonItem key="rightBarButtonItem" title="Clear Cache" id="MYz-S7-N2Y">
                             <connections>
                                 <action selector="clearCache:" destination="jVp-IL-WPL" id="3Kr-DF-dvY"/>
@@ -399,6 +402,39 @@ Internet traffic will be routed through it.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UI7-RE-nCW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4943" y="1335"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="91x-5a-RDG">
+            <objects>
+                <viewController id="xpk-5K-top" customClass="DetailViewController" customModule="iOS_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dfS-Fu-nHo"/>
+                        <viewControllerLayoutGuide type="bottom" id="o1i-df-P1l"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="caD-Lm-gFc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XyT-l1-NNB">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="o1i-df-P1l" firstAttribute="top" secondItem="XyT-l1-NNB" secondAttribute="bottom" id="VKY-r4-PE1"/>
+                            <constraint firstAttribute="trailing" secondItem="XyT-l1-NNB" secondAttribute="trailing" id="VpY-KN-Rjj"/>
+                            <constraint firstItem="XyT-l1-NNB" firstAttribute="leading" secondItem="caD-Lm-gFc" secondAttribute="leading" id="aJO-Nm-er8"/>
+                            <constraint firstItem="XyT-l1-NNB" firstAttribute="top" secondItem="dfS-Fu-nHo" secondAttribute="bottom" id="loX-Zi-G1C"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="58O-EE-U5i"/>
+                    <connections>
+                        <outlet property="imageView" destination="XyT-l1-NNB" id="WI8-JV-7mq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ttC-aQ-zxp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5743" y="1334"/>
         </scene>
         <!--Hud Demo-->
         <scene sceneID="l0D-GP-ym4">

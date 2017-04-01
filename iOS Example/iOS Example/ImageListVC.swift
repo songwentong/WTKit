@@ -36,8 +36,25 @@ open class ImageListVC:UIViewController{
             //https://s3.amazonaws.com/fast-image-cache/demo-images/FICDDemoImage1.jpg
         }
     }
+    open override func viewDidAppear(_ animated: Bool) {
+        if let a = tableView.indexPathForSelectedRow{
+            tableView.deselectRow(at: a, animated: true)
+        }
+
+    }
     deinit {
         
+    }
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        print("sender:\(String(describing: sender))")
+        if let cell = sender as? UITableViewCell{
+            if let indexPath = tableView.indexPath(for: cell){
+                let url = imageURLList[indexPath.row]
+                if  let detailVC:DetailViewController = segue.destination as? DetailViewController {
+                    detailVC.imageURL = url
+                }
+            }
+        }
     }
     
     @IBAction func clearCache(_ sender: Any) {
@@ -58,14 +75,7 @@ extension ImageListVC:UITableViewDataSource{
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        if let imageView:UIImageView = cell.contentView.viewWithTag(1) as? UIImageView{
-            imageView.wt_setImage(with: imageURLList[indexPath.row])
-        }else{
-            print("image view not found")
-        }
-        if let label:UILabel = cell.contentView.viewWithTag(2) as? UILabel{
-            label.text = "Image #\(indexPath.row)"
-        }
+
         
         
         return cell
@@ -75,7 +85,21 @@ extension ImageListVC:UITableViewDelegate{
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
 //        print("will show indexPath:\(indexPath.row)")
+        if let imageView:UIImageView = cell.contentView.viewWithTag(1) as? UIImageView{
+            imageView.wt_setImage(with: imageURLList[indexPath.row])
+        }else{
+            print("image view not found")
+        }
+        if let label:UILabel = cell.contentView.viewWithTag(2) as? UILabel{
+            label.text = "Image #\(indexPath.row)"
+        }
 
+    }
+    
+    // Called after the user changes the selection.
+    @available(iOS 2.0, *)
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        
     }
     
     
