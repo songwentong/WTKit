@@ -7,7 +7,7 @@ WTKit is my Code accumulation
 [中文Readme](https://github.com/swtlovewtt/WTKit/blob/master/README_中文.md)
 
 
-## 功能
+## Features
 - [x] Convenient request / response method
 - [x] debug print
 - [x] Convenient thread Switch
@@ -21,12 +21,12 @@ WTKit is my Code accumulation
 - [x] auto create Model from json,auto set value from json data,auto write to json
 - [x] More
 
-## 开发环境
+## Requirements
 - iOS 8.0+ / Mac OS X 10.9+ / tvOS 9.0+ / watchOS 2.0+
 - Xcode 8.0+
 - Swift 3.0
 
-## 集成
+## Installation
 把WTKit下的四个文件拷贝进应用就可以了
 
 ## 和我交流
@@ -35,23 +35,19 @@ WTKit is my Code accumulation
 - 如果你 **有一个功能请求**, 打开一个 issue.
 - 如果你 **想来做出贡献**, 可以提交一个pull request.
 
-## 安装
->WTKit需要iOS8或者 OS X Mavericks (10.9)
-
 ### CocoaPods
 
 暂未集成
 
-### 手动安装
-把WTKit下的几个文件拷贝过来即可
+### Manually
+copy sources from WTKit
 
-## 使用
+## Usage
 
-### 自动Model解析功能
-
-用于自动把JSON数据读出来赋值给属性
-- [视频教程地址(YouTube)](https://www.youtube.com/watch?v=kvj7Jkn0liw&feature=youtu.be)
-- [视频教程地址(优酷)](http://v.youku.com/v_show/id_XMTgzMTkxMDYzNg==.html)
+### auto Model make and parse
+use for create model from json data,and read data from json,set property
+- [Video Guide(YouTube)](https://www.youtube.com/watch?v=kvj7Jkn0liw&feature=youtu.be)
+- [Video Guide(youku)](http://v.youku.com/v_show/id_XMTgzMTkxMDYzNg==.html)
 ```swift
 
 {
@@ -96,8 +92,7 @@ weatherModel.wt(travel: jsonObject)
 
 ### WTPrint
 
-用于方便的查看放钱输出所在的文件,方法,行数,并且在DEBUG模式下输出
-
+Used to facilitate the view of the money output where the file, method, line number, and in DEBUG mode output
 ```swift
 public func WTPrint<T>(_ items:T,
              separator: String = " ",
@@ -109,9 +104,8 @@ public func WTPrint<T>(_ items:T,
 WTPrint("wt print \(self)")
 //AppDelegate.swift[19], application(_:didFinishLaunchingWithOptions:) wt print <WTKit.AppDelegate: 0x7fde38509d80>
 ```
-> 注意,swift需要设置一下debug: Build Settings -> Other Swift Flags -> Debug -> -D DEBUG
-
-### 创建请求
+> note,swift need set debug: Build Settings -> Other Swift Flags -> Debug -> -D DEBUG
+### create data task
 
 ```swift
 import WTKit
@@ -122,25 +116,23 @@ task.completionHandler = { [weak self](data, response, error) in
               print(error)    //得到的错误
         }
 ```
-> WTKit中的网络请求是异步完成的.
-
-### 结果处理
-
-- 数据响应
-- 字符串
+> Networking in WTKit is done asynchronously.
+### complection handling
+- data response
+- string
 - JSON
+- UIImage
 
-#### 数据响应
-
+#### data response
 ```swift
 let task = WTKit.dataTask(with: "https://www.apple.com") 
 task.completionHandler = { [weak self](data, response, error) in
-              print(response) //服务端响应
-              print(data)     //服务端数据
-              print(error)    //得到的错误
+              print(response) //response
+              print(data)     //data
+              print(error)    //error
         }
 ```
-#### 字符串
+#### string
 
 ```swift
 task.stringHandler = {(string:String?,error:NSError?)in
@@ -156,22 +148,22 @@ task.jsonHandler = {(object:AnyObject?,error:NSError?) in
 ```
 
 
-### 认证
+### Authentication
 
-认证使用的系统框架的认证[`URLCredential`和`URLAuthenticationChallenge`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSURLAuthenticationChallenge_Class/Reference/Reference.html).
+Authentication is handled on the system framework level by[`URLCredential`and`URLAuthenticationChallenge`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSURLAuthenticationChallenge_Class/Reference/Reference.html).
 
-**支持的认证方案**
+**Supported Authentication Schemes**
 
 - [HTTP Basic](http://en.wikipedia.org/wiki/Basic_access_authentication)
 - [HTTP Digest](http://en.wikipedia.org/wiki/Digest_access_authentication)
 - [Kerberos](http://en.wikipedia.org/wiki/Kerberos_%28protocol%29)
 - [NTLM](http://en.wikipedia.org/wiki/NT_LAN_Manager)
 
-## 高级用法
+## Advanced usage
 
-> WTKit 的请求方法基于 `NSURLSession` 和 Foundation URL Loading System 编写. 为了熟悉这个框架, 它推荐你熟悉网络底层的概念和功能.
+> WTKit isbuildon  `NSURLSession` and Foundation URL Loading System . To make the most of this framework, it is recommended that you be familiar with the concepts and capabilities of the underlying networking stack..
 
-**推荐阅读**
+**Recommended Reading**
 
 - [URL Loading System Programming Guide](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/URLLoadingSystem/URLLoadingSystem.html)
 - [NSURLSession Class Reference](https://developer.apple.com/library/mac/documentation/Foundation/Reference/NSURLSession_class/Introduction/Introduction.html#//apple_ref/occ/cl/NSURLSession)
@@ -396,6 +388,6 @@ self.view.layer.resumeAnimation()
 ```
 
 
-## 证书
+## LICENSE
 
-WTKit发布在MIT证书下,详情请看LICENSE
+WTKit is released under the MIT license. See LICENSE for details.
