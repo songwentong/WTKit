@@ -44,8 +44,8 @@ copy sources from WTKit
 
 ## Usage
 
-### auto Model make and parse
-use for create model from json data,and read data from json,set property
+### Automatically create model classes
+use for create model classes from json data,and their instance can set property from json data
 - [Video Guide(YouTube)](https://www.youtube.com/watch?v=kvj7Jkn0liw&feature=youtu.be)
 - [Video Guide(youku)](http://v.youku.com/v_show/id_XMTgzMTkxMDYzNg==.html)
 ```swift
