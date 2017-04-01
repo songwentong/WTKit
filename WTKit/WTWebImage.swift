@@ -60,7 +60,7 @@ extension UIImage{
         guard let colorSpace = cgImage.colorSpace else {
             return self
         }
-        WTLog("decodedImage")
+//        WTLog("decodedImage")
         let width = cgImage.width
         let height = cgImage.height
         let kBytesPerPixel = 4
