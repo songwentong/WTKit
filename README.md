@@ -83,7 +83,7 @@ public class CurrentModel: NSObject {
     }
 }
 
-//一行代码解析
+//auto update property from json data
 weatherModel.wt(travel: jsonObject)
 
 Note that the WTJSONModelProtocol protocol is implemented in the class that contains the custom properties so that the program knows what data is available at runtime
@@ -110,9 +110,9 @@ WTPrint("wt print \(self)")
 import WTKit
 let task = WTKit.dataTask(with: "https://www.apple.com") 
 task.completionHandler = { [weak self](data, response, error) in
-              print(response) //服务端响应
-              print(data)     //服务端数据
-              print(error)    //得到的错误
+              print(response) //response
+              print(data)     //data
+              print(error)    //error
         }
 ```
 > Networking in WTKit is done asynchronously.
@@ -171,9 +171,9 @@ Authentication is handled on the system framework level by[`URLCredential`and`UR
 
 
 #### App Transport Security (ATS)
-由于苹果强制使用https协议,http的请求已经被拒绝,苹果的ATS系统重写了整个认证系统,除非你在app的plist内配置ATS设置禁用来允许你的app评估服务端信任
+With the addition of App Transport Security (ATS) in iOS 9, it is possible that using a custom `ServerTrustPolicyManager` with several `ServerTrustPolicy` objects will have no effect. If you continuously see `CFNetwork SSLHandshake failed (-9806)` errors, you have probably run into this problem. Apple's ATS system overrides the entire challenge system unless you configure the ATS settings in your app's plist to disable enough of it to allow your app to evaluate the server trust.
 
-如果你遇到了这样的问题,你可以在`Info.plist`解决这个问题
+If you run into this problem (high probability with self-signed certificates), you can work around this issue by adding the following to your `Info.plist`.
 ```xml
 <dict>
 	<key>NSAppTransportSecurity</key>
@@ -336,14 +336,14 @@ imageView.sethighlightedImageWith("url", placeHolder: placeHolderImage)
 loading and tip
 
 ```swift
-//显示loading
+//hide loading
 self.showLoadingView()
 
-//隐藏loading
+//hide loading
 self.hideLoadingView()
 
 
-//底部的小tip
+//tip at bottom
 self.showHudWithTip("热烈欢迎")
 ```
 
@@ -370,7 +370,7 @@ tableView.refreshHeader?.setTitle("下拉刷新", forState: .PullDownToRefresh)
 tableView.refreshHeader?.setTitle("松开刷新", forState: .ReleaseToRefresh)
 tableView.refreshHeader?.dateStyle = "yyyy-MM-dd"
 tableView.refreshHeader?.lastUpdateText = "上次刷新时间"
-//下拉刷新的箭头地址
+//refresh image
 tableView.refreshHeader?.arrowImageURL = "http://ww4.sinaimg.cn/mw690/47449485jw1f4wq45lqu6j201i02gq2p.jpg"
 
 ```
