@@ -1,9 +1,10 @@
-//  https://github.com/swtlovewtt/WTKit
+//  
 //  AppDelegate.swift
 //  WTKit
 //
 //  Created by SongWentong on 3/3/16.
 //  Copyright © 2016 SongWentong. All rights reserved.
+//  https://github.com/swtlovewtt/WTKit
 //
 
 import UIKit
