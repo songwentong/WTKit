@@ -4,7 +4,7 @@
 
 WTKit is my Code accumulation
 
-[中文Readme](https://github.com/swtlovewtt/WTKit/blob/master/README_中文.md)
+[中文Readme(Zh_cn)](https://github.com/swtlovewtt/WTKit/blob/master/README_中文.md)
 
 
 ## Features
