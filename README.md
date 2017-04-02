@@ -8,17 +8,17 @@ WTKit is my Code accumulation
 
 
 ## Features
-- [x] Convenient request / response method
-- [x] debug print
+- [x] Convenient Request / Response Methods
+- [x] Debug print
 - [x] Convenient thread Switch
 - [x] network status observe
 - [x] Convenient UIColor create
 - [x] UIButton and UIImageVie image download,cache
 - [x] UITableView pull to refresh
 - [x] UIView screenshot image
-- [x] Hud
+- [x] HudView
 - [x] launch time count for build
-- [x] auto create Model from json,auto set value from json data,auto write to json
+- [x] auto create Model from json,Model instance auto set value from json data,auto write to json
 - [x] More
 
 ## Requirements
