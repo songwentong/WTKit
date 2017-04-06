@@ -115,8 +115,21 @@ public class ChartView:UIView{
     var minValue:Double = 0
     var maxValue:Double = 100
     var delta:Double = 0
+    var distanceBetweenValues:Double = 0
     open func reloadData(){
         setNeedsDisplay()
+    }
+    open override func draw(_ rect: CGRect) {
+        redrawIfNeeded()
+    }
+    func redrawIfNeeded(){
+        if needRedraw {
+            drawCustomType()
+            drawLinesIfNeeded()
+            bezierPath.stroke()
+            needRedraw = false
+        }
+        
     }
 
     func drawCustomType(){
@@ -126,6 +139,7 @@ public class ChartView:UIView{
         drawType = dataSource.drawType(of: self)
         widthBetweenValues = Double(self.frame.size.width)/Double(numberOfValues)
         delta = maxValue - minValue
+        distanceBetweenValues = Double(self.frame.size.width) / Double(numberOfValues)
         switch drawType {
         case .NONE:
             doNothing()
@@ -203,18 +217,7 @@ public class ChartView:UIView{
     func drawCIRCLE(){
     
     }
-    open override func draw(_ rect: CGRect) {
-        redrawIfNeeded()
-    }
-    func redrawIfNeeded(){
-        if needRedraw {
-            drawCustomType()
-            drawLinesIfNeeded()
-            bezierPath.stroke()
-            needRedraw = false
-        }
-        
-    }
+
     
     //touch events
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
