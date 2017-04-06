@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E15CD2871E9631BD0042CBE1 /* ChartDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2861E9631BD0042CBE1 /* ChartDemo.swift */; };
 		E15D28F71DFAB4620042E678 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28E31DFAB4620042E678 /* AppDelegate.swift */; };
 		E15D28F81DFAB4620042E678 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E15D28E41DFAB4620042E678 /* Assets.xcassets */; };
 		E15D28F91DFAB4620042E678 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E15D28E61DFAB4620042E678 /* LaunchScreen.storyboard */; };
@@ -78,6 +79,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E15CD2861E9631BD0042CBE1 /* ChartDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartDemo.swift; sourceTree = "<group>"; };
 		E15D28CE1DFAB41F0042E678 /* iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E15D28DD1DFAB41F0042E678 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E15D28E31DFAB4620042E678 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +118,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E15CD28A1E9631F40042CBE1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E18B9FA81E77D4EC0013EFA8 /* WeatherModel.swift */,
+				E18B9F9E1E77D25B0013EFA8 /* JSONData */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		E15D28C51DFAB41E0042E678 = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +147,7 @@
 		E15D28D01DFAB41F0042E678 /* iOS Example */ = {
 			isa = PBXGroup;
 			children = (
+				E15CD28A1E9631F40042CBE1 /* Model */,
 				E15D290C1DFABA8E0042E678 /* Classes */,
 			);
 			path = "iOS Example";
@@ -153,8 +165,8 @@
 		E15D290C1DFABA8E0042E678 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E18B9FA81E77D4EC0013EFA8 /* WeatherModel.swift */,
-				E18B9F9E1E77D25B0013EFA8 /* JSONData */,
+				E15D28E31DFAB4620042E678 /* AppDelegate.swift */,
+				E15D28F61DFAB4620042E678 /* ViewController.swift */,
 				E15D28EA1DFAB4620042E678 /* ColorViewController.swift */,
 				E15D28EB1DFAB4620042E678 /* GetRequestViewController.swift */,
 				E15D28EC1DFAB4620042E678 /* GifImageVC.swift */,
@@ -168,9 +180,9 @@
 				E18062081E8F3DB50042247E /* DetailViewController.swift */,
 				E15D28F31DFAB4620042E678 /* ReachabilityVC.swift */,
 				E15D28F51DFAB4620042E678 /* TableRefreshVC.swift */,
-				E15D28F61DFAB4620042E678 /* ViewController.swift */,
-				E15D28E31DFAB4620042E678 /* AppDelegate.swift */,
+				E15CD2861E9631BD0042CBE1 /* ChartDemo.swift */,
 				E15D28F41DFAB4620042E678 /* Swift使用规范 */,
+				E15D28E41DFAB4620042E678 /* Assets.xcassets */,
 				E15D290D1DFABAA20042E678 /* Supporting Files */,
 			);
 			name = Classes;
@@ -179,7 +191,6 @@
 		E15D290D1DFABAA20042E678 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E15D28E41DFAB4620042E678 /* Assets.xcassets */,
 				E15D28E51DFAB4620042E678 /* Base.lproj */,
 				E15D28DD1DFAB41F0042E678 /* Info.plist */,
 			);
@@ -305,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E15D28FB1DFAB4620042E678 /* ColorViewController.swift in Sources */,
+				E15CD2871E9631BD0042CBE1 /* ChartDemo.swift in Sources */,
 				E15D29031DFAB4620042E678 /* QRCodeScanVC.swift in Sources */,
 				E15D28FD1DFAB4620042E678 /* GifImageVC.swift in Sources */,
 				E15D28FC1DFAB4620042E678 /* GetRequestViewController.swift in Sources */,

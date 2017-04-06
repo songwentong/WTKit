@@ -30,17 +30,18 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     
     required init?(coder aDecoder: NSCoder) {
         dataList = Array()
-        dataList.append(["title":"GET/POST请求","segue":"get"])
+        dataList.append(["title":"GET/POST request","segue":"get"])
         //        dataList.append(["title":"POST请求","segue":"post"])
-        dataList.append(["title":"图片上传","segue":"uploadImage"])
-        dataList.append(["title":"图片下载","segue":"imageDownload"])
-        dataList.append(["title":"图片批量下载","segue":"imageListVC"]);
-        dataList.append(["title":"Gif 图","segue":"gif"])
-        dataList.append(["title":"HUD","segue":"hud"])
-        dataList.append(["title":"COLOR 创建","segue":"color"])
-        dataList.append(["title":"下拉刷新","segue":"TableRefreshVC"])
-        dataList.append(["title":"二维码扫描","segue":"QRCodeScanVC"])
+//        dataList.append(["title":"Image upload","segue":"uploadImage"])
+        dataList.append(["title":"Image download","segue":"imageDownload"])
+        dataList.append(["title":"Image batch download","segue":"imageListVC"]);
+        dataList.append(["title":"Gif Demo","segue":"gif"])
+        dataList.append(["title":"HUD Demo","segue":"hud"])
+        dataList.append(["title":"COLOR create","segue":"color"])
+        dataList.append(["title":"pull to refresh","segue":"TableRefreshVC"])
+//        dataList.append(["title":"二维码扫描","segue":"QRCodeScanVC"])
         dataList.append(["title":"JSONModel","segue":"modelDemo"])
+        dataList.append(["title":"ChartView Demo (under development)","segue":"chart"])
         //        dataList.append(["title":"Reachability","segue":"reachability"])
         super.init(coder: aDecoder)
     }

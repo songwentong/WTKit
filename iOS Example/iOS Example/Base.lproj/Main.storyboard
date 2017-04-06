@@ -160,7 +160,7 @@ Internet traffic will be routed through it.</string>
             </objects>
             <point key="canvasLocation" x="6172" y="-489"/>
         </scene>
-        <!--Demo列表-->
+        <!--Demo list-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="iOS_Example" customModuleProvider="target" sceneMemberID="viewController">
@@ -199,7 +199,7 @@ Internet traffic will be routed through it.</string>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="9eM-Kb-oMm" secondAttribute="bottom" id="zQ5-lj-HFB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Demo列表" id="9hj-i3-VNG"/>
+                    <navigationItem key="navigationItem" title="Demo list" id="9hj-i3-VNG"/>
                     <connections>
                         <outlet property="tableView" destination="9eM-Kb-oMm" id="SnD-Wh-dxb"/>
                         <segue destination="HYq-sl-5fu" kind="show" identifier="get" id="ytZ-J1-uNg"/>
@@ -213,6 +213,7 @@ Internet traffic will be routed through it.</string>
                         <segue destination="qe8-7m-58g" kind="show" identifier="reachability" id="7Zq-tD-aKd"/>
                         <segue destination="kRr-sH-rAo" kind="show" identifier="modelDemo" id="xw8-t6-IGz"/>
                         <segue destination="jVp-IL-WPL" kind="show" identifier="imageListVC" id="B2N-Bs-keW"/>
+                        <segue destination="gqv-po-uwZ" kind="show" identifier="chart" id="0H3-yi-ANI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -545,6 +546,42 @@ Internet traffic will be routed through it.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pCx-Ko-ygD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6020" y="2269"/>
+        </scene>
+        <!--ChartView-->
+        <scene sceneID="tO9-y9-bVe">
+            <objects>
+                <viewController id="gqv-po-uwZ" customClass="ChartViewDemoVC" customModule="iOS_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YJR-gr-sv4"/>
+                        <viewControllerLayoutGuide type="bottom" id="gYl-SN-h2v"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Lh4-Ck-dVh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="COI-Ub-g5k" customClass="ChartView" customModule="WTKit">
+                                <rect key="frame" x="0.0" y="144" width="375" height="300"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="feB-za-z3k"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="COI-Ub-g5k" secondAttribute="trailing" id="K69-aG-o3e"/>
+                            <constraint firstItem="COI-Ub-g5k" firstAttribute="leading" secondItem="Lh4-Ck-dVh" secondAttribute="leading" id="Lcn-3n-xYr"/>
+                            <constraint firstItem="COI-Ub-g5k" firstAttribute="top" secondItem="YJR-gr-sv4" secondAttribute="bottom" constant="80" id="eKf-rh-Vzt"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="ChartView" id="o4N-04-9aW"/>
+                    <connections>
+                        <outlet property="chartView" destination="COI-Ub-g5k" id="zba-nP-6wg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DRz-sc-6Ja" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7071" y="2268"/>
         </scene>
         <!--Model Demo View Controller-->
         <scene sceneID="ISl-co-Wem">
