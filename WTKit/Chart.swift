@@ -63,8 +63,9 @@ public protocol CandleChartViewDataSource:ChartViewDataSource{
  */
 public protocol VOLChartViewDataSource:ChartViewDataSource{
     //value
-    func chartView(chartView:ChartView,VOLIndex:Int)->Int
+    func chartView(chartView:ChartView,valueFor Index:Int)->Int
     //color
+    func chartView(chartView:ChartView,colorFor index:Int)->UIColor
 }
 /*
     circle⭕️  ,SAR
@@ -178,6 +179,25 @@ public class ChartView:UIView{
     
     }
     func drawVOL(){
+        /*
+         |-2-H-2-H-2-|
+         (hiswidth + 1) * numberOfValues = width
+         hiswidth = (width - 1) / numberofvalue -1
+         */
+        let pixelDistanceBetweenTwoVOL:Double = 1
+        let hisWidth:Double = (Double(self.frame.size.width) - pixelDistanceBetweenTwoVOL) / Double(numberOfValues) - pixelDistanceBetweenTwoVOL
+        
+        if let vol:VOLChartViewDataSource = dataSource as? VOLChartViewDataSource {
+            for index in 0...numberOfValues{
+                
+                let value = vol.chartView(chartView: self, valueFor: index)
+                let rect = CGRect(x: Double(index) * (hisWidth + pixelDistanceBetweenTwoVOL) + 1 , y: 0, width: hisWidth, height: Double(value))
+                let bezierPath = UIBezierPath.init(rect: rect)
+                let color = vol.chartView(chartView: self, colorFor: index)
+                color.setFill()
+                bezierPath.fill()
+            }
+        }
     
     }
     func drawCIRCLE(){
