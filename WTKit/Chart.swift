@@ -190,6 +190,9 @@ public class ChartView:UIView{
         
     }
     func drawKDJ(){
+        /*
+        open,close,high,low
+         */
     
     }
     func drawVOL(){
@@ -215,7 +218,9 @@ public class ChartView:UIView{
     
     }
     func drawCIRCLE(){
-    
+        /*
+         just circle ⭕️
+         */
     }
 
     

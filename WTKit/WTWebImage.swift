@@ -286,7 +286,7 @@ extension UIButton{
     
     
     // MARK: - 设置一张网络图片,并缓存下来
-    public func wt_setImage(with url:String, for state:UIControlState,placeHolder:UIImage?=nil,complection:imageHandler?=nil) {
+    public func wt_setImage(with url:String, for state:UIControlState,placeHolder:UIImage? = nil,complection:imageHandler?=nil) {
         DispatchQueue.safeSyncInMain {
             self.setImage(placeHolder, for: state)
         }

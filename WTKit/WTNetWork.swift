@@ -36,7 +36,7 @@ extension URL: URLConvertible {
 }
 
 // MARK: - Data Request
-/// 常规data task
+/// data task
 ///
 /// - Parameters:
 ///   - url: <#url description#>
@@ -52,7 +52,7 @@ private func aaa(){
 
 }
 
-//下载的task
+//download task
 public func downloadTask(with request:URLRequest)->WTURLSessionDownloadTask{
     let task = WTURLSessionManager.default.session!.downloadTask(with: request)
     let myTask = WTURLSessionDownloadTask(task:task)
@@ -60,6 +60,7 @@ public func downloadTask(with request:URLRequest)->WTURLSessionDownloadTask{
     myTask.resume()
     return myTask
 }
+/*
 public func uploadTask(with request:URLRequest)->WTURLSessionUploadTask{
     let task = WTURLSessionManager.default.session!.uploadTask(withStreamedRequest: request)
     let myTask = WTURLSessionUploadTask(task:task)
@@ -67,3 +68,5 @@ public func uploadTask(with request:URLRequest)->WTURLSessionUploadTask{
     myTask.resume()
     return myTask
 }
+ */
+

@@ -226,9 +226,7 @@ open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
     }
     
 }
-
-
-//下载进度
+//download progress handler
 public typealias downloadProgressHandler = ((URLSession,URLSessionDownloadTask,Int64,Int64,Int64)->Swift.Void)
 public typealias downloadTaskDidFinishDownloadingToURL = ((URLSession, URLSessionDownloadTask, URL)->Void)
 
@@ -253,6 +251,19 @@ open class WTURLSessionDownloadTask:WTURLSessionTask,URLSessionDownloadDelegate{
         
     }
 }
-open class WTURLSessionUploadTask:WTURLSessionTask{
+open class WTURLSessionStreamTask:WTURLSessionTask,URLSessionStreamDelegate{
+    @available(iOS 9.0, *)
+    public func urlSession(_ session: URLSession, readClosedFor streamTask: URLSessionStreamTask){}
     
+    
+    @available(iOS 9.0, *)
+    public func urlSession(_ session: URLSession, writeClosedFor streamTask: URLSessionStreamTask){}
+    
+    
+    @available(iOS 9.0, *)
+    public func urlSession(_ session: URLSession, betterRouteDiscoveredFor streamTask: URLSessionStreamTask){}
+    
+    
+    @available(iOS 9.0, *)
+    public func urlSession(_ session: URLSession, streamTask: URLSessionStreamTask,  inputStream: InputStream, outputStream: OutputStream){}
 }
