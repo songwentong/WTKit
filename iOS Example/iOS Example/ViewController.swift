@@ -21,33 +21,39 @@ import WTKit
  6.做一个动画绘图
  
  */
-class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+class ViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
-    var dataList:Array<[String:String]>
-    
+    var dataList:[[String:String]] = [[String:String]]()
+    var underDevelopmentList:[[String:String]] = [[String:String]]()
     
     
     required init?(coder aDecoder: NSCoder) {
-        dataList = Array()
+        super.init(coder: aDecoder)
+        configModel()
+    }
+    func configModel(){
         dataList.append(["title":"GET/POST request","segue":"get"])
         //        dataList.append(["title":"POST请求","segue":"post"])
-//        dataList.append(["title":"Image upload","segue":"uploadImage"])
+        //        dataList.append(["title":"Image upload","segue":"uploadImage"])
         dataList.append(["title":"Image download","segue":"imageDownload"])
         dataList.append(["title":"Image batch download","segue":"imageListVC"]);
         dataList.append(["title":"Gif Demo","segue":"gif"])
         dataList.append(["title":"HUD Demo","segue":"hud"])
         dataList.append(["title":"COLOR create","segue":"color"])
         dataList.append(["title":"pull to refresh","segue":"TableRefreshVC"])
-//        dataList.append(["title":"二维码扫描","segue":"QRCodeScanVC"])
+        //        dataList.append(["title":"二维码扫描","segue":"QRCodeScanVC"])
         dataList.append(["title":"JSONModel","segue":"modelDemo"])
-        dataList.append(["title":"ChartView Demo (under development)","segue":"chart"])
+//        dataList.append(["title":"ChartView Demo (under development)","segue":"chart"])
         //        dataList.append(["title":"Reachability","segue":"reachability"])
-        super.init(coder: aDecoder)
+        
+        underDevelopmentList.append(["title":"ChartView Demo (under development)","segue":"chart"])
     }
+    
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 //        self.view.tag = 100
 //        self.view.setValue(100, forKey: "tag")
 //        objc_setAssociatedObject(self.view, "tag", 100, .OBJC_ASSOCIATION_ASSIGN)
@@ -96,9 +102,20 @@ class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate
     
 }
 // MARK: - UITableViewDataSource
-extension ViewController{
+extension ViewController:UITableViewDataSource{
+    public func numberOfSections(in tableView: UITableView) -> Int{
+        return 2
+    }
     internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return dataList.count
+        switch section {
+        case 0:
+            return dataList.count
+        case 1:
+            return underDevelopmentList.count
+        default:
+            break
+        }
+        return 0
     }
     
     @objc(tableView:cellForRowAtIndexPath:) @available(iOS 2.0, *)
@@ -108,20 +125,40 @@ extension ViewController{
         return  cell!
     }
     internal func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
-        return "Demo 列表"
+        var list = [String]()
+        list.append("Demo list")
+        list.append("under develpment")
+        return list[section]
     } // fixed font style. use custom view (UILabel) if you want something different
     
 }
 // MARK: - UITableViewDelegate
-extension ViewController{
+extension ViewController:UITableViewDelegate{
     
     @objc(tableView:willDisplayCell:forRowAtIndexPath:) internal func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
-        cell.textLabel?.text = dataList[(indexPath as NSIndexPath).row]["title"]
+        switch indexPath.section {
+        case 0:
+            cell.textLabel?.text = dataList[(indexPath as NSIndexPath).row]["title"]
+        case 1:
+            cell.textLabel?.text = underDevelopmentList[(indexPath as NSIndexPath).row]["title"]
+        default:
+            break
+        }
+        
     }
     
     
     @objc(tableView:didSelectRowAtIndexPath:) internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        let segue = dataList[(indexPath as NSIndexPath).row]["segue"]
-        self.performSegue(withIdentifier: segue!, sender: nil);
+        switch indexPath.section {
+        case 0:
+            let segue = dataList[(indexPath as NSIndexPath).row]["segue"]
+            self.performSegue(withIdentifier: segue!, sender: nil);
+        case 1:
+            let segue = underDevelopmentList[(indexPath as NSIndexPath).row]["segue"]
+            self.performSegue(withIdentifier: segue!, sender: nil);
+        default:
+            break
+        }
+        
     }
 }

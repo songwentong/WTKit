@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("\(String(describing: launchOptions)) \(Date())")
         WTKit.WTPrint("hello world(wtprint)")
         WTKit.WTLog("hello world(wtlog)")
+//        let a = Double.init(UIDevice.current.systemVersion)
+//        print("\(String(describing: a))")
         return true
     }
     

@@ -94,7 +94,7 @@ extension ImageListVC:UITableViewDelegate{
                     }
                 }
             })
-            imageView.wt_setImage(with: "", placeHolder: nil)
+
         }else{
             print("image view not found")
         }
