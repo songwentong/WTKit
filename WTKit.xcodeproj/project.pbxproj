@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9BF8E75D1E7A8465009F548A /* Hud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8E75C1E7A8465009F548A /* Hud.swift */; };
+		E11797611E9B271D001257AB /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11797601E9B271D001257AB /* WTVersionTracking.swift */; };
 		E11C6D911DDED785008D9471 /* arrow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E11C6D901DDED785008D9471 /* arrow.jpg */; };
 		E15CD2851E95EBD80042CBE1 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2841E95EBD80042CBE1 /* Chart.swift */; };
 		E17BDA201DDDC11A00CF5672 /* WTKit.h in Headers */ = {isa = PBXBuildFile; fileRef = E17BDA1E1DDDC11A00CF5672 /* WTKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		9BF8E75C1E7A8465009F548A /* Hud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hud.swift; sourceTree = "<group>"; };
+		E11797601E9B271D001257AB /* WTVersionTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTVersionTracking.swift; sourceTree = "<group>"; };
 		E11C6D901DDED785008D9471 /* arrow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = arrow.jpg; sourceTree = "<group>"; };
 		E15CD2841E95EBD80042CBE1 /* Chart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WTKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +107,14 @@
 			name = Hud;
 			sourceTree = "<group>";
 		};
+		E117975F1E9B26FF001257AB /* VersionTrack */ = {
+			isa = PBXGroup;
+			children = (
+				E11797601E9B271D001257AB /* WTVersionTracking.swift */,
+			);
+			name = VersionTrack;
+			sourceTree = "<group>";
+		};
 		E17BDA111DDDC11A00CF5672 = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +143,7 @@
 				E18B9FAA1E77D5DF0013EFA8 /* WebImage */,
 				E18B9F9C1E77CCFF0013EFA8 /* JSONModel */,
 				E1C0C9BD1E07BA66000B8F50 /* Foundation */,
+				E117975F1E9B26FF001257AB /* VersionTrack */,
 				E1C0C9BB1E07BA39000B8F50 /* iOS */,
 				E17BDA1F1DDDC11A00CF5672 /* Info.plist */,
 			);
@@ -356,6 +367,7 @@
 				E17BDA2B1DDDC12500CF5672 /* CustomExtension.swift in Sources */,
 				E1C0C9B91E07AC3E000B8F50 /* WTReachability.swift in Sources */,
 				E17BDA2C1DDDC12500CF5672 /* FoundationExtension.swift in Sources */,
+				E11797611E9B271D001257AB /* WTVersionTracking.swift in Sources */,
 				E17BDA2D1DDDC12500CF5672 /* UIKitExtension.swift in Sources */,
 				E15CD2851E95EBD80042CBE1 /* Chart.swift in Sources */,
 				E17BDA2A1DDDC12500CF5672 /* AnimationImageVIew.swift in Sources */,

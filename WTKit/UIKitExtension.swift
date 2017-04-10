@@ -103,9 +103,7 @@ extension UIColor{
     
 }
     
-private let UIApplicationVersionsKey = "WTKit UIapplication versions key"
-private let UIApplicationBuildsKey = "WTKit UIapplication builds key"
-private var UIApplicationIsFirstEver:Void?
+
 extension UIApplication{
     
     
@@ -126,22 +124,7 @@ extension UIApplication{
      */
     
     
-    // MARK: - 版本号/build号/bundleID/程序名
-    public class func appBundleName()->String{
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
-    }
-    
-    public class func appBundleID()->String{
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as! String
-    }
-    
-    public class func buildVersion()->String{
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
-    }
-    
-    public static func appVersion()->String{
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-    }
+
     
     public static func documentsPath()->String{
         return String(format: "%@/Documents",NSHomeDirectory())
@@ -156,77 +139,6 @@ extension UIApplication{
     
     
     
-    /*!
-     非常好用的方法,用于处理首次启动需要做的事情
-     */
-    public static func firstLaunchForBuild(_ block:(_ isFirstLaunchEver:Bool)->Void){
-        self.track()
-        block(shared.isFirstLaunchEver)
-        
-    }
-    
-    /*!
-     是否是当前版本的首次启动
-     */
-    private var isFirstLaunchEver:Bool{
-        get{
-            var isFirst:Bool? = objc_getAssociatedObject(self, &UIApplicationIsFirstEver) as? Bool
-            if isFirst == nil {
-                isFirst = UIApplication.isFirstLaunchMethod()
-                objc_setAssociatedObject(self, &UIApplicationIsFirstEver, isFirst, .OBJC_ASSOCIATION_ASSIGN)
-            }
-            return isFirst!
-        }
-        set{
-            objc_setAssociatedObject(UIApplication.shared, &UIApplicationIsFirstEver, newValue, .OBJC_ASSOCIATION_ASSIGN)
-        }
-    }
-    
-    
-    
-    /*!
-     记录一下当前版本
-     */
-    private static func track(){
-        
-        let first = self.isFirstLaunchMethod()
-        shared.isFirstLaunchEver = first
-        
-        var versionArray:[String]! = UserDefaults.standard.array(forKey: UIApplicationVersionsKey) as? Array<String>
-        if versionArray == nil {
-            versionArray = Array()
-        }
-        if !versionArray!.contains(self.appVersion()) {
-            versionArray.append(self.appVersion())
-        }
-        
-        
-        var buildArray:[String]! = UserDefaults.standard.array(forKey: UIApplicationBuildsKey) as? Array<String>
-        if buildArray == nil {
-            buildArray = Array()
-        }
-        if !buildArray.contains(self.buildVersion()) {
-            buildArray.append(self.buildVersion())
-        }
-        
-        
-        UserDefaults.standard.setValue(versionArray, forKey: UIApplicationVersionsKey)
-        UserDefaults.standard.setValue(buildArray, forKey: UIApplicationBuildsKey)
-        //        WTLog(versionArray)
-        //        WTLog(buildArray)
-        UserDefaults.standard.synchronize()
-    }
-    
-    private class func isFirstLaunchMethod()->Bool{
-        var isFirstLaunchEver = true
-        let versionArray:[String]? = UserDefaults.standard.array(forKey: UIApplicationVersionsKey) as? Array<String>
-        if versionArray != nil {
-            if versionArray!.contains(self.appVersion()) {
-                isFirstLaunchEver = false
-            }
-        }
-        return isFirstLaunchEver
-    }
 }
 extension UIScreen{
     public static func screenWidth()->CGFloat{
