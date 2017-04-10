@@ -43,7 +43,7 @@ copy sources from WTKit
 
 ## Usage
 
-### Automatically create model classes
+### JSON Model
 use for create model classes from json data automatically,and their instance can auto update property from json data
 - [Video Guide(YouTube)](https://www.youtube.com/watch?v=kvj7Jkn0liw&feature=youtu.be)
 - [Video Guide(youku)](http://v.youku.com/v_show/id_XMTgzMTkxMDYzNg==.html)
