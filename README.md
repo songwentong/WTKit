@@ -198,18 +198,19 @@ If you run into this problem (high probability with self-signed certificates), y
 	</dict>
 </dict>
 ```  
-### WebImage
-#### How To Use
-```swift
-import WTKit
-imageView.wt_setImage(with: imageURL, placeHolder: placeHolderImage)
-```
+
 
 
 - NSObject
 
 ```swift
 
+```
+### WebImage
+#### How To Use
+```swift
+import WTKit
+imageView.wt_setImage(with: imageURL, placeHolder: placeHolderImage)
 ```
 - Data
 
