@@ -197,14 +197,6 @@ If you run into this problem (high probability with self-signed certificates), y
 		</dict>
 	</dict>
 </dict>
-```  
-
-
-
-- NSObject
-
-```swift
-
 ```
 ### WebImage
 #### How To Use
