@@ -406,7 +406,7 @@ public class RefreshHeader:UIView{
     private var timeLabel:UILabel
     
     
-    fileprivate var arrowImageView:UIImageView
+    public var arrowImageView:UIImageView
     private var activityIndicator:UIActivityIndicatorView
     private var lastUpdateDate:Date? = nil
     private var dateFormatter:DateFormatter = DateFormatter()
@@ -419,7 +419,7 @@ public class RefreshHeader:UIView{
         timeLabel = UILabel()
         arrowImageView = UIImageView()
         //        arrowImageView.
-        let image = UIImage(named: "arrow.jpg")
+        let image = UIImage(named: "arrow")
         arrowImageView.image = image
         activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         super.init(frame: frame)

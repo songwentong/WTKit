@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9BF8E75D1E7A8465009F548A /* Hud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8E75C1E7A8465009F548A /* Hud.swift */; };
+		E11582A61E9C71410018E839 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = E11582A51E9C71410018E839 /* arrow.png */; };
 		E11797611E9B271D001257AB /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11797601E9B271D001257AB /* WTVersionTracking.swift */; };
-		E11C6D911DDED785008D9471 /* arrow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E11C6D901DDED785008D9471 /* arrow.jpg */; };
 		E15CD2851E95EBD80042CBE1 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2841E95EBD80042CBE1 /* Chart.swift */; };
 		E17BDA201DDDC11A00CF5672 /* WTKit.h in Headers */ = {isa = PBXBuildFile; fileRef = E17BDA1E1DDDC11A00CF5672 /* WTKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E17BDA2A1DDDC12500CF5672 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
@@ -24,7 +24,6 @@
 		E1C0C9B21E07ABE2000B8F50 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
 		E1C0C9B41E07ABE2000B8F50 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E1C0C9B61E07ABE2000B8F50 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* JSONModel.swift */; };
-		E1C0C9B71E07ABF5000B8F50 /* arrow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E11C6D901DDED785008D9471 /* arrow.jpg */; };
 		E1C0C9B91E07AC3E000B8F50 /* WTReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */; };
 		E1D0B0D81E7A728900E01200 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD91E78E01A0082F385 /* WTNetWork.swift */; };
 		E1D0B0D91E7A728900E01200 /* WTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD61E78DDE80082F385 /* WTURLSessionManager.swift */; };
@@ -51,8 +50,8 @@
 
 /* Begin PBXFileReference section */
 		9BF8E75C1E7A8465009F548A /* Hud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hud.swift; sourceTree = "<group>"; };
+		E11582A51E9C71410018E839 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		E11797601E9B271D001257AB /* WTVersionTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTVersionTracking.swift; sourceTree = "<group>"; };
-		E11C6D901DDED785008D9471 /* arrow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = arrow.jpg; sourceTree = "<group>"; };
 		E15CD2841E95EBD80042CBE1 /* Chart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WTKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E17BDA1E1DDDC11A00CF5672 /* WTKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTKit.h; sourceTree = "<group>"; };
@@ -170,7 +169,7 @@
 		E1C0C9BB1E07BA39000B8F50 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				E11C6D901DDED785008D9471 /* arrow.jpg */,
+				E11582A51E9C71410018E839 /* arrow.png */,
 				E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */,
 				E17BDA271DDDC12500CF5672 /* CustomExtension.swift */,
 				E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */,
@@ -334,7 +333,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E11C6D911DDED785008D9471 /* arrow.jpg in Resources */,
+				E11582A61E9C71410018E839 /* arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,7 +341,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1C0C9B71E07ABF5000B8F50 /* arrow.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

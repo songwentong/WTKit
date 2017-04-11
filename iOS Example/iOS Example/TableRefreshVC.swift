@@ -11,7 +11,7 @@
  */
 import UIKit
 import WTKit
-class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegate{
+class TableRefreshVC: UIViewController ,UITableViewDataSource{
 
     
     @IBOutlet weak var tableView: UITableView!
@@ -46,6 +46,7 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
                 }, afterDelay: 2.0)
             
         })
+        tableView.refreshHeader?.arrowImageView.image = UIImage.init(named: "arrow")
         /*
         tableView.refreshHeader?.setTitle("加载中...", forState: .loading)
         tableView.refreshHeader?.setTitle("下拉刷新", forState: .pullDownToRefresh)
@@ -92,11 +93,15 @@ class TableRefreshVC: UIViewController ,UITableViewDataSource,UITableViewDelegat
 //        self.navigationController?.pushViewController(vc!, animated: true)
         tableView.startRefresh()
     }
-    
-    
-    //----------delegate
+}
+extension TableRefreshVC:UITableViewDelegate{
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+        return 40
+    }
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+        return "refresh count"
+    }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
         cell.textLabel!.text = dataList[(indexPath as NSIndexPath).row]
     }
-
 }
