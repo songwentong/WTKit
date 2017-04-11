@@ -12,7 +12,9 @@ class ImageDownloadVC: UIViewController {
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var requestButton: UIButton!
-    
+    @IBOutlet weak var clipCornorButton: UIButton!
+    @IBOutlet weak var blurFilter: UIButton!
+   
     deinit{
         WTLog("deinit")
     }
@@ -54,26 +56,18 @@ class ImageDownloadVC: UIViewController {
     }
     
     @IBAction func blurredImage(_ sender: AnyObject) {
-        if (imageView.image != nil) {
-            let image = imageView.image
+        if let imageToProcess = imageView.image {
             var blurredImage:UIImage?
             OperationQueue.globalQueue(execute: {
-                blurredImage = image!.imageWithFilter("CIGaussianBlur", parameters: ["inputRadius":5 as AnyObject])
+                blurredImage = imageToProcess.imageWithFilter("CIGaussianBlur", parameters: ["inputRadius":5 as AnyObject])
                 if blurredImage != nil {
-                    OperationQueue.toMain {
-                        self.imageView.image = blurredImage
+                    OperationQueue.toMain {[weak self] in
+                        self?.imageView.image = blurredImage
                     }
                 }
             })
-//            DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes(rawValue: UInt64(0))).async(execute: { 
-//                blurredImage = image!.imageWithFilter("CIGaussianBlur", parameters: ["inputRadius":5])
-//                if (blurredImage != nil){
-//                    DispatchQueue.main.async(execute: { 
-//                       
-//                    })
-//                }
-//            })
         }
+
     }
     
     override func didReceiveMemoryWarning() {
