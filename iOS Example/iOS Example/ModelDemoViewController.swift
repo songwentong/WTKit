@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Social
 class ModelDemoViewController: UIViewController,UITextViewDelegate {
     
     var segment:UISegmentedControl = UISegmentedControl(items: ["json","property","travel"])
@@ -28,6 +28,7 @@ class ModelDemoViewController: UIViewController,UITextViewDelegate {
                 jsonObject = JSONSerialization.WTJSONObject(with: data)! as AnyObject
                 jsonTextView.text = jsonString
 
+                
             }catch{
                 
             }
@@ -38,6 +39,19 @@ class ModelDemoViewController: UIViewController,UITextViewDelegate {
         
         //        let sel = #selector(ModelDemoViewController.segmentControlEvent(_:))
         //        self.segment.addTarget(self, action: sel, for: .valueChanged)
+    }
+    @IBAction func sharePressed(_ sender: Any) {
+        /*
+        let ss = SLComposeViewController.init(forServiceType: SLServiceTypeSinaWeibo)
+        ss?.setInitialText("asdasdsada")
+        present(ss?, animated: true) {
+            
+        }
+         */
+//        let ac =  UIActivityViewController.init(activityItems: ["qweasd"], applicationActivities: nil)
+//        present(ac, animated: true) {
+        
+//        }
     }
     public func segmentControlEvent(_ sender:UISegmentedControl){
         

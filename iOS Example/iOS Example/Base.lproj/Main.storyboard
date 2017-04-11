@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pA6-d5-UNj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pA6-d5-UNj">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--下拉刷新-->
+        <!--pull to refresh-->
         <scene sceneID="kqo-ES-q4A">
             <objects>
-                <viewController storyboardIdentifier="TableRefreshVC" automaticallyAdjustsScrollViewInsets="NO" id="zWi-DW-p6Q" customClass="TableRefreshVC" customModule="iOS_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TableRefreshVC" title="pull to refresh" automaticallyAdjustsScrollViewInsets="NO" id="zWi-DW-p6Q" customClass="TableRefreshVC" customModule="iOS_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="G7p-Nl-2Un"/>
                         <viewControllerLayoutGuide type="bottom" id="zfh-2V-DuU"/>
@@ -51,7 +51,7 @@
                             <constraint firstItem="43L-0z-BUE" firstAttribute="top" secondItem="G7p-Nl-2Un" secondAttribute="bottom" id="u55-Db-MKu"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="下拉刷新" id="zEk-HN-beL"/>
+                    <navigationItem key="navigationItem" title="pull to refresh" id="zEk-HN-beL"/>
                     <connections>
                         <outlet property="tableView" destination="43L-0z-BUE" id="WuS-m6-PLZ"/>
                     </connections>
@@ -637,6 +637,11 @@ Internet traffic will be routed through it.</string>
                     </view>
                     <navigationItem key="navigationItem" id="UG3-xb-6aE">
                         <nil key="title"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="N8M-mS-tNM">
+                            <connections>
+                                <action selector="sharePressed:" destination="kRr-sH-rAo" id="Jfp-in-9ph"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -730,10 +735,10 @@ Internet traffic will be routed through it.</string>
             </objects>
             <point key="canvasLocation" x="4119" y="2457"/>
         </scene>
-        <!--图片下载-->
+        <!--image download-->
         <scene sceneID="b75-Yd-rzH">
             <objects>
-                <viewController id="H4n-XQ-9v0" customClass="ImageDownloadVC" customModule="iOS_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="image download" id="H4n-XQ-9v0" customClass="ImageDownloadVC" customModule="iOS_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oOs-bP-SQy"/>
                         <viewControllerLayoutGuide type="bottom" id="g87-vu-ufZ"/>
@@ -810,7 +815,7 @@ Internet traffic will be routed through it.</string>
                             <constraint firstItem="9WD-J3-Jy5" firstAttribute="leading" secondItem="iI2-Kg-7QX" secondAttribute="leading" constant="20" id="vyb-Wm-lta"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="图片下载" id="QhH-L3-pdJ"/>
+                    <navigationItem key="navigationItem" title="image download" id="QhH-L3-pdJ"/>
                     <connections>
                         <outlet property="imageView" destination="XtM-LI-VLA" id="d5i-w3-NPZ"/>
                         <outlet property="requestButton" destination="29g-vO-vuD" id="vBZ-E1-ljk"/>

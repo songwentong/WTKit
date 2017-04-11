@@ -86,9 +86,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
             //            let request = NSMutableURLRequest.request(string!)
             //            WTPrint(queue)
             
-//            self.showLoadingView()
-            
-            
+            self.showLoadingView()
             DispatchQueue.global().async {
                 self.requestButton.isEnabled = false
                 var method:HTTPMethod = .get
@@ -97,7 +95,6 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                 }
                 //            string = "https://httpbin.org"
                 UserDefaults.standard.set(string, forKey: self.lastURLKey)
-//                let request = URLRequest.wt_request(with: string!, method: method, parameters: self.parameters)
                 let task = WTKit.dataTask(with: string!, method: method, parameters: nil, headers: nil)
                 task.stringHandler = {(string,error)in
                     WTLog("\(String(describing: string))")
@@ -107,7 +104,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                 }
                 task.completionHandler = { [weak self](data, response, error) in
                     
-//                    self?.hideLoadingView()
+                    self?.hideLoadingView()
                     self?.requestButton.isEnabled = true
                     
                     if error == nil{
