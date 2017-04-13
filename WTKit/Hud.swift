@@ -8,6 +8,7 @@
 //
 
 import Foundation
+#if os(iOS)
 import UIKit
 import CoreGraphics
 
@@ -339,4 +340,4 @@ public class WTHudView:UIView{
     }
     
 }
-
+#endif

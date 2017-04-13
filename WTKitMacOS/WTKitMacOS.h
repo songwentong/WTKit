@@ -2,8 +2,8 @@
 //  WTKitMacOS.h
 //  WTKitMacOS
 //
-//  Created by SongWentong on 19/12/2016.
-//  Copyright © 2016 songwentong. All rights reserved.
+//  Created by SongWentong on 13/04/2017.
+//  Copyright © 2017 songwentong. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

@@ -7,7 +7,9 @@
 //
 
 import Foundation
+#if os(iOS)
 import UIKit
+
 private let UIApplicationVersionsKey = "WTKit UIapplication versions key"
 private let UIApplicationBuildsKey = "WTKit UIapplication builds key"
 private var UIApplicationIsFirstEver:Void?
@@ -116,3 +118,4 @@ extension UIApplication{
     
     
 }
+#endif

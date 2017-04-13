@@ -7,6 +7,7 @@
 //  https://github.com/swtlovewtt/WTKit
 //
 import Foundation
+#if os(iOS)
 import ImageIO
 
 public enum WTImageFormat:Int{
@@ -458,3 +459,4 @@ extension UIImageView{
     
     
 }
+#endif

@@ -9,7 +9,17 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>WTKitMacOS.xcscheme_^#shared#^_</key>
+		<key>WTKitMacOS.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>WTKitTVOS.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>WTKitWatchOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>2</integer>
@@ -48,6 +58,46 @@
 			<true/>
 		</dict>
 		<key>E1D21AF51DE04D6D0011F302</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E1EDECAF1E9F4CB100DDC372</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E1EDECBC1E9F4CCC00DDC372</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E1EDECC91E9F4CE600DDC372</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E1EDECF41E9F4E1900DDC372</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E1EDED011E9F4F6100DDC372</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E1EDED1D1E9F4FCA00DDC372</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E1EDED391E9F4FF900DDC372</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E1EDED551E9F506F00DDC372</key>
 		<dict>
 			<key>primary</key>
 			<true/>

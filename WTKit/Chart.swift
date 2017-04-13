@@ -8,6 +8,7 @@
 //  股票图绘制
 
 import Foundation
+#if os(iOS)
 import UIKit
 public enum ChartViewDrawType:Int
 {
@@ -238,3 +239,4 @@ public class ChartView:UIView{
         
     }
 }
+#endif
