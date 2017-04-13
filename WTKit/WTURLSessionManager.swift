@@ -373,6 +373,7 @@ extension WTURLSessionManager:URLSessionDataDelegate{
         }else{
         }
     }
+    @available(OSX 10.11, *)
     @available(iOS 9.0, *)
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome streamTask: URLSessionStreamTask){
         if let _ = self[dataTask] as? WTURLSessionDataTask {

@@ -210,6 +210,7 @@ open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{
         
     }
     @available(iOS 9.0, *)
+    @available(OSX 10.11, *)
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome streamTask: URLSessionStreamTask){
         
     }
@@ -251,42 +252,24 @@ open class WTURLSessionDownloadTask:WTURLSessionTask,URLSessionDownloadDelegate{
         
     }
 }
-#if os(iOS)
+
 @available(iOS 9.0, *)
-open class WTURLSessionStreamTask:WTURLSessionTask,URLSessionStreamDelegate{
-        @available(iOS 9.0, *)
-        public func urlSession(_ session: URLSession, readClosedFor streamTask: URLSessionStreamTask){}
-        
-        
-        @available(iOS 9.0, *)
-        public func urlSession(_ session: URLSession, writeClosedFor streamTask: URLSessionStreamTask){}
-        
-        
-        @available(iOS 9.0, *)
-        public func urlSession(_ session: URLSession, betterRouteDiscoveredFor streamTask: URLSessionStreamTask){}
-        
-        
-        @available(iOS 9.0, *)
-        public func urlSession(_ session: URLSession, streamTask: URLSessionStreamTask,  inputStream: InputStream, outputStream: OutputStream){}
-}
-#elseif os(macOS)
 @available(OSX 10.11, *)
 open class WTURLSessionStreamTask:WTURLSessionTask,URLSessionStreamDelegate{
-        @available(iOS 9.0, *)
+    
         public func urlSession(_ session: URLSession, readClosedFor streamTask: URLSessionStreamTask){}
         
         
-        @available(iOS 9.0, *)
+    
         public func urlSession(_ session: URLSession, writeClosedFor streamTask: URLSessionStreamTask){}
         
         
-        @available(iOS 9.0, *)
+
         public func urlSession(_ session: URLSession, betterRouteDiscoveredFor streamTask: URLSessionStreamTask){}
         
         
-        @available(iOS 9.0, *)
+    
         public func urlSession(_ session: URLSession, streamTask: URLSessionStreamTask,  inputStream: InputStream, outputStream: OutputStream){}
 }
-#endif
 
 
