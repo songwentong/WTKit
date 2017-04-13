@@ -4,6 +4,7 @@
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/WTKit.svg)](https://img.shields.io/cocoapods/v/WTKit.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Platform](https://img.shields.io/cocoapods/p/WTKit.svg?style=flat)](http://cocoadocs.org/docsets/WTKit)
+[![Gitter](https://badges.gitter.im/WTKit/WTKit.svg)](https://gitter.im/mikeswt/WTKit)
 
 
 WTKit is my Code accumulation
