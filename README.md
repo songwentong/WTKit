@@ -35,8 +35,30 @@ Copy sources from WTKit
 - if you  **want to contribute**, submit a pull request.
 
 ### CocoaPods
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
 
-not integrate yet
+```bash
+$ gem install cocoapods
+```
+
+To integrate WTKit into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '10.0'
+use_frameworks!
+
+target '<Your Target Name>' do
+    pod 'WTKit', '~> 0.3'
+end
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
+
 
 ### Manually
 copy sources from WTKit
