@@ -51,7 +51,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'WTKit', '~> 0.3'
+    pod 'WTKit', '~> 0.3.2'
 end
 ```
 
