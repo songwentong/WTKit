@@ -1,7 +1,7 @@
 
 # WTKit
 [![Build Status](https://travis-ci.org/swtlovewtt/WTKit.svg?branch=master)](https://travis-ci.org/swtlovewtt/WTKit)
-
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/WTKit.svg)](https://img.shields.io/cocoapods/v/WTKit.svg)
 WTKit is my Code accumulation
 
 [中文Readme(Zh_cn)](https://github.com/swtlovewtt/WTKit/blob/master/README_中文.md)
