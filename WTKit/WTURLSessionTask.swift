@@ -257,6 +257,8 @@ open class WTURLSessionDownloadTask:WTURLSessionTask,URLSessionDownloadDelegate{
 @available(OSX 10.11, *)
 @available(tvOS 9.0, *)
 @available(watchOS 2.0, *)
+//or use
+//@available(iOS 9.0, OSX 10.11, tvOS 9.0, watchOS 2.0, *)
 open class WTURLSessionStreamTask:WTURLSessionTask,URLSessionStreamDelegate{
     
         public func urlSession(_ session: URLSession, readClosedFor streamTask: URLSessionStreamTask){}
