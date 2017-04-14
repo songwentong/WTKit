@@ -248,7 +248,7 @@ Internet traffic will be routed through it.</string>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="voc-Yh-oaR"/>
                                         </constraints>
-                                        <state key="normal" title="请求"/>
+                                        <state key="normal" title="start"/>
                                         <connections>
                                             <action selector="requestButtonPressed:" destination="HYq-sl-5fu" eventType="touchUpInside" id="4uK-9f-9Dl"/>
                                         </connections>
@@ -611,12 +611,12 @@ Internet traffic will be routed through it.</string>
                                     <constraint firstAttribute="height" constant="44" id="Nks-tk-xLX"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="修改类名" id="P0C-fY-EJY">
+                                    <barButtonItem title="set Class Name" id="P0C-fY-EJY">
                                         <connections>
                                             <action selector="changeClassName:" destination="kRr-sH-rAo" id="6gP-Fd-FlC"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="写到桌面" id="u4A-1K-dxm">
+                                    <barButtonItem title="write to desktop" id="u4A-1K-dxm">
                                         <connections>
                                             <action selector="writeToDisk:" destination="kRr-sH-rAo" id="pzB-xn-9NL"/>
                                         </connections>
@@ -652,7 +652,7 @@ Internet traffic will be routed through it.</string>
             </objects>
             <point key="canvasLocation" x="5769" y="3070"/>
         </scene>
-        <!--颜色获取-->
+        <!--Color create-->
         <scene sceneID="RIk-UW-C4M">
             <objects>
                 <viewController id="aYe-8M-Edg" customClass="ColorViewController" customModule="iOS_Example" customModuleProvider="target" sceneMemberID="viewController">
@@ -692,7 +692,7 @@ Internet traffic will be routed through it.</string>
                                     <action selector="editChanged:" destination="aYe-8M-Edg" eventType="editingChanged" id="T1O-ss-q0C"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="警告色" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ptM-kq-lj9">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="warn color" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ptM-kq-lj9">
                                 <rect key="frame" x="20" y="289" width="100" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="rhD-D4-aJb"/>
@@ -723,7 +723,7 @@ Internet traffic will be routed through it.</string>
                             <constraint firstItem="ptM-kq-lj9" firstAttribute="top" secondItem="f5f-3Q-yQJ" secondAttribute="bottom" constant="17" id="vHu-1m-jji"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="颜色获取" id="vVy-17-tI7"/>
+                    <navigationItem key="navigationItem" title="Color create" id="vVy-17-tI7"/>
                     <connections>
                         <outlet property="antiColorView" destination="lrR-qa-QME" id="0Kj-t3-6dS"/>
                         <outlet property="colorView" destination="g4F-8w-0re" id="vEb-An-Sgq"/>
@@ -878,7 +878,7 @@ Internet traffic will be routed through it.</string>
             </objects>
             <point key="canvasLocation" x="4785" y="-154"/>
         </scene>
-        <!--参数-->
+        <!--parameters-->
         <scene sceneID="U8P-KM-xum">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="hvT-cm-Sgn" customClass="POSTParamatersVC" customModule="iOS_Example" customModuleProvider="target" sceneMemberID="viewController">
@@ -958,7 +958,7 @@ Internet traffic will be routed through it.</string>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDS-r6-EvS">
                                 <rect key="frame" x="0.0" y="574" width="375" height="44"/>
                                 <color key="backgroundColor" red="1" green="0.25343615930000002" blue="0.5133593837" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Add"/>
+                                <state key="normal" title="Add one parameter"/>
                                 <connections>
                                     <action selector="addPressed:" destination="hvT-cm-Sgn" eventType="touchUpInside" id="Nhv-Yf-Y3j"/>
                                 </connections>
@@ -976,7 +976,7 @@ Internet traffic will be routed through it.</string>
                             <constraint firstAttribute="trailing" secondItem="hDS-r6-EvS" secondAttribute="trailing" id="zwc-cN-x3R"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="参数" id="2aZ-v9-7aL">
+                    <navigationItem key="navigationItem" title="parameters" id="2aZ-v9-7aL">
                         <barButtonItem key="rightBarButtonItem" title="show" id="pGZ-qy-Ngc">
                             <connections>
                                 <action selector="showPressed:" destination="hvT-cm-Sgn" id="YN3-mB-7xY"/>
