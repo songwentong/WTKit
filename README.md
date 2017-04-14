@@ -162,7 +162,7 @@ task.completionHandler = { [weak self](data, response, error) in
               print(error)    //error
         }
 ```
-> Networking in WTKit is done asynchronously.
+> Networking in WTKit is done _asynchronously_. Asynchronous programming may be a source of frustration to programmers unfamiliar with the concept, but there are [very good reasons](https://developer.apple.com/library/ios/qa/qa1693/_index.html) for doing it this way.
 ### complection handling
 - data response
 - string
