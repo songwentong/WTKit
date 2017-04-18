@@ -44,7 +44,6 @@
 		E1EDED171E9F4F7B00DDC372 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
 		E1EDED181E9F4F7B00DDC372 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2841E95EBD80042CBE1 /* Chart.swift */; };
 		E1EDED221E9F4FCA00DDC372 /* WTKitMacOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E1EDED201E9F4FCA00DDC372 /* WTKitMacOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1EDED271E9F4FD600DDC372 /* Hud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8E75C1E7A8465009F548A /* Hud.swift */; };
 		E1EDED281E9F4FD600DDC372 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD91E78E01A0082F385 /* WTNetWork.swift */; };
 		E1EDED291E9F4FD600DDC372 /* WTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD61E78DDE80082F385 /* WTURLSessionManager.swift */; };
 		E1EDED2A1E9F4FD600DDC372 /* WTURLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FDB1E78E3490082F385 /* WTURLSessionTask.swift */; };
@@ -579,7 +578,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1EDED271E9F4FD600DDC372 /* Hud.swift in Sources */,
 				E1EDED281E9F4FD600DDC372 /* WTNetWork.swift in Sources */,
 				E1EDED291E9F4FD600DDC372 /* WTURLSessionManager.swift in Sources */,
 				E1EDED2A1E9F4FD600DDC372 /* WTURLSessionTask.swift in Sources */,
@@ -975,6 +973,7 @@
 				E1EDED091E9F4F6100DDC372 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E1EDED231E9F4FCA00DDC372 /* Build configuration list for PBXNativeTarget "WTKitMacOS" */ = {
 			isa = XCConfigurationList;
@@ -983,6 +982,7 @@
 				E1EDED251E9F4FCA00DDC372 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E1EDED5B1E9F506F00DDC372 /* Build configuration list for PBXNativeTarget "WTKitTVOS" */ = {
 			isa = XCConfigurationList;
@@ -991,6 +991,7 @@
 				E1EDED5D1E9F506F00DDC372 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

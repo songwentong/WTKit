@@ -122,32 +122,5 @@ extension UIView
 
     
 }
-    /*
-//K 线图
-public class KlineView:UIView{
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    deinit{
-        
-    }
-    
-    var delegate:KlineViewDelegate?
-    
-}
 
-public protocol KlineViewDataSource:NSObjectProtocol{
-    
-}
-
-public protocol KlineViewDelegate:NSObjectProtocol{
-    
-}*/
 #endif

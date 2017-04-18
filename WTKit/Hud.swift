@@ -11,7 +11,8 @@ import Foundation
 #if os(iOS)
 import UIKit
 import CoreGraphics
-
+#endif
+@available(iOS 2.0, *)
 public class WTTipView:UIView{
     var activity:UIActivityIndicatorView
     var label:UILabel
@@ -340,4 +341,4 @@ public class WTHudView:UIView{
     }
     
 }
-#endif
+

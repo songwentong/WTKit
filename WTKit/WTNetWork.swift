@@ -44,7 +44,7 @@ extension URL: URLConvertible {
 ///   - parameters: <#parameters description#>
 ///   - headers: <#headers description#>
 /// - Returns: <#return value description#>
-public func dataTask(with url:URLConvertible, method:HTTPMethod = .get, parameters:[String:Any]? = nil,headers: [String: String]? = nil)->WTURLSessionDataTask
+public func dataTask(with url:URLConvertible, method:HTTPMethod? = .get, parameters:[String:Any]? = nil,headers: [String: String]? = nil)->WTURLSessionDataTask
 {
     return WTURLSessionManager.default.dataTask(with: url, method: method, parameters: parameters, headers: headers)
 }

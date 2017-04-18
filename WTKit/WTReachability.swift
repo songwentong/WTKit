@@ -17,7 +17,7 @@ public enum WTNetworkStatus:UInt{
     case reachableViaWWAN = 2
 }
 public let kWTReachabilityChangedNotification = "kWTReachabilityChangedNotification"
-
+@available(iOS 7.0, *)
 open class WTReachability:NSObject{
     
     var _reachabilityRef:SCNetworkReachability?

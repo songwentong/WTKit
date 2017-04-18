@@ -95,10 +95,10 @@ open class WTURLSessionManager:NSObject{
     }
     
     
-    public func dataTask(with url:URLConvertible, method:HTTPMethod = .get, parameters:[String:Any]? = nil,headers: [String: String]? = nil)->WTURLSessionDataTask
+    public func dataTask(with url:URLConvertible, method:HTTPMethod? = .get, parameters:[String:Any]? = nil,headers: [String: String]? = nil)->WTURLSessionDataTask
     {
         var request = URLRequest(url: url.asURL())
-        request.httpMethod = method.rawValue
+        request.httpMethod = method?.rawValue
         if let headers = headers{
             for (key,value) in headers{
                 request.setValue(value , forHTTPHeaderField: key)

@@ -96,6 +96,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                 //            string = "https://httpbin.org"
                 UserDefaults.standard.set(string, forKey: self.lastURLKey)
                 let task = WTKit.dataTask(with: string!, method: method, parameters: nil, headers: nil)
+                
                 task.stringHandler = {(string,error)in
                     WTLog("\(String(describing: string))")
                 }

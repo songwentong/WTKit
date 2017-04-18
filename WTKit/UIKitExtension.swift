@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import ImageIO
 public typealias imageHandler = ((UIImage?,Error?)->Void)
-// MARK: - 官方类扩展
+@available(iOS 2.0, *)
 extension UIColor{
     
     /*!
@@ -103,7 +103,7 @@ extension UIColor{
     
 }
     
-
+@available(iOS 2.0, *)
 extension UIApplication{
     
     
@@ -140,6 +140,7 @@ extension UIApplication{
     
     
 }
+@available(iOS 2.0, *)
 extension UIScreen{
     public static func screenWidth()->CGFloat{
         return UIScreen.main.bounds.width

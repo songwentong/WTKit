@@ -27,6 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("\(String(describing: launchOptions)) \(Date())")
         WTKit.WTPrint("hello world(wtprint)")
         WTKit.WTLog("hello world(wtlog)")
+        
+//        let task = WTKit.dataTask(with: "http://www.aa.com");
+//        print("\(String(describing: task.dataTask.originalRequest?.httpMethod))")
+//        print("\(34.6-34)")
 //        let a = Double.init(UIDevice.current.systemVersion)
 //        print("\(String(describing: a))")
         return true

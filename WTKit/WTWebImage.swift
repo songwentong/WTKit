@@ -128,7 +128,7 @@ extension UIImage{
     
     
     
-    public class func cachedImageDataTask(with url:String,imageHandler:imageHandler? = nil,completionHandler:completionHandler? = nil)->WTURLSessionTask{
+    public class func cachedImageDataTask(with url:URLConvertible,imageHandler:imageHandler? = nil,completionHandler:completionHandler? = nil)->WTURLSessionTask{
         var request = URLRequest(url: url.asURL())
         request.cachePolicy = .returnCacheDataElseLoad
         let task = WTURLSessionManager.default.dataTask(with: request)
