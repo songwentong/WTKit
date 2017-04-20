@@ -435,4 +435,4 @@ self.view.layer.resumeAnimation()
 
 ## LICENSE
 
-WTKit is released under the MIT license. See LICENSE for details.
+WTKit is released under the MIT license. [See LICENSE](https://github.com/swtlovewtt/WTKit/blob/master/LICENSE) for details.
