@@ -15,34 +15,51 @@ class RequestDemoVC:UIViewController{
     var url:String = ""
     var headers:[String : String] = [String : String]()
     var data:Data?
-    
+    var useTime:TimeInterval = 0
     @IBOutlet weak var tableView: UITableView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        requewWithType()
     }
     func requewWithType()->Void{
-        
+        var title = ""
         switch methodType {
         case .get:
-        url = baseURL + "get"
+            url = baseURL + "get"
+            title = "GET " + url
             break
         case .post:
             url = baseURL + "post"
+            title = "POST " + url
+            break
+        case .delete:
+            url = baseURL + "delete"
+            break
+        case .put:
+            url = baseURL + "put"
+            break
         default: break
             
         }
+        
+        self.title = title
         let task:WTURLSessionDataTask = WTKit.dataTask(with: url, method: methodType)
+        self.tableView.isHidden = true
+        self.showLoadingView()
+        let start:TimeInterval = Date.init().timeIntervalSince1970
         task.completionHandler = { [weak self](data, response, error) in
             if let httpRes:HTTPURLResponse = response as? HTTPURLResponse {
                 for (field,value)in httpRes.allHeaderFields{
                     self?.headers["\(field)"] = "\(value)"
                 }
             }
+            self?.hideLoadingView()
             self?.data = data
             self?.tableView.reloadData()
+            self?.tableView.isHidden = false
+            self?.useTime = Date.init().timeIntervalSince1970 - start
         }
     }
 }
@@ -57,7 +74,7 @@ extension RequestDemoVC:UITableViewDataSource{
         if section == 0 {
             return headers.count
         }
-        return 0
+        return 1
     }
     
     
@@ -86,5 +103,35 @@ extension RequestDemoVC:UITableViewDataSource{
             break
         }
         return cell
+    }
+}
+extension RequestDemoVC:UITableViewDelegate{
+    @available(iOS 2.0, *)
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        switch indexPath.section {
+        case 1:
+            return 450
+        default:
+            return 44
+        }
+    }
+    
+    @available(iOS 2.0, *)
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? // fixed font style. use custom view (UILabel) if you want something different
+    {
+        switch section {
+        case 0:
+            return "Headers"
+        default:
+            return "body"
+        }
+    }
+    
+    @available(iOS 2.0, *)
+    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String?{
+        if section == 1 {
+            return "Elapsed Time: \(self.useTime) sec"
+        }
+        return ""
     }
 }

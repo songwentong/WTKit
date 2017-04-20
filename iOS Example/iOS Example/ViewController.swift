@@ -33,6 +33,8 @@ class ViewController: UIViewController{
         configModel()
     }
     func configModel(){
+        dataList.append(["title":"GET","segue":"requestDemo"])
+        dataList.append(["title":"POST","segue":"requestDemo"])
         dataList.append(["title":"GET/POST request","segue":"get"])
         //        dataList.append(["title":"POST请求","segue":"post"])
         //        dataList.append(["title":"Image upload","segue":"uploadImage"])
@@ -93,6 +95,20 @@ class ViewController: UIViewController{
         // Pass the selected object to the new view controller.
         //        segue.destinationViewController
         
+        if let indexPath:NSIndexPath = sender as? NSIndexPath {
+            if let vc:RequestDemoVC = segue.destination as? RequestDemoVC {
+                
+            
+            if indexPath.section == 0 {
+                if indexPath.row == 0 {
+                vc.methodType = .get
+                }
+                if indexPath.row == 1 {
+                    vc.methodType = .post
+                }
+            }
+                }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -152,7 +168,7 @@ extension ViewController:UITableViewDelegate{
         switch indexPath.section {
         case 0:
             let segue = dataList[(indexPath as NSIndexPath).row]["segue"]
-            self.performSegue(withIdentifier: segue!, sender: nil);
+            self.performSegue(withIdentifier: segue!, sender: indexPath);
         case 1:
             let segue = underDevelopmentList[(indexPath as NSIndexPath).row]["segue"]
             self.performSegue(withIdentifier: segue!, sender: nil);
