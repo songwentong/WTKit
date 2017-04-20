@@ -13,7 +13,7 @@ class RequestDemoVC:UIViewController{
     var methodType:WTKit.HTTPMethod = .get
     let baseURL:String = "https://httpbin.org/"
     var url:String = ""
-    var headers:[String:String] = [String:String]()
+    var headers:[String : String] = [String : String]()
     var data:Data?
     
     @IBOutlet weak var tableView: UITableView!
@@ -36,6 +36,12 @@ class RequestDemoVC:UIViewController{
         }
         let task:WTURLSessionDataTask = WTKit.dataTask(with: url, method: methodType)
         task.completionHandler = { [weak self](data, response, error) in
+            if let httpRes:HTTPURLResponse = response as? HTTPURLResponse {
+                for (field,value)in httpRes.allHeaderFields{
+                    self?.headers["\(field)"] = "\(value)"
+                }
+            }
+            self?.data = data
             self?.tableView.reloadData()
         }
     }
