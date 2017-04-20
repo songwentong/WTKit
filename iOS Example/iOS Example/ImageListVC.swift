@@ -24,6 +24,8 @@ open class ImageListVC:UIViewController{
         imageURLList.append("http://littlesvr.ca/apng/images/world-cup-2014-42.webp")
         imageURLList.append("https://nr-platform.s3.amazonaws.com/uploads/platform/published_extension/branding_icon/275/AmazonS3.png")
         */
+        
+        //"https://s3.amazonaws.com/fast-image-cache/demo-images/FICDDemoImage001"
         for i in 0...99{
             var tempString = "https://s3.amazonaws.com/fast-image-cache/demo-images/FICDDemoImage"
             if i<10 {

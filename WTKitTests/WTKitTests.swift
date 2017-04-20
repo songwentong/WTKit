@@ -7,12 +7,19 @@
 //
 
 import XCTest
-
+import WTKit
 class WTKitTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        testWTNetWork()
+    }
+    
+    func testWTNetWork(){
+        let task = WTKit.dataTask(with: "https://www.apple.com")
+        let httpMethod = task.originTask.originalRequest?.httpMethod
+        print("\(httpMethod)")
     }
     
     func testjson(){

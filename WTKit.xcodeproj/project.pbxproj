@@ -11,6 +11,7 @@
 		E11582A61E9C71410018E839 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = E11582A51E9C71410018E839 /* arrow.png */; };
 		E11797611E9B271D001257AB /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11797601E9B271D001257AB /* WTVersionTracking.swift */; };
 		E15CD2851E95EBD80042CBE1 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2841E95EBD80042CBE1 /* Chart.swift */; };
+		E16AE9CC1EA5C2A8009080DE /* WTKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */; };
 		E17BDA201DDDC11A00CF5672 /* WTKit.h in Headers */ = {isa = PBXBuildFile; fileRef = E17BDA1E1DDDC11A00CF5672 /* WTKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E17BDA2A1DDDC12500CF5672 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
 		E17BDA2B1DDDC12500CF5672 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
@@ -21,14 +22,8 @@
 		E1857FDC1E78E3490082F385 /* WTURLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FDB1E78E3490082F385 /* WTURLSessionTask.swift */; };
 		E18B9FAC1E77D6450013EFA8 /* WTWebImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B9FAB1E77D6450013EFA8 /* WTWebImage.swift */; };
 		E1C0C9B91E07AC3E000B8F50 /* WTReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */; };
-		E1D21AF91DE04D6D0011F302 /* WTKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */; };
 		E1D21AFB1DE04D6D0011F302 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */; };
-		E1D21B011DE053380011F302 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
-		E1D21B021DE053380011F302 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
-		E1D21B031DE053380011F302 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
-		E1D21B041DE053380011F302 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
 		E1D21B0E1DE29B870011F302 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* JSONModel.swift */; };
-		E1D21B141DE2A9180011F302 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* JSONModel.swift */; };
 		E1EDED061E9F4F6100DDC372 /* WTKitWatchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E1EDED041E9F4F6100DDC372 /* WTKitWatchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1EDED0B1E9F4F7B00DDC372 /* Hud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8E75C1E7A8465009F548A /* Hud.swift */; };
 		E1EDED0C1E9F4F7B00DDC372 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD91E78E01A0082F385 /* WTNetWork.swift */; };
@@ -545,12 +540,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1D21B031DE053380011F302 /* FoundationExtension.swift in Sources */,
-				E1D21B021DE053380011F302 /* CustomExtension.swift in Sources */,
-				E1D21AF91DE04D6D0011F302 /* WTKitTests.swift in Sources */,
-				E1D21B041DE053380011F302 /* UIKitExtension.swift in Sources */,
-				E1D21B141DE2A9180011F302 /* JSONModel.swift in Sources */,
-				E1D21B011DE053380011F302 /* AnimationImageVIew.swift in Sources */,
+				E16AE9CC1EA5C2A8009080DE /* WTKitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

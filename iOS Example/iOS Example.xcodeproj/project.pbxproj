@@ -29,11 +29,26 @@
 		E18062091E8F3DB50042247E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18062081E8F3DB50042247E /* DetailViewController.swift */; };
 		E18B9F9F1E77D25B0013EFA8 /* JSONData in Resources */ = {isa = PBXBuildFile; fileRef = E18B9F9E1E77D25B0013EFA8 /* JSONData */; };
 		E18B9FA91E77D4EC0013EFA8 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B9FA81E77D4EC0013EFA8 /* WeatherModel.swift */; };
+		E19F49B31EA759BB00842DE0 /* RequestDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16AE9CD1EA5E691009080DE /* RequestDemoVC.swift */; };
 		E1A7D2C61E0BA17D00CF9A69 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */; };
 		E1A7D2C71E0BA17D00CF9A69 /* WTKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		E16AE9D31EA5E692009080DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E1A7D2AB1E0B82D900CF9A69 /* WTKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1EDED021E9F4F6100DDC372;
+			remoteInfo = WTKitWatchOS;
+		};
+		E16AE9D51EA5E692009080DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E1A7D2AB1E0B82D900CF9A69 /* WTKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1EDED561E9F506F00DDC372;
+			remoteInfo = WTKitTVOS;
+		};
 		E1A7D2B11E0B82D900CF9A69 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E1A7D2AB1E0B82D900CF9A69 /* WTKit.xcodeproj */;
@@ -99,6 +114,7 @@
 		E15D28F41DFAB4620042E678 /* Swift使用规范 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Swift使用规范"; sourceTree = "<group>"; };
 		E15D28F51DFAB4620042E678 /* TableRefreshVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableRefreshVC.swift; sourceTree = "<group>"; };
 		E15D28F61DFAB4620042E678 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E16AE9CD1EA5E691009080DE /* RequestDemoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestDemoVC.swift; sourceTree = "<group>"; };
 		E18061FB1E8E1AF30042247E /* ImageListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageListVC.swift; sourceTree = "<group>"; };
 		E18062081E8F3DB50042247E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		E18B9F9E1E77D25B0013EFA8 /* JSONData */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JSONData; sourceTree = "<group>"; };
@@ -167,8 +183,9 @@
 			children = (
 				E15D28E31DFAB4620042E678 /* AppDelegate.swift */,
 				E15D28F61DFAB4620042E678 /* ViewController.swift */,
-				E15D28EA1DFAB4620042E678 /* ColorViewController.swift */,
+				E16AE9CD1EA5E691009080DE /* RequestDemoVC.swift */,
 				E15D28EB1DFAB4620042E678 /* GetRequestViewController.swift */,
+				E15D28EA1DFAB4620042E678 /* ColorViewController.swift */,
 				E15D28EC1DFAB4620042E678 /* GifImageVC.swift */,
 				E15D28ED1DFAB4620042E678 /* HudDemoViewController.swift */,
 				E15D28EE1DFAB4620042E678 /* ImageDownloadVC.swift */,
@@ -183,6 +200,7 @@
 				E15CD2861E9631BD0042CBE1 /* ChartDemo.swift */,
 				E15D28F41DFAB4620042E678 /* Swift使用规范 */,
 				E15D28E41DFAB4620042E678 /* Assets.xcassets */,
+				E15D28E51DFAB4620042E678 /* Base.lproj */,
 				E15D290D1DFABAA20042E678 /* Supporting Files */,
 			);
 			name = Classes;
@@ -191,7 +209,6 @@
 		E15D290D1DFABAA20042E678 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E15D28E51DFAB4620042E678 /* Base.lproj */,
 				E15D28DD1DFAB41F0042E678 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -202,7 +219,9 @@
 			children = (
 				E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */,
 				E1A7D2B41E0B82D900CF9A69 /* WTKitTests.xctest */,
+				E16AE9D41EA5E692009080DE /* WTKitWatchOS.framework */,
 				E1A7D2B61E0B82D900CF9A69 /* WTKitMacOS.framework */,
+				E16AE9D61EA5E692009080DE /* WTKitTVOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -272,6 +291,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		E16AE9D41EA5E692009080DE /* WTKitWatchOS.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = WTKitWatchOS.framework;
+			remoteRef = E16AE9D31EA5E692009080DE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		E16AE9D61EA5E692009080DE /* WTKitTVOS.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = WTKitTVOS.framework;
+			remoteRef = E16AE9D51EA5E692009080DE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -326,6 +359,7 @@
 				E18062091E8F3DB50042247E /* DetailViewController.swift in Sources */,
 				E15D29041DFAB4620042E678 /* ReachabilityVC.swift in Sources */,
 				E15D29011DFAB4620042E678 /* ModelDemoViewController.swift in Sources */,
+				E19F49B31EA759BB00842DE0 /* RequestDemoVC.swift in Sources */,
 				E15D29071DFAB4620042E678 /* ViewController.swift in Sources */,
 				E15D28FF1DFAB4620042E678 /* ImageDownloadVC.swift in Sources */,
 				E18B9FA91E77D4EC0013EFA8 /* WeatherModel.swift in Sources */,
