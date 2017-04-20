@@ -405,7 +405,7 @@ pull to refresh
 ```swift
 //closure to refresh
 self.tableView.refreshHeader = RefreshHeader.headerWithRefreshing({
-            printf("refresh data from internet")
+            print("refresh data from internet")
         })
 
 //stop Loading
