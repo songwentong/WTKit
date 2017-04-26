@@ -1,4 +1,4 @@
-//  
+//
 //  AppDelegate.swift
 //  WTKit
 //
@@ -33,6 +33,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        print("\(34.6-34)")
 //        let a = Double.init(UIDevice.current.systemVersion)
 //        print("\(String(describing: a))")
+   
+         /*
+         member 必须是 本类的对象完全一致才行
+         kind只要是本类或者子类的对象就可以了
+         member必须是实例, kind不需要是实例
+        print("\(self)")
+        print("\(NSObject.isKind(of: NSObject.classForCoder()))")//true
+        print("\(NSObject.isMember(of:NSObject.classForCoder()))")//false
+        print("\(self.isMember(of: AppDelegate.classForCoder()))")//true
+        print("\(self.isKind(of: AppDelegate.classForCoder()))")//true
+        print("\(self.isMember(of: NSObject.classForCoder()))")//false
+        print("\(self.isKind(of: NSObject.classForCoder()))")//true
+         */
+
         return true
     }
     
