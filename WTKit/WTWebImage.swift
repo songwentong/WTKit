@@ -9,7 +9,7 @@
 import Foundation
 #if os(iOS)
 import ImageIO
-
+import UIKit
 public enum WTImageFormat:Int{
     case Undefined
     case JPEG
