@@ -31,6 +31,8 @@ class ViewController: UIViewController{
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configModel()
+        print("model name:\(UIDevice.current.modelName)");
+        
     }
     func configModel(){
         dataList.append(["title":"GET","segue":"requestDemo"])
