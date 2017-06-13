@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pA6-d5-UNj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pA6-d5-UNj">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -669,17 +668,19 @@ Internet traffic will be routed through it.</string>
                                 <rect key="frame" x="10" y="74" width="355" height="128"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lrR-qa-QME">
-                                        <rect key="frame" x="177.5" y="0.0" width="177.5" height="128"/>
+                                        <rect key="frame" x="322" y="95" width="30" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="51A-Db-ehp"/>
+                                            <constraint firstAttribute="width" constant="30" id="QED-MB-eG0"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.08322906494" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="lrR-qa-QME" secondAttribute="trailing" id="9vk-wM-AVm"/>
-                                    <constraint firstItem="lrR-qa-QME" firstAttribute="top" secondItem="g4F-8w-0re" secondAttribute="top" id="FVQ-eb-oe1"/>
+                                    <constraint firstAttribute="trailing" secondItem="lrR-qa-QME" secondAttribute="trailing" constant="3" id="3Nm-LH-Ffl"/>
+                                    <constraint firstAttribute="bottom" secondItem="lrR-qa-QME" secondAttribute="bottom" constant="3" id="BjG-Tp-eIE"/>
                                     <constraint firstAttribute="height" constant="128" id="asc-N3-dh3"/>
-                                    <constraint firstItem="lrR-qa-QME" firstAttribute="width" secondItem="g4F-8w-0re" secondAttribute="width" multiplier="0.5" id="mZi-ic-0Os"/>
-                                    <constraint firstAttribute="bottom" secondItem="lrR-qa-QME" secondAttribute="bottom" id="qIn-iT-oQZ"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="#00ff00" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f5f-3Q-yQJ">
@@ -734,7 +735,7 @@ Internet traffic will be routed through it.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9u7-yn-01C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4119" y="2457"/>
+            <point key="canvasLocation" x="4117.6000000000004" y="2456.2218890554723"/>
         </scene>
         <!--image download-->
         <scene sceneID="b75-Yd-rzH">
@@ -896,7 +897,7 @@ Internet traffic will be routed through it.</string>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="5za-s1-vcH" detailTextLabel="cg3-Lq-HAo" style="IBUITableViewCellStyleValue1" id="mMW-vz-P7n">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mMW-vz-P7n" id="Pgi-nb-LwK">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -920,10 +921,10 @@ Internet traffic will be routed through it.</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="body" rowHeight="133" id="5iK-Em-egc">
-                                        <rect key="frame" x="0.0" y="99.5" width="375" height="133"/>
+                                        <rect key="frame" x="0.0" y="100" width="375" height="133"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5iK-Em-egc" id="Emg-va-kh6">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="132.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="132"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nau-aB-yzt">

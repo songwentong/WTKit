@@ -37,7 +37,7 @@ class ViewController: UIViewController{
     func configModel(){
         dataList.append(["title":"GET","segue":"requestDemo"])
         dataList.append(["title":"POST","segue":"requestDemo"])
-        dataList.append(["title":"GET/POST request","segue":"get"])
+//        dataList.append(["title":"GET/POST request","segue":"get"])
         //        dataList.append(["title":"POST请求","segue":"post"])
         //        dataList.append(["title":"Image upload","segue":"uploadImage"])
         dataList.append(["title":"Image download","segue":"imageDownload"])
