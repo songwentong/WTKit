@@ -28,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         WTKit.WTPrint("hello world(wtprint)")
         WTKit.WTLog("hello world(wtlog)")
         
+        
+//        print("\(0.1 + 0.2)")
 //        let task = WTKit.dataTask(with: "http://www.aa.com");
 //        print("\(String(describing: task.dataTask.originalRequest?.httpMethod))")
 //        print("\(34.6-34)")

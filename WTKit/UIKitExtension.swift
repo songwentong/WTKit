@@ -12,6 +12,7 @@ import UIKit
 import ImageIO
 public typealias imageHandler = ((UIImage?,Error?)->Void)
 @available(iOS 2.0, *)
+
 extension UIColor{
     
     /*!
@@ -965,6 +966,8 @@ public class WTNetworkActivityIndicatorManager{
         }
     }
 }
+    
+
 #endif
 
 

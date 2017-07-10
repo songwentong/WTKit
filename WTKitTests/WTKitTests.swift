@@ -19,7 +19,26 @@ class WTKitTests: XCTestCase {
     func testWTNetWork(){
         let task = WTKit.dataTask(with: "https://www.apple.com")
         let httpMethod = task.originTask.originalRequest?.httpMethod
-        print("\(httpMethod)")
+        print("\(String(describing: httpMethod))")
+        
+    }
+    
+    func testBubbleSort(){
+        WTPrint("qweqwe")
+        let ints = [1,2,3,0]
+        print("bubbleSort:\(bubbleSort(array:ints))")
+    }
+    //插入排序
+    func testInsertionSort(){
+        print("insert sort: \(insertionSort(array: [3,0,1,2])) ")
+    }
+    //选择排序
+    func testSelectionSort(){
+        print("selection sort \(selectionSort(array:[3,0,1,2]))")
+    }
+    //快速排序
+    func testQuickSort(){
+        
     }
     
     func testjson(){
