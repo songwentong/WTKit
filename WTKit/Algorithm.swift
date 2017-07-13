@@ -7,7 +7,7 @@
 //
 
 import Foundation
-//sort
+//冒泡
 public func bubbleSort(array:[Int])->[Int]{
     var temp:Int
     var copyOfArray = array;
@@ -59,7 +59,6 @@ public func selectionSort(array:[Int])->[Int]{
     }
     return result
 }
-
 //降序的快速排序
 func quickSort(array:[Int], left:Int, right:Int){
     var copyOfArray = array
