@@ -37,8 +37,6 @@
 		E1EDED111E9F4F7B00DDC372 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* JSONModel.swift */; };
 		E1EDED121E9F4F7B00DDC372 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E1EDED131E9F4F7B00DDC372 /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11797601E9B271D001257AB /* WTVersionTracking.swift */; };
-		E1EDED151E9F4F7B00DDC372 /* WTReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */; };
-		E1EDED161E9F4F7B00DDC372 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
 		E1EDED171E9F4F7B00DDC372 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
 		E1EDED181E9F4F7B00DDC372 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2841E95EBD80042CBE1 /* Chart.swift */; };
 		E1EDED221E9F4FCA00DDC372 /* WTKitMacOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E1EDED201E9F4FCA00DDC372 /* WTKitMacOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -50,9 +48,6 @@
 		E1EDED2D1E9F4FD600DDC372 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* JSONModel.swift */; };
 		E1EDED2E1E9F4FD600DDC372 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E1EDED2F1E9F4FD600DDC372 /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11797601E9B271D001257AB /* WTVersionTracking.swift */; };
-		E1EDED311E9F4FD600DDC372 /* WTReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */; };
-		E1EDED321E9F4FD600DDC372 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
-		E1EDED331E9F4FD600DDC372 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
 		E1EDED341E9F4FD600DDC372 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2841E95EBD80042CBE1 /* Chart.swift */; };
 		E1EDED5A1E9F506F00DDC372 /* WTKitTVOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E1EDED581E9F506F00DDC372 /* WTKitTVOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1EDED5E1E9F507900DDC372 /* Hud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8E75C1E7A8465009F548A /* Hud.swift */; };
@@ -64,8 +59,6 @@
 		E1EDED641E9F507900DDC372 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* JSONModel.swift */; };
 		E1EDED651E9F507900DDC372 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E1EDED661E9F507900DDC372 /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11797601E9B271D001257AB /* WTVersionTracking.swift */; };
-		E1EDED671E9F507900DDC372 /* WTReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */; };
-		E1EDED681E9F507900DDC372 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
 		E1EDED691E9F507900DDC372 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
 		E1EDED6A1E9F507900DDC372 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2841E95EBD80042CBE1 /* Chart.swift */; };
 /* End PBXBuildFile section */
@@ -569,8 +562,6 @@
 				E1EDED111E9F4F7B00DDC372 /* JSONModel.swift in Sources */,
 				E1EDED121E9F4F7B00DDC372 /* FoundationExtension.swift in Sources */,
 				E1EDED131E9F4F7B00DDC372 /* WTVersionTracking.swift in Sources */,
-				E1EDED151E9F4F7B00DDC372 /* WTReachability.swift in Sources */,
-				E1EDED161E9F4F7B00DDC372 /* CustomExtension.swift in Sources */,
 				E1EDED171E9F4F7B00DDC372 /* UIKitExtension.swift in Sources */,
 				E1EDED181E9F4F7B00DDC372 /* Chart.swift in Sources */,
 			);
@@ -588,9 +579,6 @@
 				E1EDED2D1E9F4FD600DDC372 /* JSONModel.swift in Sources */,
 				E1EDED2E1E9F4FD600DDC372 /* FoundationExtension.swift in Sources */,
 				E1EDED2F1E9F4FD600DDC372 /* WTVersionTracking.swift in Sources */,
-				E1EDED311E9F4FD600DDC372 /* WTReachability.swift in Sources */,
-				E1EDED321E9F4FD600DDC372 /* CustomExtension.swift in Sources */,
-				E1EDED331E9F4FD600DDC372 /* UIKitExtension.swift in Sources */,
 				E1EDED341E9F4FD600DDC372 /* Chart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -608,8 +596,6 @@
 				E1EDED641E9F507900DDC372 /* JSONModel.swift in Sources */,
 				E1EDED651E9F507900DDC372 /* FoundationExtension.swift in Sources */,
 				E1EDED661E9F507900DDC372 /* WTVersionTracking.swift in Sources */,
-				E1EDED671E9F507900DDC372 /* WTReachability.swift in Sources */,
-				E1EDED681E9F507900DDC372 /* CustomExtension.swift in Sources */,
 				E1EDED691E9F507900DDC372 /* UIKitExtension.swift in Sources */,
 				E1EDED6A1E9F507900DDC372 /* Chart.swift in Sources */,
 			);
