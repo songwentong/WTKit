@@ -10,13 +10,14 @@ import UIKit
 //二维码扫描
 import WTKit
 import AVFoundation
-class QRCodeScanVC: UIViewController {
+class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelegate {
     
     deinit{
         WTLog("deinit")
     }
     //session
     let sessionQueue = OperationQueue.init()
+    let label = UILabel()
     var permission:AVAuthorizationStatus = .notDetermined
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,16 @@ class QRCodeScanVC: UIViewController {
             self?.configSession()
         }
         
+    }
+    func addLabel(){
+        let frame = self.view.frame
+        label.frame = CGRect.init(x: 0, y: frame.height - 40, width: frame.width, height: 40)
+        label.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+//        label.backgroundColor = UIColor.red
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.text = "scanning..."
+        self.view.addSubview(label)
     }
     
     func checkPermission(){
@@ -72,11 +83,19 @@ class QRCodeScanVC: UIViewController {
         }
         //
         
+        let output:AVCaptureMetadataOutput = AVCaptureMetadataOutput.init()
+        output.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+        //let availableMetadataObjectTypes = output.availableMetadataObjectTypes;
+        //WTLog("availableMetadataObjectTypes:\(String(describing: availableMetadataObjectTypes))")
+        session.addOutput(output)
+        output.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+        
         OperationQueue.main.addOperation { 
             if let previewLayer = AVCaptureVideoPreviewLayer.init(session: session){
                 previewLayer.bounds = self.view.bounds
                 previewLayer.position = self.view.layer.position
                 self.view.layer.addSublayer(previewLayer)
+                self.addLabel()
             }
         }
         
@@ -97,5 +116,15 @@ class QRCodeScanVC: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    public func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!){
+        if metadataObjects.count > 0 {
+            if let qrCode:AVMetadataMachineReadableCodeObject = metadataObjects[0] as? AVMetadataMachineReadableCodeObject{
+                print("\(qrCode.stringValue)")
+                label.text = qrCode.stringValue
+            }
+        }
+//        WTLog("captureOutput:\(captureOutput) metadataObjects:\(metadataObjects)  connection:\(connection)")
+    }
 
 }
