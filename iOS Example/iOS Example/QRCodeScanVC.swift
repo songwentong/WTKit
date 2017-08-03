@@ -18,6 +18,8 @@ class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelegate {
     //session
     let sessionQueue = OperationQueue.init()
     let label = UILabel()
+    //AVCaptureSession
+    let session:AVCaptureSession = AVCaptureSession.init()
     var permission:AVAuthorizationStatus = .notDetermined
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,10 @@ class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelegate {
             self?.configSession()
         }
         
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        stopSession()
+        super.viewWillDisappear(animated)
     }
     func addLabel(){
         let frame = self.view.frame
@@ -67,7 +73,7 @@ class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelegate {
         if permission != .authorized {
             return
         }
-        let session:AVCaptureSession = AVCaptureSession.init()
+        
         session.beginConfiguration()
         let videoDevice:AVCaptureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         do{
@@ -85,13 +91,13 @@ class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelegate {
         
         let output:AVCaptureMetadataOutput = AVCaptureMetadataOutput.init()
         output.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-        //let availableMetadataObjectTypes = output.availableMetadataObjectTypes;
-        //WTLog("availableMetadataObjectTypes:\(String(describing: availableMetadataObjectTypes))")
         session.addOutput(output)
+        let availableMetadataObjectTypes = output.availableMetadataObjectTypes;
+        WTLog("availableMetadataObjectTypes:\(String(describing: availableMetadataObjectTypes))")
         output.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
         
         OperationQueue.main.addOperation { 
-            if let previewLayer = AVCaptureVideoPreviewLayer.init(session: session){
+            if let previewLayer = AVCaptureVideoPreviewLayer.init(session: self.session){
                 previewLayer.bounds = self.view.bounds
                 previewLayer.position = self.view.layer.position
                 self.view.layer.addSublayer(previewLayer)
@@ -101,6 +107,14 @@ class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelegate {
         
         session.commitConfiguration()
         session.startRunning()
+    }
+    func stopSession(){
+        sessionQueue.addOperation {[weak self] in
+            let isRunning =  self?.session.isRunning
+            if isRunning == true {
+                 self?.session.stopRunning()
+            }
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
