@@ -46,7 +46,7 @@ class ViewController: UIViewController{
         dataList.append(["title":"HUD Demo","segue":"hud"])
         dataList.append(["title":"COLOR create","segue":"color"])
         dataList.append(["title":"Pull To Refresh","segue":"TableRefreshVC"])
-        //        dataList.append(["title":"二维码扫描","segue":"QRCodeScanVC"])
+        dataList.append(["title":"二维码扫描","segue":"QRCodeScanVC"])
         dataList.append(["title":"JSONModel","segue":"modelDemo"])
 //        dataList.append(["title":"ChartView Demo (under development)","segue":"chart"])
         //        dataList.append(["title":"Reachability","segue":"reachability"])

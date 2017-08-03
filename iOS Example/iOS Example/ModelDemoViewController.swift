@@ -28,9 +28,8 @@ class ModelDemoViewController: UIViewController,UITextViewDelegate {
                 jsonObject = JSONSerialization.WTJSONObject(with: data)! as AnyObject
                 jsonTextView.text = jsonString
 
-                
-            }catch{
-                
+            }catch let error as NSError{
+                print("\(error)")
             }
         }
         
