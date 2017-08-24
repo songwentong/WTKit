@@ -32,6 +32,7 @@
 		E19F49B31EA759BB00842DE0 /* RequestDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16AE9CD1EA5E691009080DE /* RequestDemoVC.swift */; };
 		E1A7D2C61E0BA17D00CF9A69 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */; };
 		E1A7D2C71E0BA17D00CF9A69 /* WTKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1CDD7C01F4A762600A18D58 /* ImageDownload.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1CDD7BE1F4A762600A18D58 /* ImageDownload.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,7 @@
 		E18B9F9E1E77D25B0013EFA8 /* JSONData */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JSONData; sourceTree = "<group>"; };
 		E18B9FA81E77D4EC0013EFA8 /* WeatherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		E1A7D2AB1E0B82D900CF9A69 /* WTKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WTKit.xcodeproj; path = ../WTKit.xcodeproj; sourceTree = "<group>"; };
+		E1CDD7BF1F4A762600A18D58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ImageDownload.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 			children = (
 				E15D28E81DFAB4620042E678 /* Main.storyboard */,
 				E15D28E61DFAB4620042E678 /* LaunchScreen.storyboard */,
+				E1CDD7BE1F4A762600A18D58 /* ImageDownload.storyboard */,
 			);
 			path = Base.lproj;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1CDD7C01F4A762600A18D58 /* ImageDownload.storyboard in Resources */,
 				E15D29051DFAB4620042E678 /* Swift使用规范 in Resources */,
 				E18B9F9F1E77D25B0013EFA8 /* JSONData in Resources */,
 				E15D28FA1DFAB4620042E678 /* Main.storyboard in Resources */,
@@ -394,6 +398,14 @@
 				E15D28E91DFAB4620042E678 /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E1CDD7BE1F4A762600A18D58 /* ImageDownload.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1CDD7BF1F4A762600A18D58 /* Base */,
+			);
+			name = ImageDownload.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

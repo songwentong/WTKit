@@ -7,7 +7,7 @@
 //  https://github.com/swtlovewtt/WTKit
 //
 import Foundation
-#if os(iOS)
+
 import ImageIO
 import UIKit
 public enum WTImageFormat:Int{
@@ -459,4 +459,4 @@ extension UIImageView{
     
     
 }
-#endif
+//TODO UIImageView WebP支持
