@@ -44,18 +44,23 @@ class ViewController: NSViewController {
             let parseJsonResult = try JSONSerialization.jsonObject(with: (textView.string?.data(using: .utf8)!)!, options: [])
             //            print("JSON 合法")
             if let obj = parseJsonResult as? NSObject {
-                let path = pathTextField.cell?.stringValue
-                let className = modelTextField.cell?.stringValue
-                
-                let filePath = path! + "/" + className! + ".swift"
-                let modelString = obj.WTSwiftModelString(className!);
-                do {
-                    try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
-                    print("写文件成功,请在桌面查看")
-                }catch{
-                    print("写文件失败")
+                if let cell1 = pathTextField.cell {
+                    if let cell2 = modelTextField.cell{
+                        let path = cell1.stringValue
+                        let className = cell2.stringValue
+                        
+                        let filePath = path + "/" + className + ".swift"
+                        let modelString = obj.WTSwiftModelString(className);
+                        do {
+                            try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
+                            print("写文件成功,请在桌面查看")
+                        }catch{
+                            print("写文件失败")
+                        }
+
+                    }
                 }
-            }else{
+                            }else{
                 print("不是NSObject")
             }
         }catch{
