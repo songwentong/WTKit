@@ -1,0 +1,73 @@
+//
+//  ViewController.swift
+//  ModelMaker
+//
+//  Created by SongWentong on 24/08/2017.
+//  Copyright © 2017 songwentong. All rights reserved.
+//
+
+import Cocoa
+import WTKitMacOS
+class ViewController: NSViewController {
+
+    @IBOutlet weak var modelTextField: NSTextField!
+    @IBOutlet weak var pathTextField: NSTextField!
+    @IBOutlet var textView: NSTextView!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+        
+        var home = NSHomeDirectory()
+        home = home + "/Desktop"
+        pathTextField.cell?.stringValue = home
+        print("\(home)")
+        modelTextField.cell?.stringValue = "WTModel"
+        
+        
+        if let url:URL = Bundle.main.url(forResource: "JSONData", withExtension: nil) {
+            do{
+                let data = try Data.init(contentsOf: url)
+                let string = String.init(data: data, encoding: .utf8)!
+                //jsonObject = JSONSerialization.WTJSONObject(with: data)! as AnyObject
+                //jsonTextView.text = jsonString
+                textView.string = string
+            }catch let error as NSError{
+                print("\(error)")
+            }
+        }
+    }
+
+    //生成
+    @IBAction func createButton(_ sender: Any) {
+        do {
+            let parseJsonResult = try JSONSerialization.jsonObject(with: (textView.string?.data(using: .utf8)!)!, options: [])
+            //            print("JSON 合法")
+            if let obj = parseJsonResult as? NSObject {
+                let path = pathTextField.cell?.stringValue
+                let className = modelTextField.cell?.stringValue
+                
+                let filePath = path! + "/" + className! + ".swift"
+                let modelString = obj.WTSwiftModelString(className!);
+                do {
+                    try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
+                    print("写文件成功,请在桌面查看")
+                }catch{
+                    print("写文件失败")
+                }
+            }else{
+                print("不是NSObject")
+            }
+        }catch{
+            print("JSON 不合法")
+        }
+    }
+    override var representedObject: Any? {
+        didSet {
+        // Update the view, if already loaded.
+        }
+    }
+
+
+}
+
