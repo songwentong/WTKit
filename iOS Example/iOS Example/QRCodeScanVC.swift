@@ -10,7 +10,7 @@ import UIKit
 //二维码扫描
 import WTKit
 import AVFoundation
-class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelegate {
+public class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelegate {
     
     deinit{
         WTLog("deinit")
@@ -21,7 +21,7 @@ class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelegate {
     //AVCaptureSession
     let session:AVCaptureSession = AVCaptureSession.init()
     var permission:AVAuthorizationStatus = .notDetermined
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         checkPermission()
         sessionQueue.addOperation { [weak self] in
@@ -29,17 +29,18 @@ class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelegate {
         }
         
     }
-    override func viewWillDisappear(_ animated: Bool) {
+    override public func viewWillDisappear(_ animated: Bool) {
         stopSession()
         super.viewWillDisappear(animated)
     }
     func addLabel(){
         let frame = self.view.frame
-        label.frame = CGRect.init(x: 0, y: frame.height - 40, width: frame.width, height: 40)
+        label.frame = CGRect.init(x: 0, y: 0, width: frame.width, height: frame.height)
         label.backgroundColor = UIColor.black.withAlphaComponent(0.3)
 //        label.backgroundColor = UIColor.red
         label.textAlignment = .center
         label.textColor = UIColor.white
+        label.numberOfLines = 0;
         label.text = "scanning..."
         self.view.addSubview(label)
     }
@@ -116,7 +117,7 @@ class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelegate {
             }
         }
     }
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
