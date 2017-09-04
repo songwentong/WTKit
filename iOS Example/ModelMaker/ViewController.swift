@@ -11,12 +11,19 @@ import WTKitMacOS
 class ViewController: NSViewController {
 
     @IBOutlet weak var modelTextField: NSTextField!
+    @IBOutlet weak var statusTextField: NSTextField!
     @IBOutlet weak var pathTextField: NSTextField!
     @IBOutlet var textView: NSTextView!
+    @IBOutlet weak var statusLightView: NSView!
+    
+    var isJSON = false
+    var jsonError:NSError? = nil;
+    //var is
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
         
         var home = NSHomeDirectory()
         home = home + "/Desktop"
@@ -36,6 +43,8 @@ class ViewController: NSViewController {
                 print("\(error)")
             }
         }
+        textView.delegate = self;
+        checkJSONText()
     }
 
     //生成
@@ -75,4 +84,45 @@ class ViewController: NSViewController {
 
 
 }
-
+extension ViewController:NSTextViewDelegate{
+    
+    public func textDidChange(_ notification: Notification){
+        print("notification:\(notification)")
+        jsonError = nil
+        if let a:NSTextView = notification.object as? NSTextView {
+            if a == textView {
+                checkJSONText()
+            }
+        }
+        
+    }
+    public func checkJSONText(){
+        if let string = textView.string {
+            if let data = string.data(using: .utf8){
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+                    isJSON = true
+                    print("json:\(json)")
+                } catch let error as NSError {
+                    isJSON = false
+                    jsonError = error
+                    print(error)
+                }
+            }
+        }
+        updateLight()
+    }
+    public func updateLight(){
+        if isJSON {
+            statusLightView.layer?.backgroundColor = NSColor.green.cgColor
+            statusTextField.cell?.stringValue = "合法的JSON"
+        }else{
+            statusLightView.layer?.backgroundColor = NSColor.red.cgColor
+            if let userInfo = jsonError?.userInfo {
+                statusTextField.cell?.stringValue = "error:\(userInfo))"
+            }
+            
+        }
+        statusLightView.layer?.cornerRadius = 8
+    }
+}
