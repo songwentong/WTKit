@@ -93,7 +93,7 @@ class ModelDemoViewController: UIViewController,UITextViewDelegate {
         
     }
 
-    func textFieldDidEdit(_ tf:UITextField)->Void{
+    @objc func textFieldDidEdit(_ tf:UITextField)->Void{
         if let alertController = self.presentedViewController as? UIAlertController{
             if tf.text?.length == 0 {
                 alertController.actions[0].isEnabled = false

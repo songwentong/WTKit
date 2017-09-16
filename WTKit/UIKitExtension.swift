@@ -316,7 +316,7 @@ extension UIControl{
             WTLog("deinit")
         }
         
-        func run(_ sender:UIControl){
+        @objc func run(_ sender:UIControl){
             if block != nil{
                 block?(sender)
             }
@@ -826,7 +826,7 @@ public class FPSLabel:UIView{
         
     }
     
-    public func wtdisplay(ca:CADisplayLink){
+    @objc public func wtdisplay(ca:CADisplayLink){
         let fps:Double = Double(1.0) / Double(ca.duration)
         var percent:Double = 0
         var preferredFramesPerSecond:Double = 0

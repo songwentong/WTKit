@@ -47,14 +47,14 @@ public class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelega
     
     func checkPermission(){
         
-        let authorizationStatus:AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        let authorizationStatus:AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         switch authorizationStatus {
         case .authorized:
             permission = .authorized
             break
         case .notDetermined:
             sessionQueue.isSuspended = true
-            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: { [weak self](flag) in
+            AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: { [weak self](flag) in
                 if flag{
                     self?.permission = .authorized
                 }else{
@@ -76,7 +76,7 @@ public class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelega
         }
         
         session.beginConfiguration()
-        let videoDevice:AVCaptureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        let videoDevice:AVCaptureDevice = AVCaptureDevice.default(for: AVMediaType.video)!
         do{
             let input = try AVCaptureDeviceInput.init(device: videoDevice)
             if session.canAddInput(input) {
@@ -95,7 +95,7 @@ public class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelega
         session.addOutput(output)
         let availableMetadataObjectTypes = output.availableMetadataObjectTypes;
         WTLog("availableMetadataObjectTypes:\(String(describing: availableMetadataObjectTypes))")
-        output.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+        output.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
         
         OperationQueue.main.addOperation { 
             if let previewLayer = AVCaptureVideoPreviewLayer.init(session: self.session){
@@ -132,7 +132,7 @@ public class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelega
     }
     */
     
-    public func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!){
+    public func metadataOutput(captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection){
         if metadataObjects.count > 0 {
             if let qrCode:AVMetadataMachineReadableCodeObject = metadataObjects[0] as? AVMetadataMachineReadableCodeObject{
                 print("\(qrCode.stringValue)")

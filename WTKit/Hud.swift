@@ -44,7 +44,7 @@ public class WTTipView:UIView{
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
         var tipHeght:CGFloat = 30
-        let size = tip.boundingRect(with: CGSize(width: 300, height: 60), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 14)], context: nil)
+        let size = tip.boundingRect(with: CGSize(width: 300, height: 60), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14)], context: nil)
         var width = size.width
         let height = size.height
         

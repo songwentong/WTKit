@@ -113,11 +113,11 @@ class POSTParamatersVC: UIViewController,UITableViewDataSource,UITableViewDelega
         tableView.endUpdates()
     }
     
-    func add(_ sender:UIButton?){
+    @objc func add(_ sender:UIButton?){
         addNewParameters()
     }
     
-    func remove(_ sender:UIButton){
+    @objc func remove(_ sender:UIButton){
         let cell:UITableViewCell = sender.superview?.superview as! UITableViewCell
         if let indexPath:IndexPath = tableView.indexPath(for: cell) {
             parameters.remove(at: (indexPath as NSIndexPath).row)

@@ -28,7 +28,7 @@ open class AnimationImageVIew: UIImageView {
         return aLink;
     }()
     
-    func play(_ link:CADisplayLink) {
+    @objc func play(_ link:CADisplayLink) {
         if allFrameCount == 0{
             return 
         }

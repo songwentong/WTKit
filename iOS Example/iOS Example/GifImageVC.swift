@@ -63,7 +63,7 @@ class GifImageVC: UIViewController {
 //        }
 //        
     }
-    func imageTap(_ geture:UITapGestureRecognizer) {
+    @objc func imageTap(_ geture:UITapGestureRecognizer) {
         if imageView.isAnimating {
             imageView.stopAnimating()
         }else{

@@ -37,7 +37,7 @@ class HudDemoViewController: UIViewController,UITableViewDataSource,UITableViewD
 //        tableView.contentInset = UIEdgeInsetsMake(100, 0, 0, 0);
     }
 
-    func addProgress(){
+    @objc func addProgress(){
         progress += CGFloat(arc4random()%100)/200
         let hud = WTHudView.hudViewForView(view)
         if (hud != nil) {

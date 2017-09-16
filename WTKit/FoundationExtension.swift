@@ -177,14 +177,14 @@ extension NSObject{
      交换实例方法
      */
     public static func exchangeInstanceImplementations(_ func1:Selector , func2:Selector){
-        method_exchangeImplementations(class_getInstanceMethod(self, func1), class_getInstanceMethod(self, func2));
+        method_exchangeImplementations(class_getInstanceMethod(self, func1)!, class_getInstanceMethod(self, func2)!);
     }
     
     /*!
      交换类方法
      */
     public static func exchangeClassImplementations(_ func1:Selector , func2:Selector){
-        method_exchangeImplementations(class_getClassMethod(self, func1), class_getClassMethod(self, func2));
+        method_exchangeImplementations(class_getClassMethod(self, func1)!, class_getClassMethod(self, func2)!);
     }
     
     
@@ -643,7 +643,7 @@ extension String{
         get{
             let startIndex = self.characters.index(self.startIndex, offsetBy: range.lowerBound)
             let endIndex = self.characters.index(self.startIndex, offsetBy: range.upperBound);
-            return self[Range(startIndex..<endIndex)]
+            return String(self[Range(startIndex..<endIndex)])
         }
     }
     public var length:Int{
