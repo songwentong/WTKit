@@ -42,11 +42,12 @@ extension NSObject {
     @objc public func wt(travel inputData:Any?){
         if let dictionary = inputData as? [String:AnyObject] {
             var outCount:UInt32 = 0;
-            let plist:UnsafeMutablePointer<objc_property_t?> = class_copyPropertyList(self.classForCoder,&outCount)
+            let plist:UnsafeMutablePointer<objc_property_t>? = class_copyPropertyList(self.classForCoder,&outCount)
+            
 
             //遍历属性
             for i in 0..<outCount{
-                let property:objc_property_t = plist[Int(i)]!
+                let property:objc_property_t = plist![Int(i)]
                 let propertygetName:UnsafePointer<Int8> = property_getName(property)
                 let propertygetAttributes:UnsafePointer<Int8> = property_getAttributes(property)!
                 let propertygetNameString:String = String(cString: propertygetName)
@@ -165,11 +166,11 @@ extension NSObject {
         
             var result = [String:Any]()
             var outCount:UInt32 = 0;
-            let plist:UnsafeMutablePointer<objc_property_t?> = class_copyPropertyList(self.classForCoder,&outCount)
+            let plist:UnsafeMutablePointer<objc_property_t>? = class_copyPropertyList(self.classForCoder,&outCount)
             
             //遍历属性
             for i in 0..<outCount{
-                let property:objc_property_t = plist[Int(i)]!
+                let property:objc_property_t = plist![Int(i)]
 //                let propertygetName:UnsafePointer<Int8> = property_getName(property)
                 let propertygetAttributes:UnsafePointer<Int8> = property_getAttributes(property)!
 //                let propertygetNameString:String = String(cString: propertygetName)

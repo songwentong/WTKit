@@ -97,13 +97,14 @@ public class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelega
         WTLog("availableMetadataObjectTypes:\(String(describing: availableMetadataObjectTypes))")
         output.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
         
-        OperationQueue.main.addOperation { 
-            if let previewLayer = AVCaptureVideoPreviewLayer.init(session: self.session){
+        OperationQueue.main.addOperation {
+            let previewLayer = AVCaptureVideoPreviewLayer.init(session: self.session)
+            
                 previewLayer.bounds = self.view.bounds
                 previewLayer.position = self.view.layer.position
                 self.view.layer.addSublayer(previewLayer)
                 self.addLabel()
-            }
+            
         }
         
         session.commitConfiguration()

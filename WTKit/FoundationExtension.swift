@@ -688,7 +688,7 @@ extension String{
     /*!
      *  用于计算文字高度
      */
-    public func boundingRectWithSize(_ size: CGSize, options: NSStringDrawingOptions, attributes: [String : AnyObject]?, context: NSStringDrawingContext?) -> CGRect{
+    public func boundingRectWithSize(_ size: CGSize, options: NSStringDrawingOptions, attributes: [NSAttributedStringKey : AnyObject]?, context: NSStringDrawingContext?) -> CGRect{
         let string:NSString = self as NSString
         return string.boundingRect(with: size, options: options, attributes: attributes, context: context)
     }
