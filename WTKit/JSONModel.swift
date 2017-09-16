@@ -27,7 +27,7 @@ import Foundation
 public class SWTModel: NSObject{
     
 }
-extension NSObject {
+@objc extension NSObject {
     
     
     public func travelWTJSONModel(with data:Data){
@@ -40,7 +40,7 @@ extension NSObject {
     /// null并没有读取,因为这个类型是没有意义的
     /// - Parameter inputData: 解析过的json数据
     @objc public func wt(travel inputData:Any?){
-        if let dictionary = inputData as? [String:AnyObject] {
+        if let dictionary = inputData as? [String:Any] {
             var outCount:UInt32 = 0;
             let plist:UnsafeMutablePointer<objc_property_t>? = class_copyPropertyList(self.classForCoder,&outCount)
             
@@ -56,6 +56,10 @@ extension NSObject {
                 var className = ""
                 var instanceVariableName = ""
                 for (item)in propertygetAttributesArray{
+                    if item.prefix(1) == "T"{
+                        
+                    }
+                    //item example:   "T@\"NSNumber\""   T->property type
                     if item.substring(to: item.index(item.startIndex, offsetBy: 1)) == "T" {
                         //类型
                         let typeString:String = item
@@ -65,6 +69,7 @@ extension NSObject {
                             className = className.removingPercentEncoding!
                         }
                     }
+                    //item example: V + property name
                     if item.substring(to: item.index(item.startIndex, offsetBy: 1)) == "V"{
                         //字段名
                         let typeString:String = item
@@ -94,25 +99,38 @@ extension NSObject {
                         self.setValue(number, forKey: propertygetNameString)
                     }
                 }else if(className).contains("NSArray"){
-                    
+                    //array
                     if let array = dictionary[instanceVariableName] as? [AnyObject] {
                         let selector = #selector(WTJSONModelProtocol.WTJSONModelClass(for:))
                         if self.responds(to: selector){
                             var myArray = [AnyObject]()
                             for item in array{
-                                let instance = self.perform(selector, with: instanceVariableName).takeUnretainedValue()
-                                instance.wt(travel: item)
-                                myArray.append(instance)
+                                if self.perform(selector, with: instanceVariableName) != nil{
+                                    let instance = self.perform(selector, with: instanceVariableName).takeUnretainedValue()
+                                    instance.wt(travel: item)
+                                    myArray.append(instance)
+                                }else{
+                                    myArray.append(item)
+                                }
+                                
                             }
                             self.setValue(myArray, forKey: instanceVariableName)
                         }
                     }
                 }else {
+                    //dictionary
                     let selector = #selector(WTJSONModelProtocol.WTJSONModelClass(for:))
                     if self.responds(to: selector){
-                        let instance = self.perform(selector, with: instanceVariableName).takeUnretainedValue()
-                        instance.wt(travel: dictionary[instanceVariableName])
-                        self.setValue(instance, forKey: instanceVariableName)
+                        if self.perform(selector, with: instanceVariableName) != nil{
+                            let instance = self.perform(selector, with: instanceVariableName).takeUnretainedValue()
+                            instance.wt(travel: dictionary[instanceVariableName])
+                            self.setValue(instance, forKey: instanceVariableName)
+                        }else{
+                            self.setValue(dictionary[instanceVariableName], forKey: instanceVariableName)
+                            
+                            //self.setValue(dictionary[instanceVariableName]), forKey: instanceVariableName)
+                        }
+                        
                     }
                 }
                 }
@@ -179,6 +197,8 @@ extension NSObject {
                 var className = ""
                 var instanceVariableName = ""
                 for (item)in propertygetAttributesArray{
+                    
+                    //type
                     if item.substring(to: item.index(item.startIndex, offsetBy: 1)) == "T" {
                         //类型
                         let typeString:String = item
@@ -188,6 +208,7 @@ extension NSObject {
                             className = className.removingPercentEncoding!
                         }
                     }
+                    //name
                     if item.substring(to: item.index(item.startIndex, offsetBy: 1)) == "V"{
                         //字段名
                         let typeString:String = item

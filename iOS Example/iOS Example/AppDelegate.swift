@@ -48,8 +48,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("\(self.isMember(of: NSObject.classForCoder()))")//false
         print("\(self.isKind(of: NSObject.classForCoder()))")//true
          */
-
+        testUseModel()
         return true
+    }
+    
+    
+    func testUseModel() -> Void {
+        
+        guard let path = Bundle.main.path(forResource: "JSONData", ofType: "", inDirectory: "") else {
+            //如果找不到path就return
+            return
+        }
+        print("path:\(path)")
+        guard let data = try? Data.init(contentsOf: URL.init(fileURLWithPath: path)) else {
+            return;
+        }
+        print("data:\(data)")
+        let model = WeatherModel.init()
+        model.travelWTJSONModel(with: data)
+        print("model:\(model)")
+        
+        
+        
+        
     }
     
    

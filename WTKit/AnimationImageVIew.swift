@@ -179,7 +179,7 @@ public class WTImage:UIImage{
         fatalError("init(coder:) has not been implemented")
     }
     
-    required convenience public init(imageLiteralResourceName name: String) {
+ @objc required convenience  public init(imageLiteralResourceName name: String) {
         fatalError("init(imageLiteral:) has not been implemented")
     }
 

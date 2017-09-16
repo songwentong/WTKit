@@ -8,20 +8,20 @@
 
 import WTKit
 import UIKit
-open class WeatherModel:NSObject{
-    var tz:NSNumber?
-    var testboolean:NSNumber?
-    var testdict:[String:Any]?
-    var name:String?
-    var id:String?
-    var testnull:NSNull?
-    var tz_name:String?
-    var area:String?
-    var Array:[Any]?
-    var province:String?
+@objc open class WeatherModel:NSObject{
+@objc var tz:NSNumber?
+    @objc var testboolean:NSNumber?
+    @objc var testdict:[String:Any]?
+    @objc var name:String?
+    @objc var id:String?
+    @objc var testnull:NSNull?
+    @objc var tz_name:String?
+    @objc var area:String?
+    @objc var Array:[Any]?
+    @objc var province:String?
 }
-extension WeatherModel:WTJSONModelProtocol{
-    public func WTJSONModelClass(for property:String)->AnyObject?{
+@objc extension WeatherModel:WTJSONModelProtocol{
+    @objc public func WTJSONModelClass(for property:String)->AnyObject?{
         return nil
     }
 }
