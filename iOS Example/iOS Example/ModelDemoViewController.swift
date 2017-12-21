@@ -13,7 +13,7 @@ class ModelDemoViewController: UIViewController,UITextViewDelegate {
     var segment:UISegmentedControl = UISegmentedControl(items: ["json","property","travel"])
     @IBOutlet weak var titleButton: UIButton!
     var jsonString:String = ""
-    var jsonObject:AnyObject?
+    var jsonObject:Any?
     var className:String? = "ClassName"
     var alertControl:UIAlertController?
     @IBOutlet weak var jsonTextView: UITextView!
@@ -25,7 +25,7 @@ class ModelDemoViewController: UIViewController,UITextViewDelegate {
             do{
                 let data = try Data.init(contentsOf: url)
                 jsonString = String.init(data: data, encoding: .utf8)!
-                jsonObject = JSONSerialization.WTJSONObject(with: data)! as AnyObject
+                jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
                 jsonTextView.text = jsonString
 
             }catch let error as NSError{
