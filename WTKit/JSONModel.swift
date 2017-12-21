@@ -27,7 +27,7 @@ extension NSObject {
         stringToPrint += "//  site:https://github.com/swtlovewtt/WTKit\n//  Thank you for use my json model maker\n//\n\n"
         stringToPrint += "import WTKit\n"
         stringToPrint += "import UIKit\n"
-        stringToPrint += "open class \(className): NSObject {\n"
+        stringToPrint += "public Codable \(className): Codable {\n"
         if let printObject = self as? [String:AnyObject] {
             for (key,value) in printObject{
                 if let classForCoder = value.classForCoder {

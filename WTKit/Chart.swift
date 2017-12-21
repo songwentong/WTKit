@@ -19,8 +19,10 @@ public enum ChartViewDrawType:Int
 }
 public protocol ChartViewDelegate
 {
-    
+    //optional func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    func chartView(_ chartView:ChartView, showing index:Int)->Void
 }
+
 public protocol ChartViewDataSource
 {
     //values count
@@ -102,7 +104,9 @@ private class ChartViewDataSourceEmptyClass:ChartViewDataSource{
     }
 }
 private class ChartViewDelegateEmptyClass:ChartViewDelegate{
-    
+    func chartView(_ chartView: ChartView, showing index: Int) {
+            
+    }
 }
 //it not finished
 public class ChartView:UIView{

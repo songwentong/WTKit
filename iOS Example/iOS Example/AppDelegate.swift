@@ -64,7 +64,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return;
         }
         print("data:\(data)")
-        //let model = WeatherModel.init()
+        do {
+            let a = try JSONDecoder().decode(WeatherModel.self, from: data)
+            print("\(a)")
+        } catch  {
+            
+        }
+        
         
         
         
