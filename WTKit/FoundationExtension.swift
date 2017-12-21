@@ -615,6 +615,7 @@ extension NSRegularExpression{
     }
 }
 
+
 extension String{
     
     //TODO MD5

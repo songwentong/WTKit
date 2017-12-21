@@ -88,11 +88,8 @@ extension NSObject {
                     }else if let array = value as? [Any] {
                         var myArray = [Any]()
                         for item in array{
-//                            if let itemObject:AnyObject = item as? AnyObject{
-                                if let attemtJSON:AnyObject = (item as AnyObject).WTAttempConvertToJSON as AnyObject? {
-                                    myArray.append(attemtJSON)
-//                                }
-                            }
+                            let object:AnyObject = item as AnyObject
+                            myArray.append(object.WTAttempConvertToJSON())
                         }
                         result.updateValue(myArray, forKey: instanceVariableName)
                     }else{
