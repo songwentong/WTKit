@@ -44,7 +44,7 @@ extension NSObject {
             }
         }
         stringToPrint += "}\n"
-        stringToPrint += "extension \(className):WTJSONModelProtocol{\n"
+        stringToPrint += "extension \(className){\n"
         stringToPrint += "    public func WTJSONModelClass(for property:String)->AnyObject?{\n        return nil\n    }\n"
         stringToPrint += "}"
         return stringToPrint
