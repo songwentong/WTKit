@@ -22,6 +22,14 @@ class WTKitTests: XCTestCase {
         print("\(String(describing: httpMethod))")
         
     }
+    func testNumberType(){
+        //char, short int, int, long int, long long int, float, or double or as a BOOL
+        // “c”, “C”, “s”, “S”, “i”, “I”, “l”, “L”, “q”, “Q”, “f”, and “d”.
+        //1->q    true->c     1.0->d   6766882->q   6766882.1->d   0->q   false->c
+        let number = NSNumber.init(value: false)
+        let type = String.init(cString: number.objCType)
+        print("type:\(type)")
+    }
     
     func testBubbleSort(){
         WTPrint("qweqwe")
@@ -55,9 +63,6 @@ class WTKitTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
-        let data = NSData(contentsOfFile: "/Users/songwentong/Github/WTKit/WTKitTests/JSONData")
-        let jsonObject = JSONSerialization.WTJSONObject(with: data as! Data)
-        print("\(jsonObject)")
     }
     
     func testPerformanceExample() {
