@@ -14,7 +14,6 @@
 		E15D28FA1DFAB4620042E678 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E15D28E81DFAB4620042E678 /* Main.storyboard */; };
 		E15D28FB1DFAB4620042E678 /* ColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28EA1DFAB4620042E678 /* ColorViewController.swift */; };
 		E15D28FC1DFAB4620042E678 /* GetRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28EB1DFAB4620042E678 /* GetRequestViewController.swift */; };
-		E15D28FD1DFAB4620042E678 /* GifImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28EC1DFAB4620042E678 /* GifImageVC.swift */; };
 		E15D28FE1DFAB4620042E678 /* HudDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28ED1DFAB4620042E678 /* HudDemoViewController.swift */; };
 		E15D28FF1DFAB4620042E678 /* ImageDownloadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28EE1DFAB4620042E678 /* ImageDownloadVC.swift */; };
 		E15D29001DFAB4620042E678 /* ImageUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28EF1DFAB4620042E678 /* ImageUploadVC.swift */; };
@@ -128,7 +127,6 @@
 		E15D28E91DFAB4620042E678 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
 		E15D28EA1DFAB4620042E678 /* ColorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorViewController.swift; sourceTree = "<group>"; };
 		E15D28EB1DFAB4620042E678 /* GetRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRequestViewController.swift; sourceTree = "<group>"; };
-		E15D28EC1DFAB4620042E678 /* GifImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifImageVC.swift; sourceTree = "<group>"; };
 		E15D28ED1DFAB4620042E678 /* HudDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudDemoViewController.swift; sourceTree = "<group>"; };
 		E15D28EE1DFAB4620042E678 /* ImageDownloadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloadVC.swift; sourceTree = "<group>"; };
 		E15D28EF1DFAB4620042E678 /* ImageUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadVC.swift; sourceTree = "<group>"; };
@@ -227,7 +225,6 @@
 				E16AE9CD1EA5E691009080DE /* RequestDemoVC.swift */,
 				E15D28EB1DFAB4620042E678 /* GetRequestViewController.swift */,
 				E15D28EA1DFAB4620042E678 /* ColorViewController.swift */,
-				E15D28EC1DFAB4620042E678 /* GifImageVC.swift */,
 				E15D28ED1DFAB4620042E678 /* HudDemoViewController.swift */,
 				E15D28EE1DFAB4620042E678 /* ImageDownloadVC.swift */,
 				E15D28EF1DFAB4620042E678 /* ImageUploadVC.swift */,
@@ -440,7 +437,6 @@
 				E15D28FB1DFAB4620042E678 /* ColorViewController.swift in Sources */,
 				E15CD2871E9631BD0042CBE1 /* ChartDemo.swift in Sources */,
 				E15D29031DFAB4620042E678 /* QRCodeScanVC.swift in Sources */,
-				E15D28FD1DFAB4620042E678 /* GifImageVC.swift in Sources */,
 				E15D28FC1DFAB4620042E678 /* GetRequestViewController.swift in Sources */,
 				E15D29001DFAB4620042E678 /* ImageUploadVC.swift in Sources */,
 				E18061FC1E8E1AF30042247E /* ImageListVC.swift in Sources */,

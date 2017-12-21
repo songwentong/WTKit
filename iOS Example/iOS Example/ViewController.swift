@@ -42,7 +42,7 @@ class ViewController: UIViewController{
         //        dataList.append(["title":"Image upload","segue":"uploadImage"])
         dataList.append(["title":"Image download","segue":"imageDownload"])
         dataList.append(["title":"Image batch download","segue":"imageListVC"]);
-        dataList.append(["title":"Gif Demo","segue":"gif"])
+        //dataList.append(["title":"Gif Demo","segue":"gif"])
         dataList.append(["title":"HUD Demo","segue":"hud"])
         dataList.append(["title":"COLOR create","segue":"color"])
         dataList.append(["title":"Pull To Refresh","segue":"TableRefreshVC"])

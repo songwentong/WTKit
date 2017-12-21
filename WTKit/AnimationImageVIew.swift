@@ -111,6 +111,7 @@ open class AnimationImageVIew: UIImageView {
     
     //重新设置image，变量重新初始化
     private func resetImage(){
+        /*
         self.stopAnimating()
         if let imageSource = (image as! WTImage).iamgeSource!.source{
             self.link.isPaused = true
@@ -127,7 +128,7 @@ open class AnimationImageVIew: UIImageView {
                 link.isPaused = false
             }
         }
-     
+     */
     }
     //MARK:private method
     private func didMove(){
@@ -166,6 +167,7 @@ class ImageSource {
 }
 
 //swift 不可以 as? CGImageSourceRef 类型转换，这里自定义class获取
+    /*
 public class WTImage:UIImage{
     internal var iamgeSource:ImageSource?
 
@@ -184,6 +186,7 @@ public class WTImage:UIImage{
     }
     
 }
+*/
 
 extension CGImageSource{
     func gifPropertiesAtIndex(_ index:Int) -> [String:Double]? {
