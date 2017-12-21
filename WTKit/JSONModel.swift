@@ -11,7 +11,7 @@ extension NSObject {
     
     /// 尝试打印出一个json对应的Model属性
     /// NSArray和NSDictionary可能需要自定义为一个model类型
-    public func WTSwiftModelString(_ className:String = "XXX")->String{
+    public func WTSwiftModelString(with className:String = "XXX", jsonString:String)->String{
         let date:Date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
@@ -21,7 +21,15 @@ extension NSObject {
         stringToPrint += "//\n//  this file is auto create by WTKit on \(dateString).\n"
         stringToPrint += "//  site:https://github.com/swtlovewtt/WTKit\n//  Thank you for use my json model maker\n//\n\n"
         stringToPrint += "public struct \(className): Codable {\n"
-        if let printObject = self as? [String:AnyObject] {
+        var jsonObject:Any? = nil
+        do {
+            if let data = jsonString.data(using: String.Encoding.utf8){
+                jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+            }
+        } catch {
+            
+        }
+        if let printObject = jsonObject as? [String:AnyObject] {
             for (key,value) in printObject{
                 if let classForCoder = value.classForCoder {
                     var string = NSStringFromClass(classForCoder)

@@ -15,6 +15,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var pathTextField: NSTextField!
     @IBOutlet var textView: NSTextView!
     @IBOutlet weak var statusLightView: NSView!
+    @IBOutlet var effect: NSTextView!
+    
     
     var isJSON = false
     var jsonError:NSError? = nil;
@@ -46,6 +48,7 @@ class ViewController: NSViewController {
         textView.delegate = self;
         checkJSONText()
     }
+    
 
     //生成
     @IBAction func createButton(_ sender: Any) {
@@ -59,7 +62,7 @@ class ViewController: NSViewController {
                         let className = cell2.stringValue
                         
                         let filePath = path + "/" + className + ".swift"
-                        let modelString = obj.WTSwiftModelString(className);
+                        let modelString = WTSwiftModelString(with: className, jsonString: textView.string)
                         do {
                             try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
                             print("写文件成功,请在桌面查看")
@@ -102,6 +105,8 @@ extension ViewController:NSTextViewDelegate{
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
                     isJSON = true
+                    let modelString = WTSwiftModelString(with: className, jsonString: textView.string)
+                    effect.string = modelString
                     print("json:\(json)")
                 } catch let error as NSError {
                     isJSON = false
