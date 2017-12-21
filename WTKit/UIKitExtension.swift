@@ -26,13 +26,13 @@ extension UIColor{
         mutableCharSet.formUnion(with: CharacterSet.whitespaces);
         
         
-        let hString = string.trimmingCharacters(in: mutableCharSet as CharacterSet)
+        let hString:String = string.trimmingCharacters(in: mutableCharSet as CharacterSet)
         DEBUGBlock {
             //            NSLog("%@", hString)
         }
         
         
-        switch hString.length {
+        switch hString.count {
         case 0:
             return UIColor.red;
         case 1:

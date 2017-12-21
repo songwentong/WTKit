@@ -179,10 +179,10 @@ public class WTImage:UIImage{
         fatalError("init(coder:) has not been implemented")
     }
     
- @objc required convenience  public init(imageLiteralResourceName name: String) {
-        fatalError("init(imageLiteral:) has not been implemented")
+    required convenience public init(imageLiteralResourceName name: String) {
+        fatalError("init(imageLiteralResourceName:) has not been implemented")
     }
-
+    
 }
 
 extension CGImageSource{

@@ -64,9 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return;
         }
         print("data:\(data)")
-        let model = WeatherModel.init()
-        model.travelWTJSONModel(with: data)
-        print("model:\(model)")
+        //let model = WeatherModel.init()
         
         
         

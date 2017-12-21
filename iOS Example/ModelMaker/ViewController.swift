@@ -50,7 +50,7 @@ class ViewController: NSViewController {
     //生成
     @IBAction func createButton(_ sender: Any) {
         do {
-            let parseJsonResult = try JSONSerialization.jsonObject(with: (textView.string?.data(using: .utf8)!)!, options: [])
+            let parseJsonResult = try JSONSerialization.jsonObject(with: (textView.string.data(using: .utf8)!), options: [])
             //            print("JSON 合法")
             if let obj = parseJsonResult as? NSObject {
                 if let cell1 = pathTextField.cell {
@@ -97,8 +97,8 @@ extension ViewController:NSTextViewDelegate{
         
     }
     public func checkJSONText(){
-        if let string = textView.string {
-            if let data = string.data(using: .utf8){
+        
+            if let data = textView.string.data(using: .utf8){
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
                     isJSON = true
@@ -109,7 +109,7 @@ extension ViewController:NSTextViewDelegate{
                     print(error)
                 }
             }
-        }
+        
         updateLight()
     }
     public func updateLight(){

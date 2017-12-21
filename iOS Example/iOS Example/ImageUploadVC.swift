@@ -39,7 +39,7 @@ class ImageUploadVC: UIViewController,UIImagePickerControllerDelegate, UINavigat
             if data != nil{
                 let string = data?.toUTF8String()
 //                print(string);
-                if string?.length == 0{
+                if string?.count == 0{
                     //成功
                     finish = true
                 }

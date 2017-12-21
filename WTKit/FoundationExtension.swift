@@ -641,14 +641,17 @@ extension String{
     
     subscript(range:Range<Int>)->String{
         get{
-            let startIndex = self.characters.index(self.startIndex, offsetBy: range.lowerBound)
-            let endIndex = self.characters.index(self.startIndex, offsetBy: range.upperBound);
+            
+            let startIndex = self.index(self.startIndex, offsetBy: range.lowerBound)
+            let endIndex = self.index(self.startIndex, offsetBy: range.upperBound);
             return String(self[Range(startIndex..<endIndex)])
         }
     }
+    /*
     public var length:Int{
-        return self.characters.count
+        return self.count
     }
+    */
     //将十六进制字符串转换成十进制
     public static func changeToInt(_ num:String) -> Int{
         

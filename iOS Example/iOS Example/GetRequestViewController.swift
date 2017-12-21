@@ -120,7 +120,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
                         
                         
                         
-                        if (string?.length == 0){
+                        if (string?.count == 0){
                             self?.showHudWithTip("请求成功,数据不是UTF8格式")
                         }else{
                             self?.showHudWithTip("请求成功")

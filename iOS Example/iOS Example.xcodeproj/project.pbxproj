@@ -339,6 +339,7 @@
 					E1F03B3F1F4EA54A007E06F8 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = QZFW9RQ778;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -666,7 +667,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.songwentong.ModelMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -685,7 +687,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.songwentong.ModelMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
