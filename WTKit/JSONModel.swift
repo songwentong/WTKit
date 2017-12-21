@@ -55,7 +55,7 @@ extension NSObject {
     /// 尝试把一个Model转换成JSON格式,便于本地化储存
     ///
     /// - Returns: 返回一个JSON格式数据
-    public func WTAttempConvertToJSON()->[String:Any]{
+    @objc public func WTAttempConvertToJSON()->[String:Any]{
         
             var result = [String:Any]()
             var outCount:UInt32 = 0;

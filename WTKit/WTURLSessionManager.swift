@@ -289,11 +289,10 @@ extension WTURLSessionManager{
             while index != string.endIndex {
                 let startIndex = index
                 let endIndex = string.index(index, offsetBy: batchSize, limitedBy: string.endIndex) ?? string.endIndex
-                let range = startIndex..<endIndex
                 
-                let substring = string.substring(with: range)
+                let substring = string[startIndex..<endIndex]
                 
-                escaped += substring.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? substring
+                escaped += substring.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? String(substring)
                 
                 index = endIndex
             }
