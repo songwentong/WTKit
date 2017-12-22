@@ -69,11 +69,7 @@ class ViewController: NSViewController {
 
     //生成
     @IBAction func createButton(_ sender: Any) {
-        do {
-            let parseJsonResult = try JSONSerialization.jsonObject(with: (textView.string.data(using: .utf8)!), options: [])
-            //            print("JSON 合法")
-            if let obj = parseJsonResult as? NSObject {
-                if let cell1 = pathTextField.cell {
+            if let cell1 = pathTextField.cell {
                     if let cell2 = modelTextField.cell{
                         let path = cell1.stringValue
                         let className = cell2.stringValue
@@ -89,12 +85,7 @@ class ViewController: NSViewController {
 
                     }
                 }
-                            }else{
-                print("不是NSObject")
-            }
-        }catch{
-            print("JSON 不合法")
-        }
+ 
     }
     override var representedObject: Any? {
         didSet {
