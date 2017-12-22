@@ -29,9 +29,13 @@ extension NSObject {
     
     /// 尝试打印出一个json对应的Model属性
     /// NSArray和NSDictionary可能需要自定义为一个model类型
-    public func WTSwiftModelString(with className:String = "XXX", jsonString:String)->String{
+    public func WTSwiftModelString(with className:String = "XXX", jsonString:String,usingHeader:Bool = false)->String{
         
-        var stringToPrint = headerString()
+        var stringToPrint:String = String()
+        if usingHeader == true {
+            stringToPrint += headerString()
+        }
+        var subModelDict:[String:String] = [String:String]()
         stringToPrint += "public struct \(className): Codable {\n"
         var jsonObject:Any? = nil
         do {
@@ -79,6 +83,13 @@ extension NSObject {
                             stringToPrint += "    var \(key):[String]\n"
                         }else{
                             stringToPrint += "    //var \(key):[Any]\n"
+                            //array object
+                            /*
+                            let tempClassName = self.randomClassName(with: key)
+                            let tempData = try! JSONSerialization.data(withJSONObject: value, options: [])
+                            let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
+                            subModelDict[tempClassName] = tempString
+                            */
                         }
                         
                     }else if string == "NSDictionary"{
@@ -87,7 +98,12 @@ extension NSObject {
                         }else if value is [String:String]{
                             stringToPrint += "    var \(key):[String:String]\n"
                         }else{
-                            stringToPrint += "    //var \(key):[String:Any]\n"
+//                            stringToPrint += "    //var \(key):[String:Any]\n"
+                            let tempClassName = self.randomClassName(with: key)
+                            let tempData = try! JSONSerialization.data(withJSONObject: value, options: [])
+                            let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
+                            subModelDict[tempClassName] = tempString
+                            stringToPrint += "    var \(key):\(tempClassName)\n"
                         }
                     }
                     
@@ -95,7 +111,9 @@ extension NSObject {
             }
         }
         stringToPrint += "}\n"
-
+        for (key,value) in subModelDict{
+            stringToPrint += WTSwiftModelString(with: key, jsonString: value)
+        }
         return stringToPrint
 //        print("\(stringToPrint)")
     }

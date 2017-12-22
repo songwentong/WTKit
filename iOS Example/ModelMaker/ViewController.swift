@@ -75,7 +75,7 @@ class ViewController: NSViewController {
                         let className = cell2.stringValue
                         
                         let filePath = path + "/" + className + ".swift"
-                        let modelString = WTSwiftModelString(with: className, jsonString: textView.string)
+                        let modelString = WTSwiftModelString(with: className, jsonString: textView.string,usingHeader: true)
                         do {
                             try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
                             print("写文件成功,请在桌面查看")

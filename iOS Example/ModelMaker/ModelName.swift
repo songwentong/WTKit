@@ -7,7 +7,7 @@
 //
 
 public struct ModelName: Codable {
-    //var otherDict:[String:Any]
+    var otherDict:otherDict79
     var testboolean:Bool
     var testStringArray:[String]
     var numberDict:[String:Int]
@@ -17,5 +17,14 @@ public struct ModelName: Codable {
     //var otherArray:[Any]
     var testInt:Int
     var testFloat:Double
+}
+public struct otherDict79: Codable {
+    var b:Int
+    var a:String
+    var c:c82
+}
+public struct c82: Codable {
+    var d:Int
+    var e:String
 }
 
