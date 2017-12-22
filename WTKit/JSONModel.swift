@@ -99,11 +99,11 @@ extension NSObject {
                             stringToPrint += "    var \(key):[String:String]\n"
                         }else{
 //                            stringToPrint += "    //var \(key):[String:Any]\n"
-                            let tempClassName = self.randomClassName(with: key)
+//                            let tempClassName = self.randomClassName(with: key)
                             let tempData = try! JSONSerialization.data(withJSONObject: value, options: [])
                             let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
-                            subModelDict[tempClassName] = tempString
-                            stringToPrint += "    var \(key):\(tempClassName)\n"
+                            subModelDict[key] = tempString
+                            stringToPrint += "    var \(key):\(key)\n"
                         }
                     }
                     
