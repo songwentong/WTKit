@@ -15,7 +15,7 @@ extension NSObject {
         return prefix+suffix
     }
     
-    private func headerString()->String{
+    private func headerString(className:String)->String{
         let date:Date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
@@ -33,7 +33,7 @@ extension NSObject {
         
         var stringToPrint:String = String()
         if usingHeader == true {
-            stringToPrint += headerString()
+            stringToPrint += headerString(className: className)
         }
         var subModelDict:[String:String] = [String:String]()
         stringToPrint += "public struct \(className): Codable {\n"

@@ -124,7 +124,7 @@ extension ViewController:NSTextViewDelegate{
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
                     isJSON = true
-                    let modelString = WTSwiftModelString(with: modelStructName, jsonString: textView.string)
+                    let modelString = WTSwiftModelString(with: modelStructName, jsonString: textView.string,usingHeader: true)
                     effect.string = modelString
                     print("json:\(json)")
                 } catch let error as NSError {
