@@ -28,7 +28,21 @@ class ViewController: NSViewController {
         
         setDefaultString()
         checkJSONText()
-
+        testCodableRead()
+    }
+    //这是一个model创建的工具，运行看效果吧,不错吧，😜
+    func testCodableRead(){
+        
+        if let url:URL = Bundle.main.url(forResource: "JSONData", withExtension: nil) {
+            do{
+                let data = try Data.init(contentsOf: url)
+                let instance = try JSONDecoder().decode(ModelA.self, from: data)
+                print("\(instance)")
+            }catch let error as NSError{
+                print("\(error)")
+            }
+        }
+        
     }
     
     func setDefaultString(){

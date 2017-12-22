@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7716E10F1FECAF5B0098B16E /* ModelA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7716E10E1FECAF5B0098B16E /* ModelA.swift */; };
 		E15CD2871E9631BD0042CBE1 /* ChartDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2861E9631BD0042CBE1 /* ChartDemo.swift */; };
 		E15D28F71DFAB4620042E678 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28E31DFAB4620042E678 /* AppDelegate.swift */; };
 		E15D28F81DFAB4620042E678 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E15D28E41DFAB4620042E678 /* Assets.xcassets */; };
@@ -118,6 +119,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7716E10E1FECAF5B0098B16E /* ModelA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelA.swift; sourceTree = "<group>"; };
 		E15CD2861E9631BD0042CBE1 /* ChartDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartDemo.swift; sourceTree = "<group>"; };
 		E15D28CE1DFAB41F0042E678 /* iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E15D28DD1DFAB41F0042E678 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 			children = (
 				E1F03B421F4EA54A007E06F8 /* AppDelegate.swift */,
 				E1F03B441F4EA54A007E06F8 /* ViewController.swift */,
+				7716E10E1FECAF5B0098B16E /* ModelA.swift */,
 				E1F03B461F4EA54A007E06F8 /* Assets.xcassets */,
 				E1F03B481F4EA54A007E06F8 /* Main.storyboard */,
 				E1F03B4B1F4EA54A007E06F8 /* Info.plist */,
@@ -458,6 +461,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7716E10F1FECAF5B0098B16E /* ModelA.swift in Sources */,
 				E1F03B451F4EA54A007E06F8 /* ViewController.swift in Sources */,
 				E1F03B431F4EA54A007E06F8 /* AppDelegate.swift in Sources */,
 			);
