@@ -36,7 +36,7 @@ class ViewController: NSViewController {
         if let url:URL = Bundle.main.url(forResource: "JSONData", withExtension: nil) {
             do{
                 let data = try Data.init(contentsOf: url)
-                let instance = try JSONDecoder().decode(ModelA.self, from: data)
+                let instance = try JSONDecoder().decode(ModelName.self, from: data)
                 print("\(instance)")
             }catch let error as NSError{
                 print("\(error)")
@@ -145,7 +145,6 @@ extension ViewController:NSTextViewDelegate{
             if let userInfo = jsonError?.userInfo {
                 statusTextField.cell?.stringValue = "error:\(userInfo))"
             }
-            
         }
         statusLightView.layer?.cornerRadius = 8
     }

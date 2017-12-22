@@ -9,9 +9,13 @@
 import Foundation
 extension NSObject {
     
-    /// 尝试打印出一个json对应的Model属性
-    /// NSArray和NSDictionary可能需要自定义为一个model类型
-    public func WTSwiftModelString(with className:String = "XXX", jsonString:String)->String{
+    public func randomClassName(with prefix:String)->String{
+        let randomNumber = arc4random_uniform(150)
+        let suffix = String.init(randomNumber)
+        return prefix+suffix
+    }
+    
+    private func headerString()->String{
         let date:Date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd HH:mm:ss"
@@ -20,6 +24,14 @@ extension NSObject {
         stringToPrint += "//\n//  \(className).swift\n"
         stringToPrint += "//\n//  this file is auto create by WTKit on \(dateString).\n"
         stringToPrint += "//  site:https://github.com/swtlovewtt/WTKit\n//  Thank you for use my json model maker\n//\n\n"
+        return stringToPrint;
+    }
+    
+    /// 尝试打印出一个json对应的Model属性
+    /// NSArray和NSDictionary可能需要自定义为一个model类型
+    public func WTSwiftModelString(with className:String = "XXX", jsonString:String)->String{
+        
+        var stringToPrint = headerString()
         stringToPrint += "public struct \(className): Codable {\n"
         var jsonObject:Any? = nil
         do {
@@ -35,6 +47,7 @@ extension NSObject {
                     var string = NSStringFromClass(classForCoder)
                     if string == "NSString" {
                         string = "String"
+                        stringToPrint += "    var \(key):\(string)\n"
                     }else if string == "NSNumber"{
                         //char, short int, int, long int, long long int, float, or double or as a BOOL
                         // “c”, “C”, “s”, “S”, “i”, “I”, “l”, “L”, “q”, “Q”, “f”, and “d”.
@@ -56,16 +69,33 @@ extension NSObject {
                             string = "Int"
                             break
                         }
+                        stringToPrint += "    var \(key):\(string)\n"
                     } else if string == "NSArray"{
-                        string = "[Any]"
+                        if value is [Int]{
+                            //print("int array")
+                            stringToPrint += "    var \(key):[Int]\n"
+                        }else if value is [String]{
+                            //print("string array")
+                            stringToPrint += "    var \(key):[String]\n"
+                        }else{
+                            stringToPrint += "    //var \(key):[Any]\n"
+                        }
+                        
                     }else if string == "NSDictionary"{
-                        string = "[String:Any]"
+                        if value is [String:Int]{
+                            stringToPrint += "    var \(key):[String:Int]\n"
+                        }else if value is [String:String]{
+                            stringToPrint += "    var \(key):[String:String]\n"
+                        }else{
+                            stringToPrint += "    //var \(key):[String:Any]\n"
+                        }
                     }
-                    stringToPrint += "    var \(key):\(string)\n"
+                    
                 }
             }
         }
         stringToPrint += "}\n"
+
         return stringToPrint
 //        print("\(stringToPrint)")
     }

@@ -2,5 +2,11 @@
 "testboolean": true,
 "testInt": 8,
 "testFloat":1.0,
-"testString": "string"
+"testString":"string",
+"testIntArray":[1,2,3],
+"testStringArray":["1","2","3"],
+"otherArray":[1,"1"],
+"stringDict":{"a":"b"},
+"numberDict":{"c":1},
+"otherDict":{"a":"a","b":1}
 }
