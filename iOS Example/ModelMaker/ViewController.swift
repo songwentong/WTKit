@@ -130,7 +130,7 @@ extension ViewController:NSTextViewDelegate{
                 } catch let error as NSError {
                     isJSON = false
                     jsonError = error
-                    print(error)
+                    print("json parse error:\(error)")
                 }
             }
         

@@ -686,7 +686,7 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="ModelMaker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="816" height="399"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1054" height="399"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView borderType="line" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWS-Uv-9wB">
@@ -792,17 +792,17 @@
                                 </textFieldCell>
                             </textField>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ffe-fa-0Ja">
-                                <rect key="frame" x="496" y="47" width="300" height="300"/>
+                                <rect key="frame" x="534" y="47" width="500" height="300"/>
                                 <clipView key="contentView" id="a75-2J-74G">
-                                    <rect key="frame" x="1" y="1" width="283" height="298"/>
+                                    <rect key="frame" x="1" y="1" width="483" height="298"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="XzM-ks-3pK">
-                                            <rect key="frame" x="0.0" y="-1" width="283" height="298"/>
+                                        <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="XzM-ks-3pK">
+                                            <rect key="frame" x="0.0" y="-1" width="483" height="298"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="283" height="298"/>
-                                            <size key="maxSize" width="463" height="10000000"/>
+                                            <size key="minSize" width="483" height="298"/>
+                                            <size key="maxSize" width="483" height="10000000"/>
                                             <attributedString key="textStorage">
                                                 <fragment content="ewqeqweqwewqqwe">
                                                     <attributes>
@@ -817,14 +817,14 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </clipView>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="5EQ-Ix-C2u"/>
+                                    <constraint firstAttribute="width" constant="500" id="5EQ-Ix-C2u"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="6bp-zr-Nyi">
                                     <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="WVA-3q-raN">
-                                    <rect key="frame" x="284" y="1" width="15" height="298"/>
+                                    <rect key="frame" x="484" y="1" width="15" height="298"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -871,7 +871,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="215" y="812.5"/>
+            <point key="canvasLocation" x="334" y="812.5"/>
         </scene>
     </scenes>
 </document>
