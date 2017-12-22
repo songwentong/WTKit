@@ -30,6 +30,7 @@ class ViewController: NSViewController {
         checkJSONText()
         testCodableRead()
     }
+    
     //这是一个model创建的工具，运行看效果吧,不错吧，😜
     func testCodableRead(){
         
