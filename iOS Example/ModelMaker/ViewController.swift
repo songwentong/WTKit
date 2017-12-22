@@ -10,13 +10,13 @@ import Cocoa
 import WTKitMacOS
 class ViewController: NSViewController {
 
-    @IBOutlet weak var modelTextField: NSTextField!
+    @IBOutlet weak var modelTextField: NSTextField!//类名
     @IBOutlet weak var statusTextField: NSTextField!
     @IBOutlet weak var pathTextField: NSTextField!
     @IBOutlet var textView: NSTextView!
     @IBOutlet weak var statusLightView: NSView!
     @IBOutlet var effect: NSTextView!
-    
+    var modelStructName: String = "ModelName"
     
     var isJSON = false
     var jsonError:NSError? = nil;
@@ -26,13 +26,18 @@ class ViewController: NSViewController {
 
         // Do any additional setup after loading the view.
         
-        
+        setDefaultString()
+        checkJSONText()
+
+    }
+    
+    func setDefaultString(){
         var home = NSHomeDirectory()
         home = home + "/Desktop"
         pathTextField.cell?.stringValue = home
         print("\(home)")
-        modelTextField.cell?.stringValue = "WTModel"
-        
+        modelTextField.cell?.stringValue = modelStructName
+        modelTextField.delegate = self
         
         if let url:URL = Bundle.main.url(forResource: "JSONData", withExtension: nil) {
             do{
@@ -46,9 +51,7 @@ class ViewController: NSViewController {
             }
         }
         textView.delegate = self;
-        checkJSONText()
     }
-    
 
     //生成
     @IBAction func createButton(_ sender: Any) {
@@ -87,6 +90,17 @@ class ViewController: NSViewController {
 
 
 }
+//Notification
+extension ViewController{
+}
+extension ViewController:NSTextFieldDelegate{
+    open override func controlTextDidChange(_ obj: Notification){
+        if let cell = modelTextField.cell{
+            modelStructName = cell.stringValue
+            checkJSONText()
+        }
+    }
+}
 extension ViewController:NSTextViewDelegate{
     
     public func textDidChange(_ notification: Notification){
@@ -105,7 +119,7 @@ extension ViewController:NSTextViewDelegate{
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
                     isJSON = true
-                    let modelString = WTSwiftModelString(with: className, jsonString: textView.string)
+                    let modelString = WTSwiftModelString(with: modelStructName, jsonString: textView.string)
                     effect.string = modelString
                     print("json:\(json)")
                 } catch let error as NSError {
