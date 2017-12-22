@@ -732,9 +732,9 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fFb-JP-Jky">
-                                <rect key="frame" x="160" y="418" width="96" height="22"/>
+                                <rect key="frame" x="160" y="418" width="150" height="22"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="96" id="dJz-M7-QyF"/>
+                                    <constraint firstAttribute="width" constant="150" id="dJz-M7-QyF"/>
                                 </constraints>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="/" drawsBackground="YES" id="QCb-ZF-9y9">
                                     <font key="font" metaFont="system"/>
@@ -751,7 +751,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hnU-tU-Ut7">
-                                <rect key="frame" x="262" y="420" width="74" height="17"/>
+                                <rect key="frame" x="316" y="420" width="74" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Class name" id="ikm-CL-i9t">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -759,7 +759,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vGX-5A-DqA">
-                                <rect key="frame" x="342" y="417" width="96" height="22"/>
+                                <rect key="frame" x="396" y="417" width="96" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="96" id="l8E-GV-g80"/>
                                 </constraints>
@@ -773,7 +773,7 @@
                                 <rect key="frame" x="20" y="20" width="16" height="16"/>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xah-PQ-2CH">
-                                <rect key="frame" x="42" y="20" width="37" height="17"/>
+                                <rect key="frame" x="42" y="20" width="1068" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="8te-mz-LCx">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -815,7 +815,7 @@
                                 </scroller>
                             </scrollView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yug-kZ-9Rz">
-                                <rect key="frame" x="440" y="410" width="110" height="32"/>
+                                <rect key="frame" x="494" y="410" width="110" height="32"/>
                                 <buttonCell key="cell" type="push" title="Write to file" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UOw-GI-P91">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -844,6 +844,7 @@
                             <constraint firstItem="XzM-ks-3pK" firstAttribute="leading" secondItem="CWS-Uv-9wB" secondAttribute="trailing" constant="10" id="VuK-k9-k5b"/>
                             <constraint firstItem="fFb-JP-Jky" firstAttribute="leading" secondItem="FYJ-hx-rIp" secondAttribute="trailing" constant="8" symbolic="YES" id="Zz5-3c-qP2"/>
                             <constraint firstAttribute="bottom" secondItem="CWS-Uv-9wB" secondAttribute="bottom" constant="44" id="fRj-0a-bI2"/>
+                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Xah-PQ-2CH" secondAttribute="trailing" constant="10" id="gKq-Se-m0h"/>
                             <constraint firstItem="vGX-5A-DqA" firstAttribute="leading" secondItem="hnU-tU-Ut7" secondAttribute="trailing" constant="8" symbolic="YES" id="gUs-e3-pnW"/>
                             <constraint firstItem="wyJ-WB-ms8" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="grB-j5-ca6"/>
                             <constraint firstItem="wyJ-WB-ms8" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="iPI-D4-5eI"/>
