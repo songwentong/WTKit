@@ -23,7 +23,7 @@ extension NSObject {
         var stringToPrint = ""
         stringToPrint += "//\n//  \(className).swift\n"
         stringToPrint += "//\n//  this file is auto create by WTKit on \(dateString).\n"
-        stringToPrint += "//  site:https://github.com/swtlovewtt/WTKit\n//  Thank you for use my json model maker\n//\n\n"
+        stringToPrint += "//  site:https://github.com/swtlovewtt/WTKit\n//  Thank you for use my json model maker😜\n//\n\n"
         return stringToPrint;
     }
     
