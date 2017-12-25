@@ -129,25 +129,17 @@ class ModelDemoViewController: UIViewController,UITextViewDelegate {
     }
     //写到桌面
     @IBAction func writeToDisk(_ sender: Any) {
-        do {
-            let parseJsonResult = try JSONSerialization.jsonObject(with: jsonTextView.text.data(using: .utf8)!, options: [])
-//            print("JSON 合法")
-            if let obj = parseJsonResult as? NSObject {
-                let filePath = desktopPath() + "/" + className! + ".swift"
+
+        let filePath = desktopPath() + "/" + className! + ".swift"
 //                let modelString = obj.WTSwiftModelString(className!);
-                let modelString = WTSwiftModelString(with: className!, jsonString: obj as! String)
-                do {
-                    try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
-                    print("写文件成功,请在桌面查看")
-                }catch{
-                    print("写文件失败")
-                }
-            }else{
-                print("不是NSObject")
-            }
+        let modelString = WTSwiftModelString(with: className!, jsonString: jsonTextView.text)
+        do {
+            try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
+            print("写文件成功,请在桌面查看")
         }catch{
-            print("JSON 不合法")
+            print("写文件失败")
         }
+  
     }
     
 
