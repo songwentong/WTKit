@@ -201,27 +201,6 @@ extension UIImage{
         return UIImage(cgImage: cgImageRef!, scale: scale, orientation: imageOrientation)
     }
     
-    public static func gifImageWith(_ data:Data, scale:CGFloat?=UIScreen.main.scale)->UIImage?{
-        var image:UIImage?
-        let source = CGImageSourceCreateWithData(data as CFData, nil)
-        let count = CGImageSourceGetCount(source!)
-        if count <= 1 {
-            image = UIImage(data: data)
-        }else{
-            var images:[UIImage] = Array()
-            var duration = 0.0
-            for i in 0...count-1{
-                let cgImage = CGImageSourceCreateImageAtIndex(source!, i, nil)
-                duration += (source?.getDurationAtIndex(i))!
-                images.append(UIImage(cgImage: cgImage!, scale: scale!, orientation: UIImageOrientation.up))
-                
-                
-            }
-            image = UIImage.animatedImage(with: images, duration: duration)
-        }
-        return image
-    }
-    
     
 }
 

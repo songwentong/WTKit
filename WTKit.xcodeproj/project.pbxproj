@@ -13,7 +13,6 @@
 		E15CD2851E95EBD80042CBE1 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2841E95EBD80042CBE1 /* Chart.swift */; };
 		E16AE9CC1EA5C2A8009080DE /* WTKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */; };
 		E17BDA201DDDC11A00CF5672 /* WTKit.h in Headers */ = {isa = PBXBuildFile; fileRef = E17BDA1E1DDDC11A00CF5672 /* WTKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E17BDA2A1DDDC12500CF5672 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
 		E17BDA2B1DDDC12500CF5672 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
 		E17BDA2C1DDDC12500CF5672 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E17BDA2D1DDDC12500CF5672 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
@@ -32,7 +31,6 @@
 		E1EDED0C1E9F4F7B00DDC372 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD91E78E01A0082F385 /* WTNetWork.swift */; };
 		E1EDED0D1E9F4F7B00DDC372 /* WTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD61E78DDE80082F385 /* WTURLSessionManager.swift */; };
 		E1EDED0E1E9F4F7B00DDC372 /* WTURLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FDB1E78E3490082F385 /* WTURLSessionTask.swift */; };
-		E1EDED101E9F4F7B00DDC372 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
 		E1EDED111E9F4F7B00DDC372 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* JSONModel.swift */; };
 		E1EDED121E9F4F7B00DDC372 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E1EDED131E9F4F7B00DDC372 /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11797601E9B271D001257AB /* WTVersionTracking.swift */; };
@@ -42,7 +40,6 @@
 		E1EDED281E9F4FD600DDC372 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD91E78E01A0082F385 /* WTNetWork.swift */; };
 		E1EDED291E9F4FD600DDC372 /* WTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD61E78DDE80082F385 /* WTURLSessionManager.swift */; };
 		E1EDED2A1E9F4FD600DDC372 /* WTURLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FDB1E78E3490082F385 /* WTURLSessionTask.swift */; };
-		E1EDED2C1E9F4FD600DDC372 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
 		E1EDED2D1E9F4FD600DDC372 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* JSONModel.swift */; };
 		E1EDED2E1E9F4FD600DDC372 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E1EDED2F1E9F4FD600DDC372 /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11797601E9B271D001257AB /* WTVersionTracking.swift */; };
@@ -52,7 +49,6 @@
 		E1EDED5F1E9F507900DDC372 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD91E78E01A0082F385 /* WTNetWork.swift */; };
 		E1EDED601E9F507900DDC372 /* WTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD61E78DDE80082F385 /* WTURLSessionManager.swift */; };
 		E1EDED611E9F507900DDC372 /* WTURLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FDB1E78E3490082F385 /* WTURLSessionTask.swift */; };
-		E1EDED631E9F507900DDC372 /* AnimationImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */; };
 		E1EDED641E9F507900DDC372 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* JSONModel.swift */; };
 		E1EDED651E9F507900DDC372 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
 		E1EDED661E9F507900DDC372 /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11797601E9B271D001257AB /* WTVersionTracking.swift */; };
@@ -78,7 +74,6 @@
 		E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WTKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E17BDA1E1DDDC11A00CF5672 /* WTKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTKit.h; sourceTree = "<group>"; };
 		E17BDA1F1DDDC11A00CF5672 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationImageVIew.swift; sourceTree = "<group>"; };
 		E17BDA271DDDC12500CF5672 /* CustomExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomExtension.swift; sourceTree = "<group>"; };
 		E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtension.swift; sourceTree = "<group>"; };
 		E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtension.swift; sourceTree = "<group>"; };
@@ -213,7 +208,6 @@
 			isa = PBXGroup;
 			children = (
 				E18B9FAB1E77D6450013EFA8 /* WTWebImage.swift */,
-				E17BDA261DDDC12500CF5672 /* AnimationImageVIew.swift */,
 			);
 			name = WebImage;
 			sourceTree = "<group>";
@@ -533,7 +527,6 @@
 				E17BDA2D1DDDC12500CF5672 /* UIKitExtension.swift in Sources */,
 				E18916FB1F0F6661007A3916 /* WTImagePickerControllerDelegate.swift in Sources */,
 				E15CD2851E95EBD80042CBE1 /* Chart.swift in Sources */,
-				E17BDA2A1DDDC12500CF5672 /* AnimationImageVIew.swift in Sources */,
 				E18B9FAC1E77D6450013EFA8 /* WTWebImage.swift in Sources */,
 				E1857FDA1E78E01A0082F385 /* WTNetWork.swift in Sources */,
 			);
@@ -555,7 +548,6 @@
 				E1EDED0C1E9F4F7B00DDC372 /* WTNetWork.swift in Sources */,
 				E1EDED0D1E9F4F7B00DDC372 /* WTURLSessionManager.swift in Sources */,
 				E1EDED0E1E9F4F7B00DDC372 /* WTURLSessionTask.swift in Sources */,
-				E1EDED101E9F4F7B00DDC372 /* AnimationImageVIew.swift in Sources */,
 				E1EDED111E9F4F7B00DDC372 /* JSONModel.swift in Sources */,
 				E1EDED121E9F4F7B00DDC372 /* FoundationExtension.swift in Sources */,
 				E1EDED131E9F4F7B00DDC372 /* WTVersionTracking.swift in Sources */,
@@ -571,7 +563,6 @@
 				E1EDED281E9F4FD600DDC372 /* WTNetWork.swift in Sources */,
 				E1EDED291E9F4FD600DDC372 /* WTURLSessionManager.swift in Sources */,
 				E1EDED2A1E9F4FD600DDC372 /* WTURLSessionTask.swift in Sources */,
-				E1EDED2C1E9F4FD600DDC372 /* AnimationImageVIew.swift in Sources */,
 				E1EDED2D1E9F4FD600DDC372 /* JSONModel.swift in Sources */,
 				E1EDED2E1E9F4FD600DDC372 /* FoundationExtension.swift in Sources */,
 				E1EDED2F1E9F4FD600DDC372 /* WTVersionTracking.swift in Sources */,
@@ -587,7 +578,6 @@
 				E1EDED5F1E9F507900DDC372 /* WTNetWork.swift in Sources */,
 				E1EDED601E9F507900DDC372 /* WTURLSessionManager.swift in Sources */,
 				E1EDED611E9F507900DDC372 /* WTURLSessionTask.swift in Sources */,
-				E1EDED631E9F507900DDC372 /* AnimationImageVIew.swift in Sources */,
 				E1EDED641E9F507900DDC372 /* JSONModel.swift in Sources */,
 				E1EDED651E9F507900DDC372 /* FoundationExtension.swift in Sources */,
 				E1EDED661E9F507900DDC372 /* WTVersionTracking.swift in Sources */,
