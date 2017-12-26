@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		774711B01FF243E5006C2531 /* WTWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774711AF1FF243E5006C2531 /* WTWebSocket.swift */; };
 		9BF8E75D1E7A8465009F548A /* Hud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8E75C1E7A8465009F548A /* Hud.swift */; };
 		E11582A61E9C71410018E839 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = E11582A51E9C71410018E839 /* arrow.png */; };
 		E11797611E9B271D001257AB /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11797601E9B271D001257AB /* WTVersionTracking.swift */; };
@@ -67,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		774711AF1FF243E5006C2531 /* WTWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTWebSocket.swift; sourceTree = "<group>"; };
 		9BF8E75C1E7A8465009F548A /* Hud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hud.swift; sourceTree = "<group>"; };
 		E11582A51E9C71410018E839 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		E11797601E9B271D001257AB /* WTVersionTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTVersionTracking.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 		E1C0C9BD1E07BA66000B8F50 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				774711AF1FF243E5006C2531 /* WTWebSocket.swift */,
 				E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */,
 				E18916F61F0F2573007A3916 /* Algorithm.swift */,
 			);
@@ -528,6 +531,7 @@
 				E18916FB1F0F6661007A3916 /* WTImagePickerControllerDelegate.swift in Sources */,
 				E15CD2851E95EBD80042CBE1 /* Chart.swift in Sources */,
 				E18B9FAC1E77D6450013EFA8 /* WTWebImage.swift in Sources */,
+				774711B01FF243E5006C2531 /* WTWebSocket.swift in Sources */,
 				E1857FDA1E78E01A0082F385 /* WTNetWork.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

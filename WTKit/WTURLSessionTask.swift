@@ -273,7 +273,7 @@ open class WTURLSessionStreamTask:WTURLSessionTask,URLSessionStreamDelegate{
         
         
     
-        public func urlSession(_ session: URLSession, streamTask: URLSessionStreamTask,  inputStream: InputStream, outputStream: OutputStream){}
+        
 }
 
 
