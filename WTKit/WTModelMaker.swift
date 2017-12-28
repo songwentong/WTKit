@@ -7,11 +7,12 @@
 //  https://github.com/swtlovewtt/WTKit
 //
 /*
- 这个工具有个弊端,就是对一些关键字无法处理,比如属性的名字是super,class,import之类的
+  自动生成Codable的对象,可以处理字段和swift关键字重名的情况,能正确处理super,import,class这类字段
+ 可在属性添加前缀和后缀,自动解析嵌套类型,用JSONDecoder读取json数据可以直接生成一个已经赋值的类的实例.
  */
 import Foundation
 public class WTModelMaker {
-    public var namesNeedAddSuffix:[String] = ["super","class","var","let","sturct","func","private","public","open","return"];
+    public var namesNeedAddSuffix:[String] = ["super","class","var","let","sturct","func","private","public","open","return","import"];
     public var varPrefix = ""
     public var varSuffix = "_var"
     open static let `default`:WTModelMaker = {
