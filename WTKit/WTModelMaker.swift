@@ -12,9 +12,9 @@
  */
 import Foundation
 public class WTModelMaker {
-    public var namesNeedAddSuffix:[String] = ["super","class","var","let","sturct","func","private","public","open","return","import"];
-    public var varPrefix = ""
-    public var varSuffix = "_var"
+    public var commonKeywords:[String] = ["super","class","var","let","sturct","func","private","public","open","return","import"]//常用的关键字,如有需要可以添加
+    public var keywordsVarPrefix = ""//关键字属性的前缀,如有需要可以添加
+    public var keywordsVarSuffix = "_var"//关键字属性的后缀,默认添加的是_var
     open static let `default`:WTModelMaker = {
        return WTModelMaker()
     }()
@@ -38,8 +38,8 @@ public class WTModelMaker {
     private func nameReplace(with origin:String)->String{
         
         var dict:[String:String] = [String:String]()
-        for key in namesNeedAddSuffix{
-            dict[key] = varPrefix + key + varSuffix
+        for key in commonKeywords{
+            dict[key] = keywordsVarPrefix + key + keywordsVarSuffix
         }
         if dict.keys.contains(origin){
             return dict[origin]!
