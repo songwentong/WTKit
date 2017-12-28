@@ -1,6 +1,5 @@
 {
 "var":"var",
-"class":"class",
 "let":"let",
 "super":99.9,
 "testboolean": true,
@@ -12,5 +11,5 @@
 "otherArray":[1,"1"],
 "stringDict":{"a":"b"},
 "numberDict":{"c":1},
-"otherDict":{"a":"a","b":1,"c":{"d":1,"e":"f"}}
+"func":{"a":"a","b":1,"class":{"d":1,"e":"f"}}
 }

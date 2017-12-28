@@ -119,12 +119,10 @@ public class WTModelMaker {
                         }else if value is [String:String]{
                             stringToPrint += "    var \(nameReplacedKey):[String:String]\n"
                         }else{
-//                            stringToPrint += "    //var \(key):[String:Any]\n"
-//                            let tempClassName = self.randomClassName(with: key)
                             let tempData = try! JSONSerialization.data(withJSONObject: value, options: [])
                             let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
-                            subModelDict[key] = tempString
-                            stringToPrint += "    var \(nameReplacedKey):\(key)\n"
+                            subModelDict[nameReplacedKey] = tempString
+                            stringToPrint += "    var \(nameReplacedKey):\(nameReplacedKey)\n"
                         }
                     }
                     if needAddCodingKey{
