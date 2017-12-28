@@ -11,7 +11,7 @@
  */
 import Foundation
 public class WTModelMaker {
-    public var namesNeedAddSuffix = ["super","class","var","let","sturct","func","private","public","open","return","func"];
+    public var namesNeedAddSuffix:[String] = ["super","class","var","let","sturct","func","private","public","open","return"];
     public var varPrefix = ""
     public var varSuffix = "_var"
     open static let `default`:WTModelMaker = {
