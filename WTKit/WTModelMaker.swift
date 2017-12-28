@@ -136,7 +136,7 @@ public class WTModelMaker {
                 }
             }
         }
-        codingKeys += "}\n"
+        codingKeys += "    }\n"
         stringToPrint += codingKeys
         stringToPrint += "}\n"
         for (key,value) in subModelDict{
