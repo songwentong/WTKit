@@ -36,13 +36,8 @@ public class WTModelMaker {
         return stringToPrint;
     }
     private func nameReplace(with origin:String)->String{
-        
-        var dict:[String:String] = [String:String]()
-        for key in commonKeywords{
-            dict[key] = keywordsVarPrefix + key + keywordsVarSuffix
-        }
-        if dict.keys.contains(origin){
-            return dict[origin]!
+        if commonKeywords.contains(origin){
+            return keywordsVarPrefix + origin + keywordsVarSuffix
         }
         return origin
     }

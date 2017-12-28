@@ -1,7 +1,7 @@
 //
 //  ModelName.swift
 //
-//  this file is auto create by WTKit on 2017-12-28 14:57:29.
+//  this file is auto create by WTKit on 2017-12-28 17:24:03.
 //  site:https://github.com/swtlovewtt/WTKit
 //  Thank you for use my json model maker😜
 //
@@ -54,3 +54,4 @@ public struct class_var: Codable {
         case e = "e"
     }
 }
+
