@@ -1,7 +1,7 @@
 //
 //  ModelName.swift
 //
-//  this file is auto create by WTKit on 2017-12-28 12:19:17.
+//  this file is auto create by WTKit on 2017-12-28 14:17:36.
 //  site:https://github.com/swtlovewtt/WTKit
 //  Thank you for use my json model maker😜
 //

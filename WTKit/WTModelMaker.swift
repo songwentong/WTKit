@@ -71,12 +71,13 @@ public class WTModelMaker {
         if let printObject = jsonObject as? [String:AnyObject] {
             for (key,value) in printObject{
                 let nameReplacedKey = nameReplace(with: key)
+                var needAddCodingKey = true
                 if let classForCoder = value.classForCoder {
                     var string = NSStringFromClass(classForCoder)
                     if string == "NSString" {
                         string = "String"
                         stringToPrint += "    var \(nameReplacedKey):\(string)\n"
-                        codingKeys += "        case \(nameReplacedKey) = \"\(key)\"\n"
+                        
                     }else if string == "NSNumber"{
                         //char, short int, int, long int, long long int, float, or double or as a BOOL
                         // “c”, “C”, “s”, “S”, “i”, “I”, “l”, “L”, “q”, “Q”, “f”, and “d”.
@@ -99,29 +100,24 @@ public class WTModelMaker {
                             break
                         }
                         stringToPrint += "    var \(nameReplacedKey):\(string)\n"
-                        codingKeys += "        case \(nameReplacedKey) = \"\(key)\"\n"
+                        
                     } else if string == "NSArray"{
                         if value is [Int]{
                             //print("int array")
                             stringToPrint += "    var \(nameReplacedKey):[Int]\n"
-                            codingKeys += "        case \(nameReplacedKey) = \"\(key)\"\n"
                         }else if value is [String]{
                             //print("string array")
                             stringToPrint += "    var \(nameReplacedKey):[String]\n"
-                            codingKeys += "        case \(nameReplacedKey) = \"\(key)\"\n"
                         }else{
                             stringToPrint += "    //var \(nameReplacedKey):[Any]\n"
-                            codingKeys += "        //case \(nameReplacedKey) = \"\(key)\"\n"
-                            
+                            needAddCodingKey = false
                         }
                         
                     }else if string == "NSDictionary"{
                         if value is [String:Int]{
                             stringToPrint += "    var \(nameReplacedKey):[String:Int]\n"
-                            codingKeys += "        case \(nameReplacedKey) = \"\(key)\"\n"
                         }else if value is [String:String]{
                             stringToPrint += "    var \(nameReplacedKey):[String:String]\n"
-                            codingKeys += "        case \(nameReplacedKey) = \"\(key)\"\n"
                         }else{
 //                            stringToPrint += "    //var \(key):[String:Any]\n"
 //                            let tempClassName = self.randomClassName(with: key)
@@ -129,10 +125,13 @@ public class WTModelMaker {
                             let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
                             subModelDict[key] = tempString
                             stringToPrint += "    var \(nameReplacedKey):\(key)\n"
-                            codingKeys += "        case \(nameReplacedKey) = \"\(key)\"\n"
                         }
                     }
-                    
+                    if needAddCodingKey{
+                        codingKeys += "        case \(nameReplacedKey) = \"\(key)\"\n"
+                    }else{
+                        codingKeys += "        //case \(nameReplacedKey) = \"\(key)\"\n"
+                    }
                 }
             }
         }
