@@ -1,19 +1,19 @@
 //
 //  ModelName.swift
 //
-//  this file is auto create by WTKit on 2017-12-28 11:32:30.
+//  this file is auto create by WTKit on 2017-12-28 12:19:17.
 //  site:https://github.com/swtlovewtt/WTKit
 //  Thank you for use my json model maker😜
 //
 
 public struct ModelName: Codable {
     var otherDict:otherDict
-    var classProperty:String
+    var class_var:String
     var numberDict:[String:Int]
-    var letProperty:String
+    var let_var:String
     //var otherArray:[Any]
-    var varProperty:String
-    var superProperty:Double
+    var var_var:String
+    var super_var:Double
     var testStringArray:[String]
     var testboolean:Bool
     var testString:String
@@ -23,12 +23,12 @@ public struct ModelName: Codable {
     var testFloat:Double
     enum CodingKeys: String, CodingKey {
         case otherDict = "otherDict"
-        case classProperty = "class"
+        case class_var = "class"
         case numberDict = "numberDict"
-        case letProperty = "let"
+        case let_var = "let"
         //case otherArray = "otherArray"
-        case varProperty = "var"
-        case superProperty = "super"
+        case var_var = "var"
+        case super_var = "super"
         case testStringArray = "testStringArray"
         case testboolean = "testboolean"
         case testString = "testString"
@@ -56,3 +56,4 @@ public struct c: Codable {
         case e = "e"
     }
 }
+

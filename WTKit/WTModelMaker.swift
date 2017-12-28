@@ -11,6 +11,9 @@
  */
 import Foundation
 public class WTModelMaker {
+    public var namesNeedAddSuffix = ["super","class","var","let","sturct","func","private","public","open","return","func"];
+    public var varPrefix = ""
+    public var varSuffix = "_var"
     open static let `default`:WTModelMaker = {
        return WTModelMaker()
     }()
@@ -31,15 +34,11 @@ public class WTModelMaker {
         stringToPrint += "//  site:https://github.com/swtlovewtt/WTKit\n//  Thank you for use my json model maker😜\n//\n\n"
         return stringToPrint;
     }
-    private func addProperty(with origin:String)->String{
-        return origin + "Property"
-    }
     private func nameReplace(with origin:String)->String{
         
         var dict:[String:String] = [String:String]()
-        let namesNeedAddProperty = ["super","class","var","let","sturct","func","private","public","open","return","func"];
-        for key in namesNeedAddProperty{
-            dict[key] = addProperty(with: key)
+        for key in namesNeedAddSuffix{
+            dict[key] = varPrefix + key + varSuffix
         }
         if dict.keys.contains(origin){
             return dict[origin]!
