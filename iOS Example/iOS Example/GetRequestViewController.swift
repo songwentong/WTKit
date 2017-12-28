@@ -60,7 +60,7 @@ class GetRequestViewController: UIViewController,POSTParamatersVCDelegate {
     //根据当时文本框的内容来控制按钮是否可用
     func checkTextLength(){
         let string = urlTextField.text
-        let count = string?.characters.count
+        let count = string?.count
         //如果长度不对就不让按按钮
         if (string == nil || count==0) {
             requestButton.isEnabled = false;

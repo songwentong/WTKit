@@ -132,9 +132,10 @@ class ModelDemoViewController: UIViewController,UITextViewDelegate {
 
         let filePath = desktopPath() + "/" + className! + ".swift"
 //                let modelString = obj.WTSwiftModelString(className!);
-        let modelString = WTSwiftModelString(with: className!, jsonString: jsonTextView.text)
+        
+//        let modelString = WTModelMaker.default.WTSwiftModelString(with: className!, jsonString: jsonTextView.text)
         do {
-            try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
+//            try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
             print("写文件成功,请在桌面查看")
         }catch{
             print("写文件失败")
