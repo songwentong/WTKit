@@ -1,4 +1,8 @@
 {
+"var":"var",
+"class":"class",
+"let":"let",
+"super":99.9,
 "testboolean": true,
 "testInt": 8,
 "testFloat":1.0,

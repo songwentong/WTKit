@@ -10,6 +10,7 @@ import Cocoa
 import WTKitMacOS
 class ViewController: NSViewController {
 
+    @IBOutlet weak var autoRemoveButton: NSButton!
     @IBOutlet weak var modelTextField: NSTextField!//类名
     @IBOutlet weak var statusTextField: NSTextField!
     @IBOutlet weak var pathTextField: NSTextField!
@@ -76,7 +77,7 @@ class ViewController: NSViewController {
                         let className = cell2.stringValue
                         
                         let filePath = path + "/" + className + ".swift"
-                        let modelString = WTSwiftModelString(with: className, jsonString: textView.string,usingHeader: true)
+                        let modelString = WTModelMaker.default.WTSwiftModelString(with: className, jsonString: textView.string,usingHeader: true)
                         do {
                             try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
                             print("写文件成功,请在桌面查看")
@@ -111,9 +112,15 @@ extension ViewController:NSTextViewDelegate{
     
     public func textDidChange(_ notification: Notification){
         print("notification:\(notification)")
+        
         jsonError = nil
         if let a:NSTextView = notification.object as? NSTextView {
             if a == textView {
+                if autoRemoveButton.state == .on{
+                    var string = textView.string
+//                    string = string.replacingOccurrences(of: "\"", with: "'")
+                    textView.string = string
+                }
                 checkJSONText()
             }
         }
@@ -125,7 +132,7 @@ extension ViewController:NSTextViewDelegate{
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
                     isJSON = true
-                    let modelString = WTSwiftModelString(with: modelStructName, jsonString: textView.string,usingHeader: true)
+                    let modelString = WTModelMaker.default.WTSwiftModelString(with: modelStructName, jsonString: textView.string,usingHeader: true)
                     effect.string = modelString
                     print("json:\(json)")
                 } catch let error as NSError {

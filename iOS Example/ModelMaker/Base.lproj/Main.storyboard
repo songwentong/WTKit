@@ -698,7 +698,7 @@
                                         <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" smartInsertDelete="YES" id="0Bx-1D-MJi">
                                             <rect key="frame" x="0.0" y="0.0" width="526" height="367"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                             <size key="minSize" width="526" height="367"/>
                                             <size key="maxSize" width="806" height="10000000"/>
                                             <attributedString key="textStorage">
@@ -824,11 +824,19 @@
                                     <action selector="createButton:" target="XfG-lQ-9wD" id="ML3-HV-lS1"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eui-55-erG">
+                                <rect key="frame" x="604" y="422" width="112" height="18"/>
+                                <buttonCell key="cell" type="check" title="Auto remove \&quot;" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Wag-MI-xl1">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="wyJ-WB-ms8" firstAttribute="baseline" secondItem="FYJ-hx-rIp" secondAttribute="baseline" id="1Vn-Pw-2aU"/>
                             <constraint firstItem="FYJ-hx-rIp" firstAttribute="baseline" secondItem="hnU-tU-Ut7" secondAttribute="baseline" id="3Tp-kY-ayp"/>
                             <constraint firstItem="e1e-09-v17" firstAttribute="bottom" secondItem="Xah-PQ-2CH" secondAttribute="bottom" id="629-JH-j7W"/>
+                            <constraint firstItem="eui-55-erG" firstAttribute="top" secondItem="Yug-kZ-9Rz" secondAttribute="top" id="6GU-1u-mYl"/>
                             <constraint firstItem="CWS-Uv-9wB" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="8j2-qm-MIf"/>
                             <constraint firstItem="vGX-5A-DqA" firstAttribute="baseline" secondItem="Yug-kZ-9Rz" secondAttribute="baseline" id="9VD-cm-0MM"/>
                             <constraint firstItem="CWS-Uv-9wB" firstAttribute="leading" secondItem="e1e-09-v17" secondAttribute="leading" id="Dp6-wO-B3r"/>
@@ -853,11 +861,13 @@
                             <constraint firstAttribute="bottom" secondItem="e1e-09-v17" secondAttribute="bottom" constant="20" symbolic="YES" id="mhx-Iu-EFK"/>
                             <constraint firstItem="Ffe-fa-0Ja" firstAttribute="top" secondItem="0Bx-1D-MJi" secondAttribute="top" id="oGJ-qC-UTj"/>
                             <constraint firstItem="hnU-tU-Ut7" firstAttribute="baseline" secondItem="vGX-5A-DqA" secondAttribute="baseline" id="qIp-xH-ZNi"/>
+                            <constraint firstItem="eui-55-erG" firstAttribute="leading" secondItem="Yug-kZ-9Rz" secondAttribute="trailing" constant="8" id="uAe-OK-kUv"/>
                             <constraint firstItem="Xah-PQ-2CH" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="44" id="uWz-ez-uA2"/>
                             <constraint firstAttribute="trailing" secondItem="Ffe-fa-0Ja" secondAttribute="trailing" constant="20" symbolic="YES" id="xVV-ld-KHn"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="autoRemoveButton" destination="eui-55-erG" id="qCl-Ye-gqY"/>
                         <outlet property="effect" destination="XzM-ks-3pK" id="6c7-7X-acb"/>
                         <outlet property="modelTextField" destination="vGX-5A-DqA" id="Ram-kg-zgO"/>
                         <outlet property="pathTextField" destination="fFb-JP-Jky" id="x8r-LR-iwc"/>

@@ -24,6 +24,7 @@ public class WTWebSocket:NSObject{
     var workQueue:OperationQueue
     var readBuffer:DispatchData = DispatchData.empty
     var writeBuffer:DispatchData = DispatchData.empty
+    weak var delegate:WTWebSocketDelegate?
 //    var inputStream:InputStream?
 //    var outp
     var currentFrameData:Data = Data()
