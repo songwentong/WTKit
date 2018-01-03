@@ -16,6 +16,10 @@ public class WTModelMaker {
     public var keywordsVarPrefix = ""//关键字属性的前缀,如有需要可以添加
     public var keywordsVarSuffix = "_var"//关键字属性的后缀,默认添加的是_var
     public var needQuestionMark:Bool = false //是否需要添加问号,来处理字段不存在的情况
+    public var indent:String = "    "//缩进
+    public let crlf = "\n"//换行
+    
+    
     open static let `default`:WTModelMaker = {
        return WTModelMaker()
     }()
@@ -49,9 +53,6 @@ public class WTModelMaker {
         }
         return ""
     }
-    func CRLF() -> String {
-        return "\n"
-    }
     
     /// 尝试打印出一个json对应的Model属性
     /// NSArray和NSDictionary可能需要自定义为一个model类型
@@ -78,13 +79,27 @@ public class WTModelMaker {
         if let printObject = jsonObject as? [String:AnyObject] {
             for (key,value) in printObject{
                 let nameReplacedKey = nameReplace(with: key)
-                var needAddCodingKey = true
+                stringToPrint += indent
+                
                 if let classForCoder = value.classForCoder {
+                    
                     var string = NSStringFromClass(classForCoder)
+                    var codableValue = true
+                    if string == "NSArray"{
+                        if value is [Int] || value is [String]{
+//                            print("\(key)")
+                        }else{
+//                            print("\(key)")
+                            codableValue = false
+                        }
+                    }
+                    if !codableValue{
+                        stringToPrint += "//"
+                    }
+                    stringToPrint += "var \(nameReplacedKey):"
                     if string == "NSString" {
                         string = "String"
-                        stringToPrint += "    var \(nameReplacedKey):\(string)"
-                        
+                        stringToPrint += "\(string)"
                     }else if string == "NSNumber"{
                         //char, short int, int, long int, long long int, float, or double or as a BOOL
                         // “c”, “C”, “s”, “S”, “i”, “I”, “l”, “L”, “q”, “Q”, “f”, and “d”.
@@ -106,81 +121,49 @@ public class WTModelMaker {
                             string = "Int"
                             break
                         }
-                        stringToPrint += "    var \(nameReplacedKey):\(string)"
+                        stringToPrint += "\(string)"
                         
                     } else if string == "NSArray"{
                         if value is [Int]{
                             //print("int array")
-                            stringToPrint += "    var \(nameReplacedKey):[Int]"
+                            stringToPrint += "[Int]"
                         }else if value is [String]{
                             //print("string array")
-                            stringToPrint += "    var \(nameReplacedKey):[String]"
+                            stringToPrint += "[String]"
                         }else{
-                            stringToPrint += "    //var \(nameReplacedKey):[Any]"
-                            needAddCodingKey = false
+                            stringToPrint += "//[Any]"
                         }
                         
                     }else if string == "NSDictionary"{
                         if value is [String:Int]{
-                            stringToPrint += "    var \(nameReplacedKey):[String:Int]"
+                            stringToPrint += "[String:Int]"
                         }else if value is [String:String]{
-                            stringToPrint += "    var \(nameReplacedKey):[String:String]"
+                            stringToPrint += "[String:String]"
                         }else{
                             let tempData = try! JSONSerialization.data(withJSONObject: value, options: [])
                             let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
                             subModelDict[nameReplacedKey] = tempString
-                            stringToPrint += "    var \(nameReplacedKey):\(nameReplacedKey)"
+                            stringToPrint += "\(nameReplacedKey)"
                         }
                     }
-                    if needAddCodingKey{
-                        codingKeys += "        case \(nameReplacedKey) = \"\(key)\""
-                    }else{
-                        codingKeys += "        //case \(nameReplacedKey) = \"\(key)\""
+                    codingKeys += indent
+                    codingKeys += indent
+                    if !codableValue{
+                        codingKeys += "//"
                     }
-                    codingKeys += CRLF()
+                    codingKeys += "case \(nameReplacedKey) = \"\(key)\""
+                    codingKeys += crlf
                 }
                 stringToPrint += QuestionMarkIfNeeded()
-                stringToPrint += CRLF()
+                stringToPrint += crlf
             }
         }
-        codingKeys += "    }\n"
-        stringToPrint += codingKeys
-        stringToPrint += "}\n"
+        codingKeys = codingKeys + indent + "}" + crlf
+        stringToPrint = stringToPrint + codingKeys + "}" + crlf
         for (key,value) in subModelDict{
             stringToPrint += WTSwiftModelString(with: key, jsonString: value)
         }
         return stringToPrint
 //        print("\(stringToPrint)")
     }
-    
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
