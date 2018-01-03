@@ -15,6 +15,7 @@ public class WTModelMaker {
     public var commonKeywords:[String] = ["super","class","var","let","sturct","func","private","public","open","return","import"]//常用的关键字,如有需要可以添加
     public var keywordsVarPrefix = ""//关键字属性的前缀,如有需要可以添加
     public var keywordsVarSuffix = "_var"//关键字属性的后缀,默认添加的是_var
+    public var needQuestionMark:Bool = false
     open static let `default`:WTModelMaker = {
        return WTModelMaker()
     }()
@@ -42,11 +43,22 @@ public class WTModelMaker {
         return origin
     }
     
+    func QuestionMarkIfNeeded() -> String {
+        if needQuestionMark{
+            return "?"
+        }
+        return ""
+    }
+    func CRLF() -> String {
+        return "\n"
+    }
+    
     /// 尝试打印出一个json对应的Model属性
     /// NSArray和NSDictionary可能需要自定义为一个model类型
     public func WTSwiftModelString(with className:String = "XXX", jsonString:String,usingHeader:Bool = false)->String{
         
         var stringToPrint:String = String()
+        
         var codingKeys:String = String()
         
         if usingHeader == true {
