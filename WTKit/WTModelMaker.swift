@@ -15,7 +15,7 @@ public class WTModelMaker {
     public var commonKeywords:[String] = ["super","class","var","let","sturct","func","private","public","open","return","import"]//常用的关键字,如有需要可以添加
     public var keywordsVarPrefix = ""//关键字属性的前缀,如有需要可以添加
     public var keywordsVarSuffix = "_var"//关键字属性的后缀,默认添加的是_var
-    public var needQuestionMark:Bool = false
+    public var needQuestionMark:Bool = false //是否需要添加问号
     open static let `default`:WTModelMaker = {
        return WTModelMaker()
     }()
@@ -83,7 +83,7 @@ public class WTModelMaker {
                     var string = NSStringFromClass(classForCoder)
                     if string == "NSString" {
                         string = "String"
-                        stringToPrint += "    var \(nameReplacedKey):\(string)\n"
+                        stringToPrint += "    var \(nameReplacedKey):\(string)"
                         
                     }else if string == "NSNumber"{
                         //char, short int, int, long int, long long int, float, or double or as a BOOL
@@ -106,38 +106,41 @@ public class WTModelMaker {
                             string = "Int"
                             break
                         }
-                        stringToPrint += "    var \(nameReplacedKey):\(string)\n"
+                        stringToPrint += "    var \(nameReplacedKey):\(string)"
                         
                     } else if string == "NSArray"{
                         if value is [Int]{
                             //print("int array")
-                            stringToPrint += "    var \(nameReplacedKey):[Int]\n"
+                            stringToPrint += "    var \(nameReplacedKey):[Int]"
                         }else if value is [String]{
                             //print("string array")
-                            stringToPrint += "    var \(nameReplacedKey):[String]\n"
+                            stringToPrint += "    var \(nameReplacedKey):[String]"
                         }else{
-                            stringToPrint += "    //var \(nameReplacedKey):[Any]\n"
+                            stringToPrint += "    //var \(nameReplacedKey):[Any]"
                             needAddCodingKey = false
                         }
                         
                     }else if string == "NSDictionary"{
                         if value is [String:Int]{
-                            stringToPrint += "    var \(nameReplacedKey):[String:Int]\n"
+                            stringToPrint += "    var \(nameReplacedKey):[String:Int]"
                         }else if value is [String:String]{
-                            stringToPrint += "    var \(nameReplacedKey):[String:String]\n"
+                            stringToPrint += "    var \(nameReplacedKey):[String:String]"
                         }else{
                             let tempData = try! JSONSerialization.data(withJSONObject: value, options: [])
                             let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
                             subModelDict[nameReplacedKey] = tempString
-                            stringToPrint += "    var \(nameReplacedKey):\(nameReplacedKey)\n"
+                            stringToPrint += "    var \(nameReplacedKey):\(nameReplacedKey)"
                         }
                     }
                     if needAddCodingKey{
-                        codingKeys += "        case \(nameReplacedKey) = \"\(key)\"\n"
+                        codingKeys += "        case \(nameReplacedKey) = \"\(key)\""
                     }else{
-                        codingKeys += "        //case \(nameReplacedKey) = \"\(key)\"\n"
+                        codingKeys += "        //case \(nameReplacedKey) = \"\(key)\""
                     }
+                    codingKeys += CRLF()
                 }
+                stringToPrint += QuestionMarkIfNeeded()
+                stringToPrint += CRLF()
             }
         }
         codingKeys += "    }\n"
