@@ -10,7 +10,7 @@ import Cocoa
 import WTKitMacOS
 class ViewController: NSViewController {
 
-    @IBOutlet weak var autoRemoveButton: NSButton!
+    @IBOutlet weak var autoRemoveButton: NSButton!//question mark
     @IBOutlet weak var modelTextField: NSTextField!//类名
     @IBOutlet weak var statusTextField: NSTextField!
     @IBOutlet weak var pathTextField: NSTextField!
@@ -26,12 +26,20 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        WTModelMaker.default.needQuestionMark = true
         setDefaultString()
         checkJSONText()
         testCodableRead()
     }
     
+    @IBAction func addQuestionMark(_ sender: Any) {
+        if autoRemoveButton.state == .on{
+            WTModelMaker.default.needQuestionMark = true
+        }else{
+            WTModelMaker.default.needQuestionMark = false
+        }
+        checkJSONText()
+    }
     //这是一个model创建的工具，运行看效果吧,不错吧，😜
     func testCodableRead(){
         
@@ -116,11 +124,7 @@ extension ViewController:NSTextViewDelegate{
         jsonError = nil
         if let a:NSTextView = notification.object as? NSTextView {
             if a == textView {
-                if autoRemoveButton.state == .on{
-                    var string = textView.string
-//                    string = string.replacingOccurrences(of: "\"", with: "'")
-                    textView.string = string
-                }
+
                 checkJSONText()
             }
         }

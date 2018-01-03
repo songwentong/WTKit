@@ -828,11 +828,14 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eui-55-erG">
-                                <rect key="frame" x="664" y="464" width="112" height="37"/>
-                                <buttonCell key="cell" type="check" title="Auto remove \&quot;" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Wag-MI-xl1">
+                                <rect key="frame" x="664" y="464" width="67" height="37"/>
+                                <buttonCell key="cell" type="check" title="add &quot;?&quot;" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Wag-MI-xl1">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="addQuestionMark:" target="XfG-lQ-9wD" id="pLt-OZ-1zK"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
