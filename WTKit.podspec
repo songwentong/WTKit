@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'WTKit'
-  s.version = '0.3.3'
+  s.version = '1.0'
   s.license = 'MIT'
   s.summary = 'Elegant HTTP Networking in Swift'
   s.homepage = 'https://github.com/swtlovewtt/WTKit'
