@@ -28,9 +28,15 @@ class ViewController: NSViewController {
 
         // Do any additional setup after loading the view.
         WTModelMaker.default.needQuestionMark = true
+        WTModelMaker.default.useStruct = false
+        typeSegment.selectedSegment = 0
         setDefaultString()
         checkJSONText()
         testCodableRead()
+    }
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        checkJSONText()
     }
     
     @IBAction func addQuestionMark(_ sender: Any) {
@@ -96,12 +102,15 @@ class ViewController: NSViewController {
                         
                         let filePath = path + "/" + className + ".swift"
                         let modelString = WTModelMaker.default.WTSwiftModelString(with: className, jsonString: textView.string,usingHeader: true)
-                        do {
-                            try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
-                            print("写文件成功,请在桌面查看")
-                        }catch{
-                            print("写文件失败")
+                        DispatchQueue.global().async {
+                            do {
+                                try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
+                                print("写文件成功,请在桌面查看")
+                            }catch{
+                                print("写文件失败")
+                            }
                         }
+                        
 
                     }
                 }
