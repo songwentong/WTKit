@@ -10,6 +10,7 @@ import Cocoa
 import WTKitMacOS
 class ViewController: NSViewController {
 
+    @IBOutlet weak var typeSegment: NSSegmentedControl!
     @IBOutlet weak var autoRemoveButton: NSButton!//question mark
     @IBOutlet weak var modelTextField: NSTextField!//类名
     @IBOutlet weak var statusTextField: NSTextField!
@@ -40,6 +41,15 @@ class ViewController: NSViewController {
         }
         checkJSONText()
     }
+    @IBAction func typeSelect(_ sender: Any) {
+        var useStruct = false
+        if typeSegment.selectedSegment == 1 {
+            useStruct = true
+        }
+        WTModelMaker.default.useStruct = useStruct
+        checkJSONText()
+    }
+    
     //这是一个model创建的工具，运行看效果吧,不错吧，😜
     func testCodableRead(){
         

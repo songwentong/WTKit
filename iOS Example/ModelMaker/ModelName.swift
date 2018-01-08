@@ -1,12 +1,12 @@
 //
 //  ModelName.swift
 //
-//  this file is auto create by WTKit on 2018-01-03 19:19:43.
+//  this file is auto create by WTKit on 2018-01-08 16:41:02.
 //  site:https://github.com/swtlovewtt/WTKit
 //  Thank you for use my json model maker😜
 //
 
-public struct ModelName: Codable {
+public class ModelName: Codable {
     var numberDict:[String:Int]?
     var let_var:String?
     //var otherArray://[Any]?
@@ -36,7 +36,7 @@ public struct ModelName: Codable {
         case testFloat = "testFloat"
     }
 }
-public struct func_var: Codable {
+public class func_var: Codable {
     var b:Int?
     var a:String?
     var class_var:class_var?
@@ -46,7 +46,7 @@ public struct func_var: Codable {
         case class_var = "class"
     }
 }
-public struct class_var: Codable {
+public class class_var: Codable {
     var d:Int?
     var e:String?
     enum CodingKeys: String, CodingKey {
@@ -54,4 +54,3 @@ public struct class_var: Codable {
         case e = "e"
     }
 }
-

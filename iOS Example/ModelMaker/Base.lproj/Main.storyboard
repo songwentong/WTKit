@@ -791,7 +791,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <size key="minSize" width="619" height="391"/>
-                                            <size key="maxSize" width="619" height="10000000"/>
+                                            <size key="maxSize" width="636" height="10000000"/>
                                             <attributedString key="textStorage">
                                                 <fragment content="ewqeqweqwewqqwe">
                                                     <attributes>
@@ -837,6 +837,19 @@
                                     <action selector="addQuestionMark:" target="XfG-lQ-9wD" id="pLt-OZ-1zK"/>
                                 </connections>
                             </button>
+                            <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oCP-qS-j2d">
+                                <rect key="frame" x="745" y="471" width="133" height="24"/>
+                                <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="nPP-EW-1s9">
+                                    <font key="font" metaFont="system"/>
+                                    <segments>
+                                        <segment label="Class" width="64"/>
+                                        <segment label="Struct" width="63" selected="YES" tag="1"/>
+                                    </segments>
+                                </segmentedCell>
+                                <connections>
+                                    <action selector="typeSelect:" target="XfG-lQ-9wD" id="wuR-V8-boB"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <constraints>
                             <constraint firstItem="wyJ-WB-ms8" firstAttribute="baseline" secondItem="FYJ-hx-rIp" secondAttribute="baseline" id="1Vn-Pw-2aU"/>
@@ -857,6 +870,7 @@
                             <constraint firstItem="CWS-Uv-9wB" firstAttribute="top" secondItem="eui-55-erG" secondAttribute="bottom" constant="27" id="WHB-pQ-SCA"/>
                             <constraint firstItem="fFb-JP-Jky" firstAttribute="top" secondItem="wyJ-WB-ms8" secondAttribute="bottom" constant="8" symbolic="YES" id="WZ9-xf-kMQ"/>
                             <constraint firstItem="Yug-kZ-9Rz" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="34" id="XzC-bB-laZ"/>
+                            <constraint firstItem="oCP-qS-j2d" firstAttribute="leading" secondItem="eui-55-erG" secondAttribute="trailing" constant="18" id="bGm-Zd-3cE"/>
                             <constraint firstItem="vGX-5A-DqA" firstAttribute="leading" secondItem="hnU-tU-Ut7" secondAttribute="leading" id="cF5-kV-1Uf"/>
                             <constraint firstAttribute="bottom" secondItem="CWS-Uv-9wB" secondAttribute="bottom" constant="44" id="fRj-0a-bI2"/>
                             <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Xah-PQ-2CH" secondAttribute="trailing" constant="10" id="gKq-Se-m0h"/>
@@ -868,6 +882,7 @@
                             <constraint firstAttribute="bottom" secondItem="e1e-09-v17" secondAttribute="bottom" constant="20" symbolic="YES" id="mhx-Iu-EFK"/>
                             <constraint firstItem="Ffe-fa-0Ja" firstAttribute="top" secondItem="0Bx-1D-MJi" secondAttribute="top" id="oGJ-qC-UTj"/>
                             <constraint firstItem="CWS-Uv-9wB" firstAttribute="top" secondItem="Yug-kZ-9Rz" secondAttribute="bottom" constant="22" id="or4-rx-WXH"/>
+                            <constraint firstItem="Ffe-fa-0Ja" firstAttribute="top" secondItem="oCP-qS-j2d" secondAttribute="bottom" constant="35" id="tTl-ZH-htB"/>
                             <constraint firstItem="Xah-PQ-2CH" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="44" id="uWz-ez-uA2"/>
                             <constraint firstAttribute="trailing" secondItem="Ffe-fa-0Ja" secondAttribute="trailing" constant="20" symbolic="YES" id="xVV-ld-KHn"/>
                             <constraint firstItem="vGX-5A-DqA" firstAttribute="baseline" secondItem="fFb-JP-Jky" secondAttribute="baseline" id="zeX-L9-NgO"/>
@@ -881,6 +896,7 @@
                         <outlet property="statusLightView" destination="e1e-09-v17" id="QFK-dX-vG6"/>
                         <outlet property="statusTextField" destination="Xah-PQ-2CH" id="uFE-Pf-Jgq"/>
                         <outlet property="textView" destination="0Bx-1D-MJi" id="wrb-zM-Mhf"/>
+                        <outlet property="typeSegment" destination="oCP-qS-j2d" id="Tly-Tr-BBw"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

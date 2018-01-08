@@ -16,6 +16,7 @@ public class WTModelMaker {
     public var keywordsVarPrefix = ""//关键字属性的前缀,如有需要可以添加
     public var keywordsVarSuffix = "_var"//关键字属性的后缀,默认添加的是_var
     public var needQuestionMark:Bool = false //是否需要添加问号,来处理字段不存在的情况
+    public var useStruct = true //true用struct,false用class
     public var indent:String = "    "//缩进
     public let crlf = "\n"//换行
     
@@ -53,6 +54,13 @@ public class WTModelMaker {
         }
         return ""
     }
+    func getClassOrStructName() -> String {
+        if useStruct {
+            return "struct"
+        }else{
+            return "class"
+        }
+    }
     
     /// 尝试打印出一个json对应的Model属性
     /// NSArray和NSDictionary可能需要自定义为一个model类型
@@ -66,7 +74,12 @@ public class WTModelMaker {
             stringToPrint += headerString(className: className)
         }
         var subModelDict:[String:String] = [String:String]()
-        stringToPrint += "public struct \(className): Codable {\n"
+        
+        stringToPrint += "public"
+        stringToPrint += " "
+        stringToPrint += getClassOrStructName()
+        stringToPrint += " "
+        stringToPrint += "\(className): Codable {\n"
         codingKeys = "    enum CodingKeys: String, CodingKey {\n"
         var jsonObject:Any? = nil
         do {

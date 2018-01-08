@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		774711B01FF243E5006C2531 /* WTWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774711AF1FF243E5006C2531 /* WTWebSocket.swift */; };
 		77C77D5C1FFDE98E000118AA /* DispatchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C77D5B1FFDE98E000118AA /* DispatchExtension.swift */; };
+		77C77D5D1FFE00C2000118AA /* DispatchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C77D5B1FFDE98E000118AA /* DispatchExtension.swift */; };
 		9BF8E75D1E7A8465009F548A /* Hud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8E75C1E7A8465009F548A /* Hud.swift */; };
 		E11582A61E9C71410018E839 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = E11582A51E9C71410018E839 /* arrow.png */; };
 		E11797611E9B271D001257AB /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11797601E9B271D001257AB /* WTVersionTracking.swift */; };
@@ -575,6 +576,7 @@
 				E1EDED2E1E9F4FD600DDC372 /* FoundationExtension.swift in Sources */,
 				E1EDED2F1E9F4FD600DDC372 /* WTVersionTracking.swift in Sources */,
 				E1EDED341E9F4FD600DDC372 /* Chart.swift in Sources */,
+				77C77D5D1FFE00C2000118AA /* DispatchExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
