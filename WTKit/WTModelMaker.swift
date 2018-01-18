@@ -17,6 +17,7 @@ public class WTModelMaker {
     public var keywordsVarSuffix = "_var"//关键字属性的后缀,默认添加的是_var
     public var needQuestionMark:Bool = false //是否需要添加问号,来处理字段不存在的情况
     public var useStruct = true //true用struct,false用class
+    public var shouldHasDefaultValut = true //是否需要默认值，如果需要默认值，就不加问号了
     public var indent:String = "    "//缩进
     public let crlf = "\n"//换行
     

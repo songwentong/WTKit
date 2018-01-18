@@ -59,8 +59,11 @@ public func WTLog(
 
 // MARK: - DEBUG执行的方法
 public func DEBUGBlock(_ block:() -> Void){
+    DEBUGClosure(block)
+}
+public func DEBUGClosure(_ closure:()->Void){
     #if DEBUG
-        block()
+        closure()
     #else
     #endif
 }
