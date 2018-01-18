@@ -28,10 +28,10 @@ public func WTPrint<T>(_ items:T,
                     method: String = #function,
                     line: Int = #line)
 {
-    #if DEBUG
+    DEBUGClosure {
         print("\((file as NSString).lastPathComponent)[\(line)], \(method)")
         print(items,separator: separator,terminator: terminator)
-    #endif
+    }
 }
 
 /*!
@@ -47,13 +47,11 @@ public func WTLog(
     method: String = #function,
     line: Int = #line
     ) {
-    #if DEBUG
-        if WTKitLogMode {
-            print("\((file as NSString).lastPathComponent)[\(line)], \(method)")
-            print(items,separator: separator,terminator: terminator)
+    DEBUGClosure {
+        if WTKitLogMode{
+            WTPrint(items)
         }
-    #endif
-    
+    }
 }
 
 
@@ -67,6 +65,13 @@ public func DEBUGClosure(_ closure:()->Void){
     #else
     #endif
 }
+public func ReleaseClosure(_ work:()->Void){
+    #if DEBUG
+    #else
+        work()
+    #endif
+}
+
 
 
 // MARK: - 延时执行的代码块
