@@ -110,7 +110,7 @@ public class WTModelMaker {
                     if !codableValue{
                         stringToPrint += "//"
                     }
-                    stringToPrint += "var \(nameReplacedKey):"
+                    stringToPrint += "var \(nameReplacedKey): "
                     if string == "NSString" {
                         string = "String"
                         stringToPrint += "\(string)"
@@ -150,9 +150,9 @@ public class WTModelMaker {
                         
                     }else if string == "NSDictionary"{
                         if value is [String:Int]{
-                            stringToPrint += "[String:Int]"
+                            stringToPrint += "[String: Int]"
                         }else if value is [String:String]{
-                            stringToPrint += "[String:String]"
+                            stringToPrint += "[String: String]"
                         }else{
                             let tempData = try! JSONSerialization.data(withJSONObject: value, options: [])
                             let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
