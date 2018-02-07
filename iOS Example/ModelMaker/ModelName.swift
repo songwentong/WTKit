@@ -5,7 +5,25 @@
 //  site:https://github.com/swtlovewtt/WTKit
 //  Thank you for use my json model maker😜
 //
-
+class test: Codable {
+    var a:String
+    var b:String
+    enum CodingKeys: String, CodingKey {
+        case a = "a"
+        case b = "b"
+    }
+    public required init(from decoder: Decoder) throws{
+        let values:KeyedDecodingContainer = try decoder.container(keyedBy: CodingKeys.self)
+        a = try values.decode(String.self, forKey: CodingKeys.a)
+        let value = try values.decode(String.self, forKey: CodingKeys.b)
+        b = "\(value)"
+    }
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(a, forKey: CodingKeys.a)
+        try container.encode(b, forKey: CodingKeys.b)
+    }
+}
 public class ModelName: Codable {
     var numberDict:[String:Int]?
     var let_var:String?
