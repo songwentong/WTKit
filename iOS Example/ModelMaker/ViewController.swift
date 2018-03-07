@@ -150,7 +150,7 @@ extension ViewController:NSTextViewDelegate{
         
     }
     public func checkJSONText(){
-        
+        textView.textColor = NSColor.black
             if let data = textView.string.data(using: .utf8){
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
