@@ -19,6 +19,7 @@ import WTKit
  4.版本记录 参考GBVersionTracking
  5.KeyChain 做一个好用的工具,参考UICkeyChain
  6.做一个动画绘图
+ 7.gif
  
  */
 class ViewController: UIViewController{
@@ -52,6 +53,7 @@ class ViewController: UIViewController{
         //        dataList.append(["title":"Reachability","segue":"reachability"])
         
         underDevelopmentList.append(["title":"ChartView Demo (under development)","segue":"chart"])
+        underDevelopmentList.append(["title":"gif demo","segue":"gifDemo"])
     }
     
     // MARK: View Lifecycle

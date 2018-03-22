@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -213,6 +212,7 @@ Internet traffic will be routed through it.</string>
                         <segue destination="jVp-IL-WPL" kind="show" identifier="imageListVC" id="B2N-Bs-keW"/>
                         <segue destination="gqv-po-uwZ" kind="show" identifier="chart" id="0H3-yi-ANI"/>
                         <segue destination="tIg-wc-zgs" kind="show" identifier="requestDemo" id="n70-m7-Ee7"/>
+                        <segue destination="Etn-3m-dw1" kind="show" identifier="gifDemo" id="eSb-je-W7T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -650,6 +650,14 @@ Internet traffic will be routed through it.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VjR-xg-hym" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5769" y="3070"/>
+        </scene>
+        <!--GifDemoSB-->
+        <scene sceneID="JZe-1U-qqu">
+            <objects>
+                <viewControllerPlaceholder storyboardName="GifDemoSB" id="Etn-3m-dw1" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Vf-3J-bJu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3388" y="1089"/>
         </scene>
         <!--Color create-->
         <scene sceneID="RIk-UW-C4M">

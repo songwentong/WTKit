@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7716E1111FECD0850098B16E /* ModelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7716E1101FECD0850098B16E /* ModelName.swift */; };
+		774088CD2063B9B6006D74D2 /* GifDemoSB.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 774088CB2063B9B6006D74D2 /* GifDemoSB.storyboard */; };
+		774088D42063BA00006D74D2 /* GifDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774088D32063BA00006D74D2 /* GifDemoVC.swift */; };
 		7783F8E51FF4AA41003CFB9E /* iOS_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7783F8E41FF4AA41003CFB9E /* iOS_ExampleTests.swift */; };
 		7783F8F01FF4AA5D003CFB9E /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */; };
 		E15CD2871E9631BD0042CBE1 /* ChartDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2861E9631BD0042CBE1 /* ChartDemo.swift */; };
@@ -129,6 +131,8 @@
 
 /* Begin PBXFileReference section */
 		7716E1101FECD0850098B16E /* ModelName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelName.swift; sourceTree = "<group>"; };
+		774088CC2063B9B6006D74D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GifDemoSB.storyboard; sourceTree = "<group>"; };
+		774088D32063BA00006D74D2 /* GifDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifDemoVC.swift; sourceTree = "<group>"; };
 		7783F8E21FF4AA41003CFB9E /* iOS ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS ExampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7783F8E41FF4AA41003CFB9E /* iOS_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_ExampleTests.swift; sourceTree = "<group>"; };
 		7783F8E61FF4AA41003CFB9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -254,6 +258,7 @@
 			children = (
 				E15D28E81DFAB4620042E678 /* Main.storyboard */,
 				E15D28E61DFAB4620042E678 /* LaunchScreen.storyboard */,
+				774088CB2063B9B6006D74D2 /* GifDemoSB.storyboard */,
 			);
 			path = Base.lproj;
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 				E15D28F31DFAB4620042E678 /* ReachabilityVC.swift */,
 				E15D28F51DFAB4620042E678 /* TableRefreshVC.swift */,
 				E15CD2861E9631BD0042CBE1 /* ChartDemo.swift */,
+				774088D32063BA00006D74D2 /* GifDemoVC.swift */,
 				E15D28F41DFAB4620042E678 /* Swift使用规范 */,
 				E15D28E41DFAB4620042E678 /* Assets.xcassets */,
 				E15D28E51DFAB4620042E678 /* Base.lproj */,
@@ -486,6 +492,7 @@
 				E15D29051DFAB4620042E678 /* Swift使用规范 in Resources */,
 				E18B9F9F1E77D25B0013EFA8 /* JSONData in Resources */,
 				E15D28FA1DFAB4620042E678 /* Main.storyboard in Resources */,
+				774088CD2063B9B6006D74D2 /* GifDemoSB.storyboard in Resources */,
 				E15D28F81DFAB4620042E678 /* Assets.xcassets in Resources */,
 				E15D28F91DFAB4620042E678 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -528,6 +535,7 @@
 				E15D29011DFAB4620042E678 /* ModelDemoViewController.swift in Sources */,
 				E19F49B31EA759BB00842DE0 /* RequestDemoVC.swift in Sources */,
 				E15D29071DFAB4620042E678 /* ViewController.swift in Sources */,
+				774088D42063BA00006D74D2 /* GifDemoVC.swift in Sources */,
 				E15D28FF1DFAB4620042E678 /* ImageDownloadVC.swift in Sources */,
 				E18B9FA91E77D4EC0013EFA8 /* WeatherModel.swift in Sources */,
 				E15D29021DFAB4620042E678 /* POSTParamatersVC.swift in Sources */,
@@ -567,6 +575,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		774088CB2063B9B6006D74D2 /* GifDemoSB.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				774088CC2063B9B6006D74D2 /* Base */,
+			);
+			name = GifDemoSB.storyboard;
+			sourceTree = "<group>";
+		};
 		E15D28E61DFAB4620042E678 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -751,7 +767,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = QZFW9RQ778;
 				INFOPLIST_FILE = "iOS Example/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.songwentong.iOS-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -770,7 +786,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = QZFW9RQ778;
 				INFOPLIST_FILE = "iOS Example/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.songwentong.iOS-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
