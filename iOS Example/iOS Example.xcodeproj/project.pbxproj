@@ -10,6 +10,7 @@
 		7716E1111FECD0850098B16E /* ModelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7716E1101FECD0850098B16E /* ModelName.swift */; };
 		774088CD2063B9B6006D74D2 /* GifDemoSB.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 774088CB2063B9B6006D74D2 /* GifDemoSB.storyboard */; };
 		774088D42063BA00006D74D2 /* GifDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774088D32063BA00006D74D2 /* GifDemoVC.swift */; };
+		774088D72063BBF4006D74D2 /* DemoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774088D62063BBF4006D74D2 /* DemoInfo.swift */; };
 		7783F8E51FF4AA41003CFB9E /* iOS_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7783F8E41FF4AA41003CFB9E /* iOS_ExampleTests.swift */; };
 		7783F8F01FF4AA5D003CFB9E /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */; };
 		E15CD2871E9631BD0042CBE1 /* ChartDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2861E9631BD0042CBE1 /* ChartDemo.swift */; };
@@ -133,6 +134,7 @@
 		7716E1101FECD0850098B16E /* ModelName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelName.swift; sourceTree = "<group>"; };
 		774088CC2063B9B6006D74D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GifDemoSB.storyboard; sourceTree = "<group>"; };
 		774088D32063BA00006D74D2 /* GifDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifDemoVC.swift; sourceTree = "<group>"; };
+		774088D62063BBF4006D74D2 /* DemoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoInfo.swift; sourceTree = "<group>"; };
 		7783F8E21FF4AA41003CFB9E /* iOS ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS ExampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7783F8E41FF4AA41003CFB9E /* iOS_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_ExampleTests.swift; sourceTree = "<group>"; };
 		7783F8E61FF4AA41003CFB9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -197,6 +199,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		774088D52063BBE2006D74D2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				774088D62063BBF4006D74D2 /* DemoInfo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		7783F8E31FF4AA41003CFB9E /* iOS ExampleTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,6 +276,7 @@
 		E15D290C1DFABA8E0042E678 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				774088D52063BBE2006D74D2 /* Models */,
 				E15D28E31DFAB4620042E678 /* AppDelegate.swift */,
 				E15D28F61DFAB4620042E678 /* ViewController.swift */,
 				E16AE9CD1EA5E691009080DE /* RequestDemoVC.swift */,
@@ -534,6 +545,7 @@
 				E15D29041DFAB4620042E678 /* ReachabilityVC.swift in Sources */,
 				E15D29011DFAB4620042E678 /* ModelDemoViewController.swift in Sources */,
 				E19F49B31EA759BB00842DE0 /* RequestDemoVC.swift in Sources */,
+				774088D72063BBF4006D74D2 /* DemoInfo.swift in Sources */,
 				E15D29071DFAB4620042E678 /* ViewController.swift in Sources */,
 				774088D42063BA00006D74D2 /* GifDemoVC.swift in Sources */,
 				E15D28FF1DFAB4620042E678 /* ImageDownloadVC.swift in Sources */,
