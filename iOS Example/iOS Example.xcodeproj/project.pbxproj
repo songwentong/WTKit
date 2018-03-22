@@ -807,7 +807,7 @@
 				DEVELOPMENT_TEAM = QZFW9RQ778;
 				INFOPLIST_FILE = ModelMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.songwentong.ModelMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -827,7 +827,7 @@
 				DEVELOPMENT_TEAM = QZFW9RQ778;
 				INFOPLIST_FILE = ModelMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.songwentong.ModelMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
