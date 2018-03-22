@@ -76,7 +76,9 @@ public class QRCodeScanVC: UIViewController,AVCaptureMetadataOutputObjectsDelega
         }
         
         session.beginConfiguration()
-        let videoDevice:AVCaptureDevice = AVCaptureDevice.default(for: AVMediaType.video)!
+        guard let videoDevice:AVCaptureDevice = AVCaptureDevice.default(for: AVMediaType.video) else {
+            return
+        }
         do{
             let input = try AVCaptureDeviceInput.init(device: videoDevice)
             if session.canAddInput(input) {
