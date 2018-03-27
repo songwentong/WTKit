@@ -130,16 +130,7 @@ class ModelDemoViewController: UIViewController,UITextViewDelegate {
     //写到桌面
     @IBAction func writeToDisk(_ sender: Any) {
 
-        let filePath = desktopPath() + "/" + className! + ".swift"
-//                let modelString = obj.WTSwiftModelString(className!);
-        
-//        let modelString = WTModelMaker.default.WTSwiftModelString(with: className!, jsonString: jsonTextView.text)
-        do {
-//            try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
-            print("写文件成功,请在桌面查看")
-        }catch{
-            print("写文件失败")
-        }
+
   
     }
     
