@@ -21,6 +21,7 @@ class RequestDemoVC:UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var abc:Array<Int>
         requewWithType()
     }
     func requewWithType()->Void{
