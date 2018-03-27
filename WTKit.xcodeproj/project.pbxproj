@@ -7,56 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		774711B01FF243E5006C2531 /* WTWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774711AF1FF243E5006C2531 /* WTWebSocket.swift */; };
-		77C77D5C1FFDE98E000118AA /* DispatchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C77D5B1FFDE98E000118AA /* DispatchExtension.swift */; };
-		77C77D5D1FFE00C2000118AA /* DispatchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C77D5B1FFDE98E000118AA /* DispatchExtension.swift */; };
-		9BF8E75D1E7A8465009F548A /* Hud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8E75C1E7A8465009F548A /* Hud.swift */; };
-		E11582A61E9C71410018E839 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = E11582A51E9C71410018E839 /* arrow.png */; };
-		E11797611E9B271D001257AB /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11797601E9B271D001257AB /* WTVersionTracking.swift */; };
-		E15CD2851E95EBD80042CBE1 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2841E95EBD80042CBE1 /* Chart.swift */; };
+		7721CA15206A1F2F00147CF5 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA04206A1F2D00147CF5 /* CustomExtension.swift */; };
+		7721CA16206A1F2F00147CF5 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA05206A1F2E00147CF5 /* Chart.swift */; };
+		7721CA17206A1F2F00147CF5 /* WTModelMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA06206A1F2E00147CF5 /* WTModelMaker.swift */; };
+		7721CA18206A1F2F00147CF5 /* WTReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA07206A1F2E00147CF5 /* WTReachability.swift */; };
+		7721CA19206A1F2F00147CF5 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA08206A1F2E00147CF5 /* UIKitExtension.swift */; };
+		7721CA1A206A1F2F00147CF5 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA09206A1F2E00147CF5 /* Algorithm.swift */; };
+		7721CA1B206A1F2F00147CF5 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA0A206A1F2E00147CF5 /* FoundationExtension.swift */; };
+		7721CA1C206A1F2F00147CF5 /* WTWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA0B206A1F2E00147CF5 /* WTWebSocket.swift */; };
+		7721CA1D206A1F2F00147CF5 /* WTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA0C206A1F2E00147CF5 /* WTURLSessionManager.swift */; };
+		7721CA1E206A1F2F00147CF5 /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA0D206A1F2E00147CF5 /* WTVersionTracking.swift */; };
+		7721CA1F206A1F2F00147CF5 /* WTURLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA0E206A1F2E00147CF5 /* WTURLSessionTask.swift */; };
+		7721CA20206A1F2F00147CF5 /* WTWebImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA0F206A1F2E00147CF5 /* WTWebImage.swift */; };
+		7721CA21206A1F2F00147CF5 /* WTImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA10206A1F2E00147CF5 /* WTImagePickerController.swift */; };
+		7721CA22206A1F2F00147CF5 /* Hud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA11206A1F2E00147CF5 /* Hud.swift */; };
+		7721CA23206A1F2F00147CF5 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA12206A1F2E00147CF5 /* WTNetWork.swift */; };
+		7721CA24206A1F2F00147CF5 /* DispatchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA13206A1F2E00147CF5 /* DispatchExtension.swift */; };
+		7721CA25206A1F2F00147CF5 /* WTImagePickerControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7721CA14206A1F2E00147CF5 /* WTImagePickerControllerDelegate.swift */; };
+		7721CA29206A1F5900147CF5 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7721CA26206A1F5900147CF5 /* arrow.png */; };
 		E16AE9CC1EA5C2A8009080DE /* WTKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */; };
-		E17BDA201DDDC11A00CF5672 /* WTKit.h in Headers */ = {isa = PBXBuildFile; fileRef = E17BDA1E1DDDC11A00CF5672 /* WTKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E17BDA2B1DDDC12500CF5672 /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA271DDDC12500CF5672 /* CustomExtension.swift */; };
-		E17BDA2C1DDDC12500CF5672 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
-		E17BDA2D1DDDC12500CF5672 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
-		E1857FD71E78DDE80082F385 /* WTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD61E78DDE80082F385 /* WTURLSessionManager.swift */; };
-		E1857FDA1E78E01A0082F385 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD91E78E01A0082F385 /* WTNetWork.swift */; };
-		E1857FDC1E78E3490082F385 /* WTURLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FDB1E78E3490082F385 /* WTURLSessionTask.swift */; };
-		E18916F71F0F2573007A3916 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18916F61F0F2573007A3916 /* Algorithm.swift */; };
-		E18916F91F0F6442007A3916 /* WTImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18916F81F0F6442007A3916 /* WTImagePickerController.swift */; };
-		E18916FB1F0F6661007A3916 /* WTImagePickerControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18916FA1F0F6661007A3916 /* WTImagePickerControllerDelegate.swift */; };
-		E18B9FAC1E77D6450013EFA8 /* WTWebImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18B9FAB1E77D6450013EFA8 /* WTWebImage.swift */; };
-		E1C0C9B91E07AC3E000B8F50 /* WTReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */; };
 		E1D21AFB1DE04D6D0011F302 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */; };
-		E1D21B0E1DE29B870011F302 /* WTModelMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* WTModelMaker.swift */; };
 		E1EDED061E9F4F6100DDC372 /* WTKitWatchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E1EDED041E9F4F6100DDC372 /* WTKitWatchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1EDED0B1E9F4F7B00DDC372 /* Hud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8E75C1E7A8465009F548A /* Hud.swift */; };
-		E1EDED0C1E9F4F7B00DDC372 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD91E78E01A0082F385 /* WTNetWork.swift */; };
-		E1EDED0D1E9F4F7B00DDC372 /* WTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD61E78DDE80082F385 /* WTURLSessionManager.swift */; };
-		E1EDED0E1E9F4F7B00DDC372 /* WTURLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FDB1E78E3490082F385 /* WTURLSessionTask.swift */; };
-		E1EDED111E9F4F7B00DDC372 /* WTModelMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* WTModelMaker.swift */; };
-		E1EDED121E9F4F7B00DDC372 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
-		E1EDED131E9F4F7B00DDC372 /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11797601E9B271D001257AB /* WTVersionTracking.swift */; };
-		E1EDED171E9F4F7B00DDC372 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
-		E1EDED181E9F4F7B00DDC372 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2841E95EBD80042CBE1 /* Chart.swift */; };
 		E1EDED221E9F4FCA00DDC372 /* WTKitMacOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E1EDED201E9F4FCA00DDC372 /* WTKitMacOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1EDED281E9F4FD600DDC372 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD91E78E01A0082F385 /* WTNetWork.swift */; };
-		E1EDED291E9F4FD600DDC372 /* WTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD61E78DDE80082F385 /* WTURLSessionManager.swift */; };
-		E1EDED2A1E9F4FD600DDC372 /* WTURLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FDB1E78E3490082F385 /* WTURLSessionTask.swift */; };
-		E1EDED2D1E9F4FD600DDC372 /* WTModelMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* WTModelMaker.swift */; };
-		E1EDED2E1E9F4FD600DDC372 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
-		E1EDED2F1E9F4FD600DDC372 /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11797601E9B271D001257AB /* WTVersionTracking.swift */; };
-		E1EDED341E9F4FD600DDC372 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2841E95EBD80042CBE1 /* Chart.swift */; };
 		E1EDED5A1E9F506F00DDC372 /* WTKitTVOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E1EDED581E9F506F00DDC372 /* WTKitTVOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1EDED5E1E9F507900DDC372 /* Hud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8E75C1E7A8465009F548A /* Hud.swift */; };
-		E1EDED5F1E9F507900DDC372 /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD91E78E01A0082F385 /* WTNetWork.swift */; };
-		E1EDED601E9F507900DDC372 /* WTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FD61E78DDE80082F385 /* WTURLSessionManager.swift */; };
-		E1EDED611E9F507900DDC372 /* WTURLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1857FDB1E78E3490082F385 /* WTURLSessionTask.swift */; };
-		E1EDED641E9F507900DDC372 /* WTModelMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21B0D1DE29B870011F302 /* WTModelMaker.swift */; };
-		E1EDED651E9F507900DDC372 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */; };
-		E1EDED661E9F507900DDC372 /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11797601E9B271D001257AB /* WTVersionTracking.swift */; };
-		E1EDED691E9F507900DDC372 /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */; };
-		E1EDED6A1E9F507900DDC372 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2841E95EBD80042CBE1 /* Chart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,30 +43,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		774711AF1FF243E5006C2531 /* WTWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTWebSocket.swift; sourceTree = "<group>"; };
-		77C77D5B1FFDE98E000118AA /* DispatchExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchExtension.swift; sourceTree = "<group>"; };
-		9BF8E75C1E7A8465009F548A /* Hud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hud.swift; sourceTree = "<group>"; };
-		E11582A51E9C71410018E839 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
-		E11797601E9B271D001257AB /* WTVersionTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTVersionTracking.swift; sourceTree = "<group>"; };
-		E15CD2841E95EBD80042CBE1 /* Chart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
+		7721CA04206A1F2D00147CF5 /* CustomExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomExtension.swift; path = Source/CustomExtension.swift; sourceTree = SOURCE_ROOT; };
+		7721CA05206A1F2E00147CF5 /* Chart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Chart.swift; path = Source/Chart.swift; sourceTree = SOURCE_ROOT; };
+		7721CA06206A1F2E00147CF5 /* WTModelMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WTModelMaker.swift; path = Source/WTModelMaker.swift; sourceTree = SOURCE_ROOT; };
+		7721CA07206A1F2E00147CF5 /* WTReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WTReachability.swift; path = Source/WTReachability.swift; sourceTree = SOURCE_ROOT; };
+		7721CA08206A1F2E00147CF5 /* UIKitExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIKitExtension.swift; path = Source/UIKitExtension.swift; sourceTree = SOURCE_ROOT; };
+		7721CA09206A1F2E00147CF5 /* Algorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Algorithm.swift; path = Source/Algorithm.swift; sourceTree = SOURCE_ROOT; };
+		7721CA0A206A1F2E00147CF5 /* FoundationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoundationExtension.swift; path = Source/FoundationExtension.swift; sourceTree = SOURCE_ROOT; };
+		7721CA0B206A1F2E00147CF5 /* WTWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WTWebSocket.swift; path = Source/WTWebSocket.swift; sourceTree = SOURCE_ROOT; };
+		7721CA0C206A1F2E00147CF5 /* WTURLSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WTURLSessionManager.swift; path = Source/WTURLSessionManager.swift; sourceTree = SOURCE_ROOT; };
+		7721CA0D206A1F2E00147CF5 /* WTVersionTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WTVersionTracking.swift; path = Source/WTVersionTracking.swift; sourceTree = SOURCE_ROOT; };
+		7721CA0E206A1F2E00147CF5 /* WTURLSessionTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WTURLSessionTask.swift; path = Source/WTURLSessionTask.swift; sourceTree = SOURCE_ROOT; };
+		7721CA0F206A1F2E00147CF5 /* WTWebImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WTWebImage.swift; path = Source/WTWebImage.swift; sourceTree = SOURCE_ROOT; };
+		7721CA10206A1F2E00147CF5 /* WTImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WTImagePickerController.swift; path = Source/WTImagePickerController.swift; sourceTree = SOURCE_ROOT; };
+		7721CA11206A1F2E00147CF5 /* Hud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hud.swift; path = Source/Hud.swift; sourceTree = SOURCE_ROOT; };
+		7721CA12206A1F2E00147CF5 /* WTNetWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WTNetWork.swift; path = Source/WTNetWork.swift; sourceTree = SOURCE_ROOT; };
+		7721CA13206A1F2E00147CF5 /* DispatchExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DispatchExtension.swift; path = Source/DispatchExtension.swift; sourceTree = SOURCE_ROOT; };
+		7721CA14206A1F2E00147CF5 /* WTImagePickerControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WTImagePickerControllerDelegate.swift; path = Source/WTImagePickerControllerDelegate.swift; sourceTree = SOURCE_ROOT; };
+		7721CA26206A1F5900147CF5 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = WTKit/arrow.png; sourceTree = SOURCE_ROOT; };
+		7721CA27206A1F5900147CF5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = WTKit/Info.plist; sourceTree = SOURCE_ROOT; };
 		E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WTKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E17BDA1E1DDDC11A00CF5672 /* WTKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTKit.h; sourceTree = "<group>"; };
-		E17BDA1F1DDDC11A00CF5672 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E17BDA271DDDC12500CF5672 /* CustomExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomExtension.swift; sourceTree = "<group>"; };
-		E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtension.swift; sourceTree = "<group>"; };
-		E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtension.swift; sourceTree = "<group>"; };
-		E1857FD61E78DDE80082F385 /* WTURLSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTURLSessionManager.swift; sourceTree = "<group>"; };
-		E1857FD91E78E01A0082F385 /* WTNetWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTNetWork.swift; sourceTree = "<group>"; };
-		E1857FDB1E78E3490082F385 /* WTURLSessionTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTURLSessionTask.swift; sourceTree = "<group>"; };
-		E18916F61F0F2573007A3916 /* Algorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
-		E18916F81F0F6442007A3916 /* WTImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTImagePickerController.swift; sourceTree = "<group>"; };
-		E18916FA1F0F6661007A3916 /* WTImagePickerControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTImagePickerControllerDelegate.swift; sourceTree = "<group>"; };
-		E18B9FAB1E77D6450013EFA8 /* WTWebImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTWebImage.swift; sourceTree = "<group>"; };
-		E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTReachability.swift; sourceTree = "<group>"; };
 		E1D21AF61DE04D6D0011F302 /* WTKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WTKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTKitTests.swift; sourceTree = "<group>"; };
 		E1D21AFA1DE04D6D0011F302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E1D21B0D1DE29B870011F302 /* WTModelMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTModelMaker.swift; sourceTree = "<group>"; };
 		E1EDED021E9F4F6100DDC372 /* WTKitWatchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WTKitWatchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1EDED041E9F4F6100DDC372 /* WTKitWatchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTKitWatchOS.h; sourceTree = "<group>"; };
 		E1EDED051E9F4F6100DDC372 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -145,26 +117,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9BF8E75B1E7A8356009F548A /* Hud */ = {
+		7721CA02206A1F0E00147CF5 /* WTKit */ = {
 			isa = PBXGroup;
 			children = (
-				9BF8E75C1E7A8465009F548A /* Hud.swift */,
+				7721CA26206A1F5900147CF5 /* arrow.png */,
+				7721CA27206A1F5900147CF5 /* Info.plist */,
 			);
-			name = Hud;
+			name = WTKit;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
-		E117975F1E9B26FF001257AB /* VersionTrack */ = {
+		7721CA03206A1F1300147CF5 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				E11797601E9B271D001257AB /* WTVersionTracking.swift */,
+				7721CA09206A1F2E00147CF5 /* Algorithm.swift */,
+				7721CA05206A1F2E00147CF5 /* Chart.swift */,
+				7721CA04206A1F2D00147CF5 /* CustomExtension.swift */,
+				7721CA13206A1F2E00147CF5 /* DispatchExtension.swift */,
+				7721CA0A206A1F2E00147CF5 /* FoundationExtension.swift */,
+				7721CA11206A1F2E00147CF5 /* Hud.swift */,
+				7721CA08206A1F2E00147CF5 /* UIKitExtension.swift */,
+				7721CA10206A1F2E00147CF5 /* WTImagePickerController.swift */,
+				7721CA14206A1F2E00147CF5 /* WTImagePickerControllerDelegate.swift */,
+				7721CA06206A1F2E00147CF5 /* WTModelMaker.swift */,
+				7721CA12206A1F2E00147CF5 /* WTNetWork.swift */,
+				7721CA07206A1F2E00147CF5 /* WTReachability.swift */,
+				7721CA0C206A1F2E00147CF5 /* WTURLSessionManager.swift */,
+				7721CA0E206A1F2E00147CF5 /* WTURLSessionTask.swift */,
+				7721CA0D206A1F2E00147CF5 /* WTVersionTracking.swift */,
+				7721CA0F206A1F2E00147CF5 /* WTWebImage.swift */,
+				7721CA0B206A1F2E00147CF5 /* WTWebSocket.swift */,
 			);
-			name = VersionTrack;
+			name = Source;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		E17BDA111DDDC11A00CF5672 = {
 			isa = PBXGroup;
 			children = (
-				E17BDA1D1DDDC11A00CF5672 /* WTKit */,
+				7721CA03206A1F1300147CF5 /* Source */,
+				7721CA02206A1F0E00147CF5 /* WTKit */,
 				E1D21AF71DE04D6D0011F302 /* WTKitTests */,
 				E1EDED031E9F4F6100DDC372 /* WTKitWatchOS */,
 				E1EDED1F1E9F4FCA00DDC372 /* WTKitMacOS */,
@@ -183,73 +175,6 @@
 				E1EDED561E9F506F00DDC372 /* WTKitTVOS.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		E17BDA1D1DDDC11A00CF5672 /* WTKit */ = {
-			isa = PBXGroup;
-			children = (
-				E17BDA1E1DDDC11A00CF5672 /* WTKit.h */,
-				9BF8E75B1E7A8356009F548A /* Hud */,
-				E1C0C9BC1E07BA4F000B8F50 /* NetWork */,
-				E18B9FAA1E77D5DF0013EFA8 /* WebImage */,
-				E18B9F9C1E77CCFF0013EFA8 /* JSONModel */,
-				E1C0C9BD1E07BA66000B8F50 /* Others */,
-				E117975F1E9B26FF001257AB /* VersionTrack */,
-				E1C0C9BB1E07BA39000B8F50 /* iOS */,
-				E17BDA1F1DDDC11A00CF5672 /* Info.plist */,
-			);
-			path = WTKit;
-			sourceTree = "<group>";
-		};
-		E18B9F9C1E77CCFF0013EFA8 /* JSONModel */ = {
-			isa = PBXGroup;
-			children = (
-				E1D21B0D1DE29B870011F302 /* WTModelMaker.swift */,
-			);
-			name = JSONModel;
-			sourceTree = "<group>";
-		};
-		E18B9FAA1E77D5DF0013EFA8 /* WebImage */ = {
-			isa = PBXGroup;
-			children = (
-				E18B9FAB1E77D6450013EFA8 /* WTWebImage.swift */,
-			);
-			name = WebImage;
-			sourceTree = "<group>";
-		};
-		E1C0C9BB1E07BA39000B8F50 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				E11582A51E9C71410018E839 /* arrow.png */,
-				E1C0C9B81E07AC3E000B8F50 /* WTReachability.swift */,
-				E17BDA271DDDC12500CF5672 /* CustomExtension.swift */,
-				E17BDA291DDDC12500CF5672 /* UIKitExtension.swift */,
-				E15CD2841E95EBD80042CBE1 /* Chart.swift */,
-				E18916FA1F0F6661007A3916 /* WTImagePickerControllerDelegate.swift */,
-				E18916F81F0F6442007A3916 /* WTImagePickerController.swift */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		E1C0C9BC1E07BA4F000B8F50 /* NetWork */ = {
-			isa = PBXGroup;
-			children = (
-				E1857FD91E78E01A0082F385 /* WTNetWork.swift */,
-				E1857FD61E78DDE80082F385 /* WTURLSessionManager.swift */,
-				E1857FDB1E78E3490082F385 /* WTURLSessionTask.swift */,
-			);
-			name = NetWork;
-			sourceTree = "<group>";
-		};
-		E1C0C9BD1E07BA66000B8F50 /* Others */ = {
-			isa = PBXGroup;
-			children = (
-				774711AF1FF243E5006C2531 /* WTWebSocket.swift */,
-				E17BDA281DDDC12500CF5672 /* FoundationExtension.swift */,
-				E18916F61F0F2573007A3916 /* Algorithm.swift */,
-				77C77D5B1FFDE98E000118AA /* DispatchExtension.swift */,
-			);
-			name = Others;
 			sourceTree = "<group>";
 		};
 		E1D21AF71DE04D6D0011F302 /* WTKitTests */ = {
@@ -295,7 +220,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E17BDA201DDDC11A00CF5672 /* WTKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,7 +353,7 @@
 					E17BDA1A1DDDC11A00CF5672 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = QZFW9RQ778;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					E1D21AF51DE04D6D0011F302 = {
@@ -482,7 +406,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E11582A61E9C71410018E839 /* arrow.png in Resources */,
+				7721CA29206A1F5900147CF5 /* arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,23 +445,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BF8E75D1E7A8465009F548A /* Hud.swift in Sources */,
-				E1857FDC1E78E3490082F385 /* WTURLSessionTask.swift in Sources */,
-				E1D21B0E1DE29B870011F302 /* WTModelMaker.swift in Sources */,
-				E1857FD71E78DDE80082F385 /* WTURLSessionManager.swift in Sources */,
-				E17BDA2B1DDDC12500CF5672 /* CustomExtension.swift in Sources */,
-				E1C0C9B91E07AC3E000B8F50 /* WTReachability.swift in Sources */,
-				E18916F91F0F6442007A3916 /* WTImagePickerController.swift in Sources */,
-				E17BDA2C1DDDC12500CF5672 /* FoundationExtension.swift in Sources */,
-				E18916F71F0F2573007A3916 /* Algorithm.swift in Sources */,
-				E11797611E9B271D001257AB /* WTVersionTracking.swift in Sources */,
-				E17BDA2D1DDDC12500CF5672 /* UIKitExtension.swift in Sources */,
-				E18916FB1F0F6661007A3916 /* WTImagePickerControllerDelegate.swift in Sources */,
-				E15CD2851E95EBD80042CBE1 /* Chart.swift in Sources */,
-				77C77D5C1FFDE98E000118AA /* DispatchExtension.swift in Sources */,
-				E18B9FAC1E77D6450013EFA8 /* WTWebImage.swift in Sources */,
-				774711B01FF243E5006C2531 /* WTWebSocket.swift in Sources */,
-				E1857FDA1E78E01A0082F385 /* WTNetWork.swift in Sources */,
+				7721CA1E206A1F2F00147CF5 /* WTVersionTracking.swift in Sources */,
+				7721CA16206A1F2F00147CF5 /* Chart.swift in Sources */,
+				7721CA23206A1F2F00147CF5 /* WTNetWork.swift in Sources */,
+				7721CA1D206A1F2F00147CF5 /* WTURLSessionManager.swift in Sources */,
+				7721CA22206A1F2F00147CF5 /* Hud.swift in Sources */,
+				7721CA1A206A1F2F00147CF5 /* Algorithm.swift in Sources */,
+				7721CA15206A1F2F00147CF5 /* CustomExtension.swift in Sources */,
+				7721CA25206A1F2F00147CF5 /* WTImagePickerControllerDelegate.swift in Sources */,
+				7721CA17206A1F2F00147CF5 /* WTModelMaker.swift in Sources */,
+				7721CA19206A1F2F00147CF5 /* UIKitExtension.swift in Sources */,
+				7721CA21206A1F2F00147CF5 /* WTImagePickerController.swift in Sources */,
+				7721CA20206A1F2F00147CF5 /* WTWebImage.swift in Sources */,
+				7721CA1F206A1F2F00147CF5 /* WTURLSessionTask.swift in Sources */,
+				7721CA18206A1F2F00147CF5 /* WTReachability.swift in Sources */,
+				7721CA1C206A1F2F00147CF5 /* WTWebSocket.swift in Sources */,
+				7721CA1B206A1F2F00147CF5 /* FoundationExtension.swift in Sources */,
+				7721CA24206A1F2F00147CF5 /* DispatchExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,15 +477,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1EDED0B1E9F4F7B00DDC372 /* Hud.swift in Sources */,
-				E1EDED0C1E9F4F7B00DDC372 /* WTNetWork.swift in Sources */,
-				E1EDED0D1E9F4F7B00DDC372 /* WTURLSessionManager.swift in Sources */,
-				E1EDED0E1E9F4F7B00DDC372 /* WTURLSessionTask.swift in Sources */,
-				E1EDED111E9F4F7B00DDC372 /* WTModelMaker.swift in Sources */,
-				E1EDED121E9F4F7B00DDC372 /* FoundationExtension.swift in Sources */,
-				E1EDED131E9F4F7B00DDC372 /* WTVersionTracking.swift in Sources */,
-				E1EDED171E9F4F7B00DDC372 /* UIKitExtension.swift in Sources */,
-				E1EDED181E9F4F7B00DDC372 /* Chart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,14 +484,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1EDED281E9F4FD600DDC372 /* WTNetWork.swift in Sources */,
-				E1EDED291E9F4FD600DDC372 /* WTURLSessionManager.swift in Sources */,
-				E1EDED2A1E9F4FD600DDC372 /* WTURLSessionTask.swift in Sources */,
-				E1EDED2D1E9F4FD600DDC372 /* WTModelMaker.swift in Sources */,
-				E1EDED2E1E9F4FD600DDC372 /* FoundationExtension.swift in Sources */,
-				E1EDED2F1E9F4FD600DDC372 /* WTVersionTracking.swift in Sources */,
-				E1EDED341E9F4FD600DDC372 /* Chart.swift in Sources */,
-				77C77D5D1FFE00C2000118AA /* DispatchExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,15 +491,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1EDED5E1E9F507900DDC372 /* Hud.swift in Sources */,
-				E1EDED5F1E9F507900DDC372 /* WTNetWork.swift in Sources */,
-				E1EDED601E9F507900DDC372 /* WTURLSessionManager.swift in Sources */,
-				E1EDED611E9F507900DDC372 /* WTURLSessionTask.swift in Sources */,
-				E1EDED641E9F507900DDC372 /* WTModelMaker.swift in Sources */,
-				E1EDED651E9F507900DDC372 /* FoundationExtension.swift in Sources */,
-				E1EDED661E9F507900DDC372 /* WTVersionTracking.swift in Sources */,
-				E1EDED691E9F507900DDC372 /* UIKitExtension.swift in Sources */,
-				E1EDED6A1E9F507900DDC372 /* Chart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -770,6 +668,7 @@
 		E1D21AFE1DE04D6D0011F302 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = QZFW9RQ778;
 				INFOPLIST_FILE = WTKitTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
@@ -783,6 +682,7 @@
 		E1D21AFF1DE04D6D0011F302 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = QZFW9RQ778;
 				INFOPLIST_FILE = WTKitTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
