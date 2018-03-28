@@ -84,7 +84,7 @@ Run `carthage update` to build the framework and drag the built `WTKit.framework
 
 
 ### Manually
-copy sources from WTKit
+copy sources from Source
 
 ## Usage
 
