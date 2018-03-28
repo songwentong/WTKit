@@ -21,7 +21,7 @@ WTKit是我和朋友们的swift开发积累
 ## 开发环境
 - iOS 8.0+ / Mac OS X 10.9+ / tvOS 9.0+ / watchOS 2.0+
 - Xcode 8.0+
-- Swift 3.0
+- Swift 4.0
 
 ## 集成
 把WTKit下的四个文件拷贝进应用就可以了
