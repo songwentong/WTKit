@@ -29,7 +29,7 @@ WTKit is my Code accumulation
 ## Requirements
 - iOS 8.0+ / Mac OS X 10.9+ / tvOS 9.0+ / watchOS 2.0+
 - Xcode 8.0+
-- Swift 3.0
+- Swift 4.0
 
 ## Installation
 Copy sources from WTKit
@@ -54,7 +54,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'WTKit', '~> 0.3.3'
+    pod 'WTKit', '~> 1.2'
 end
 ```
 
@@ -77,7 +77,7 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "swtlovewtt/WTKit" ~> 0.3.3
+github "swtlovewtt/WTKit" ~> 1.2
 ```
 
 Run `carthage update` to build the framework and drag the built `WTKit.framework` into your Xcode project.
