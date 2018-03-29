@@ -123,10 +123,10 @@ class ViewController: UIViewController{
 }
 // MARK: - UITableViewDataSource
 extension ViewController:UITableViewDataSource{
-    public func numberOfSections(in tableView: UITableView) -> Int{
+    func numberOfSections(in tableView: UITableView) -> Int{
         return 2
     }
-    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         switch section {
         case 0:
             return dataList.count
@@ -138,13 +138,13 @@ extension ViewController:UITableViewDataSource{
         return 0
     }
     
-    @objc(tableView:cellForRowAtIndexPath:) @available(iOS 2.0, *)
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         return  cell!
     }
-    internal func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         var list = [String]()
         list.append("Demo list")
         list.append("under develpment")
@@ -155,7 +155,7 @@ extension ViewController:UITableViewDataSource{
 // MARK: - UITableViewDelegate
 extension ViewController:UITableViewDelegate{
     
-    @objc(tableView:willDisplayCell:forRowAtIndexPath:) internal func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
         switch indexPath.section {
         case 0:
             cell.textLabel?.text = dataList[(indexPath as NSIndexPath).row]["title"]
@@ -168,7 +168,7 @@ extension ViewController:UITableViewDelegate{
     }
     
     
-    @objc(tableView:didSelectRowAtIndexPath:) internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         switch indexPath.section {
         case 0:
             let segue = dataList[(indexPath as NSIndexPath).row]["segue"]
