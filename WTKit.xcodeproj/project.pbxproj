@@ -26,6 +26,20 @@
 		778A5F87206B337D00A0597C /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F75206B337D00A0597C /* WTNetWork.swift */; };
 		778A5F88206B337D00A0597C /* DispatchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F76206B337D00A0597C /* DispatchExtension.swift */; };
 		778A5F89206B337D00A0597C /* WTImagePickerControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F77206B337D00A0597C /* WTImagePickerControllerDelegate.swift */; };
+		778A5F91206CB81B00A0597C /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F6C206B337C00A0597C /* Algorithm.swift */; };
+		778A5F92206CB81C00A0597C /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F68206B337C00A0597C /* Chart.swift */; };
+		778A5F93206CB81C00A0597C /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F67206B337C00A0597C /* CustomExtension.swift */; };
+		778A5F94206CB81C00A0597C /* DispatchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F76206B337D00A0597C /* DispatchExtension.swift */; };
+		778A5F95206CB81C00A0597C /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F6D206B337C00A0597C /* FoundationExtension.swift */; };
+		778A5F96206CB81C00A0597C /* Hud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F74206B337D00A0597C /* Hud.swift */; };
+		778A5F97206CB81C00A0597C /* UIKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F6B206B337C00A0597C /* UIKitExtension.swift */; };
+		778A5F9A206CB81C00A0597C /* WTModelMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F69206B337C00A0597C /* WTModelMaker.swift */; };
+		778A5F9B206CB81C00A0597C /* WTNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F75206B337D00A0597C /* WTNetWork.swift */; };
+		778A5F9C206CB81C00A0597C /* WTReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F6A206B337C00A0597C /* WTReachability.swift */; };
+		778A5F9D206CB81C00A0597C /* WTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F6F206B337C00A0597C /* WTURLSessionManager.swift */; };
+		778A5F9E206CB81C00A0597C /* WTURLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F71206B337C00A0597C /* WTURLSessionTask.swift */; };
+		778A5F9F206CB81C00A0597C /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F70206B337C00A0597C /* WTVersionTracking.swift */; };
+		778A5FA1206CB81C00A0597C /* WTWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F6E206B337C00A0597C /* WTWebSocket.swift */; };
 		E16AE9CC1EA5C2A8009080DE /* WTKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */; };
 		E1D21AFB1DE04D6D0011F302 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */; };
 		E1EDED061E9F4F6100DDC372 /* WTKitWatchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E1EDED041E9F4F6100DDC372 /* WTKitWatchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -486,6 +500,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				778A5F91206CB81B00A0597C /* Algorithm.swift in Sources */,
+				778A5F92206CB81C00A0597C /* Chart.swift in Sources */,
+				778A5F93206CB81C00A0597C /* CustomExtension.swift in Sources */,
+				778A5F94206CB81C00A0597C /* DispatchExtension.swift in Sources */,
+				778A5F95206CB81C00A0597C /* FoundationExtension.swift in Sources */,
+				778A5F96206CB81C00A0597C /* Hud.swift in Sources */,
+				778A5F97206CB81C00A0597C /* UIKitExtension.swift in Sources */,
+				778A5F9A206CB81C00A0597C /* WTModelMaker.swift in Sources */,
+				778A5F9B206CB81C00A0597C /* WTNetWork.swift in Sources */,
+				778A5F9C206CB81C00A0597C /* WTReachability.swift in Sources */,
+				778A5F9D206CB81C00A0597C /* WTURLSessionManager.swift in Sources */,
+				778A5F9E206CB81C00A0597C /* WTURLSessionTask.swift in Sources */,
+				778A5F9F206CB81C00A0597C /* WTVersionTracking.swift in Sources */,
+				778A5FA1206CB81C00A0597C /* WTWebSocket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
