@@ -133,6 +133,9 @@ class POSTParamatersVC: UIViewController,UITableViewDataSource,UITableViewDelega
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool{
         textField.resignFirstResponder()
+        let button = UIButton()
+        let action = Selector.init("remove:")
+        button.addTarget(self, action: action, for: .touchUpInside)
         return true
     }
     
