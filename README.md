@@ -95,45 +95,71 @@ use for create model classes from json data automatically,and their instance can
 ```swift
 
 {
-  "tz": 8,
-  "area": "HK",
-  "tz_name": "Asia/Hong_Kong",
-  "id": "101819729",
-  "current": {
-    "current_version": "69e14038fd7bbe93ec5a259e36b48173"
-  },
-  "name": "Hong Kong",
-  "province": "Hong Kong"
+"var":"var",
+"let":"let",
+"super":99.9,
+"testboolean": true,
+"testInt": 8,
+"testFloat":1.0,
+"testString":"string",
+"testIntArray":[1,2,3],
+"testStringArray":["1","2","3"],
+"otherArray":[1,"1"],
+"stringDict":{"a":"b"},
+"numberDict":{"c":1},
+"func":{"a":"a","b":1,"class":{"d":1,"e":"f"}}
 }
+
 //WTKit can read json and parse to class like below,
 //and the model class's instances can update json value to their properties
-public class WeatherModel: NSObject,WTJSONModelProtocol {
-    var tz:String?
-    var area:String?
-    var tz_name:String?
-    var id:String?
-    var name:String?
-    var province:String?
-    var current:CurrentModel?
-    var day:DayModel?
-    public func WTJSONModelClass(for property:String)->AnyObject?{
-        if (property == "current") {
-            return CurrentModel()
-        }
-        return nil
+public class ModelName: Codable {
+    var numberDict:[String:Int]?
+    var let_var:String?
+    //var otherArray://[Any]?
+    var var_var:String?
+    var func_var:func_var?
+    var super_var:Double?
+    var testStringArray:[String]?
+    var testboolean:Bool?
+    var testString:String?
+    var testIntArray:[Int]?
+    var stringDict:[String:String]?
+    var testInt:Int?
+    var testFloat:Double?
+    enum CodingKeys: String, CodingKey {
+        case numberDict = "numberDict"
+        case let_var = "let"
+        //case otherArray = "otherArray"
+        case var_var = "var"
+        case func_var = "func"
+        case super_var = "super"
+        case testStringArray = "testStringArray"
+        case testboolean = "testboolean"
+        case testString = "testString"
+        case testIntArray = "testIntArray"
+        case stringDict = "stringDict"
+        case testInt = "testInt"
+        case testFloat = "testFloat"
     }
 }
-public class CurrentModel: NSObject {
-    var current_version:String?
-    public func WTJSONModelClass(for property:String)->AnyObject?{
-        return CurrentDetailModel()
+public class func_var: Codable {
+    var b:Int?
+    var a:String?
+    var class_var:class_var?
+    enum CodingKeys: String, CodingKey {
+        case b = "b"
+        case a = "a"
+        case class_var = "class"
     }
 }
-
-//auto update property from json data
-weatherModel.wt(travel: jsonObject)
-
-Note that the WTJSONModelProtocol protocol is implemented in the class that contains the custom properties so that the program knows what data is available at runtime
+public class class_var: Codable {
+    var d:Int?
+    var e:String?
+    enum CodingKeys: String, CodingKey {
+        case d = "d"
+        case e = "e"
+    }
+}
 ```
 
 ### WTPrint
