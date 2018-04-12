@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7716E1111FECD0850098B16E /* ModelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7716E1101FECD0850098B16E /* ModelName.swift */; };
 		774088CD2063B9B6006D74D2 /* GifDemoSB.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 774088CB2063B9B6006D74D2 /* GifDemoSB.storyboard */; };
 		774088D42063BA00006D74D2 /* GifDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774088D32063BA00006D74D2 /* GifDemoVC.swift */; };
 		774088D72063BBF4006D74D2 /* DemoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774088D62063BBF4006D74D2 /* DemoInfo.swift */; };
@@ -37,13 +36,6 @@
 		E19F49B31EA759BB00842DE0 /* RequestDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16AE9CD1EA5E691009080DE /* RequestDemoVC.swift */; };
 		E1A7D2C61E0BA17D00CF9A69 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */; };
 		E1A7D2C71E0BA17D00CF9A69 /* WTKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E1F03B431F4EA54A007E06F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F03B421F4EA54A007E06F8 /* AppDelegate.swift */; };
-		E1F03B451F4EA54A007E06F8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F03B441F4EA54A007E06F8 /* ViewController.swift */; };
-		E1F03B471F4EA54A007E06F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F03B461F4EA54A007E06F8 /* Assets.xcassets */; };
-		E1F03B4A1F4EA54A007E06F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1F03B481F4EA54A007E06F8 /* Main.storyboard */; };
-		E1F03B4F1F4EEF2D007E06F8 /* JSONData in Resources */ = {isa = PBXBuildFile; fileRef = E18B9F9E1E77D25B0013EFA8 /* JSONData */; };
-		E1F03B581F4EF1DE007E06F8 /* WTKitMacOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B61E0B82D900CF9A69 /* WTKitMacOS.framework */; };
-		E1F03B591F4EF1DE007E06F8 /* WTKitMacOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B61E0B82D900CF9A69 /* WTKitMacOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,13 +88,6 @@
 			remoteGlobalIDString = E17BDA1A1DDDC11A00CF5672;
 			remoteInfo = WTKit;
 		};
-		E1F03B5A1F4EF1DE007E06F8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E1A7D2AB1E0B82D900CF9A69 /* WTKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = E1EDED1D1E9F4FCA00DDC372;
-			remoteInfo = WTKitMacOS;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -117,21 +102,9 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E1F03B5C1F4EF1DE007E06F8 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				E1F03B591F4EF1DE007E06F8 /* WTKitMacOS.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7716E1101FECD0850098B16E /* ModelName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelName.swift; path = ../../ModelMaker/ModelMaker/ModelName.swift; sourceTree = "<group>"; };
 		774088CC2063B9B6006D74D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GifDemoSB.storyboard; sourceTree = "<group>"; };
 		774088D32063BA00006D74D2 /* GifDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifDemoVC.swift; sourceTree = "<group>"; };
 		774088D62063BBF4006D74D2 /* DemoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoInfo.swift; sourceTree = "<group>"; };
@@ -163,12 +136,6 @@
 		E18B9F9E1E77D25B0013EFA8 /* JSONData */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JSONData; sourceTree = "<group>"; };
 		E18B9FA81E77D4EC0013EFA8 /* WeatherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		E1A7D2AB1E0B82D900CF9A69 /* WTKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WTKit.xcodeproj; path = ../WTKit.xcodeproj; sourceTree = "<group>"; };
-		E1F03B401F4EA54A007E06F8 /* ModelMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ModelMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E1F03B421F4EA54A007E06F8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E1F03B441F4EA54A007E06F8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E1F03B461F4EA54A007E06F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E1F03B491F4EA54A007E06F8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E1F03B4B1F4EA54A007E06F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,14 +152,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1A7D2C61E0BA17D00CF9A69 /* WTKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E1F03B3D1F4EA54A007E06F8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E1F03B581F4EF1DE007E06F8 /* WTKitMacOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				E15D28D01DFAB41F0042E678 /* iOS Example */,
-				E1F03B411F4EA54A007E06F8 /* ModelMaker */,
 				7783F8E31FF4AA41003CFB9E /* iOS ExampleTests */,
 				E15D28CF1DFAB41F0042E678 /* Products */,
 				E1A7D2AB1E0B82D900CF9A69 /* WTKit.xcodeproj */,
@@ -248,7 +206,6 @@
 			isa = PBXGroup;
 			children = (
 				E15D28CE1DFAB41F0042E678 /* iOS Example.app */,
-				E1F03B401F4EA54A007E06F8 /* ModelMaker.app */,
 				7783F8E21FF4AA41003CFB9E /* iOS ExampleTests.xctest */,
 			);
 			name = Products;
@@ -322,19 +279,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E1F03B411F4EA54A007E06F8 /* ModelMaker */ = {
-			isa = PBXGroup;
-			children = (
-				E1F03B421F4EA54A007E06F8 /* AppDelegate.swift */,
-				E1F03B441F4EA54A007E06F8 /* ViewController.swift */,
-				7716E1101FECD0850098B16E /* ModelName.swift */,
-				E1F03B461F4EA54A007E06F8 /* Assets.xcassets */,
-				E1F03B481F4EA54A007E06F8 /* Main.storyboard */,
-				E1F03B4B1F4EA54A007E06F8 /* Info.plist */,
-			);
-			path = ModelMaker;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -375,25 +319,6 @@
 			productReference = E15D28CE1DFAB41F0042E678 /* iOS Example.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E1F03B3F1F4EA54A007E06F8 /* ModelMaker */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E1F03B4C1F4EA54A007E06F8 /* Build configuration list for PBXNativeTarget "ModelMaker" */;
-			buildPhases = (
-				E1F03B3C1F4EA54A007E06F8 /* Sources */,
-				E1F03B3D1F4EA54A007E06F8 /* Frameworks */,
-				E1F03B3E1F4EA54A007E06F8 /* Resources */,
-				E1F03B5C1F4EF1DE007E06F8 /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E1F03B5B1F4EF1DE007E06F8 /* PBXTargetDependency */,
-			);
-			name = ModelMaker;
-			productName = ModelMaker;
-			productReference = E1F03B401F4EA54A007E06F8 /* ModelMaker.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -414,12 +339,6 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = QZFW9RQ778;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Automatic;
-					};
-					E1F03B3F1F4EA54A007E06F8 = {
-						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = QZFW9RQ778;
-						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -444,7 +363,6 @@
 			projectRoot = "";
 			targets = (
 				E15D28CD1DFAB41F0042E678 /* iOS Example */,
-				E1F03B3F1F4EA54A007E06F8 /* ModelMaker */,
 				7783F8E11FF4AA41003CFB9E /* iOS ExampleTests */,
 			);
 		};
@@ -509,16 +427,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E1F03B3E1F4EA54A007E06F8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E1F03B471F4EA54A007E06F8 /* Assets.xcassets in Resources */,
-				E1F03B4F1F4EEF2D007E06F8 /* JSONData in Resources */,
-				E1F03B4A1F4EA54A007E06F8 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -556,16 +464,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E1F03B3C1F4EA54A007E06F8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7716E1111FECD0850098B16E /* ModelName.swift in Sources */,
-				E1F03B451F4EA54A007E06F8 /* ViewController.swift in Sources */,
-				E1F03B431F4EA54A007E06F8 /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -578,11 +476,6 @@
 			isa = PBXTargetDependency;
 			name = WTKit;
 			targetProxy = E1A7D2C81E0BA17D00CF9A69 /* PBXContainerItemProxy */;
-		};
-		E1F03B5B1F4EF1DE007E06F8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = WTKitMacOS;
-			targetProxy = E1F03B5A1F4EF1DE007E06F8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -607,14 +500,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				E15D28E91DFAB4620042E678 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		E1F03B481F4EA54A007E06F8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E1F03B491F4EA54A007E06F8 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -812,46 +697,6 @@
 			};
 			name = Release;
 		};
-		E1F03B4D1F4EA54A007E06F8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = QZFW9RQ778;
-				INFOPLIST_FILE = ModelMaker/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_BUNDLE_IDENTIFIER = com.songwentong.ModelMaker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-			};
-			name = Debug;
-		};
-		E1F03B4E1F4EA54A007E06F8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = QZFW9RQ778;
-				INFOPLIST_FILE = ModelMaker/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				PRODUCT_BUNDLE_IDENTIFIER = com.songwentong.ModelMaker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -878,15 +723,6 @@
 			buildConfigurations = (
 				E15D28E11DFAB41F0042E678 /* Debug */,
 				E15D28E21DFAB41F0042E678 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E1F03B4C1F4EA54A007E06F8 /* Build configuration list for PBXNativeTarget "ModelMaker" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E1F03B4D1F4EA54A007E06F8 /* Debug */,
-				E1F03B4E1F4EA54A007E06F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

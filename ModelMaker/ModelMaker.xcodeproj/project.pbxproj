@@ -13,7 +13,6 @@
 		773EDA3F207F345700DB2BAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 773EDA3D207F345700DB2BAA /* Main.storyboard */; };
 		773EDA4B207F345700DB2BAA /* ModelMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773EDA4A207F345700DB2BAA /* ModelMakerTests.swift */; };
 		773EDA56207F345700DB2BAA /* ModelMakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773EDA55207F345700DB2BAA /* ModelMakerUITests.swift */; };
-		773EDA73207F34C100DB2BAA /* ModelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773EDA6F207F34C100DB2BAA /* ModelName.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +46,6 @@
 		773EDA51207F345700DB2BAA /* ModelMakerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ModelMakerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		773EDA55207F345700DB2BAA /* ModelMakerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelMakerUITests.swift; sourceTree = "<group>"; };
 		773EDA57207F345700DB2BAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		773EDA6F207F34C100DB2BAA /* ModelName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelName.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +98,6 @@
 			children = (
 				773EDA37207F345600DB2BAA /* AppDelegate.swift */,
 				773EDA39207F345600DB2BAA /* ViewController.swift */,
-				773EDA6F207F34C100DB2BAA /* ModelName.swift */,
 				773EDA3B207F345700DB2BAA /* Assets.xcassets */,
 				773EDA3D207F345700DB2BAA /* Main.storyboard */,
 				773EDA40207F345700DB2BAA /* Info.plist */,
@@ -257,7 +254,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				773EDA73207F34C100DB2BAA /* ModelName.swift in Sources */,
 				773EDA3A207F345600DB2BAA /* ViewController.swift in Sources */,
 				773EDA38207F345600DB2BAA /* AppDelegate.swift in Sources */,
 			);

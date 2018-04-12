@@ -58,7 +58,7 @@ class ViewController: NSViewController {
     
     //这是一个model创建的工具，运行看效果吧,不错吧，😜
     func testCodableRead(){
-        
+        /*
         if let url:URL = Bundle.main.url(forResource: "JSONData", withExtension: nil) {
             do{
                 let data = try Data.init(contentsOf: url)
@@ -67,13 +67,21 @@ class ViewController: NSViewController {
             }catch let error as NSError{
                 print("\(error)")
             }
-        }
+        }*/
         
     }
     
     func setDefaultString(){
-        var home = NSHomeDirectory()
-        home = home + "/Desktop"
+        var home = "/Users/"
+//        let user = NSUserName()
+//        home = home + user + "/Desktop"
+        home = NSHomeDirectory() + "/Documents"
+//        home = NSSearchPathForDirectoriesInDomains(.desktopDirectory, .allDomainsMask, false)[0]
+//        let url = URL.init(fileURLWithPath: home, relativeTo: nil)
+//        NSWorkspace.shared.activateFileViewerSelecting([url])
+        
+    
+        
         pathTextField.cell?.stringValue = home
         print("\(home)")
         modelTextField.cell?.stringValue = modelStructName
@@ -105,7 +113,9 @@ class ViewController: NSViewController {
                 DispatchQueue.global().async {
                     do {
                         try modelString.write(toFile: filePath, atomically: true, encoding: .utf8)
-                        print("写文件成功,请在桌面查看")
+                        print("写文件成功,请在Finder查看")
+                        let url = URL.init(fileURLWithPath: filePath, relativeTo: nil)
+                        NSWorkspace.shared.activateFileViewerSelecting([url])
                     }catch{
                         print("写文件失败")
                     }
