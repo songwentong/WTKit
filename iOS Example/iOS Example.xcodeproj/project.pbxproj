@@ -131,7 +131,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7716E1101FECD0850098B16E /* ModelName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelName.swift; sourceTree = "<group>"; };
+		7716E1101FECD0850098B16E /* ModelName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelName.swift; path = ../../ModelMaker/ModelMaker/ModelName.swift; sourceTree = "<group>"; };
 		774088CC2063B9B6006D74D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GifDemoSB.storyboard; sourceTree = "<group>"; };
 		774088D32063BA00006D74D2 /* GifDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifDemoVC.swift; sourceTree = "<group>"; };
 		774088D62063BBF4006D74D2 /* DemoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoInfo.swift; sourceTree = "<group>"; };

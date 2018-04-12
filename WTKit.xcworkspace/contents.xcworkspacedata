@@ -8,6 +8,9 @@
       location = "group:iOS Example/iOS Example.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:ModelMaker/ModelMaker.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:PNGCrush/PNGCrush.xcodeproj">
    </FileRef>
 </Workspace>
