@@ -27,7 +27,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        WTModelMaker.default.needQuestionMark = true
+        WTModelMaker.default.needQuestionMark = false
         WTModelMaker.default.useStruct = false
         typeSegment.selectedSegment = 0
         setDefaultString()
