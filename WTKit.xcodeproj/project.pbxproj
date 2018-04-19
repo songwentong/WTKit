@@ -167,6 +167,13 @@
 			path = WTKit;
 			sourceTree = "<group>";
 		};
+		77A39E662088331600D3F866 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E17BDA111DDDC11A00CF5672 = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +184,7 @@
 				E1EDED1F1E9F4FCA00DDC372 /* WTKitMacOS */,
 				E1EDED571E9F506F00DDC372 /* WTKitTVOS */,
 				E17BDA1C1DDDC11A00CF5672 /* Products */,
+				77A39E662088331600D3F866 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
