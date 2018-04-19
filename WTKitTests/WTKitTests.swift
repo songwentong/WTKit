@@ -16,6 +16,10 @@ class WTKitTests: XCTestCase {
         testWTNetWork()
     }
     
+    func testModelMaker() -> Void {
+        
+    }
+    
     func testWTNetWork(){
         let task = WTKit.dataTask(with: "https://www.apple.com")
         let httpMethod = task.originTask.originalRequest?.httpMethod
