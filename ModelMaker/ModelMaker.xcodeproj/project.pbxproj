@@ -14,6 +14,8 @@
 		773EDA4B207F345700DB2BAA /* ModelMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773EDA4A207F345700DB2BAA /* ModelMakerTests.swift */; };
 		773EDA56207F345700DB2BAA /* ModelMakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773EDA55207F345700DB2BAA /* ModelMakerUITests.swift */; };
 		77A39E652088304F00D3F866 /* JSONData in Resources */ = {isa = PBXBuildFile; fileRef = 77A39E642088304F00D3F866 /* JSONData */; };
+		77A39E7E20883D5900D3F866 /* WTKitMacOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A39E7B2088351800D3F866 /* WTKitMacOS.framework */; };
+		77A39E7F20883D5900D3F866 /* WTKitMacOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77A39E7B2088351800D3F866 /* WTKitMacOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,13 @@
 			remoteGlobalIDString = E1EDED561E9F506F00DDC372;
 			remoteInfo = WTKitTVOS;
 		};
+		77A39E8020883D5A00D3F866 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77A39E6C2088351800D3F866 /* WTKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E1EDED1D1E9F4FCA00DDC372;
+			remoteInfo = WTKitMacOS;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -75,6 +84,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				77A39E7F20883D5900D3F866 /* WTKitMacOS.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -104,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77A39E7E20883D5900D3F866 /* WTKitMacOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +215,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				77A39E8120883D5A00D3F866 /* PBXTargetDependency */,
 			);
 			name = ModelMaker;
 			productName = ModelMaker;
@@ -399,6 +411,11 @@
 			target = 773EDA33207F345600DB2BAA /* ModelMaker */;
 			targetProxy = 773EDA52207F345700DB2BAA /* PBXContainerItemProxy */;
 		};
+		77A39E8120883D5A00D3F866 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = WTKitMacOS;
+			targetProxy = 77A39E8020883D5A00D3F866 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -529,6 +546,7 @@
 		773EDA5B207F345700DB2BAA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ModelMaker/ModelMaker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -547,6 +565,7 @@
 		773EDA5C207F345700DB2BAA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ModelMaker/ModelMaker.entitlements;
 				CODE_SIGN_STYLE = Automatic;

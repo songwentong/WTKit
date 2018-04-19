@@ -95,6 +95,7 @@ public class WTModelMaker {
         if let printObject = jsonObject as? [String:AnyObject] {
             for (key,value) in printObject{
                 let nameReplacedKey = nameReplace(with: key)
+                stringToPrint += crlf
                 stringToPrint += indent
                 
                 if let classForCoder = value.classForCoder {
@@ -162,6 +163,7 @@ public class WTModelMaker {
                             stringToPrint += "\(nameReplacedKey)"
                         }
                     }
+                    codingKeys += crlf
                     codingKeys += indent
                     codingKeys += indent
                     if !codableValue{
@@ -169,9 +171,11 @@ public class WTModelMaker {
                     }
                     codingKeys += "case \(nameReplacedKey) = \"\(key)\""
                     codingKeys += crlf
+                    
                 }
                 stringToPrint += QuestionMarkIfNeeded()
                 stringToPrint += crlf
+                
             }
         }
         codingKeys = codingKeys + indent + "}" + crlf
