@@ -10,16 +10,15 @@ import Cocoa
 import WTKitMacOS
 class ViewController: NSViewController {
     
-    @IBOutlet weak var typeSegment: NSSegmentedControl!
+    @IBOutlet weak var typeSegment: NSSegmentedControl!//类型选择
     @IBOutlet weak var autoRemoveButton: NSButton!//question mark
     @IBOutlet weak var modelTextField: NSTextField!//类名
-    @IBOutlet weak var statusTextField: NSTextField!
-    @IBOutlet weak var pathTextField: NSTextField!
-    @IBOutlet var textView: NSTextView!
-    @IBOutlet weak var statusLightView: NSView!
-    @IBOutlet var effect: NSTextView!
+    @IBOutlet weak var statusTextField: NSTextField!//状态栏文字
+    @IBOutlet weak var pathTextField: NSTextField!//路径输入框
+    @IBOutlet var textView: NSTextView!//json文字输入框
+    @IBOutlet weak var statusLightView: NSView!//状态指示灯
+    @IBOutlet var effect: NSTextView!//效果框
     var modelStructName: String = "ModelName"
-    
     var isJSON = false
     var jsonError:NSError? = nil;
     //var is
