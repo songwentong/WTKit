@@ -14,8 +14,6 @@
 		773EDA4B207F345700DB2BAA /* ModelMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773EDA4A207F345700DB2BAA /* ModelMakerTests.swift */; };
 		773EDA56207F345700DB2BAA /* ModelMakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773EDA55207F345700DB2BAA /* ModelMakerUITests.swift */; };
 		77A39E652088304F00D3F866 /* JSONData in Resources */ = {isa = PBXBuildFile; fileRef = 77A39E642088304F00D3F866 /* JSONData */; };
-		77A39E692088334300D3F866 /* WTKitMacOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A39E682088334300D3F866 /* WTKitMacOS.framework */; };
-		77A39E6A2088334300D3F866 /* WTKitMacOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 77A39E682088334300D3F866 /* WTKitMacOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +31,41 @@
 			remoteGlobalIDString = 773EDA33207F345600DB2BAA;
 			remoteInfo = ModelMaker;
 		};
+		77A39E742088351800D3F866 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77A39E6C2088351800D3F866 /* WTKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E17BDA1B1DDDC11A00CF5672;
+			remoteInfo = WTKit;
+		};
+		77A39E762088351800D3F866 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77A39E6C2088351800D3F866 /* WTKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1D21AF61DE04D6D0011F302;
+			remoteInfo = WTKitTests;
+		};
+		77A39E782088351800D3F866 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77A39E6C2088351800D3F866 /* WTKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1EDED021E9F4F6100DDC372;
+			remoteInfo = WTKitWatchOS;
+		};
+		77A39E7A2088351800D3F866 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77A39E6C2088351800D3F866 /* WTKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1EDED1E1E9F4FCA00DDC372;
+			remoteInfo = WTKitMacOS;
+		};
+		77A39E7C2088351800D3F866 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77A39E6C2088351800D3F866 /* WTKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1EDED561E9F506F00DDC372;
+			remoteInfo = WTKitTVOS;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,7 +75,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				77A39E6A2088334300D3F866 /* WTKitMacOS.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,7 +96,7 @@
 		773EDA55207F345700DB2BAA /* ModelMakerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelMakerUITests.swift; sourceTree = "<group>"; };
 		773EDA57207F345700DB2BAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77A39E642088304F00D3F866 /* JSONData */ = {isa = PBXFileReference; lastKnownFileType = text; path = JSONData; sourceTree = "<group>"; };
-		77A39E682088334300D3F866 /* WTKitMacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WTKitMacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		77A39E6C2088351800D3F866 /* WTKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WTKit.xcodeproj; path = ../WTKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +104,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77A39E692088334300D3F866 /* WTKitMacOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,9 +127,9 @@
 		773EDA2B207F345600DB2BAA = {
 			isa = PBXGroup;
 			children = (
-				77A39E682088334300D3F866 /* WTKitMacOS.framework */,
 				773EDA36207F345600DB2BAA /* ModelMaker */,
 				773EDA49207F345700DB2BAA /* ModelMakerTests */,
+				77A39E6C2088351800D3F866 /* WTKit.xcodeproj */,
 				773EDA54207F345700DB2BAA /* ModelMakerUITests */,
 				773EDA35207F345600DB2BAA /* Products */,
 			);
@@ -144,6 +175,18 @@
 				773EDA57207F345700DB2BAA /* Info.plist */,
 			);
 			path = ModelMakerUITests;
+			sourceTree = "<group>";
+		};
+		77A39E6D2088351800D3F866 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				77A39E752088351800D3F866 /* WTKit.framework */,
+				77A39E772088351800D3F866 /* WTKitTests.xctest */,
+				77A39E792088351800D3F866 /* WTKitWatchOS.framework */,
+				77A39E7B2088351800D3F866 /* WTKitMacOS.framework */,
+				77A39E7D2088351800D3F866 /* WTKitTVOS.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,6 +280,12 @@
 			mainGroup = 773EDA2B207F345600DB2BAA;
 			productRefGroup = 773EDA35207F345600DB2BAA /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 77A39E6D2088351800D3F866 /* Products */;
+					ProjectRef = 77A39E6C2088351800D3F866 /* WTKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				773EDA33207F345600DB2BAA /* ModelMaker */,
@@ -245,6 +294,44 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		77A39E752088351800D3F866 /* WTKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = WTKit.framework;
+			remoteRef = 77A39E742088351800D3F866 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		77A39E772088351800D3F866 /* WTKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = WTKitTests.xctest;
+			remoteRef = 77A39E762088351800D3F866 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		77A39E792088351800D3F866 /* WTKitWatchOS.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = WTKitWatchOS.framework;
+			remoteRef = 77A39E782088351800D3F866 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		77A39E7B2088351800D3F866 /* WTKitMacOS.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = WTKitMacOS.framework;
+			remoteRef = 77A39E7A2088351800D3F866 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		77A39E7D2088351800D3F866 /* WTKitTVOS.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = WTKitTVOS.framework;
+			remoteRef = 77A39E7C2088351800D3F866 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		773EDA32207F345600DB2BAA /* Resources */ = {
