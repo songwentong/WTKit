@@ -11,6 +11,13 @@
  可在属性添加前缀和后缀,自动解析嵌套类型,用JSONDecoder读取json数据可以直接生成一个已经赋值的类的实例.
  */
 import Foundation
+extension NSValue{
+    func objCTypeString() -> String {
+        let objCType = self.objCType
+        let type = String.init(cString: objCType)
+        return type
+    }
+}
 public class WTModelMaker {
     public var commonKeywords:[String] = ["super","class","var","let","struct","func","private","public","return","import","protocol"]//常用的关键字命名修改,如有需要可以添加
     public var keywordsVarPrefix = ""//关键字属性的前缀,如有需要可以添加
