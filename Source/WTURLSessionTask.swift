@@ -162,9 +162,11 @@ extension WTURLSessionTask:URLSessionTaskDelegate{
     }
     
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
-        self.error = error
+        if let e = error{
+            self.error = e
+            print("\(String(describing: error))")
+        }
         finish()
-        
     }
 }
 open class WTURLSessionDataTask:WTURLSessionTask,URLSessionDataDelegate{

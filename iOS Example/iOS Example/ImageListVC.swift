@@ -89,6 +89,8 @@ extension ImageListVC:UITableViewDelegate{
 //        print("will show indexPath:\(indexPath.row)")
         if let imageView:UIImageView = cell.contentView.viewWithTag(1) as? UIImageView{
 //            imageView.wt_setImage(with: imageURLList[indexPath.row])
+            imageView.wt_cancelImageViewDownload()
+            imageView.image = nil
             imageView.wt_setImage(with: imageURLList[indexPath.row],  completionHandler: { (data, response, error) in
                 if let d:Data = data{
                     if d.count > 0{
@@ -96,6 +98,7 @@ extension ImageListVC:UITableViewDelegate{
                     }
                 }
             })
+            
 
         }else{
             print("image view not found")

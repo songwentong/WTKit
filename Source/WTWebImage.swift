@@ -293,7 +293,7 @@ extension UIButton{
         }
     }
     
-    public func setBackgroundImage(with url:String, for state:UIControlState,placeHolder:UIImage? = nil,complection:imageHandler? = nil) {
+    public func wt_setBackgroundImage(with url:String, for state:UIControlState,placeHolder:UIImage? = nil,complection:imageHandler? = nil) {
         DispatchQueue.safeSyncInMain {
             self.setBackgroundImage(placeHolder, for:state)
         }
@@ -406,6 +406,7 @@ extension UIImageView{
         }
     }
     
+    
     /*!
      设置高亮图
      */
@@ -433,6 +434,15 @@ extension UIImageView{
             task.resume()
         }
     }
+    
+    public func wt_cancelImageViewDownload() -> Void {
+        guard let operation = self.wtImageTask else {
+            return
+        }
+        operation.cancel()
+    }
+    
+    
     
     
     

@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("\(self.isMember(of: NSObject.classForCoder()))")//false
         print("\(self.isKind(of: NSObject.classForCoder()))")//true
          */
-        testUseModel()
+//        testUseModel()
         return true
     }
     
