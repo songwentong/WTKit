@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		771E7CCF20A2CD8000E06169 /* RefreshHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 771E7CCE20A2CD8000E06169 /* RefreshHeaderView.xib */; };
 		778A5F63206B333600A0597C /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 778A5F61206B333600A0597C /* arrow.png */; };
 		778A5F78206B337D00A0597C /* WTKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 778A5F66206B337C00A0597C /* WTKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		778A5F79206B337D00A0597C /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F67206B337C00A0597C /* CustomExtension.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		771E7CCE20A2CD8000E06169 /* RefreshHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefreshHeaderView.xib; sourceTree = "<group>"; };
 		778A5F61206B333600A0597C /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		778A5F62206B333600A0597C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		778A5F66206B337C00A0597C /* WTKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTKit.h; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				778A5F70206B337C00A0597C /* WTVersionTracking.swift */,
 				778A5F72206B337C00A0597C /* WTWebImage.swift */,
 				778A5F6E206B337C00A0597C /* WTWebSocket.swift */,
+				771E7CCE20A2CD8000E06169 /* RefreshHeaderView.xib */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				778A5F63206B333600A0597C /* arrow.png in Resources */,
+				771E7CCF20A2CD8000E06169 /* RefreshHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
