@@ -7,9 +7,9 @@
 //
 
 import Foundation
-typealias APIParameters = [String: Any]//参数
-
-final class Networking {
+import WTKit
+public typealias APIParameters = [String: Any]//参数
+public class Networking: NSObject {
     
 }
 extension Networking{
@@ -23,7 +23,7 @@ extension Networking {
         _ url: URLConvertible,
         method: HTTPMethod = .get,
         parameters: APIParameters? = nil,
-        encoding: [String:Any],
+        encoding: [String:Any]? = nil,
         headers: HTTPHeaders? = nil,
         finished: @escaping (T)->Void,
         failed: @escaping (NetworkingErrorType)->Void)  -> WTURLSessionDataTask
@@ -57,7 +57,7 @@ extension Networking{
         _ url: URLConvertible,
         method: HTTPMethod = .get,
         parameters: APIParameters? = nil,
-        encoding: [String:Any],
+        encoding: [String:Any]? = nil,
         headers: HTTPHeaders? = nil,
         finished: @escaping (Data,URLResponse)->Void,
         failed: @escaping (Error)->Void) -> WTURLSessionDataTask

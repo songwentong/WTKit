@@ -7,10 +7,9 @@
 //
 
 import Foundation
-public typealias HTTPHeaders = [String: String]
+//public typealias HTTPHeaders = [String: String]
 extension Networking {
     func url(with domain:Domain = .testURL,apiName:ServerMethod, appendString: String? = nil) -> URL {
-        //        let urlString = domain.rawValue + "/" + apiName.rawValue + "/" + appendString
         var strings = [domain.rawValue,apiName.rawValue]
         if let temp = appendString{
             strings.append(temp)

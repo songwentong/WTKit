@@ -12,6 +12,12 @@
 		774088D72063BBF4006D74D2 /* DemoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774088D62063BBF4006D74D2 /* DemoInfo.swift */; };
 		7783F8E51FF4AA41003CFB9E /* iOS_ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7783F8E41FF4AA41003CFB9E /* iOS_ExampleTests.swift */; };
 		7783F8F01FF4AA5D003CFB9E /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A7D2B21E0B82D900CF9A69 /* WTKit.framework */; };
+		77BE390520AAB672006667FA /* URLAndMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE390420AAB672006667FA /* URLAndMethod.swift */; };
+		77BE390A20AAB6B9006667FA /* test_get.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE390820AAB6B9006667FA /* test_get.swift */; };
+		77BE390B20AAB6B9006667FA /* test_post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE390920AAB6B9006667FA /* test_post.swift */; };
+		77BE390C20AAB760006667FA /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731D60420AAB53A003AB76B /* Networking.swift */; };
+		77BE390D20AAB762006667FA /* RequestDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731D60220AAB53A003AB76B /* RequestDefine.swift */; };
+		77BE390E20AAB764006667FA /* ResponseDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731D60320AAB53A003AB76B /* ResponseDefine.swift */; };
 		E15CD2871E9631BD0042CBE1 /* ChartDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2861E9631BD0042CBE1 /* ChartDemo.swift */; };
 		E15D28F71DFAB4620042E678 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28E31DFAB4620042E678 /* AppDelegate.swift */; };
 		E15D28F81DFAB4620042E678 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E15D28E41DFAB4620042E678 /* Assets.xcassets */; };
@@ -105,12 +111,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7731D60220AAB53A003AB76B /* RequestDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDefine.swift; sourceTree = "<group>"; };
+		7731D60320AAB53A003AB76B /* ResponseDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDefine.swift; sourceTree = "<group>"; };
+		7731D60420AAB53A003AB76B /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		774088CC2063B9B6006D74D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GifDemoSB.storyboard; sourceTree = "<group>"; };
 		774088D32063BA00006D74D2 /* GifDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifDemoVC.swift; sourceTree = "<group>"; };
 		774088D62063BBF4006D74D2 /* DemoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoInfo.swift; sourceTree = "<group>"; };
 		7783F8E21FF4AA41003CFB9E /* iOS ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS ExampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7783F8E41FF4AA41003CFB9E /* iOS_ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_ExampleTests.swift; sourceTree = "<group>"; };
 		7783F8E61FF4AA41003CFB9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77BE390420AAB672006667FA /* URLAndMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLAndMethod.swift; path = ../../Source/Networking/URLAndMethod.swift; sourceTree = "<group>"; };
+		77BE390820AAB6B9006667FA /* test_get.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test_get.swift; sourceTree = "<group>"; };
+		77BE390920AAB6B9006667FA /* test_post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test_post.swift; sourceTree = "<group>"; };
 		E15CD2861E9631BD0042CBE1 /* ChartDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartDemo.swift; sourceTree = "<group>"; };
 		E15D28CE1DFAB41F0042E678 /* iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E15D28DD1DFAB41F0042E678 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -158,6 +170,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7731D5FD20AAB51F003AB76B /* General */ = {
+			isa = PBXGroup;
+			children = (
+				77BE390320AAB64A006667FA /* Networking */,
+			);
+			name = General;
+			sourceTree = "<group>";
+		};
 		774088D52063BBE2006D74D2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +200,35 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		77BE390320AAB64A006667FA /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				77BE390720AAB693006667FA /* API */,
+				77BE390620AAB68F006667FA /* Kit */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		77BE390620AAB68F006667FA /* Kit */ = {
+			isa = PBXGroup;
+			children = (
+				77BE390820AAB6B9006667FA /* test_get.swift */,
+				77BE390920AAB6B9006667FA /* test_post.swift */,
+			);
+			name = Kit;
+			sourceTree = "<group>";
+		};
+		77BE390720AAB693006667FA /* API */ = {
+			isa = PBXGroup;
+			children = (
+				7731D60420AAB53A003AB76B /* Networking.swift */,
+				77BE390420AAB672006667FA /* URLAndMethod.swift */,
+				7731D60220AAB53A003AB76B /* RequestDefine.swift */,
+				7731D60320AAB53A003AB76B /* ResponseDefine.swift */,
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 		E15CD28A1E9631F40042CBE1 /* Model */ = {
@@ -214,6 +263,7 @@
 		E15D28D01DFAB41F0042E678 /* iOS Example */ = {
 			isa = PBXGroup;
 			children = (
+				7731D5FD20AAB51F003AB76B /* General */,
 				E15CD28A1E9631F40042CBE1 /* Model */,
 				E15D290C1DFABA8E0042E678 /* Classes */,
 			);
@@ -445,10 +495,15 @@
 				E15D28FB1DFAB4620042E678 /* ColorViewController.swift in Sources */,
 				E15CD2871E9631BD0042CBE1 /* ChartDemo.swift in Sources */,
 				E15D29031DFAB4620042E678 /* QRCodeScanVC.swift in Sources */,
+				77BE390B20AAB6B9006667FA /* test_post.swift in Sources */,
 				E15D28FC1DFAB4620042E678 /* GetRequestViewController.swift in Sources */,
+				77BE390520AAB672006667FA /* URLAndMethod.swift in Sources */,
 				E15D29001DFAB4620042E678 /* ImageUploadVC.swift in Sources */,
+				77BE390C20AAB760006667FA /* Networking.swift in Sources */,
+				77BE390E20AAB764006667FA /* ResponseDefine.swift in Sources */,
 				E18061FC1E8E1AF30042247E /* ImageListVC.swift in Sources */,
 				E15D28FE1DFAB4620042E678 /* HudDemoViewController.swift in Sources */,
+				77BE390D20AAB762006667FA /* RequestDefine.swift in Sources */,
 				E18062091E8F3DB50042247E /* DetailViewController.swift in Sources */,
 				E15D29041DFAB4620042E678 /* ReachabilityVC.swift in Sources */,
 				E15D29011DFAB4620042E678 /* ModelDemoViewController.swift in Sources */,
@@ -459,6 +514,7 @@
 				E15D28FF1DFAB4620042E678 /* ImageDownloadVC.swift in Sources */,
 				E18B9FA91E77D4EC0013EFA8 /* WeatherModel.swift in Sources */,
 				E15D29021DFAB4620042E678 /* POSTParamatersVC.swift in Sources */,
+				77BE390A20AAB6B9006667FA /* test_get.swift in Sources */,
 				E15D28F71DFAB4620042E678 /* AppDelegate.swift in Sources */,
 				E15D29061DFAB4620042E678 /* TableRefreshVC.swift in Sources */,
 			);

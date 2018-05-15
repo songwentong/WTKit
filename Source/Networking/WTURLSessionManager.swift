@@ -25,7 +25,8 @@ public enum HTTPMethod:String{
     case trace   = "TRACE"
     case connect = "CONNECT"
 }
-
+public typealias HTTPHeaders = [String: String]
+public typealias APIParameters = [String: Any]//参数
 
 open class WTURLSessionManager:NSObject{
     
