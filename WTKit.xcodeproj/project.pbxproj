@@ -42,6 +42,7 @@
 		778A5F9E206CB81C00A0597C /* WTURLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F71206B337C00A0597C /* WTURLSessionTask.swift */; };
 		778A5F9F206CB81C00A0597C /* WTVersionTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F70206B337C00A0597C /* WTVersionTracking.swift */; };
 		778A5FA1206CB81C00A0597C /* WTWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778A5F6E206B337C00A0597C /* WTWebSocket.swift */; };
+		77E0D4DD20DDE0A6002B614E /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E0D4DC20DDE0A6002B614E /* Array.swift */; };
 		E16AE9CC1EA5C2A8009080DE /* WTKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */; };
 		E1D21AFB1DE04D6D0011F302 /* WTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */; };
 		E1EDED061E9F4F6100DDC372 /* WTKitWatchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E1EDED041E9F4F6100DDC372 /* WTKitWatchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -82,6 +83,7 @@
 		778A5F75206B337D00A0597C /* WTNetWork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTNetWork.swift; sourceTree = "<group>"; };
 		778A5F76206B337D00A0597C /* DispatchExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchExtension.swift; sourceTree = "<group>"; };
 		778A5F77206B337D00A0597C /* WTImagePickerControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WTImagePickerControllerDelegate.swift; sourceTree = "<group>"; };
+		77E0D4DC20DDE0A6002B614E /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		E17BDA1B1DDDC11A00CF5672 /* WTKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WTKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1D21AF61DE04D6D0011F302 /* WTKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WTKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1D21AF81DE04D6D0011F302 /* WTKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WTKitTests.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				778A5F6E206B337C00A0597C /* WTWebSocket.swift */,
 				771E7CCE20A2CD8000E06169 /* RefreshHeaderView.xib */,
 				7731D5FB20AAB1EB003AB76B /* Dictionary.swift */,
+				77E0D4DC20DDE0A6002B614E /* Array.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				778A5F79206B337D00A0597C /* CustomExtension.swift in Sources */,
 				7731D5FC20AAB1EB003AB76B /* Dictionary.swift in Sources */,
 				778A5F89206B337D00A0597C /* WTImagePickerControllerDelegate.swift in Sources */,
+				77E0D4DD20DDE0A6002B614E /* Array.swift in Sources */,
 				778A5F7B206B337D00A0597C /* WTModelMaker.swift in Sources */,
 				778A5F7D206B337D00A0597C /* UIKitExtension.swift in Sources */,
 				778A5F85206B337D00A0597C /* WTImagePickerController.swift in Sources */,

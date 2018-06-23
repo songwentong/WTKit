@@ -33,8 +33,6 @@ extension UIApplication{
     }
 }
 extension UIApplication{
-    
-    
     /*!
      track each launch,Repeat safety
      not you should track at app launch method
@@ -45,7 +43,6 @@ extension UIApplication{
         if launchTrakced {
             return
         }
-        
         var versionArray:[String] = self.versionHistory()
         if !versionArray.contains(UIApplication.appVersion()) {
             versionArray.append(UIApplication.appVersion())
@@ -58,8 +55,6 @@ extension UIApplication{
         }else{
             self.isFirstLaunchForBuild = false
         }
-        
-        
         UserDefaults.standard.setValue(versionArray, forKey: UIApplicationVersionsKey)
         UserDefaults.standard.setValue(buildArray, forKey: UIApplicationBuildsKey)
         //        WTLog(versionArray)
@@ -88,7 +83,6 @@ extension UIApplication{
         }
         return [String]()
     }
-    
     private var launchTrakced:Bool{
         get{
             if let trakced = objc_getAssociatedObject(self, &UIApplicationLaunchTrackedKey) as? Bool{
@@ -115,7 +109,5 @@ extension UIApplication{
             objc_setAssociatedObject(UIApplication.shared, &UIApplicationIsFirstEver, newValue, .OBJC_ASSOCIATION_ASSIGN)
         }
     }
-    
-    
 }
 #endif

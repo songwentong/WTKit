@@ -28,7 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         WTKit.WTPrint("hello world(wtprint)")
         WTKit.WTLog("hello world(wtlog)")
         
-        
+        var a = [1,3,5,7,9,2,4,6,8,0]
+        a = a.wtSorted(by: { (a, b) -> Bool in
+            if a < b{
+                return true
+            }
+            return false
+        })
+        print("\(a)")
 //        print("\(0.1 + 0.2)")
 //        let task = WTKit.dataTask(with: "http://www.aa.com");
 //        print("\(String(describing: task.dataTask.originalRequest?.httpMethod))")
