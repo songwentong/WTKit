@@ -9,6 +9,7 @@
 import Foundation
 //快速排序
 extension Array{
+    //排序n个元素要O(nlogn)次比较。在最坏状况下则需要O(n^2)次比较，但这种状况并不常见。
     public func wtSorted(by smallToBig:(Element, Element) -> Bool) -> [Element] {
         if self.count <= 1{return self}
         var left:[Element] = []
