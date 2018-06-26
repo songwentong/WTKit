@@ -12,6 +12,7 @@ enum Domain:String {
     case weixinAPI = "https://api.weixin.qq.com/sns/oauth2"//微信
     case others = "http://lalala"//其他的
 }
+//方法名
 enum ServerMethod: String {
     case testGet = "get"
     case testPost = "post"

@@ -13,4 +13,10 @@
    <FileRef
       location = "group:PNGCrush/PNGCrush.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:WTKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
 </Workspace>

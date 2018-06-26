@@ -19,6 +19,7 @@
 		77BE390E20AAB764006667FA /* ResponseDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731D60320AAB53A003AB76B /* ResponseDefine.swift */; };
 		77BE391020AAB912006667FA /* URLAndMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE390F20AAB912006667FA /* URLAndMethod.swift */; };
 		77E0D52A20E1E04B002B614E /* 代码规范.md in Resources */ = {isa = PBXBuildFile; fileRef = 77E0D52920E1E04B002B614E /* 代码规范.md */; };
+		77E0D52C20E1E0E0002B614E /* ResponseConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E0D52B20E1E0E0002B614E /* ResponseConvert.swift */; };
 		E15CD2871E9631BD0042CBE1 /* ChartDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15CD2861E9631BD0042CBE1 /* ChartDemo.swift */; };
 		E15D28F71DFAB4620042E678 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15D28E31DFAB4620042E678 /* AppDelegate.swift */; };
 		E15D28F81DFAB4620042E678 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E15D28E41DFAB4620042E678 /* Assets.xcassets */; };
@@ -125,6 +126,7 @@
 		77BE390920AAB6B9006667FA /* test_post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test_post.swift; sourceTree = "<group>"; };
 		77BE390F20AAB912006667FA /* URLAndMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLAndMethod.swift; sourceTree = "<group>"; };
 		77E0D52920E1E04B002B614E /* 代码规范.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "代码规范.md"; sourceTree = "<group>"; };
+		77E0D52B20E1E0E0002B614E /* ResponseConvert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseConvert.swift; sourceTree = "<group>"; };
 		E15CD2861E9631BD0042CBE1 /* ChartDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartDemo.swift; sourceTree = "<group>"; };
 		E15D28CE1DFAB41F0042E678 /* iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E15D28DD1DFAB41F0042E678 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				77BE390F20AAB912006667FA /* URLAndMethod.swift */,
 				7731D60220AAB53A003AB76B /* RequestDefine.swift */,
 				7731D60320AAB53A003AB76B /* ResponseDefine.swift */,
+				77E0D52B20E1E0E0002B614E /* ResponseConvert.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				E15D28FE1DFAB4620042E678 /* HudDemoViewController.swift in Sources */,
 				77BE390D20AAB762006667FA /* RequestDefine.swift in Sources */,
 				E18062091E8F3DB50042247E /* DetailViewController.swift in Sources */,
+				77E0D52C20E1E0E0002B614E /* ResponseConvert.swift in Sources */,
 				E15D29041DFAB4620042E678 /* ReachabilityVC.swift in Sources */,
 				E15D29011DFAB4620042E678 /* ModelDemoViewController.swift in Sources */,
 				E19F49B31EA759BB00842DE0 /* RequestDemoVC.swift in Sources */,
