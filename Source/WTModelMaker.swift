@@ -88,7 +88,7 @@ public class WTModelMaker {
         stringToPrint += " "
         stringToPrint += getClassOrStructName()
         stringToPrint += " "
-        stringToPrint += "\(className): Codable {" + crlf
+        stringToPrint += "\(className): Codable {"
         codingKeys = "    enum CodingKeys: String, CodingKey {" + crlf
 //        var varList:String = String()
         var jsonObject:Any? = nil
@@ -100,7 +100,7 @@ public class WTModelMaker {
             
         }
         if let printObject = jsonObject as? [String:AnyObject] {
-            for (key,value) in printObject{
+            for (key,value) in printObject{//object k-v
                 let nameReplacedKey = nameReplace(with: key)
                 stringToPrint += crlf
                 stringToPrint += indent
@@ -120,10 +120,13 @@ public class WTModelMaker {
                     if !codableValue{
                         stringToPrint += "//"
                     }
-                    stringToPrint += "var \(nameReplacedKey): "
+                    stringToPrint += "var \(nameReplacedKey):"
                     if string == "NSString" {
                         string = "String"
                         stringToPrint += "\(string)"
+                        if !useStruct{
+                            stringToPrint += " = \"\""
+                        }
                     }else if string == "NSNumber"{
                         //char, short int, int, long int, long long int, float, or double or as a BOOL
                         // “c”, “C”, “s”, “S”, “i”, “I”, “l”, “L”, “q”, “Q”, “f”, and “d”.
@@ -131,21 +134,31 @@ public class WTModelMaker {
                         let number:NSNumber = value as! NSNumber
                         let objCType = number.objCType
                         let type = String.init(cString: objCType)
+                        var defaultValue = " = false"
                         switch type{
                         case "c":
                             string = "Bool"
+                            
                             break
                         case "q":
                             string = "Int"
+                            defaultValue = " = -1"
+                            
                             break
                         case "d":
                             string = "Double"
+                            defaultValue = " = -1"
+                            
                             break
                         default:
                             string = "Int"
+                            defaultValue = " = -1"
                             break
                         }
                         stringToPrint += "\(string)"
+                        if !useStruct{
+                            stringToPrint += defaultValue
+                        }
                         
                     } else if string == "NSArray"{
                         if value is [Int]{
@@ -170,7 +183,7 @@ public class WTModelMaker {
                             stringToPrint += "\(nameReplacedKey)"
                         }
                     }
-                    codingKeys += crlf
+//                    codingKeys += crlf
                     codingKeys += indent
                     codingKeys += indent
                     if !codableValue{
@@ -181,7 +194,7 @@ public class WTModelMaker {
                     
                 }
                 stringToPrint += QuestionMarkIfNeeded()
-                stringToPrint += crlf
+//                stringToPrint += crlf
                 
             }
         }
