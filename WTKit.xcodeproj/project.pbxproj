@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1420D04763DB4543F474A530 /* Pods_WTKitTVOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B526AF584593F70158F0B1 /* Pods_WTKitTVOS.framework */; };
 		643E21DFFB6979810D49814C /* Pods_WTKitWatchOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47DD73B7304B07B48AA21F97 /* Pods_WTKitWatchOS.framework */; };
-		6D9E84B800B8C8C0CD235EED /* Pods_WTKitMacOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD46A7602C141C524052CC4D /* Pods_WTKitMacOS.framework */; };
 		771E7CCF20A2CD8000E06169 /* RefreshHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 771E7CCE20A2CD8000E06169 /* RefreshHeaderView.xib */; };
 		7731D5FC20AAB1EB003AB76B /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7731D5FB20AAB1EB003AB76B /* Dictionary.swift */; };
 		778A5F63206B333600A0597C /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 778A5F61206B333600A0597C /* arrow.png */; };
@@ -149,7 +148,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D9E84B800B8C8C0CD235EED /* Pods_WTKitMacOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
