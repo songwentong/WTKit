@@ -18,7 +18,7 @@ enum NetworkingErrorType: Error {
 struct CommonResponse<T: Codable>: Codable {
     let returnCode: Int
     let message: String
-    let responseData: T?
+    let responseData: T
     
     enum CodingKeys: String, CodingKey {
         case returnCode = "ret"

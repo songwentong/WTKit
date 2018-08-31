@@ -31,7 +31,7 @@ public struct PostModel: Codable {
 
 extension Networking{
     class func test_post(with parameters: APIParameters? = nil ,finish: @escaping (PostModel) -> Void, failed: @escaping (NetworkingErrorType) -> Void) -> Void {
-        let url = Networking.default.url(with: .testURL, apiName: .testPost)
+        guard let url = Networking.default.url(apiName: .apiA)else {return}
         Networking.default.network_request(url, method: .post, parameters: parameters, finished: finish, failed: failed)
     }
 }

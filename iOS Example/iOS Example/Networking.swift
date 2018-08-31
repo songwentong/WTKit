@@ -7,6 +7,7 @@
 //
 
 import Foundation
+//import Alamofire
 import WTKit
 public typealias APIParameters = [String: Any]//参数
 public class Networking: NSObject {
@@ -34,12 +35,7 @@ extension Networking {
                 let code = try JSONDecoder().decode(CommonResponse<EmptyModel>.self, from: data)//校验响应码
                 if code.returnCode == 0{
                     let detailResponseModel = try JSONDecoder().decode(CommonResponse<T>.self, from: data)//解析数据
-                    if let responseData = detailResponseModel.responseData{
-                        finished(responseData)//正确解析
-                    }else{
-                        failed(NetworkingErrorType.analyzeFailed)//解析失败
-                    }
-                    
+                    finished(detailResponseModel.responseData)//正确解析
                 }else{
                     failed(NetworkingErrorType.returnCode(code.returnCode))//retun不等于0
                 }
@@ -50,8 +46,6 @@ extension Networking {
             failed(NetworkingErrorType.networkError)//网络异常
         }
     }
-}
-extension Networking{
     @discardableResult
     func network_request(
         _ url: URLConvertible,
@@ -75,6 +69,9 @@ extension Networking{
         }
         return task
     }
+}
+extension Networking{
+    
 }
 extension Networking{
 }

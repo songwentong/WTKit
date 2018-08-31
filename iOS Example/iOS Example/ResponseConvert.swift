@@ -35,11 +35,7 @@ extension WTURLSessionDataTask{
         convert(finished: { (obj:CommonResponse<EmptyModel>) in
             if obj.returnCode == 0{
                 self.convert(finished: { (result:CommonResponse<T>) in
-                    guard let resultData = result.responseData else{
-                        failed(NetworkingErrorType.analyzeFailed)//解析失败
-                        return
-                    }
-                    finished1(resultData)//解析成功
+                    finished1(result.responseData)//解析成功
                 }, failed: failed)//解析失败
             }else{
                 failed(NetworkingErrorType.returnCode(obj.returnCode))//返回码
