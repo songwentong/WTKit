@@ -19,7 +19,7 @@ extension NSValue{
     }
 }
 public class WTModelMaker {
-    public var commonKeywords:[String] = ["super","class","var","let","struct","func","private","public","return","import","protocol"]//常用的关键字命名修改,如有需要可以添加
+    public var commonKeywords:[String] = ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open"]//常用的关键字命名修改,如有需要可以添加
     public var keywordsVarPrefix = ""//关键字属性的前缀,如有需要可以添加
     public var keywordsVarSuffix = "_var"//关键字属性的后缀,默认添加的是_var
     public var needQuestionMark:Bool = false //是否需要添加问号,来处理字段不存在的情况,true+问号?,否则不用加
@@ -28,9 +28,9 @@ public class WTModelMaker {
     public var convertNumberToString = false //数字转换成字符串
     public var indent:String = "    "//缩进
     public let crlf = "\n"//换行
+    var useCodingKey = true//是否使用coding key,如果不用,关键字命名会变成`
     
-    
-    open static let `default`:WTModelMaker = {
+    public static let `default`:WTModelMaker = {
        return WTModelMaker()
     }()
     public func randomClassName(with prefix:String)->String{
@@ -52,7 +52,11 @@ public class WTModelMaker {
     }
     private func nameReplace(with origin:String)->String{
         if commonKeywords.contains(origin){
-            return keywordsVarPrefix + origin + keywordsVarSuffix
+            if useCodingKey{
+                return keywordsVarPrefix + origin + keywordsVarSuffix
+            }else{
+                return "`\(origin)`"
+            }
         }
         return origin
     }
@@ -199,7 +203,11 @@ public class WTModelMaker {
             }
         }
         codingKeys = codingKeys + indent + "}" + crlf
-        stringToPrint = stringToPrint + "\n" + codingKeys + "}" + crlf
+        stringToPrint = stringToPrint + "\n"
+        if useCodingKey {
+            stringToPrint = stringToPrint + codingKeys
+        }
+        stringToPrint = stringToPrint + "}" + crlf
         for (key,value) in subModelDict{
             stringToPrint += WTSwiftModelString(with: key, jsonString: value)
         }

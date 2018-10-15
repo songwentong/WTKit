@@ -9,6 +9,16 @@
 import Foundation
 import WTKit
 import Alamofire
+extension Data{
+    func parse<T:Codable>( finish:(T)->Void, failed:()-Void) -> Void {
+        do {
+            let result = try JSONDecoder().decode(T.self, from: self)//类型转换
+            finished(result)
+        } catch error {
+            failed()
+        }  
+    }
+}
 extension WTURLSessionDataTask{
     func convert<T: Codable>(finished: @escaping (T)->Void,
                              failed: @escaping (NetworkingErrorType)->Void) -> Void {
