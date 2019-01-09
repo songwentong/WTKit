@@ -35,7 +35,7 @@ open class WTURLSessionManager:NSObject{
     //网址凭据
     var credential: URLCredential?
     
-    open static let `default`: WTURLSessionManager = {
+    public static let `default`: WTURLSessionManager = {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = defaultHTTPHeaders
         configuration.urlCache = URLCache.init(memoryCapacity: 1024*1024*4, diskCapacity: 1024*1024*1024, diskPath: "WTURLSessionManagerDefaultCache")
