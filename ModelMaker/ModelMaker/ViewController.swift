@@ -137,7 +137,7 @@ class ViewController: NSViewController {
 extension ViewController{
 }
 extension ViewController:NSTextFieldDelegate{
-    open override func controlTextDidChange(_ obj: Notification){
+    open func controlTextDidChange(_ obj: Notification){
         if let cell = modelTextField.cell{
             modelStructName = cell.stringValue
             checkJSONText()

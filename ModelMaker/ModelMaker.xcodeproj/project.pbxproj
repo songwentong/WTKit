@@ -270,13 +270,16 @@
 				TargetAttributes = {
 					773EDA33207F345600DB2BAA = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1030;
 					};
 					773EDA45207F345700DB2BAA = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1030;
 						TestTargetID = 773EDA33207F345600DB2BAA;
 					};
 					773EDA50207F345700DB2BAA = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1030;
 						TestTargetID = 773EDA33207F345600DB2BAA;
 					};
 				};
@@ -558,7 +561,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.abc.ModelMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -577,7 +580,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.abc.ModelMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -596,7 +599,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.abc.ModelMakerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ModelMaker.app/Contents/MacOS/ModelMaker";
 			};
 			name = Debug;
@@ -616,7 +619,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.abc.ModelMakerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ModelMaker.app/Contents/MacOS/ModelMaker";
 			};
 			name = Release;
@@ -635,7 +638,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.abc.ModelMakerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = ModelMaker;
 			};
 			name = Debug;
@@ -654,7 +657,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.abc.ModelMakerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = ModelMaker;
 			};
 			name = Release;

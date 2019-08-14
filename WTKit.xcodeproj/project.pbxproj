@@ -462,7 +462,7 @@
 					E1EDED1D1E9F4FCA00DDC372 = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = QZFW9RQ778;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1030;
 						ProvisioningStyle = Automatic;
 					};
 					E1EDED551E9F506F00DDC372 = {
@@ -474,7 +474,7 @@
 			};
 			buildConfigurationList = E17BDA151DDDC11A00CF5672 /* Build configuration list for PBXProject "WTKit" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -995,8 +995,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1021,8 +1020,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
