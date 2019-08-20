@@ -766,7 +766,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="e1e-09-v17">
+                            <customView canDrawConcurrently="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e1e-09-v17">
                                 <rect key="frame" x="20" y="20" width="16" height="17"/>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Xah-PQ-2CH">
@@ -813,6 +813,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tEH-2p-Wyz">
+                                <rect key="frame" x="20" y="20" width="204" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </customView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yug-kZ-9Rz">
                                 <rect key="frame" x="546" y="987" width="60" height="46"/>
                                 <buttonCell key="cell" type="smallSquare" title="Write file" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="UOw-GI-P91">
@@ -889,6 +893,7 @@
                     <connections>
                         <outlet property="autoRemoveButton" destination="eui-55-erG" id="qCl-Ye-gqY"/>
                         <outlet property="effect" destination="XzM-ks-3pK" id="6c7-7X-acb"/>
+                        <outlet property="jsonStatusView" destination="tEH-2p-Wyz" id="7ID-Wn-IIz"/>
                         <outlet property="modelTextField" destination="vGX-5A-DqA" id="Ram-kg-zgO"/>
                         <outlet property="pathTextField" destination="fFb-JP-Jky" id="x8r-LR-iwc"/>
                         <outlet property="statusLightView" destination="e1e-09-v17" id="QFK-dX-vG6"/>

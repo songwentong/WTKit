@@ -10,6 +10,8 @@ import Cocoa
 import WTKitMacOS
 class ViewController: NSViewController {
     
+    
+    @IBOutlet weak var jsonStatusView: NSView!//
     @IBOutlet weak var typeSegment: NSSegmentedControl!//类型选择
     @IBOutlet weak var autoRemoveButton: NSButton!//question mark
     @IBOutlet weak var modelTextField: NSTextField!//类名
@@ -59,28 +61,28 @@ class ViewController: NSViewController {
     //这是一个model创建的工具，运行看效果吧,不错吧，😜
     func testCodableRead(){
         /*
-        if let url:URL = Bundle.main.url(forResource: "JSONData", withExtension: nil) {
-            do{
-                let data = try Data.init(contentsOf: url)
-                let instance = try JSONDecoder().decode(ModelName.self, from: data)
-                print("\(instance)")
-            }catch let error as NSError{
-                print("\(error)")
-            }
-        }*/
+         if let url:URL = Bundle.main.url(forResource: "JSONData", withExtension: nil) {
+         do{
+         let data = try Data.init(contentsOf: url)
+         let instance = try JSONDecoder().decode(ModelName.self, from: data)
+         print("\(instance)")
+         }catch let error as NSError{
+         print("\(error)")
+         }
+         }*/
         
     }
     
     func setDefaultString(){
         var home = "/Users/"
-//        let user = NSUserName()
-//        home = home + user + "/Desktop"
+        //        let user = NSUserName()
+        //        home = home + user + "/Desktop"
         home = NSHomeDirectory() + "/Documents"
-//        home = NSSearchPathForDirectoriesInDomains(.desktopDirectory, .allDomainsMask, false)[0]
-//        let url = URL.init(fileURLWithPath: home, relativeTo: nil)
-//        NSWorkspace.shared.activateFileViewerSelecting([url])
+        //        home = NSSearchPathForDirectoriesInDomains(.desktopDirectory, .allDomainsMask, false)[0]
+        //        let url = URL.init(fileURLWithPath: home, relativeTo: nil)
+        //        NSWorkspace.shared.activateFileViewerSelecting([url])
         
-    
+        
         
         pathTextField.cell?.stringValue = home
         print("\(home)")
@@ -145,6 +147,31 @@ extension ViewController:NSTextFieldDelegate{
         }
     }
 }
+extension String{
+    func converToHalfWidth() -> String {
+        var dict = [String:String]()
+        for (index,ele) in String.fullWidthPunctuation().enumerated(){
+            for (index2,ele2) in String.halfWidthPunctuation().enumerated(){
+                if index == index2{
+                    dict["\(ele)"] = "\(ele2)"
+                }
+            }
+        }
+        var result = ""
+        result = self
+        for (k,v) in dict {
+            result = result.replacingOccurrences(of: k, with: v)
+        }
+        return result
+    }
+    static func fullWidthPunctuation()->String{
+        return "“”，。：¥"
+    }
+    static func halfWidthPunctuation()->String{
+        return "\"\",.:¥"
+    }
+}
+
 extension ViewController:NSTextViewDelegate{
     
     public func textDidChange(_ notification: Notification){
@@ -152,33 +179,49 @@ extension ViewController:NSTextViewDelegate{
         
         jsonError = nil
         if let a:NSTextView = notification.object as? NSTextView {
+//            let string = textView.string
+//            textView.string = string as String
             if a == textView {
-                
                 checkJSONText()
             }
         }
         
     }
     public func checkJSONText(){
-//        textView.textColor = NSColor.black
-        if let data = textView.string.data(using: .utf8){
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
-                isJSON = true
-                let modelString = WTModelMaker.default.WTSwiftModelString(with: modelStructName, jsonString: textView.string,usingHeader: true)
-                effect.string = modelString
-                print("json:\(json)")
-            } catch let error as NSError {
-                isJSON = false
-                jsonError = error
-                print("json parse error:\(error)")
-            }
+        //        textView.textColor = NSColor.black
+        
+        var string = textView.string
+//        let str = "“”，。：¥“”，。：¥“”，。：¥".converToHalfWidth()
+//        print("\(str)")
+        
+        string = string.converToHalfWidth()
+//        string = string.replacingOccurrences(of: "”", with: "\"")
+        guard let data = string.data(using: .utf8) else{
+            return
         }
+        
+        do {
+            let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
+            isJSON = true
+            let modelString = WTModelMaker.default.WTSwiftModelString(with: modelStructName, jsonString: textView.string,usingHeader: true)
+            effect.string = modelString
+            print("json:\(json)")
+        } catch let error as NSError {
+            isJSON = false
+            jsonError = error
+            print("json parse error:\(error)")
+        }
+        
         
         updateLight()
     }
     public func updateLight(){
         if isJSON {
+            jsonStatusView.layer?.backgroundColor = NSColor.green.cgColor
+            if statusLightView.layer == nil{
+                statusLightView.layer = CALayer.init()
+            }
+//            statusLightView.backgroundColor = NSColor.green.cgColor
             statusLightView.layer?.backgroundColor = NSColor.green.cgColor
             statusTextField.cell?.stringValue = "合法的JSON"
         }else{
