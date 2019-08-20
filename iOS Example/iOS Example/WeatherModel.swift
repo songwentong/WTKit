@@ -2,7 +2,7 @@
 //  WeatherModel.swift
 //
 //  this file is auto create by WTKit on 2017-12-21 14:58:13.
-//  site:https://github.com/swtlovewtt/WTKit
+//  site:https://github.com/songwentong/WTKit
 //  Thank you for use my json model maker
 //
 

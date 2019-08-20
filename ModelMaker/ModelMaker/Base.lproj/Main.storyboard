@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="System colors introduced in macOS 10.14" minToolsVersion="10.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -693,7 +694,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="637" height="920"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" red="0.78039215689999997" green="0.92941176469999998" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <size key="minSize" width="637" height="920"/>
                                             <size key="maxSize" width="806" height="10000000"/>
                                             <attributedString key="textStorage">
@@ -785,14 +786,14 @@
                                         <textView ambiguous="YES" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="XzM-ks-3pK">
                                             <rect key="frame" x="0.0" y="-1" width="619" height="918"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" red="0.78039215689999997" green="0.92941176469999998" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="textColor" name="unemphasizedSelectedTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <size key="minSize" width="619" height="918"/>
                                             <size key="maxSize" width="636" height="10000000"/>
                                             <attributedString key="textStorage">
                                                 <fragment content="ewqeqweqwewqqwe">
                                                     <attributes>
-                                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="NSColor" name="unemphasizedSelectedTextColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" metaFont="system" size="22"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
@@ -813,11 +814,8 @@
                                 </scroller>
                             </scrollView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yug-kZ-9Rz">
-                                <rect key="frame" x="546" y="987" width="105" height="46"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="105" id="WYa-7X-2LR"/>
-                                </constraints>
-                                <buttonCell key="cell" type="smallSquare" title="Write" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="UOw-GI-P91">
+                                <rect key="frame" x="546" y="987" width="96" height="46"/>
+                                <buttonCell key="cell" type="smallSquare" title="Write To Home" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="UOw-GI-P91">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -826,7 +824,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eui-55-erG">
-                                <rect key="frame" x="664" y="991" width="67" height="38"/>
+                                <rect key="frame" x="655" y="991" width="67" height="38"/>
                                 <buttonCell key="cell" type="check" title="add &quot;?&quot;" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Wag-MI-xl1">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -836,7 +834,7 @@
                                 </connections>
                             </button>
                             <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oCP-qS-j2d">
-                                <rect key="frame" x="745" y="998" width="134" height="24"/>
+                                <rect key="frame" x="736" y="998" width="134" height="24"/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="nPP-EW-1s9">
                                     <font key="font" metaFont="system"/>
                                     <segments>
@@ -870,6 +868,7 @@
                             <constraint firstItem="Yug-kZ-9Rz" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="34" id="XzC-bB-laZ"/>
                             <constraint firstItem="oCP-qS-j2d" firstAttribute="leading" secondItem="eui-55-erG" secondAttribute="trailing" constant="18" id="bGm-Zd-3cE"/>
                             <constraint firstItem="vGX-5A-DqA" firstAttribute="leading" secondItem="hnU-tU-Ut7" secondAttribute="leading" id="cF5-kV-1Uf"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hnU-tU-Ut7" secondAttribute="trailing" constant="20" symbolic="YES" id="emJ-QP-9ds"/>
                             <constraint firstAttribute="bottom" secondItem="CWS-Uv-9wB" secondAttribute="bottom" constant="44" id="fRj-0a-bI2"/>
                             <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Xah-PQ-2CH" secondAttribute="trailing" constant="10" id="gKq-Se-m0h"/>
                             <constraint firstItem="wyJ-WB-ms8" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="grB-j5-ca6"/>
@@ -883,6 +882,7 @@
                             <constraint firstItem="Ffe-fa-0Ja" firstAttribute="top" secondItem="oCP-qS-j2d" secondAttribute="bottom" constant="35" id="tTl-ZH-htB"/>
                             <constraint firstItem="Xah-PQ-2CH" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="44" id="uWz-ez-uA2"/>
                             <constraint firstAttribute="trailing" secondItem="Ffe-fa-0Ja" secondAttribute="trailing" constant="20" symbolic="YES" id="xVV-ld-KHn"/>
+                            <constraint firstItem="hnU-tU-Ut7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FYJ-hx-rIp" secondAttribute="trailing" constant="8" symbolic="YES" id="z14-Ig-5zc"/>
                             <constraint firstItem="vGX-5A-DqA" firstAttribute="baseline" secondItem="fFb-JP-Jky" secondAttribute="baseline" id="zeX-L9-NgO"/>
                         </constraints>
                     </view>

@@ -4,7 +4,7 @@
 //
 //  Created by SongWentong on 21/11/2016.
 //  Copyright © 2016 songwentong. All rights reserved.
-//  https://github.com/swtlovewtt/WTKit
+//  https://github.com/songwentong/WTKit
 //
 /*
   自动生成Codable的对象,可以处理字段和swift关键字重名的情况,能正确处理super,import,class这类字段
@@ -47,7 +47,7 @@ public class WTModelMaker {
         var stringToPrint = ""
         stringToPrint += "//\n//  \(className).swift\n"
         stringToPrint += "//\n//  this file is auto create by WTKit on \(dateString).\n"
-        stringToPrint += "//  site:https://github.com/swtlovewtt/WTKit\n//  Thank you for use my json model maker😜\n//\n\n"
+        stringToPrint += "//  site:https://github.com/songwentong/WTKit\n//  Thank you for use my json model maker😜\n//\n\n"
         return stringToPrint;
     }
     private func nameReplace(with origin:String)->String{

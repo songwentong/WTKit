@@ -4,7 +4,7 @@
 //
 //  Created by SongWentong on 09/12/2016.
 //  Copyright © 2016 songwentong. All rights reserved.
-//  https://github.com/swtlovewtt/WTKit
+//  https://github.com/songwentong/WTKit
 //
 import Foundation
 public protocol URLConvertible {
