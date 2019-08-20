@@ -814,8 +814,8 @@
                                 </scroller>
                             </scrollView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Yug-kZ-9Rz">
-                                <rect key="frame" x="546" y="987" width="96" height="46"/>
-                                <buttonCell key="cell" type="smallSquare" title="Write To Home" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="UOw-GI-P91">
+                                <rect key="frame" x="546" y="987" width="60" height="46"/>
+                                <buttonCell key="cell" type="smallSquare" title="Write file" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="UOw-GI-P91">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -824,7 +824,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eui-55-erG">
-                                <rect key="frame" x="655" y="991" width="67" height="38"/>
+                                <rect key="frame" x="619" y="991" width="67" height="38"/>
                                 <buttonCell key="cell" type="check" title="add &quot;?&quot;" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Wag-MI-xl1">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -834,7 +834,7 @@
                                 </connections>
                             </button>
                             <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oCP-qS-j2d">
-                                <rect key="frame" x="736" y="998" width="134" height="24"/>
+                                <rect key="frame" x="700" y="998" width="134" height="24"/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="nPP-EW-1s9">
                                     <font key="font" metaFont="system"/>
                                     <segments>
