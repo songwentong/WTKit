@@ -77,7 +77,7 @@ public class WTModelMaker {
     
     /// 尝试打印出一个json对应的Model属性
     /// NSArray和NSDictionary可能需要自定义为一个model类型
-    public func WTSwiftModelString(with className:String = "XXX", jsonString:String,usingHeader:Bool = false)->String{
+    public func WTSwiftModelString(with className:String = "XXX", jsonString:String, usingHeader:Bool = false)->String{
         
         var stringToPrint:String = String()
         
