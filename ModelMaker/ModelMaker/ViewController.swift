@@ -32,6 +32,7 @@ class ViewController: NSViewController {
         setDefaultString()
         checkJSONText()
         testCodableRead()
+        
     }
     override func viewDidAppear() {
         super.viewDidAppear()
