@@ -4,21 +4,13 @@ platform :ios, '9.0'
 target 'WTKit' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-  pod 'Alamofire', '~> 4.7'
+  pod 'Alamofire'
   # Pods for WTKit
 
   target 'WTKitTests' do
     inherit! :search_paths
     # Pods for testing
   end
-
-end
-
-target 'WTKitMacOS' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
-
-  # Pods for WTKitMacOS
 
 end
 

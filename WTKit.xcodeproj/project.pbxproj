@@ -94,11 +94,8 @@
 		77E0D4DC20DDE0A6002B614E /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		7E771F3E8099EE6B10314798 /* Pods-WTKitTVOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WTKitTVOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WTKitTVOS/Pods-WTKitTVOS.debug.xcconfig"; sourceTree = "<group>"; };
 		97D29A9ECCA33145BD915CB7 /* Pods-WTKitTVOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WTKitTVOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WTKitTVOS/Pods-WTKitTVOS.release.xcconfig"; sourceTree = "<group>"; };
-		AD46A7602C141C524052CC4D /* Pods_WTKitMacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WTKitMacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1522D7BFCF8DE1B3B768069 /* Pods-WTKitWatchOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WTKitWatchOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WTKitWatchOS/Pods-WTKitWatchOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B2BDCA271B8912ACA8860D9C /* Pods_WTKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WTKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B56D8DF60E8B0300DF744ABC /* Pods-WTKitMacOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WTKitMacOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WTKitMacOS/Pods-WTKitMacOS.release.xcconfig"; sourceTree = "<group>"; };
-		D01D0863E9151C3C3141369B /* Pods-WTKitMacOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WTKitMacOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WTKitMacOS/Pods-WTKitMacOS.debug.xcconfig"; sourceTree = "<group>"; };
 		D6D458DA61DA460C595DE637 /* Pods-WTKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WTKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-WTKit/Pods-WTKit.release.xcconfig"; sourceTree = "<group>"; };
 		D9E20C9C2CD7B3E96C486EC5 /* Pods-WTKitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WTKitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WTKitTests/Pods-WTKitTests.release.xcconfig"; sourceTree = "<group>"; };
 		E1552EE6543549D13BD5A6F2 /* Pods_WTKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WTKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,7 +208,6 @@
 			isa = PBXGroup;
 			children = (
 				E1552EE6543549D13BD5A6F2 /* Pods_WTKit.framework */,
-				AD46A7602C141C524052CC4D /* Pods_WTKitMacOS.framework */,
 				32B526AF584593F70158F0B1 /* Pods_WTKitTVOS.framework */,
 				B2BDCA271B8912ACA8860D9C /* Pods_WTKitTests.framework */,
 				47DD73B7304B07B48AA21F97 /* Pods_WTKitWatchOS.framework */,
@@ -287,8 +283,6 @@
 			children = (
 				77A80766381DAFD146956F3C /* Pods-WTKit.debug.xcconfig */,
 				D6D458DA61DA460C595DE637 /* Pods-WTKit.release.xcconfig */,
-				D01D0863E9151C3C3141369B /* Pods-WTKitMacOS.debug.xcconfig */,
-				B56D8DF60E8B0300DF744ABC /* Pods-WTKitMacOS.release.xcconfig */,
 				7E771F3E8099EE6B10314798 /* Pods-WTKitTVOS.debug.xcconfig */,
 				97D29A9ECCA33145BD915CB7 /* Pods-WTKitTVOS.release.xcconfig */,
 				120C9DD7A5B5A076CA8A1C06 /* Pods-WTKitTests.debug.xcconfig */,
@@ -364,7 +358,6 @@
 				E1D21AF21DE04D6D0011F302 /* Sources */,
 				E1D21AF31DE04D6D0011F302 /* Frameworks */,
 				E1D21AF41DE04D6D0011F302 /* Resources */,
-				EBDAF2D5F8BA6542988AB32B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -399,7 +392,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E1EDED231E9F4FCA00DDC372 /* Build configuration list for PBXNativeTarget "WTKitMacOS" */;
 			buildPhases = (
-				881820AB8257EE8F49008256 /* [CP] Check Pods Manifest.lock */,
 				E1EDED191E9F4FCA00DDC372 /* Sources */,
 				E1EDED1A1E9F4FCA00DDC372 /* Frameworks */,
 				E1EDED1B1E9F4FCA00DDC372 /* Headers */,
@@ -446,7 +438,7 @@
 					E17BDA1A1DDDC11A00CF5672 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = QZFW9RQ778;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1030;
 						ProvisioningStyle = Automatic;
 					};
 					E1D21AF51DE04D6D0011F302 = {
@@ -587,42 +579,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		881820AB8257EE8F49008256 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WTKitMacOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EBDAF2D5F8BA6542988AB32B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-WTKitTests/Pods-WTKitTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WTKitTests/Pods-WTKitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F8133E3CA87801619257A4B0 /* [CP] Check Pods Manifest.lock */ = {
@@ -863,8 +819,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -888,8 +843,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.songwentong.WTKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -976,7 +930,6 @@
 		};
 		E1EDED241E9F4FCA00DDC372 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D01D0863E9151C3C3141369B /* Pods-WTKitMacOS.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "-";
@@ -1001,7 +954,6 @@
 		};
 		E1EDED251E9F4FCA00DDC372 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B56D8DF60E8B0300DF744ABC /* Pods-WTKitMacOS.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "-";

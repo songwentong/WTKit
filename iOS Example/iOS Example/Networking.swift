@@ -14,7 +14,7 @@ public class Networking: NSObject {
     
 }
 extension Networking{
-    open static let `default`: Networking = {
+    public static let `default`: Networking = {
         return Networking()
     }()
 }
