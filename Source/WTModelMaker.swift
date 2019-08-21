@@ -92,9 +92,9 @@ public class WTModelMaker {
         stringToPrint += " "
         stringToPrint += getClassOrStructName()
         stringToPrint += " "
-        stringToPrint += "\(className): Codable {"
+        stringToPrint += "\(className):NSObject, Codable {"
         codingKeys = "    enum CodingKeys: String, CodingKey {" + crlf
-//        var varList:String = String()
+        var propertyNames = [String]()
         var jsonObject:Any? = nil
         do {
             if let data = jsonString.data(using: String.Encoding.utf8){
@@ -106,6 +106,7 @@ public class WTModelMaker {
         if let printObject = jsonObject as? [String:AnyObject] {
             for (key,value) in printObject{//object k-v
                 let nameReplacedKey = nameReplace(with: key)
+                propertyNames.append(nameReplacedKey)
                 stringToPrint += crlf
                 stringToPrint += indent
                 
@@ -210,8 +211,25 @@ public class WTModelMaker {
         stringToPrint = stringToPrint + "}" + crlf
         for (key,value) in subModelDict{
             stringToPrint += WTSwiftModelString(with: key, jsonString: value)
+        }//end of class
+        
+        //start of extension
+        var debugDescription = propertyNames.reduce(into: String()) { (result, str) in
+            result += "\(str):"
+            result += "\\"
+            result += "("
+            result += str
+            result += ")"
+            result += "\\"
+            result += "n"
         }
+        debugDescription = "        return \"debugDescription of \(className):\\" + "n" + debugDescription + "\"\n"
+        stringToPrint.append("extension \(className){\n")
+        stringToPrint.append("    public override var description: String{\n        return debugDescription\n    }\n")
+        stringToPrint.append("    override public var debugDescription: String{\n")
+        stringToPrint += debugDescription + "\n"
+        stringToPrint.append("    }\n")
+        stringToPrint.append("}")
         return stringToPrint
-//        print("\(stringToPrint)")
     }
 }
