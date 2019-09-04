@@ -1,6 +1,0 @@
-framework module Pods_WTKitWatchOS {
-  umbrella header "Pods-WTKitWatchOS-umbrella.h"
-
-  export *
-  module * { export * }
-}
