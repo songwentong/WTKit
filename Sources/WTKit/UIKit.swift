@@ -288,11 +288,34 @@ class UILabelIBDesignable: UILabel {}
 class UIViewIBDesignable: UIView {}
 @IBDesignable
 class UIButtonIBDesignable: UIButton {}
+
+private var UIButtonLoadImagePathKey: Void?
+extension UIButton{
+    func loadImage(with path:String) {
+        objc_setAssociatedObject(self, &UIButtonLoadImagePathKey,path,.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        
+        UIImage.loadImage(with: path) { (image, response) in
+            guard let resPath = response?.url?.absoluteString else{
+                return
+            }
+            guard let path = objc_getAssociatedObject(self, &UIImageViewLoadImagePathKey) as? String else{
+                return
+            }
+            guard image != nil else{
+                return
+            }
+            if resPath == path{
+                self.setImage(image, for: .normal)
+            }
+        }
+    }
+}
 private var UIImageViewLoadImagePathKey: Void?
 extension UIImageView{
     
     func loadImage(with path:String) {
         objc_setAssociatedObject(self, &UIImageViewLoadImagePathKey,path,.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        
         UIImage.loadImage(with: path) { (image, response) in
             guard let resPath = response?.url?.absoluteString else{
                 return

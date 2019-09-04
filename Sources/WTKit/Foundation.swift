@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 func dprint<T>(_ items:T, separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
     #if DEBUG
     cprint(items, separator: separator, terminator: terminator,file:file, function:function, line:line)
@@ -16,7 +15,6 @@ func dprint<T>(_ items:T, separator: String = " ", terminator: String = "\n",fil
 func cprint<T>(_ items: T,  separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
     print("\((file as NSString).lastPathComponent)[\(line)], \(function): \(items)", separator: separator, terminator: terminator)
 }
-
 extension Data{
     public func utf8String() -> String {
         return String.init(data: self, encoding: .utf8) ?? "not utf8 string"
@@ -163,7 +161,12 @@ extension Bundle{
 }
 extension String{
     func convertTextToFullWidth()->String{
-        return self.applyingTransform(.fullwidthToHalfwidth, reverse: true) ?? ""
+        if #available(iOS 9.0, *) {
+            return self.applyingTransform(.fullwidthToHalfwidth, reverse: true) ?? ""
+        } else {
+            // Fallback on earlier versions
+            return ""
+        }
     }
     func converToHalfWidth() -> String {
         var dict = [String:String]()
