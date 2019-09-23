@@ -1,4 +1,3 @@
-@@ -1,240 +0,0 @@
 //
 //  JSONModel.swift
 //  WTKit
