@@ -299,7 +299,8 @@ extension String{
         return NSLocalizedString(self, tableName: tableName, bundle: bundle, value: value, comment: comment)
     }
     func convertTextToFullWidth()->String{
-        if #available(iOS 9.0, *) {
+        
+        if #available(OSX 10.11, iOS 9.0, *) {
             return self.applyingTransform(.fullwidthToHalfwidth, reverse: true) ?? ""
         } else {
             // Fallback on earlier versions
