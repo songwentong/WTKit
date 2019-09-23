@@ -171,8 +171,9 @@ public class WTModelMaker {
                             }
                             let data = try! JSONSerialization.data(withJSONObject: first, options: [])
                             let valueString = data.utf8String()
-                            subClassString += self.WTSwiftModelString(with: className + "_" +  nameReplacedKey, jsonString: valueString, usingHeader: false, isRootClass:false)
-                            stringToPrint += "[\(nameReplacedKey)]"
+                            let subClassName = className + "_" +  nameReplacedKey
+                            subClassString += self.WTSwiftModelString(with: subClassName, jsonString: valueString, usingHeader: false, isRootClass:false)
+                            stringToPrint += "[\(subClassName)]"
                         }
                         
                     }else if string == "NSDictionary"{
