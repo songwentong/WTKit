@@ -1,6 +1,0 @@
-framework module Pods_WTKitTests {
-  umbrella header "Pods-WTKitTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
