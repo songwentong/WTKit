@@ -1,339 +1,365 @@
 //
-//  Foundation.swift
+//  UIKit.swift
 //  宋文通
 //
-//  Created by 宋文通 on 2019/8/7.
-//  Copyright © 2019 newsdog. All rights reserved.
+//  Created by 宋文通 on 2019/8/12.
+//  Copyright © 2019 宋文通. All rights reserved.
 //
 
 import Foundation
 import UIKit
-func dprint<T>(_ items:T, separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
-    #if DEBUG
-    cprint(items, separator: separator, terminator: terminator,file:file, function:function, line:line)
-    #endif
+
+extension UIScreen{
+    class func mainScreenWidth() -> CGFloat {
+        return UIScreen.main.bounds.size.width
+    }
+    class func mainScreenHeight() -> CGFloat {
+        return UIScreen.main.bounds.size.height
+    }
 }
-func cprint<T>(_ items: T,  separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
-    print("\((file as NSString).lastPathComponent)[\(line)], \(function): \(items)", separator: separator, terminator: terminator)
+extension UIColor{
+//    func randomColor() -> UIColor {
+//        UIColor.init(red: CGFloat.random(in: ClosedRange.i), green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>)
+//    }
+    func createImage(with size:CGSize) -> UIImage? {
+        let rect = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+        setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    public class func colorWithHexString(_ string:String,alpha:CGFloat? = 1.0) -> UIColor{
+        //        let s = NSScanner(string: string)
+        let mutableCharSet = NSMutableCharacterSet()
+        mutableCharSet.addCharacters(in: "#")
+        mutableCharSet.formUnion(with: CharacterSet.whitespaces);
+        
+        
+        let hString:String = string.trimmingCharacters(in: mutableCharSet as CharacterSet)
+        
+        
+        switch hString.count {
+        case 0:
+            return UIColor.red;
+        case 1:
+            return UIColor.colorWithHexString(hString+hString);
+        case 2:
+            return UIColor.colorWithHexString(hString+hString+hString);
+        case 6:
+            let rIndex = hString.index(hString.startIndex, offsetBy: 2)
+            let gIndex = hString.index(rIndex, offsetBy: 2)
+            let bIndex = hString.index(gIndex, offsetBy: 2)
+            let r = String.init(hString[..<rIndex])
+            let g = String.init(hString[rIndex..<gIndex])
+            let b = String.init(hString[gIndex..<bIndex])
+            var rInt:UInt32 = 0x0,gInt:UInt32 = 0x0,bInt:UInt32 = 0x0
+            
+            Scanner.init(string: r).scanHexInt32(&rInt)
+            Scanner.init(string: g).scanHexInt32(&gInt)
+            Scanner.init(string: b).scanHexInt32(&bInt)
+            
+            let red = CGFloat(rInt)/255.0
+            let green = CGFloat(gInt)/255.0
+            let blue = CGFloat(bInt)/255.0
+            //            WTLog("\(red) \(green) \(blue)")
+            let color = UIColor(red: red, green: green, blue: blue,alpha: alpha!)
+            return color;
+        default:
+            return UIColor.red;
+        }
+    }
+}
+// MARK: - UINibReusableCell
+protocol UINibReusableCell:NSObjectProtocol {
+    static func nib() -> UINib
+    static var reuseIdentifier: String{get}
+}
+extension UINibReusableCell{
+    //这段代码的神奇之处是到了这里已经无法打印self了，报错内容是：error: <EXPR>:1:11: error: use of undeclared type '$__lldb_context'
+    static func nib() -> UINib {
+        return UINib.init(nibName: self.reuseIdentifier, bundle: nil)
+    }
+    static var reuseIdentifier: String{
+        return "\(self)"
+    }
+}
+extension UITableView{
+    func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type) -> Void {
+        register(cellType.nib(), forCellReuseIdentifier: cellType.reuseIdentifier)
+    }
+    func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type, forHeaderFooterViewReuseIdentifier:String) -> Void {
+        register(cellType.nib(), forHeaderFooterViewReuseIdentifier: cellType.reuseIdentifier)
+    }
+}
+extension UICollectionView{
+    func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type) -> Void {
+        let nib = cellType.nib()
+        let rid = cellType.reuseIdentifier
+        register(nib, forCellWithReuseIdentifier: rid)
+    }
+}
+protocol UITableViewModel {
+    var sectionList:[UITableViewSectionModel]{get set}
+}
+protocol UITableViewSectionModel {
+    var title:String?{get}
+    var headerView:UIView?{get}
+    var footerView:UIView?{get}
+    var cellInSection:[UITableViewCellModel]{get set}
+}
+protocol UITableViewCellModel{
+    var reuseId:String{get}
+}
+protocol UICollectionViewCellModel {
+    var reuseId:String{get}
+}
+protocol UITableViewCellDetailModel:UITableViewCellModel {
+    var title:String?{get}
+    var height:CGFloat?{get}
+    var action:DispatchWorkItem?{get}
+}
+protocol UITableViewCellModelHolder {
+    var model:UITableViewCellModel!{get set}
+}
+protocol UICollectionViewCellModelHolder {
+    var model:UICollectionViewCellModel!{get set}
+}
+extension UITableView{
+    func dequeueReusableCellModel(withModel model:UITableViewCellModel, for indexPath: IndexPath) -> UITableViewCell {
+        let cell = dequeueReusableCell(withIdentifier: model.reuseId, for: indexPath)
+        if var c = cell as? UITableViewCellModelHolder{
+            c.model = model
+        }
+        return cell
+    }
+}
+extension UICollectionView{
+    func dequeueReusableCellModel(withModel model:UICollectionViewCellModel, for indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = dequeueReusableCell(withReuseIdentifier: model.reuseId, for: indexPath)
+        if var c = cell as? UICollectionViewCellModelHolder{
+            c.model = model
+        }
+        return cell
+    }
+}
+struct SampleTableViewCellModel:UITableViewCellModel {
+    var reuseId:String = ""
+    var height:CGFloat = 44
+    var action = DispatchWorkItem.init {}
+    var customAction = ((UITableViewCell)->Void).self
 }
 
-extension Data{
-    public func utf8String() -> String {
-        return String.init(data: self, encoding: .utf8) ?? "not utf8 string"
-    }
-}
-func debugBlock(_ block:()->Void) -> Void {
-    #if DEBUG
-    block()
-    #endif
-}
-extension Locale{
-    static func en_US() -> Locale {
-        return Locale.init(identifier: "en_US")
-    }
-    static func korea() -> Locale{
-        return Locale.init(identifier: "ko-Kore_KR")
-    }
-}
-extension Double{
-    func numberObject() -> NSNumber {
-        return NSNumber.init(value: self)
-    }
-}
 
-extension DispatchQueue{
-    public static func backgroundQueue()->DispatchQueue{
-        return DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
+extension UIViewController{
+    @objc func setBackArrowButton(image:UIImage?) -> Void {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: image, style: .plain, target: self, action: #selector(recieveBackButtonPressed))
     }
-    public static func utilityQueue()->DispatchQueue{
-        return DispatchQueue.global(qos: DispatchQoS.QoSClass.utility)
+    @objc func setBackArrowButton() -> Void {
+        setBackArrowButton(image: UIImage.init(named: "arrrwImage"))
     }
-    public static func userInitiatedQueue()->DispatchQueue{
-        return DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated)
+    @objc func recieveBackButtonPressed() -> Void {
+        self.navigationController?.popViewController(animated: true)
     }
-    public static func userInteractiveQueue()->DispatchQueue{
-        return DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
+}
+extension UILabel{
+    @IBInspectable var adjustFont:Bool{
+        get{
+            return self.adjustsFontSizeToFitWidth
+        }
+        set{
+            self.adjustsFontSizeToFitWidth = newValue
+        }
     }
-    //安全同步到主线程
-    public static func safeSyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
-        let main:DispatchQueue = DispatchQueue.main
-        if Thread.isMainThread {
-            main.async(execute: work)
+}
+extension UIView{
+    @IBInspectable var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+            layer.masksToBounds = newValue > 0
+        }
+    }
+    @IBInspectable var borderWidth: CGFloat {
+        get {
+            return layer.borderWidth
+        }
+        set {
+            layer.borderWidth = newValue
+        }
+    }
+    @IBInspectable var borderColor: UIColor?{
+        get {
+            return layer.borderColor?.convertToUIColor()
+        }
+        set {
+            layer.borderColor = newValue?.cgColor
+        }
+    }
+    func loadReuseableNibContentView() {
+        let view = instanceFromXibWithOwner()
+        view.frame = self.bounds
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addSubview(view)
+    }
+    func instanceFromXibWithOwner() -> UIView{
+        let res = "\(self.classForCoder)"
+        let bundle = Bundle.init(for: type(of: self))
+        guard let path = Bundle.main.path(forResource: res, ofType: "nib") else{
+            print("nib file not found")
+            return UIView.init()
+        }
+        print("load file :\(path)")
+        let nib = UINib.init(nibName: res, bundle: bundle)
+        if let first = nib.instantiate(withOwner: self, options: nil).first as? UIView{
+            return first
+        }
+        return UIView.init()
+    }
+    static func instanceFromXib() -> UIView{
+        let res = "\(self)"
+        guard let _ = Bundle.main.path(forResource: res, ofType: "nib") else{
+            print("nib file not found")
+            return self.init()
+        }
+        let nib = UINib.init(nibName: "\(self)", bundle: nil)
+        if let first = nib.instantiate(withOwner: nil, options: nil).first as? UIView{
+            return first
+        }
+        return self.init()
+    }
+    func shapShot() -> UIImage {
+        return layer.snapShot()
+    }
+}
+extension UIViewController{
+    @objc static func instanceFromStoryBoard() -> UIViewController {
+        guard let _ = Bundle.main.path(forResource: "\(self)", ofType: "storyboardc") else{
+            print("storyboradc file not found class:\(self)")
+            return self.init()
+        }
+        let sb = UIStoryboard.init(name: "\(self)", bundle: nil)
+        if let vc = sb.instantiateInitialViewController(){
+            return vc
         }else{
-            main.sync(execute: work)
+            return self.init()
         }
-        //        print("425 wt test")
     }
-    //异步回到主线程
-    public static func asyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
-        DispatchQueue.main.async(execute: work)
-    }
-    func perform( closure: @escaping () -> Void, afterDelay:Double) -> Void {
-        let time = Int64(afterDelay * Double(NSEC_PER_SEC))
-        let t:DispatchTime = DispatchTime.now() + Double(time) / Double(NSEC_PER_SEC)
-        self.asyncAfter(deadline: t, execute: closure)
+    @objc static func instanceFromNib() -> UIViewController{
+        guard let _ = Bundle.main.path(forResource: "\(self)", ofType: "nib") else{
+            print("nib file not found class:\(self)")
+            return self.init()
+        }
+        let nib = UINib.init(nibName: "\(self)", bundle: nil)
+        guard let objects:[UIViewController] = nib.instantiate(withOwner: nil, options: nil) as? [UIViewController] else{
+            return UIViewController()
+        }
+        if let first = objects.first{
+            return first
+        }
+        return self.init()
     }
 }
-enum URLSessionError:Error {
-    case noURL
-    case nodata
-    case parseEror
-    case none
-    case ok
-}
-extension URLSession{
-    @discardableResult
-    open func dataTask<T:Codable>(withPath urlPath:String,complectionHandler: @escaping (T?,Error?) -> Void) -> URLSessionDataTask?{
-        guard let url = URL.init(string: urlPath) else {
-            DispatchQueue.main.async {
-                complectionHandler(nil,URLSessionError.noURL)
+extension CALayer{
+    func snapShot() -> UIImage {
+        if #available(iOS 10.0, *) {
+            let render = UIGraphicsImageRenderer.init(size: self.bounds.size)
+            return render.image { [weak self](context) in
+                self?.render(in: context as! CGContext)
             }
-            return nil
+        } else {
+            // Fallback on earlier versions
+            UIGraphicsBeginImageContextWithOptions(frame.size, false, UIScreen.main.scale)
+            render(in: UIGraphicsGetCurrentContext()!)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return image!
         }
-        return dataTask(with: url, completionHandler: complectionHandler)
     }
-    @discardableResult
-    open func dataTask<T:Codable>(with url: URL, completionHandler: @escaping (T?,Error?) -> Void ) -> URLSessionDataTask{
-        return dataTask(with: URLRequest.init(url: url), completionHandler: completionHandler)
+}
+extension CGColor{
+    func convertToUIColor() -> UIColor {
+        return UIColor.init(cgColor: self)
     }
-    @discardableResult
-    open func dataTask<T:Codable>(with request: URLRequest, completionHandler: @escaping (T?,Error?) -> Void) -> URLSessionDataTask{
-        let task = dataTask(with: request) { (data, urlres, err) in
-            if err != nil{
-                completionHandler(nil,err)
-            }
-            guard let data = data else{
-                DispatchQueue.main.async {
-                    completionHandler(nil,URLSessionError.nodata)
-                }
+}
+extension CGPoint{
+    static func distance(from p1:CGPoint, p2:CGPoint) -> CGFloat {
+        let a = p1.x - p2.x
+        let b = p1.y - p2.y
+        let c_c = a * a + b * b
+        return c_c.squareRoot()
+    }
+}
+extension UILabel{}
+//IBInspectable IBDesignable
+@IBDesignable
+class UILabelIBDesignable: UILabel {}
+@IBDesignable
+class UIViewIBDesignable: UIView {}
+@IBDesignable
+class UIButtonIBDesignable: UIButton {}
+private var UIImageViewLoadImagePathKey: Void?
+extension UIImageView{
+    
+    func loadImage(with path:String) {
+        objc_setAssociatedObject(self, &UIImageViewLoadImagePathKey,path,.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        UIImage.loadImage(with: path) { (image, response) in
+            guard let resPath = response?.url?.absoluteString else{
                 return
             }
-            do{
-                let obj = try JSONDecoder().decode(T.self, from: data)
-                DispatchQueue.main.async {
-                    completionHandler(obj,.none)
-                }
-                
-            }catch{
-                DispatchQueue.main.async {
-                    completionHandler(nil,error)
-                }
+            guard let path = objc_getAssociatedObject(self, &UIImageViewLoadImagePathKey) as? String else{
+                return
+            }
+            guard image != nil else{
+                return
+            }
+            if resPath == path{
+                self.image = image
+                self.layoutIfNeeded()
             }
         }
-        task.resume()
-        return task
     }
-    
+}
+extension UIImage{
     @discardableResult
-    static func useCacheElseLoadURLData(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        var request = URLRequest.init(url: url)
-        request.cachePolicy = .returnCacheDataElseLoad
-        let task = URLSession.shared.dataTask(with: request, completionHandler: { (data,res,err) in
-            DispatchQueue.main.async {
-                completionHandler(data,res,err)
+    static func loadImage(with path: String, complection:@escaping (UIImage?,URLResponse?)->Void) -> URLSessionDataTask? {
+        guard let url = URL.init(string: path) else{
+            complection(nil,nil)
+            return nil
+        }
+        return loadImage(with: url, complection: complection)
+    }
+    @discardableResult
+    static func loadImage(with url: URL, complection:@escaping (UIImage?,URLResponse?)->Void) -> URLSessionDataTask {
+        return URLSession.useCacheElseLoadURLData(with: url) { (data, response, err) in
+            guard let data = data else{
+                complection(nil,response)
+                return
             }
-        })
-        task.resume()
-        return task
+            let image = UIImage.init(data: data)
+            complection(image,response)
+        }
     }
-    
 }
-struct URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
-    var request:URLRequest
-    var description: String{
-        var components: [String] = []
+class AlignLeftFlowLayout: UICollectionViewFlowLayout {
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        let attributes = super.layoutAttributesForElements(in: rect)
         
-        if let HTTPMethod = request.httpMethod {
-            components.append(HTTPMethod)
-        }
-        
-        if let urlString = request.url?.absoluteString {
-            components.append(urlString)
-        }
-        return components.joined(separator: " ")
-    }
-    var debugDescription: String{
-        var components = ["$ curl -v"]
-        
-        guard let url = request.url else {
-            return "$ curl command could not be created"
-        }
-        
-        if let httpMethod = request.httpMethod, httpMethod != "GET" {
-            components.append("-X \(httpMethod)")
-        }
-        /*
-         if let credentialStorage = self.session.configuration.urlCredentialStorage {
-         let protectionSpace = URLProtectionSpace(
-         host: host,
-         port: url.port ?? 0,
-         protocol: url.scheme,
-         realm: host,
-         authenticationMethod: NSURLAuthenticationMethodHTTPBasic
-         )
-         
-         if let credentials = credentialStorage.credentials(for: protectionSpace)?.values {
-         for credential in credentials {
-         guard let user = credential.user, let password = credential.password else { continue }
-         components.append("-u \(user):\(password)")
-         }
-         } else {
-         if let credential = delegate.credential, let user = credential.user, let password = credential.password {
-         components.append("-u \(user):\(password)")
-         }
-         }
-         }
-         
-         if session.configuration.httpShouldSetCookies {
-         if
-         let cookieStorage = session.configuration.httpCookieStorage,
-         let cookies = cookieStorage.cookies(for: url), !cookies.isEmpty
-         {
-         let string = cookies.reduce("") { $0 + "\($1.name)=\($1.value);" }
-         
-         #if swift(>=3.2)
-         components.append("-b \"\(string[..<string.index(before: string.endIndex)])\"")
-         #else
-         components.append("-b \"\(string.substring(to: string.characters.index(before: string.endIndex)))\"")
-         #endif
-         }
-         }*/
-        
-        var headers: [AnyHashable: Any] = [:]
-        /*
-         session.configuration.httpAdditionalHeaders?.filter {  $0.0 != AnyHashable("Cookie") }
-         .forEach { headers[$0.0] = $0.1 }
-         */
-        request.allHTTPHeaderFields?.filter { $0.0 != "Cookie" }
-            .forEach { headers[$0.0] = $0.1 }
-        
-        components += headers.map {
-            let escapedValue = String(describing: $0.value).replacingOccurrences(of: "\"", with: "\\\"")
+        var leftMargin = sectionInset.left
+        var maxY: CGFloat = -1.0
+        attributes?.forEach { layoutAttribute in
+            if layoutAttribute.frame.origin.y >= maxY {
+                leftMargin = sectionInset.left
+            }
             
-            return "-H \"\($0.key): \(escapedValue)\""
-        }
-        
-        if let httpBodyData = request.httpBody, let httpBody = String(data: httpBodyData, encoding: .utf8) {
-            var escapedBody = httpBody.replacingOccurrences(of: "\\\"", with: "\\\\\"")
-            escapedBody = escapedBody.replacingOccurrences(of: "\"", with: "\\\"")
+            layoutAttribute.frame.origin.x = leftMargin
             
-            components.append("-d \"\(escapedBody)\"")
+            leftMargin += layoutAttribute.frame.width + minimumInteritemSpacing
+            maxY = max(layoutAttribute.frame.maxY , maxY)
         }
-        
-        components.append("\"\(url.absoluteString)\"")
-        
-        return components.joined(separator: " \\\n\t")
+        return attributes
     }
 }
-extension URLRequest{
-    func converToPrinter() -> URLRequestPrinter {
-        return URLRequestPrinter.init(request: self)
-    }
-    public var curlString: String {
-        // Logging URL requests in whole may expose sensitive data,
-        // or open up possibility for getting access to your user data,
-        // so make sure to disable this feature for production builds!
-        #if !DEBUG
-        return ""
-        #else
-        var result = "curl -k "
-        
-        if let method = httpMethod {
-            result += "-X \(method) \\\n"
-        }
-        
-        if let headers = allHTTPHeaderFields {
-            for (header, value) in headers {
-                result += "-H \"\(header): \(value)\" \\\n"
-            }
-        }
-        
-        if let body = httpBody, !body.isEmpty, let string = String(data: body, encoding: .utf8), !string.isEmpty {
-            result += "-d '\(string)' \\\n"
-        }
-        
-        if let url = url {
-            result += url.absoluteString
-        }
-        
-        return result
-        #endif
-    }
-    
-}
-extension Date{
-    
-}
-extension TimeZone{
-    
-}
-extension DateFormatter{
-    //https://nsdateformatter.com
-    static let globalFormatter:DateFormatter = {
-        let f = DateFormatter()
-        f.dateFormat = "yyyy-MM-dd"
-        return f
-    }()
-}
-extension Bundle{
-    func appName() -> String {
-        let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
-        return appName
-    }
-    static var customBundle:Bundle = Bundle.main
-    static func setCustomBundle(with newBundle:Bundle){
-    }
-    static func getCustomBundle() -> Bundle {
-        return Bundle.main
-    }
-}
-extension String{
-    func localized(_ lang:String) ->String {
-        var bundle = Bundle.main
-        if let path = Bundle.main.path(forResource: lang, ofType: "lproj") {
-            bundle = Bundle(path: path) ?? Bundle.main
-        }
-        return NSLocalizedString(self, tableName: nil, bundle: bundle, value: "", comment: "")
-    }
-    func convertToLocalizedString(_ tableName: String? = nil, bundle: Bundle = Bundle.main, value: String = "", comment: String) -> String{
-        return NSLocalizedString(self, tableName: tableName, bundle: bundle, value: value, comment: comment)
-    }
-    func convertTextToFullWidth()->String{
-        return self.applyingTransform(.fullwidthToHalfwidth, reverse: true) ?? ""
-    }
-    func converToHalfWidth() -> String {
-        var dict = [String:String]()
-        for (index,ele) in String.fullWidthPunctuation().enumerated(){
-            for (index2,ele2) in String.halfWidthPunctuation().enumerated(){
-                if index == index2{
-                    dict["\(ele)"] = "\(ele2)"
-                }
-            }
-        }
-        var result = ""
-        result = self
-        for (k,v) in dict {
-            result = result.replacingOccurrences(of: k, with: v)
-        }
-        return result
-    }
-    static func fullWidthPunctuation()->String{
-        return "“”，。：¥"
-    }
-    static func halfWidthPunctuation()->String{
-        return "\"\",.:¥"
-    }
-}
-func convertCodableTypeToParameters<T:Codable,B>(_ t:T) -> B? {
-    do{
-        let data = try JSONEncoder().encode(t)
-        let json = try JSONSerialization.jsonObject(with: data, options: [])
-        if let j = json as? B{
-            return j
-        }
-    }catch{
-        return nil
-    }
-    return nil
-}
-

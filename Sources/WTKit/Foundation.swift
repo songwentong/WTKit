@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 func dprint<T>(_ items:T, separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
     #if DEBUG
     cprint(items, separator: separator, terminator: terminator,file:file, function:function, line:line)
@@ -15,6 +16,7 @@ func dprint<T>(_ items:T, separator: String = " ", terminator: String = "\n",fil
 func cprint<T>(_ items: T,  separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
     print("\((file as NSString).lastPathComponent)[\(line)], \(function): \(items)", separator: separator, terminator: terminator)
 }
+
 extension Data{
     public func utf8String() -> String {
         return String.init(data: self, encoding: .utf8) ?? "not utf8 string"
@@ -131,20 +133,140 @@ extension URLSession{
                 completionHandler(data,res,err)
             }
         })
-        if let response = URLCache.shared.cachedResponse(for: request){
-            let data = response.data
-            completionHandler(data,response.response,nil)
-            //            task.resume()
-        }else{
-            task.resume()
-        }
+        task.resume()
         return task
     }
     
 }
-
-
-
+struct URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
+    var request:URLRequest
+    var description: String{
+        var components: [String] = []
+        
+        if let HTTPMethod = request.httpMethod {
+            components.append(HTTPMethod)
+        }
+        
+        if let urlString = request.url?.absoluteString {
+            components.append(urlString)
+        }
+        return components.joined(separator: " ")
+    }
+    var debugDescription: String{
+        var components = ["$ curl -v"]
+        
+        guard let url = request.url else {
+            return "$ curl command could not be created"
+        }
+        
+        if let httpMethod = request.httpMethod, httpMethod != "GET" {
+            components.append("-X \(httpMethod)")
+        }
+        /*
+         if let credentialStorage = self.session.configuration.urlCredentialStorage {
+         let protectionSpace = URLProtectionSpace(
+         host: host,
+         port: url.port ?? 0,
+         protocol: url.scheme,
+         realm: host,
+         authenticationMethod: NSURLAuthenticationMethodHTTPBasic
+         )
+         
+         if let credentials = credentialStorage.credentials(for: protectionSpace)?.values {
+         for credential in credentials {
+         guard let user = credential.user, let password = credential.password else { continue }
+         components.append("-u \(user):\(password)")
+         }
+         } else {
+         if let credential = delegate.credential, let user = credential.user, let password = credential.password {
+         components.append("-u \(user):\(password)")
+         }
+         }
+         }
+         
+         if session.configuration.httpShouldSetCookies {
+         if
+         let cookieStorage = session.configuration.httpCookieStorage,
+         let cookies = cookieStorage.cookies(for: url), !cookies.isEmpty
+         {
+         let string = cookies.reduce("") { $0 + "\($1.name)=\($1.value);" }
+         
+         #if swift(>=3.2)
+         components.append("-b \"\(string[..<string.index(before: string.endIndex)])\"")
+         #else
+         components.append("-b \"\(string.substring(to: string.characters.index(before: string.endIndex)))\"")
+         #endif
+         }
+         }*/
+        
+        var headers: [AnyHashable: Any] = [:]
+        /*
+         session.configuration.httpAdditionalHeaders?.filter {  $0.0 != AnyHashable("Cookie") }
+         .forEach { headers[$0.0] = $0.1 }
+         */
+        request.allHTTPHeaderFields?.filter { $0.0 != "Cookie" }
+            .forEach { headers[$0.0] = $0.1 }
+        
+        components += headers.map {
+            let escapedValue = String(describing: $0.value).replacingOccurrences(of: "\"", with: "\\\"")
+            
+            return "-H \"\($0.key): \(escapedValue)\""
+        }
+        
+        if let httpBodyData = request.httpBody, let httpBody = String(data: httpBodyData, encoding: .utf8) {
+            var escapedBody = httpBody.replacingOccurrences(of: "\\\"", with: "\\\\\"")
+            escapedBody = escapedBody.replacingOccurrences(of: "\"", with: "\\\"")
+            
+            components.append("-d \"\(escapedBody)\"")
+        }
+        
+        components.append("\"\(url.absoluteString)\"")
+        
+        return components.joined(separator: " \\\n\t")
+    }
+}
+extension URLRequest{
+    func converToPrinter() -> URLRequestPrinter {
+        return URLRequestPrinter.init(request: self)
+    }
+    public var curlString: String {
+        // Logging URL requests in whole may expose sensitive data,
+        // or open up possibility for getting access to your user data,
+        // so make sure to disable this feature for production builds!
+        #if !DEBUG
+        return ""
+        #else
+        var result = "curl -k "
+        
+        if let method = httpMethod {
+            result += "-X \(method) \\\n"
+        }
+        
+        if let headers = allHTTPHeaderFields {
+            for (header, value) in headers {
+                result += "-H \"\(header): \(value)\" \\\n"
+            }
+        }
+        
+        if let body = httpBody, !body.isEmpty, let string = String(data: body, encoding: .utf8), !string.isEmpty {
+            result += "-d '\(string)' \\\n"
+        }
+        
+        if let url = url {
+            result += url.absoluteString
+        }
+        
+        return result
+        #endif
+    }
+    
+}
+extension Date{
+    
+}
+extension TimeZone{
+    
+}
 extension DateFormatter{
     //https://nsdateformatter.com
     static let globalFormatter:DateFormatter = {
@@ -158,22 +280,31 @@ extension Bundle{
         let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
         return appName
     }
+    static var customBundle:Bundle = Bundle.main
+    static func setCustomBundle(with newBundle:Bundle){
+    }
+    static func getCustomBundle() -> Bundle {
+        return Bundle.main
+    }
 }
 extension String{
     func localized(_ lang:String) ->String {
-
-        let path = Bundle.main.path(forResource: lang, ofType: "lproj")
-        let bundle = Bundle(path: path!)
-
-        return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
+        var bundle = Bundle.main
+        if let path = Bundle.main.path(forResource: lang, ofType: "lproj") {
+            bundle = Bundle(path: path) ?? Bundle.main
+        }
+        return NSLocalizedString(self, tableName: nil, bundle: bundle, value: "", comment: "")
+    }
+    func convertToLocalizedString(_ tableName: String? = nil, bundle: Bundle = Bundle.main, value: String = "", comment: String) -> String{
+        return NSLocalizedString(self, tableName: tableName, bundle: bundle, value: value, comment: comment)
     }
     func convertTextToFullWidth()->String{
         if #available(iOS 9.0, *) {
             return self.applyingTransform(.fullwidthToHalfwidth, reverse: true) ?? ""
         } else {
             // Fallback on earlier versions
-            return ""
         }
+        return ""
     }
     func converToHalfWidth() -> String {
         var dict = [String:String]()
