@@ -7,7 +7,7 @@ final class WTKitTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
         print("print asdasdasdsadas21das4321da52s341")
-        XCTAssertEqual(WTKit().text, "Hello, World!")
+        
         testBundle()
     }
     func testBundle() {

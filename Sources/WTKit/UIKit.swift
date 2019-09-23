@@ -7,8 +7,8 @@
 //
 
 import Foundation
+#if !os(macOS)
 import UIKit
-
 extension UIScreen{
     class func mainScreenWidth() -> CGFloat {
         return UIScreen.main.bounds.size.width
@@ -363,3 +363,6 @@ class AlignLeftFlowLayout: UICollectionViewFlowLayout {
         return attributes
     }
 }
+
+#endif
+
