@@ -158,10 +158,10 @@ public class WTModelMaker {
                     } else if string == "NSArray"{
                         if value is [Int]{
                             //print("int array")
-                            stringToPrint += "[Int]"
+                            stringToPrint += "[Int] = [Int]()"
                         }else if value is [String]{
                             //print("string array")
-                            stringToPrint += "[String]"
+                            stringToPrint += "[String] = [String]()"
                         }else{
                             guard let list = value as? [Any] else{
                                 return ""
@@ -173,7 +173,7 @@ public class WTModelMaker {
                             let valueString = data.utf8String()
                             let subClassName = className + "_" +  nameReplacedKey
                             subClassString += self.WTSwiftModelString(with: subClassName, jsonString: valueString, usingHeader: false, isRootClass:false)
-                            stringToPrint += "[\(subClassName)]"
+                            stringToPrint += "[\(subClassName)] = [\(subClassName)]()"
                         }
                         
                     }else if string == "NSDictionary"{
