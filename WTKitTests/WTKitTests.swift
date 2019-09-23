@@ -14,10 +14,22 @@ class WTKitTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         testWTNetWork()
+        testSwitch()
     }
     
     func testModelMaker() -> Void {
         
+    }
+    func testSwitch() -> Void {
+        let num = [1,2,3,4,5]
+        switch num[1] {
+        case 1:
+            fallthrough
+        case 2:
+            fallthrough
+        default:
+            print("default")
+        }
     }
     
     func testWTNetWork(){
