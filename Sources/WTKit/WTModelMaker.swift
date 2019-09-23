@@ -1,3 +1,4 @@
+@@ -1,240 +0,0 @@
 //
 //  JSONModel.swift
 //  WTKit
@@ -47,7 +48,7 @@ public class WTModelMaker {
         var stringToPrint = ""
         stringToPrint += "//\n//  \(className).swift\n"
         stringToPrint += "//\n//  this file is auto create by WTKit on \(dateString).\n"
-        stringToPrint += "//  site:https://github.com/songwentong/WTKit\n//  Thank you for use my json model maker😜\n//\n\n"
+        stringToPrint += "//  site:https://github.com/songwentong/ModelMaker\n//  Thank you for use my json model maker😜\n//\n\n"
         return stringToPrint;
     }
     private func nameReplace(with origin:String)->String{
