@@ -275,7 +275,7 @@ extension DateFormatter{
         return f
     }()
 }
-extension Bundle{
+public extension Bundle{
     func appName() -> String {
         let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
         return appName
@@ -287,7 +287,7 @@ extension Bundle{
         return Bundle.main
     }
 }
-extension String{
+public extension String{
     func localized(_ lang:String) ->String {
         var bundle = Bundle.main
         if let path = Bundle.main.path(forResource: lang, ofType: "lproj") {
