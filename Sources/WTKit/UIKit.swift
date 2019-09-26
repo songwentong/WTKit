@@ -268,7 +268,7 @@ extension CALayer{
         if #available(iOS 10.0, *) {
             let render = UIGraphicsImageRenderer.init(size: self.bounds.size)
             return render.image { [weak self](context) in
-                self?.render(in: context as! CGContext)
+                self?.render(in: context.cgContext)
             }
         } else {
             // Fallback on earlier versions
