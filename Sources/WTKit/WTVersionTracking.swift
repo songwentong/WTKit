@@ -14,32 +14,32 @@ private let UIApplicationVersionsKey = "WTKit UIapplication versions key"
 private let UIApplicationBuildsKey = "WTKit UIapplication builds key"
 private var UIApplicationIsFirstEver:Void?
 private var UIApplicationLaunchTrackedKey:Void?
-extension UIApplication{
+public extension UIApplication{
     //bundle name eg.com.xxx.xxx
-    public class func appBundleName()->String{
+    class func appBundleName()->String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
     }
     //bundleid  eg.2345678
-    public class func appBundleID()->String{
+    class func appBundleID()->String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as! String
     }
     //build version eg.1234
-    public class func buildVersion()->String{
+    class func buildVersion()->String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     }
     //app version eg. 1.2.1
-    public static func appVersion()->String{
+    static func appVersion()->String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     }
 }
-extension UIApplication{
+public extension UIApplication{
     /*!
      track each launch,Repeat safety
      not you should track at app launch method
      @available(iOS 3.0, *)
-     optional public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool
+     optional func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool
      */
-    public func track(){
+    func track(){
         if launchTrakced {
             return
         }
@@ -66,18 +66,18 @@ extension UIApplication{
      check current is first lunch for this build
      note don't call this method before track()
      */
-    public func isFirstLaunchForBuild(_ block:(_ isFirstLaunchForBuild:Bool)->Void){
+    func isFirstLaunchForBuild(_ block:(_ isFirstLaunchForBuild:Bool)->Void){
         block(self.isFirstLaunchForBuild)
     }
     //version history,if no history,return empty string array
-    public func versionHistory()->[String]{
+    func versionHistory()->[String]{
         if let versionHistory = UserDefaults.standard.array(forKey: UIApplicationVersionsKey) as? [String]{
             return versionHistory
         }
         return [String]()
     }
     //build history,if no history,return empty string array
-    public func buildHistory()->[String]{
+    func buildHistory()->[String]{
         if let versionHistory = UserDefaults.standard.array(forKey: UIApplicationBuildsKey) as? [String]{
             return versionHistory
         }

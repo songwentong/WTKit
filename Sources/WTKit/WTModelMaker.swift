@@ -11,7 +11,7 @@
  可在属性添加前缀和后缀,自动解析嵌套类型,用JSONDecoder读取json数据可以直接生成一个已经赋值的类的实例.
  */
 import Foundation
-extension NSValue{
+public extension NSValue{
     func objCTypeString() -> String {
         let objCType = self.objCType
         let type = String.init(cString: objCType)
@@ -33,7 +33,7 @@ public class WTModelMaker {
     public static let `default`:WTModelMaker = {
        return WTModelMaker()
     }()
-    public func randomClassName(with prefix:String)->String{
+    func randomClassName(with prefix:String)->String{
         let randomNumber = arc4random_uniform(150)
         let suffix = String.init(randomNumber)
         return prefix+suffix
@@ -77,7 +77,7 @@ public class WTModelMaker {
     
     /// 尝试打印出一个json对应的Model属性
     /// NSArray和NSDictionary可能需要自定义为一个model类型
-    public func WTSwiftModelString(with className:String = "XXX", jsonString:String, usingHeader:Bool = false, isRootClass:Bool = true)->String{
+    func WTSwiftModelString(with className:String = "XXX", jsonString:String, usingHeader:Bool = false, isRootClass:Bool = true)->String{
         
         var stringToPrint:String = String()
         var subClassString = "\n"
@@ -215,7 +215,7 @@ public class WTModelMaker {
         stringToPrint = stringToPrint + "}" + crlf
         
         
-        //start of extension
+        //start of public extension
         var debugDescription = propertyNames.reduce(into: String()) { (result, str) in
             result += "\(str):"
             result += "\\"
@@ -226,7 +226,7 @@ public class WTModelMaker {
             result += "n"
         }
         debugDescription = "        return \"debugDescription of \(className):\\" + "n" + debugDescription + "\"\n"
-        stringToPrint.append("extension \(className){\n")
+        stringToPrint.append("public extension \(className){\n")
         stringToPrint.append("\(indent)public override var description: String{\n        return debugDescription\n    }\n")
         stringToPrint.append("    override public var debugDescription: String{\n")
         stringToPrint += debugDescription + "\n"

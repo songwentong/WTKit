@@ -17,8 +17,8 @@ func cprint<T>(_ items: T,  separator: String = " ", terminator: String = "\n",f
     print("\((file as NSString).lastPathComponent)[\(line)], \(function): \(items)", separator: separator, terminator: terminator)
 }
 
-extension Data{
-    public func utf8String() -> String {
+public extension Data{
+    func utf8String() -> String {
         return String.init(data: self, encoding: .utf8) ?? "not utf8 string"
     }
 }
@@ -27,7 +27,7 @@ func debugBlock(_ block:()->Void) -> Void {
     block()
     #endif
 }
-extension Locale{
+public extension Locale{
     static func en_US() -> Locale {
         return Locale.init(identifier: "en_US")
     }
@@ -35,27 +35,27 @@ extension Locale{
         return Locale.init(identifier: "ko-Kore_KR")
     }
 }
-extension Double{
+public extension Double{
     func numberObject() -> NSNumber {
         return NSNumber.init(value: self)
     }
 }
 
-extension DispatchQueue{
-    public static func backgroundQueue()->DispatchQueue{
+public extension DispatchQueue{
+    static func backgroundQueue()->DispatchQueue{
         return DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
     }
-    public static func utilityQueue()->DispatchQueue{
+    static func utilityQueue()->DispatchQueue{
         return DispatchQueue.global(qos: DispatchQoS.QoSClass.utility)
     }
-    public static func userInitiatedQueue()->DispatchQueue{
+    static func userInitiatedQueue()->DispatchQueue{
         return DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated)
     }
-    public static func userInteractiveQueue()->DispatchQueue{
+    static func userInteractiveQueue()->DispatchQueue{
         return DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
     }
     //安全同步到主线程
-    public static func safeSyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
+    static func safeSyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
         let main:DispatchQueue = DispatchQueue.main
         if Thread.isMainThread {
             main.async(execute: work)
@@ -65,7 +65,7 @@ extension DispatchQueue{
         //        print("425 wt test")
     }
     //异步回到主线程
-    public static func asyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
+    static func asyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
         DispatchQueue.main.async(execute: work)
     }
     func perform( closure: @escaping () -> Void, afterDelay:Double) -> Void {
@@ -81,9 +81,9 @@ enum URLSessionError:Error {
     case none
     case ok
 }
-extension URLSession{
+public extension URLSession{
     @discardableResult
-    open func dataTask<T:Codable>(withPath urlPath:String,complectionHandler: @escaping (T?,Error?) -> Void) -> URLSessionDataTask?{
+    func dataTask<T:Codable>(withPath urlPath:String,complectionHandler: @escaping (T?,Error?) -> Void) -> URLSessionDataTask?{
         guard let url = URL.init(string: urlPath) else {
             DispatchQueue.main.async {
                 complectionHandler(nil,URLSessionError.noURL)
@@ -93,11 +93,11 @@ extension URLSession{
         return dataTask(with: url, completionHandler: complectionHandler)
     }
     @discardableResult
-    open func dataTask<T:Codable>(with url: URL, completionHandler: @escaping (T?,Error?) -> Void ) -> URLSessionDataTask{
+    func dataTask<T:Codable>(with url: URL, completionHandler: @escaping (T?,Error?) -> Void ) -> URLSessionDataTask{
         return dataTask(with: URLRequest.init(url: url), completionHandler: completionHandler)
     }
     @discardableResult
-    open func dataTask<T:Codable>(with request: URLRequest, completionHandler: @escaping (T?,Error?) -> Void) -> URLSessionDataTask{
+    func dataTask<T:Codable>(with request: URLRequest, completionHandler: @escaping (T?,Error?) -> Void) -> URLSessionDataTask{
         let task = dataTask(with: request) { (data, urlres, err) in
             if err != nil{
                 completionHandler(nil,err)
@@ -138,9 +138,9 @@ extension URLSession{
     }
     
 }
-struct URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
+public struct URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
     var request:URLRequest
-    var description: String{
+    public var description: String{
         var components: [String] = []
         
         if let HTTPMethod = request.httpMethod {
@@ -152,7 +152,7 @@ struct URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
         }
         return components.joined(separator: " ")
     }
-    var debugDescription: String{
+    public var debugDescription: String{
         var components = ["$ curl -v"]
         
         guard let url = request.url else {
@@ -225,11 +225,11 @@ struct URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
         return components.joined(separator: " \\\n\t")
     }
 }
-extension URLRequest{
+public extension URLRequest{
     func converToPrinter() -> URLRequestPrinter {
         return URLRequestPrinter.init(request: self)
     }
-    public var curlString: String {
+    var curlString: String {
         // Logging URL requests in whole may expose sensitive data,
         // or open up possibility for getting access to your user data,
         // so make sure to disable this feature for production builds!
@@ -261,13 +261,13 @@ extension URLRequest{
     }
     
 }
-extension Date{
+public extension Date{
     
 }
-extension TimeZone{
+public extension TimeZone{
     
 }
-extension DateFormatter{
+public extension DateFormatter{
     //https://nsdateformatter.com
     static let globalFormatter:DateFormatter = {
         let f = DateFormatter()

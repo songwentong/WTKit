@@ -9,7 +9,7 @@
 import Foundation
 #if !os(macOS)
 import UIKit
-extension UIScreen{
+public extension UIScreen{
     class func mainScreenWidth() -> CGFloat {
         return UIScreen.main.bounds.size.width
     }
@@ -17,7 +17,7 @@ extension UIScreen{
         return UIScreen.main.bounds.size.height
     }
 }
-extension UIColor{
+public extension UIColor{
 //    func randomColor() -> UIColor {
 //        UIColor.init(red: CGFloat.random(in: ClosedRange.i), green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>)
 //    }
@@ -30,7 +30,7 @@ extension UIColor{
         UIGraphicsEndImageContext()
         return image
     }
-    public class func colorWithHexString(_ string:String,alpha:CGFloat? = 1.0) -> UIColor{
+    class func colorWithHexString(_ string:String,alpha:CGFloat? = 1.0) -> UIColor{
         //        let s = NSScanner(string: string)
         let mutableCharSet = NSMutableCharacterSet()
         mutableCharSet.addCharacters(in: "#")
@@ -72,11 +72,11 @@ extension UIColor{
     }
 }
 // MARK: - UINibReusableCell
-protocol UINibReusableCell:NSObjectProtocol {
+public protocol UINibReusableCell:NSObjectProtocol {
     static func nib() -> UINib
     static var reuseIdentifier: String{get}
 }
-extension UINibReusableCell{
+public extension UINibReusableCell{
     //这段代码的神奇之处是到了这里已经无法打印self了，报错内容是：error: <EXPR>:1:11: error: use of undeclared type '$__lldb_context'
     static func nib() -> UINib {
         return UINib.init(nibName: self.reuseIdentifier, bundle: nil)
@@ -85,7 +85,7 @@ extension UINibReusableCell{
         return "\(self)"
     }
 }
-extension UITableView{
+public extension UITableView{
     func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type) -> Void {
         register(cellType.nib(), forCellReuseIdentifier: cellType.reuseIdentifier)
     }
@@ -93,7 +93,7 @@ extension UITableView{
         register(cellType.nib(), forHeaderFooterViewReuseIdentifier: cellType.reuseIdentifier)
     }
 }
-extension UICollectionView{
+public extension UICollectionView{
     func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type) -> Void {
         let nib = cellType.nib()
         let rid = cellType.reuseIdentifier
@@ -109,24 +109,24 @@ protocol UITableViewSectionModel {
     var footerView:UIView?{get}
     var cellInSection:[UITableViewCellModel]{get set}
 }
-protocol UITableViewCellModel{
+public protocol UITableViewCellModel{
     var reuseId:String{get}
 }
-protocol UICollectionViewCellModel {
+public protocol UICollectionViewCellModel {
     var reuseId:String{get}
 }
-protocol UITableViewCellDetailModel:UITableViewCellModel {
+public protocol UITableViewCellDetailModel:UITableViewCellModel {
     var title:String?{get}
     var height:CGFloat?{get}
     var action:DispatchWorkItem?{get}
 }
-protocol UITableViewCellModelHolder {
+public protocol UITableViewCellModelHolder {
     var model:UITableViewCellModel!{get set}
 }
-protocol UICollectionViewCellModelHolder {
+public protocol UICollectionViewCellModelHolder {
     var model:UICollectionViewCellModel!{get set}
 }
-extension UITableView{
+public extension UITableView{
     func dequeueReusableCellModel(withModel model:UITableViewCellModel, for indexPath: IndexPath) -> UITableViewCell {
         let cell = dequeueReusableCell(withIdentifier: model.reuseId, for: indexPath)
         if var c = cell as? UITableViewCellModelHolder{
@@ -135,7 +135,7 @@ extension UITableView{
         return cell
     }
 }
-extension UICollectionView{
+public extension UICollectionView{
     func dequeueReusableCellModel(withModel model:UICollectionViewCellModel, for indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: model.reuseId, for: indexPath)
         if var c = cell as? UICollectionViewCellModelHolder{
@@ -152,7 +152,7 @@ struct SampleTableViewCellModel:UITableViewCellModel {
 }
 
 
-extension UIViewController{
+public extension UIViewController{
     @objc func setBackArrowButton(image:UIImage?) -> Void {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: image, style: .plain, target: self, action: #selector(recieveBackButtonPressed))
     }
@@ -163,7 +163,7 @@ extension UIViewController{
         self.navigationController?.popViewController(animated: true)
     }
 }
-extension UILabel{
+public extension UILabel{
     @IBInspectable var adjustFont:Bool{
         get{
             return self.adjustsFontSizeToFitWidth
@@ -245,7 +245,7 @@ public extension UIView{
         self.layer.mask = sl
     }
 }
-extension UIViewController{
+public extension UIViewController{
     @objc static func instanceFromStoryBoard() -> UIViewController {
         guard let _ = Bundle.main.path(forResource: "\(self)", ofType: "storyboardc") else{
             print("storyboradc file not found class:\(self)")
@@ -273,7 +273,7 @@ extension UIViewController{
         return self.init()
     }
 }
-extension CALayer{
+public extension CALayer{
     func snapShot() -> UIImage {
         if #available(iOS 10.0, *) {
             let render = UIGraphicsImageRenderer.init(size: self.bounds.size)
@@ -290,12 +290,12 @@ extension CALayer{
         }
     }
 }
-extension CGColor{
+public extension CGColor{
     func convertToUIColor() -> UIColor {
         return UIColor.init(cgColor: self)
     }
 }
-extension CGPoint{
+public extension CGPoint{
     static func distance(from p1:CGPoint, p2:CGPoint) -> CGFloat {
         let a = p1.x - p2.x
         let b = p1.y - p2.y
@@ -303,7 +303,7 @@ extension CGPoint{
         return c_c.squareRoot()
     }
 }
-extension UILabel{}
+public extension UILabel{}
 //IBInspectable IBDesignable
 @IBDesignable
 class UILabelIBDesignable: UILabel {}
