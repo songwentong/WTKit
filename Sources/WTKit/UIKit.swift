@@ -324,6 +324,12 @@ extension UIImageView{
     }
 }
 extension UIImage{
+    func convertToCornerImage(_ cornerRadius:CGFloat = 5, bgColor:UIColor = UIColor.clear) -> UIImage {
+        let iv = UIImageView.init(image: self)
+        iv.layer.cornerRadius = cornerRadius
+        iv.layer.borderColor = bgColor.cgColor
+        return iv.layer.snapShot()
+    }
     @discardableResult
     static func loadImage(with path: String, complection:@escaping (UIImage?,URLResponse?)->Void) -> URLSessionDataTask? {
         guard let url = URL.init(string: path) else{
