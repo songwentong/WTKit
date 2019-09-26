@@ -325,7 +325,9 @@ extension UIImageView{
 }
 public extension UIImage{
     func convertToCornerImage(_ cornerRadius:CGFloat = 5, bgColor:UIColor = UIColor.clear) -> UIImage {
+        
         let iv = UIImageView.init(image: self)
+        iv.frame = CGRect.init(origin: .zero, size: self.size)
         iv.layer.cornerRadius = cornerRadius
         iv.layer.borderColor = bgColor.cgColor
         return iv.snapShotImage()
