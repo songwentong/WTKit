@@ -231,7 +231,7 @@ extension UIView{
         }
         return self.init()
     }
-    func shapShot() -> UIImage {
+    public func snapShotImage() -> UIImage {
         return layer.snapShot()
     }
 }
@@ -328,7 +328,7 @@ extension UIImage{
         let iv = UIImageView.init(image: self)
         iv.layer.cornerRadius = cornerRadius
         iv.layer.borderColor = bgColor.cgColor
-        return iv.layer.snapShot()
+        return iv.snapShotImage()
     }
     @discardableResult
     static func loadImage(with path: String, complection:@escaping (UIImage?,URLResponse?)->Void) -> URLSessionDataTask? {
