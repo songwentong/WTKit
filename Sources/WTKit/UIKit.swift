@@ -330,6 +330,7 @@ public extension UIImage{
         iv.frame = CGRect.init(origin: .zero, size: self.size)
         iv.layer.cornerRadius = cornerRadius
         iv.layer.borderColor = bgColor.cgColor
+        iv.layer.masksToBounds = true
         return iv.snapShotImage()
     }
     @discardableResult
