@@ -173,7 +173,7 @@ extension UILabel{
         }
     }
 }
-extension UIView{
+public extension UIView{
     @IBInspectable var cornerRadius: CGFloat {
         get {
             return layer.cornerRadius
@@ -231,8 +231,18 @@ extension UIView{
         }
         return self.init()
     }
-    public func snapShotImage() -> UIImage {
+    func snapShotImage() -> UIImage {
         return layer.snapShot()
+    }
+
+    func addShapLayer(with cornerRadius:CGFloat) {
+        let sl = CAShapeLayer.init()
+        sl.fillColor = nil
+        sl.path = UIBezierPath.init(roundedRect: self.bounds, cornerRadius: cornerRadius).cgPath
+        sl.frame = self.bounds
+        sl.strokeColor = UIColor.clear.cgColor
+        sl.lineWidth = cornerRadius * 2.0
+        self.layer.mask = sl
     }
 }
 extension UIViewController{
@@ -302,8 +312,7 @@ class UIViewIBDesignable: UIView {}
 @IBDesignable
 class UIButtonIBDesignable: UIButton {}
 private var UIImageViewLoadImagePathKey: Void?
-extension UIImageView{
-    
+public extension UIImageView{
     func loadImage(with path:String) {
         objc_setAssociatedObject(self, &UIImageViewLoadImagePathKey,path,.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         UIImage.loadImage(with: path) { (image, response) in
@@ -323,14 +332,14 @@ extension UIImageView{
         }
     }
 }
+public extension UIButton{
+    
+}
 public extension UIImage{
-    func convertToCornerImage(_ cornerRadius:CGFloat = 5, bgColor:UIColor = UIColor.clear) -> UIImage {
-        
+    func convertToCornerImage(_ cornerRadius:CGFloat = 5) -> UIImage {
         let iv = UIImageView.init(image: self)
         iv.frame = CGRect.init(origin: .zero, size: self.size)
         iv.layer.cornerRadius = cornerRadius
-//        iv.layer.borderColor = bgColor.cgColor
-        iv.backgroundColor = bgColor
         iv.layer.masksToBounds = true
         return iv.snapShotImage()
     }
