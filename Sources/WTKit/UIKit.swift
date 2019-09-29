@@ -335,6 +335,13 @@ public extension UIImageView{
 public extension UIButton{
     
 }
+public extension UIApplication{
+    static var topNavigationController:UINavigationController?{
+        get{
+            return nil
+        }
+    }
+}
 public extension UIImage{
     func convertToCornerImage(_ cornerRadius:CGFloat = 5) -> UIImage {
         let iv = UIImageView.init(image: self)
