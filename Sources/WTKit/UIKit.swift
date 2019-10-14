@@ -391,7 +391,7 @@ class AlignLeftFlowLayout: UICollectionViewFlowLayout {
 }
 @available(iOS 9.0, *)
 open class LoadingView: UIView {
-    var refreshIndicatorView = UIActivityIndicatorView.init()
+    var refreshIndicatorView = UIActivityIndicatorView.init(style: .whiteLarge)
     var indicatorBGView:UIView = UIView.init()
     public override init(frame: CGRect) {
         super.init(frame: frame)
