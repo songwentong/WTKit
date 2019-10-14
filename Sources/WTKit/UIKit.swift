@@ -391,7 +391,7 @@ class AlignLeftFlowLayout: UICollectionViewFlowLayout {
 }
 @available(iOS 9.0, *)
 open class LoadingView: UIView {
-    var indicator:UIRefreshControl = UIRefreshControl.init()
+    var refreshIndicatorView:UIRefreshControl = UIRefreshControl.init()
     var indicatorBGView:UIView = UIView.init()
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -406,8 +406,8 @@ open class LoadingView: UIView {
     }
     func confgView() {
         addSubview(indicatorBGView)
-        addSubview(indicator)
-        indicator.beginRefreshing()
+        addSubview(refreshIndicatorView)
+        refreshIndicatorView.beginRefreshing()
         self.isUserInteractionEnabled = false
         indicatorBGView.translatesAutoresizingMaskIntoConstraints = false
         indicatorBGView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
@@ -415,9 +415,9 @@ open class LoadingView: UIView {
         indicatorBGView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         indicatorBGView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         indicatorBGView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        indicator.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        indicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        refreshIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        refreshIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        refreshIndicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
 }
 @available(iOS 9.0, *)
