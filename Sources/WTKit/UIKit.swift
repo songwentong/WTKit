@@ -439,5 +439,16 @@ public extension UIView{
 public extension UIViewController{
     
 }
+public extension UIWindow{
+//    static func getMainWindow() -> UIWindow {
+//        UIApplication.shared.keyWindow
+//    }
+    static func showLoadingView() {
+        UIApplication.shared.windows.first?.showLoadingView()
+    }
+    static func hideLoadingView(){
+        UIApplication.shared.windows.first?.hideLoadingView()
+    }
+}
 #endif
 
