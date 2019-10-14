@@ -391,7 +391,7 @@ class AlignLeftFlowLayout: UICollectionViewFlowLayout {
 }
 @available(iOS 9.0, *)
 open class LoadingView: UIView {
-    var refreshIndicatorView:UIRefreshControl = UIRefreshControl.init()
+    var refreshIndicatorView = UIActivityIndicatorView.init()
     var indicatorBGView:UIView = UIView.init()
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -407,7 +407,7 @@ open class LoadingView: UIView {
     func confgView() {
         addSubview(indicatorBGView)
         addSubview(refreshIndicatorView)
-        refreshIndicatorView.beginRefreshing()
+        refreshIndicatorView.startAnimating()
         self.isUserInteractionEnabled = false
         indicatorBGView.translatesAutoresizingMaskIntoConstraints = false
         indicatorBGView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
