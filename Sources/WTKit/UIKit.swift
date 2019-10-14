@@ -416,7 +416,7 @@ open class LoadingView: UIView {
         indicatorBGView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         indicatorBGView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
         indicatorBGView.layer.cornerRadius = 4
-        indicatorBGView.layer.mask = true
+        indicatorBGView.layer.masksToBounds = true
         
         refreshIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         refreshIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
