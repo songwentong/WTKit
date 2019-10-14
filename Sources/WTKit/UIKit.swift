@@ -389,6 +389,7 @@ class AlignLeftFlowLayout: UICollectionViewFlowLayout {
         return attributes
     }
 }
+@available(iOS 9.0, *)
 open class LoadingView: UIView {
     var indicator:UIRefreshControl = UIRefreshControl.init()
     var indicatorBGView:UIView = UIView.init()
