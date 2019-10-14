@@ -389,6 +389,55 @@ class AlignLeftFlowLayout: UICollectionViewFlowLayout {
         return attributes
     }
 }
-
+open class LoadingView: UIView {
+    var indicator:UIRefreshControl = UIRefreshControl.init()
+    var indicatorBGView:UIView = UIView.init()
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        confgView()
+    }
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        confgView()
+    }
+    open override class func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    func confgView() {
+        addSubview(indicatorBGView)
+        addSubview(indicator)
+        indicator.beginRefreshing()
+        self.isUserInteractionEnabled = false
+        indicatorBGView.translatesAutoresizingMaskIntoConstraints = false
+        indicatorBGView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        indicatorBGView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        indicatorBGView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        indicatorBGView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        indicatorBGView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        indicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+    }
+}
+public extension UIView{
+    func showLoadingView() {
+        hideLoadingView()
+        let loadingView = LoadingView.init(frame: self.bounds)
+        addSubview(loadingView)
+    }
+    func hideLoadingView() {
+        let views = subviews.filter { (view) -> Bool in
+            if view is LoadingView{
+                return true
+            }
+        }
+        for v in views{
+            v.removeFromSuperview()
+        }
+    }
+}
+public extension UIViewController{
+    
+}
 #endif
 
