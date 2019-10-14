@@ -420,6 +420,7 @@ open class LoadingView: UIView {
         indicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
 }
+@available(iOS 9.0, *)
 public extension UIView{
     func showLoadingView() {
         hideLoadingView()
@@ -431,6 +432,7 @@ public extension UIView{
             if view is LoadingView{
                 return true
             }
+            return false
         }
         for v in views{
             v.removeFromSuperview()
@@ -440,6 +442,7 @@ public extension UIView{
 public extension UIViewController{
     
 }
+@available(iOS 9.0, *)
 public extension UIWindow{
 //    static func getMainWindow() -> UIWindow {
 //        UIApplication.shared.keyWindow
