@@ -389,7 +389,7 @@ class AlignLeftFlowLayout: UICollectionViewFlowLayout {
         return attributes
     }
 }
-@available(iOS 9.0, *)
+
 open class LoadingView: UIView {
     var refreshIndicatorView = UIActivityIndicatorView.init(style: .whiteLarge)
     var indicatorBGView:UIView = UIView.init()
@@ -423,7 +423,6 @@ open class LoadingView: UIView {
         refreshIndicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
 }
-@available(iOS 9.0, *)
 public extension UIView{
     func showLoadingView() {
         hideLoadingView()
@@ -443,9 +442,7 @@ public extension UIView{
     }
 }
 public extension UIViewController{
-    
 }
-@available(iOS 9.0, *)
 public extension UIWindow{
 //    static func getMainWindow() -> UIWindow {
 //        UIApplication.shared.keyWindow
@@ -456,6 +453,20 @@ public extension UIWindow{
     static func hideLoadingView(){
         UIApplication.shared.windows.first?.hideLoadingView()
     }
+}
+public extension UIApplication{
+    static func showLoadingView() {
+        shared.windows.first?.showLoadingView()
+    }
+    static func hideLoadingView(){
+        shared.windows.first?.hideLoadingView()
+    }
+}
+public func NSLibraryDirectory() -> String{
+    return NSHomeDirectory() + "/Library"
+}
+public func NSLibraryCachesDirectory() -> String{
+    return NSHomeDirectory() + "/Library" + "/Caches"
 }
 #endif
 
