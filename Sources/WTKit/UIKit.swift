@@ -86,10 +86,10 @@ public extension UINibReusableCell{
     }
 }
 public extension UITableView{
-    func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type) -> Void {
+    public func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type) -> Void {
         register(cellType.nib(), forCellReuseIdentifier: cellType.reuseIdentifier)
     }
-    func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type, forHeaderFooterViewReuseIdentifier:String) -> Void {
+    public func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type, forHeaderFooterViewReuseIdentifier:String) -> Void {
         register(cellType.nib(), forHeaderFooterViewReuseIdentifier: cellType.reuseIdentifier)
     }
 }
@@ -306,11 +306,11 @@ public extension CGPoint{
 public extension UILabel{}
 //IBInspectable IBDesignable
 @IBDesignable
-class UILabelIBDesignable: UILabel {}
+public class UILabelIBDesignable: UILabel {}
 @IBDesignable
-class UIViewIBDesignable: UIView {}
+public class UIViewIBDesignable: UIView {}
 @IBDesignable
-class UIButtonIBDesignable: UIButton {}
+public class UIButtonIBDesignable: UIButton {}
 private var UIImageViewLoadImagePathKey: Void?
 public extension UIImageView{
     func loadImage(with path:String) {

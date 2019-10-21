@@ -7,8 +7,10 @@
 //
 
 import Foundation
+
 //public func
 public func dprint<T>(_ items:T, separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
+    
     #if DEBUG
     cprint(items, separator: separator, terminator: terminator,file:file, function:function, line:line)
     #endif
@@ -22,7 +24,7 @@ public extension Data{
         return String.init(data: self, encoding: .utf8) ?? "not utf8 string"
     }
 }
-func debugBlock(_ block:()->Void) -> Void {
+public func debugBlock(_ block:()->Void) -> Void {
     #if DEBUG
     block()
     #endif
