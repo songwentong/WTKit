@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 public extension UIScreen{
     class func mainScreenWidth() -> CGFloat {
         return UIScreen.main.bounds.size.width
@@ -310,17 +311,29 @@ public class UILabelIBDesignable: UILabel {}
 public class UIViewIBDesignable: UIView {}
 @IBDesignable
 public class UIButtonIBDesignable: UIButton {}
+
+
+class GlobalImageLoadCache {
+    var dict:[Int:String] = [:]
+    static let shared:GlobalImageLoadCache = {
+        return GlobalImageLoadCache.init()
+    }()
+}
 private var UIImageViewLoadImagePathKey: Void?
 public extension UIImageView{
     func loadImage(with path:String) {
-        objc_setAssociatedObject(self, &UIImageViewLoadImagePathKey,path,.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+//        objc_setAssociatedObject(self, &UIImageViewLoadImagePathKey,path,.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        GlobalImageLoadCache.shared.dict[self.hashValue] = path
         UIImage.loadImage(with: path) { (image, response) in
             guard let resPath = response?.url?.absoluteString else{
                 return
             }
-            guard let path = objc_getAssociatedObject(self, &UIImageViewLoadImagePathKey) as? String else{
+            guard let path = GlobalImageLoadCache.shared.dict[self.hashValue] else{
                 return
             }
+//            guard let path = objc_getAssociatedObject(self, &UIImageViewLoadImagePathKey) as? String else{
+//                return
+//            }
             guard image != nil else{
                 return
             }
@@ -471,4 +484,7 @@ public class AlignLeftFlowLayout: UICollectionViewFlowLayout {
         return attributes
     }
 }
-
+@available(iOS 13.0, *)
+public extension View{
+    
+}

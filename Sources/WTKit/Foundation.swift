@@ -332,6 +332,7 @@ public extension String{
         return "\"\",.:¥"
     }
 }
+
 func convertCodableTypeToParameters<T:Codable,B>(_ t:T) -> B? {
     do{
         let data = try JSONEncoder().encode(t)

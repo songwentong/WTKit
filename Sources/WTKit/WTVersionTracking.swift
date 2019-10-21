@@ -7,13 +7,11 @@
 //
 
 import Foundation
-#if os(iOS)
+
 import UIKit
 
 private let UIApplicationVersionsKey = "WTKit UIapplication versions key"
 private let UIApplicationBuildsKey = "WTKit UIapplication builds key"
-private var UIApplicationIsFirstEver:Void?
-private var UIApplicationLaunchTrackedKey:Void?
 public extension UIApplication{
     //bundle name eg.com.xxx.xxx
     class func appBundleName()->String{
@@ -40,7 +38,7 @@ public extension UIApplication{
      optional func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool
      */
     func track(){
-        if launchTrakced {
+        if VersionTracker.shared.launchTrakced {
             return
         }
         var versionArray:[String] = self.versionHistory()
@@ -51,23 +49,23 @@ public extension UIApplication{
         var buildArray = buildHistory()
         if !buildArray.contains(UIApplication.buildVersion()) {
             buildArray.append(UIApplication.buildVersion())
-             self.isFirstLaunchForBuild = true
+             VersionTracker.shared.isFirstLaunchForBuild = true
         }else{
-            self.isFirstLaunchForBuild = false
+            VersionTracker.shared.isFirstLaunchForBuild = false
         }
         UserDefaults.standard.setValue(versionArray, forKey: UIApplicationVersionsKey)
         UserDefaults.standard.setValue(buildArray, forKey: UIApplicationBuildsKey)
         //        WTLog(versionArray)
         //        WTLog(buildArray)
         UserDefaults.standard.synchronize()
-        launchTrakced = true
+        VersionTracker.shared.launchTrakced = true
     }
     /*!
      check current is first lunch for this build
      note don't call this method before track()
      */
     func isFirstLaunchForBuild(_ block:(_ isFirstLaunchForBuild:Bool)->Void){
-        block(self.isFirstLaunchForBuild)
+        block(VersionTracker.shared.isFirstLaunchForBuild)
     }
     //version history,if no history,return empty string array
     func versionHistory()->[String]{
@@ -83,31 +81,11 @@ public extension UIApplication{
         }
         return [String]()
     }
-    private var launchTrakced:Bool{
-        get{
-            if let trakced = objc_getAssociatedObject(self, &UIApplicationLaunchTrackedKey) as? Bool{
-                return trakced
-            }
-            return false
-        }
-        set{
-            objc_setAssociatedObject(self, &UIApplicationLaunchTrackedKey, newValue, .OBJC_ASSOCIATION_ASSIGN)
-        }
-    }
-    
-    /*!
-     
-     */
-    private var isFirstLaunchForBuild:Bool{
-        get{
-            if let isFirst = objc_getAssociatedObject(self, &UIApplicationIsFirstEver) as? Bool{
-                return isFirst
-            }
-            return true
-        }
-        set{
-            objc_setAssociatedObject(UIApplication.shared, &UIApplicationIsFirstEver, newValue, .OBJC_ASSOCIATION_ASSIGN)
-        }
-    }
 }
-#endif
+class VersionTracker: NSObject {
+    var launchTrakced:Bool = false
+    var isFirstLaunchForBuild:Bool = false
+    static let shared:VersionTracker = {
+        return VersionTracker()
+    }()
+}
