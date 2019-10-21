@@ -85,10 +85,10 @@ public extension UINibReusableCell{
     }
 }
 public extension UITableView{
-    public func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type) -> Void {
+    func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type) -> Void {
         register(cellType.nib(), forCellReuseIdentifier: cellType.reuseIdentifier)
     }
-    public func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type, forHeaderFooterViewReuseIdentifier:String) -> Void {
+    func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type, forHeaderFooterViewReuseIdentifier:String) -> Void {
         register(cellType.nib(), forHeaderFooterViewReuseIdentifier: cellType.reuseIdentifier)
     }
 }
