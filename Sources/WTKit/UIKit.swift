@@ -18,9 +18,9 @@ public extension UIScreen{
     }
 }
 public extension UIColor{
-//    func randomColor() -> UIColor {
-//        UIColor.init(red: CGFloat.random(in: ClosedRange.i), green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>)
-//    }
+    //    func randomColor() -> UIColor {
+    //        UIColor.init(red: CGFloat.random(in: ClosedRange.i), green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>)
+    //    }
     func createImage(with size:CGSize) -> UIImage? {
         let rect = CGRect(origin: .zero, size: size)
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
@@ -41,33 +41,33 @@ public extension UIColor{
         
         
         switch hString.count {
-        case 0:
-            return UIColor.red;
-        case 1:
-            return UIColor.colorWithHexString(hString+hString);
-        case 2:
-            return UIColor.colorWithHexString(hString+hString+hString);
-        case 6:
-            let rIndex = hString.index(hString.startIndex, offsetBy: 2)
-            let gIndex = hString.index(rIndex, offsetBy: 2)
-            let bIndex = hString.index(gIndex, offsetBy: 2)
-            let r = String.init(hString[..<rIndex])
-            let g = String.init(hString[rIndex..<gIndex])
-            let b = String.init(hString[gIndex..<bIndex])
-            var rInt:UInt32 = 0x0,gInt:UInt32 = 0x0,bInt:UInt32 = 0x0
-            
-            Scanner.init(string: r).scanHexInt32(&rInt)
-            Scanner.init(string: g).scanHexInt32(&gInt)
-            Scanner.init(string: b).scanHexInt32(&bInt)
-            
-            let red = CGFloat(rInt)/255.0
-            let green = CGFloat(gInt)/255.0
-            let blue = CGFloat(bInt)/255.0
-            //            WTLog("\(red) \(green) \(blue)")
-            let color = UIColor(red: red, green: green, blue: blue,alpha: alpha!)
-            return color;
-        default:
-            return UIColor.red;
+            case 0:
+                return UIColor.red;
+            case 1:
+                return UIColor.colorWithHexString(hString+hString);
+            case 2:
+                return UIColor.colorWithHexString(hString+hString+hString);
+            case 6:
+                let rIndex = hString.index(hString.startIndex, offsetBy: 2)
+                let gIndex = hString.index(rIndex, offsetBy: 2)
+                let bIndex = hString.index(gIndex, offsetBy: 2)
+                let r = String.init(hString[..<rIndex])
+                let g = String.init(hString[rIndex..<gIndex])
+                let b = String.init(hString[gIndex..<bIndex])
+                var rInt:UInt32 = 0x0,gInt:UInt32 = 0x0,bInt:UInt32 = 0x0
+                
+                Scanner.init(string: r).scanHexInt32(&rInt)
+                Scanner.init(string: g).scanHexInt32(&gInt)
+                Scanner.init(string: b).scanHexInt32(&bInt)
+                
+                let red = CGFloat(rInt)/255.0
+                let green = CGFloat(gInt)/255.0
+                let blue = CGFloat(bInt)/255.0
+                //            WTLog("\(red) \(green) \(blue)")
+                let color = UIColor(red: red, green: green, blue: blue,alpha: alpha!)
+                return color;
+            default:
+                return UIColor.red;
         }
     }
 }
@@ -234,7 +234,7 @@ public extension UIView{
     func snapShotImage() -> UIImage {
         return layer.snapShot()
     }
-
+    
     func addShapLayer(with cornerRadius:CGFloat) {
         let sl = CAShapeLayer.init()
         sl.fillColor = nil
@@ -415,17 +415,15 @@ open class LoadingView: UIView {
         indicatorBGView.layer.masksToBounds = true
         refreshIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         
-        if #available(iOS 9.0, *) {
-            indicatorBGView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-            indicatorBGView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-            indicatorBGView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-            indicatorBGView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-            
-            refreshIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-            refreshIndicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        }else{
-            
-        }
+        
+        indicatorBGView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        indicatorBGView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        indicatorBGView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        indicatorBGView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        refreshIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        refreshIndicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        
     }
 }
 public extension UIView{
@@ -449,9 +447,9 @@ public extension UIView{
 public extension UIViewController{
 }
 public extension UIWindow{
-//    static func getMainWindow() -> UIWindow {
-//        UIApplication.shared.keyWindow
-//    }
+    //    static func getMainWindow() -> UIWindow {
+    //        UIApplication.shared.keyWindow
+    //    }
     static func showLoadingView() {
         UIApplication.shared.windows.first?.showLoadingView()
     }
