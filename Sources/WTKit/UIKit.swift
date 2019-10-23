@@ -484,7 +484,3 @@ public class AlignLeftFlowLayout: UICollectionViewFlowLayout {
         return attributes
     }
 }
-@available(iOS 13.0, *)
-public extension View{
-    
-}
