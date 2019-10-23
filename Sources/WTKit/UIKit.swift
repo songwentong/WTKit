@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import SwiftUI
 public extension UIScreen{
     class func mainScreenWidth() -> CGFloat {
         return UIScreen.main.bounds.size.width
