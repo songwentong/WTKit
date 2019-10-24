@@ -111,13 +111,15 @@ protocol UITableViewSectionModel {
 public protocol UITableViewCellModel{
     var reuseId:String{get}
 }
+public protocol UITableViewCellDetailModel:UITableViewCellModel {
+    var height:CGFloat{get}
+    var action:DispatchWorkItem{get}
+    var willDisplayAction:DispatchWorkItem{get}
+    var prefetchAction:DispatchWorkItem{get}
+    var cancelPrefetchAction:DispatchWorkItem{get}
+}
 public protocol UICollectionViewCellModel {
     var reuseId:String{get}
-}
-public protocol UITableViewCellDetailModel:UITableViewCellModel {
-    var title:String?{get}
-    var height:CGFloat?{get}
-    var action:DispatchWorkItem?{get}
 }
 public protocol UITableViewCellModelHolder {
     var model:UITableViewCellModel!{get set}
@@ -143,7 +145,10 @@ public extension UICollectionView{
         return cell
     }
 }
-struct SampleTableViewCellModel:UITableViewCellModel {
+struct SampleTableViewCellModel:UITableViewCellDetailModel {
+    var willDisplayAction: DispatchWorkItem
+    var prefetchAction: DispatchWorkItem
+    var cancelPrefetchAction: DispatchWorkItem
     var reuseId:String = ""
     var height:CGFloat = 44
     var action = DispatchWorkItem.init {}
@@ -313,38 +318,60 @@ public class UIButtonIBDesignable: UIButton {}
 
 
 class GlobalImageLoadCache {
-    var dict:[Int:String] = [:]
+    var loadingURL:[String] = []
     static let shared:GlobalImageLoadCache = {
         return GlobalImageLoadCache.init()
     }()
 }
-private var UIImageViewLoadImagePathKey: Void?
+public extension NSObject{
+//    func removeImageLoadNotificaion() {
+//    }
+}
 public extension UIImageView{
     func loadImage(with path:String) {
-//        objc_setAssociatedObject(self, &UIImageViewLoadImagePathKey,path,.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        GlobalImageLoadCache.shared.dict[self.hashValue] = path
-        UIImage.loadImage(with: path) { (image, response) in
-            guard let resPath = response?.url?.absoluteString else{
+        NotificationCenter.default.addObserver(forName: UIImage.ImageLoadFinishNotification, object: nil, queue: OperationQueue.main) {[weak self] (notification) in
+            guard let result = notification.object as? ImageLoadResult else{
                 return
             }
-            guard let path = GlobalImageLoadCache.shared.dict[self.hashValue] else{
-                return
+            if result.url == path{
+                self?.image = result.image
+                self?.layoutIfNeeded()
             }
-//            guard let path = objc_getAssociatedObject(self, &UIImageViewLoadImagePathKey) as? String else{
-//                return
-//            }
-            guard image != nil else{
-                return
-            }
-            if resPath == path{
-                self.image = image
-                self.layoutIfNeeded()
-            }
+        }
+        UIImage.loadImage(with: path) { (img, res) in
+            
         }
     }
 }
 public extension UIButton{
-    
+    func setImage(with path:String, for state: UIControl.State = .normal){
+        NotificationCenter.default.addObserver(forName: UIImage.ImageLoadFinishNotification, object: nil, queue: OperationQueue.main) {[weak self] (notification) in
+            guard let result = notification.object as? ImageLoadResult else{
+                return
+            }
+            if result.url == path{
+                self?.setImage(result.image, for: state)
+                self?.layoutIfNeeded()
+            }
+        }
+        UIImage.loadImage(with: path) { (img, res) in
+            
+        }
+    }
+    func setBackGroundImage(with path:String, for state: UIControl.State = .normal ){
+        NotificationCenter.default.addObserver(forName: UIImage.ImageLoadFinishNotification, object: nil, queue: OperationQueue.main) {[weak self] (notification) in
+            guard let result = notification.object as? ImageLoadResult else{
+                return
+            }
+            if result.url == path{
+                self?.setBackgroundImage(result.image, for: state)
+                self?.layoutIfNeeded()
+            }
+        }
+        UIImage.loadImage(with: path) { (img, res) in
+            
+        }
+    }
 }
 public extension UIApplication{
     static var topNavigationController:UINavigationController?{
@@ -352,6 +379,11 @@ public extension UIApplication{
             return nil
         }
     }
+}
+struct ImageLoadResult {
+    let image:UIImage
+    let response:URLResponse
+    let url:String
 }
 public extension UIImage{
     func convertToCornerImage(_ cornerRadius:CGFloat = 5) -> UIImage {
@@ -369,8 +401,16 @@ public extension UIImage{
         }
         return loadImage(with: url, complection: complection)
     }
+    static let ImageLoadFinishNotification:Notification.Name = Notification.Name.init("wtkit.uiimage.loadimagefinish")
     @discardableResult
-    static func loadImage(with url: URL, complection:@escaping (UIImage?,URLResponse?)->Void) -> URLSessionDataTask {
+    static func loadImage(with url: URL, complection:@escaping (UIImage?,URLResponse?)->Void) -> URLSessionDataTask? {
+        let list = GlobalImageLoadCache.shared.loadingURL
+        if list.contains(url.absoluteString) {
+            complection(nil,nil)
+            return nil
+        }else{
+            GlobalImageLoadCache.shared.loadingURL.append(url.absoluteString)
+        }
         return URLSession.useCacheElseLoadURLData(with: url) { (data, response, err) in
             guard let data = data else{
                 complection(nil,response)
@@ -378,6 +418,15 @@ public extension UIImage{
             }
             let image = UIImage.init(data: data)
             complection(image,response)
+            guard let img = image else{
+                return
+            }
+            guard let response = response else{
+                complection(nil,nil)
+                return
+            }
+            let result = ImageLoadResult.init(image: img, response: response, url: url.absoluteString)
+            NotificationCenter.default.post(name: UIImage.ImageLoadFinishNotification, object: result, userInfo: nil)
         }
     }
 }
