@@ -319,6 +319,7 @@ public class UIButtonIBDesignable: UIButton {}
 
 class GlobalImageLoadCache {
     var loadingURL:[String] = []
+    var loadingPairs:[Int:String] = [:]
     static let shared:GlobalImageLoadCache = {
         return GlobalImageLoadCache.init()
     }()
@@ -333,11 +334,15 @@ public extension UIImageView{
             guard let result = notification.object as? ImageLoadResult else{
                 return
             }
-            if result.url == path{
-                self?.image = result.image
-                self?.layoutIfNeeded()
+            guard let cself = self else{
+                return
+            }
+            if GlobalImageLoadCache.shared.loadingPairs[cself.hashValue] == result.url{
+                cself.image = result.image
+                cself.layoutIfNeeded()
             }
         }
+        GlobalImageLoadCache.shared.loadingPairs[self.hashValue] = path
         UIImage.loadImage(with: path) { (img, res) in
             
         }
@@ -349,11 +354,15 @@ public extension UIButton{
             guard let result = notification.object as? ImageLoadResult else{
                 return
             }
-            if result.url == path{
-                self?.setImage(result.image, for: state)
-                self?.layoutIfNeeded()
+            guard let cself = self else{
+                return
+            }
+            if GlobalImageLoadCache.shared.loadingPairs[cself.hashValue] == result.url{
+                cself.setImage(result.image, for: state)
+                cself.layoutIfNeeded()
             }
         }
+        GlobalImageLoadCache.shared.loadingPairs[self.hashValue] = path
         UIImage.loadImage(with: path) { (img, res) in
             
         }
@@ -363,11 +372,15 @@ public extension UIButton{
             guard let result = notification.object as? ImageLoadResult else{
                 return
             }
-            if result.url == path{
-                self?.setBackgroundImage(result.image, for: state)
-                self?.layoutIfNeeded()
+            guard let cself = self else{
+                return
+            }
+            if GlobalImageLoadCache.shared.loadingPairs[cself.hashValue] == result.url{
+                cself.setBackgroundImage(result.image, for: state)
+                cself.layoutIfNeeded()
             }
         }
+        GlobalImageLoadCache.shared.loadingPairs[self.hashValue] = path
         UIImage.loadImage(with: path) { (img, res) in
             
         }
