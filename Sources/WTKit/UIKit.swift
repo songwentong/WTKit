@@ -349,7 +349,7 @@ public extension UIImageView{
     }
     func cancelLoadImage() {
         URLSession.shared.getAllTasks { (list) in
-            list.filter { (task) -> Bool in
+            _ = list.filter { (task) -> Bool in
                 guard let url = task.originalRequest?.url?.absoluteString else{
                     return false
                 }
@@ -564,5 +564,57 @@ public class AlignLeftFlowLayout: UICollectionViewFlowLayout {
             maxY = max(layoutAttribute.frame.maxY , maxY)
         }
         return attributes
+    }
+}
+public class WebImageView:UIImageView{
+    var webImageTask:URLSessionDataTask? = nil
+    func loadWebImage(with path:String) {
+        canelLoading()
+        guard let url = URL.init(string: path) else{
+            return
+        }
+        let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
+        webImageTask = URLSession.shared.dataTask(with: request) { [weak self](data, res, err) in
+            guard let data = data else{
+                return
+            }
+            guard let img = UIImage.init(data: data) else{
+                return
+            }
+            DispatchQueue.main.async {
+                self?.image = img
+                self?.layoutIfNeeded()
+            }
+        }
+        webImageTask?.resume()
+    }
+    func canelLoading() {
+        webImageTask?.cancel()
+    }
+}
+public class WebImageButton:UIButton{
+    var webImageTask:URLSessionDataTask? = nil
+    func loadWebImage(with path:String,for state:UIControl.State) {
+        canelLoading()
+        guard let url = URL.init(string: path) else{
+            return
+        }
+        let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
+        webImageTask = URLSession.shared.dataTask(with: request) { [weak self](data, res, err) in
+            guard let data = data else{
+                return
+            }
+            guard let img = UIImage.init(data: data) else{
+                return
+            }
+            DispatchQueue.main.async {
+                self?.setImage(img, for: state)
+                self?.layoutIfNeeded()
+            }
+        }
+        webImageTask?.resume()
+    }
+    func canelLoading() {
+        webImageTask?.cancel()
     }
 }
