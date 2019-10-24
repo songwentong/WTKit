@@ -559,8 +559,8 @@ open class AlignLeftFlowLayout: UICollectionViewFlowLayout {
     }
 }
 open class WebImageView:UIImageView{
-    var webImageTask:URLSessionDataTask? = nil
-    public func loadWebImage(with path:String) {
+    open var webImageTask:URLSessionDataTask? = nil
+    open func loadWebImage(with path:String) {
         canelLoading()
         guard let url = URL.init(string: path) else{
             return
@@ -580,13 +580,13 @@ open class WebImageView:UIImageView{
         }
         webImageTask?.resume()
     }
-    public func canelLoading() {
+    open func canelLoading() {
         webImageTask?.cancel()
     }
 }
 open class WebImageButton:UIButton{
-    var webImageTask:URLSessionDataTask? = nil
-    public func loadWebImage(with path:String,for state:UIControl.State) {
+    open var webImageTask:URLSessionDataTask? = nil
+    open func loadWebImage(with path:String,for state:UIControl.State) {
         canelLoading()
         guard let url = URL.init(string: path) else{
             return
@@ -606,7 +606,7 @@ open class WebImageButton:UIButton{
         }
         webImageTask?.resume()
     }
-    func canelLoading() {
+    open func canelLoading() {
         webImageTask?.cancel()
     }
 }
