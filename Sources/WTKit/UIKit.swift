@@ -109,11 +109,11 @@ protocol UITableViewSectionModel {
     var cellInSection:[UITableViewCellModel]{get set}
 }
 public protocol UITableViewCellModel{
-    var reuseId:String{get}
+    var reuseIdentifier:String{get}
 }
 public protocol UITableViewCellDetailModel:UITableViewCellModel {
     var height:CGFloat{get}
-    var action:DispatchWorkItem{get}
+    var didSelectAction:DispatchWorkItem{get}
     var willDisplayAction:DispatchWorkItem{get}
     var prefetchAction:DispatchWorkItem{get}
     var cancelPrefetchAction:DispatchWorkItem{get}
@@ -129,7 +129,7 @@ public protocol UICollectionViewCellModelHolder {
 }
 public extension UITableView{
     func dequeueReusableCellModel(withModel model:UITableViewCellModel, for indexPath: IndexPath) -> UITableViewCell {
-        let cell = dequeueReusableCell(withIdentifier: model.reuseId, for: indexPath)
+        let cell = dequeueReusableCell(withIdentifier: model.reuseIdentifier, for: indexPath)
         if var c = cell as? UITableViewCellModelHolder{
             c.model = model
         }
@@ -149,10 +149,9 @@ public struct SampleTableViewCellModel:UITableViewCellDetailModel {
     public var willDisplayAction: DispatchWorkItem
     public var prefetchAction: DispatchWorkItem
     public var cancelPrefetchAction: DispatchWorkItem
-    public var reuseId:String = ""
+    public var reuseIdentifier:String = ""
     public var height:CGFloat = 44
-    public var action = DispatchWorkItem.init {}
-    var customAction = ((UITableViewCell)->Void).self
+    public var didSelectAction = DispatchWorkItem.init {}
 }
 
 
@@ -405,6 +404,31 @@ struct ImageLoadResult {
     let url:String
 }
 public extension UIImage{
+    func decodedImage(_ size:CGSize, callBack:@escaping ((UIImage)->Void)) {
+        DispatchQueue.global().async {
+            
+            UIGraphicsBeginImageContext(size)
+            guard let context = UIGraphicsGetCurrentContext() else{
+                callBack(self)
+                return
+            }
+            guard let cgImage = self.cgImage else{
+                callBack(self)
+                return
+            }
+            context.draw(cgImage, in: CGRect.init(origin: .zero, size: size))
+            guard let image = UIGraphicsGetImageFromCurrentImageContext() else{
+                callBack(self)
+                return
+            }
+            UIGraphicsEndImageContext()
+            DispatchQueue.main.async {
+                callBack(image)
+            }
+        }
+    }
+    
+    
     func convertToCornerImage(_ cornerRadius:CGFloat = 5) -> UIImage {
         let iv = UIImageView.init(image: self)
         iv.frame = CGRect.init(origin: .zero, size: self.size)
