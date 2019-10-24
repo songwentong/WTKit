@@ -347,6 +347,20 @@ public extension UIImageView{
             
         }
     }
+    func cancelLoadImage() {
+        URLSession.shared.getAllTasks { (list) in
+            list.filter { (task) -> Bool in
+                guard let url = task.originalRequest?.url?.absoluteString else{
+                    return false
+                }
+                if GlobalImageLoadCache.shared.loadingPairs[self.hashValue] == url{
+                    return true
+                }
+                task.cancel()
+                return false
+            }
+        }
+    }
 }
 public extension UIButton{
     func setImage(with path:String, for state: UIControl.State = .normal){
