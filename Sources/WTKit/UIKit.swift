@@ -453,6 +453,13 @@ public extension UIImage{
                 return
             }
             let result = ImageLoadResult.init(image: img, response: response, url: url.absoluteString)
+            let list = GlobalImageLoadCache.shared.loadingURL.filter { (str) -> Bool in
+                if url == str{
+                    return false
+                }
+                return true
+            }
+            GlobalImageLoadCache.shared.loadingURL = list
             NotificationCenter.default.post(name: UIImage.ImageLoadFinishNotification, object: result, userInfo: nil)
         }
     }
