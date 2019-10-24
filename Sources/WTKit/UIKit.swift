@@ -454,7 +454,7 @@ public extension UIImage{
             }
             let result = ImageLoadResult.init(image: img, response: response, url: url.absoluteString)
             let list = GlobalImageLoadCache.shared.loadingURL.filter { (str) -> Bool in
-                if url == str{
+                if result.url == str{
                     return false
                 }
                 return true
