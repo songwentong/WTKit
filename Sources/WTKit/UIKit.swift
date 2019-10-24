@@ -145,13 +145,13 @@ public extension UICollectionView{
         return cell
     }
 }
-struct SampleTableViewCellModel:UITableViewCellDetailModel {
-    var willDisplayAction: DispatchWorkItem
-    var prefetchAction: DispatchWorkItem
-    var cancelPrefetchAction: DispatchWorkItem
-    var reuseId:String = ""
-    var height:CGFloat = 44
-    var action = DispatchWorkItem.init {}
+public struct SampleTableViewCellModel:UITableViewCellDetailModel {
+    public var willDisplayAction: DispatchWorkItem
+    public var prefetchAction: DispatchWorkItem
+    public var cancelPrefetchAction: DispatchWorkItem
+    public var reuseId:String = ""
+    public var height:CGFloat = 44
+    public var action = DispatchWorkItem.init {}
     var customAction = ((UITableViewCell)->Void).self
 }
 
@@ -308,14 +308,6 @@ public extension CGPoint{
     }
 }
 public extension UILabel{}
-//IBInspectable IBDesignable
-@IBDesignable
-public class UILabelIBDesignable: UILabel {}
-@IBDesignable
-public class UIViewIBDesignable: UIView {}
-@IBDesignable
-public class UIButtonIBDesignable: UIButton {}
-
 
 class GlobalImageLoadCache {
     var loadingURL:[String] = []
@@ -547,7 +539,7 @@ public func NSLibraryCachesDirectory() -> String{
     return NSHomeDirectory() + "/Library" + "/Caches"
 }
 
-public class AlignLeftFlowLayout: UICollectionViewFlowLayout {
+open class AlignLeftFlowLayout: UICollectionViewFlowLayout {
     override public func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let attributes = super.layoutAttributesForElements(in: rect)
         
@@ -566,7 +558,7 @@ public class AlignLeftFlowLayout: UICollectionViewFlowLayout {
         return attributes
     }
 }
-public class WebImageView:UIImageView{
+open class WebImageView:UIImageView{
     var webImageTask:URLSessionDataTask? = nil
     func loadWebImage(with path:String) {
         canelLoading()
@@ -592,7 +584,7 @@ public class WebImageView:UIImageView{
         webImageTask?.cancel()
     }
 }
-public class WebImageButton:UIButton{
+open class WebImageButton:UIButton{
     var webImageTask:URLSessionDataTask? = nil
     func loadWebImage(with path:String,for state:UIControl.State) {
         canelLoading()
