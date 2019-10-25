@@ -87,6 +87,18 @@ open class UITableViewModelSample:NSObject, UITableViewModel,UITableViewDataSour
         let list = [UITableViewSectionModel]()
         return list
     }()
+//    func buildSection(_ buildAction:((UITableViewSectionModel)->Void)) {
+//
+//    }
+    func appendSection(_ section:UITableViewSectionModel) {
+        sections.append(section)
+    }
+    func appendCellModelToLastSection(_ model:UITableViewCellModel) {
+        guard var last = sections.last else{
+            return
+        }
+        last.cells.append(model)
+    }
     // MARK: - UITableViewDataSource
     open func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
@@ -119,6 +131,9 @@ open class UITableViewSectionModelSample:NSObject,UITableViewSectionModel{
         let list = [UITableViewCellModel]()
         return list
     }()
+    func appendCell(_ model:UITableViewCellModel) {
+        cells.append(model)
+    }
 }
 open class UITableViewCellModelSample:NSObject,UITableViewCellModel{
     public var reuseIdentifier: String = "cell"
