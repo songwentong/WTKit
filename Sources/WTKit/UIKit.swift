@@ -327,6 +327,8 @@ public extension UIImage{
                 callBack(self)
                 return
             }
+            context.scaleBy(x: 1.0, y: -1.0)
+            context.translateBy(x: 0, y: -size.height)
             guard let cgImage = self.cgImage else{
                 callBack(self)
                 return
