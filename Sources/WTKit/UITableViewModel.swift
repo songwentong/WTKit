@@ -114,16 +114,16 @@ open class UITableViewModelSample:NSObject, UITableViewModel,UITableViewDataSour
         }
     }
 }
-open class UITableViewSectionModelSample:UITableViewSectionModel{
+open class UITableViewSectionModelSample:NSObject,UITableViewSectionModel{
     public var cells: [UITableViewCellModel] = {
         let list = [UITableViewCellModel]()
         return list
     }()
 }
-open class UITableViewCellModelSample:UITableViewCellModel{
+open class UITableViewCellModelSample:NSObject,UITableViewCellModel{
     public var reuseIdentifier: String = "cell"
 }
-open class UITableViewCellDetailModelSample:UITableViewCellDetailModel {
+open class UITableViewCellDetailModelSample:NSObject,UITableViewCellDetailModel {
     public var willDisplayAction: DispatchWorkItem?
     public var prefetchAction: DispatchWorkItem?
     public var cancelPrefetchAction: DispatchWorkItem?
