@@ -507,14 +507,12 @@ open class WebImageView:UIImageView{
             return
         }
         let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
+        let size = self.frame.size
         webImageTask = URLSession.shared.dataTask(with: request) { [weak self](data, res, err) in
             guard let data = data else{
                 return
             }
             guard let img = UIImage.init(data: data) else{
-                return
-            }
-            guard let size = self?.frame.size else{
                 return
             }
             img.decodedImage(size) { (image) in
