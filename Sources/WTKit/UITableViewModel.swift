@@ -52,7 +52,7 @@ public protocol UITableViewCellDetailModel:UITableViewCellModel {
     var didSelectAction:DispatchWorkItem?{get}
     var willDisplayAction:DispatchWorkItem?{get}
     var prefetchAction:DispatchWorkItem?{get}
-    var cancelPrefetchAction:DispatchWorkItem?{get}
+    var cancelPrefetchingAction:DispatchWorkItem?{get}
 }
 public protocol UICollectionViewCellModel {
     var reuseId:String{get}
@@ -82,7 +82,7 @@ public extension UICollectionView{
     }
 }
 // MARK: - ModelSample
-open class UITableViewModelSample:NSObject, UITableViewModel,UITableViewDataSource,UITableViewDelegate{
+open class UITableViewModelSample:NSObject, UITableViewModel,UITableViewDataSource,UITableViewDelegate,UITableViewDataSourcePrefetching{
     public var sections: [UITableViewSectionModel] = {
         let list = [UITableViewSectionModel]()
         return list
@@ -130,6 +130,21 @@ open class UITableViewModelSample:NSObject, UITableViewModel,UITableViewDataSour
             m.didSelectAction?.perform()
         }
     }
+    // MARK: - UITableViewDataSourcePrefetching
+    public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]){
+        for indexPath in indexPaths{
+            if let m = model(for: indexPath) as? UITableViewCellDetailModel{
+                m.prefetchAction?.perform()
+            }
+        }
+    }
+    public func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            if let m = model(for: indexPath) as? UITableViewCellDetailModel{
+                m.cancelPrefetchingAction?.perform()
+            }
+        }
+    }
 }
 open class UITableViewSectionModelSample:NSObject,UITableViewSectionModel{
     public var cells: [UITableViewCellModel] = {
@@ -146,8 +161,19 @@ open class UITableViewCellModelSample:NSObject,UITableViewCellModel{
 open class UITableViewCellDetailModelSample:NSObject,UITableViewCellDetailModel {
     public var willDisplayAction: DispatchWorkItem?
     public var prefetchAction: DispatchWorkItem?
-    public var cancelPrefetchAction: DispatchWorkItem?
+    public var cancelPrefetchingAction: DispatchWorkItem?
     public var reuseIdentifier:String = ""
     public var height:CGFloat = 44
     public var didSelectAction:DispatchWorkItem?
+    public init(reuseIdentifier: String, height: CGFloat = 44, didSelectAction:@escaping ()->Void){
+        super.init()
+        self.reuseIdentifier = reuseIdentifier
+        self.height = height
+        self.didSelectAction = DispatchWorkItem.init(block: didSelectAction)
+    }
+    func test()  {
+        UITableViewCellDetailModelSample.init(reuseIdentifier: "cell", height: 44) {
+            
+        }
+    }
 }
