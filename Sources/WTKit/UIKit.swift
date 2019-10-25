@@ -515,7 +515,11 @@ open class WebImageView:UIImageView{
             guard let img = UIImage.init(data: data) else{
                 return
             }
+            let date1 = Date.init()
             img.decodedImage(size) { (image) in
+                let date2 = Date.init()
+                let distance = date2.timeIntervalSince1970 - date1.timeIntervalSince1970
+                print("distance:\(distance)")
                 DispatchQueue.safeSyncInMain(execute: DispatchWorkItem.init(block: {
                     self?.image = image
                     self?.layoutIfNeeded()
