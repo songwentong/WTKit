@@ -512,9 +512,14 @@ open class WebImageView:UIImageView{
             guard let img = UIImage.init(data: data) else{
                 return
             }
-            DispatchQueue.main.async {
-                self?.image = img
-                self?.layoutIfNeeded()
+            guard let size = self?.frame.size else{
+                return
+            }
+            img.decodedImage(size) { (image) in
+                DispatchQueue.main.async {
+                    self?.image = image
+                    self?.layoutIfNeeded()
+                }
             }
         }
         webImageTask?.resume()
