@@ -58,7 +58,7 @@ public protocol UICollectionViewCellModel {
     var reuseId:String{get}
 }
 public protocol UITableViewCellModelHolder {
-    var model:UITableViewCellModel!{get set}
+    var model:UITableViewCellModel?{get set}
 }
 public protocol UICollectionViewCellModelHolder {
     var model:UICollectionViewCellModel!{get set}
@@ -90,13 +90,16 @@ open class UITableViewModelSample:NSObject, UITableViewModel,UITableViewDataSour
     public func appendSection(_ section:UITableViewSectionModel) {
         sections.append(section)
     }
+    public func appendSectionWithClosure(with closure:()->UITableViewSectionModel){
+        appendSection(closure())
+    }
     public func appendCellModelToLastSection(_ model:UITableViewCellModel) {
         guard var last = sections.last else{
             return
         }
         last.cells.append(model)
     }
-    public func appendCellDetailModelToLastSectionWithClosure(_ closure:()->UITableViewCellDetailModelSample){
+    public func appendCellDetailModelToLastSectionWithClosure(_ closure:()->UITableViewCellModel){
         appendCellModelToLastSection(closure())
     }
     
