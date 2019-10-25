@@ -406,7 +406,6 @@ struct ImageLoadResult {
 public extension UIImage{
     func decodedImage(_ size:CGSize, callBack:@escaping ((UIImage)->Void)) {
         DispatchQueue.global().async {
-            
             UIGraphicsBeginImageContext(size)
             guard let context = UIGraphicsGetCurrentContext() else{
                 callBack(self)
