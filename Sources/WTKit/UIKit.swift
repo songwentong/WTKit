@@ -325,6 +325,7 @@ struct ImageLoadResult {
     let url:String
 }
 public extension UIImage{
+    //加载一张图片需要0.015941143035888672左右,decode做分线程处理可以节约时间,减少卡顿
     func decodedImage(_ size:CGSize, callBack:@escaping ((UIImage)->Void)) {
         DispatchQueue.global().async {
             UIGraphicsBeginImageContext(size)
@@ -520,11 +521,11 @@ open class WebImageView:UIImageView{
             guard let img = UIImage.init(data: data) else{
                 return
             }
-            let date1 = Date.init()
+//            let date1 = Date.init()
             img.decodedImage(size) { (image) in
-                let date2 = Date.init()
-                let distance = date2.timeIntervalSince1970 - date1.timeIntervalSince1970
-                print("distance:\(distance)")
+//                let date2 = Date.init()
+//                let distance = date2.timeIntervalSince1970 - date1.timeIntervalSince1970
+//                print("distance:\(distance)")
                 DispatchQueue.safeSyncInMain(execute: DispatchWorkItem.init(block: {
                     self?.image = image
                     self?.layoutIfNeeded()
