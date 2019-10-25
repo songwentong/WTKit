@@ -165,6 +165,9 @@ open class UITableViewCellDetailModelSample:NSObject,UITableViewCellDetailModel 
     public var reuseIdentifier:String = ""
     public var height:CGFloat = 44
     public var didSelectAction:DispatchWorkItem?
+    public override init() {
+        super.init()
+    }
     public init(reuseIdentifier: String, height: CGFloat = 44, didSelectAction:@escaping ()->Void){
         super.init()
         self.reuseIdentifier = reuseIdentifier
