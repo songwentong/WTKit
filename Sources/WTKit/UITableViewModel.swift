@@ -90,10 +90,10 @@ open class UITableViewModelSample:NSObject, UITableViewModel,UITableViewDataSour
 //    func buildSection(_ buildAction:((UITableViewSectionModel)->Void)) {
 //
 //    }
-    func appendSection(_ section:UITableViewSectionModel) {
+    public func appendSection(_ section:UITableViewSectionModel) {
         sections.append(section)
     }
-    func appendCellModelToLastSection(_ model:UITableViewCellModel) {
+    public func appendCellModelToLastSection(_ model:UITableViewCellModel) {
         guard var last = sections.last else{
             return
         }
@@ -131,7 +131,7 @@ open class UITableViewSectionModelSample:NSObject,UITableViewSectionModel{
         let list = [UITableViewCellModel]()
         return list
     }()
-    func appendCell(_ model:UITableViewCellModel) {
+    public func appendCell(_ model:UITableViewCellModel) {
         cells.append(model)
     }
 }
