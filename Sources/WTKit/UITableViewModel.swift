@@ -82,29 +82,35 @@ public extension UICollectionView{
     }
 }
 // MARK: - ModelSample
-open class UITableViewModelSample:NSObject, UITableViewModel{
+open class UITableViewModelSample:NSObject, UITableViewModel,UITableViewDataSource,UITableViewDelegate{
     public var sections: [UITableViewSectionModel] = {
         let list = [UITableViewSectionModel]()
         return list
     }()
+    // MARK: - UITableViewDataSource
+    open func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sections[section].cells.count
+    }
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = sections[indexPath.section].cells[indexPath.row]
         let cell = tableView.dequeueReusableCellModel(withModel: model, for: indexPath)
         return cell
     }
-    func model(for indexPath:IndexPath) -> UITableViewCellModel {
+    public func model(for indexPath:IndexPath) -> UITableViewCellModel {
         return sections[indexPath.section].cells[indexPath.row]
     }
-}
-extension UITableViewModelSample:UITableViewDataSource{
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].cells.count
-    }
-}
-extension UITableViewModelSample:UITableViewDelegate{
-    public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    // MARK: - UITableViewDelegate
+    open func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let m = model(for: indexPath) as? UITableViewCellDetailModel{
             m.willDisplayAction?.perform()
+        }
+    }
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let m = model(for: indexPath) as? UITableViewCellDetailModel{
+            m.didSelectAction?.perform()
         }
     }
 }
@@ -117,11 +123,11 @@ open class UITableViewSectionModelSample:UITableViewSectionModel{
 open class UITableViewCellModelSample:UITableViewCellModel{
     public var reuseIdentifier: String = "cell"
 }
-public struct UITableViewCellDetailModelSample:UITableViewCellDetailModel {
+open class UITableViewCellDetailModelSample:UITableViewCellDetailModel {
     public var willDisplayAction: DispatchWorkItem?
     public var prefetchAction: DispatchWorkItem?
     public var cancelPrefetchAction: DispatchWorkItem?
     public var reuseIdentifier:String = ""
     public var height:CGFloat = 44
-    public var didSelectAction:DispatchWorkItem? = DispatchWorkItem.init {}
+    public var didSelectAction:DispatchWorkItem?
 }
