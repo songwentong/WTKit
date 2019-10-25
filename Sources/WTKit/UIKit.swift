@@ -237,6 +237,7 @@ public extension NSObject{
 }
 public extension UIImageView{
     func loadImage(with path:String) {
+        self.image = nil
         let size = self.frame.size
         NotificationCenter.default.addObserver(forName: UIImage.ImageLoadFinishNotification, object: nil, queue: OperationQueue.main) {[weak self] (notification) in
             guard let result = notification.object as? ImageLoadResult else{
