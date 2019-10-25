@@ -516,10 +516,10 @@ open class WebImageView:UIImageView{
                 return
             }
             img.decodedImage(size) { (image) in
-                DispatchQueue.main.async {
+                DispatchQueue.safeSyncInMain(execute: DispatchWorkItem.init(block: {
                     self?.image = image
                     self?.layoutIfNeeded()
-                }
+                }))
             }
         }
         webImageTask?.resume()
@@ -536,6 +536,7 @@ open class WebImageButton:UIButton{
             return
         }
         let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
+        let size = self.frame.size
         webImageTask = URLSession.shared.dataTask(with: request) { [weak self](data, res, err) in
             guard let data = data else{
                 return
@@ -543,11 +544,14 @@ open class WebImageButton:UIButton{
             guard let img = UIImage.init(data: data) else{
                 return
             }
-            DispatchQueue.main.async {
-                self?.setImage(img, for: state)
-                self?.layoutIfNeeded()
+            img.decodedImage(size) { (image) in
+                DispatchQueue.safeSyncInMain(execute: DispatchWorkItem.init(block: {
+                    self?.setImage(image, for: state)
+                    self?.layoutIfNeeded()
+                }))
             }
         }
+        
         webImageTask?.resume()
     }
     open func canelLoading() {
