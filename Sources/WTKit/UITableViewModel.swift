@@ -45,7 +45,7 @@ public protocol UITableViewSectionModel {
     var cells:[UITableViewCellModel]{get set}
 }
 public protocol UITableViewCellModel{
-    var reuseIdentifier:String{get}
+    var reuseIdentifier:String{get set}
 }
 public protocol UITableViewCellDetailModel:UITableViewCellModel {
     var height:CGFloat{get}
