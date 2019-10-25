@@ -237,6 +237,7 @@ public extension NSObject{
 }
 public extension UIImageView{
     func loadImage(with path:String) {
+        let size = self.frame.size
         NotificationCenter.default.addObserver(forName: UIImage.ImageLoadFinishNotification, object: nil, queue: OperationQueue.main) {[weak self] (notification) in
             guard let result = notification.object as? ImageLoadResult else{
                 return
@@ -244,8 +245,11 @@ public extension UIImageView{
             guard let cself = self else{
                 return
             }
-            if GlobalImageLoadCache.shared.loadingPairs[cself.hashValue] == result.url{
-                cself.image = result.image
+            guard GlobalImageLoadCache.shared.loadingPairs[cself.hashValue] == result.url else{
+                return
+            }
+            result.image.decodedImage(size) { (image) in
+                cself.image = image
                 cself.layoutIfNeeded()
             }
         }
