@@ -278,7 +278,7 @@ open class UICollectionViewSectionModelSample:UICollectionViewSectionModel{
         addItemToLastSection(with: closure())
     }
 }
-open class UICollectionViewCellDetailModelSample:UICollectionViewCellDetailModel{
+open class UICollectionViewCellDetailModelSample:NSObject, UICollectionViewCellDetailModel{
     public var size: CGSize?
     
     public var didSelectAction: DispatchWorkItem?
