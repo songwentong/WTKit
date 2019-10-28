@@ -66,6 +66,14 @@ public extension DispatchQueue{
         }
         //        print("425 wt test")
     }
+    static func safeSyncInMain(with workItem:DispatchWorkItem){
+        let main:DispatchQueue = DispatchQueue.main
+        if Thread.isMainThread {
+            workItem.perform()
+        }else{
+            main.sync(execute: workItem)
+        }
+    }
     //异步回到主线程
     static func asyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
         DispatchQueue.main.async(execute: work)
