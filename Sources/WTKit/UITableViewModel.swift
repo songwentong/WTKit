@@ -269,7 +269,7 @@ open class UICollectionViewModelSample:NSObject,UICollectionViewModel,UICollecti
         return size
     }
 }
-open class UICollectionViewSectionModelSample:UICollectionViewSectionModel{
+open class UICollectionViewSectionModelSample:NSObject,UICollectionViewSectionModel{
     public var cells: [UICollectionViewCellModel] = []
     open func addItemToLastSection(with cell:UICollectionViewCellModel) {
         cells.append(cell)
