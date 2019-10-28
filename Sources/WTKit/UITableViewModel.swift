@@ -71,7 +71,7 @@ public protocol UICollectionViewModel{
     var sections:[UICollectionViewSectionModel]{get set}
 }
 public protocol UITableViewCellModelHolder {
-    var model:UITableViewCellModel?{get set}
+    var model:UITableViewCellModel{get set}
 }
 public protocol UICollectionViewCellModelHolder {
     var model:UICollectionViewCellModel!{get set}
