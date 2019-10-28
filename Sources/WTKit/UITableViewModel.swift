@@ -278,3 +278,18 @@ open class UICollectionViewSectionModelSample:UICollectionViewSectionModel{
         addItemToLastSection(with: closure())
     }
 }
+open class UICollectionViewCellDetailModelSample:UICollectionViewCellDetailModel{
+    public var size: CGSize?
+    
+    public var didSelectAction: DispatchWorkItem?
+    
+    public var willDisplayAction: DispatchWorkItem?
+    
+    public var prefetchAction: DispatchWorkItem?
+    
+    public var cancelPrefetchingAction: DispatchWorkItem?
+    
+    public var reuseId: String = ""
+    
+    
+}
