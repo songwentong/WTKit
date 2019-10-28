@@ -440,6 +440,21 @@ open class LoadingView: UIView {
         
     }
 }
+open class TextTip:UIView{
+    var tipLabel:UILabel = UILabel.init()
+    var tipLabelBGView:UIView = UIView.init()
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        configView()
+    }
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configView()
+    }
+    func configView() {
+        
+    }
+}
 public extension UIView{
     func showLoadingView() {
         hideLoadingView()

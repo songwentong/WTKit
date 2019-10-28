@@ -55,7 +55,20 @@ public protocol UITableViewCellDetailModel:UITableViewCellModel {
     var cancelPrefetchingAction:DispatchWorkItem?{get}
 }
 public protocol UICollectionViewCellModel {
-    var reuseId:String{get}
+    var reuseId:String{get set}
+}
+public protocol UICollectionViewCellDetailModel:UICollectionViewCellModel{
+    var size:CGSize?{get}
+    var didSelectAction:DispatchWorkItem?{get}
+    var willDisplayAction:DispatchWorkItem?{get}
+    var prefetchAction:DispatchWorkItem?{get}
+    var cancelPrefetchingAction:DispatchWorkItem?{get}
+}
+public protocol UICollectionViewSectionModel{
+    var cells:[UICollectionViewCellModel]{get set}
+}
+public protocol UICollectionViewModel{
+    var sections:[UICollectionViewSectionModel]{get set}
 }
 public protocol UITableViewCellModelHolder {
     var model:UITableViewCellModel?{get set}
@@ -146,6 +159,7 @@ open class UITableViewModelSample:NSObject, UITableViewModel,UITableViewDataSour
         }
     }
 }
+// MARK: - UITableViewSectionModelSample
 open class UITableViewSectionModelSample:NSObject,UITableViewSectionModel{
     public var cells: [UITableViewCellModel] = {
         let list = [UITableViewCellModel]()
@@ -155,9 +169,11 @@ open class UITableViewSectionModelSample:NSObject,UITableViewSectionModel{
         cells.append(model)
     }
 }
+// MARK: - UITableViewCellModelSample
 open class UITableViewCellModelSample:NSObject,UITableViewCellModel{
     public var reuseIdentifier: String = "cell"
 }
+// MARK: - UITableViewCellDetailModelSample
 open class UITableViewCellDetailModelSample:NSObject,UITableViewCellDetailModel {
     public var willDisplayAction: DispatchWorkItem?
     public var prefetchAction: DispatchWorkItem?
@@ -174,9 +190,91 @@ open class UITableViewCellDetailModelSample:NSObject,UITableViewCellDetailModel 
         self.height = height
         self.didSelectAction = DispatchWorkItem.init(block: didSelectAction)
     }
-    func test()  {
-        UITableViewCellDetailModelSample.init(reuseIdentifier: "cell", height: 44) {
-            
+}
+// MARK: - UITableViewSample
+open class UITableViewSample:UITableView{
+    open var sample:UITableViewModelSample = UITableViewModelSample()
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        config()
+    }
+    public override init(frame: CGRect, style: UITableView.Style) {
+        super.init(frame: frame, style: style)
+        config()
+    }
+    func config() {
+        dataSource = sample
+        delegate = sample
+        if #available(iOS 10.0, *) {
+            prefetchDataSource = sample
+        } else {
+            // Fallback on earlier versions
         }
+    }
+}
+// MARK: - UICollectionViewModelSample
+open class UICollectionViewModelSample:NSObject,UICollectionViewModel,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
+    
+    public var sections: [UICollectionViewSectionModel] = []
+    open func addSection(with section:UICollectionViewSectionModel) {
+        sections.append(section)
+    }
+    open func addSectionwithClosure(with closure:()->UICollectionViewSectionModel) {
+        sections.append(closure())
+    }
+    open func addItemToLastSection(with cell:UICollectionViewCellModel) {
+        guard var last = sections.last else{
+            return
+        }
+        last.cells.append(cell)
+    }
+    open func addItemToLastSectionWithClosure(with closure:()->UICollectionViewCellModel) {
+        addItemToLastSection(with: closure())
+    }
+    open func model(for indexPath:IndexPath) -> UICollectionViewCellModel? {
+        return sections[indexPath.section].cells[indexPath.row]
+    }
+    // MARK: - UICollectionViewDataSource
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return sections[section].cells.count
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let model = self.model(for: indexPath) else {
+            return UICollectionViewCell.init()
+        }
+        return collectionView.dequeueReusableCellModel(withModel: model, for: indexPath)
+    }
+    // MARK: - UICollectionViewDelegate
+    open func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath){
+        guard let model = self.model(for: indexPath) as? UICollectionViewCellDetailModel else {
+            return
+        }
+        model.willDisplayAction?.perform()
+    }
+    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+        guard let model = self.model(for: indexPath) as? UICollectionViewCellDetailModel else {
+            return
+        }
+        model.didSelectAction?.perform()
+    }
+    // MARK: - UICollectionViewDelegateFlowLayout
+    open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
+        guard let model = self.model(for: indexPath) as? UICollectionViewCellDetailModel else {
+            return .init(width: 50, height: 50)
+        }
+        guard let size = model.size else{
+            return .init(width: 50, height: 50)
+        }
+        return size
+    }
+}
+open class UICollectionViewSectionModelSample:UICollectionViewSectionModel{
+    public var cells: [UICollectionViewCellModel] = []
+    open func addItemToLastSection(with cell:UICollectionViewCellModel) {
+        cells.append(cell)
+    }
+    open func addItemToLastSectionWithClosure(with closure:()->UICollectionViewCellModel) {
+        addItemToLastSection(with: closure())
     }
 }
