@@ -55,7 +55,7 @@ public protocol UITableViewCellDetailModel:UITableViewCellModel {
     var cancelPrefetchingAction:DispatchWorkItem?{get}
 }
 public protocol UICollectionViewCellModel {
-    var reuseId:String{get set}
+    var reuseIdentifier:String{get set}
 }
 public protocol UICollectionViewCellDetailModel:UICollectionViewCellModel{
     var size:CGSize?{get}
@@ -87,7 +87,7 @@ public extension UITableView{
 }
 public extension UICollectionView{
     func dequeueReusableCellModel(withModel model:UICollectionViewCellModel, for indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = dequeueReusableCell(withReuseIdentifier: model.reuseId, for: indexPath)
+        let cell = dequeueReusableCell(withReuseIdentifier: model.reuseIdentifier, for: indexPath)
         if var c = cell as? UICollectionViewCellModelHolder{
             c.model = model
         }
@@ -289,7 +289,7 @@ open class UICollectionViewCellDetailModelSample:NSObject, UICollectionViewCellD
     
     public var cancelPrefetchingAction: DispatchWorkItem?
     
-    public var reuseId: String = ""
+    public var reuseIdentifier: String = ""
     
     
 }
