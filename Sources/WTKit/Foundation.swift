@@ -57,7 +57,7 @@ public extension DispatchQueue{
         return DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
     }
     //安全同步到主线程
-    static func safeSyncInMain(execute work: DispatchWorkItem){
+    static func safeSyncInMain(execute work: @escaping ()->Void){
         let main:DispatchQueue = DispatchQueue.main
         if Thread.isMainThread {
             main.async(execute: work)

@@ -541,10 +541,10 @@ open class WebImageView:UIImageView{
 //                let date2 = Date.init()
 //                let distance = date2.timeIntervalSince1970 - date1.timeIntervalSince1970
 //                print("distance:\(distance)")
-                DispatchQueue.safeSyncInMain(execute: DispatchWorkItem.init(block: {
+                DispatchQueue.safeSyncInMain(execute:  {
                     self?.image = image
                     self?.layoutIfNeeded()
-                }))
+                })
             }
         }
         webImageTask?.resume()
@@ -570,10 +570,10 @@ open class WebImageButton:UIButton{
                 return
             }
             img.decodedImage(size) { (image) in
-                DispatchQueue.safeSyncInMain(execute: DispatchWorkItem.init(block: {
+                DispatchQueue.safeSyncInMain(execute:  {
                     self?.setImage(image, for: state)
                     self?.layoutIfNeeded()
-                }))
+                })
             }
         }
         
