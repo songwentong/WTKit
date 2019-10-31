@@ -4,7 +4,7 @@
 //
 //  Created by 宋文通 on 2019/10/25.
 //
-
+#if os(iOS)
 import Foundation
 import UIKit
 // MARK: - UINibReusableCell
@@ -293,3 +293,4 @@ open class UICollectionViewCellDetailModelSample:NSObject, UICollectionViewCellD
     
     
 }
+#endif

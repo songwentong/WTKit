@@ -5,7 +5,7 @@
 //  Created by 宋文通 on 2019/8/12.
 //  Copyright © 2019 宋文通. All rights reserved.
 //
-
+#if os(iOS)
 import Foundation
 import UIKit
 public extension UIScreen{
@@ -583,3 +583,4 @@ open class WebImageButton:UIButton{
         webImageTask?.cancel()
     }
 }
+#endif

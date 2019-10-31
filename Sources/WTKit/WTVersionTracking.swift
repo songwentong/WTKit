@@ -5,7 +5,7 @@
 //  Created by SongWentong on 10/04/2017.
 //  Copyright © 2017 songwentong. All rights reserved.
 //
-
+#if os(iOS)
 import Foundation
 
 import UIKit
@@ -89,3 +89,4 @@ class VersionTracker: NSObject {
         return VersionTracker()
     }()
 }
+#endif
