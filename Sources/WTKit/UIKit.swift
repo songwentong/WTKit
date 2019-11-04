@@ -225,7 +225,7 @@ public extension CGPoint{
 public extension UILabel{}
 
 class GlobalImageLoadCache {
-    var loadingURL:[String] = []
+    var loadingURL:Set<String> = []
     var loadingPairs:[Int:String] = [:]
     static let shared:GlobalImageLoadCache = {
         return GlobalImageLoadCache.init()
@@ -375,9 +375,13 @@ public extension UIImage{
             complection(nil,nil)
             return nil
         }else{
-            GlobalImageLoadCache.shared.loadingURL.append(url.absoluteString)
+            GlobalImageLoadCache.shared.loadingURL.insert(url.absoluteString)
+//            GlobalImageLoadCache.shared.loadingURL.append(url.absoluteString)
         }
         return URLSession.useCacheElseLoadURLData(with: url) { (data, response, err) in
+            if GlobalImageLoadCache.shared.loadingURL.contains(url.absoluteString){
+                GlobalImageLoadCache.shared.loadingURL.remove(url.absoluteString)
+            }
             guard let data = data else{
                 complection(nil,response)
                 return
@@ -392,13 +396,6 @@ public extension UIImage{
                 return
             }
             let result = ImageLoadResult.init(image: img, response: response, url: url.absoluteString)
-            let list = GlobalImageLoadCache.shared.loadingURL.filter { (str) -> Bool in
-                if result.url == str{
-                    return false
-                }
-                return true
-            }
-            GlobalImageLoadCache.shared.loadingURL = list
             NotificationCenter.default.post(name: UIImage.ImageLoadFinishNotification, object: result, userInfo: nil)
         }
     }
