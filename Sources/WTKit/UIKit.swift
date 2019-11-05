@@ -70,7 +70,11 @@ public extension UIColor{
         }
     }
 }
-
+public extension UIViewController{
+    func requestPushToTopVC() {
+        UIApplication.topViewController?.navigationController?.pushViewController(self, animated: true)
+    }
+}
 public extension UIViewController{
     @objc func setBackArrowButton(image:UIImage?) -> Void {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: image, style: .plain, target: self, action: #selector(recieveBackButtonPressed))
@@ -82,9 +86,7 @@ public extension UIViewController{
         self.navigationController?.popViewController(animated: true)
     }
     
-    func requestPushToTopVC() {
-        UIApplication.topViewController?.navigationController?.pushViewController(self, animated: true)
-    }
+    
 }
 public extension UILabel{
     @IBInspectable var adjustFont:Bool{
