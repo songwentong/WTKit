@@ -232,8 +232,8 @@ class GlobalImageLoadCache {
     }()
 }
 public extension NSObject{
-//    func removeImageLoadNotificaion() {
-//    }
+    //    func removeImageLoadNotificaion() {
+    //    }
 }
 public extension UIImageView{
     func loadImage(with path:String) {
@@ -312,10 +312,24 @@ public extension UIButton{
         }
     }
 }
+public extension UITabBarController{
+    var topViewController:UIViewController? {
+        if let navi = selectedViewController as? UINavigationController{
+            return navi.topViewController
+        }
+        return nil
+    }
+}
 public extension UIApplication{
-    static var topNavigationController:UINavigationController?{
+    static var topViewController:UIViewController?{
         get{
-            return nil
+            guard let first = UIApplication.shared.windows.first else{
+                return nil
+            }
+            guard let tab = first.rootViewController as? UITabBarController else{
+                return nil
+            }
+            return tab.topViewController
         }
     }
 }
@@ -376,7 +390,7 @@ public extension UIImage{
             return nil
         }else{
             GlobalImageLoadCache.shared.loadingURL.insert(url.absoluteString)
-//            GlobalImageLoadCache.shared.loadingURL.append(url.absoluteString)
+            //            GlobalImageLoadCache.shared.loadingURL.append(url.absoluteString)
         }
         return URLSession.useCacheElseLoadURLData(with: url) { (data, response, err) in
             if GlobalImageLoadCache.shared.loadingURL.contains(url.absoluteString){
@@ -533,11 +547,11 @@ open class WebImageView:UIImageView{
             guard let img = UIImage.init(data: data) else{
                 return
             }
-//            let date1 = Date.init()
+            //            let date1 = Date.init()
             img.decodedImage(size) { (image) in
-//                let date2 = Date.init()
-//                let distance = date2.timeIntervalSince1970 - date1.timeIntervalSince1970
-//                print("distance:\(distance)")
+                //                let date2 = Date.init()
+                //                let distance = date2.timeIntervalSince1970 - date1.timeIntervalSince1970
+                //                print("distance:\(distance)")
                 DispatchQueue.safeSyncInMain(execute:  {
                     self?.image = image
                     self?.layoutIfNeeded()
