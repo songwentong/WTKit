@@ -81,6 +81,10 @@ public extension UIViewController{
     @objc func recieveBackButtonPressed() -> Void {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    func requestPushToTopVC() {
+        UIApplication.topViewController?.navigationController?.pushViewController(self, animated: true)
+    }
 }
 public extension UILabel{
     @IBInspectable var adjustFont:Bool{
@@ -484,8 +488,7 @@ public extension UIView{
         }
     }
 }
-public extension UIViewController{
-}
+
 public extension UIWindow{
     //    static func getMainWindow() -> UIWindow {
     //        UIApplication.shared.keyWindow
