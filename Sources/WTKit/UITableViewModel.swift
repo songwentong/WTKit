@@ -177,6 +177,11 @@ open class UITableViewSectionModelSample:NSObject,UITableViewSectionModel{
 open class UITableViewCellModelSample:NSObject,UITableViewCellModel{
     public var reuseIdentifier: String = "cell"
 }
+open class UITableViewCellObjectModelSample:NSObject,UITableViewCellObjectModel{
+    public var reuseIdentifier: String = "cell"
+    public var object: Any? = nil
+    public var userInfo: [AnyHashable : Any]? = [:]
+}
 // MARK: - UITableViewCellDetailModelSample
 open class UITableViewCellDetailModelSample:NSObject,UITableViewCellDetailModel {
     public var willDisplayAction: DispatchWorkItem?
