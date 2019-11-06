@@ -49,10 +49,6 @@ public protocol UITableViewCellModel{
     var object: Any?{get set}
     var userInfo: [AnyHashable : Any]?{get set}
 }
-public protocol UITableViewCellObjectModel:UITableViewCellModel{
-//    var object: Any?{get set}
-//    var userInfo: [AnyHashable : Any]?{get set}
-}
 public protocol UITableViewCellDetailModel:UITableViewCellModel {
     var height:CGFloat{get}
     var didSelectAction:DispatchWorkItem?{get}
@@ -182,11 +178,6 @@ open class UITableViewCellModelSample:NSObject,UITableViewCellModel{
     public var userInfo: [AnyHashable : Any]?
     
     public var reuseIdentifier: String = "cell"
-}
-open class UITableViewCellObjectModelSample:NSObject,UITableViewCellObjectModel{
-    public var reuseIdentifier: String = "cell"
-    public var object: Any? = nil
-    public var userInfo: [AnyHashable : Any]? = [:]
 }
 // MARK: - UITableViewCellDetailModelSample
 open class UITableViewCellDetailModelSample:NSObject,UITableViewCellDetailModel {
