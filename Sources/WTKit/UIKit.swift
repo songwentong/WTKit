@@ -75,6 +75,15 @@ public extension UIViewController{
         UIApplication.topViewController?.navigationController?.pushViewController(self, animated: true)
     }
 }
+public extension UITextField{
+    var safeText:String{
+        get{
+            return text ?? ""
+        }
+    }
+}
+public extension UITextView{
+}
 public extension UIViewController{
     @objc func setBackArrowButton(image:UIImage?) -> Void {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: image, style: .plain, target: self, action: #selector(recieveBackButtonPressed))

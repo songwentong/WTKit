@@ -47,6 +47,10 @@ public protocol UITableViewSectionModel {
 public protocol UITableViewCellModel{
     var reuseIdentifier:String{get set}
 }
+public protocol UITableViewCellObjectModel:UITableViewCellModel{
+    var object: Any?{get set}
+    var userInfo: [AnyHashable : Any]?{get set}
+}
 public protocol UITableViewCellDetailModel:UITableViewCellModel {
     var height:CGFloat{get}
     var didSelectAction:DispatchWorkItem?{get}
