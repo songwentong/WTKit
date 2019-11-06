@@ -177,6 +177,10 @@ open class UITableViewSectionModelSample:NSObject,UITableViewSectionModel{
 }
 // MARK: - UITableViewCellModelSample
 open class UITableViewCellModelSample:NSObject,UITableViewCellModel{
+    public var object: Any?
+    
+    public var userInfo: [AnyHashable : Any]?
+    
     public var reuseIdentifier: String = "cell"
 }
 open class UITableViewCellObjectModelSample:NSObject,UITableViewCellObjectModel{
@@ -186,6 +190,10 @@ open class UITableViewCellObjectModelSample:NSObject,UITableViewCellObjectModel{
 }
 // MARK: - UITableViewCellDetailModelSample
 open class UITableViewCellDetailModelSample:NSObject,UITableViewCellDetailModel {
+    public var object: Any?
+    
+    public var userInfo: [AnyHashable : Any]?
+    
     public var willDisplayAction: DispatchWorkItem?
     public var prefetchAction: DispatchWorkItem?
     public var cancelPrefetchingAction: DispatchWorkItem?
