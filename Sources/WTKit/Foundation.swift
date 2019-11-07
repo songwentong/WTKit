@@ -20,6 +20,17 @@ public func cprint<T>(_ items: T,  separator: String = " ", terminator: String =
 }
 
 public extension Data{
+    static func data(forResource name:String, ofType ext: String?) -> Data? {
+        guard let url = Bundle.main.url(forResource: name, withExtension: ext) else{
+            return nil
+        }
+        do {
+            let data = try Data.init(contentsOf: url)
+            return data
+        } catch  {
+            return nil
+        }
+    }
     func utf8String() -> String {
         return String.init(data: self, encoding: .utf8) ?? "not utf8 string"
     }
