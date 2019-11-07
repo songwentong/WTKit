@@ -458,8 +458,8 @@ open class LoadingView: UIView {
         
         indicatorBGView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         indicatorBGView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        indicatorBGView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        indicatorBGView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        indicatorBGView.widthAnchor.constraint(equalToConstant: 75).isActive = true
+        indicatorBGView.heightAnchor.constraint(equalToConstant: 75).isActive = true
         
         refreshIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         refreshIndicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
