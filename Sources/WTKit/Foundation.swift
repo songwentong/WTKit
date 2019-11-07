@@ -246,7 +246,15 @@ public struct URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvert
         return components.joined(separator: " \\\n\t")
     }
 }
+public extension URL{
+    func convertToRequest() -> URLRequest {
+        return URLRequest.init(url: self)
+    }
+}
 public extension URLRequest{
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
+        return URLSession.shared.dataTask(with: self, completionHandler: completionHandler)
+    }
     func converToPrinter() -> URLRequestPrinter {
         return URLRequestPrinter.init(request: self)
     }
@@ -280,6 +288,17 @@ public extension URLRequest{
         return result
         #endif
     }
+}
+
+public extension URLSessionTask{
+    func converToPrinter() -> URLRequestPrinter? {
+        guard let req = self.originalRequest else{
+            return nil
+        }
+        return URLRequestPrinter.init(request: req)
+    }
+}
+public extension URLSessionDataTask{
     
 }
 public extension Date{
