@@ -342,6 +342,12 @@ public extension Bundle{
     }
 }
 public extension String{
+    func urlValue() -> URL {
+        guard let url = URL.init(string: self) else{
+            return URL.init(fileURLWithPath: "")
+        }
+        return url
+    }
     func localized(_ lang:String) ->String {
         var bundle = Bundle.main
         if let path = Bundle.main.path(forResource: lang, ofType: "lproj") {
