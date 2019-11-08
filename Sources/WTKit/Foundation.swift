@@ -56,12 +56,12 @@ public extension Double{
     func numberObject() -> NSNumber {
         return NSNumber.init(value: self)
     }
-    func string(with fractionDigits:Int) -> String? {
-        return numberObject().string(with: fractionDigits)
+    func stringWith(fractionDigits count:Int) -> String? {
+        return numberObject().stringWith(fractionDigits: count)
     }
 }
 public extension NSNumber{
-    func string(with fractionDigits:Int) -> String? {
+    func stringWith(fractionDigits count:Int) -> String? {
         let nf = NumberFormatter.init()
         nf.minimumFractionDigits = 8
         nf.maximumFractionDigits = 8
