@@ -50,6 +50,9 @@ public extension Locale{
 }
 
 public extension Double{
+    func stringValue() -> String {
+        return "\(self)"
+    }
     func numberObject() -> NSNumber {
         return NSNumber.init(value: self)
     }
