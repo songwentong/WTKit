@@ -53,6 +53,9 @@ public extension Double{
     func numberObject() -> NSNumber {
         return NSNumber.init(value: self)
     }
+    func string(with fractionDigits:Int) -> String? {
+        return numberObject().string(with: fractionDigits)
+    }
 }
 public extension NSNumber{
     func string(with fractionDigits:Int) -> String? {
