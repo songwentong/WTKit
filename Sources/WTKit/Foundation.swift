@@ -48,12 +48,20 @@ public extension Locale{
         return Locale.init(identifier: "ko-Kore_KR")
     }
 }
+
 public extension Double{
     func numberObject() -> NSNumber {
         return NSNumber.init(value: self)
     }
 }
-
+public extension NSNumber{
+    func string(with fractionDigits:Int) -> String? {
+        let nf = NumberFormatter.init()
+        nf.minimumFractionDigits = 8
+        nf.maximumFractionDigits = 8
+        return nf.string(from: self)
+    }
+}
 public extension DispatchQueue{
     static func backgroundQueue()->DispatchQueue{
         return DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
