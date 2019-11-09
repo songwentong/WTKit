@@ -526,7 +526,7 @@ public func NSLibraryCachesDirectory() -> String{
     return NSHomeDirectory() + "/Library" + "/Caches"
 }
 open class WTGradientView:UIView{
-    override class var layerClass: AnyClass{
+     override open class var layerClass: AnyClass{
         return CAGradientLayer.self
     }
 }
