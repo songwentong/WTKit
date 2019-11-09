@@ -525,7 +525,11 @@ public func NSLibraryDirectory() -> String{
 public func NSLibraryCachesDirectory() -> String{
     return NSHomeDirectory() + "/Library" + "/Caches"
 }
-
+open class WTGradientView:UIView{
+    override class var layerClass: AnyClass{
+        return CAGradientLayer.self
+    }
+}
 open class AlignLeftFlowLayout: UICollectionViewFlowLayout {
     override public func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let attributes = super.layoutAttributesForElements(in: rect)
