@@ -49,6 +49,9 @@ public protocol UITableViewCellModel{
     var object: Any?{get set}
     var userInfo: [AnyHashable : Any]?{get set}
 }
+public protocol UITableViewCellUserActionResponse {
+    func tableviewCellUserAction(with cell:UITableViewCell , object:Any? , userInfo: [AnyHashable : Any]?) -> Void
+}
 public protocol UITableViewCellDetailModel:UITableViewCellModel {
     var height:CGFloat{get}
     var didSelectAction:DispatchWorkItem?{get}

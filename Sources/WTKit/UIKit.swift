@@ -525,6 +525,14 @@ public func NSLibraryDirectory() -> String{
 public func NSLibraryCachesDirectory() -> String{
     return NSHomeDirectory() + "/Library" + "/Caches"
 }
+
+/*
+ example
+         layer.colors = [UIColor(red: 0.32, green: 0.77, blue: 0.93, alpha: 1).cgColor, UIColor(red: 0.21, green: 0.46, blue: 0.96, alpha: 1).cgColor]
+         layer.locations = [0, 1]
+         layer.startPoint = CGPoint(x: 0, y: 0.5)
+         layer.endPoint = CGPoint(x: 1, y: 0.5)
+ */
 open class WTGradientView:UIView{
      override open class var layerClass: AnyClass{
         return CAGradientLayer.self
