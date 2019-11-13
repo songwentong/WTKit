@@ -620,4 +620,5 @@ open class WebImageButton:UIButton{
         webImageTask?.cancel()
     }
 }
+
 #endif

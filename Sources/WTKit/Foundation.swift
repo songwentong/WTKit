@@ -61,10 +61,16 @@ public extension Double{
     }
 }
 public extension NSNumber{
+    func stringWith(fractionDigitsCount min:Int, max:Int) -> String? {
+        let nf = NumberFormatter.init()
+        nf.minimumFractionDigits = min
+        nf.maximumFractionDigits = max
+        return nf.string(from: self)
+    }
     func stringWith(fractionDigits count:Int) -> String? {
         let nf = NumberFormatter.init()
-        nf.minimumFractionDigits = 8
-        nf.maximumFractionDigits = 8
+        nf.minimumFractionDigits = count
+        nf.maximumFractionDigits = count
         return nf.string(from: self)
     }
 }

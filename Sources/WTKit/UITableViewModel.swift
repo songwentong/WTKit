@@ -100,7 +100,7 @@ public extension UICollectionView{
     }
 }
 // MARK: - ModelSample
-open class UITableViewModelSample:NSObject, UITableViewModel,UITableViewDataSource,UITableViewDelegate,UITableViewDataSourcePrefetching{
+open class UITableViewModelSample:NSObject, UITableViewModel,UITableViewDataSource,UITableViewDelegate,UITableViewDataSourcePrefetching,UITableViewCellUserActionDelegate{
     public var sections: [UITableViewSectionModel] = {
         let list = [UITableViewSectionModel]()
         return list
@@ -120,7 +120,9 @@ open class UITableViewModelSample:NSObject, UITableViewModel,UITableViewDataSour
     public func appendCellDetailModelToLastSectionWithClosure(_ closure:()->UITableViewCellModel){
         appendCellModelToLastSection(closure())
     }
-    
+    func tableviewCellUserAction(with cell:UITableViewCell , actionId:Int, object:Any? , userInfo: [AnyHashable : Any]?) -> Void{
+        
+    }
     
     // MARK: - UITableViewDataSource
     open func numberOfSections(in tableView: UITableView) -> Int {
