@@ -50,7 +50,7 @@ public protocol UITableViewCellModel{
     var userInfo: [AnyHashable : Any]?{get set}
 }
 public protocol UITableViewCellUserActionDelegate:class {
-    func tableviewCellUserAction(with cell:UITableViewCell , actionId:Int, object:Any? , userInfo: [AnyHashable : Any]?) -> Void
+    func tableviewCellUserAction(with cell:UITableViewCell ,actionId:Int, object:Any?, userInfo:[AnyHashable : Any]?) -> Void
 }
 public protocol UITableViewCellDetailModel:UITableViewCellModel {
     var height:CGFloat{get}
@@ -120,7 +120,7 @@ open class UITableViewModelSample:NSObject, UITableViewModel,UITableViewDataSour
     public func appendCellDetailModelToLastSectionWithClosure(_ closure:()->UITableViewCellModel){
         appendCellModelToLastSection(closure())
     }
-    func tableviewCellUserAction(with cell:UITableViewCell , actionId:Int, object:Any? , userInfo: [AnyHashable : Any]?) -> Void{
+    public func tableviewCellUserAction(with cell:UITableViewCell , actionId:Int, object:Any? , userInfo: [AnyHashable : Any]?) -> Void{
         
     }
     
