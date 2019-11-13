@@ -74,6 +74,10 @@ public extension UIViewController{
     func requestPushToTopVC() {
         UIApplication.topViewController?.navigationController?.pushViewController(self, animated: true)
     }
+    func requestPushToTopVC( animated flag: Bool, completion: (() -> Void)? = nil) {
+        //    open func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil)
+        UIApplication.topViewController?.present(self, animated: flag, completion: completion)
+    }
 }
 public extension UITextField{
     var safeText:String{

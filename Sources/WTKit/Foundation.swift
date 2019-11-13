@@ -203,42 +203,6 @@ public struct URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvert
         if let httpMethod = request.httpMethod, httpMethod != "GET" {
             components.append("-X \(httpMethod)")
         }
-        /*
-         if let credentialStorage = self.session.configuration.urlCredentialStorage {
-         let protectionSpace = URLProtectionSpace(
-         host: host,
-         port: url.port ?? 0,
-         protocol: url.scheme,
-         realm: host,
-         authenticationMethod: NSURLAuthenticationMethodHTTPBasic
-         )
-         
-         if let credentials = credentialStorage.credentials(for: protectionSpace)?.values {
-         for credential in credentials {
-         guard let user = credential.user, let password = credential.password else { continue }
-         components.append("-u \(user):\(password)")
-         }
-         } else {
-         if let credential = delegate.credential, let user = credential.user, let password = credential.password {
-         components.append("-u \(user):\(password)")
-         }
-         }
-         }
-         
-         if session.configuration.httpShouldSetCookies {
-         if
-         let cookieStorage = session.configuration.httpCookieStorage,
-         let cookies = cookieStorage.cookies(for: url), !cookies.isEmpty
-         {
-         let string = cookies.reduce("") { $0 + "\($1.name)=\($1.value);" }
-         
-         #if swift(>=3.2)
-         components.append("-b \"\(string[..<string.index(before: string.endIndex)])\"")
-         #else
-         components.append("-b \"\(string.substring(to: string.characters.index(before: string.endIndex)))\"")
-         #endif
-         }
-         }*/
         
         var headers: [AnyHashable: Any] = [:]
         /*
