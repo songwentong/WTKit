@@ -236,7 +236,26 @@ public extension URL{
     }
 }
 public extension URLRequest{
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
+    func dataTaskWith<T:Codable>(codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
+        let task = self.dataTask { (data, response, err) in
+            DispatchQueue.main.async {
+                completionHandler(data,response,err)
+            }
+            guard let data = data else{
+                return
+            }
+            do{
+                let result = try JSONDecoder().decode(T.self, from: data)//类型转换
+                DispatchQueue.main.async {
+                    object(result)
+                }
+            }catch{
+                
+            }
+        }
+        return task
+    }
+    func dataTask( completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         return URLSession.shared.dataTask(with: self, completionHandler: completionHandler)
     }
     func converToPrinter() -> URLRequestPrinter {
@@ -312,6 +331,9 @@ public extension Bundle{
     }
 }
 public extension String{
+//    func numberObject() -> NSNumber {
+//
+//    }
     func urlValue() -> URL {
         guard let url = URL.init(string: self) else{
             return URL.init(fileURLWithPath: "")
