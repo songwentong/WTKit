@@ -305,7 +305,12 @@ public extension URLSessionDataTask{
     
 }
 public extension Date{
-    
+    func localDescString() -> String {
+        let df = DateFormatter()
+        df.locale = Locale.current
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return df.string(from: self)
+    }
 }
 public extension TimeZone{
     
