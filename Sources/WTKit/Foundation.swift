@@ -382,7 +382,18 @@ public extension String{
         return "\"\",.:¥"
     }
 }
-
+public extension JSONDecoder{
+    //open func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable
+    func decode<T>(with type:T.Type, from data:Data) -> T? where T : Decodable {
+        do {
+            let obj:T = try decode(type, from: data)
+            return obj
+        } catch  {
+            
+        }
+        return nil
+    }
+}
 func convertCodableTypeToParameters<T:Codable,B>(_ t:T) -> B? {
     do{
         let data = try JSONEncoder().encode(t)
