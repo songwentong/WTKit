@@ -19,8 +19,11 @@ public extension NSValue{
     }
     
 }
+class MyClass {
+//    var @objc:Int = 1
+}
 public class WTModelMaker {
-    public var commonKeywords:[String] = ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self"]//常用的关键字命名修改,如有需要可以添加
+    public var commonKeywords:[String] = ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc"]//常用的关键字命名修改,如有需要可以添加
     public var keywordsVarPrefix = ""//关键字属性的前缀,如有需要可以添加
     public var keywordsVarSuffix = "_var"//关键字属性的后缀,默认添加的是_var
     public var needQuestionMark:Bool = false //是否需要添加问号,来处理字段不存在的情况,true+问号?,否则不用加
