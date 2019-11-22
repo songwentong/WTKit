@@ -33,12 +33,46 @@ class MyClass {
 //    var case:Int = 1
     var print:Int = 1
     var unowned:Int = 1
-    var weak:Int = 1
+//    var "init":Int = 1
+//    var operator:Int = 1
 //    var if:Int = 1
 //    var else:Int = 1
 }
+/*
+ Swift Keywords used in Declarations
+ 
+ Class    deinit    Enum    extension
+ func    import    Init    internal
+ let    operator    private    protocol
+ public    static    struct    subscript
+ typealias    var
+ Swift Keywords used in Statements
+ break    case    continue    default
+ do    else    fallthrough    for
+ if    in    return    switch
+ where    while
+ 
+ 
+ Swift Keywords used in Expressions and Types
+ 
+ as    dynamicType    false    is
+ nil    self    Self    super
+ true    _COLUMN_    _FILE_    _FUNCTION_
+ _LINE_
+ 
+ 
+ Swift Keywords used in Specific Contexts
+ 
+ associativity    convenience    dynamic    didSet
+ final    get    infix    inout
+ lazy    left    mutating    none
+ nonmutating    optional    override    postfix
+ precedence    prefix    Protocol    required
+ right    set    Type    unowned
+ weak    willSet
+ */
 public class WTModelMaker {
-    public var commonKeywords:[String] = ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else"]//常用的关键字命名修改,如有需要可以添加
+    public var commonKeywords:[String] = ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init"]//常用的关键字命名修改,如有需要可以添加
     public var keywordsVarPrefix = ""//关键字属性的前缀,如有需要可以添加
     public var keywordsVarSuffix = "_var"//关键字属性的后缀,默认添加的是_var
     public var needQuestionMark:Bool = false //是否需要添加问号,来处理字段不存在的情况,true+问号?,否则不用加
