@@ -179,7 +179,7 @@ public extension URLSession{
     }
     
 }
-public struct URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
+public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
     var request:URLRequest
     public var description: String{
         var components: [String] = []
