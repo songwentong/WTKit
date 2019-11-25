@@ -180,11 +180,8 @@ public extension URLSession{
     
 }
 public struct URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
-    var request:URLRequest? = nil
+    var request:URLRequest
     public var description: String{
-        guard let request = request else{
-            return ""
-        }
         var components: [String] = []
         
         if let HTTPMethod = request.httpMethod {
@@ -198,9 +195,6 @@ public struct URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvert
         return desc
     }
     public var debugDescription: String{
-        guard let request = request else{
-            return ""
-        }
         var components = ["$ curl -v"]
         
         guard let url = request.url else {
@@ -304,7 +298,7 @@ public extension URLRequest{
 public extension URLSessionTask{
     func converToPrinter() -> URLRequestPrinter {
         guard let req = self.originalRequest else{
-            return URLRequestPrinter.init()
+            return URLRequestPrinter.init(request: URLRequest.init(url: "".urlValue()))
         }
         return URLRequestPrinter.init(request: req)
     }
