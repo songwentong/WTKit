@@ -180,7 +180,7 @@ public extension URLSession{
     
 }
 public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
-    var request:URLRequest
+    var request:URLRequest = URLRequest.init(url: "".urlValue())
     public var description: String{
         var components: [String] = []
         
@@ -261,7 +261,9 @@ public extension URLRequest{
         return URLSession.shared.dataTask(with: self, completionHandler: completionHandler)
     }
     func converToPrinter() -> URLRequestPrinter {
-        return URLRequestPrinter.init(request: self)
+        let reu = URLRequestPrinter()
+        reu.request = self
+        return reu
     }
     var curlString: String {
         // Logging URL requests in whole may expose sensitive data,
@@ -298,9 +300,11 @@ public extension URLRequest{
 public extension URLSessionTask{
     func converToPrinter() -> URLRequestPrinter {
         guard let req = self.originalRequest else{
-            return URLRequestPrinter.init(request: URLRequest.init(url: "".urlValue()))
+            return URLRequestPrinter()
         }
-        return URLRequestPrinter.init(request: req)
+        let result = URLRequestPrinter()
+        result.request = req
+        return result
     }
 }
 public extension URLSessionDataTask{
