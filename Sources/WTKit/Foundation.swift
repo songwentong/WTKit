@@ -191,7 +191,8 @@ public struct URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvert
         if let urlString = request.url?.absoluteString {
             components.append(urlString)
         }
-        return components.joined(separator: " ")
+        let desc = components.joined(separator: " ")
+        return desc
     }
     public var debugDescription: String{
         var components = ["$ curl -v"]
@@ -227,7 +228,8 @@ public struct URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvert
         
         components.append("\"\(url.absoluteString)\"")
         
-        return components.joined(separator: " \\\n\t")
+        let result = components.joined(separator: " \\\n\t")
+        return result
     }
 }
 public extension URL{
