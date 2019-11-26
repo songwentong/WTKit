@@ -295,6 +295,13 @@ public extension URLRequest{
         return result
         #endif
     }
+    static var defaultAcceptEncoding:String{
+        if #available(iOS 11.0, macOS 10.13, tvOS 11.0, watchOS 4.0, *) {
+            return "br;q=1.0,gzip;q=0.9,deflate;q=0.8"
+        } else {
+            return "gzip;q=0.9,deflate;q=0.8"
+        }
+    }
 }
 
 public extension URLSessionTask{
