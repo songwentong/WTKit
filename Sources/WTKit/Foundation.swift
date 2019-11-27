@@ -258,7 +258,12 @@ public extension URLRequest{
         return task
     }
     func dataTask( completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
-        return URLSession.shared.dataTask(with: self, completionHandler: completionHandler)
+        return URLSession.shared.dataTask(with: self) { (data, res, err) in
+            DispatchQueue.main.async {
+                completionHandler(data,res,err)
+            }
+        }
+//        return URLSession.shared.dataTask(with: self, completionHandler: completionHandler)
     }
     func converToPrinter() -> URLRequestPrinter {
         let reu = URLRequestPrinter()

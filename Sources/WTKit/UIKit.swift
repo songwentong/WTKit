@@ -351,6 +351,12 @@ public extension UIApplication{
             return tab.topViewController
         }
     }
+    static func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil){
+        topViewController?.present(viewControllerToPresent, animated: flag, completion: completion)
+    }
+    static func pushViewController(_ viewController: UIViewController, animated: Bool) {
+        topViewController?.navigationController?.pushViewController(viewController, animated: animated)
+    }
 }
 struct ImageLoadResult {
     let image:UIImage
