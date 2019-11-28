@@ -32,6 +32,7 @@ class MyClass {
 //    var @objc:Int = 1
 //    var default
 //    var fileprivate
+    //var unowned:Int = 1
     var Int:Int = 1
     var Double:Int = 1
     var Float:Int = 1
@@ -42,6 +43,11 @@ class MyClass {
 //    var case:Int = 1
     var print:Int = 1
     var unowned:Int = 1
+    var didSet:Int = 1
+    var precedence:Int = 1
+    var __var:Int = 1
+//    var typealias:Int = 1
+//    var switch
 //    var _:Int = 1
 //    var "init":Int = 1
 //    var operator:Int = 1
@@ -80,12 +86,12 @@ class MyClass {
  final    get    infix    inout
  lazy    left    mutating    none
  nonmutating    optional    override    postfix
- precedence    prefix    Protocol    required
+ precedence    prefix    protocol    required
  right    set    Type    unowned
  weak    willSet
  */
 public class WTModelMaker {
-    public var commonKeywords:[String] = ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init","_","fallthrough","internal"]//常用的关键字命名修改,如有需要可以添加
+    public var commonKeywords:[String] = ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init","_","fallthrough","internal","true","false","switch","dynamic","typealias"]//常用的关键字命名修改,如有需要可以添加
     public var keywordsVarPrefix = ""//关键字属性的前缀,如有需要可以添加
     public var keywordsVarSuffix = "_var"//关键字属性的后缀,默认添加的是_var
     public var needQuestionMark:Bool = false //是否需要添加问号,来处理字段不存在的情况,true+问号?,否则不用加
