@@ -9,6 +9,15 @@
 /*
   自动生成Codable的对象,可以处理字段和swift关键字重名的情况,能正确处理super,import,class这类字段
  可在属性添加前缀和后缀,自动解析嵌套类型,用JSONDecoder读取json数据可以直接生成一个已经赋值的类的实例.
+ 
+ 核心
+ 一,根据JSON生成对应数据结构的类(支持嵌套)
+ 二,关键字过滤重定义key,比如return
+ 三,支持程序输出和控制台输出 description
+ 四,测试功能
+ 
+ 
+ 
  */
 import Foundation
 public extension NSValue{
