@@ -430,7 +430,35 @@ func convertCodableTypeToParameters<T:Codable,B>(_ t:T) -> B? {
     }
     return nil
 }
-
+extension NSObject{
+    func readFromData(_ data:Data) {
+        do {
+            guard let dict:[String:Any] = try JSONSerialization.jsonObject(with: data) as? [String:Any] else{
+                return
+            }
+            var outCount:UInt32 = 0
+            guard let properties:UnsafeMutablePointer<objc_property_t> = class_copyPropertyList(object_getClass(self), &outCount) else{
+                return
+            }
+            for i in 0...outCount {
+                guard let property = property_getAttributes(properties[Int(i)]) else { return }
+                let propertyString = String.init(cString: property, encoding: .utf8)
+                let plist = propertyString?.components(separatedBy: ",")
+                guard let last = plist?.last else{
+                    return
+                }
+                guard let value = dict[last] else{
+                    return
+                }
+                self.setValue(value, forKey: last)
+            }
+        } catch {
+            
+        }
+        
+        return
+    }
+}
 public extension Calendar{
     
 }
