@@ -23,6 +23,13 @@ public extension UINibReusableCell{
 }
 
 public extension UITableView{
+    func dequeueReusableCellModel(withModel model:UITableViewCellModel, for indexPath: IndexPath) -> UITableViewCell {
+        let cell = dequeueReusableCell(withIdentifier: model.reuseIdentifier, for: indexPath)
+        if var c = cell as? UITableViewCellModelHolder{
+            c.model = model
+        }
+        return cell
+    }
     func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type) -> Void {
         register(cellType.nib(), forCellReuseIdentifier: cellType.reuseIdentifier)
     }
@@ -81,15 +88,7 @@ public protocol UITableViewCellModelHolder {
 public protocol UICollectionViewCellModelHolder {
     var model:UICollectionViewCellModel!{get set}
 }
-public extension UITableView{
-    func dequeueReusableCellModel(withModel model:UITableViewCellModel, for indexPath: IndexPath) -> UITableViewCell {
-        let cell = dequeueReusableCell(withIdentifier: model.reuseIdentifier, for: indexPath)
-        if var c = cell as? UITableViewCellModelHolder{
-            c.model = model
-        }
-        return cell
-    }
-}
+
 public extension UICollectionView{
     func dequeueReusableCellModel(withModel model:UICollectionViewCellModel, for indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dequeueReusableCell(withReuseIdentifier: model.reuseIdentifier, for: indexPath)

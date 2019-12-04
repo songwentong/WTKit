@@ -114,6 +114,12 @@ public extension DispatchQueue{
         let t:DispatchTime = DispatchTime.now() + Double(time) / Double(NSEC_PER_SEC)
         self.asyncAfter(deadline: t, execute: closure)
     }
+    /*
+     public func asyncAfter(deadline: DispatchTime, qos: DispatchQoS = .unspecified, flags: DispatchWorkItemFlags = [], execute work: @escaping @convention(block) () -> Void)
+     */
+    func asyncAfterAfter(_ delay: TimeInterval, execute work: @escaping @convention(block) () -> Void) {
+        asyncAfter(deadline: .now() + delay, execute: work)
+    }
 }
 enum URLSessionError:Error {
     case noURL
@@ -252,7 +258,7 @@ public extension URLRequest{
                     object(result)
                 }
             }catch{
-                
+//                print("\(error)")
             }
         }
         return task

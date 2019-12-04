@@ -241,7 +241,6 @@ public extension CGPoint{
         return c_c.squareRoot()
     }
 }
-public extension UILabel{}
 
 class GlobalImageLoadCache {
     var loadingURL:Set<String> = []
