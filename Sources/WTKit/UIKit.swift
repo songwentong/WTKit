@@ -78,6 +78,33 @@ public extension UIViewController{
         //    open func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil)
         UIApplication.topViewController?.present(self, animated: flag, completion: completion)
     }
+    @objc static func instanceFromStoryBoard() -> UIViewController {
+        guard let _ = Bundle.main.path(forResource: "\(self)", ofType: "storyboardc") else{
+            print("storyboradc file not found class:\(self)")
+            return self.init()
+        }
+        let sb = UIStoryboard.init(name: "\(self)", bundle: nil)
+        if let vc = sb.instantiateInitialViewController(){
+            return vc
+        }else{
+            return self.init()
+        }
+    }
+    @objc static func instanceFromNib() -> UIViewController{
+        guard let _ = Bundle.main.path(forResource: "\(self)", ofType: "nib") else{
+            print("nib file not found class:\(self)")
+            return self.init()
+        }
+        let nib = UINib.init(nibName: "\(self)", bundle: nil)
+        guard let objects:[UIViewController] = nib.instantiate(withOwner: nil, options: nil) as? [UIViewController] else{
+            return UIViewController()
+        }
+        if let first = objects.first{
+            return first
+        }
+        return self.init()
+    }
+    
 }
 public extension UITextField{
     var safeText:String{
@@ -87,17 +114,6 @@ public extension UITextField{
     }
 }
 public extension UITextView{
-}
-public extension UIViewController{
-    @objc func setBackArrowButton(image:UIImage?) -> Void {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: image, style: .plain, target: self, action: #selector(recieveBackButtonPressed))
-    }
-    @objc func setBackArrowButton() -> Void {
-        setBackArrowButton(image: UIImage.init(named: "arrrwImage"))
-    }
-    @objc func recieveBackButtonPressed() -> Void {
-        self.navigationController?.popViewController(animated: true)
-    }
 }
 public extension UILabel{
     @IBInspectable var adjustFont:Bool{
@@ -181,34 +197,7 @@ public extension UIView{
         self.layer.mask = sl
     }
 }
-public extension UIViewController{
-    @objc static func instanceFromStoryBoard() -> UIViewController {
-        guard let _ = Bundle.main.path(forResource: "\(self)", ofType: "storyboardc") else{
-            print("storyboradc file not found class:\(self)")
-            return self.init()
-        }
-        let sb = UIStoryboard.init(name: "\(self)", bundle: nil)
-        if let vc = sb.instantiateInitialViewController(){
-            return vc
-        }else{
-            return self.init()
-        }
-    }
-    @objc static func instanceFromNib() -> UIViewController{
-        guard let _ = Bundle.main.path(forResource: "\(self)", ofType: "nib") else{
-            print("nib file not found class:\(self)")
-            return self.init()
-        }
-        let nib = UINib.init(nibName: "\(self)", bundle: nil)
-        guard let objects:[UIViewController] = nib.instantiate(withOwner: nil, options: nil) as? [UIViewController] else{
-            return UIViewController()
-        }
-        if let first = objects.first{
-            return first
-        }
-        return self.init()
-    }
-}
+
 public extension CALayer{
     func snapShot() -> UIImage {
         if #available(iOS 10.0, *) {
