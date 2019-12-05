@@ -365,6 +365,12 @@ public extension Bundle{
         return Bundle.main
     }
 }
+public extension FileManager{
+    func cachePath() {
+//        NSHomeDirectory()
+//        Data().write
+    }
+}
 public extension String{
 //    func numberObject() -> NSNumber {
 //
