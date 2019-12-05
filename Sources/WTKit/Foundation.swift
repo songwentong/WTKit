@@ -347,6 +347,11 @@ public extension DateFormatter{
         f.dateFormat = "yyyy-MM-dd"
         return f
     }()
+    static func string(from date:Date, dateFormat:String) -> String {
+        let df = DateFormatter()
+        df.dateFormat = dateFormat
+        return df.string(from: date)
+    }
 }
 public extension Bundle{
     func appName() -> String {
