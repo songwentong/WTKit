@@ -98,8 +98,6 @@ public extension UIViewController{
     @objc func recieveBackButtonPressed() -> Void {
         self.navigationController?.popViewController(animated: true)
     }
-    
-    
 }
 public extension UILabel{
     @IBInspectable var adjustFont:Bool{
@@ -335,20 +333,28 @@ public extension UITabBarController{
         if let navi = selectedViewController as? UINavigationController{
             return navi.topViewController
         }
-        return nil
+        return selectedViewController
     }
 }
 public extension UIApplication{
-    static var topViewController:UIViewController?{
-        get{
-            guard let first = UIApplication.shared.windows.first else{
-                return nil
-            }
-            guard let tab = first.rootViewController as? UITabBarController else{
-                return nil
-            }
-            return tab.topViewController
+    static var rootViewController:UIViewController?{
+        guard let first = UIApplication.shared.windows.first else{
+            return nil
         }
+        guard let root = first.rootViewController else{
+            return nil
+        }
+        return root
+    }
+    static var topViewController:UIViewController?{
+        let root = rootViewController
+        if let tabVC = root as? UITabBarController{
+            return tabVC.topViewController
+        }
+        if let navi = root as? UINavigationController{
+            return navi.topViewController
+        }
+        return root
     }
     static func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil){
         topViewController?.present(viewControllerToPresent, animated: flag, completion: completion)
