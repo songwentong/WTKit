@@ -479,3 +479,17 @@ extension NSObject{
 public extension Calendar{
     
 }
+public extension NSAttributedString{
+    
+}
+public extension NSMutableAttributedString{
+    func applyAttributes(_ name: NSAttributedString.Key, value: Any) {
+        let range = NSRange.init(location: 0, length: self.length)
+        self.addAttribute(name, value: value, range: range)
+    }
+    func applyAttributes(_ attrs:[NSAttributedString.Key : Any] ) {
+        for (k,v) in attrs{
+            applyAttributes(k, value: v)
+        }
+    }
+}
