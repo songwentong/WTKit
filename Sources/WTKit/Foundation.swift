@@ -480,7 +480,7 @@ public extension Calendar{
     
 }
 public extension NSAttributedString{
-    func addtibutedString(with attrs:[NSAttributedString.Key : Any]) -> NSMutableAttributedString {
+    func attributedString(with attrs:[NSAttributedString.Key : Any]) -> NSMutableAttributedString {
         let result = NSMutableAttributedString.init(attributedString: self)
         result.applyAttributes(attrs)
         return result
