@@ -178,7 +178,8 @@ public class WTModelMaker {
             
         }
         if let printObject = jsonObject as? [String:AnyObject] {
-            for (key,value) in printObject{//object k-v
+            for (key,value) in printObject{
+                //object k-v
                 let nameReplacedKey = nameReplace(with: key)
                 propertyNames.append(nameReplacedKey)
                 stringToPrint += crlf
@@ -202,17 +203,14 @@ public class WTModelMaker {
                     switch type{
                         case "c":
                             string = "Bool"
-                            
                             break
                         case "q":
                             string = "Int"
                             defaultValue = " = -1"
-                            
                             break
                         case "d":
                             string = "Double"
                             defaultValue = " = -1"
-                            
                             break
                         default:
                             string = "Int"
@@ -245,7 +243,7 @@ public class WTModelMaker {
                         stringToPrint += "[\(subClassName)] = [\(subClassName)]()"
                     }
                     
-                }else if value is NSDictionary{
+                }else if value is Dictionary<AnyHashable, Any>{
                     let tempData = try! JSONSerialization.data(withJSONObject: value, options: [])
                     let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
                     let subClassName = nameReplacedKey + "_class"
@@ -254,14 +252,6 @@ public class WTModelMaker {
                     if !useStruct{
                         stringToPrint += " = \(subClassName)()"
                     }
-                    /*
-                     if value is [String:Int]{
-                     stringToPrint += "[String: Int]"
-                     }else if value is [String:String]{
-                     stringToPrint += "[String: String]"
-                     }else{
-                     
-                     }*/
                 }
                 //                    codingKeys += crlf
                 codingKeys += indent
