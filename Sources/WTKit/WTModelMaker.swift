@@ -133,7 +133,7 @@ public class WTModelMaker {
         return origin
     }
     
-    func QuestionMarkIfNeeded() -> String {
+    func optionalMarkIfNeeded() -> String {
         if needOptionalMark{
             return "?"
         }
@@ -259,7 +259,7 @@ public class WTModelMaker {
                 
                 codingKeys += "case \(nameReplacedKey) = \"\(key)\""
                 codingKeys += crlf
-                stringToPrint += QuestionMarkIfNeeded()
+                stringToPrint += optionalMarkIfNeeded()
 //                stringToPrint += crlf
                 
             }
