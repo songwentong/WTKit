@@ -195,7 +195,7 @@ public class WTModelMaker {
                         if !useStruct{
                             stringToPrint += " = \"\""
                         }
-                    }else if string == "NSNumber"{
+                    }else if value is NSNumber{
                         //char, short int, int, long int, long long int, float, or double or as a BOOL
                         // “c”, “C”, “s”, “S”, “i”, “I”, “l”, “L”, “q”, “Q”, “f”, and “d”.
                         //1->q    true->c     1.0->d   6766882->q   6766882.1->d   0->q   false->c
@@ -228,7 +228,7 @@ public class WTModelMaker {
                             stringToPrint += defaultValue
                         }
                         
-                    } else if string == "NSArray"{
+                    } else if value is Array<Any>{
                         if value is [Int]{
                             //print("int array")
                             stringToPrint += "[Int] = [Int]()"
@@ -249,7 +249,7 @@ public class WTModelMaker {
                             stringToPrint += "[\(subClassName)] = [\(subClassName)]()"
                         }
                         
-                    }else if string == "NSDictionary"{
+                    }else if value is NSDictionary{
                         let tempData = try! JSONSerialization.data(withJSONObject: value, options: [])
                         let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
                         let subClassName = nameReplacedKey + "_class"
