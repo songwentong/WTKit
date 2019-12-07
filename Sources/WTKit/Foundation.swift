@@ -422,6 +422,9 @@ public extension String{
     static func halfWidthPunctuation()->String{
         return "\"\",.:¥"
     }
+    static func systemKeyWords()->[String]{
+        return ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init","_","fallthrough","internal","true","false","switch","dynamic","typealias"]
+    }
 }
 public extension JSONDecoder{
     //open func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable
