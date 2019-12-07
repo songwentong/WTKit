@@ -183,27 +183,23 @@ public class WTModelMaker {
                 propertyNames.append(nameReplacedKey)
                 stringToPrint += crlf
                 stringToPrint += indent
-//                if value is String {
-//                    dprint("is String")
-//                }
-                if let classForCoder = value.classForCoder {
-                    var string = NSStringFromClass(classForCoder)
-                    stringToPrint += "var \(nameReplacedKey):"
-                    if value is String {
-                        string = "String"
-                        stringToPrint += "\(string)"
-                        if !useStruct{
-                            stringToPrint += " = \"\""
-                        }
-                    }else if value is NSNumber{
-                        //char, short int, int, long int, long long int, float, or double or as a BOOL
-                        // “c”, “C”, “s”, “S”, “i”, “I”, “l”, “L”, “q”, “Q”, “f”, and “d”.
-                        //1->q    true->c     1.0->d   6766882->q   6766882.1->d   0->q   false->c
-                        let number:NSNumber = value as! NSNumber
-                        let objCType = number.objCType
-                        let type = String.init(cString: objCType)
-                        var defaultValue = " = false"
-                        switch type{
+                var string = ""
+                stringToPrint += "var \(nameReplacedKey):"
+                if value is String {
+                    string = "String"
+                    stringToPrint += "String"
+                    if !useStruct{
+                        stringToPrint += " = \"\""
+                    }
+                }else if value is NSNumber{
+                    //char, short int, int, long int, long long int, float, or double or as a BOOL
+                    // “c”, “C”, “s”, “S”, “i”, “I”, “l”, “L”, “q”, “Q”, “f”, and “d”.
+                    //1->q    true->c     1.0->d   6766882->q   6766882.1->d   0->q   false->c
+                    let number:NSNumber = value as! NSNumber
+                    let objCType = number.objCType
+                    let type = String.init(cString: objCType)
+                    var defaultValue = " = false"
+                    switch type{
                         case "c":
                             string = "Bool"
                             
@@ -222,59 +218,57 @@ public class WTModelMaker {
                             string = "Int"
                             defaultValue = " = -1"
                             break
-                        }
-                        stringToPrint += "\(string)"
-                        if !useStruct{
-                            stringToPrint += defaultValue
-                        }
-                        
-                    } else if value is Array<Any>{
-                        if value is [Int]{
-                            //print("int array")
-                            stringToPrint += "[Int] = [Int]()"
-                        }else if value is [String]{
-                            //print("string array")
-                            stringToPrint += "[String] = [String]()"
-                        }else{
-                            guard let list = value as? [Any] else{
-                                return ""
-                            }
-                            guard let first = list.first else{
-                                return ""
-                            }
-                            let data = try! JSONSerialization.data(withJSONObject: first, options: [])
-                            let valueString = data.utf8String()
-                            let subClassName = className + "_" +  nameReplacedKey
-                            subClassString += self.WTSwiftModelString(with: subClassName, jsonString: valueString, usingHeader: false, isRootClass:false)
-                            stringToPrint += "[\(subClassName)] = [\(subClassName)]()"
-                        }
-                        
-                    }else if value is NSDictionary{
-                        let tempData = try! JSONSerialization.data(withJSONObject: value, options: [])
-                        let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
-                        let subClassName = nameReplacedKey + "_class"
-                        subModelDict[subClassName] = tempString
-                        stringToPrint += "\(subClassName)"
-                        if !useStruct{
-                            stringToPrint += " = \(subClassName)()"
-                        }
-                        /*
-                        if value is [String:Int]{
-                            stringToPrint += "[String: Int]"
-                        }else if value is [String:String]{
-                            stringToPrint += "[String: String]"
-                        }else{
-                            
-                        }*/
                     }
-//                    codingKeys += crlf
-                    codingKeys += indent
-                    codingKeys += indent
+                    stringToPrint += "\(string)"
+                    if !useStruct{
+                        stringToPrint += defaultValue
+                    }
                     
-                    codingKeys += "case \(nameReplacedKey) = \"\(key)\""
-                    codingKeys += crlf
+                } else if value is Array<Any>{
+                    if value is [Int]{
+                        //print("int array")
+                        stringToPrint += "[Int] = [Int]()"
+                    }else if value is [String]{
+                        //print("string array")
+                        stringToPrint += "[String] = [String]()"
+                    }else{
+                        guard let list = value as? [Any] else{
+                            return ""
+                        }
+                        guard let first = list.first else{
+                            return ""
+                        }
+                        let data = try! JSONSerialization.data(withJSONObject: first, options: [])
+                        let valueString = data.utf8String()
+                        let subClassName = className + "_" +  nameReplacedKey
+                        subClassString += self.WTSwiftModelString(with: subClassName, jsonString: valueString, usingHeader: false, isRootClass:false)
+                        stringToPrint += "[\(subClassName)] = [\(subClassName)]()"
+                    }
                     
+                }else if value is NSDictionary{
+                    let tempData = try! JSONSerialization.data(withJSONObject: value, options: [])
+                    let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
+                    let subClassName = nameReplacedKey + "_class"
+                    subModelDict[subClassName] = tempString
+                    stringToPrint += "\(subClassName)"
+                    if !useStruct{
+                        stringToPrint += " = \(subClassName)()"
+                    }
+                    /*
+                     if value is [String:Int]{
+                     stringToPrint += "[String: Int]"
+                     }else if value is [String:String]{
+                     stringToPrint += "[String: String]"
+                     }else{
+                     
+                     }*/
                 }
+                //                    codingKeys += crlf
+                codingKeys += indent
+                codingKeys += indent
+                
+                codingKeys += "case \(nameReplacedKey) = \"\(key)\""
+                codingKeys += crlf
                 stringToPrint += QuestionMarkIfNeeded()
 //                stringToPrint += crlf
                 
