@@ -183,12 +183,13 @@ public class WTModelMaker {
                 propertyNames.append(nameReplacedKey)
                 stringToPrint += crlf
                 stringToPrint += indent
-                
+//                if value is String {
+//                    dprint("is String")
+//                }
                 if let classForCoder = value.classForCoder {
-                    
                     var string = NSStringFromClass(classForCoder)
                     stringToPrint += "var \(nameReplacedKey):"
-                    if string == "NSString" {
+                    if value is String {
                         string = "String"
                         stringToPrint += "\(string)"
                         if !useStruct{
