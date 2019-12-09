@@ -20,6 +20,24 @@ public func cprint<T>(_ items: T,  separator: String = " ", terminator: String =
 }
 
 public extension Data{
+    func writeToFile( path:String)  {
+        let url = URL.init(fileURLWithPath: path)
+        do {
+            try write(to: url)
+        } catch {
+            
+        }
+    }
+    static func readDataFromPath( path:String)->Data?{
+        let url = URL.init(fileURLWithPath: path)
+        do {
+            return try Data.init(contentsOf: url)
+        } catch {
+            return nil
+        }
+    }
+    
+
     static func data(forResource name:String, ofType ext: String?) -> Data? {
         guard let url = Bundle.main.url(forResource: name, withExtension: ext) else{
             return nil
@@ -344,7 +362,14 @@ public extension URLRequest{
         }
     }
 }
-
+public extension URLResponse{
+    
+}
+public extension HTTPURLResponse{
+    var isValidStatusCode:Bool{
+        return (200..<400).contains(statusCode)
+    }
+}
 public extension URLSessionTask{
     func converToPrinter() -> URLRequestPrinter {
         guard let req = self.originalRequest else{
@@ -394,8 +419,15 @@ public extension Bundle{
         return Bundle.main
     }
 }
+public func NSLibraryDirectory() -> String{
+    return NSHomeDirectory() + "/Library"
+}
+public func NSLibraryCachesDirectory() -> String{
+    return NSLibraryDirectory() + "/Caches"
+}
 public extension FileManager{
     func cachePath() {
+//        NSHomeDirectory()
 //        NSHomeDirectory()
 //        Data().write
     }
@@ -509,7 +541,9 @@ extension NSObject{
     }
 }
 public extension Calendar{
-    
+    func numberOfDaysInMonth(for date: Date) -> Int {
+        return range(of: .day, in: .month, for: date)!.count
+    }
 }
 public extension NSAttributedString{
     func attributedString(with attrs:[NSAttributedString.Key : Any]) -> NSMutableAttributedString {

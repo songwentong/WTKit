@@ -221,6 +221,9 @@ public extension CGColor{
     }
 }
 public extension CGPoint{
+    func distance(from point: CGPoint) -> CGFloat {
+        return CGPoint.distance(from: self, p2: point)
+    }
     static func distance(from p1:CGPoint, p2:CGPoint) -> CGFloat {
         let a = p1.x - p2.x
         let b = p1.y - p2.y
@@ -542,12 +545,7 @@ public extension UIApplication{
         shared.windows.first?.hideLoadingView()
     }
 }
-public func NSLibraryDirectory() -> String{
-    return NSHomeDirectory() + "/Library"
-}
-public func NSLibraryCachesDirectory() -> String{
-    return NSHomeDirectory() + "/Library" + "/Caches"
-}
+
 
 /*
  example
@@ -690,5 +688,27 @@ open class WebImageButton:UIButton{
         backgroundImageImageTask?.resume()
     }
 }
-
+public extension UIScrollView {
+    
+    /// SwifterSwift: Takes a snapshot of an entire ScrollView
+    ///
+    ///    AnySubclassOfUIScroolView().snapshot
+    ///    UITableView().snapshot
+    ///
+    /// - Returns: Snapshot as UIimage for rendered ScrollView
+    var snapshot: UIImage? {
+        // Original Source: https://gist.github.com/thestoics/1204051
+        UIGraphicsBeginImageContextWithOptions(contentSize, false, 0)
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        let previousFrame = frame
+        frame = CGRect(origin: frame.origin, size: contentSize)
+        layer.render(in: context)
+        frame = previousFrame
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
+}
 #endif
