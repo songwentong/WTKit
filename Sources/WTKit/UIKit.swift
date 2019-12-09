@@ -712,4 +712,11 @@ public extension UIScrollView {
     }
     
 }
+
+public extension UITableViewCell{
+    
+}
+public extension UICollectionViewCell{
+    
+}
 #endif
