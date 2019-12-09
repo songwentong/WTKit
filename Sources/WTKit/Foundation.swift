@@ -244,26 +244,51 @@ public extension URL{
         return URLRequest.init(url: self)
     }
 }
-public extension URLRequest{
-    func uploadTask(from data:Data?,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionUploadTask {
-        return URLSession.shared.uploadTask(with: self, from: data, completionHandler: completionHandler)
+/*
+ POST /upload
+ Host: example.com
+ Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryqzByvokjOTfF9UwD
+ Content-Length: 332
+ ------WebKitFormBoundaryqzByvokjOTfF9UwD
+ Content-Disposition: form-data; name="upfile"; filename="example.txt"
+ Content-Type: text/plain
+ File contents go here.
+ ------WebKitFormBoundarysKk4Z8KcYfU3u6Cs
+ Content-Disposition: form-data; name="note"
+ Uploading a file named "example.txt"
+ ------WebKitFormBoundaryqzByvokjOTfF9UwD--
+ */
+open class MultipartBody{
+    var boundry:String = "--qweasdzxc"
+    var contentLength:Int = 0
+    var parts:[MultipartBodyObject] = []
+    func buildBody() -> Data {
+        let result = Data()
+        
+        return result
     }
+}
+open class MultipartBodyObject{
+    var name:String = ""
+    var filename:String?
+    var contentType:String?
+    var data:Data = Data()
+}
+public extension URLRequest{
     func dataTaskWith<T:Codable>(codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         let task = self.dataTask { (data, response, err) in
-            DispatchQueue.main.async {
-                completionHandler(data,response,err)
-            }
-            guard let data = data else{
-                return
-            }
-            do{
-                let result = try JSONDecoder().decode(T.self, from: data)//类型转换
-                DispatchQueue.main.async {
-                    object(result)
+            var errorToReturn = err
+            if let myData = data{
+                do{
+                    let result = try JSONDecoder().decode(T.self, from: myData)//类型转换
+                    DispatchQueue.main.async {
+                        object(result)
+                    }
+                }catch{
+                    errorToReturn = error
                 }
-            }catch{
-//                print("\(error)")
             }
+            completionHandler(data,response,errorToReturn)
         }
         return task
     }
