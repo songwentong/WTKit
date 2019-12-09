@@ -29,7 +29,7 @@ public extension UIColor{
         UIGraphicsEndImageContext()
         return image
     }
-    class func colorWithHexString(_ string:String, alpha:CGFloat? = 1.0, defaultColor:UIColor = .red) -> UIColor{
+    class func colorWithHexString(_ string:String, alpha:CGFloat = 1.0, defaultColor:UIColor = .red) -> UIColor{
         //        let s = NSScanner(string: string)
         let mutableCharSet = NSMutableCharacterSet()
         mutableCharSet.addCharacters(in: "#")
@@ -63,7 +63,7 @@ public extension UIColor{
                 let green = CGFloat(gInt)/255.0
                 let blue = CGFloat(bInt)/255.0
                 //            WTLog("\(red) \(green) \(blue)")
-                let color = UIColor(red: red, green: green, blue: blue,alpha: alpha!)
+                let color = UIColor(red: red, green: green, blue: blue,alpha: alpha)
                 return color;
             default:
                 return UIColor.red;
