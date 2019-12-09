@@ -582,8 +582,10 @@ open class AlignLeftFlowLayout: UICollectionViewFlowLayout {
 }
 open class WebImageView:UIImageView{
     open var webImageTask:URLSessionDataTask? = nil
+    //highlightedImage
+    open var highlightedImageTask:URLSessionDataTask? = nil
     open func loadWebImage(with path:String) {
-        canelLoading()
+        webImageTask?.cancel()
         guard let url = URL.init(string: path) else{
             return
         }
@@ -609,15 +611,39 @@ open class WebImageView:UIImageView{
         }
         webImageTask?.resume()
     }
-    open func canelLoading() {
-        webImageTask?.cancel()
+    open func loadhighlightedImage(with path:String) {
+        highlightedImageTask?.cancel()
+        guard let url = URL.init(string: path) else{
+            return
+        }
+        let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
+        let size = self.frame.size
+        highlightedImageTask = URLSession.shared.dataTask(with: request) { [weak self](data, res, err) in
+            guard let data = data else{
+                return
+            }
+            guard let img = UIImage.init(data: data) else{
+                return
+            }
+            //            let date1 = Date.init()
+            img.decodedImage(size) { (image) in
+                //                let date2 = Date.init()
+                //                let distance = date2.timeIntervalSince1970 - date1.timeIntervalSince1970
+                //                print("distance:\(distance)")
+                DispatchQueue.safeSyncInMain(execute:  {
+                    self?.image = image
+                    self?.layoutIfNeeded()
+                })
+            }
+        }
+        highlightedImageTask?.resume()
     }
 }
 open class WebImageButton:UIButton{
     open var webImageTask:URLSessionDataTask? = nil
     open var backgroundImageImageTask:URLSessionDataTask? = nil
     open func loadWebImage(with path:String,for state:UIControl.State) {
-        canelLoading()
+        webImageTask?.cancel()
         guard let url = URL.init(string: path) else{
             return
         }
@@ -662,10 +688,6 @@ open class WebImageButton:UIButton{
             }
         }
         backgroundImageImageTask?.resume()
-    }
-    
-    open func canelLoading() {
-        webImageTask?.cancel()
     }
 }
 
