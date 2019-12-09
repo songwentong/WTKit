@@ -401,6 +401,11 @@ public extension UIImage{
         return loadImage(with: url, complection: complection)
     }
     static let ImageLoadFinishNotification:Notification.Name = Notification.Name.init("wtkit.uiimage.loadimagefinish")
+    static func prefetchImage(with url:String){
+        loadImage(with: url) { (image, res) in
+            
+        }
+    }
     @discardableResult
     static func loadImage(with url: URL, complection:@escaping (UIImage?,URLResponse?)->Void) -> URLSessionDataTask? {
         let list = GlobalImageLoadCache.shared.loadingURL
@@ -432,7 +437,6 @@ public extension UIImage{
             NotificationCenter.default.post(name: UIImage.ImageLoadFinishNotification, object: result, userInfo: nil)
         }
     }
-    
     func getPixelColor(pos: CGPoint) -> UIColor {
 
         let pixelData = self.cgImage!.dataProvider!.data
@@ -611,6 +615,7 @@ open class WebImageView:UIImageView{
 }
 open class WebImageButton:UIButton{
     open var webImageTask:URLSessionDataTask? = nil
+    open var backgroundImageImageTask:URLSessionDataTask? = nil
     open func loadWebImage(with path:String,for state:UIControl.State) {
         canelLoading()
         guard let url = URL.init(string: path) else{
@@ -635,6 +640,30 @@ open class WebImageButton:UIButton{
         
         webImageTask?.resume()
     }
+    open func loadBackgroundImageImage(with path:String,for state:UIControl.State){
+        backgroundImageImageTask?.cancel()
+        guard let url = URL.init(string: path) else{
+            return
+        }
+        let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
+        let size = self.frame.size
+        backgroundImageImageTask = URLSession.shared.dataTask(with: request) { [weak self](data, res, err) in
+            guard let data = data else{
+                return
+            }
+            guard let img = UIImage.init(data: data) else{
+                return
+            }
+            img.decodedImage(size) { (image) in
+                DispatchQueue.safeSyncInMain(execute:  {
+                    self?.setImage(image, for: state)
+                    self?.layoutIfNeeded()
+                })
+            }
+        }
+        backgroundImageImageTask?.resume()
+    }
+    
     open func canelLoading() {
         webImageTask?.cancel()
     }
