@@ -71,38 +71,40 @@ public extension UIColor{
     }
 }
 public extension UIViewController{
-    func requestPushToTopVC() {
-        UIApplication.topViewController?.navigationController?.pushViewController(self, animated: true)
+    func requestPushToTopVC() { UIApplication.topViewController?.navigationController?.pushViewController(self, animated: true)
     }
     func requestTopVCPresent( animated flag: Bool, completion: (() -> Void)? = nil) {
         //    open func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil)
         UIApplication.topViewController?.present(self, animated: flag, completion: completion)
     }
-    @objc static func instanceFromStoryBoard() -> UIViewController {
+    static func instanceFromStoryBoard<T:UIViewController>() -> T {
         guard let _ = Bundle.main.path(forResource: "\(self)", ofType: "storyboardc") else{
             print("storyboradc file not found class:\(self)")
-            return self.init()
+            return T.init()
         }
         let sb = UIStoryboard.init(name: "\(self)", bundle: nil)
-        if let vc = sb.instantiateInitialViewController(){
+        if let vc = sb.instantiateInitialViewController() as? T{
             return vc
         }else{
-            return self.init()
+            return T.init()
         }
     }
-    @objc static func instanceFromNib() -> UIViewController{
+    static func instanceFromNib<T:UIViewController>() -> T{
         guard let _ = Bundle.main.path(forResource: "\(self)", ofType: "nib") else{
             print("nib file not found class:\(self)")
-            return self.init()
+            return T.init()
         }
         let nib = UINib.init(nibName: "\(self)", bundle: nil)
-        guard let objects:[UIViewController] = nib.instantiate(withOwner: nil, options: nil) as? [UIViewController] else{
-            return UIViewController()
+        let list = nib.instantiate(withOwner: nil, options: nil).filter { (obj) -> Bool in
+            if obj is T{
+                return true
+            }
+            return false
         }
-        if let first = objects.first{
+        if let first = list.first as? T{
             return first
         }
-        return self.init()
+        return T.init()
     }
     
 }
