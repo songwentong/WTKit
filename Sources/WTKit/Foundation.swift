@@ -34,6 +34,7 @@ public extension Data{
     func utf8String() -> String {
         return String.init(data: self, encoding: .utf8) ?? "not utf8 string"
     }
+    
 }
 public func debugBlock(_ block:()->Void) -> Void {
     #if DEBUG
@@ -244,6 +245,9 @@ public extension URL{
     }
 }
 public extension URLRequest{
+    func uploadTask(from data:Data?,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionUploadTask {
+        return URLSession.shared.uploadTask(with: self, from: data, completionHandler: completionHandler)
+    }
     func dataTaskWith<T:Codable>(codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         let task = self.dataTask { (data, response, err) in
             DispatchQueue.main.async {
