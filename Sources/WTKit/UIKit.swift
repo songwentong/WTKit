@@ -29,7 +29,7 @@ public extension UIColor{
         UIGraphicsEndImageContext()
         return image
     }
-    class func colorWithHexString(_ string:String,alpha:CGFloat? = 1.0) -> UIColor{
+    class func colorWithHexString(_ string:String, alpha:CGFloat? = 1.0, defaultColor:UIColor = .red) -> UIColor{
         //        let s = NSScanner(string: string)
         let mutableCharSet = NSMutableCharacterSet()
         mutableCharSet.addCharacters(in: "#")
@@ -41,7 +41,7 @@ public extension UIColor{
         
         switch hString.count {
             case 0:
-                return UIColor.red;
+                return defaultColor;
             case 1:
                 return UIColor.colorWithHexString(hString+hString);
             case 2:
