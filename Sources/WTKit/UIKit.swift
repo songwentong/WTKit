@@ -95,18 +95,13 @@ public extension UIViewController{
             return T.init()
         }
         let nib = UINib.init(nibName: "\(self)", bundle: nil)
-        let list = nib.instantiate(withOwner: nil, options: nil).filter { (obj) -> Bool in
-            if obj is T{
-                return true
+        for ele in nib.instantiate(withOwner: nil, options: nil){
+            if let obj = ele as? T{
+                return obj
             }
-            return false
-        }
-        if let first = list.first as? T{
-            return first
         }
         return T.init()
     }
-    
 }
 public extension UITextField{
     var safeText:String{
@@ -159,31 +154,35 @@ public extension UIView{
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         addSubview(view)
     }
-    func instanceFromXibWithOwner() -> UIView{
+    func instanceFromXibWithOwner<T:UIView>() -> T{
         let res = "\(self.classForCoder)"
         let bundle = Bundle.init(for: type(of: self))
         guard let path = Bundle.main.path(forResource: res, ofType: "nib") else{
             print("nib file not found")
-            return UIView.init()
+            return T.init()
         }
         print("load file :\(path)")
         let nib = UINib.init(nibName: res, bundle: bundle)
-        if let first = nib.instantiate(withOwner: self, options: nil).first as? UIView{
-            return first
+        for ele in nib.instantiate(withOwner: self, options: nil){
+            if let obj = ele as? T{
+                return obj
+            }
         }
-        return UIView.init()
+        return T.init()
     }
-    static func instanceFromXib() -> UIView{
+    static func instanceFromXib<T:UIView>() -> T{
         let res = "\(self)"
         guard let _ = Bundle.main.path(forResource: res, ofType: "nib") else{
             print("nib file not found")
-            return self.init()
+            return T.init()
         }
         let nib = UINib.init(nibName: "\(self)", bundle: nil)
-        if let first = nib.instantiate(withOwner: nil, options: nil).first as? UIView{
-            return first
+        for ele in nib.instantiate(withOwner: nil, options: nil){
+            if let obj = ele as? T{
+                return obj
+            }
         }
-        return self.init()
+        return T.init()
     }
     func snapShotImage() -> UIImage {
         return layer.snapShot()
