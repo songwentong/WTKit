@@ -146,6 +146,23 @@ public extension DispatchQueue{
     }
 }
 public extension URLSession{
+    func dataTaskWith<T:Codable>( request:URLRequest, codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
+        let task = self.dataTask(with: request) {  (data, response, err) in
+            var errorToReturn = err
+            if let myData = data{
+                do{
+                    let result = try JSONDecoder().decode(T.self, from: myData)//类型转换
+                    DispatchQueue.main.async {
+                        object(result)
+                    }
+                }catch{
+                    errorToReturn = error
+                }
+            }
+            completionHandler(data,response,errorToReturn)
+        }
+        return task
+    }
     
     @discardableResult
     static func useCacheElseLoadURLData(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
@@ -251,21 +268,7 @@ open class MultipartBodyObject{
 }
 public extension URLRequest{
     func dataTaskWith<T:Codable>(codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
-        let task = self.dataTask { (data, response, err) in
-            var errorToReturn = err
-            if let myData = data{
-                do{
-                    let result = try JSONDecoder().decode(T.self, from: myData)//类型转换
-                    DispatchQueue.main.async {
-                        object(result)
-                    }
-                }catch{
-                    errorToReturn = error
-                }
-            }
-            completionHandler(data,response,errorToReturn)
-        }
-        return task
+        return URLSession.shared.dataTaskWith(request: self, codable: object, completionHandler: completionHandler)
     }
     func dataTask( completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         return URLSession.shared.dataTask(with: self) { (data, res, err) in
