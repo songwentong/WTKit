@@ -153,47 +153,6 @@ enum URLSessionError:Error {
     case ok
 }
 public extension URLSession{
-    @discardableResult
-    func dataTask<T:Codable>(withPath urlPath:String,complectionHandler: @escaping (T?,Error?) -> Void) -> URLSessionDataTask?{
-        guard let url = URL.init(string: urlPath) else {
-            DispatchQueue.main.async {
-                complectionHandler(nil,URLSessionError.noURL)
-            }
-            return nil
-        }
-        return dataTask(with: url, completionHandler: complectionHandler)
-    }
-    @discardableResult
-    func dataTask<T:Codable>(with url: URL, completionHandler: @escaping (T?,Error?) -> Void ) -> URLSessionDataTask{
-        return dataTask(with: URLRequest.init(url: url), completionHandler: completionHandler)
-    }
-    @discardableResult
-    func dataTask<T:Codable>(with request: URLRequest, completionHandler: @escaping (T?,Error?) -> Void) -> URLSessionDataTask{
-        let task = dataTask(with: request) { (data, urlres, err) in
-            if err != nil{
-                completionHandler(nil,err)
-            }
-            guard let data = data else{
-                DispatchQueue.main.async {
-                    completionHandler(nil,URLSessionError.nodata)
-                }
-                return
-            }
-            do{
-                let obj = try JSONDecoder().decode(T.self, from: data)
-                DispatchQueue.main.async {
-                    completionHandler(obj,.none)
-                }
-                
-            }catch{
-                DispatchQueue.main.async {
-                    completionHandler(nil,error)
-                }
-            }
-        }
-        task.resume()
-        return task
-    }
     
     @discardableResult
     static func useCacheElseLoadURLData(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
@@ -321,7 +280,6 @@ public extension URLRequest{
                 completionHandler(data,res,err)
             }
         }
-//        return URLSession.shared.dataTask(with: self, completionHandler: completionHandler)
     }
     func converToPrinter() -> URLRequestPrinter {
         let reu = URLRequestPrinter()
