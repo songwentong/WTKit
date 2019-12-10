@@ -642,12 +642,8 @@ open class WebImageButton:UIButton{
     open var backgroundImageImageTask:URLSessionDataTask? = nil
     open func loadWebImage(with path:String,for state:UIControl.State) {
         webImageTask?.cancel()
-        guard let url = URL.init(string: path) else{
-            return
-        }
-        let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
-        let size = self.frame.size
-        webImageTask = URLSession.shared.dataTask(with: request) { [weak self](data, res, err) in
+        let size = self.bounds.size
+        webImageTask = URLSession.useCacheElseLoadURLData(with: path.urlValue(), completionHandler: { [weak self](data, res, err) in
             guard let data = data else{
                 return
             }
@@ -660,18 +656,14 @@ open class WebImageButton:UIButton{
                     self?.layoutIfNeeded()
                 })
             }
-        }
+        })
         
         webImageTask?.resume()
     }
     open func loadBackgroundImageImage(with path:String,for state:UIControl.State){
         backgroundImageImageTask?.cancel()
-        guard let url = URL.init(string: path) else{
-            return
-        }
-        let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
         let size = self.frame.size
-        backgroundImageImageTask = URLSession.shared.dataTask(with: request) { [weak self](data, res, err) in
+        backgroundImageImageTask = URLSession.useCacheElseLoadURLData(with: path.urlValue(), completionHandler: {  [weak self](data, res, err) in
             guard let data = data else{
                 return
             }
@@ -684,7 +676,7 @@ open class WebImageButton:UIButton{
                     self?.layoutIfNeeded()
                 })
             }
-        }
+        })
         backgroundImageImageTask?.resume()
     }
 }
