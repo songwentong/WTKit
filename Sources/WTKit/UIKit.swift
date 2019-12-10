@@ -16,6 +16,14 @@ public extension UIScreen{
         return UIScreen.main.bounds.size.height
     }
 }
+public extension UIDevice{
+    func isSimulator() -> Bool {
+        #if targetEnvironment(simulator)
+        return true
+        #endif
+        return false
+    }
+}
 public extension UIColor{
     //    func randomColor() -> UIColor {
     //        UIColor.init(red: CGFloat.random(in: ClosedRange.i), green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>)
@@ -720,3 +728,4 @@ public extension UICollectionViewCell{
     
 }
 #endif
+
