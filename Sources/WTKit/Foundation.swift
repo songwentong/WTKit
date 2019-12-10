@@ -152,6 +152,11 @@ public extension URLSession{
     func dataTask<T:Codable>(with url:URL, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
         var request = URLRequest.init(url: url)
         request.httpMethod = method.rawValue
+        if method.needUseQuery(){
+//            request.url = 
+        }else{
+//            request.httpBody =
+        }
         return dataTaskWith(request: request, codable: object, completionHandler: completionHandler)
     }
     
