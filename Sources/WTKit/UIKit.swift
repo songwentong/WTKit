@@ -448,13 +448,26 @@ public extension UIImage{
             NotificationCenter.default.post(name: UIImage.ImageLoadFinishNotification, object: result, userInfo: nil)
         }
     }
-    func getPixelColor(pos: CGPoint) -> UIColor {
-
-        let pixelData = self.cgImage!.dataProvider!.data
+    func getPixelColor(pos: CGPoint) -> UIColor? {
+        let rect = CGRect.init(origin: .zero, size: self.size)
+        guard rect.contains(pos) else{
+            return nil
+        }
+        guard let cgImage = self.cgImage else{
+            return nil
+        }
+        guard let dataProvider = cgImage.dataProvider else {
+            return nil
+        }
+        guard let pixelData:CFData = dataProvider.data else{
+            return nil
+        }
         let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
-
+        let bitsPerPixel = cgImage.bitsPerPixel
+        
+        
         let pixelInfo: Int = ((Int(self.size.width) * Int(pos.y)) + Int(pos.x)) * 4
-
+        
         let r = CGFloat(data[pixelInfo]) / CGFloat(255.0)
         let g = CGFloat(data[pixelInfo+1]) / CGFloat(255.0)
         let b = CGFloat(data[pixelInfo+2]) / CGFloat(255.0)
