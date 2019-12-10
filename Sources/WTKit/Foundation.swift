@@ -551,7 +551,11 @@ public enum WTHTTPMethod: String {
     /// `TRACE` method.
     case trace = "TRACE"
     func needUseQuery() -> Bool {
-        
-        return false
+        switch self {
+            case .get,.head,.delete:
+            return true
+            default:
+            return false
+        }
     }
 }
