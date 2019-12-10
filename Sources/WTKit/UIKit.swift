@@ -195,7 +195,6 @@ public extension UIView{
     func snapShotImage() -> UIImage {
         return layer.snapShot()
     }
-    
     func addShapLayer(with cornerRadius:CGFloat) {
         let sl = CAShapeLayer.init()
         sl.fillColor = nil

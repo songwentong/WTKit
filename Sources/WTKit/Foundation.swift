@@ -67,7 +67,12 @@ public extension Locale{
         return Locale.init(identifier: "ko-Kore_KR")
     }
 }
-
+public extension Int{
+    
+}
+public extension Float{
+    
+}
 public extension Double{
     func stringValue() -> String {
         return "\(self)"
