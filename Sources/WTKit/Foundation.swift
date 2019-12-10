@@ -149,13 +149,17 @@ public extension URLSession{
     class var `default`: URLSession {
         return URLSession.init(configuration: URLSessionConfiguration.default)
     }
-    func dataTask<T:Codable>(with url:URL, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
-        var request = URLRequest.init(url: url)
+    func convertParametersToString( parameters:[String:Any] = [:]) -> String {
+        return ""
+    }
+    func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
+        var request = URLRequest.init(url: path.urlValue())
         request.httpMethod = method.rawValue
+        let string = convertParametersToString(parameters: parameters)
         if method.needUseQuery(){
-//            request.url = 
+            request.url = (path + "?" + string ).urlValue()
         }else{
-//            request.httpBody =
+            request.httpBody = string.data(using: .utf8)
         }
         return dataTaskWith(request: request, codable: object, completionHandler: completionHandler)
     }
