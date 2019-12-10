@@ -37,7 +37,7 @@ public extension Data{
         }
     }
     
-
+    
     static func data(forResource name:String, ofType ext: String?) -> Data? {
         guard let url = Bundle.main.url(forResource: name, withExtension: ext) else{
             return nil
@@ -146,6 +146,15 @@ public extension DispatchQueue{
     }
 }
 public extension URLSession{
+    class var `default`: URLSession {
+        return URLSession.init(configuration: URLSessionConfiguration.default)
+    }
+    func dataTask<T:Codable>(with url:URL, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
+        var request = URLRequest.init(url: url)
+        request.httpMethod = method.rawValue
+        return dataTaskWith(request: request, codable: object, completionHandler: completionHandler)
+    }
+    
     func dataTaskWith<T:Codable>( request:URLRequest, codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         let task = self.dataTask(with: request) {  (data, response, err) in
             var errorToReturn = err
@@ -386,15 +395,15 @@ public func NSLibraryCachesDirectory() -> String{
 }
 public extension FileManager{
     func cachePath() {
-//        NSHomeDirectory()
-//        NSHomeDirectory()
-//        Data().write
+        //        NSHomeDirectory()
+        //        NSHomeDirectory()
+        //        Data().write
     }
 }
 public extension String{
-//    func numberObject() -> NSNumber {
-//
-//    }
+    //    func numberObject() -> NSNumber {
+    //
+    //    }
     func urlValue() -> URL {
         guard let url = URL.init(string: self) else{
             return URL.init(fileURLWithPath: "")
@@ -520,5 +529,29 @@ public extension NSMutableAttributedString{
         for (k,v) in attrs{
             applyAttributes(k, value: v)
         }
+    }
+}
+public enum WTHTTPMethod: String {
+    /// `CONNECT` method.
+    case connect = "CONNECT"
+    /// `DELETE` method.
+    case delete = "DELETE"
+    /// `GET` method.
+    case get = "GET"
+    /// `HEAD` method.
+    case head = "HEAD"
+    /// `OPTIONS` method.
+    case options = "OPTIONS"
+    /// `PATCH` method.
+    case patch = "PATCH"
+    /// `POST` method.
+    case post = "POST"
+    /// `PUT` method.
+    case put = "PUT"
+    /// `TRACE` method.
+    case trace = "TRACE"
+    func needUseQuery() -> Bool {
+        
+        return false
     }
 }
