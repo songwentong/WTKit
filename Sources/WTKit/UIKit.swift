@@ -592,12 +592,8 @@ open class WebImageView:UIImageView{
     open var highlightedImageTask:URLSessionDataTask? = nil
     open func loadWebImage(with path:String) {
         webImageTask?.cancel()
-        guard let url = URL.init(string: path) else{
-            return
-        }
-        let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
         let size = self.frame.size
-        webImageTask = URLSession.shared.dataTask(with: request) { [weak self](data, res, err) in
+        webImageTask = URLSession.useCacheElseLoadURLData(with: path.urlValue()) { [weak self](data, res, err) in
             guard let data = data else{
                 return
             }
@@ -619,12 +615,8 @@ open class WebImageView:UIImageView{
     }
     open func loadhighlightedImage(with path:String) {
         highlightedImageTask?.cancel()
-        guard let url = URL.init(string: path) else{
-            return
-        }
-        let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
         let size = self.frame.size
-        highlightedImageTask = URLSession.shared.dataTask(with: request) { [weak self](data, res, err) in
+        highlightedImageTask = URLSession.useCacheElseLoadURLData(with: path.urlValue()) { [weak self](data, res, err) in
             guard let data = data else{
                 return
             }
@@ -637,7 +629,7 @@ open class WebImageView:UIImageView{
                 //                let distance = date2.timeIntervalSince1970 - date1.timeIntervalSince1970
                 //                print("distance:\(distance)")
                 DispatchQueue.safeSyncInMain(execute:  {
-                    self?.image = image
+                    self?.highlightedImage = image
                     self?.layoutIfNeeded()
                 })
             }
