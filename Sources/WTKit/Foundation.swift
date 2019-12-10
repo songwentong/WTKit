@@ -85,6 +85,7 @@ public extension Double{
     }
 }
 public extension NSNumber{
+    fileprivate var isBool: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
     func stringWith(fractionDigitsCount min:Int, max:Int) -> String? {
         let nf = NumberFormatter.init()
         nf.minimumFractionDigits = min
@@ -145,12 +146,48 @@ public extension DispatchQueue{
         asyncAfter(deadline: .now() + delay, execute: work)
     }
 }
+public extension CharacterSet{
+    static var wtURLQueryAllowed: CharacterSet{
+        let encodableDelimiters = CharacterSet(charactersIn: "\(String.generalDelimitersToEncode)\(String.subDelimitersToEncode)")
+        return CharacterSet.urlQueryAllowed.subtracting(encodableDelimiters)
+    }
+}
 public extension URLSession{
     class var `default`: URLSession {
         return URLSession.init(configuration: URLSessionConfiguration.default)
     }
+    
+    func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
+        var components: [(String, String)] = []
+        if let value = value as? NSNumber {
+            if value.isBool {
+                if value.boolValue{
+                    components.append((key.escapeString, "1".escapeString))
+                }else{
+                    components.append((key.escapeString, "0".escapeString))
+                }
+            } else {
+                components.append((key.escapeString, "\(value)".escapeString))
+            }
+        }else if let bool = value as? Bool {
+            if bool{
+                components.append((key.escapeString, "1".escapeString))
+            }else{
+                components.append((key.escapeString, "0".escapeString))
+            }
+        }else{
+            components.append((key.escapeString,"\(value)".escapeString))
+        }
+        return components
+    }
     func convertParametersToString( parameters:[String:Any] = [:]) -> String {
-        return ""
+        var components: [(String, String)] = []
+        for key in parameters.keys.sorted(by: <){
+            if let value = parameters[key]{
+                components += queryComponents(fromKey: key, value: value)
+            }
+        }
+        return components.map { "\($0)=\($1)"}.joined(separator: "&")
     }
     func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
         var request = URLRequest.init(url: path.urlValue())
@@ -413,6 +450,8 @@ public extension String{
     //    func numberObject() -> NSNumber {
     //
     //    }
+    static let generalDelimitersToEncode = ":#[]@"
+    static let subDelimitersToEncode = "!$&'()*+,;="
     func urlValue() -> URL {
         guard let url = URL.init(string: self) else{
             return URL.init(fileURLWithPath: "")
@@ -462,6 +501,9 @@ public extension String{
     }
     static func systemKeyWords()->[String]{
         return ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init","_","fallthrough","internal","true","false","switch","dynamic","typealias"]
+    }
+    var escapeString:String {
+        return self.addingPercentEncoding(withAllowedCharacters: CharacterSet.wtURLQueryAllowed) ?? self
     }
 }
 public extension JSONDecoder{
