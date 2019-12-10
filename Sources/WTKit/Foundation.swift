@@ -3,7 +3,7 @@
 //  宋文通
 //
 //  Created by 宋文通 on 2019/8/7.
-//  Copyright © 2019 newsdog. All rights reserved.
+//  Copyright © 2019 宋文通. All rights reserved.
 //
 
 import Foundation
@@ -144,13 +144,6 @@ public extension DispatchQueue{
     func asyncAfterAfter(_ delay: TimeInterval, execute work: @escaping @convention(block) () -> Void) {
         asyncAfter(deadline: .now() + delay, execute: work)
     }
-}
-enum URLSessionError:Error {
-    case noURL
-    case nodata
-    case parseEror
-    case none
-    case ok
 }
 public extension URLSession{
     

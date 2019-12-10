@@ -2,8 +2,8 @@
 //  WTVersionTracking.swift
 //  WTKit
 //
-//  Created by SongWentong on 10/04/2017.
-//  Copyright © 2017 songwentong. All rights reserved.
+//  Created by 宋文通 on 10/04/2017.
+//  Copyright © 2017 宋文通. All rights reserved.
 //
 #if os(iOS)
 import Foundation

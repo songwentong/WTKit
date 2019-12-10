@@ -1,9 +1,9 @@
 //
-//  JSONModel.swift
+//  WTModelMaker.swift
 //  WTKit
 //
-//  Created by SongWentong on 21/11/2016.
-//  Copyright © 2016 songwentong. All rights reserved.
+//  Created by 宋文通 on 21/11/2016.
+//  Copyright © 2016 宋文通. All rights reserved.
 //  https://github.com/songwentong/WTKit
 //
 /*
