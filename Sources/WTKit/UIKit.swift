@@ -17,7 +17,7 @@ public extension UIScreen{
     }
 }
 public extension UIDevice{
-    func isSimulator() -> Bool {
+    static func isSimulator() -> Bool {
         #if targetEnvironment(simulator)
         return true
         #endif
