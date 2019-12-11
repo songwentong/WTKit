@@ -487,9 +487,20 @@ public extension DateFormatter{
     }
 }
 public extension Bundle{
-    func appName() -> String {
-        let appName: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
-        return appName
+    class func appBundleName()->String{
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
+    }
+    //bundleid  eg.2345678
+    class func appBundleID()->String{
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as! String
+    }
+    //build version eg.1234
+    class func buildVersion()->String{
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
+    }
+    //app version eg. 1.2.1
+    static func appVersion()->String{
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     }
     static var customBundle:Bundle = Bundle.main
     static func setCustomBundle(with newBundle:Bundle){

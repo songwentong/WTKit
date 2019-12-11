@@ -362,6 +362,12 @@ public extension UIApplication{
     static func pushViewController(_ viewController: UIViewController, animated: Bool) {
         topViewController?.navigationController?.pushViewController(viewController, animated: animated)
     }
+    static func showLoadingView() {
+        shared.windows.first?.showLoadingView()
+    }
+    static func hideLoadingView(){
+        shared.windows.first?.hideLoadingView()
+    }
 }
 struct ImageLoadResult {
     let image:UIImage
@@ -558,14 +564,7 @@ public extension UIWindow{
         UIApplication.shared.windows.first?.hideLoadingView()
     }
 }
-public extension UIApplication{
-    static func showLoadingView() {
-        shared.windows.first?.showLoadingView()
-    }
-    static func hideLoadingView(){
-        shared.windows.first?.hideLoadingView()
-    }
-}
+
 
 
 /*

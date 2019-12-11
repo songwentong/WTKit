@@ -13,24 +13,6 @@ import UIKit
 private let UIApplicationVersionsKey = "WTKit UIapplication versions key"
 private let UIApplicationBuildsKey = "WTKit UIapplication builds key"
 public extension UIApplication{
-    //bundle name eg.com.xxx.xxx
-    class func appBundleName()->String{
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
-    }
-    //bundleid  eg.2345678
-    class func appBundleID()->String{
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as! String
-    }
-    //build version eg.1234
-    class func buildVersion()->String{
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
-    }
-    //app version eg. 1.2.1
-    static func appVersion()->String{
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-    }
-}
-public extension UIApplication{
     /*!
      track each launch,Repeat safety
      not you should track at app launch method
@@ -42,13 +24,13 @@ public extension UIApplication{
             return
         }
         var versionArray:[String] = self.versionHistory()
-        if !versionArray.contains(UIApplication.appVersion()) {
-            versionArray.append(UIApplication.appVersion())
+        if !versionArray.contains(Bundle.appVersion()) {
+            versionArray.append(Bundle.appVersion())
         }
         
         var buildArray = buildHistory()
-        if !buildArray.contains(UIApplication.buildVersion()) {
-            buildArray.append(UIApplication.buildVersion())
+        if !buildArray.contains(Bundle.buildVersion()) {
+            buildArray.append(Bundle.buildVersion())
              VersionTracker.shared.isFirstLaunchForBuild = true
         }else{
             VersionTracker.shared.isFirstLaunchForBuild = false
