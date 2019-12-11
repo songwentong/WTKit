@@ -7,7 +7,6 @@
 //
 #if os(macOS)
 import AppKit
-//public typealias KFCrossPlatformImage = UIImage
 public typealias WTApplication = NSApplication
 #endif
 #if os(iOS)
