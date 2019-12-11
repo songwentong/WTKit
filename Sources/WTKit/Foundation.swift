@@ -208,10 +208,6 @@ public extension URLRequest{
         }
         return components.map { "\($0)=\($1)"}.joined(separator: "&")
     }
-    func bindDefaultHeaders() {
-        
-        //Accept-Encoding
-    }
     func dataTaskWith<T:Codable>(codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         return URLSession.shared.dataTaskWith(request: self, codable: object, completionHandler: completionHandler)
     }
