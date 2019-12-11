@@ -14,8 +14,8 @@ public typealias WTApplication = UIApplication
 import Foundation
 import UIKit
 #endif
-fileprivate let WTApplicationVersionsKey = "WTKit UIapplication versions key"
-fileprivate let WTApplicationBuildsKey = "WTKit UIapplication builds key"
+fileprivate let WTApplicationVersionsKey = "WTKit VersionTracker versions key"
+fileprivate let WTApplicationBuildsKey = "WTKit VersionTracker builds key"
 public extension WTApplication{
     func track(){
         if VersionTracker.shared.launchTrakced {
