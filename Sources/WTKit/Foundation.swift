@@ -272,7 +272,7 @@ public extension HTTPURLResponse{
 }
 public extension URLCache{
     class var `default`:URLCache{
-        let cache = URLCache.init(memoryCapacity: 1024*1024*10, diskCapacity: 1024*1024*1024, diskPath: "WTKitURLCachePath")
+        let cache = URLCache.init(memoryCapacity: 1024*1024*30, diskCapacity: 1024*1024*1024, diskPath: "WTKitURLCachePath")
         return cache
     }
 }
