@@ -368,6 +368,7 @@ public extension UIApplication{
     static func hideLoadingView(){
         shared.windows.first?.hideLoadingView()
     }
+    
 }
 struct ImageLoadResult {
     let image:UIImage

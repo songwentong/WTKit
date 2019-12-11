@@ -5,20 +5,19 @@
 //  Created by 宋文通 on 10/04/2017.
 //  Copyright © 2017 宋文通. All rights reserved.
 //
+#if os(macOS)
+import AppKit
+//public typealias KFCrossPlatformImage = UIImage
+public typealias WTApplication = NSApplication
+#endif
 #if os(iOS)
+public typealias WTApplication = UIApplication
 import Foundation
-
 import UIKit
-
+#endif
 private let UIApplicationVersionsKey = "WTKit UIapplication versions key"
 private let UIApplicationBuildsKey = "WTKit UIapplication builds key"
-public extension UIApplication{
-    /*!
-     track each launch,Repeat safety
-     not you should track at app launch method
-     @available(iOS 3.0, *)
-     optional func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool
-     */
+public extension WTApplication{
     func track(){
         if VersionTracker.shared.launchTrakced {
             return
@@ -71,4 +70,3 @@ class VersionTracker: NSObject {
         return VersionTracker()
     }()
 }
-#endif
