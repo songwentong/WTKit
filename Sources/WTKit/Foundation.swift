@@ -152,12 +152,8 @@ public extension CharacterSet{
         return CharacterSet.urlQueryAllowed.subtracting(encodableDelimiters)
     }
 }
-public extension URLSession{
-    class var `default`: URLSession {
-        return URLSession.init(configuration: URLSessionConfiguration.default)
-    }
-    
-    func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
+public extension URLRequest{
+    static func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
         var components: [(String, String)] = []
         if let value = value as? NSNumber {
             if value.isBool {
@@ -180,7 +176,7 @@ public extension URLSession{
         }
         return components
     }
-    func convertParametersToString( parameters:[String:Any] = [:]) -> String {
+    static func convertParametersToString( parameters:[String:Any] = [:]) -> String {
         var components: [(String, String)] = []
         for key in parameters.keys.sorted(by: <){
             if let value = parameters[key]{
@@ -189,10 +185,10 @@ public extension URLSession{
         }
         return components.map { "\($0)=\($1)"}.joined(separator: "&")
     }
-    func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
+    static func createURLRequest(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:]) -> URLRequest {
         var request = URLRequest.init(url: path.urlValue())
         request.httpMethod = method.rawValue
-        let string = convertParametersToString(parameters: parameters)
+        let string = URLRequest.convertParametersToString(parameters: parameters)
         if method.needUseQuery(){
             if var urlComponents = URLComponents(url: path.urlValue(), resolvingAgainstBaseURL: false){
                 let percentEncodedQuery = (urlComponents.percentEncodedQuery.map { $0 + "&" } ?? "") + string
@@ -203,6 +199,79 @@ public extension URLSession{
             request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
             request.httpBody = string.data(using: .utf8)
         }
+        for (k,v) in headers{
+            request.setValue(v, forHTTPHeaderField: k)
+        }
+        return request
+    }
+    func dataTaskWith<T:Codable>(codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
+        return URLSession.shared.dataTaskWith(request: self, codable: object, completionHandler: completionHandler)
+    }
+    func dataTask( completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
+        return URLSession.shared.dataTask(with: self) { (data, res, err) in
+            DispatchQueue.main.async {
+                completionHandler(data,res,err)
+            }
+        }
+    }
+    func converToPrinter() -> URLRequestPrinter {
+        let reu = URLRequestPrinter()
+        reu.request = self
+        return reu
+    }
+    var curlString: String {
+        // Logging URL requests in whole may expose sensitive data,
+        // or open up possibility for getting access to your user data,
+        // so make sure to disable this feature for production builds!
+        #if !DEBUG
+        return ""
+        #else
+        var result = "curl -k "
+        
+        if let method = httpMethod {
+            result += "-X \(method) \\\n"
+        }
+        
+        if let headers = allHTTPHeaderFields {
+            for (header, value) in headers {
+                result += "-H \"\(header): \(value)\" \\\n"
+            }
+        }
+        
+        if let body = httpBody, !body.isEmpty, let string = String(data: body, encoding: .utf8), !string.isEmpty {
+            result += "-d '\(string)' \\\n"
+        }
+        
+        if let url = url {
+            result += url.absoluteString
+        }
+        
+        return result
+        #endif
+    }
+    //-H "Accept-Encoding: gzip;q=1.0, compress;q=0.5"
+    static var defaultAcceptEncoding:String{
+        if #available(iOS 11.0, macOS 10.13, tvOS 11.0, watchOS 4.0, *) {
+            return "br;q=1.0,gzip;q=0.9,deflate;q=0.8"
+        } else {
+            return "gzip;q=0.9,deflate;q=0.8"
+        }
+    }
+}
+public extension URLResponse{
+    
+}
+public extension HTTPURLResponse{
+    var isValidStatusCode:Bool{
+        return (200..<400).contains(statusCode)
+    }
+}
+public extension URLSession{
+    class var `default`: URLSession {
+        return URLSession.init(configuration: URLSessionConfiguration.default)
+    }
+    func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
+        let request = URLRequest.createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
         return dataTaskWith(request: request, codable: object, completionHandler: completionHandler)
     }
     
@@ -326,69 +395,7 @@ open class MultipartBodyObject{
     var contentType:String?
     var data:Data = Data()
 }
-public extension URLRequest{
-    func dataTaskWith<T:Codable>(codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
-        return URLSession.shared.dataTaskWith(request: self, codable: object, completionHandler: completionHandler)
-    }
-    func dataTask( completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
-        return URLSession.shared.dataTask(with: self) { (data, res, err) in
-            DispatchQueue.main.async {
-                completionHandler(data,res,err)
-            }
-        }
-    }
-    func converToPrinter() -> URLRequestPrinter {
-        let reu = URLRequestPrinter()
-        reu.request = self
-        return reu
-    }
-    var curlString: String {
-        // Logging URL requests in whole may expose sensitive data,
-        // or open up possibility for getting access to your user data,
-        // so make sure to disable this feature for production builds!
-        #if !DEBUG
-        return ""
-        #else
-        var result = "curl -k "
-        
-        if let method = httpMethod {
-            result += "-X \(method) \\\n"
-        }
-        
-        if let headers = allHTTPHeaderFields {
-            for (header, value) in headers {
-                result += "-H \"\(header): \(value)\" \\\n"
-            }
-        }
-        
-        if let body = httpBody, !body.isEmpty, let string = String(data: body, encoding: .utf8), !string.isEmpty {
-            result += "-d '\(string)' \\\n"
-        }
-        
-        if let url = url {
-            result += url.absoluteString
-        }
-        
-        return result
-        #endif
-    }
-    //-H "Accept-Encoding: gzip;q=1.0, compress;q=0.5"
-    static var defaultAcceptEncoding:String{
-        if #available(iOS 11.0, macOS 10.13, tvOS 11.0, watchOS 4.0, *) {
-            return "br;q=1.0,gzip;q=0.9,deflate;q=0.8"
-        } else {
-            return "gzip;q=0.9,deflate;q=0.8"
-        }
-    }
-}
-public extension URLResponse{
-    
-}
-public extension HTTPURLResponse{
-    var isValidStatusCode:Bool{
-        return (200..<400).contains(statusCode)
-    }
-}
+
 public extension URLSessionTask{
     func converToPrinter() -> URLRequestPrinter {
         guard let req = self.originalRequest else{
