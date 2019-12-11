@@ -270,9 +270,18 @@ public extension HTTPURLResponse{
         return (200..<400).contains(statusCode)
     }
 }
+public extension URLCache{
+    class var `default`:URLCache{
+        let cache = URLCache.init(memoryCapacity: 1024*1024*10, diskCapacity: 1024*1024*1024, diskPath: "WTKitURLCachePath")
+        return cache
+    }
+}
 public extension URLSession{
     class var `default`: URLSession {
-        return URLSession.init(configuration: URLSessionConfiguration.default)
+        let config = URLSessionConfiguration.default
+        config.urlCache = URLCache.default
+        let session = URLSession.init(configuration: config)
+        return session
     }
     
     static var defaulAcceptEncoding:String{
@@ -354,10 +363,10 @@ public extension URLSession{
     }
     
     @discardableResult
-    static func useCacheElseLoadURLData(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+    func useCacheElseLoadURLData(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         var request = URLRequest.init(url: url)
         request.cachePolicy = .returnCacheDataElseLoad
-        let task = URLSession.shared.dataTask(with: request, completionHandler: { (data,res,err) in
+        let task = dataTask(with: request, completionHandler: { (data,res,err) in
             DispatchQueue.main.async {
                 completionHandler(data,res,err)
             }
