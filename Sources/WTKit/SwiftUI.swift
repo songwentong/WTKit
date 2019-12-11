@@ -20,9 +20,9 @@ public extension Button{
 public extension Image{
     
 }
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
-public struct WTImage:View{
-    public typealias Body = <#type#>
-    
-    
-}
+//@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+//public struct WTImage:View{
+//    public typealias Body = <#type#>
+//
+//
+//}

@@ -153,6 +153,29 @@ public extension CharacterSet{
     }
 }
 public extension URLRequest{
+    
+    static func createURLRequest(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:]) -> URLRequest {
+        var request = URLRequest.init(url: path.urlValue())
+        request.httpMethod = method.rawValue
+        let string = URLRequest.convertParametersToString(parameters: parameters)
+        if method.needUseQuery(){
+            if var urlComponents = URLComponents(url: path.urlValue(), resolvingAgainstBaseURL: false){
+                let percentEncodedQuery = (urlComponents.percentEncodedQuery.map { $0 + "&" } ?? "") + string
+                urlComponents.percentEncodedQuery = percentEncodedQuery
+                request.url = urlComponents.url
+            }
+        }else{
+            request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            request.httpBody = string.data(using: .utf8)
+        }
+        for (k,v) in headers{
+            request.setValue(v, forHTTPHeaderField: k)
+        }
+        request.setValue(URLSession.defaulAcceptEncoding, forHTTPHeaderField: "Accept-Encoding")
+        request.setValue(URLSession.defaultLanguage, forHTTPHeaderField: "Accept-Language")
+        request.setValue(URLSession.defaultUserAgent, forHTTPHeaderField: "User-Agent")
+        return request
+    }
     static func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
         var components: [(String, String)] = []
         if let value = value as? NSNumber {
@@ -185,24 +208,9 @@ public extension URLRequest{
         }
         return components.map { "\($0)=\($1)"}.joined(separator: "&")
     }
-    static func createURLRequest(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:]) -> URLRequest {
-        var request = URLRequest.init(url: path.urlValue())
-        request.httpMethod = method.rawValue
-        let string = URLRequest.convertParametersToString(parameters: parameters)
-        if method.needUseQuery(){
-            if var urlComponents = URLComponents(url: path.urlValue(), resolvingAgainstBaseURL: false){
-                let percentEncodedQuery = (urlComponents.percentEncodedQuery.map { $0 + "&" } ?? "") + string
-                urlComponents.percentEncodedQuery = percentEncodedQuery
-                request.url = urlComponents.url
-            }
-        }else{
-            request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
-            request.httpBody = string.data(using: .utf8)
-        }
-        for (k,v) in headers{
-            request.setValue(v, forHTTPHeaderField: k)
-        }
-        return request
+    func bindDefaultHeaders() {
+        
+        //Accept-Encoding
     }
     func dataTaskWith<T:Codable>(codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         return URLSession.shared.dataTaskWith(request: self, codable: object, completionHandler: completionHandler)
