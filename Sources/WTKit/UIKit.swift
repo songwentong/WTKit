@@ -434,7 +434,7 @@ public extension UIImage{
             GlobalImageLoadCache.shared.loadingURL.insert(url.absoluteString)
             //            GlobalImageLoadCache.shared.loadingURL.append(url.absoluteString)
         }
-        return URLSession.useCacheElseLoadURLData(with: url) { (data, response, err) in
+        return URLSession.default.useCacheElseLoadURLData(with: url) { (data, response, err) in
             if GlobalImageLoadCache.shared.loadingURL.contains(url.absoluteString){
                 GlobalImageLoadCache.shared.loadingURL.remove(url.absoluteString)
             }
@@ -606,7 +606,7 @@ open class WebImageView:UIImageView{
     open func loadWebImage(with path:String) {
         webImageTask?.cancel()
         let size = self.frame.size
-        webImageTask = URLSession.useCacheElseLoadURLData(with: path.urlValue()) { [weak self](data, res, err) in
+        webImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue()) { [weak self](data, res, err) in
             guard let data = data else{
                 return
             }
@@ -629,7 +629,7 @@ open class WebImageView:UIImageView{
     open func loadhighlightedImage(with path:String) {
         highlightedImageTask?.cancel()
         let size = self.frame.size
-        highlightedImageTask = URLSession.useCacheElseLoadURLData(with: path.urlValue()) { [weak self](data, res, err) in
+        highlightedImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue()) { [weak self](data, res, err) in
             guard let data = data else{
                 return
             }
@@ -656,7 +656,7 @@ open class WebImageButton:UIButton{
     open func loadWebImage(with path:String,for state:UIControl.State) {
         webImageTask?.cancel()
         let size = self.bounds.size
-        webImageTask = URLSession.useCacheElseLoadURLData(with: path.urlValue(), completionHandler: { [weak self](data, res, err) in
+        webImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue(), completionHandler: { [weak self](data, res, err) in
             guard let data = data else{
                 return
             }
@@ -676,7 +676,7 @@ open class WebImageButton:UIButton{
     open func loadBackgroundImageImage(with path:String,for state:UIControl.State){
         backgroundImageImageTask?.cancel()
         let size = self.frame.size
-        backgroundImageImageTask = URLSession.useCacheElseLoadURLData(with: path.urlValue(), completionHandler: {  [weak self](data, res, err) in
+        backgroundImageImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue(), completionHandler: {  [weak self](data, res, err) in
             guard let data = data else{
                 return
             }
