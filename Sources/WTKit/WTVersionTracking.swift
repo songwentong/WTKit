@@ -15,8 +15,8 @@ public typealias WTApplication = UIApplication
 import Foundation
 import UIKit
 #endif
-private let UIApplicationVersionsKey = "WTKit UIapplication versions key"
-private let UIApplicationBuildsKey = "WTKit UIapplication builds key"
+fileprivate let WTApplicationVersionsKey = "WTKit UIapplication versions key"
+fileprivate let WTApplicationBuildsKey = "WTKit UIapplication builds key"
 public extension WTApplication{
     func track(){
         if VersionTracker.shared.launchTrakced {
@@ -34,8 +34,8 @@ public extension WTApplication{
         }else{
             VersionTracker.shared.isFirstLaunchForBuild = false
         }
-        UserDefaults.standard.setValue(versionArray, forKey: UIApplicationVersionsKey)
-        UserDefaults.standard.setValue(buildArray, forKey: UIApplicationBuildsKey)
+        UserDefaults.standard.setValue(versionArray, forKey: WTApplicationVersionsKey)
+        UserDefaults.standard.setValue(buildArray, forKey: WTApplicationBuildsKey)
         //        WTLog(versionArray)
         //        WTLog(buildArray)
         UserDefaults.standard.synchronize()
@@ -50,14 +50,14 @@ public extension WTApplication{
     }
     //version history,if no history,return empty string array
     func versionHistory()->[String]{
-        if let versionHistory = UserDefaults.standard.array(forKey: UIApplicationVersionsKey) as? [String]{
+        if let versionHistory = UserDefaults.standard.array(forKey: WTApplicationVersionsKey) as? [String]{
             return versionHistory
         }
         return [String]()
     }
     //build history,if no history,return empty string array
     func buildHistory()->[String]{
-        if let versionHistory = UserDefaults.standard.array(forKey: UIApplicationBuildsKey) as? [String]{
+        if let versionHistory = UserDefaults.standard.array(forKey: WTApplicationBuildsKey) as? [String]{
             return versionHistory
         }
         return [String]()
