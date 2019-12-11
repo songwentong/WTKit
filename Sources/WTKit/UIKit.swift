@@ -463,7 +463,7 @@ public extension UIImage{
             return nil
         }
         let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
-        let bitsPerPixel = cgImage.bitsPerPixel
+//        let bitsPerPixel = cgImage.bitsPerPixel
         
         
         let pixelInfo: Int = ((Int(self.size.width) * Int(pos.y)) + Int(pos.x)) * 4
