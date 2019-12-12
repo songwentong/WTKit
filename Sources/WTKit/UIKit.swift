@@ -750,7 +750,6 @@ open class WTVC:UIViewController{
         bottomAnchor?.isActive = true
         myHeaderView.backgroundColor = WTVC.defaultHeaderBGColor
         
-        
         view.addSubview(separateLine)
         separateLine.turnOffMask()
         separateLine.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
