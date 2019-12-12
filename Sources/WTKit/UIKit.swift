@@ -727,10 +727,10 @@ public extension UICollectionViewCell{
     
 }
 open class WTVC:UIViewController{
-    var myHeaderView:UIView = UIView()
+    @IBInspectable var myHeaderView:UIView = UIView()
     var bottomAnchor:NSLayoutConstraint? = nil
     static var defaultHeaderBGColor:UIColor = UIColor.gray
-    var separateLine:UIView = UIView()
+    @IBInspectable var separateLine:UIView = UIView()
     
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -758,7 +758,7 @@ open class WTVC:UIViewController{
         separateLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
         separateLine.backgroundColor = .black
     }
-    var titleBarHeight:CGFloat{
+    @IBInspectable var titleBarHeight:CGFloat{
         set{
             bottomAnchor?.constant = newValue
         }
@@ -766,7 +766,7 @@ open class WTVC:UIViewController{
             return bottomAnchor?.constant ?? 0
         }
     }
-    var titleBarColor:UIColor?{
+    @IBInspectable var titleBarColor:UIColor?{
         set{
             myHeaderView.backgroundColor = newValue
         }
