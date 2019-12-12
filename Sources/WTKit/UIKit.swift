@@ -727,27 +727,31 @@ public extension UICollectionViewCell{
     
 }
 open class WTVC:UIViewController{
-    @IBInspectable var wtHeaderView:UIView = UIView()
+    var wtHeaderView:UIView = UIView()
     var wtBottomAnchor:NSLayoutConstraint? = nil
-    static var wtDefaultHeaderBGColor:UIColor = UIColor.gray
-    @IBInspectable var wtSeparateLine:UIView = UIView()
+    static var wtDefaultHeaderBGColor:UIColor = .gray
+    var wtSeparateLine:UIView = UIView()
     var wtBackButton:UIButton = UIButton.init(type: .custom)
     var wtTitleLabel:UILabel = UILabel.init()
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    open override func viewDidLoad() {
+        super.viewDidLoad()
         configMyHeaderView()
     }
-    public required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        configMyHeaderView()
+    open override func loadView() {
+        super.loadView()
     }
+    
     func configMyHeaderView() {
         view.addSubview(wtHeaderView)
         wtHeaderView.turnOffMask()
         wtHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         wtHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         wtHeaderView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        wtBottomAnchor = wtHeaderView.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor ,constant: 44)
+        if #available(iOS 11.0, *) {
+            wtBottomAnchor = wtHeaderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor ,constant: 44)
+        } else {
+            wtBottomAnchor = wtHeaderView.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor ,constant: 44)
+        }
         wtBottomAnchor?.isActive = true
         wtHeaderView.backgroundColor = WTVC.wtDefaultHeaderBGColor
         
@@ -765,14 +769,20 @@ open class WTVC:UIViewController{
         wtBackButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         wtBackButton.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
         wtBackButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        wtBackButton.setImage(with: "Back", for: .normal)
+        wtBackButton.setTitle("Back", for: .normal)
         wtBackButton.addTarget(self, action: #selector(wtBackButtonPressed), for: .touchUpInside)
         
         view.addSubview(wtTitleLabel)
         wtTitleLabel.turnOffMask()
         wtTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true
+        wtTitleLabel.textAlignment = .center
         wtTitleLabel.centerXAnchor.constraint(equalTo: wtHeaderView.centerXAnchor, constant: 0).isActive = true
-        wtTitleLabel.heightAnchor.constraint(equalTo: wtHeaderView.heightAnchor, multiplier: 1).isActive = true
+        //view.safeAreaLayoutGuide.topAnchor
+        if #available(iOS 11.0, *) {
+            wtTitleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        } else {
+            wtTitleLabel.topAnchor.constraint(equalTo: topLayoutGuide.topAnchor).isActive = true
+        }
         wtTitleLabel.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
     }
     open override func viewWillAppear(_ animated: Bool) {
