@@ -67,8 +67,17 @@ public extension Locale{
         return Locale.init(identifier: "ko-Kore_KR")
     }
 }
+public extension BinaryInteger{
+    var byteCountFormatString:String{
+        return ByteCountFormatter().string(fromByteCount: Int64.init(self))
+    }
+}
+public extension BinaryFloatingPoint{
+    var byteCountFormatString:String{
+        return ByteCountFormatter().string(fromByteCount: Int64.init(self))
+    }
+}
 public extension Int{
-    
 }
 public extension Float{
     
@@ -271,7 +280,14 @@ public extension HTTPURLResponse{
     }
 }
 public extension URLCache{
-    static let `default`:URLCache = URLCache.init(memoryCapacity: 1024*1024*30, diskCapacity: 1024*1024*1024, diskPath: "WTKitURLCachePath")
+    static let `default`:URLCache = {
+        let totalMemory:UInt64 = ProcessInfo.processInfo.physicalMemory
+        let memoryCapacity:Int = Int(totalMemory / 4)
+//        FileManager
+        //30M
+        let cache = URLCache.init(memoryCapacity: memoryCapacity, diskCapacity: 1024*1024*1024, diskPath: "WTKitURLCachePath")
+        return cache
+    }()
 }
 public extension URLSession{
     static let `default`: URLSession = {
