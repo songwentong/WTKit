@@ -707,3 +707,10 @@ extension Collection where Element == String {
         }.joined(separator: ", ")
     }
 }
+public extension Timer{
+    
+}
+public extension RunLoop{
+    
+}
+

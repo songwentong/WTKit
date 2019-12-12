@@ -156,6 +156,9 @@ public extension UIView{
             layer.borderColor = newValue?.cgColor
         }
     }
+    func turnOffMask()  {
+        translatesAutoresizingMaskIntoConstraints = false
+    }
     func loadReuseableNibContentView() {
         let view = instanceFromXibWithOwner()
         view.frame = self.bounds
@@ -721,6 +724,46 @@ public extension UITableViewCell{
     
 }
 public extension UICollectionViewCell{
+    
+}
+open class WTVC:UIViewController{
+    var myHeaderView:UIView = UIView()
+    var bottomAnchor:NSLayoutConstraint? = nil
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        configMyHeaderView()
+    }
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configMyHeaderView()
+    }
+    func configMyHeaderView() {
+        view.addSubview(myHeaderView)
+        myHeaderView.turnOffMask()
+        myHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        myHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        myHeaderView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        bottomAnchor = myHeaderView.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor ,constant: 44)
+        bottomAnchor?.isActive = true
+    }
+    var titleBarHeight:CGFloat{
+        set{
+            bottomAnchor?.constant = newValue
+        }
+        get{
+            return bottomAnchor?.constant ?? 0
+        }
+    }
+    var titleBarColor:UIColor?{
+        set{
+            myHeaderView.backgroundColor = newValue
+        }
+        get{
+            return myHeaderView.backgroundColor
+        }
+    }
+
+    
     
 }
 #endif
