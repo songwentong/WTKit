@@ -784,10 +784,10 @@ open class WTVC:UIViewController{
             wtTitleLabel.topAnchor.constraint(equalTo: topLayoutGuide.topAnchor).isActive = true
         }
         wtTitleLabel.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
+        wtTitleLabel.text = title
     }
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        wtTitleLabel.text = title
     }
     @objc func wtBackButtonPressed() {
         guard let count = navigationController?.viewControllers.count else{
