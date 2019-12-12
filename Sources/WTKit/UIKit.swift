@@ -727,11 +727,12 @@ public extension UICollectionViewCell{
     
 }
 open class WTVC:UIViewController{
-    @IBInspectable var myHeaderView:UIView = UIView()
-    var bottomAnchor:NSLayoutConstraint? = nil
-    static var defaultHeaderBGColor:UIColor = UIColor.gray
-    @IBInspectable var separateLine:UIView = UIView()
-    
+    @IBInspectable var wtHeaderView:UIView = UIView()
+    var wtBottomAnchor:NSLayoutConstraint? = nil
+    static var wtDefaultHeaderBGColor:UIColor = UIColor.gray
+    @IBInspectable var wtSeparateLine:UIView = UIView()
+    var wtBackButton:UIButton = UIButton.init(type: .custom)
+    var wtTitleLabel:UILabel = UILabel.init()
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         configMyHeaderView()
@@ -741,37 +742,66 @@ open class WTVC:UIViewController{
         configMyHeaderView()
     }
     func configMyHeaderView() {
-        view.addSubview(myHeaderView)
-        myHeaderView.turnOffMask()
-        myHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        myHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        myHeaderView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        bottomAnchor = myHeaderView.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor ,constant: 44)
-        bottomAnchor?.isActive = true
-        myHeaderView.backgroundColor = WTVC.defaultHeaderBGColor
+        view.addSubview(wtHeaderView)
+        wtHeaderView.turnOffMask()
+        wtHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        wtHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        wtHeaderView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        wtBottomAnchor = wtHeaderView.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor ,constant: 44)
+        wtBottomAnchor?.isActive = true
+        wtHeaderView.backgroundColor = WTVC.wtDefaultHeaderBGColor
         
-        view.addSubview(separateLine)
-        separateLine.turnOffMask()
-        separateLine.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        separateLine.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        separateLine.topAnchor.constraint(equalTo: myHeaderView.topAnchor).isActive = true
-        separateLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
-        separateLine.backgroundColor = .black
+        view.addSubview(wtSeparateLine)
+        wtSeparateLine.turnOffMask()
+        wtSeparateLine.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        wtSeparateLine.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        wtSeparateLine.topAnchor.constraint(equalTo: wtHeaderView.topAnchor).isActive = true
+        wtSeparateLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        wtSeparateLine.backgroundColor = .black
+        
+        view.addSubview(wtBackButton)
+        wtBackButton.turnOffMask()
+        wtBackButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+        wtBackButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        wtBackButton.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
+        wtBackButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        wtBackButton.setImage(with: "Back", for: .normal)
+        wtBackButton.addTarget(self, action: #selector(wtBackButtonPressed), for: .touchUpInside)
+        
+        view.addSubview(wtTitleLabel)
+        wtTitleLabel.turnOffMask()
+        wtTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true
+        wtTitleLabel.centerXAnchor.constraint(equalTo: wtHeaderView.centerXAnchor, constant: 0).isActive = true
+        wtTitleLabel.heightAnchor.constraint(equalTo: wtHeaderView.heightAnchor, multiplier: 1).isActive = true
+        wtTitleLabel.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
+    }
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        wtTitleLabel.text = title
+    }
+    @objc func wtBackButtonPressed() {
+        guard let count = navigationController?.viewControllers.count else{
+            return
+        }
+        guard count >= 2 else {
+            return
+        }
+        navigationController?.popViewController(animated: true)
     }
     @IBInspectable var titleBarHeight:CGFloat{
         set{
-            bottomAnchor?.constant = newValue
+            wtBottomAnchor?.constant = newValue
         }
         get{
-            return bottomAnchor?.constant ?? 0
+            return wtBottomAnchor?.constant ?? 0
         }
     }
     @IBInspectable var titleBarColor:UIColor?{
         set{
-            myHeaderView.backgroundColor = newValue
+            wtHeaderView.backgroundColor = newValue
         }
         get{
-            return myHeaderView.backgroundColor
+            return wtHeaderView.backgroundColor
         }
     }
 }
