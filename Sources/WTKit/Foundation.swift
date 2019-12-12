@@ -67,7 +67,7 @@ public extension Locale{
         return Locale.init(identifier: "ko-Kore_KR")
     }
 }
-public typealias BinaryNumber = BinaryInteger & BinaryFloatingPoint
+//public typealias BinaryNumber = BinaryInteger & BinaryFloatingPoint
 public extension BinaryInteger{
     var byteCountFormatString:String{
         return ByteCountFormatter().string(fromByteCount: Int64.init(self))
@@ -80,6 +80,9 @@ public extension BinaryInteger{
     }
     var numberObject:NSNumber{
         return NSNumber.init(value: Int(self))
+    }
+    func stringValue() -> String {
+        return "\(self)"
     }
 }
 public extension BinaryFloatingPoint{
@@ -95,6 +98,9 @@ public extension BinaryFloatingPoint{
     var lengthFormatterString:String{
         return numberObject.lengthFormatterString
     }
+    func stringValue() -> String {
+        return "\(self)"
+    }
 }
 public extension Int{
     var numberFormatterString:String{
@@ -102,20 +108,12 @@ public extension Int{
     }
 }
 public extension Float{
-    var numberObject:NSNumber{
-        return NSNumber.init(value: self)
-    }
     var numberFormatterString:String{
         return NumberFormatter().string(from: numberObject) ?? ""
     }
 }
 public extension Double{
-    func stringValue() -> String {
-        return "\(self)"
-    }
-    var numberObject:NSNumber{
-        return NSNumber.init(value: self)
-    }
+
     func stringWith(fractionDigits count:Int) -> String? {
         return numberObject.stringWith(fractionDigits: count)
     }
