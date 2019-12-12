@@ -72,16 +72,31 @@ public extension BinaryInteger{
     var byteCountFormatString:String{
         return ByteCountFormatter().string(fromByteCount: Int64.init(self))
     }
+    var massFormatterString:String{
+        return numberObject.massFormatterString
+    }
+    var lengthFormatterString:String{
+        return numberObject.lengthFormatterString
+    }
+    var numberObject:NSNumber{
+        return NSNumber.init(value: Int(self))
+    }
 }
 public extension BinaryFloatingPoint{
     var byteCountFormatString:String{
         return ByteCountFormatter().string(fromByteCount: Int64.init(self))
     }
+    var numberObject:NSNumber{
+        return NSNumber.init(value: Double(self))
+    }
+    var massFormatterString:String{
+        return numberObject.massFormatterString
+    }
+    var lengthFormatterString:String{
+        return numberObject.lengthFormatterString
+    }
 }
 public extension Int{
-    var numberObject:NSNumber{
-         return NSNumber.init(value: self)
-    }
     var numberFormatterString:String{
         return NumberFormatter().string(from: numberObject) ?? ""
     }
@@ -122,6 +137,13 @@ public extension NSNumber{
         nf.maximumFractionDigits = count
         return nf.string(from: self)
     }
+    var massFormatterString:String{
+        return MassFormatter().string(fromKilograms: doubleValue)
+    }
+    var lengthFormatterString:String{
+        return LengthFormatter().string(fromMeters: doubleValue)
+    }
+    
 }
 public extension DispatchQueue{
     static func backgroundQueue()->DispatchQueue{
@@ -567,9 +589,7 @@ public extension FileManager{
     }
 }
 public extension String{
-    //    func numberObject() -> NSNumber {
-    //
-    //    }
+    
     static let generalDelimitersToEncode = ":#[]@"
     static let subDelimitersToEncode = "!$&'()*+,;="
     func urlValue() -> URL {
