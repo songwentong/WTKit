@@ -730,6 +730,8 @@ open class WTVC:UIViewController{
     var myHeaderView:UIView = UIView()
     var bottomAnchor:NSLayoutConstraint? = nil
     static var defaultHeaderBGColor:UIColor = UIColor.gray
+    var separateLine:UIView = UIView()
+    
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         configMyHeaderView()
@@ -747,6 +749,15 @@ open class WTVC:UIViewController{
         bottomAnchor = myHeaderView.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor ,constant: 44)
         bottomAnchor?.isActive = true
         myHeaderView.backgroundColor = WTVC.defaultHeaderBGColor
+        
+        
+        view.addSubview(separateLine)
+        separateLine.turnOffMask()
+        separateLine.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        separateLine.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        separateLine.topAnchor.constraint(equalTo: myHeaderView.topAnchor).isActive = true
+        separateLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        separateLine.backgroundColor = .black
     }
     var titleBarHeight:CGFloat{
         set{
