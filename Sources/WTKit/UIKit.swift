@@ -729,6 +729,7 @@ public extension UICollectionViewCell{
 open class WTVC:UIViewController{
     var myHeaderView:UIView = UIView()
     var bottomAnchor:NSLayoutConstraint? = nil
+    static var defaultHeaderBGColor:UIColor = UIColor.gray
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         configMyHeaderView()
@@ -745,6 +746,7 @@ open class WTVC:UIViewController{
         myHeaderView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         bottomAnchor = myHeaderView.bottomAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor ,constant: 44)
         bottomAnchor?.isActive = true
+        myHeaderView.backgroundColor = WTVC.defaultHeaderBGColor
     }
     var titleBarHeight:CGFloat{
         set{
