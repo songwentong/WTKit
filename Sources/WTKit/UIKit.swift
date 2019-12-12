@@ -774,9 +774,6 @@ open class WTVC:UIViewController{
             return myHeaderView.backgroundColor
         }
     }
-
-    
-    
 }
 #endif
 
