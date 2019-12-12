@@ -271,18 +271,15 @@ public extension HTTPURLResponse{
     }
 }
 public extension URLCache{
-    class var `default`:URLCache{
-        let cache = URLCache.init(memoryCapacity: 1024*1024*30, diskCapacity: 1024*1024*1024, diskPath: "WTKitURLCachePath")
-        return cache
-    }
+    static let `default`:URLCache = URLCache.init(memoryCapacity: 1024*1024*30, diskCapacity: 1024*1024*1024, diskPath: "WTKitURLCachePath")
 }
 public extension URLSession{
-    class var `default`: URLSession {
+    static let `default`: URLSession = {
         let config = URLSessionConfiguration.default
         config.urlCache = URLCache.default
         let session = URLSession.init(configuration: config)
         return session
-    }
+    }()
     
     static var defaulAcceptEncoding:String{
         //Accept-Encoding
