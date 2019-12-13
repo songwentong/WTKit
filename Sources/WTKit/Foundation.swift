@@ -215,9 +215,9 @@ public extension URLRequest{
         for (k,v) in headers{
             request.setValue(v, forHTTPHeaderField: k)
         }
-        request.setValue(URLSession.defaulAcceptEncoding, forHTTPHeaderField: "Accept-Encoding")
-        request.setValue(URLSession.defaultLanguage, forHTTPHeaderField: "Accept-Language")
-        request.setValue(URLSession.defaultUserAgent, forHTTPHeaderField: "User-Agent")
+//        request.setValue(URLSession.defaulAcceptEncoding, forHTTPHeaderField: "Accept-Encoding")
+//        request.setValue(URLSession.defaultLanguage, forHTTPHeaderField: "Accept-Language")
+//        request.setValue(URLSession.defaultUserAgent, forHTTPHeaderField: "User-Agent")
         return request
     }
     static func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
@@ -317,73 +317,19 @@ public extension HTTPURLResponse{
 public extension URLCache{
     static let `default`:URLCache = {
         let totalMemory:UInt64 = ProcessInfo.processInfo.physicalMemory
+        //25% of system memory
         let memoryCapacity:Int = Int(totalMemory / 4)
 //        FileManager
-        //30M
         let cache = URLCache.init(memoryCapacity: memoryCapacity, diskCapacity: 1024*1024*1024, diskPath: "WTKitURLCachePath")
         return cache
     }()
 }
+
 public extension URLSession{
     static let `default`: URLSession = {
-        let config = URLSessionConfiguration.default
-        config.urlCache = URLCache.default
-        let session = URLSession.init(configuration: config)
+        let session = URLSession.init(configuration: .wtURLSessionConfiguration)
         return session
     }()
-    
-    static var defaulAcceptEncoding:String{
-        //Accept-Encoding
-        let encodings: [String]
-        if #available(iOS 11.0, macOS 10.13, tvOS 11.0, watchOS 4.0, *) {
-            encodings = ["br", "gzip", "deflate"]
-        } else {
-            encodings = ["gzip", "deflate"]
-        }
-        return encodings.qualityEncoded()
-    }
-    static var defaultLanguage:String{
-        //"Accept-Language"
-        return Locale.preferredLanguages.prefix(6).qualityEncoded()
-    }
-    static var defaultUserAgent: String {
-//        "User-Agent"
-        guard let info = Bundle.main.infoDictionary else{
-            return "Unknown User-Agent"
-        }
-        let executable = info[kCFBundleExecutableKey as String] as? String ?? "Unknown"
-        let bundle = info[kCFBundleIdentifierKey as String] as? String ?? "Unknown"
-        let appVersion = info["CFBundleShortVersionString"] as? String ?? "Unknown"
-        let appBuild = info[kCFBundleVersionKey as String] as? String ?? "Unknown"
-        
-        let osNameVersion: String = {
-            let version = ProcessInfo.processInfo.operatingSystemVersion
-            let versionString = "\(version.majorVersion).\(version.minorVersion).\(version.patchVersion)"
-            // swiftformat:disable indent
-            let osName: String = {
-                #if os(iOS)
-                return "iOS"
-                #elseif os(watchOS)
-                return "watchOS"
-                #elseif os(tvOS)
-                return "tvOS"
-                #elseif os(macOS)
-                return "macOS"
-                #elseif os(Linux)
-                return "Linux"
-                #else
-                return "Unknown"
-                #endif
-            }()
-            // swiftformat:enable indent
-            
-            return "\(osName) \(versionString)"
-        }()
-        
-        let WTKit = "WTKit"
-        
-        return "\(executable)/\(appVersion) (\(bundle); build:\(appBuild); \(osNameVersion)) \(WTKit)"
-    }
     func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
         let request = URLRequest.createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
 //        for(k,v) in configuration.httpAdditionalHeaders{
@@ -422,7 +368,6 @@ public extension URLSession{
         task.resume()
         return task
     }
-    
 }
 public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
     var request:URLRequest = URLRequest.init(url: "".urlValue())
@@ -525,6 +470,74 @@ public extension URLSessionTask{
 }
 public extension URLSessionDataTask{
     
+}
+public extension URLSessionConfiguration{
+    static let wtURLSessionConfiguration:URLSessionConfiguration = {
+        let config = URLSessionConfiguration.default
+        var httpAdditionalHeaders:[AnyHashable:Any] = [:]
+        httpAdditionalHeaders["Accept-Encoding"] = URLSessionConfiguration.defaulAcceptEncoding
+        httpAdditionalHeaders["Accept-Language"] = URLSessionConfiguration.defaultLanguage
+        httpAdditionalHeaders["User-Agent"] = URLSessionConfiguration.defaultUserAgent
+        config.httpAdditionalHeaders = httpAdditionalHeaders
+        return config
+    }()
+    
+    static var defaulAcceptEncoding:String{
+        //Accept-Encoding
+        let encodings: [String]
+        if #available(iOS 11.0, macOS 10.13, tvOS 11.0, watchOS 4.0, *) {
+            encodings = ["br", "gzip", "deflate"]
+        } else {
+            encodings = ["gzip", "deflate"]
+        }
+        return encodings.qualityEncoded()
+    }
+    static var defaultLanguage:String{
+        //"Accept-Language"
+        return Locale.preferredLanguages.prefix(6).qualityEncoded()
+    }
+    static var defaultUserAgent: String {
+        //        "User-Agent"
+        guard let info = Bundle.main.infoDictionary else{
+            return "Unknown User-Agent"
+        }
+        
+        let executable = info[kCFBundleExecutableKey as String] as? String ?? "Unknown"
+        
+        let bundle = info[kCFBundleIdentifierKey as String] as? String ?? "Unknown"
+        
+        let appVersion = info["CFBundleShortVersionString"] as? String ?? "Unknown"
+        
+        let appBuild = info[kCFBundleVersionKey as String] as? String ?? "Unknown"
+        
+        let osNameVersion: String = {
+            let version = ProcessInfo.processInfo.operatingSystemVersion
+            let versionString = "\(version.majorVersion).\(version.minorVersion).\(version.patchVersion)"
+            // swiftformat:disable indent
+            let osName: String = {
+                #if os(iOS)
+                return "iOS"
+                #elseif os(watchOS)
+                return "watchOS"
+                #elseif os(tvOS)
+                return "tvOS"
+                #elseif os(macOS)
+                return "macOS"
+                #elseif os(Linux)
+                return "Linux"
+                #else
+                return "Unknown"
+                #endif
+            }()
+            // swiftformat:enable indent
+            
+            return "\(osName) \(versionString)"
+        }()
+        
+        let WTKit = "WTKit"
+        let result = "\(executable)/\(appVersion) (\(bundle); build:\(appBuild); \(osNameVersion)) \(WTKit)"
+        return result
+    }
 }
 public extension Date{
     func localDescString() -> String {
