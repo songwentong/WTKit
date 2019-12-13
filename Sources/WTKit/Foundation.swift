@@ -332,9 +332,6 @@ public extension URLSession{
     }()
     func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
         let request = URLRequest.createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
-//        for(k,v) in configuration.httpAdditionalHeaders{
-//            request.addValue(v, forHTTPHeaderField: k)
-//        }
         return dataTaskWith(request: request, codable: object, completionHandler: completionHandler)
     }
     
