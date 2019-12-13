@@ -215,9 +215,9 @@ public extension URLRequest{
         for (k,v) in headers{
             request.setValue(v, forHTTPHeaderField: k)
         }
-//        request.setValue(URLSession.defaulAcceptEncoding, forHTTPHeaderField: "Accept-Encoding")
-//        request.setValue(URLSession.defaultLanguage, forHTTPHeaderField: "Accept-Language")
-//        request.setValue(URLSession.defaultUserAgent, forHTTPHeaderField: "User-Agent")
+        for (k,v) in URLSessionConfiguration.defaultHeaders{
+            request.setValue(v, forHTTPHeaderField: k)
+        }
         return request
     }
     static func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
@@ -471,13 +471,16 @@ public extension URLSessionDataTask{
 public extension URLSessionConfiguration{
     static let wtURLSessionConfiguration:URLSessionConfiguration = {
         let config = URLSessionConfiguration.default
-        var httpAdditionalHeaders:[AnyHashable:Any] = [:]
-        httpAdditionalHeaders["Accept-Encoding"] = URLSessionConfiguration.defaulAcceptEncoding
-        httpAdditionalHeaders["Accept-Language"] = URLSessionConfiguration.defaultLanguage
-        httpAdditionalHeaders["User-Agent"] = URLSessionConfiguration.defaultUserAgent
-        config.httpAdditionalHeaders = httpAdditionalHeaders
+        config.httpAdditionalHeaders = defaultHeaders
         return config
     }()
+    static var defaultHeaders:[String:String]{
+        var defaultHeaders:[String:String] = [:]
+        defaultHeaders["Accept-Encoding"] = URLSessionConfiguration.defaulAcceptEncoding
+        defaultHeaders["Accept-Language"] = URLSessionConfiguration.defaultLanguage
+        defaultHeaders["User-Agent"] = URLSessionConfiguration.defaultUserAgent
+        return defaultHeaders
+    }
     
     static var defaulAcceptEncoding:String{
         //Accept-Encoding
