@@ -583,6 +583,7 @@ open class WTGradientView:UIView{
         return CAGradientLayer.self
     }
 }
+
 open class AlignLeftFlowLayout: UICollectionViewFlowLayout {
     override public func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let attributes = super.layoutAttributesForElements(in: rect)

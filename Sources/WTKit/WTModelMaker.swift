@@ -184,11 +184,12 @@ public class WTModelMaker {
                 propertyNames.append(nameReplacedKey)
                 stringToPrint += crlf
                 stringToPrint += indent
-                var string = ""
+                var typeString = ""
                 stringToPrint += "var \(nameReplacedKey):"
                 if value is String {
-                    string = "String"
+                    typeString = "String"
                     stringToPrint += "String"
+                    stringToPrint += optionalMarkIfNeeded()
                     if !useStruct{
                         stringToPrint += " = \"\""
                     }
@@ -202,22 +203,23 @@ public class WTModelMaker {
                     var defaultValue = " = false"
                     switch type{
                         case "c":
-                            string = "Bool"
+                            typeString = "Bool"
                             break
                         case "q":
-                            string = "Int"
+                            typeString = "Int"
                             defaultValue = " = -1"
                             break
                         case "d":
-                            string = "Double"
+                            typeString = "Double"
                             defaultValue = " = -1"
                             break
                         default:
-                            string = "Int"
+                            typeString = "Int"
                             defaultValue = " = -1"
                             break
                     }
-                    stringToPrint += "\(string)"
+                    stringToPrint += "\(typeString)"
+                    stringToPrint += optionalMarkIfNeeded()
                     if !useStruct{
                         stringToPrint += defaultValue
                     }
@@ -225,10 +227,12 @@ public class WTModelMaker {
                 } else if value is Array<Any>{
                     if value is [Int]{
                         //print("int array")
-                        stringToPrint += "[Int] = [Int]()"
+                        typeString = "Int" + optionalMarkIfNeeded()
+                        stringToPrint += "\(typeString) = [Int]()"
                     }else if value is [String]{
                         //print("string array")
-                        stringToPrint += "[String] = [String]()"
+                        typeString = "String" + optionalMarkIfNeeded()
+                        stringToPrint += "\(typeString) = [String]()"
                     }else{
                         guard let list = value as? [Any] else{
                             return ""
@@ -259,7 +263,7 @@ public class WTModelMaker {
                 
                 codingKeys += "case \(nameReplacedKey) = \"\(key)\""
                 codingKeys += crlf
-                stringToPrint += optionalMarkIfNeeded()
+                
 //                stringToPrint += crlf
                 
             }
