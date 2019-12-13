@@ -496,7 +496,7 @@ public extension URLSessionConfiguration{
         //"Accept-Language"
         return Locale.preferredLanguages.prefix(6).qualityEncoded()
     }
-    static var defaultUserAgent: String {
+    static var defaultUserAgent:String{
         //        "User-Agent"
         guard let info = Bundle.main.infoDictionary else{
             return "Unknown User-Agent"
