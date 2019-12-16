@@ -770,7 +770,7 @@ open class WTVC:UIViewController{
         wtSeparateLine.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         wtSeparateLine.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         wtSeparateLine.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor).isActive = true
-        wtSeparateLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        wtSeparateLine.heightAnchor.constraint(equalToConstant: 0.33).isActive = true
         wtSeparateLine.backgroundColor = .black
         
         view.addSubview(wtBackButton)
