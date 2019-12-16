@@ -268,36 +268,6 @@ public extension URLRequest{
         reu.request = self
         return reu
     }
-    var curlString: String {
-        // Logging URL requests in whole may expose sensitive data,
-        // or open up possibility for getting access to your user data,
-        // so make sure to disable this feature for production builds!
-        #if !DEBUG
-        return ""
-        #else
-        var result = "curl -k "
-        
-        if let method = httpMethod {
-            result += "-X \(method) \\\n"
-        }
-        
-        if let headers = allHTTPHeaderFields {
-            for (header, value) in headers {
-                result += "-H \"\(header): \(value)\" \\\n"
-            }
-        }
-        
-        if let body = httpBody, !body.isEmpty, let string = String(data: body, encoding: .utf8), !string.isEmpty {
-            result += "-d '\(string)' \\\n"
-        }
-        
-        if let url = url {
-            result += url.absoluteString
-        }
-        
-        return result
-        #endif
-    }
     //-H "Accept-Encoding: gzip;q=1.0, compress;q=0.5"
     static var defaultAcceptEncoding:String{
         if #available(iOS 11.0, macOS 10.13, tvOS 11.0, watchOS 4.0, *) {
@@ -308,7 +278,16 @@ public extension URLRequest{
     }
 }
 public extension URLResponse{
+    var httpURLResponse:HTTPURLResponse?{
+        guard let http = self as? HTTPURLResponse else{
+            return nil
+        }
+        return http
+    }
     
+    var isValidHttpStatusCode:Bool{
+        return httpURLResponse?.isValidStatusCode ?? false
+    }
 }
 public extension HTTPURLResponse{
     var isValidStatusCode:Bool{
