@@ -732,8 +732,8 @@ open class WTVC:UIViewController{
     open var wtBottomAnchor:NSLayoutConstraint? = nil
     public static var wtDefaultHeaderBGColor:UIColor = UIColor.colorWithHexString("f8fafc")
     open var wtSeparateLine:UIView = UIView()
-    var wtBackButton:UIButton = UIButton.init(type: .custom)
-    var wtBackIconImageView:UIImageView = UIImageView()
+    open var wtBackButton:UIButton = UIButton.init(type: .custom)
+    open var wtBackIconImageView:UIImageView = UIImageView()
     open var wtBackButtonLabel:UILabel = UILabel()
     open var wtTitleLabel:UILabel = UILabel.init()
     static var wtBackButtonURL:String = "https://songwentong.github.io/projects/WTKit/backbutton.png"
