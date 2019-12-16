@@ -218,6 +218,7 @@ public extension URLRequest{
         for (k,v) in URLSessionConfiguration.defaultHeaders{
             request.setValue(v, forHTTPHeaderField: k)
         }
+//        for (k,v) in URLSessionConfiguration.s
         return request
     }
     static func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
@@ -331,7 +332,15 @@ public extension URLSession{
         return session
     }()
     func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
-        let request = URLRequest.createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
+        var request = URLRequest.createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
+        //虽然默认带了,但是无法自动输出,所以还是手动加上吧
+        if let httpAdditionalHeaders = configuration.httpAdditionalHeaders{
+            for (k,v) in httpAdditionalHeaders{
+                if let ks = k as? String, let vs = v as? String{
+                    request.setValue(vs, forHTTPHeaderField: ks)
+                }
+            }
+        }
         return dataTaskWith(request: request, codable: object, completionHandler: completionHandler)
     }
     

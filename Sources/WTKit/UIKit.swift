@@ -734,6 +734,7 @@ open class WTVC:UIViewController{
     var wtSeparateLine:UIView = UIView()
     var wtBackButton:UIButton = UIButton.init(type: .custom)
     var wtTitleLabel:UILabel = UILabel.init()
+    static var wtBackButtonURL:String = "https://songwentong.github.io/projects/WTKit/backbutton.png"
     open override func viewDidLoad() {
         super.viewDidLoad()
         configMyHeaderView()
@@ -770,6 +771,13 @@ open class WTVC:UIViewController{
         wtBackButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         wtBackButton.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
         wtBackButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        URLSession.default.useCacheElseLoadURLData(with: WTVC.wtBackButtonURL.urlValue()) { (data, res, err) in
+            guard let data = data else{
+                return
+            }
+            let img = UIImage.init(data: data)
+            self.wtBackButton.setImage(img, for: .normal)
+        }
         wtBackButton.setTitle("Back", for: .normal)
         wtBackButton.addTarget(self, action: #selector(wtBackButtonPressed), for: .touchUpInside)
         
