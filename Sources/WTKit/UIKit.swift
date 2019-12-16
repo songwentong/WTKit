@@ -736,7 +736,11 @@ open class WTVC:UIViewController{
     open var wtBackIconImageView:UIImageView = UIImageView()
     open var wtBackButtonLabel:UILabel = UILabel()
     open var wtTitleLabel:UILabel = UILabel.init()
-    public static var wtBackButtonURL:String = "https://songwentong.github.io/projects/WTKit/backbutton.png"
+    public static var wtBackButtonURL:String = "https://songwentong.github.io/projects/WTKit/backbutton.png"{
+        didSet{
+            
+        }
+    }
     public static var wtBackButtonImage:UIImage? = nil
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -764,7 +768,7 @@ open class WTVC:UIViewController{
         wtSeparateLine.turnOffMask()
         wtSeparateLine.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         wtSeparateLine.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        wtSeparateLine.topAnchor.constraint(equalTo: wtHeaderView.topAnchor).isActive = true
+        wtSeparateLine.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor).isActive = true
         wtSeparateLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
         wtSeparateLine.backgroundColor = .black
         
