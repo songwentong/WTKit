@@ -734,7 +734,7 @@ open class WTVC:UIViewController{
     open var wtSeparateLine:UIView = UIView()
     var wtBackButton:UIButton = UIButton.init(type: .custom)
     var wtBackIconImageView:UIImageView = UIImageView()
-    var wtBackButtonLabel:UILabel = UILabel()
+    open var wtBackButtonLabel:UILabel = UILabel()
     open var wtTitleLabel:UILabel = UILabel.init()
     static var wtBackButtonURL:String = "https://songwentong.github.io/projects/WTKit/backbutton.png"
     open override func viewDidLoad() {
