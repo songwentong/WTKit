@@ -730,7 +730,7 @@ public extension UICollectionViewCell{
 open class WTVC:UIViewController{
     open var wtHeaderView:UIView = UIView()
     open var wtBottomAnchor:NSLayoutConstraint? = nil
-    static var wtDefaultHeaderBGColor:UIColor = UIColor.colorWithHexString("f8fafc")
+    public static var wtDefaultHeaderBGColor:UIColor = UIColor.colorWithHexString("f8fafc")
     open var wtSeparateLine:UIView = UIView()
     var wtBackButton:UIButton = UIButton.init(type: .custom)
     var wtBackIconImageView:UIImageView = UIImageView()
