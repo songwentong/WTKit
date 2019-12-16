@@ -737,6 +737,7 @@ open class WTVC:UIViewController{
     open var wtBackButtonLabel:UILabel = UILabel()
     open var wtTitleLabel:UILabel = UILabel.init()
     public static var wtBackButtonURL:String = "https://songwentong.github.io/projects/WTKit/backbutton.png"
+    public static var wtBackButtonImage:UIImage? = nil
     open override func viewDidLoad() {
         super.viewDidLoad()
         configMyHeaderView()
@@ -787,12 +788,15 @@ open class WTVC:UIViewController{
         wtBackIconImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
         wtBackIconImageView.heightAnchor.constraint(equalToConstant: 44).isActive = true
         wtBackIconImageView.contentMode = .scaleAspectFit
-        URLSession.default.useCacheElseLoadURLData(with: WTVC.wtBackButtonURL.urlValue()) { (data, res, err) in
-            guard let data = data else{
-                return
+        wtBackIconImageView.image = WTVC.wtBackButtonImage
+        if let url = URL.init(string: WTVC.wtBackButtonURL){
+            URLSession.default.useCacheElseLoadURLData(with: url) { (data, res, err) in
+                guard let data = data else{
+                    return
+                }
+                let img = UIImage.init(data: data)
+                self.wtBackIconImageView.image = img
             }
-            let img = UIImage.init(data: data)
-            self.wtBackIconImageView.image = img
         }
         wtBackButton.addSubview(wtBackButtonLabel)
         wtBackButtonLabel.turnOffMask()
