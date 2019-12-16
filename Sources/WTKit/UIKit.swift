@@ -769,7 +769,7 @@ open class WTVC:UIViewController{
         wtBackButton.turnOffMask()
         wtBackButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         wtBackButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        wtBackButton.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
+        wtBackButton.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: -8).isActive = true
         wtBackButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         wtBackButton.imageView?.contentMode = .scaleAspectFit
 //        wtBackButton.contentMode = .scaleAspectFit
