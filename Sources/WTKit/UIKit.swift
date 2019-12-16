@@ -728,12 +728,12 @@ public extension UICollectionViewCell{
     
 }
 open class WTVC:UIViewController{
-    var wtHeaderView:UIView = UIView()
-    var wtBottomAnchor:NSLayoutConstraint? = nil
+    open var wtHeaderView:UIView = UIView()
+    open var wtBottomAnchor:NSLayoutConstraint? = nil
     static var wtDefaultHeaderBGColor:UIColor = .gray
-    var wtSeparateLine:UIView = UIView()
-    var wtBackButton:UIButton = UIButton.init(type: .custom)
-    var wtTitleLabel:UILabel = UILabel.init()
+    open var wtSeparateLine:UIView = UIView()
+    open var wtBackButton:UIButton = UIButton.init(type: .custom)
+    open var wtTitleLabel:UILabel = UILabel.init()
     static var wtBackButtonURL:String = "https://songwentong.github.io/projects/WTKit/backbutton.png"
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -768,9 +768,11 @@ open class WTVC:UIViewController{
         view.addSubview(wtBackButton)
         wtBackButton.turnOffMask()
         wtBackButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
-        wtBackButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        wtBackButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         wtBackButton.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
         wtBackButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        wtBackButton.imageView?.contentMode = .scaleAspectFit
+//        wtBackButton.contentMode = .scaleAspectFit
         URLSession.default.useCacheElseLoadURLData(with: WTVC.wtBackButtonURL.urlValue()) { (data, res, err) in
             guard let data = data else{
                 return
