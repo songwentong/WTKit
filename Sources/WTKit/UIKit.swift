@@ -736,7 +736,7 @@ open class WTVC:UIViewController{
     open var wtBackIconImageView:UIImageView = UIImageView()
     open var wtBackButtonLabel:UILabel = UILabel()
     open var wtTitleLabel:UILabel = UILabel.init()
-    static var wtBackButtonURL:String = "https://songwentong.github.io/projects/WTKit/backbutton.png"
+    public static var wtBackButtonURL:String = "https://songwentong.github.io/projects/WTKit/backbutton.png"
     open override func viewDidLoad() {
         super.viewDidLoad()
         configMyHeaderView()
