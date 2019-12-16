@@ -771,7 +771,7 @@ open class WTVC:UIViewController{
         wtSeparateLine.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         wtSeparateLine.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor).isActive = true
         wtSeparateLine.heightAnchor.constraint(equalToConstant: 0.33).isActive = true
-        wtSeparateLine.backgroundColor = UIColor.init(white: 1, alpha: 0.3)
+        wtSeparateLine.backgroundColor = UIColor.init(white: 0, alpha: 0.3)
         
         view.addSubview(wtBackButton)
         wtBackButton.turnOffMask()
