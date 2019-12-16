@@ -473,7 +473,7 @@ public extension UIImage{
             return nil
         }
         let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
-//        let bitsPerPixel = cgImage.bitsPerPixel
+        //        let bitsPerPixel = cgImage.bitsPerPixel
         
         
         let pixelInfo: Int = ((Int(self.size.width) * Int(pos.y)) + Int(pos.x)) * 4
@@ -482,7 +482,7 @@ public extension UIImage{
         let g = CGFloat(data[pixelInfo+1]) / CGFloat(255.0)
         let b = CGFloat(data[pixelInfo+2]) / CGFloat(255.0)
         let a = CGFloat(data[pixelInfo+3]) / CGFloat(255.0)
-
+        
         return UIColor(red: r, green: g, blue: b, alpha: a)
     }
 }
@@ -573,13 +573,13 @@ public extension UIWindow{
 
 /*
  example
-         layer.colors = [UIColor(red: 0.32, green: 0.77, blue: 0.93, alpha: 1).cgColor, UIColor(red: 0.21, green: 0.46, blue: 0.96, alpha: 1).cgColor]
-         layer.locations = [0, 1]
-         layer.startPoint = CGPoint(x: 0, y: 0.5)
-         layer.endPoint = CGPoint(x: 1, y: 0.5)
+ layer.colors = [UIColor(red: 0.32, green: 0.77, blue: 0.93, alpha: 1).cgColor, UIColor(red: 0.21, green: 0.46, blue: 0.96, alpha: 1).cgColor]
+ layer.locations = [0, 1]
+ layer.startPoint = CGPoint(x: 0, y: 0.5)
+ layer.endPoint = CGPoint(x: 1, y: 0.5)
  */
 open class WTGradientView:UIView{
-     override open class var layerClass: AnyClass{
+    override open class var layerClass: AnyClass{
         return CAGradientLayer.self
     }
 }
@@ -732,7 +732,9 @@ open class WTVC:UIViewController{
     open var wtBottomAnchor:NSLayoutConstraint? = nil
     static var wtDefaultHeaderBGColor:UIColor = UIColor.colorWithHexString("f8fafc")
     open var wtSeparateLine:UIView = UIView()
-    open var wtBackButton:UIButton = UIButton.init(type: .custom)
+    var wtBackButton:UIButton = UIButton.init(type: .custom)
+    var wtBackIconImageView:UIImageView = UIImageView()
+    var wtBackButtonLabel:UILabel = UILabel()
     open var wtTitleLabel:UILabel = UILabel.init()
     static var wtBackButtonURL:String = "https://songwentong.github.io/projects/WTKit/backbutton.png"
     open override func viewDidLoad() {
@@ -767,21 +769,38 @@ open class WTVC:UIViewController{
         
         view.addSubview(wtBackButton)
         wtBackButton.turnOffMask()
-        wtBackButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
-        wtBackButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        wtBackButton.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: -8).isActive = true
-        wtBackButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        wtBackButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        wtBackButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        wtBackButton.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
+        wtBackButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 69).isActive = true
         wtBackButton.imageView?.contentMode = .scaleAspectFit
-//        wtBackButton.contentMode = .scaleAspectFit
+        //        wtBackButton.contentMode = .scaleAspectFit
+        
+        //        wtBackButton.setTitle("Back", for: .normal)
+        wtBackButton.addTarget(self, action: #selector(wtBackButtonPressed), for: .touchUpInside)
+        wtBackButton.addSubview(wtBackIconImageView)
+        wtBackIconImageView.turnOffMask()
+        //12 centerY  13 21
+        //
+        wtBackIconImageView.leadingAnchor.constraint(equalTo: wtBackButton.leadingAnchor, constant: 12).isActive = true
+        wtBackIconImageView.bottomAnchor.constraint(equalTo: wtBackButton.bottomAnchor, constant: -11.5).isActive = true
+        wtBackIconImageView.widthAnchor.constraint(equalToConstant: 13).isActive = true
+        wtBackIconImageView.heightAnchor.constraint(equalToConstant: 21).isActive = true
         URLSession.default.useCacheElseLoadURLData(with: WTVC.wtBackButtonURL.urlValue()) { (data, res, err) in
             guard let data = data else{
                 return
             }
             let img = UIImage.init(data: data)
-            self.wtBackButton.setImage(img, for: .normal)
+            self.wtBackIconImageView.image = img
         }
-        wtBackButton.setTitle("Back", for: .normal)
-        wtBackButton.addTarget(self, action: #selector(wtBackButtonPressed), for: .touchUpInside)
+        wtBackButton.addSubview(wtBackButtonLabel)
+        wtBackButtonLabel.turnOffMask()
+        wtBackButtonLabel.leadingAnchor.constraint(equalTo: wtBackButton.leadingAnchor, constant: 31).isActive = true
+        wtBackButtonLabel.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        wtBackButtonLabel.bottomAnchor.constraint(equalTo: wtBackButton.bottomAnchor, constant: 0).isActive = true
+        wtBackButtonLabel.trailingAnchor.constraint(equalTo: wtBackButton.trailingAnchor, constant: 0).isActive = true
+        wtBackButtonLabel.text = "Back"
+        
         
         view.addSubview(wtTitleLabel)
         wtTitleLabel.turnOffMask()
