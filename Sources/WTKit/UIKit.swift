@@ -756,6 +756,7 @@ open class WTVC:UIViewController{
         wtHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         wtHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         wtHeaderView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        wtHeaderView.clipsToBounds = false
         if #available(iOS 11.0, *) {
             wtBottomAnchor = wtHeaderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor ,constant: 44)
         } else {
