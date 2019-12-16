@@ -779,8 +779,7 @@ open class WTVC:UIViewController{
         wtBackButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         wtBackButton.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
         wtBackButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 69).isActive = true
-        wtBackButton.imageView?.contentMode = .scaleAspectFit
-        //        wtBackButton.contentMode = .scaleAspectFit
+
         
         //        wtBackButton.setTitle("Back", for: .normal)
         wtBackButton.addTarget(self, action: #selector(wtBackButtonPressed), for: .touchUpInside)
@@ -792,7 +791,7 @@ open class WTVC:UIViewController{
         wtBackIconImageView.bottomAnchor.constraint(equalTo: wtBackButton.bottomAnchor, constant: 0).isActive = true
         wtBackIconImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
         wtBackIconImageView.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        wtBackIconImageView.contentMode = .scaleAspectFit
+        wtBackIconImageView.contentMode = .center
         wtBackIconImageView.image = WTVC.wtBackButtonImage
         if let url = URL.init(string: WTVC.wtBackButtonURL){
             URLSession.default.useCacheElseLoadURLData(with: url) { (data, res, err) in
