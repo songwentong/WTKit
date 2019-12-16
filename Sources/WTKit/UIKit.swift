@@ -782,9 +782,9 @@ open class WTVC:UIViewController{
         wtBackIconImageView.turnOffMask()
         //12 centerY  13 21
         //
-        wtBackIconImageView.leadingAnchor.constraint(equalTo: wtBackButton.leadingAnchor, constant: 12).isActive = true
+        wtBackIconImageView.leadingAnchor.constraint(equalTo: wtBackButton.leadingAnchor, constant: 0).isActive = true
         wtBackIconImageView.bottomAnchor.constraint(equalTo: wtBackButton.bottomAnchor, constant: 0).isActive = true
-        wtBackIconImageView.widthAnchor.constraint(equalToConstant: 13).isActive = true
+        wtBackIconImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
         wtBackIconImageView.heightAnchor.constraint(equalToConstant: 44).isActive = true
         wtBackIconImageView.contentMode = .scaleAspectFit
         URLSession.default.useCacheElseLoadURLData(with: WTVC.wtBackButtonURL.urlValue()) { (data, res, err) in
