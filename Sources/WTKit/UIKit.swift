@@ -801,7 +801,7 @@ open class WTVC:UIViewController{
         wtBackButtonLabel.bottomAnchor.constraint(equalTo: wtBackButton.bottomAnchor, constant: 0).isActive = true
         wtBackButtonLabel.trailingAnchor.constraint(equalTo: wtBackButton.trailingAnchor, constant: 0).isActive = true
         wtBackButtonLabel.text = "Back"
-        
+        wtBackButtonLabel.textColor = .colorWithHexString("0077fa")
         
         view.addSubview(wtTitleLabel)
         wtTitleLabel.turnOffMask()
