@@ -765,7 +765,7 @@ open class WTVC:UIViewController{
         wtBottomAnchor?.isActive = true
         wtHeaderView.backgroundColor = WTVC.wtDefaultHeaderBGColor
         
-        view.addSubview(wtSeparateLine)
+        wtHeaderView.addSubview(wtSeparateLine)
         wtSeparateLine.turnOffMask()
         wtSeparateLine.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         wtSeparateLine.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -773,7 +773,7 @@ open class WTVC:UIViewController{
         wtSeparateLine.heightAnchor.constraint(equalToConstant: 0.33).isActive = true
         wtSeparateLine.backgroundColor = UIColor.init(white: 0, alpha: 0.3)
         
-        view.addSubview(wtBackButton)
+        wtHeaderView.addSubview(wtBackButton)
         wtBackButton.turnOffMask()
         wtBackButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         wtBackButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
@@ -811,7 +811,7 @@ open class WTVC:UIViewController{
         wtBackButtonLabel.text = "Back"
         wtBackButtonLabel.textColor = .colorWithHexString("0077fa")
         
-        view.addSubview(wtTitleLabel)
+        wtHeaderView.addSubview(wtTitleLabel)
         wtTitleLabel.turnOffMask()
         wtTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true
         wtTitleLabel.textAlignment = .center
@@ -857,6 +857,26 @@ open class WTVC:UIViewController{
         get{
             return wtHeaderView.backgroundColor
         }
+    }
+}
+open class WTTableVC:WTVC{
+    open var myTableView:UITableView = {
+        let table = UITableView.init(frame: .zero, style: .plain)
+        if #available(iOS 10.0, *) {
+            table.refreshControl = UIRefreshControl.init()
+        } else {
+            
+        }
+        return table
+    }()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(myTableView)
+        myTableView.turnOffMask()
+        myTableView.topAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
+        myTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        myTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        myTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
     }
 }
 #endif
