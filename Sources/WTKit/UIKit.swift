@@ -819,6 +819,12 @@ open class WTVC:UIViewController{
     }
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        guard let navi = navigationController else{
+            return
+        }
+        if navi.topViewController == self{
+            wtBackButton.isHidden = true
+        }
     }
     @objc func wtBackButtonPressed() {
         guard let count = navigationController?.viewControllers.count else{
