@@ -860,12 +860,16 @@ open class WTVC:UIViewController{
         }
     }
     @objc func wtBackButtonEvents(){
-        if wtBackButton.isHighlighted{
-            wtBackButtonLabel.alpha = 0.2
-            wtBackIconImageView.alpha = 0.2
-        }else{
-            wtBackButtonLabel.alpha = 1.0
-            wtBackIconImageView.alpha = 1.0
+        UIView.animate(withDuration: 0.2, delay: 0, options: .beginFromCurrentState, animations: {
+            if wtBackButton.isHighlighted{
+                wtBackButtonLabel.alpha = 0.2
+                wtBackIconImageView.alpha = 0.2
+            }else{
+                wtBackButtonLabel.alpha = 1.0
+                wtBackIconImageView.alpha = 1.0
+            }
+        }) { (flag) in
+            
         }
     }
     @objc func wtBackButtonPressed() {
