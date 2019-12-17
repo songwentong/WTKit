@@ -378,29 +378,62 @@ struct ImageLoadResult {
     let response:URLResponse
     let url:String
 }
+@available(iOS 10.0, *)
+public extension UIGraphicsRenderer{
+    
+}
+@available(iOS 10.0, *)
+public extension UIGraphicsImageRenderer{
+//    func image(<#parameters#>) -> <#return type#> {
+//        <#function body#>
+//    }
+}
+public extension CGContext{
+    
+}
 public extension UIImage{
     //加载一张图片需要0.015941143035888672左右,decode做分线程处理可以节约时间,减少卡顿
     func decodedImage(_ size:CGSize, callBack:@escaping ((UIImage)->Void)) {
-        DispatchQueue.global().async {
-            UIGraphicsBeginImageContext(size)
-            guard let context = UIGraphicsGetCurrentContext() else{
-                callBack(self)
-                return
+//        let blue = #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1)
+        if #available(iOS 10.0, *) {
+            DispatchQueue.global().async {
+                let imageRenderer = UIGraphicsImageRenderer.init(size: size)
+                let image = imageRenderer.image { (context:UIGraphicsImageRendererContext) in
+                    let cgContext = context.cgContext
+                    cgContext.scaleBy(x: 1.0, y: -1.0)
+                    cgContext.translateBy(x: 0, y: -size.height)
+                    guard let cgImage = self.cgImage else{
+                        callBack(self)
+                        return
+                    }
+                    cgContext.draw(cgImage, in: CGRect.init(origin: .zero, size: size))
+                }
+                DispatchQueue.safeSyncInMain {
+                    callBack(image)
+                }
             }
-            context.scaleBy(x: 1.0, y: -1.0)
-            context.translateBy(x: 0, y: -size.height)
-            guard let cgImage = self.cgImage else{
-                callBack(self)
-                return
-            }
-            context.draw(cgImage, in: CGRect.init(origin: .zero, size: size))
-            guard let image = UIGraphicsGetImageFromCurrentImageContext() else{
-                callBack(self)
-                return
-            }
-            UIGraphicsEndImageContext()
-            DispatchQueue.main.async {
-                callBack(image)
+        }else{
+            DispatchQueue.global().async {
+                UIGraphicsBeginImageContext(size)
+                guard let cgContext = UIGraphicsGetCurrentContext() else{
+                    callBack(self)
+                    return
+                }
+                cgContext.scaleBy(x: 1.0, y: -1.0)
+                cgContext.translateBy(x: 0, y: -size.height)
+                guard let cgImage = self.cgImage else{
+                    callBack(self)
+                    return
+                }
+                cgContext.draw(cgImage, in: CGRect.init(origin: .zero, size: size))
+                guard let image = UIGraphicsGetImageFromCurrentImageContext() else{
+                    callBack(self)
+                    return
+                }
+                UIGraphicsEndImageContext()
+                DispatchQueue.main.async {
+                    callBack(image)
+                }
             }
         }
     }
@@ -617,11 +650,7 @@ open class WebImageView:UIImageView{
             guard let img = UIImage.init(data: data) else{
                 return
             }
-            //            let date1 = Date.init()
             img.decodedImage(size) { (image) in
-                //                let date2 = Date.init()
-                //                let distance = date2.timeIntervalSince1970 - date1.timeIntervalSince1970
-                //                print("distance:\(distance)")
                 DispatchQueue.safeSyncInMain(execute:  {
                     self?.image = image
                     self?.layoutIfNeeded()
@@ -799,7 +828,9 @@ open class WTVC:UIViewController{
                     return
                 }
                 let img = UIImage.init(data: data)
-                self.wtBackIconImageView.image = img
+                img?.decodedImage(img?.size, callBack: { (image) in
+                    self.wtBackIconImageView.image = img
+                })
             }
         }
         wtBackButton.addSubview(wtBackButtonLabel)
