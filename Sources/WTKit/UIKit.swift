@@ -830,9 +830,7 @@ open class WTVC:UIViewController{
                 guard let img = UIImage.init(data: data) else{
                     return
                 }
-                img.decodedImage(img.size, callBack: { (decodedImage) in
-                    self.wtBackIconImageView.image = decodedImage
-                })
+                self.wtBackIconImageView.image = img
             }
         }
         wtBackButton.addSubview(wtBackButtonLabel)
