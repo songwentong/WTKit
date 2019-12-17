@@ -808,9 +808,9 @@ open class WTVC:UIViewController{
         //
         wtBackIconImageView.leadingAnchor.constraint(equalTo: wtBackButton.leadingAnchor, constant: 0).isActive = true
         wtBackIconImageView.bottomAnchor.constraint(equalTo: wtBackButton.bottomAnchor, constant: 0).isActive = true
-        wtBackIconImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        wtBackIconImageView.widthAnchor.constraint(equalToConstant: 31).isActive = true
         wtBackIconImageView.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        wtBackIconImageView.contentMode = .scaleAspectFill
+        wtBackIconImageView.contentMode = .scaleAspectFit
         wtBackIconImageView.image = WTVC.wtBackButtonImage
         if let url = URL.init(string: WTVC.wtBackButtonURL){
             URLSession.default.useCacheElseLoadURLData(with: url) { (data, res, err) in
