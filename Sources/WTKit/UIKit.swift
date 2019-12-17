@@ -589,7 +589,36 @@ public extension UIView{
         }
     }
 }
+public extension UIScrollView {
+    
+    /// SwifterSwift: Takes a snapshot of an entire ScrollView
+    ///
+    ///    AnySubclassOfUIScroolView().snapshot
+    ///    UITableView().snapshot
+    ///
+    /// - Returns: Snapshot as UIimage for rendered ScrollView
+    var snapshot: UIImage? {
+        // Original Source: https://gist.github.com/thestoics/1204051
+        UIGraphicsBeginImageContextWithOptions(contentSize, false, 0)
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        let previousFrame = frame
+        frame = CGRect(origin: frame.origin, size: contentSize)
+        layer.render(in: context)
+        frame = previousFrame
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    
+}
 
+public extension UITableViewCell{
+    
+}
+public extension UICollectionViewCell{
+    
+}
 public extension UIWindow{
     //    static func getMainWindow() -> UIWindow {
     //        UIApplication.shared.keyWindow
@@ -651,10 +680,8 @@ open class WebImageView:UIImageView{
                 return
             }
             img.decodedImage(size) { (image) in
-                DispatchQueue.safeSyncInMain(execute:  {
-                    self?.image = image
-                    self?.layoutIfNeeded()
-                })
+                self?.image = image
+                self?.layoutIfNeeded()
             }
         }
         webImageTask?.resume()
@@ -669,15 +696,10 @@ open class WebImageView:UIImageView{
             guard let img = UIImage.init(data: data) else{
                 return
             }
-            //            let date1 = Date.init()
+            
             img.decodedImage(size) { (image) in
-                //                let date2 = Date.init()
-                //                let distance = date2.timeIntervalSince1970 - date1.timeIntervalSince1970
-                //                print("distance:\(distance)")
-                DispatchQueue.safeSyncInMain(execute:  {
-                    self?.highlightedImage = image
-                    self?.layoutIfNeeded()
-                })
+                self?.highlightedImage = image
+                self?.layoutIfNeeded()
             }
         }
         highlightedImageTask?.resume()
@@ -697,10 +719,8 @@ open class WebImageButton:UIButton{
                 return
             }
             img.decodedImage(size) { (image) in
-                DispatchQueue.safeSyncInMain(execute:  {
-                    self?.setImage(image, for: state)
-                    self?.layoutIfNeeded()
-                })
+                self?.setImage(image, for: state)
+                self?.layoutIfNeeded()
             }
         })
         
@@ -717,45 +737,14 @@ open class WebImageButton:UIButton{
                 return
             }
             img.decodedImage(size) { (image) in
-                DispatchQueue.safeSyncInMain(execute:  {
-                    self?.setImage(image, for: state)
-                    self?.layoutIfNeeded()
-                })
+                self?.setImage(image, for: state)
+                self?.layoutIfNeeded()
             }
         })
         backgroundImageImageTask?.resume()
     }
 }
-public extension UIScrollView {
-    
-    /// SwifterSwift: Takes a snapshot of an entire ScrollView
-    ///
-    ///    AnySubclassOfUIScroolView().snapshot
-    ///    UITableView().snapshot
-    ///
-    /// - Returns: Snapshot as UIimage for rendered ScrollView
-    var snapshot: UIImage? {
-        // Original Source: https://gist.github.com/thestoics/1204051
-        UIGraphicsBeginImageContextWithOptions(contentSize, false, 0)
-        defer {
-            UIGraphicsEndImageContext()
-        }
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
-        let previousFrame = frame
-        frame = CGRect(origin: frame.origin, size: contentSize)
-        layer.render(in: context)
-        frame = previousFrame
-        return UIGraphicsGetImageFromCurrentImageContext()
-    }
-    
-}
 
-public extension UITableViewCell{
-    
-}
-public extension UICollectionViewCell{
-    
-}
 open class WTVC:UIViewController{
     open var wtHeaderView:UIView = UIView()
     open var wtBottomAnchor:NSLayoutConstraint? = nil
