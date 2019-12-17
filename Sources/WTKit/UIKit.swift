@@ -804,12 +804,16 @@ open class WTVC:UIViewController{
         wtBackButton.addTarget(self, action: #selector(wtBackButtonPressed), for: .touchUpInside)
         wtBackButton.addSubview(wtBackIconImageView)
         wtBackIconImageView.turnOffMask()
+        //   size 37   63
+        // 37/3 =   12.3
+        // 63/3 = 21
+        // bottom = (44-21)/2 = 11.5
         //12 centerY  13 21
         //
         wtBackIconImageView.leadingAnchor.constraint(equalTo: wtBackButton.leadingAnchor, constant: 12).isActive = true
-        wtBackIconImageView.bottomAnchor.constraint(equalTo: wtBackButton.bottomAnchor, constant: 0).isActive = true
-        wtBackIconImageView.widthAnchor.constraint(equalToConstant: 12).isActive = true
-        wtBackIconImageView.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        wtBackIconImageView.bottomAnchor.constraint(equalTo: wtBackButton.bottomAnchor, constant: -11.5).isActive = true
+        wtBackIconImageView.widthAnchor.constraint(equalToConstant: 12.3).isActive = true
+        wtBackIconImageView.heightAnchor.constraint(equalToConstant: 21).isActive = true
         wtBackIconImageView.contentMode = .scaleAspectFill
         wtBackIconImageView.image = WTVC.wtBackButtonImage
         if let url = URL.init(string: WTVC.wtBackButtonURL){
