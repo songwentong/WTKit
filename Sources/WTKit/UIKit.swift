@@ -9,8 +9,11 @@
 import Foundation
 import UIKit
 public extension UIScreen{
-    class func mainScreenSize() -> CGSize {
-        return UIScreen.main.bounds.size
+    class var mainScreenBounds:CGRect {
+        return UIScreen.main.bounds
+    }
+    class var mainScreenSize:CGSize {
+        return mainScreenBounds.size
     }
     class func mainScreenWidth() -> CGFloat {
         return UIScreen.main.bounds.size.width
