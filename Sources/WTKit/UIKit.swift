@@ -802,6 +802,7 @@ open class WTVC:UIViewController{
         
         //        wtBackButton.setTitle("Back", for: .normal)
         wtBackButton.addTarget(self, action: #selector(wtBackButtonPressed), for: .touchUpInside)
+        wtBackButton.addTarget(self, action: #selector(wtBackButtonEvents), for: .allEvents)
         wtBackButton.addSubview(wtBackIconImageView)
         wtBackIconImageView.turnOffMask()
         //   size 37   63
@@ -856,6 +857,15 @@ open class WTVC:UIViewController{
             wtBackButton.isHidden = true
         }else{
             wtBackButton.isHidden = false
+        }
+    }
+    @objc func wtBackButtonEvents(){
+        if wtBackButton.isHighlighted{
+            wtBackButtonLabel.alpha = 0.2
+            wtBackIconImageView.alpha = 0.2
+        }else{
+            wtBackButtonLabel.alpha = 1.0
+            wtBackIconImageView.alpha = 1.0
         }
     }
     @objc func wtBackButtonPressed() {
