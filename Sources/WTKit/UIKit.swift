@@ -827,8 +827,10 @@ open class WTVC:UIViewController{
                 guard let data = data else{
                     return
                 }
-                let img = UIImage.init(data: data)
-                img?.decodedImage(img?.size ?? .zero, callBack: { (image) in
+                guard let img = UIImage.init(data: data) else{
+                    return
+                }
+                img.decodedImage(img.size, callBack: { (image) in
                     self.wtBackIconImageView.image = img
                 })
             }
