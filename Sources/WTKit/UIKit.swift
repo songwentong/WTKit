@@ -111,6 +111,10 @@ public extension UIViewController{
         return T.init()
     }
 }
+public extension UITableViewController{}
+public extension UIPageViewController{}
+public extension UICollectionViewController{}
+public extension UIAlertController{}
 public extension UITextField{
     var safeText:String{
         get{
@@ -207,6 +211,24 @@ public extension UIView{
         sl.lineWidth = cornerRadius * 2.0
         self.layer.mask = sl
     }
+    
+    func showLoadingView() {
+        hideLoadingView()
+        let loadingView = LoadingView.init(frame: self.bounds)
+        addSubview(loadingView)
+    }
+    func hideLoadingView() {
+        let views = subviews.filter { (view) -> Bool in
+            if view is LoadingView{
+                return true
+            }
+            return false
+        }
+        for v in views{
+            v.removeFromSuperview()
+        }
+    }
+    
 }
 
 public extension CALayer{
@@ -365,13 +387,23 @@ public extension UIApplication{
     static func pushViewController(_ viewController: UIViewController, animated: Bool) {
         topViewController?.navigationController?.pushViewController(viewController, animated: animated)
     }
+    /*
+    static func findKeyWindow() {
+        shared.windows.filter { (window) -> Bool in
+            window.windowLevel == .normal
+            if window.isKeyWindow{
+                return true
+            }
+            return false
+        }
+    }
+ */
     static func showLoadingView() {
         shared.windows.first?.showLoadingView()
     }
     static func hideLoadingView(){
         shared.windows.first?.hideLoadingView()
     }
-    
 }
 struct ImageLoadResult {
     let image:UIImage
@@ -571,26 +603,7 @@ open class TextTip:UIView{
         
     }
 }
-public extension UIView{
-    func showLoadingView() {
-        hideLoadingView()
-        let loadingView = LoadingView.init(frame: self.bounds)
-        addSubview(loadingView)
-    }
-    func hideLoadingView() {
-        let views = subviews.filter { (view) -> Bool in
-            if view is LoadingView{
-                return true
-            }
-            return false
-        }
-        for v in views{
-            v.removeFromSuperview()
-        }
-    }
-}
 public extension UIScrollView {
-    
     /// SwifterSwift: Takes a snapshot of an entire ScrollView
     ///
     ///    AnySubclassOfUIScroolView().snapshot
@@ -610,7 +623,6 @@ public extension UIScrollView {
         frame = previousFrame
         return UIGraphicsGetImageFromCurrentImageContext()
     }
-    
 }
 
 public extension UITableViewCell{
@@ -620,15 +632,6 @@ public extension UICollectionViewCell{
     
 }
 public extension UIWindow{
-    //    static func getMainWindow() -> UIWindow {
-    //        UIApplication.shared.keyWindow
-    //    }
-    static func showLoadingView() {
-        UIApplication.shared.windows.first?.showLoadingView()
-    }
-    static func hideLoadingView(){
-        UIApplication.shared.windows.first?.hideLoadingView()
-    }
 }
 
 
