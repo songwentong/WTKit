@@ -825,7 +825,7 @@ open class WTVC:UIViewController{
         }
         wtBackButton.addSubview(wtBackButtonLabel)
         wtBackButtonLabel.turnOffMask()
-        wtBackButtonLabel.leadingAnchor.constraint(equalTo: wtBackButton.leadingAnchor, constant: 30).isActive = true
+        wtBackButtonLabel.leadingAnchor.constraint(equalTo: wtBackIconImageView.trailingAnchor, constant: 6).isActive = true
         wtBackButtonLabel.heightAnchor.constraint(equalToConstant: 44).isActive = true
         wtBackButtonLabel.bottomAnchor.constraint(equalTo: wtBackButton.bottomAnchor, constant: 0).isActive = true
         wtBackButtonLabel.trailingAnchor.constraint(equalTo: wtBackButton.trailingAnchor, constant: 0).isActive = true
