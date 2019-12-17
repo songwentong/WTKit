@@ -387,17 +387,18 @@ public extension UIApplication{
     static func pushViewController(_ viewController: UIViewController, animated: Bool) {
         topViewController?.navigationController?.pushViewController(viewController, animated: animated)
     }
-    /*
-    static func findKeyWindow() {
-        shared.windows.filter { (window) -> Bool in
-            window.windowLevel == .normal
+    
+    static func findKeyWindow() -> UIWindow? {
+        let keyWindowList = shared.windows.filter { (window) -> Bool in
+//            window.windowLevel == .normal
             if window.isKeyWindow{
                 return true
             }
             return false
         }
+        return keyWindowList.first
     }
- */
+ 
     static func showLoadingView() {
         shared.windows.first?.showLoadingView()
     }
