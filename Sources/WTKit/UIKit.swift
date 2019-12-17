@@ -762,10 +762,11 @@ open class WTVC:UIViewController{
     public static var wtBackButtonImage:UIImage? = nil
     open override func viewDidLoad() {
         super.viewDidLoad()
-        configMyHeaderView()
+        
     }
     open override func loadView() {
         super.loadView()
+        configMyHeaderView()
     }
     
     func configMyHeaderView() {
@@ -889,14 +890,19 @@ open class WTTableVC:WTVC{
         }
         return table
     }()
-    open override func viewDidLoad() {
-        super.viewDidLoad()
+    open override func loadView() {
+        super.loadView()
         view.addSubview(myTableView)
         myTableView.turnOffMask()
         myTableView.topAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
         myTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
         myTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         myTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+    }
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        
     }
 }
 #endif
