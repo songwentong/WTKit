@@ -239,6 +239,9 @@ public extension UIView{
         let tip = WTTextTip.init(frame: self.bounds)
         tip.tipLabel.text = string
         addSubview(tip)
+        DispatchQueue.main.asyncAfterAfter(hideDelay) {
+            tip.removeFromSuperview()
+        }
     }
     func hideTipTextView() {
         for v in subviews{
@@ -627,7 +630,8 @@ open class WTTextTip:UIView{
         addSubview(tipLabel)
         tipLabel.turnOffMask()
         tipLabelBGView.turnOffMask()
-        tipLabelBGView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        tipLabelBGView.cornerRadius = 7
+        tipLabelBGView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         tipLabel.font = .systemFont(ofSize: 15)
         tipLabel.textColor = .white
         tipLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
