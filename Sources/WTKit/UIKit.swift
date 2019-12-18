@@ -676,7 +676,13 @@ public extension UICollectionViewCell{
 public extension UIWindow{
 }
 
-
+public extension NSAttributedString{
+    @available(iOS 6.0, *)
+    func heightForWidth(with width:CGFloat) -> CGFloat {
+        let rect = boundingRect(with: CGSize.init(width: width, height: 1000),options: [.usesLineFragmentOrigin], context: nil)
+        return ceil(rect.height)
+    }
+}
 
 /*
  example
