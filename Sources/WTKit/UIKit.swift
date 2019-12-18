@@ -771,6 +771,7 @@ open class WTUINavigationController:UINavigationController,UIGestureRecognizerDe
         return true
     }
 }
+// MARK: - WTVC
 open class WTVC:UIViewController{
     open var wtHeaderView:UIView = UIView()
     open var wtBottomAnchor:NSLayoutConstraint? = nil
