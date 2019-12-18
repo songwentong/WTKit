@@ -5,8 +5,8 @@
 //  Created by 宋文通 on 2019/8/12.
 //  Copyright © 2019 宋文通. All rights reserved.
 //
-#if os(iOS)
 import Foundation
+#if os(iOS)
 import UIKit
 public extension UIScreen{
     class var mainScreenBounds:CGRect {
@@ -22,6 +22,7 @@ public extension UIScreen{
         return UIScreen.main.bounds.size.height
     }
 }
+
 public extension UIDevice{
     static func isSimulator() -> Bool {
         #if targetEnvironment(simulator)
@@ -30,6 +31,7 @@ public extension UIDevice{
         return false
     }
 }
+
 public extension UIColor{
     //    func randomColor() -> UIColor {
     //        UIColor.init(red: CGFloat.random(in: ClosedRange.i), green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>)
@@ -84,6 +86,7 @@ public extension UIColor{
         }
     }
 }
+
 public extension UIViewController{
     func requestPushToTopVC() { UIApplication.topViewController?.navigationController?.pushViewController(self, animated: true)
     }
@@ -117,10 +120,15 @@ public extension UIViewController{
         return T.init()
     }
 }
+
 public extension UITableViewController{}
+
 public extension UIPageViewController{}
+
 public extension UICollectionViewController{}
+
 public extension UIAlertController{}
+
 public extension UITextField{
     var safeText:String{
         get{
@@ -128,8 +136,10 @@ public extension UITextField{
         }
     }
 }
+
 public extension UITextView{
 }
+
 public extension UILabel{
     @IBInspectable var adjustFont:Bool{
         get{
@@ -140,6 +150,7 @@ public extension UILabel{
         }
     }
 }
+
 public extension UIView{
     @IBInspectable var cornerRadius: CGFloat {
         get {
@@ -254,6 +265,7 @@ public extension UIView{
     
 }
 
+
 public extension CALayer{
     func snapShot() -> UIImage {
         if #available(iOS 10.0, *) {
@@ -271,11 +283,13 @@ public extension CALayer{
         }
     }
 }
+
 public extension CGColor{
     func convertToUIColor() -> UIColor {
         return UIColor.init(cgColor: self)
     }
 }
+
 public extension CGPoint{
     func distance(from point: CGPoint) -> CGFloat {
         return CGPoint.distance(from: self, p2: point)
@@ -294,10 +308,6 @@ class GlobalImageLoadCache {
     static let shared:GlobalImageLoadCache = {
         return GlobalImageLoadCache.init()
     }()
-}
-public extension NSObject{
-    //    func removeImageLoadNotificaion() {
-    //    }
 }
 public extension UIImageView{
     func loadImage(with path:String) {
@@ -338,6 +348,7 @@ public extension UIImageView{
         }
     }
 }
+
 public extension UIButton{
     func setImage(with path:String, for state: UIControl.State = .normal){
         NotificationCenter.default.addObserver(forName: UIImage.ImageLoadFinishNotification, object: nil, queue: OperationQueue.main) {[weak self] (notification) in
@@ -376,6 +387,7 @@ public extension UIButton{
         }
     }
 }
+
 public extension UITabBarController{
     var topViewController:UIViewController? {
         if let navi = selectedViewController as? UINavigationController{
@@ -384,6 +396,7 @@ public extension UITabBarController{
         return selectedViewController
     }
 }
+
 public extension UIApplication{
     static var rootViewController:UIViewController?{
         guard let first = UIApplication.shared.windows.first else{
@@ -413,7 +426,7 @@ public extension UIApplication{
     
     static func findKeyWindow() -> UIWindow? {
         let keyWindowList = shared.windows.filter { (window) -> Bool in
-//            window.windowLevel == .normal
+            //            window.windowLevel == .normal
             if window.isKeyWindow{
                 return true
             }
@@ -421,7 +434,7 @@ public extension UIApplication{
         }
         return keyWindowList.first
     }
- 
+    
     static func showLoadingView() {
         shared.windows.first?.showLoadingView()
     }
@@ -438,22 +451,26 @@ struct ImageLoadResult {
     let url:String
 }
 @available(iOS 10.0, *)
+
 public extension UIGraphicsRenderer{
     
 }
 @available(iOS 10.0, *)
+
 public extension UIGraphicsImageRenderer{
-//    func image(<#parameters#>) -> <#return type#> {
-//        <#function body#>
-//    }
+    //    func image(<#parameters#>) -> <#return type#> {
+    //        <#function body#>
+    //    }
 }
+
 public extension CGContext{
     
 }
+
 public extension UIImage{
     //加载一张图片需要0.015941143035888672左右,decode做分线程处理可以节约时间,减少卡顿
     func decodedImage(_ size:CGSize, callBack:@escaping ((UIImage)->Void)) {
-//        let blue = #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1)
+        //        let blue = #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1)
         if #available(iOS 10.0, *) {
             DispatchQueue.global().async {
                 let imageRenderer = UIGraphicsImageRenderer.init(size: size)
@@ -578,6 +595,7 @@ public extension UIImage{
         return UIColor(red: r, green: g, blue: b, alpha: a)
     }
 }
+
 public extension UIResponder{
     
 }
@@ -645,6 +663,7 @@ open class WTTextTip:UIView{
         tipLabelBGView.topAnchor.constraint(equalTo: tipLabel.topAnchor, constant: -18).isActive = true
     }
 }
+
 public extension UIScrollView {
     /// SwifterSwift: Takes a snapshot of an entire ScrollView
     ///
@@ -667,14 +686,18 @@ public extension UIScrollView {
     }
 }
 
+
 public extension UITableViewCell{
     
 }
+
 public extension UICollectionViewCell{
     
 }
+
 public extension UIWindow{
 }
+
 
 public extension NSAttributedString{
     @available(iOS 6.0, *)
@@ -866,7 +889,7 @@ open class WTVC:UIViewController{
         wtBackButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         wtBackButton.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
         wtBackButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 69).isActive = true
-
+        
         
         //        wtBackButton.setTitle("Back", for: .normal)
         wtBackButton.addTarget(self, action: #selector(wtBackButtonPressed), for: .touchUpInside)
@@ -991,5 +1014,8 @@ open class WTTableVC:WTVC{
         super.viewDidLoad()
     }
 }
-#endif
 
+
+
+#else
+#endif
