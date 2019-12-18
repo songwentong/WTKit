@@ -754,12 +754,20 @@ open class WebImageButton:UIButton{
         backgroundImageImageTask?.resume()
     }
 }
+// MARK: - WTUINavigationController
 open class WTUINavigationController:UINavigationController,UIGestureRecognizerDelegate{
     open override func viewDidLoad() {
         super.viewDidLoad()
         self.interactivePopGestureRecognizer?.delegate = self
     }
+    
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if viewControllers.count >= 2{
+            return true
+        }
+        return false
+    }
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool{
         return true
     }
 }
