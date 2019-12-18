@@ -578,7 +578,9 @@ public extension UIImage{
         return UIColor(red: r, green: g, blue: b, alpha: a)
     }
 }
-
+public extension UIResponder{
+    
+}
 open class LoadingView: UIView {
     var refreshIndicatorView = UIActivityIndicatorView.init(style: .whiteLarge)
     var indicatorBGView:UIView = UIView.init()
