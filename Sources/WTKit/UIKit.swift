@@ -238,6 +238,7 @@ public extension UIView{
         hideTipTextView()
         let tip = WTTextTip.init(frame: self.bounds)
         tip.tipLabel.text = string
+        tip.isUserInteractionEnabled = false
         addSubview(tip)
         DispatchQueue.main.asyncAfterAfter(hideDelay) {
             tip.removeFromSuperview()
