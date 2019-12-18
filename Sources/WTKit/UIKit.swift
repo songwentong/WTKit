@@ -754,7 +754,15 @@ open class WebImageButton:UIButton{
         backgroundImageImageTask?.resume()
     }
 }
-
+open class WTUINavigationController:UINavigationController,UIGestureRecognizerDelegate{
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        self.interactivePopGestureRecognizer?.delegate = self
+    }
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
 open class WTVC:UIViewController{
     open var wtHeaderView:UIView = UIView()
     open var wtBottomAnchor:NSLayoutConstraint? = nil

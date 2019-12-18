@@ -7,6 +7,21 @@
 #if os(iOS)
 import Foundation
 import UIKit
+// MARK: - UITableViewModel
+public protocol UITableViewModel {
+    var sections:[UITableViewSectionModel]{get set}
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+}
+// MARK: - UITableViewSectionModel
+public protocol UITableViewSectionModel {
+    var cells:[UITableViewCellModel]{get set}
+}
+// MARK: - UITableViewCellModel
+public protocol UITableViewCellModel{
+    var reuseIdentifier:String{get set}
+    var object: Any?{get set}
+    var userInfo: [AnyHashable : Any]?{get set}
+}
 // MARK: - UINibReusableCell
 public protocol UINibReusableCell:NSObjectProtocol {
     static func nib() -> UINib
@@ -21,18 +36,7 @@ public extension UINibReusableCell{
         return "\(self)"
     }
 }
-public protocol UITableViewModel {
-    var sections:[UITableViewSectionModel]{get set}
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-}
-public protocol UITableViewSectionModel {
-    var cells:[UITableViewCellModel]{get set}
-}
-public protocol UITableViewCellModel{
-    var reuseIdentifier:String{get set}
-    var object: Any?{get set}
-    var userInfo: [AnyHashable : Any]?{get set}
-}
+
 public extension UITableView{
     func dequeueReusableCellModel(withModel model:UITableViewCellModel, for indexPath: IndexPath) -> UITableViewCell {
         let cell = dequeueReusableCell(withIdentifier: model.reuseIdentifier, for: indexPath)
