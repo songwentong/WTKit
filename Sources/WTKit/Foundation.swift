@@ -85,6 +85,10 @@ public extension BinaryInteger{
         return "\(self)"
     }
 }
+public extension ExpressibleByIntegerLiteral{
+}
+public extension FloatingPoint{
+}
 public extension BinaryFloatingPoint{
     var byteCountFormatString:String{
         return ByteCountFormatter().string(fromByteCount: Int64.init(self))
@@ -499,8 +503,7 @@ public extension URLSessionConfiguration{
         let appBuild = info[kCFBundleVersionKey as String] as? String ?? "Unknown"
         
         let osNameVersion: String = {
-            let version = ProcessInfo.processInfo.operatingSystemVersion
-            let versionString = "\(version.majorVersion).\(version.minorVersion).\(version.patchVersion)"
+            let operatingSystemVersionString = ProcessInfo.processInfo.operatingSystemVersionString
             // swiftformat:disable indent
             let osName: String = {
                 #if os(iOS)
@@ -519,7 +522,7 @@ public extension URLSessionConfiguration{
             }()
             // swiftformat:enable indent
             
-            return "\(osName) \(versionString)"
+            return "\(osName) \(operatingSystemVersionString)"
         }()
         
         let WTKit = "WTKit"
@@ -645,6 +648,13 @@ public extension String{
         return self.addingPercentEncoding(withAllowedCharacters: CharacterSet.wtURLQueryAllowed) ?? self
     }
 }
+let testJSON = """
+{
+"name": "Durian",
+"points": 600,
+"description": "A fruit with a distinctive scent."
+}
+"""
 public extension JSONDecoder{
     //open func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable
     func decode<T>(with type:T.Type, from data:Data) -> T? where T : Decodable {
@@ -737,4 +747,15 @@ public extension Timer{
 public extension RunLoop{
     
 }
-
+public extension Thread{
+    
+}
+public extension OperationQueue{
+    
+}
+public extension Operation{
+    
+}
+public extension ProcessInfo{
+    
+}

@@ -925,6 +925,7 @@ open class WTVC:UIViewController{
         }
     }
 }
+// MARK: - WTTableVC
 open class WTTableVC:WTVC{
     open var myTableView:UITableView = {
         let table = UITableView.init(frame: .zero, style: .plain)
