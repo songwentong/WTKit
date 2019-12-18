@@ -757,5 +757,10 @@ public extension Operation{
     
 }
 public extension ProcessInfo{
-    
+    // print (long)[[NSClassFromString(@"NSProcessInfo") processInfo] _suddenTerminationDisablingCount]
+    #if DEBUG
+    static func print_suddenTerminationDisablingCount() {
+        
+    }
+    #endif
 }

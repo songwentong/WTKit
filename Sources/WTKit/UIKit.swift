@@ -234,6 +234,19 @@ public extension UIView{
             v.removeFromSuperview()
         }
     }
+    func showTextTip(with string:String, hideDelay:TimeInterval = 2) {
+        hideTipTextView()
+        let tip = WTTextTip.init(frame: self.bounds)
+        tip.tipLabel.text = string
+        addSubview(tip)
+    }
+    func hideTipTextView() {
+        for v in subviews{
+            if v is WTTextTip{
+                v.removeFromSuperview()
+            }
+        }
+    }
     
 }
 
@@ -410,6 +423,9 @@ public extension UIApplication{
     }
     static func hideLoadingView(){
         shared.windows.first?.hideLoadingView()
+    }
+    static func showTextTip(with string:String, hideDelay:TimeInterval = 2) {
+        findKeyWindow()?.showTextTip(with: string, hideDelay: hideDelay)
     }
 }
 struct ImageLoadResult {
@@ -595,7 +611,7 @@ open class LoadingView: UIView {
         
     }
 }
-open class TextTip:UIView{
+open class WTTextTip:UIView{
     var tipLabel:UILabel = UILabel.init()
     var tipLabelBGView:UIView = UIView.init()
     public override init(frame: CGRect) {
@@ -607,7 +623,19 @@ open class TextTip:UIView{
         configView()
     }
     func configView() {
-        
+        addSubview(tipLabelBGView)
+        addSubview(tipLabel)
+        tipLabel.turnOffMask()
+        tipLabelBGView.turnOffMask()
+        tipLabelBGView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        tipLabel.font = .systemFont(ofSize: 15)
+        tipLabel.textColor = .white
+        tipLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        tipLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        tipLabelBGView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        tipLabelBGView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        tipLabelBGView.leadingAnchor.constraint(equalTo: tipLabel.leadingAnchor, constant: -15).isActive = true
+        tipLabelBGView.topAnchor.constraint(equalTo: tipLabel.topAnchor, constant: -18).isActive = true
     }
 }
 public extension UIScrollView {
