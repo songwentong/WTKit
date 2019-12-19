@@ -101,7 +101,7 @@ public extension UIViewController{
         let sb = UIStoryboard.init(name: "\(self)", bundle: nil)
         if let vc = sb.instantiateInitialViewController() as? T{
             return vc
-        }else{
+        }else{
             return T.init()
         }
     }
