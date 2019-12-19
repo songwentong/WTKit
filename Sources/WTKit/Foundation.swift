@@ -596,6 +596,9 @@ public extension FileManager{
     }
 }
 public extension String{
+    var localizedString:String{
+        return NSLocalizedString(self, comment: "")
+    }
     static let generalDelimitersToEncode = ":#[]@"
     static let subDelimitersToEncode = "!$&'()*+,;="
     func urlValue() -> URL {
@@ -604,6 +607,7 @@ public extension String{
         }
         return url
     }
+    
     func localized(_ lang:String) ->String {
         var bundle = Bundle.main
         if let path = Bundle.main.path(forResource: lang, ofType: "lproj") {

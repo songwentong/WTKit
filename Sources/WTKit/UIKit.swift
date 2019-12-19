@@ -708,7 +708,6 @@ public extension String{
     var convertToColor:UIColor{
         return UIColor.colorWithHexString(self)
     }
-    
 }
 public extension NSAttributedString{
     @available(iOS 6.0, *)
