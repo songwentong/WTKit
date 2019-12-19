@@ -733,14 +733,7 @@ public enum WTHTTPMethod: String {
         }
     }
 }
-extension Collection where Element == String {
-    func qualityEncoded() -> String {
-        return enumerated().map { index, encoding in
-            let quality = 1.0 - (Double(index) * 0.1)
-            return "\(encoding);q=\(quality)"
-        }.joined(separator: ", ")
-    }
-}
+
 public extension Timer{
     
 }
@@ -763,4 +756,43 @@ public extension ProcessInfo{
         
     }
     #endif
+}
+public extension Array where Element:Codable{
+    var convertToStringValue:String{
+        if let data = try? JSONEncoder().encode(self){
+            return data.utf8String()
+        }else{
+            return "can not convert to string"
+        }
+    }
+}
+public extension Dictionary where Key:Codable,Value:Codable{
+    var convertToStringValue:String{
+        if let data = try? JSONEncoder().encode(self){
+            return data.utf8String()
+        }else{
+            return "can not convert to string"
+        }
+    }
+}
+public extension Set where Element:Codable{
+    var convertToStringValue:String{
+        if let data = try? JSONEncoder().encode(self){
+            return data.utf8String()
+        }else{
+            return "can not convert to string"
+        }
+    }
+}
+public extension Collection where Element:Codable{
+    
+}
+public extension Collection where Element == String {
+    
+    func qualityEncoded() -> String {
+        return enumerated().map { index, encoding in
+            let quality = 1.0 - (Double(index) * 0.1)
+            return "\(encoding);q=\(quality)"
+        }.joined(separator: ", ")
+    }
 }
