@@ -91,7 +91,6 @@ public extension UIViewController{
     func requestPushToTopVC() { UIApplication.topViewController?.navigationController?.pushViewController(self, animated: true)
     }
     func requestTopVCPresent( animated flag: Bool, completion: (() -> Void)? = nil) {
-        //    open func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil)
         UIApplication.topViewController?.present(self, animated: flag, completion: completion)
     }
     static func instanceFromStoryBoard<T:UIViewController>() -> T {
@@ -102,7 +101,7 @@ public extension UIViewController{
         let sb = UIStoryboard.init(name: "\(self)", bundle: nil)
         if let vc = sb.instantiateInitialViewController() as? T{
             return vc
-        }else{
+        }else{
             return T.init()
         }
     }
@@ -265,7 +264,12 @@ public extension UIView{
     
 }
 
-
+public extension UIActivityViewController{
+    static func shareItems(with activityItems:[Any]){
+        let vc = UIActivityViewController.init(activityItems: activityItems, applicationActivities: nil)
+        vc.requestTopVCPresent(animated: true)
+    }
+}
 public extension CALayer{
     func snapShot() -> UIImage {
         if #available(iOS 10.0, *) {
