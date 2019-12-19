@@ -289,6 +289,9 @@ public extension CALayer{
 }
 
 public extension CGColor{
+    var uiColor:UIColor{
+        return UIColor.init(cgColor: self)
+    }
     func convertToUIColor() -> UIColor {
         return UIColor.init(cgColor: self)
     }
@@ -705,6 +708,7 @@ public extension String{
     var convertToColor:UIColor{
         return UIColor.colorWithHexString(self)
     }
+    
 }
 public extension NSAttributedString{
     @available(iOS 6.0, *)
