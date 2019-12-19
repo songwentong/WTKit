@@ -272,6 +272,11 @@ public extension URLRequest{
             }
         }
     }
+    var printer:URLRequestPrinter{
+        let p = URLRequestPrinter()
+        p.request = self
+        return p
+    }
     func converToPrinter() -> URLRequestPrinter {
         let reu = URLRequestPrinter()
         reu.request = self
@@ -453,6 +458,14 @@ open class MultipartBodyObject{
 }
 
 public extension URLSessionTask{
+    var printer:URLRequestPrinter{
+        guard let req = self.originalRequest else{
+            return URLRequestPrinter()
+        }
+        let result = URLRequestPrinter()
+        result.request = req
+        return result
+    }
     func converToPrinter() -> URLRequestPrinter {
         guard let req = self.originalRequest else{
             return URLRequestPrinter()
