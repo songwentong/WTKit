@@ -52,7 +52,9 @@ public extension Data{
     func utf8String() -> String {
         return String.init(data: self, encoding: .utf8) ?? "not utf8 string"
     }
-    
+    func jsonObject(options: JSONSerialization.ReadingOptions = []) throws -> Any {
+        return try JSONSerialization.jsonObject(with: self, options: options)
+    }
 }
 public func debugBlock(_ block:()->Void) -> Void {
     #if DEBUG
@@ -60,6 +62,9 @@ public func debugBlock(_ block:()->Void) -> Void {
     #endif
 }
 public extension Locale{
+    static var posix: Locale {
+        return Locale(identifier: "en_US_POSIX")
+    }
     static func en_US() -> Locale {
         return Locale.init(identifier: "en_US")
     }
@@ -591,7 +596,6 @@ public extension FileManager{
     }
 }
 public extension String{
-    
     static let generalDelimitersToEncode = ":#[]@"
     static let subDelimitersToEncode = "!$&'()*+,;="
     func urlValue() -> URL {
