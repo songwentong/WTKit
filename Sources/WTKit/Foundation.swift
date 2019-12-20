@@ -795,9 +795,6 @@ public extension Encodable{
         }
     }
 }
-public extension Collection where Element:Codable{
-    
-}
 public extension Collection where Element == String {
     
     func qualityEncoded() -> String {
