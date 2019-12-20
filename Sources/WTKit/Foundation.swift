@@ -784,6 +784,16 @@ public extension ProcessInfo{
     }
     #endif
 }
+public extension Encodable{
+    var jsonString:String{
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(self){
+            return data.utf8String()
+        }else{
+            return "not a json string"
+        }
+    }
+}
 public extension Array where Element:Codable{
     var convertToStringValue:String{
         if let data = try? JSONEncoder().encode(self){
