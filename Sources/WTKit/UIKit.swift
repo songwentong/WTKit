@@ -705,7 +705,7 @@ public extension UICollectionViewCell{
 public extension UIWindow{
 }
 public extension String{
-    var convertToColor:UIColor{
+    var hexColor:UIColor{
         return UIColor.colorWithHexString(self)
     }
 }
