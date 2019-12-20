@@ -82,7 +82,7 @@ public extension UIColor{
                 let color = UIColor(red: red, green: green, blue: blue,alpha: alpha)
                 return color;
             default:
-                return UIColor.red;
+                return defaultColor;
         }
     }
 }
