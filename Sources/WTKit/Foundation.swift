@@ -8,13 +8,15 @@
 
 import Foundation
 
-//public func
+/// Writes the textual representations of the given items into the standard
+/// output. with file,function,line(In Debug mode)
 public func dprint<T>(_ items:T, separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
-    
     #if DEBUG
     cprint(items, separator: separator, terminator: terminator,file:file, function:function, line:line)
     #endif
 }
+/// Writes the textual representations of the given items into the standard
+/// output. with file,function,line
 public func cprint<T>(_ items: T,  separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
     print("\((file as NSString).lastPathComponent)[\(line)], \(function): \(items)", separator: separator, terminator: terminator)
 }
@@ -36,8 +38,6 @@ public extension Data{
             return nil
         }
     }
-    
-    
     static func data(forResource name:String, ofType ext: String?) -> Data? {
         guard let url = Bundle.main.url(forResource: name, withExtension: ext) else{
             return nil
@@ -49,6 +49,7 @@ public extension Data{
             return nil
         }
     }
+    ///convert data to utf8 string
     func utf8String() -> String {
         return String.init(data: self, encoding: .utf8) ?? "not utf8 string"
     }
@@ -56,11 +57,13 @@ public extension Data{
         return try JSONSerialization.jsonObject(with: self, options: options)
     }
 }
+///block run in debug mode
 public func debugBlock(_ block:()->Void) -> Void {
     #if DEBUG
     block()
     #endif
 }
+///block run in non debug mode
 public func releaseBlock(_ block:()->Void) -> Void{
     #if DEBUG
     #else
@@ -78,7 +81,6 @@ public extension Locale{
         return Locale.init(identifier: "ko-Kore_KR")
     }
 }
-//public typealias BinaryNumber = BinaryInteger & BinaryFloatingPoint
 public extension BinaryInteger{
     var byteCountFormatString:String{
         return ByteCountFormatter().string(fromByteCount: Int64.init(self))
@@ -113,7 +115,8 @@ public extension BinaryFloatingPoint{
     var lengthFormatterString:String{
         return numberObject.lengthFormatterString
     }
-    func stringValue() -> String {
+    ///string value of self
+    var stringValue:String{
         return "\(self)"
     }
 }
@@ -128,7 +131,6 @@ public extension Float{
     }
 }
 public extension Double{
-
     func stringWith(fractionDigits count:Int) -> String? {
         return numberObject.stringWith(fractionDigits: count)
     }
@@ -156,7 +158,6 @@ public extension NSNumber{
     var lengthFormatterString:String{
         return LengthFormatter().string(fromMeters: doubleValue)
     }
-    
 }
 public extension DispatchQueue{
     static func backgroundQueue()->DispatchQueue{
@@ -171,7 +172,7 @@ public extension DispatchQueue{
     static func userInteractiveQueue()->DispatchQueue{
         return DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
     }
-    //安全同步到主线程
+    ///安全同步到主线程
     static func safeSyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
         let main:DispatchQueue = DispatchQueue.main
         if Thread.isMainThread {
@@ -179,7 +180,6 @@ public extension DispatchQueue{
         }else{
             main.sync(execute: work)
         }
-        //        print("425 wt test")
     }
     static func safeSyncInMain(with workItem:DispatchWorkItem){
         let main:DispatchQueue = DispatchQueue.main
@@ -189,7 +189,7 @@ public extension DispatchQueue{
             main.sync(execute: workItem)
         }
     }
-    //异步回到主线程
+    ///异步回到主线程
     static func asyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
         DispatchQueue.main.async(execute: work)
     }
@@ -198,9 +198,7 @@ public extension DispatchQueue{
         let t:DispatchTime = DispatchTime.now() + Double(time) / Double(NSEC_PER_SEC)
         self.asyncAfter(deadline: t, execute: closure)
     }
-    /*
-     public func asyncAfter(deadline: DispatchTime, qos: DispatchQoS = .unspecified, flags: DispatchWorkItemFlags = [], execute work: @escaping @convention(block) () -> Void)
-     */
+    ///delay excute work
     func asyncAfterAfter(_ delay: TimeInterval, execute work: @escaping @convention(block) () -> Void) {
         asyncAfter(deadline: .now() + delay, execute: work)
     }
@@ -212,7 +210,7 @@ public extension CharacterSet{
     }
 }
 public extension URLRequest{
-    
+    ///create URL Request
     static func createURLRequest(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:]) -> URLRequest {
         var request = URLRequest.init(url: path.urlValue())
         request.httpMethod = method.rawValue
@@ -268,6 +266,7 @@ public extension URLRequest{
         }
         return components.map { "\($0)=\($1)"}.joined(separator: "&")
     }
+    ///use Codable callback
     func dataTaskWith<T:Codable>(codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         return URLSession.shared.dataTaskWith(request: self, codable: object, completionHandler: completionHandler)
     }
@@ -278,6 +277,7 @@ public extension URLRequest{
             }
         }
     }
+    ///print URLRequest as curl command,copy and run with terminal
     var printer:URLRequestPrinter{
         let p = URLRequestPrinter()
         p.request = self
@@ -374,6 +374,7 @@ public extension URLSession{
         return task
     }
 }
+///print URLRequest as curl command,copy and run with terminal
 public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
     var request:URLRequest = URLRequest.init(url: "".urlValue())
     public var description: String{
@@ -615,6 +616,7 @@ public extension FileManager{
     }
 }
 public extension String{
+    ///get localizedString from main Bundle
     var localizedString:String{
         return NSLocalizedString(self, comment: "")
     }
@@ -683,7 +685,6 @@ let testJSON = """
 }
 """
 public extension JSONDecoder{
-    //open func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable
     func decode<T>(with type:T.Type, from data:Data) -> T? where T : Decodable {
         do {
             let obj:T = try decode(type, from: data)
@@ -732,6 +733,7 @@ public extension NSMutableAttributedString{
         }
     }
 }
+///HttpMethod enumeration
 public enum WTHTTPMethod: String {
     /// `CONNECT` method.
     case connect = "CONNECT"
@@ -785,7 +787,7 @@ public extension ProcessInfo{
     #endif
 }
 public extension Encodable{
-    //推荐用控制台打印
+    ///convert self to json string (recommand use print,not lldb)
     var jsonString:String{
         let encoder = JSONEncoder()
         if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *){
@@ -801,9 +803,14 @@ public extension Encodable{
             return "not a json string"
         }
     }
+    #if DEBUG
+    ///use in lldb to print jsonstring
+    func printJSONString() {
+        print("\(jsonString)")
+    }
+    #endif
 }
 public extension Collection where Element == String {
-    
     func qualityEncoded() -> String {
         return enumerated().map { index, encoding in
             let quality = 1.0 - (Double(index) * 0.1)

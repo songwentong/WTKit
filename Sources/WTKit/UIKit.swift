@@ -712,6 +712,7 @@ public extension UICollectionViewCell{
 public extension UIWindow{
 }
 public extension String{
+    ///create color from self(if hexstring)
     var hexColor:UIColor{
         return UIColor.colorWithHexString(self)
     }

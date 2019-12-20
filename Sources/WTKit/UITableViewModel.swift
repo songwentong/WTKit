@@ -8,21 +8,25 @@
 import Foundation
 import UIKit
 // MARK: - UITableViewModel
+///protocol to describe UITableViewCell
 public protocol UITableViewModel {
     var sections:[UITableViewSectionModel]{get set}
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
 }
 // MARK: - UITableViewSectionModel
+///protocol to describe UITableView's section
 public protocol UITableViewSectionModel {
     var cells:[UITableViewCellModel]{get set}
 }
 // MARK: - UITableViewCellModel
+///protocol to describe UITableView's sections
 public protocol UITableViewCellModel{
     var reuseIdentifier:String{get set}
     var object: Any?{get set}
     var userInfo: [AnyHashable : Any]?{get set}
 }
 // MARK: - UINibReusableCell
+///protocol to extension an UITableViewCell/UITableViewCollectionViewCell (if using xib file)
 public protocol UINibReusableCell:NSObjectProtocol {
     static func nib() -> UINib
     static var reuseIdentifier: String{get}
