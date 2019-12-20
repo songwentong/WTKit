@@ -733,7 +733,9 @@ public extension NSMutableAttributedString{
         }
     }
 }
-///HttpMethod enumeration
+/// Type representing HTTP methods.
+///
+/// See https://tools.ietf.org/html/rfc7231#section-4.3
 public enum WTHTTPMethod: String {
     /// `CONNECT` method.
     case connect = "CONNECT"
@@ -762,7 +764,6 @@ public enum WTHTTPMethod: String {
         }
     }
 }
-
 public extension Timer{
     
 }
@@ -811,6 +812,9 @@ public extension Encodable{
     }
     #endif
 }
+//"dsadas".printJSONString()
+
+
 public extension Collection where Element == String {
     func qualityEncoded() -> String {
         return enumerated().map { index, encoding in
