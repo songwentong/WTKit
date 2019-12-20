@@ -261,6 +261,13 @@ public extension UIView{
             }
         }
     }
+    @discardableResult
+    func maskView(with cornerRadius:CGFloat) -> UIView {
+        let v = UIView.init(frame: bounds)
+        v.cornerRadius = cornerRadius
+        self.mask = v
+        return v
+    }
     
 }
 
