@@ -10,7 +10,6 @@ import Foundation
 #if canImport(SwiftUI) && canImport(Combine)
 import SwiftUI
 import Combine
-#endif
 #if os(iOS)
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public class ImageHolder:ObservableObject{
@@ -33,5 +32,5 @@ public struct WTImage:SwiftUI.View{
         Image.init(uiImage: imageHolder.image)
     }
 }
-
+#endif
 #endif
