@@ -804,7 +804,8 @@ public extension Encodable{
         }
     }
     #if DEBUG
-    ///use in lldb to print jsonstring
+    ///use in lldb to print jsonstring,like(lldb) po obj.printJSONString()
+    ///this method is only recommanded use in lldb,so it's in debug mode
     func printJSONString() {
         print("\(jsonString)")
     }
