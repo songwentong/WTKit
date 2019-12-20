@@ -794,33 +794,6 @@ public extension Encodable{
         }
     }
 }
-public extension Array where Element:Codable{
-    var convertToStringValue:String{
-        if let data = try? JSONEncoder().encode(self){
-            return data.utf8String()
-        }else{
-            return "can not convert to string"
-        }
-    }
-}
-public extension Dictionary where Key:Codable,Value:Codable{
-    var convertToStringValue:String{
-        if let data = try? JSONEncoder().encode(self){
-            return data.utf8String()
-        }else{
-            return "can not convert to string"
-        }
-    }
-}
-public extension Set where Element:Codable{
-    var convertToStringValue:String{
-        if let data = try? JSONEncoder().encode(self){
-            return data.utf8String()
-        }else{
-            return "can not convert to string"
-        }
-    }
-}
 public extension Collection where Element:Codable{
     
 }
