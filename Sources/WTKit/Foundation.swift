@@ -787,6 +787,7 @@ public extension ProcessInfo{
 public extension Encodable{
     var jsonString:String{
         let encoder = JSONEncoder()
+        encoder.outputFormatting = [.prettyPrinted,.sortedKeys]
         if let data = try? encoder.encode(self){
             return data.utf8String()
         }else{
