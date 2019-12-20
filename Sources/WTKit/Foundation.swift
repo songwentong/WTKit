@@ -787,7 +787,11 @@ public extension ProcessInfo{
 public extension Encodable{
     var jsonString:String{
         let encoder = JSONEncoder()
-        encoder.outputFormatting = [.prettyPrinted,.sortedKeys]
+        if #available(OSX 10.13, iOS 11.0, watchOS 4.0, tvOS 11.0, *) {
+            encoder.outputFormatting = [.prettyPrinted,.sortedKeys]
+        } else {
+            // Fallback on earlier versions
+        }
         if let data = try? encoder.encode(self){
             return data.utf8String()
         }else{
