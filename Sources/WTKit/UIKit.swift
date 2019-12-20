@@ -1025,7 +1025,5 @@ open class WTTableVC:WTVC{
     }
 }
 
-
-
 #else
 #endif

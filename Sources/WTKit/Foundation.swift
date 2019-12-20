@@ -61,6 +61,12 @@ public func debugBlock(_ block:()->Void) -> Void {
     block()
     #endif
 }
+public func releaseBlock(_ block:()->Void) -> Void{
+    #if DEBUG
+    #else
+    block()
+    #endif
+}
 public extension Locale{
     static var posix: Locale {
         return Locale(identifier: "en_US_POSIX")
