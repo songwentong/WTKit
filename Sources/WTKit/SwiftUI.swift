@@ -7,40 +7,31 @@
 //
 
 import Foundation
-/*
-#if canImport(SwiftUI)
+#if canImport(SwiftUI) && canImport(Combine)
 import SwiftUI
+import Combine
+#endif
+#if os(iOS)
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
-public extension Button{
-    
-}
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
-public extension UIHostingController{
-    
-}
-
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
-public struct WTImage:View{
-    public var body: some View {
-        VStack{
-            Text.init("test")
+public class ImageHolder:ObservableObject{
+    @Published var image:UIImage = UIImage.init()
+    func downloadImage(with url:String) {
+        URLSession.default.useCacheElseLoadURLData(with: url.urlValue()) { (data, res, err) in
+            if let data = data, let img = UIImage.init(data: data){
+                self.image = img
+            }
         }
     }
 }
- 
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+public struct WTImage:SwiftUI.View{
+    var imageHolder:ImageHolder = ImageHolder()
+    mutating func downloadImage(with url:String) {
+        imageHolder.downloadImage(with: url)
+    }
+    public var body: some View {
+        Image.init(uiImage: imageHolder.image)
+    }
+}
+
 #endif
-*/
-/*
-
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
-public extension View{
-    
-}
-
-
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
-public extension Image{
-    
-}
-*/
-
