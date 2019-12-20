@@ -785,12 +785,15 @@ public extension ProcessInfo{
     #endif
 }
 public extension Encodable{
+    //推荐用控制台打印
     var jsonString:String{
         let encoder = JSONEncoder()
-        if #available(OSX 10.13, iOS 11.0, watchOS 4.0, tvOS 11.0, *) {
+        if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *){
+            encoder.outputFormatting = [.withoutEscapingSlashes,.prettyPrinted,.sortedKeys]
+        }else if #available(OSX 10.13, iOS 11.0, watchOS 4.0, tvOS 11.0, *) {
             encoder.outputFormatting = [.prettyPrinted,.sortedKeys]
         } else {
-            // Fallback on earlier versions
+            encoder.outputFormatting = [.prettyPrinted]
         }
         if let data = try? encoder.encode(self){
             return data.utf8String()
