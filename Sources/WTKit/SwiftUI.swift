@@ -13,19 +13,12 @@ import Combine
 #if os(iOS)
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public class ImageLoader:ObservableObject{
-    
     public var didChange = PassthroughSubject<ImageLoader,Never>()
-    
-    @Published var image:UIImage = UIImage.init(){
-        didSet{
-            
-        }
-    }
+    @Published var image:UIImage = UIImage.init()
     deinit {
         loadingTask?.cancel()
     }
     var loadingTask:URLSessionDataTask? = nil
-    
     func downloadImage(with url:String) {
         loadingTask?.cancel()
         self.loadingTask = URLSession.default.useCacheElseLoadURLData(with: url.urlValue()) { (data, res, err) in
@@ -38,7 +31,7 @@ public class ImageLoader:ObservableObject{
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public struct WTImage:SwiftUI.View{
     @ObservedObject var imageHolder:ImageLoader = ImageLoader()
-    mutating func downloadImage(with url:String) {
+    func downloadImage(with url:String) {
         imageHolder.downloadImage(with: url)
     }
     public var body: some View {

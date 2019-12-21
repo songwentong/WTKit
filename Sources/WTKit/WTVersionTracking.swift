@@ -5,17 +5,18 @@
 //  Created by 宋文通 on 10/04/2017.
 //  Copyright © 2017 宋文通. All rights reserved.
 //
+import Foundation
 #if os(macOS)
 import AppKit
 public typealias WTApplication = NSApplication
 #endif
 #if os(iOS)
-public typealias WTApplication = UIApplication
-import Foundation
 import UIKit
+public typealias WTApplication = UIApplication
 #endif
 fileprivate let WTApplicationVersionsKey = "WTKit VersionTracker versions key"
 fileprivate let WTApplicationBuildsKey = "WTKit VersionTracker builds key"
+#if os(iOS) || os(macOS)
 public extension WTApplication{
     func track(){
         if VersionTracker.shared.launchTrakced {
@@ -29,7 +30,7 @@ public extension WTApplication{
         var buildArray = buildHistory()
         if !buildArray.contains(Bundle.buildVersion()) {
             buildArray.append(Bundle.buildVersion())
-             VersionTracker.shared.isFirstLaunchForBuild = true
+            VersionTracker.shared.isFirstLaunchForBuild = true
         }else{
             VersionTracker.shared.isFirstLaunchForBuild = false
         }
@@ -62,6 +63,8 @@ public extension WTApplication{
         return [String]()
     }
 }
+#endif
+
 class VersionTracker: NSObject {
     var launchTrakced:Bool = false
     var isFirstLaunchForBuild:Bool = false
