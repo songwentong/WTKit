@@ -739,7 +739,7 @@ public extension NSMutableAttributedString{
     }
     func applyAttributes(_ attrs:[NSAttributedString.Key : Any] ) {
         for (k,v) in attrs{
-            applyAttributes(k, value: v)
+            applyAttribute(k, value: v)
         }
     }
 }
