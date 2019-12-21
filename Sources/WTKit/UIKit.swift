@@ -718,12 +718,14 @@ public extension String{
     }
 }
 public extension NSAttributedString{
+    ///根据给出的宽度来计算文本的高度
     @available(iOS 6.0, *)
     func heightForWidth(with width:CGFloat) -> CGFloat {
         let rect = boundingRect(with: CGSize.init(width: width, height: 1000),options: [.usesLineFragmentOrigin], context: nil)
         return ceil(rect.height)
     }
     
+    ///将一个NSAttributedString异步绘制为一个CALayer,耗时大约为0.1-0.2秒左右
     @available(iOS 10.0, *)
     func layerForWidth(with width:CGFloat, callBack:@escaping (CALayer)->Void){
         DispatchQueue.global().async {
