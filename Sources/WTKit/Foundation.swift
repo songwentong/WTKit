@@ -683,7 +683,8 @@ public extension String{
         return NSMutableAttributedString.init(string: self)
     }
 }
-let testJSON = """
+let testJSON =
+"""
 {
 "name": "Durian",
 "points": 600,

@@ -725,7 +725,7 @@ public extension NSAttributedString{
     }
     
     @available(iOS 10.0, *)
-    private func layerForWidth(with width:CGFloat, callBack:@escaping (CALayer)->Void){
+    func layerForWidth(with width:CGFloat, callBack:@escaping (CALayer)->Void){
         DispatchQueue.global().async {
             let layer = CALayer.init()
             let height = self.heightForWidth(with: width)
@@ -739,6 +739,7 @@ public extension NSAttributedString{
                 UIGraphicsPopContext()
             }
             layer.contents = image.cgImage
+            layer.frame = frame
             DispatchQueue.main.async {
                 callBack(layer)
             }
