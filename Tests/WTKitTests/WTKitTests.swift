@@ -1,4 +1,6 @@
+#if !os(watchOS)
 import XCTest
+
 @testable import WTKit
 
 final class WTKitTests: XCTestCase {
@@ -19,3 +21,4 @@ final class WTKitTests: XCTestCase {
         ("testExample", testExample),
     ]
 }
+#endif
