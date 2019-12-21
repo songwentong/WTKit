@@ -733,7 +733,7 @@ public extension NSAttributedString{
     }
 }
 public extension NSMutableAttributedString{
-    func applyAttributes(_ name: NSAttributedString.Key, value: Any) {
+    func applyAttribute(_ name: NSAttributedString.Key, value: Any) {
         let range = NSRange.init(location: 0, length: self.length)
         self.addAttribute(name, value: value, range: range)
     }
