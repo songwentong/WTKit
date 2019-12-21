@@ -723,6 +723,27 @@ public extension NSAttributedString{
         let rect = boundingRect(with: CGSize.init(width: width, height: 1000),options: [.usesLineFragmentOrigin], context: nil)
         return ceil(rect.height)
     }
+    
+    @available(iOS 10.0, *)
+    private func layerForWidth(with width:CGFloat, callBack:@escaping (CALayer)->Void){
+        DispatchQueue.global().async {
+            let layer = CALayer.init()
+            let height = self.heightForWidth(with: width)
+            let size = CGSize.init(width: width, height: height)
+            let render = UIGraphicsImageRenderer.init(size: size)
+            let frame = CGRect.init(origin: .zero, size: size)
+            let image = render.image { (imageRender:UIGraphicsImageRendererContext) in
+                let cgContext = imageRender.cgContext
+                UIGraphicsPushContext(cgContext)
+                self.draw(with: frame, options: [.usesLineFragmentOrigin], context: nil)
+                UIGraphicsPopContext()
+            }
+            layer.contents = image.cgImage
+            DispatchQueue.main.async {
+                callBack(layer)
+            }
+        }
+    }
 }
 
 /*

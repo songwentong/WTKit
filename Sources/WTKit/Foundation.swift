@@ -676,6 +676,12 @@ public extension String{
     var escapeString:String {
         return self.addingPercentEncoding(withAllowedCharacters: CharacterSet.wtURLQueryAllowed) ?? self
     }
+    var attributedString:NSAttributedString{
+        return NSAttributedString.init(string: self)
+    }
+    var mutableAttributedString:NSMutableAttributedString{
+        return NSMutableAttributedString.init(string: self)
+    }
 }
 let testJSON = """
 {
@@ -720,6 +726,9 @@ public extension NSAttributedString{
         let result = NSMutableAttributedString.init(attributedString: self)
         result.applyAttributes(attrs)
         return result
+    }
+    var mutableAttributedString:NSMutableAttributedString{
+        return NSMutableAttributedString.init(attributedString: self)
     }
 }
 public extension NSMutableAttributedString{
