@@ -193,11 +193,10 @@ public class WTModelMaker {
                     if !useStruct{
                         stringToPrint += " = \"\""
                     }
-                }else if value is NSNumber{
+                }else if let number = value as? NSNumber{
                     //char, short int, int, long int, long long int, float, or double or as a BOOL
                     // “c”, “C”, “s”, “S”, “i”, “I”, “l”, “L”, “q”, “Q”, “f”, and “d”.
                     //1->q    true->c     1.0->d   6766882->q   6766882.1->d   0->q   false->c
-                    let number:NSNumber = value as! NSNumber
                     let objCType = number.objCType
                     let type = String.init(cString: objCType)
                     var defaultValue = " = false"
