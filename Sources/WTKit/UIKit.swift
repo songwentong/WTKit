@@ -288,11 +288,18 @@ public extension CALayer{
             }
         } else {
             // Fallback on earlier versions
-            UIGraphicsBeginImageContextWithOptions(frame.size, false, UIScreen.main.scale)
-            render(in: UIGraphicsGetCurrentContext()!)
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            return image!
+            if let context = UIGraphicsGetCurrentContext(){
+                UIGraphicsBeginImageContextWithOptions(frame.size, false, UIScreen.main.scale)
+                render(in: context)
+                if let image = UIGraphicsGetImageFromCurrentImageContext(){
+                    UIGraphicsEndImageContext()
+                    return image
+                }else{
+                    return UIImage()
+                }
+            }else{
+                return UIImage()
+            }
         }
     }
 }

@@ -41,7 +41,7 @@ public extension WTApplication{
         UserDefaults.standard.synchronize()
         VersionTracker.shared.launchTrakced = true
     }
-    /*!
+    /*
      check current is first lunch for this build
      note don't call this method before track()
      */

@@ -392,7 +392,7 @@ public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConverti
             return "$ curl command could not be created"
         }
         
-        if let httpMethod = request.httpMethod, httpMethod != "GET" {
+        if let httpMethod = request.httpMethod {
             components.append("-X \(httpMethod)")
         }
         

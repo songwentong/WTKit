@@ -239,21 +239,23 @@ public class WTModelMaker {
                         guard let first = list.first else{
                             return ""
                         }
-                        let data = try! JSONSerialization.data(withJSONObject: first, options: [])
-                        let valueString = data.utf8String
-                        let subClassName = className + "_" +  nameReplacedKey
-                        subClassString += self.WTSwiftModelString(with: subClassName, jsonString: valueString, usingHeader: false, isRootClass:false)
-                        stringToPrint += "[\(subClassName)] = [\(subClassName)]()"
+                        if let data = try? JSONSerialization.data(withJSONObject: first, options: []){
+                            let valueString = data.utf8String
+                            let subClassName = className + "_" +  nameReplacedKey
+                            subClassString += self.WTSwiftModelString(with: subClassName, jsonString: valueString, usingHeader: false, isRootClass:false)
+                            stringToPrint += "[\(subClassName)] = [\(subClassName)]()"
+                        }
                     }
                     
                 }else if value is Dictionary<AnyHashable, Any>{
-                    let tempData = try! JSONSerialization.data(withJSONObject: value, options: [])
-                    let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
-                    let subClassName = nameReplacedKey + "_class"
-                    subModelDict[subClassName] = tempString
-                    stringToPrint += "\(subClassName)"
-                    if !useStruct{
-                        stringToPrint += " = \(subClassName)()"
+                    if let tempData = try? JSONSerialization.data(withJSONObject: value, options: []){
+                        let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
+                        let subClassName = nameReplacedKey + "_class"
+                        subModelDict[subClassName] = tempString
+                        stringToPrint += "\(subClassName)"
+                        if !useStruct{
+                            stringToPrint += " = \(subClassName)()"
+                        }
                     }
                 }
                 //                    codingKeys += crlf

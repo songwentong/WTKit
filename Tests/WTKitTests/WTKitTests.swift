@@ -1,4 +1,5 @@
-#if !os(watchOS)
+#if os(watchOS)
+#else
 import XCTest
 
 @testable import WTKit
