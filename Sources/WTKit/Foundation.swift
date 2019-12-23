@@ -671,19 +671,19 @@ public extension String{
         return "\"\",.:¥"
     }
     static func systemKeyWords()->[String]{
-        return ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init","_","fallthrough","internal","true","false","switch","dynamic","typealias"]
+        ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init","_","fallthrough","internal","true","false","switch","dynamic","typealias"]
     }
     var escapeString:String {
-        return self.addingPercentEncoding(withAllowedCharacters: CharacterSet.wtURLQueryAllowed) ?? self
+        self.addingPercentEncoding(withAllowedCharacters: CharacterSet.wtURLQueryAllowed) ?? self
     }
     var attributedString:NSAttributedString{
-        return NSAttributedString.init(string: self)
+        NSAttributedString.init(string: self)
     }
     var mutableAttributedString:NSMutableAttributedString{
-        return NSMutableAttributedString.init(string: self)
+        NSMutableAttributedString.init(string: self)
     }
-    var utf8Data:Data?{
-        data(using: .utf8)
+    var utf8Data:Data{
+        data(using: .utf8) ?? Data()
     }
 }
 let testJSON =
