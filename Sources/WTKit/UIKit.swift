@@ -790,7 +790,7 @@ open class WebImageView:UIImageView{
     open func loadWebImage(with path:String) {
         webImageTask?.cancel()
         let size = self.frame.size
-        webImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue()) { [weak self](data, res, err) in
+        webImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue) { [weak self](data, res, err) in
             guard let data = data else{
                 return
             }
@@ -807,7 +807,7 @@ open class WebImageView:UIImageView{
     open func loadhighlightedImage(with path:String) {
         highlightedImageTask?.cancel()
         let size = self.frame.size
-        highlightedImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue()) { [weak self](data, res, err) in
+        highlightedImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue) { [weak self](data, res, err) in
             guard let data = data else{
                 return
             }
@@ -829,7 +829,7 @@ open class WebImageButton:UIButton{
     open func loadWebImage(with path:String,for state:UIControl.State) {
         webImageTask?.cancel()
         let size = self.bounds.size
-        webImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue(), completionHandler: { [weak self](data, res, err) in
+        webImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue, completionHandler: { [weak self](data, res, err) in
             guard let data = data else{
                 return
             }
@@ -847,7 +847,7 @@ open class WebImageButton:UIButton{
     open func loadBackgroundImageImage(with path:String,for state:UIControl.State){
         backgroundImageImageTask?.cancel()
         let size = self.frame.size
-        backgroundImageImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue(), completionHandler: {  [weak self](data, res, err) in
+        backgroundImageImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue, completionHandler: {  [weak self](data, res, err) in
             guard let data = data else{
                 return
             }

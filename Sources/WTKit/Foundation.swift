@@ -212,11 +212,11 @@ public extension CharacterSet{
 public extension URLRequest{
     ///create URL Request
     static func createURLRequest(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:]) -> URLRequest {
-        var request = URLRequest.init(url: path.urlValue())
+        var request = URLRequest.init(url: path.urlValue)
         request.httpMethod = method.rawValue
         let string = URLRequest.convertParametersToString(parameters: parameters)
         if method.needUseQuery(){
-            if var urlComponents = URLComponents(url: path.urlValue(), resolvingAgainstBaseURL: false){
+            if var urlComponents = URLComponents(url: path.urlValue, resolvingAgainstBaseURL: false){
                 let percentEncodedQuery = (urlComponents.percentEncodedQuery.map { $0 + "&" } ?? "") + string
                 urlComponents.percentEncodedQuery = percentEncodedQuery
                 request.url = urlComponents.url
@@ -376,7 +376,7 @@ public extension URLSession{
 }
 ///print URLRequest as curl command,copy and run with terminal
 public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
-    var request:URLRequest = URLRequest.init(url: "".urlValue())
+    var request:URLRequest = URLRequest.init(url: "".urlValue)
     public var description: String{
         var components: [String] = []
         
@@ -429,7 +429,7 @@ public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConverti
     }
 }
 public extension URL{
-    func convertToRequest() -> URLRequest {
+    var request:URLRequest{
         return URLRequest.init(url: self)
     }
 }
@@ -622,7 +622,7 @@ public extension String{
     }
     static let generalDelimitersToEncode = ":#[]@"
     static let subDelimitersToEncode = "!$&'()*+,;="
-    func urlValue() -> URL {
+    var urlValue:URL{
         guard let url = URL.init(string: self) else{
             return URL.init(fileURLWithPath: "")
         }
@@ -639,8 +639,7 @@ public extension String{
     func convertToLocalizedString(_ tableName: String? = nil, bundle: Bundle = Bundle.main, value: String = "", comment: String) -> String{
         return NSLocalizedString(self, tableName: tableName, bundle: bundle, value: value, comment: comment)
     }
-    func convertTextToFullWidth()->String{
-        
+    var fullWidthString:String{
         if #available(OSX 10.11, iOS 9.0, *) {
             return self.applyingTransform(.fullwidthToHalfwidth, reverse: true) ?? ""
         } else {
@@ -648,7 +647,7 @@ public extension String{
         }
         return ""
     }
-    func converToHalfWidth() -> String {
+    var halfWidthString:String {
         var dict = [String:String]()
         for (index,ele) in String.fullWidthPunctuation().enumerated(){
             for (index2,ele2) in String.halfWidthPunctuation().enumerated(){
@@ -670,11 +669,14 @@ public extension String{
     static func halfWidthPunctuation()->String{
         return "\"\",.:¥"
     }
-    static func systemKeyWords()->[String]{
+    static let systemKeyWords:[String] = {
         ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init","_","fallthrough","internal","true","false","switch","dynamic","typealias"]
-    }
+    }()
+//    static func systemKeyWords()->[String]{
+//        ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init","_","fallthrough","internal","true","false","switch","dynamic","typealias"]
+//    }
     var escapeString:String {
-        self.addingPercentEncoding(withAllowedCharacters: CharacterSet.wtURLQueryAllowed) ?? self
+        addingPercentEncoding(withAllowedCharacters: CharacterSet.wtURLQueryAllowed) ?? self
     }
     var attributedString:NSAttributedString{
         NSAttributedString.init(string: self)

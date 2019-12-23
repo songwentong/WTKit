@@ -21,7 +21,7 @@ public class ImageLoader:ObservableObject{
     var loadingTask:URLSessionDataTask? = nil
     func downloadImage(with url:String) {
         loadingTask?.cancel()
-        self.loadingTask = URLSession.default.useCacheElseLoadURLData(with: url.urlValue()) { (data, res, err) in
+        self.loadingTask = URLSession.default.useCacheElseLoadURLData(with: url.urlValue) { (data, res, err) in
             if let data = data, let img = UIImage.init(data: data){
                 self.image = img
             }
