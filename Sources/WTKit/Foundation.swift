@@ -283,12 +283,7 @@ public extension URLRequest{
         p.request = self
         return p
     }
-    func converToPrinter() -> URLRequestPrinter {
-        let reu = URLRequestPrinter()
-        reu.request = self
-        return reu
-    }
-    //-H "Accept-Encoding: gzip;q=1.0, compress;q=0.5"
+    ///-H "Accept-Encoding: gzip;q=1.0, compress;q=0.5"
     static var defaultAcceptEncoding:String{
         if #available(iOS 11.0, macOS 10.13, tvOS 11.0, watchOS 4.0, *) {
             return "br;q=1.0,gzip;q=0.9,deflate;q=0.8"
@@ -466,14 +461,6 @@ open class MultipartBodyObject{
 
 public extension URLSessionTask{
     var printer:URLRequestPrinter{
-        guard let req = self.originalRequest else{
-            return URLRequestPrinter()
-        }
-        let result = URLRequestPrinter()
-        result.request = req
-        return result
-    }
-    func converToPrinter() -> URLRequestPrinter {
         guard let req = self.originalRequest else{
             return URLRequestPrinter()
         }
