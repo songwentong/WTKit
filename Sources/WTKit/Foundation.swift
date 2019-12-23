@@ -596,11 +596,6 @@ public func NSLibraryCachesDirectory() -> String{
     return NSLibraryDirectory() + "/Caches"
 }
 public extension FileManager{
-    func cachePath() {
-        //        NSHomeDirectory()
-        //        NSHomeDirectory()
-        //        Data().write
-    }
 }
 public extension String{
     ///get localizedString from main Bundle
@@ -659,9 +654,6 @@ public extension String{
     static let systemKeyWords:[String] = {
         ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init","_","fallthrough","internal","true","false","switch","dynamic","typealias"]
     }()
-//    static func systemKeyWords()->[String]{
-//        ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init","_","fallthrough","internal","true","false","switch","dynamic","typealias"]
-//    }
     var escapeString:String {
         addingPercentEncoding(withAllowedCharacters: CharacterSet.wtURLQueryAllowed) ?? self
     }
@@ -675,7 +667,7 @@ public extension String{
         data(using: .utf8) ?? Data()
     }
 }
-let testJSON =
+private let testJSON =
 """
 {
 "name": "Durian",
@@ -810,12 +802,7 @@ public extension Encodable{
 }
 //"dsadas".printJSONString()
 public extension Decodable{
-//    static func decodeFromData(with data:Data) -> self{
-//        return JSONDecoder().decode(self, from: data)
-//    }
 }
-
-
 public extension Collection where Element == String {
     func qualityEncoded() -> String {
         return enumerated().map { index, encoding in
