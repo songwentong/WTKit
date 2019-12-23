@@ -583,11 +583,6 @@ public extension Bundle{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Unknown"
     }
     static var customBundle:Bundle = Bundle.main
-    static func setCustomBundle(with newBundle:Bundle){
-    }
-    static func getCustomBundle() -> Bundle {
-        return Bundle.main
-    }
 }
 public func NSLibraryDirectory() -> String{
     return NSHomeDirectory() + "/Library"
@@ -601,6 +596,9 @@ public extension String{
     ///get localizedString from main Bundle
     var localizedString:String{
         return NSLocalizedString(self, comment: "")
+    }
+    var customLocalizedString:String{
+        NSLocalizedString(self, bundle: .customBundle,  comment: "")
     }
     static let generalDelimitersToEncode = ":#[]@"
     static let subDelimitersToEncode = "!$&'()*+,;="
