@@ -241,7 +241,7 @@ public class WTModelMaker {
                             return ""
                         }
                         let data = try! JSONSerialization.data(withJSONObject: first, options: [])
-                        let valueString = data.utf8String()
+                        let valueString = data.utf8String
                         let subClassName = className + "_" +  nameReplacedKey
                         subClassString += self.WTSwiftModelString(with: subClassName, jsonString: valueString, usingHeader: false, isRootClass:false)
                         stringToPrint += "[\(subClassName)] = [\(subClassName)]()"

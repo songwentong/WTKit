@@ -50,7 +50,7 @@ public extension Data{
         }
     }
     ///convert data to utf8 string
-    func utf8String() -> String {
+    var utf8String:String{
         return String.init(data: self, encoding: .utf8) ?? "not utf8 string"
     }
     func jsonObject(options: JSONSerialization.ReadingOptions = []) throws -> Any {
@@ -682,6 +682,9 @@ public extension String{
     var mutableAttributedString:NSMutableAttributedString{
         return NSMutableAttributedString.init(string: self)
     }
+    var utf8Data:Data?{
+        data(using: .utf8)
+    }
 }
 let testJSON =
 """
@@ -692,15 +695,6 @@ let testJSON =
 }
 """
 public extension JSONDecoder{
-    func decode<T>(with type:T.Type, from data:Data) -> T? where T : Decodable {
-        do {
-            let obj:T = try decode(type, from: data)
-            return obj
-        } catch  {
-            
-        }
-        return nil
-    }
 }
 func convertCodableTypeToParameters<T:Codable,B>(_ t:T) -> B? {
     do{
@@ -809,7 +803,7 @@ public extension Encodable{
             encoder.outputFormatting = [.prettyPrinted]
         }
         if let data = try? encoder.encode(self){
-            return data.utf8String()
+            return data.utf8String
         }else{
             return "not a json string"
         }
@@ -823,6 +817,11 @@ public extension Encodable{
     #endif
 }
 //"dsadas".printJSONString()
+public extension Decodable{
+//    static func decodeFromData(with data:Data) -> self{
+//        return JSONDecoder().decode(self, from: data)
+//    }
+}
 
 
 public extension Collection where Element == String {

@@ -88,8 +88,10 @@ public extension UIColor{
 }
 
 public extension UIViewController{
+    ///如果应用的controller链中没有出现present出的控制器,就可以成功,否则就会失败
     func requestPushToTopVC() { UIApplication.topViewController?.navigationController?.pushViewController(self, animated: true)
     }
+    ///如果应用的controller链中没有出现present出的控制器,就可以成功,否则可能会失败
     func requestTopVCPresent( animated flag: Bool, completion: (() -> Void)? = nil) {
         UIApplication.topViewController?.present(self, animated: flag, completion: completion)
     }
@@ -861,21 +863,21 @@ open class WebImageButton:UIButton{
     }
 }
 // MARK: - WTUINavigationController
-open class WTUINavigationController:UINavigationController,UIGestureRecognizerDelegate{
+open class WTUINavigationController:UINavigationController {
     open override func viewDidLoad() {
         super.viewDidLoad()
-        self.interactivePopGestureRecognizer?.delegate = self
     }
-    
-    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if viewControllers.count >= 2{
-            return true
-        }
-        return false
+    /*
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning{
+        return self
     }
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool{
-        return true
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval{
+        return 0.25
     }
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning){
+        
+    }
+    */
 }
 // MARK: - WTVC
 open class WTVC:UIViewController{
