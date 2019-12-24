@@ -719,7 +719,14 @@ public extension UICollectionViewCell{
 }
 
 public extension UIWindow{
+    
 }
+
+
+@available(iOS 13.0, *)
+public extension UIWindowScene{
+}
+
 public extension String{
     ///create color from self(if hexstring)
     var hexColor:UIColor{
