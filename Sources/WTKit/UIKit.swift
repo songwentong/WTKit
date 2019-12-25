@@ -1130,14 +1130,17 @@ open class WTTableVC:WTVC{
     }
 }
 public extension CGImage{
+    ///testing method
     var to8Bit:CGImage{
         guard let colorSpace = colorSpace else{
             return self
         }
-        guard let dataProvider = dataProvider else{
+//        guard let dataProvider = dataProvider else{
+//            return self
+//        }
+        guard let context = CGContext.init(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: 0) else{
             return self
         }
-        let context = CGContext.init(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: 0)
         let imgV = UIImageView.init(image: UIImage.init(cgImage: self))
         imgV.frame = CGRect.init(x: 0, y: 0, width: width, height: height)
         UIGraphicsPushContext(context)
@@ -1147,10 +1150,10 @@ public extension CGImage{
             return self
         }
         UIGraphicsEndImageContext()
-        guard let cg = image.cgImage{
-            return cg
+        guard let cg = image.cgImage else{
+            return self
         }
-        return img
+        return cg
     }
 }
 #else
