@@ -337,7 +337,40 @@ class GlobalImageLoadCache {
         return GlobalImageLoadCache.init()
     }()
 }
+class EmptyModel: Codable {
+    
+}
 public extension UIImageView{
+    private func testingCombine(){
+        if #available(iOS 13.0, *) {
+            //convert uiimage
+            let reciever = URLSession.default.dataTaskPublisher(for: "https://www.apple.com".urlValue)
+                .map { (data,res) -> UIImage? in
+                    return UIImage.init(data: data)}
+                .replaceError(with: nil)
+                .receive(on:RunLoop.main)
+                .sink { [weak self](img) in
+                    self?.image = img
+            }
+            print("\(reciever)")
+            //convert CodableModel
+            let reciever2 = URLSession.default.dataTaskPublisher(for: "https://www.apple.com".urlValue)
+                .map({ (data,res) -> Data in
+                    return data
+                })
+                .decode(type: Int.self, decoder: JSONDecoder())
+                .replaceError(with: 1)
+                .receive(on: RunLoop.main)
+                .sink { (model:Int) in
+                    print("\(model)")
+            }
+            print("\(reciever2)")
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
+    
     func loadImage(with path:String) {
         self.image = nil
         let size = self.frame.size
@@ -870,6 +903,20 @@ open class WebImageView:UIImageView{
     open func loadWebImage(with path:String) {
         webImageTask?.cancel()
         let size = self.frame.size
+        if #available(iOS 13.0, *) {
+            let publisher = URLSession.default.dataTaskPublisher(for: "https://www.apple.com".urlValue)
+            let sub = publisher.sink(receiveCompletion: { (c) in
+                
+            }) { (d,u) in
+                
+            }
+            print("\(sub)")
+            
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        
         webImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue) { [weak self](data, res, err) in
             guard let data = data else{
                 return
