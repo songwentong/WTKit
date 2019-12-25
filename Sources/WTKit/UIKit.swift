@@ -445,8 +445,8 @@ public extension UIApplication{
         }
         let win = UIWindow.init(windowScene: first)
         win.windowLevel = UIWindow.Level.statusBar + 1
-        win.backgroundColor = UIColor.white
-        win.frame = CGRect.init(x: 0, y: 0, width: 200, height: 200)
+        win.backgroundColor = UIColor.clear
+        win.frame = UIScreen.mainScreenBounds
         win.rootViewController = UIViewController()
         win.makeKeyAndVisible()
         return win
