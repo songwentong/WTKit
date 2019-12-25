@@ -1137,8 +1137,18 @@ public extension CGImage{
         guard let dataProvider = dataProvider else{
             return self
         }
-        guard let img = CGImage.init(width: width, height: height, bitsPerComponent: bitsPerComponent, bitsPerPixel: 8, bytesPerRow: bytesPerRow, space: colorSpace , bitmapInfo: bitmapInfo, provider: dataProvider, decode: decode, shouldInterpolate: shouldInterpolate, intent: renderingIntent) else{
+        let context = CGContext.init(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: 0)
+        let imgV = UIImageView.init(image: UIImage.init(cgImage: self))
+        imgV.frame = CGRect.init(x: 0, y: 0, width: width, height: height)
+        UIGraphicsPushContext(context)
+        imgV.layer.render(in: context)
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else{
+            UIGraphicsEndImageContext()
             return self
+        }
+        UIGraphicsEndImageContext()
+        guard let cg = image.cgImage{
+            return cg
         }
         return img
     }
