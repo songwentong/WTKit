@@ -153,6 +153,11 @@ public extension UILabel{
 }
 
 public extension UIView{
+    func addSubviews(_ views: [UIView]) {
+        for v in views{
+            addSubview(v)
+        }
+    }
     @IBInspectable var cornerRadius: CGFloat {
         get {
             return layer.cornerRadius
@@ -731,6 +736,12 @@ public extension String{
     ///create color from self(if hexstring)
     var hexColor:UIColor{
         return UIColor.colorWithHexString(self)
+    }
+    var namedImage:UIImage?{
+        return UIImage.init(named: self)
+    }
+    var namedImageView:UIImageView{
+        return UIImageView.init(image: self.namedImage)
     }
 }
 public extension NSAttributedString{
