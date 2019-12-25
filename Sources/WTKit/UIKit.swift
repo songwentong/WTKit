@@ -1129,6 +1129,19 @@ open class WTTableVC:WTVC{
         super.viewDidLoad()
     }
 }
-
+public extension CGImage{
+    var to8Bit:CGImage{
+        guard let colorSpace = colorSpace else{
+            return self
+        }
+        guard let dataProvider = dataProvider else{
+            return self
+        }
+        guard let img = CGImage.init(width: width, height: height, bitsPerComponent: bitsPerComponent, bitsPerPixel: 8, bytesPerRow: bytesPerRow, space: colorSpace , bitmapInfo: bitmapInfo, provider: dataProvider, decode: decode, shouldInterpolate: shouldInterpolate, intent: renderingIntent) else{
+            return self
+        }
+        return img
+    }
+}
 #else
 #endif
