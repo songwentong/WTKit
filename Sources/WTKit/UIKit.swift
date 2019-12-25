@@ -15,11 +15,11 @@ public extension UIScreen{
     class var mainScreenSize:CGSize {
         return mainScreenBounds.size
     }
-    class func mainScreenWidth() -> CGFloat {
-        return UIScreen.main.bounds.size.width
+    class var mainScreenWidth:CGFloat {
+        return mainScreenSize.width
     }
-    class func mainScreenHeight() -> CGFloat {
-        return UIScreen.main.bounds.size.height
+    class var mainScreenHeight:CGFloat {
+        return mainScreenSize.height
     }
 }
 
