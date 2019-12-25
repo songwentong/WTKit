@@ -737,9 +737,11 @@ public extension String{
     var hexColor:UIColor{
         return UIColor.colorWithHexString(self)
     }
+    ///create image from name
     var namedImage:UIImage?{
         return UIImage.init(named: self)
     }
+    ///create image view from name
     var namedImageView:UIImageView{
         return UIImageView.init(image: self.namedImage)
     }
