@@ -509,11 +509,7 @@ public extension UIGraphicsRenderer{
     
 }
 @available(iOS 10.0, *)
-
 public extension UIGraphicsImageRenderer{
-    //    func image(<#parameters#>) -> <#return type#> {
-    //        <#function body#>
-    //    }
 }
 
 public extension CGContext{
@@ -521,9 +517,17 @@ public extension CGContext{
 }
 
 public extension UIImage{
-    //加载一张图片需要0.015941143035888672左右,decode做分线程处理可以节约时间,减少卡顿
+    var imageView:UIImageView{
+        UIImageView.init(image: self)
+    }
+    
+    
+    /**
+     decode image to bitmap using UIGraphicsImageRenderer,
+     loading one image may need 0.015s or more,using global dispatch queue
+     can improve main thread performance
+     */
     func decodedImage(_ size:CGSize, callBack:@escaping ((UIImage)->Void)) {
-        //        let blue = #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1)
         if #available(iOS 10.0, *) {
             DispatchQueue.global().async {
                 let imageRenderer = UIGraphicsImageRenderer.init(size: size)
@@ -567,7 +571,9 @@ public extension UIImage{
         }
     }
     
-    
+    /**
+     draw an new image with corner radius.
+     */
     func convertToCornerImage(_ cornerRadius:CGFloat = 5) -> UIImage {
         let iv = UIImageView.init(image: self)
         iv.frame = CGRect.init(origin: .zero, size: self.size)
@@ -575,15 +581,17 @@ public extension UIImage{
         iv.layer.masksToBounds = true
         return iv.snapShotImage()
     }
+    /**
+     loading an image from url,using cache if has
+     */
     @discardableResult
     static func loadImage(with path: String, complection:@escaping (UIImage?,URLResponse?)->Void) -> URLSessionDataTask? {
-        guard let url = URL.init(string: path) else{
-            complection(nil,nil)
-            return nil
-        }
-        return loadImage(with: url, complection: complection)
+        return loadImage(with: path.urlValue, complection: complection)
     }
     static let ImageLoadFinishNotification:Notification.Name = Notification.Name.init("wtkit.uiimage.loadimagefinish")
+    /**
+     prefetch image
+     */
     static func prefetchImage(with url:String){
         loadImage(with: url) { (image, res) in
             
@@ -620,6 +628,7 @@ public extension UIImage{
             NotificationCenter.default.post(name: UIImage.ImageLoadFinishNotification, object: result, userInfo: nil)
         }
     }
+    ///get a color at position
     func getPixelColor(pos: CGPoint) -> UIColor? {
         let rect = CGRect.init(origin: .zero, size: self.size)
         guard rect.contains(pos) else{
@@ -1135,9 +1144,6 @@ public extension CGImage{
         guard let colorSpace = colorSpace else{
             return self
         }
-//        guard let dataProvider = dataProvider else{
-//            return self
-//        }
         guard let context = CGContext.init(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo.rawValue) else{
             return self
         }
