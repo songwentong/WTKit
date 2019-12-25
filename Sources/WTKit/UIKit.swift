@@ -434,13 +434,13 @@ public extension UITabBarController{
 public extension UIApplication{
     @available(iOS 13.0, *)
     static func appendNewWindow() -> UIWindow? {
-        let l1 = UIApplication.shared.connectedScenes.compactMap { (s:UIScene) -> UIWindowScene? in
+        let sceneList = UIApplication.shared.connectedScenes.compactMap { (s:UIScene) -> UIWindowScene? in
             if let s2 = s as? UIWindowScene{
                 return s2
             }
             return nil
         }
-        guard let first = l1.first else{
+        guard let first = sceneList.first else{
             return nil
         }
         let win = UIWindow.init(windowScene: first)
