@@ -432,6 +432,25 @@ public extension UITabBarController{
 }
 
 public extension UIApplication{
+    @available(iOS 13.0, *)
+    static func appendNewWindow() -> UIWindow? {
+        let l1 = UIApplication.shared.connectedScenes.compactMap { (s:UIScene) -> UIWindowScene? in
+            if let s2 = s as? UIWindowScene{
+                return s2
+            }
+            return nil
+        }
+        guard let first = l1.first else{
+            return nil
+        }
+        let win = UIWindow.init(windowScene: first)
+        win.windowLevel = UIWindow.Level.statusBar + 1
+        win.backgroundColor = UIColor.white
+        win.frame = CGRect.init(x: 0, y: 0, width: 200, height: 200)
+        win.rootViewController = UIViewController()
+        win.makeKeyAndVisible()
+        return win
+    }
     static var rootViewController:UIViewController?{
         guard let first = UIApplication.shared.windows.first else{
             return nil
