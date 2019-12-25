@@ -378,6 +378,12 @@ public extension UIImageView{
 }
 
 public extension UIButton{
+    static var systemButton:UIButton{
+        return .init(type: .system)
+    }
+    static var customButton:UIButton{
+        return .init(type: .custom)
+    }
     func setImage(with path:String, for state: UIControl.State = .normal){
         NotificationCenter.default.addObserver(forName: UIImage.ImageLoadFinishNotification, object: nil, queue: OperationQueue.main) {[weak self] (notification) in
             guard let result = notification.object as? ImageLoadResult else{
@@ -737,14 +743,33 @@ public extension String{
     var hexColor:UIColor{
         return UIColor.colorWithHexString(self)
     }
-    ///create image from name
+    ///create UIImage from name
     var namedImage:UIImage?{
         return UIImage.init(named: self)
     }
-    ///create image view from name
+    ///create UIImageView from name
     var namedImageView:UIImageView{
         return UIImageView.init(image: self.namedImage)
     }
+    ///create UILabel
+    var label:UILabel{
+        let l = UILabel.init()
+        l.text = self
+        return l
+    }
+    ///create UIButton system type
+    var systemButton:UIButton{
+        let l = UIButton.init(type: .system)
+        l.setTitle(self, for: .normal)
+        return l
+    }
+    ///create UIButton custom type
+    var customButton:UIButton{
+        let l = UIButton.init(type: .custom)
+        l.setTitle(self, for: .normal)
+        return l
+    }
+    
 }
 public extension NSAttributedString{
     ///根据给出的宽度来计算文本的高度

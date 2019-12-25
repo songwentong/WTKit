@@ -20,8 +20,116 @@ public func dprint<T>(_ items:T, separator: String = " ", terminator: String = "
 public func cprint<T>(_ items: T,  separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
     print("\((file as NSString).lastPathComponent)[\(line)], \(function): \(items)", separator: separator, terminator: terminator)
 }
-
+public extension String{
+    ///get localizedString from main Bundle
+    var localizedString:String{
+        return NSLocalizedString(self, comment: "")
+    }
+    ///get localizedString from your custom bundle
+    var customLocalizedString:String{
+        NSLocalizedString(self, bundle: .customBundle,  comment: "")
+    }
+    ///convert string to Notification.Name
+    var notificationName:Notification.Name{
+        Notification.Name.init(self)
+    }
+    ///to NSAttributedString
+    var attributedString:NSAttributedString{
+        NSAttributedString.init(string: self)
+    }
+    ///to NSMutableAttributedString
+    var mutableAttributedString:NSMutableAttributedString{
+        NSMutableAttributedString.init(string: self)
+    }
+    ///to Data
+    var utf8Data:Data{
+        data(using: .utf8) ?? Data()
+    }
+    //create URL
+    var urlValue:URL{
+        guard let url = URL.init(string: self) else{
+            return URL.init(fileURLWithPath: "")
+        }
+        return url
+    }
+    //create URLRequest
+    var urlRequest:URLRequest{
+        URLRequest.init(url: self.urlValue)
+    }
+    
+    
+    
+    static let generalDelimitersToEncode = ":#[]@"
+    static let subDelimitersToEncode = "!$&'()*+,;="
+    
+    
+    func localized(_ lang:String) ->String {
+        var bundle = Bundle.main
+        if let path = Bundle.main.path(forResource: lang, ofType: "lproj") {
+            bundle = Bundle(path: path) ?? Bundle.main
+        }
+        return NSLocalizedString(self, tableName: nil, bundle: bundle, value: "", comment: "")
+    }
+    func convertToLocalizedString(_ tableName: String? = nil, bundle: Bundle = Bundle.main, value: String = "", comment: String) -> String{
+        return NSLocalizedString(self, tableName: tableName, bundle: bundle, value: value, comment: comment)
+    }
+    var fullWidthString:String{
+        if #available(OSX 10.11, iOS 9.0, *) {
+            return self.applyingTransform(.fullwidthToHalfwidth, reverse: true) ?? ""
+        } else {
+            // Fallback on earlier versions
+        }
+        return ""
+    }
+    var halfWidthString:String {
+        var dict = [String:String]()
+        for (index,ele) in String.fullWidthPunctuation().enumerated(){
+            for (index2,ele2) in String.halfWidthPunctuation().enumerated(){
+                if index == index2{
+                    dict["\(ele)"] = "\(ele2)"
+                }
+            }
+        }
+        var result = ""
+        result = self
+        for (k,v) in dict {
+            result = result.replacingOccurrences(of: k, with: v)
+        }
+        return result
+    }
+    static func fullWidthPunctuation()->String{
+        return "“”，。：¥"
+    }
+    static func halfWidthPunctuation()->String{
+        return "\"\",.:¥"
+    }
+    static let systemKeyWords:[String] = {
+        ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init","_","fallthrough","internal","true","false","switch","dynamic","typealias"]
+    }()
+    var escapeString:String {
+        addingPercentEncoding(withAllowedCharacters: CharacterSet.wtURLQueryAllowed) ?? self
+    }
+    
+}
+private let testJSON =
+"""
+{
+"name": "Durian",
+"points": 600,
+"description": "A fruit with a distinctive scent."
+}
+"""
 public extension Data{
+    ///convert data to utf8 string
+    var utf8String:String{
+        return String.init(data: self, encoding: .utf8) ?? "not utf8 string"
+    }
+    ///parse to json object
+    func jsonObject(options: JSONSerialization.ReadingOptions = []) throws -> Any {
+        return try JSONSerialization.jsonObject(with: self, options: options)
+    }
+    
+    
     func writeToFile( path:String)  {
         let url = URL.init(fileURLWithPath: path)
         do {
@@ -49,13 +157,7 @@ public extension Data{
             return nil
         }
     }
-    ///convert data to utf8 string
-    var utf8String:String{
-        return String.init(data: self, encoding: .utf8) ?? "not utf8 string"
-    }
-    func jsonObject(options: JSONSerialization.ReadingOptions = []) throws -> Any {
-        return try JSONSerialization.jsonObject(with: self, options: options)
-    }
+
 }
 ///block run in debug mode
 public func debugBlock(_ block:()->Void) -> Void {
@@ -592,87 +694,7 @@ public func NSLibraryCachesDirectory() -> String{
 }
 public extension FileManager{
 }
-public extension String{
-    ///get localizedString from main Bundle
-    var localizedString:String{
-        return NSLocalizedString(self, comment: "")
-    }
-    var customLocalizedString:String{
-        NSLocalizedString(self, bundle: .customBundle,  comment: "")
-    }
-    static let generalDelimitersToEncode = ":#[]@"
-    static let subDelimitersToEncode = "!$&'()*+,;="
-    var urlValue:URL{
-        guard let url = URL.init(string: self) else{
-            return URL.init(fileURLWithPath: "")
-        }
-        return url
-    }
-    
-    func localized(_ lang:String) ->String {
-        var bundle = Bundle.main
-        if let path = Bundle.main.path(forResource: lang, ofType: "lproj") {
-            bundle = Bundle(path: path) ?? Bundle.main
-        }
-        return NSLocalizedString(self, tableName: nil, bundle: bundle, value: "", comment: "")
-    }
-    func convertToLocalizedString(_ tableName: String? = nil, bundle: Bundle = Bundle.main, value: String = "", comment: String) -> String{
-        return NSLocalizedString(self, tableName: tableName, bundle: bundle, value: value, comment: comment)
-    }
-    var fullWidthString:String{
-        if #available(OSX 10.11, iOS 9.0, *) {
-            return self.applyingTransform(.fullwidthToHalfwidth, reverse: true) ?? ""
-        } else {
-            // Fallback on earlier versions
-        }
-        return ""
-    }
-    var halfWidthString:String {
-        var dict = [String:String]()
-        for (index,ele) in String.fullWidthPunctuation().enumerated(){
-            for (index2,ele2) in String.halfWidthPunctuation().enumerated(){
-                if index == index2{
-                    dict["\(ele)"] = "\(ele2)"
-                }
-            }
-        }
-        var result = ""
-        result = self
-        for (k,v) in dict {
-            result = result.replacingOccurrences(of: k, with: v)
-        }
-        return result
-    }
-    static func fullWidthPunctuation()->String{
-        return "“”，。：¥"
-    }
-    static func halfWidthPunctuation()->String{
-        return "\"\",.:¥"
-    }
-    static let systemKeyWords:[String] = {
-        ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init","_","fallthrough","internal","true","false","switch","dynamic","typealias"]
-    }()
-    var escapeString:String {
-        addingPercentEncoding(withAllowedCharacters: CharacterSet.wtURLQueryAllowed) ?? self
-    }
-    var attributedString:NSAttributedString{
-        NSAttributedString.init(string: self)
-    }
-    var mutableAttributedString:NSMutableAttributedString{
-        NSMutableAttributedString.init(string: self)
-    }
-    var utf8Data:Data{
-        data(using: .utf8) ?? Data()
-    }
-}
-private let testJSON =
-"""
-{
-"name": "Durian",
-"points": 600,
-"description": "A fruit with a distinctive scent."
-}
-"""
+
 public extension JSONDecoder{
 }
 func convertCodableTypeToParameters<T:Codable,B>(_ t:T) -> B? {
