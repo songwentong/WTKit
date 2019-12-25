@@ -433,7 +433,7 @@ public extension UITabBarController{
 
 public extension UIApplication{
     @available(iOS 13.0, *)
-    static func appendNewWindow() -> UIWindow? {
+    static func appendNewWindow<T:UIWindow>() -> T? {
         let sceneList = UIApplication.shared.connectedScenes.compactMap { (s:UIScene) -> UIWindowScene? in
             if let s2 = s as? UIWindowScene{
                 return s2
@@ -443,7 +443,7 @@ public extension UIApplication{
         guard let first = sceneList.first else{
             return nil
         }
-        let win = UIWindow.init(windowScene: first)
+        let win = T.init(windowScene: first)
         win.windowLevel = UIWindow.Level.statusBar + 1
         win.backgroundColor = UIColor.clear
         win.frame = UIScreen.mainScreenBounds
