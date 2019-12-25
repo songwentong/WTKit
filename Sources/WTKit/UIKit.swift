@@ -1138,7 +1138,7 @@ public extension CGImage{
 //        guard let dataProvider = dataProvider else{
 //            return self
 //        }
-        guard let context = CGContext.init(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: 0) else{
+        guard let context = CGContext.init(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo.rawValue) else{
             return self
         }
         let imgV = UIImageView.init(image: UIImage.init(cgImage: self))
