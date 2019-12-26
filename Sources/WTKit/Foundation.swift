@@ -226,6 +226,30 @@ public extension Int{
     var numberFormatterString:String{
         return NumberFormatter().string(from: numberObject) ?? ""
     }
+//    static let testUnit:Int = 1
+    
+    //KB, MB, GB, TB, PB, EB, ZB, YB
+    static let CountPerUnit:Int = 1024
+    
+    ///number of bytes in one Kib
+    static let KiB:Int = {
+        return CountPerUnit
+    }()
+    static let MiB:Int = {
+        return KiB * CountPerUnit
+    }()
+    static let GiB:Int = {
+        return MiB * CountPerUnit
+    }()
+    static let TiB:Int = {
+        return GiB * CountPerUnit
+    }()
+    static let PiB:Int = {
+        return TiB * CountPerUnit
+    }()
+    static let EiB:Int = {
+        return PiB * CountPerUnit
+    }()
 }
 public extension Float{
     var numberFormatterString:String{
