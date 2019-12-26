@@ -153,6 +153,9 @@ public extension UILabel{
 }
 
 public extension UIView{
+    func removelAllConstraints() {
+        removeConstraints(constraints)
+    }
     func addSubviews(_ views: [UIView]) {
         for v in views{
             addSubview(v)
