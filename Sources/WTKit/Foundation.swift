@@ -844,8 +844,10 @@ public extension Encodable{
     }
     #endif
 }
-//"dsadas".printJSONString()
 public extension Decodable{
+    static func readFromData<T:Decodable>(with data:Data) -> T?{
+        return try? JSONDecoder().decode(T.self, from: data)
+    }
 }
 public extension Collection where Element == String {
     func qualityEncoded() -> String {
