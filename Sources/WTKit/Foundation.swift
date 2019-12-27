@@ -7,7 +7,9 @@
 //  https://github.com/songwentong/WTKit
 
 import Foundation
-
+#if canImport(Combine)
+import Combine
+#endif
 /// Writes the textual representations of the given items into the standard
 /// output. with file,function,line(In Debug mode)
 public func dprint<T>(_ items:T, separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
