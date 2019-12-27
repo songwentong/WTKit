@@ -8,6 +8,9 @@
 import Foundation
 #if os(iOS)
 import UIKit
+#if canImport(Combine)
+import Combine
+#endif
 public extension UIScreen{
     class var mainScreenBounds:CGRect {
         return UIScreen.main.bounds
