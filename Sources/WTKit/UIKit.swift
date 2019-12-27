@@ -466,8 +466,20 @@ public extension UIButton{
         }
     }
 }
-
 public extension UITabBarController{
+    /**
+     get current UINavigationController or nil
+     获取控制器树结构的方案适用于简单结构,比如常见的
+     UIWindow---> UITabBarController ---> [UINavigationController] ---> [UIViewController]
+     或者
+     UIWindow---> UINavigationController ---> [UIViewController]
+     */
+    var topNavigationController:UINavigationController?{
+        if let navi = selectedViewController as? UINavigationController{
+            return navi
+        }
+        return nil
+    }
     var topViewController:UIViewController? {
         if let navi = selectedViewController as? UINavigationController{
             return navi.topViewController
@@ -505,6 +517,16 @@ public extension UIApplication{
         }
         return root
     }
+    static var topNavigationController:UINavigationController?{
+        let root = rootViewController
+        if let tab = root as? UITabBarController{
+            return tab.topNavigationController
+        }
+        if let rn = root as? UINavigationController{
+            return rn
+        }
+        return nil
+    }
     static var topViewController:UIViewController?{
         let root = rootViewController
         if let tabVC = root as? UITabBarController{
@@ -515,6 +537,7 @@ public extension UIApplication{
         }
         return root
     }
+    
     static func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil){
         topViewController?.present(viewControllerToPresent, animated: flag, completion: completion)
     }
