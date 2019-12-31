@@ -352,7 +352,13 @@ class GlobalImageLoadCache {
     }()
 }
 class EmptyModel: Codable {
-    
+    var a:Int
+}
+struct StructModel:Codable{
+    var a:Int?
+    func test() {
+        let _:StructModel? = StructModel.readFromData(with: Data())
+    }
 }
 extension Data{
     var image:UIImage?{

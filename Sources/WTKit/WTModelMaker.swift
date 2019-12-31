@@ -166,7 +166,13 @@ public class WTModelMaker {
         stringToPrint += " "
         stringToPrint += getClassOrStructName()
         stringToPrint += " "
-        stringToPrint += "\(className):NSObject, Codable {"
+        stringToPrint += "\(className):"
+        if useStruct{
+            stringToPrint += "Codable,CustomStringConvertible,CustomDebugStringConvertible {"
+        }else{
+            stringToPrint += "NSObject, Codable {"
+        }
+        
         codingKeys = "    enum CodingKeys: String, CodingKey {" + crlf
         var propertyNames = [String]()
         var jsonObject:Any? = nil
