@@ -295,7 +295,10 @@ public class WTModelMaker {
         }
         debugDescription = "        return \"debugDescription of \(className):\\" + "n" + debugDescription + "\"\n"
         stringToPrint.append("public extension \(className){\n")
-        stringToPrint.append("\(indent)override var description: String{\n        return debugDescription\n    }\n")
+        if !useStruct{
+            stringToPrint.append("\(indent)override ")
+        }
+        stringToPrint.append("var description: String{\n        return debugDescription\n    }\n")
         stringToPrint.append("    override var debugDescription: String{\n")
         stringToPrint += debugDescription + "\n"
         stringToPrint.append("    }\n")
