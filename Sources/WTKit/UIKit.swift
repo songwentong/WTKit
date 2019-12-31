@@ -375,7 +375,7 @@ public extension UIImageView{
             /*
             let reciever = (URLSession.default.dataTaskPublisher(for: "https://www.apple.com".urlValue) as AnyObject)
                 .map { (data,res) -> UIImage? in
-                    return UIImage.init(data: data)}
+                    return data.image}
                 .replaceError(with: nil)
                 .receive(on:RunLoop.main)
                 .sink { [weak self](img) in
@@ -703,7 +703,7 @@ public extension UIImage{
                 complection(nil,response)
                 return
             }
-            let image = UIImage.init(data: data)
+            let image = data.image
             complection(image,response)
             guard let img = image else{
                 return
@@ -993,7 +993,7 @@ open class WebImageView:UIImageView{
             guard let data = data else{
                 return
             }
-            guard let img = UIImage.init(data: data) else{
+            guard let img = data.image else{
                 return
             }
             img.decodedImage(size) { (image) in
@@ -1010,7 +1010,7 @@ open class WebImageView:UIImageView{
             guard let data = data else{
                 return
             }
-            guard let img = UIImage.init(data: data) else{
+            guard let img = data.image else{
                 return
             }
             
@@ -1032,7 +1032,7 @@ open class WebImageButton:UIButton{
             guard let data = data else{
                 return
             }
-            guard let img = UIImage.init(data: data) else{
+            guard let img = data.image else{
                 return
             }
             img.decodedImage(size) { (image) in
@@ -1050,7 +1050,7 @@ open class WebImageButton:UIButton{
             guard let data = data else{
                 return
             }
-            guard let img = UIImage.init(data: data) else{
+            guard let img = data.image else{
                 return
             }
             img.decodedImage(size) { (image) in
@@ -1156,7 +1156,7 @@ open class WTVC:UIViewController{
                 guard let data = data else{
                     return
                 }
-                guard let img = UIImage.init(data: data) else{
+                guard let img = data.image else{
                     return
                 }
                 self.wtBackIconImageView.image = img
