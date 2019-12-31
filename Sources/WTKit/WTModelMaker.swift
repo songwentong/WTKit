@@ -299,9 +299,9 @@ public class WTModelMaker {
             stringToPrint.append("\(indent)override ")
         }
         stringToPrint.append("var description: String{\n        return debugDescription\n    }\n")
-        
+        if !useStruct{
         stringToPrint.append("\(indent)override ")
-    }
+        }
         stringToPrint.append("var debugDescription: String{\n")
         stringToPrint += debugDescription + "\n"
         stringToPrint.append("    }\n")
