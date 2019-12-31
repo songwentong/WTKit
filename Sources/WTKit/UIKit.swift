@@ -50,6 +50,8 @@ public extension UIColor{
     }
     class func colorWithHexString(_ string:String, alpha:CGFloat = 1.0, defaultColor:UIColor = .red) -> UIColor{
         //        let s = NSScanner(string: string)
+//        let myset = NSMutableCharacterSet()
+//        myset.addCharacters(in: "")
         let mutableCharSet = NSMutableCharacterSet()
         mutableCharSet.addCharacters(in: "#")
         mutableCharSet.formUnion(with: CharacterSet.whitespaces);
@@ -864,6 +866,24 @@ public extension String{
         let l = UILabel.init()
         l.text = self
         return l
+    }
+    ///return UITextField with text
+    var textField:UITextField{
+        let tf = UITextField()
+        tf.text = self
+        return tf
+    }
+    ///return UITextField with placeholder
+    var placeHolderTextField:UITextField{
+        let tf = UITextField()
+        tf.placeholder = self
+        return tf
+    }
+    ///return UITextView with text
+    var textView:UITextView{
+        let tv = UITextView()
+        tv.text = self
+        return tv
     }
     ///create UIButton system type
     var titledSystemButton:UIButton{

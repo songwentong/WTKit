@@ -233,13 +233,15 @@ public extension Int{
     //KB, MB, GB, TB, PB, EB, ZB, YB
     static let CountPerUnit:Int = 1024
     
-    ///number of bytes in one Kib
+    ///number of bytes in Kib
     static let KiB:Int = {
         return CountPerUnit
     }()
+    ///number of bytes in MiB
     static let MiB:Int = {
         return KiB * CountPerUnit
     }()
+    ///number of bytes in GiB
     static let GiB:Int = {
         return MiB * CountPerUnit
     }()
@@ -613,9 +615,9 @@ public extension URLSessionConfiguration{
         defaultHeaders["User-Agent"] = URLSessionConfiguration.defaultUserAgent
         return defaultHeaders
     }
-    
+    /// Accept-Encoding
     static var defaulAcceptEncoding:String{
-        //Accept-Encoding
+        
         let encodings: [String]
         #if DEBUG
         return "compress;q=1.0"
@@ -628,16 +630,16 @@ public extension URLSessionConfiguration{
         return encodings.qualityEncoded()
         #endif
     }
+    ///"Accept-Language"
     static var defaultLanguage:String{
-        //"Accept-Language"
+        
         return Locale.preferredLanguages.prefix(6).qualityEncoded()
     }
+    ///"User-Agent"
     static var defaultUserAgent:String{
-        //        "User-Agent"
         guard let info = Bundle.main.infoDictionary else{
             return "Unknown User-Agent"
         }
-        
         let executable = info[kCFBundleExecutableKey as String] as? String ?? "Unknown"
         
         let bundle = info[kCFBundleIdentifierKey as String] as? String ?? "Unknown"
