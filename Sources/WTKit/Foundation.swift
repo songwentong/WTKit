@@ -617,12 +617,16 @@ public extension URLSessionConfiguration{
     static var defaulAcceptEncoding:String{
         //Accept-Encoding
         let encodings: [String]
+        #if DEBUG
+        return "compress;q=1.0"
+        #else
         if #available(iOS 11.0, macOS 10.13, tvOS 11.0, watchOS 4.0, *) {
             encodings = ["br", "gzip", "deflate"]
         } else {
             encodings = ["gzip", "deflate"]
         }
         return encodings.qualityEncoded()
+        #endif
     }
     static var defaultLanguage:String{
         //"Accept-Language"

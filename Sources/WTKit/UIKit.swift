@@ -588,7 +588,9 @@ public extension UIImage{
     var imageView:UIImageView{
         UIImageView.init(image: self)
     }
-    
+    func applyImage(to imageView:UIImageView) {
+        imageView.image = self
+    }
     
     /**
      decode image to bitmap using UIGraphicsImageRenderer,
@@ -839,13 +841,23 @@ public extension String{
     var hexColor:UIColor{
         return UIColor.colorWithHexString(self)
     }
+    ///crrate CGColor from self(if hexstring)
+    var hexCGColor:CGColor{
+        return hexColor.cgColor
+    }
     ///create UIImage from name
-    var namedImage:UIImage?{
+    var namedUIImage:UIImage?{
         return UIImage.init(named: self)
     }
     ///create UIImageView from name
-    var namedImageView:UIImageView{
-        return UIImageView.init(image: self.namedImage)
+    var namedUIImageView:UIImageView{
+        return UIImageView.init(image: self.namedUIImage)
+    }
+    ///create UIButton from name
+    var namedUIButton:UIButton{
+        let button = UIButton.customButton
+        button.setImage(namedUIImage, for: .normal)
+        return button
     }
     ///create UILabel
     var label:UILabel{
@@ -854,13 +866,13 @@ public extension String{
         return l
     }
     ///create UIButton system type
-    var systemButton:UIButton{
+    var titledSystemButton:UIButton{
         let l = UIButton.init(type: .system)
         l.setTitle(self, for: .normal)
         return l
     }
     ///create UIButton custom type
-    var customButton:UIButton{
+    var titledCustomButton:UIButton{
         let l = UIButton.init(type: .custom)
         l.setTitle(self, for: .normal)
         return l
@@ -868,7 +880,9 @@ public extension String{
     
 }
 public extension NSAttributedString{
-    ///根据给出的宽度来计算文本的高度
+    /**
+     根据给出的宽度来计算文本的高度
+     */
     @available(iOS 6.0, *)
     func heightForWidth(with width:CGFloat) -> CGFloat {
         let rect = boundingRect(with: CGSize.init(width: width, height: 1000),options: [.usesLineFragmentOrigin], context: nil)
@@ -1221,6 +1235,9 @@ open class WTTableVC:WTVC{
     }
 }
 public extension CGImage{
+    var toUIImage:UIImage{
+        UIImage.init(cgImage: self)
+    }
     ///testing method
     var to8Bit:CGImage{
         guard let colorSpace = colorSpace else{
