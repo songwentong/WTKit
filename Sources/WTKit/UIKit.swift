@@ -11,6 +11,74 @@ import UIKit
 #if canImport(Combine)
 import Combine
 #endif
+// MARK: - String
+public extension String{
+    ///create color from self(if hexstring)
+    var hexColor:UIColor{
+        return UIColor.colorWithHexString(self)
+    }
+    ///crrate CGColor from self(if hexstring)
+    var hexCGColor:CGColor{
+        return hexColor.cgColor
+    }
+    ///create UIImage from name
+    var namedUIImage:UIImage?{
+        return UIImage.init(named: self)
+    }
+    ///create UIImageView from name
+    var namedUIImageView:UIImageView{
+        return UIImageView.init(image: self.namedUIImage)
+    }
+    ///create uiimage from path
+    var urlUIImageView:UIImageView{
+        let img = UIImageView()
+        img.loadImage(with: self)
+        return img
+    }
+    ///create UIButton from name
+    var namedUIButton:UIButton{
+        let button = UIButton.customButton
+        button.setImage(namedUIImage, for: .normal)
+        return button
+    }
+    ///create UILabel
+    var label:UILabel{
+        let l = UILabel.init()
+        l.text = self
+        return l
+    }
+    ///return UITextField with text
+    var textField:UITextField{
+        let tf = UITextField()
+        tf.text = self
+        return tf
+    }
+    ///return UITextField with placeholder
+    var placeHolderTextField:UITextField{
+        let tf = UITextField()
+        tf.placeholder = self
+        return tf
+    }
+    ///return UITextView with text
+    var textView:UITextView{
+        let tv = UITextView()
+        tv.text = self
+        return tv
+    }
+    ///create UIButton system type
+    var titledSystemButton:UIButton{
+        let l = UIButton.init(type: .system)
+        l.setTitle(self, for: .normal)
+        return l
+    }
+    ///create UIButton custom type
+    var titledCustomButton:UIButton{
+        let l = UIButton.init(type: .custom)
+        l.setTitle(self, for: .normal)
+        return l
+    }
+    
+}
 public extension UIScreen{
     class var mainScreenBounds:CGRect {
         return UIScreen.main.bounds
@@ -34,7 +102,7 @@ public extension UIDevice{
         return false
     }
 }
-
+// MARK: - UIColor
 public extension UIColor{
     //    func randomColor() -> UIColor {
     //        UIColor.init(red: CGFloat.random(in: ClosedRange.i), green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>)
@@ -91,7 +159,7 @@ public extension UIColor{
         }
     }
 }
-
+// MARK: - UIViewController
 public extension UIViewController{
     ///如果应用的controller链中没有出现present出的控制器,就可以成功,否则就会失败
     func requestPushToTopVC() { UIApplication.topViewController?.navigationController?.pushViewController(self, animated: true)
@@ -365,6 +433,7 @@ extension Data{
         UIImage.init(data: self)
     }
 }
+// MARK: - UIImageView
 public extension UIImageView{
     private func testingCombine(){
         if #available(iOS 13.0, *) {
@@ -445,7 +514,7 @@ public extension UIImageView{
         }
     }
 }
-
+// MARK: - UIButton
 public extension UIButton{
     static var systemButton:UIButton{
         return .init(type: .system)
@@ -511,7 +580,7 @@ public extension UITabBarController{
         return selectedViewController
     }
 }
-
+// MARK: - UIApplication
 public extension UIApplication{
     @available(iOS 13.0, *)
     static func appendNewWindow<T:UIWindow>() -> T? {
@@ -607,7 +676,7 @@ public extension UIGraphicsImageRenderer{
 public extension CGContext{
     
 }
-
+// MARK: - UIImage
 public extension UIImage{
     var imageView:UIImageView{
         UIImageView.init(image: self)
@@ -755,6 +824,7 @@ public extension UIImage{
 public extension UIResponder{
     
 }
+// MARK: - LoadingView
 open class LoadingView: UIView {
     var refreshIndicatorView = UIActivityIndicatorView.init(style: .whiteLarge)
     var indicatorBGView:UIView = UIView.init()
@@ -860,67 +930,6 @@ public extension UIWindow{
 public extension UIWindowScene{
 }
 
-public extension String{
-    ///create color from self(if hexstring)
-    var hexColor:UIColor{
-        return UIColor.colorWithHexString(self)
-    }
-    ///crrate CGColor from self(if hexstring)
-    var hexCGColor:CGColor{
-        return hexColor.cgColor
-    }
-    ///create UIImage from name
-    var namedUIImage:UIImage?{
-        return UIImage.init(named: self)
-    }
-    ///create UIImageView from name
-    var namedUIImageView:UIImageView{
-        return UIImageView.init(image: self.namedUIImage)
-    }
-    ///create UIButton from name
-    var namedUIButton:UIButton{
-        let button = UIButton.customButton
-        button.setImage(namedUIImage, for: .normal)
-        return button
-    }
-    ///create UILabel
-    var label:UILabel{
-        let l = UILabel.init()
-        l.text = self
-        return l
-    }
-    ///return UITextField with text
-    var textField:UITextField{
-        let tf = UITextField()
-        tf.text = self
-        return tf
-    }
-    ///return UITextField with placeholder
-    var placeHolderTextField:UITextField{
-        let tf = UITextField()
-        tf.placeholder = self
-        return tf
-    }
-    ///return UITextView with text
-    var textView:UITextView{
-        let tv = UITextView()
-        tv.text = self
-        return tv
-    }
-    ///create UIButton system type
-    var titledSystemButton:UIButton{
-        let l = UIButton.init(type: .system)
-        l.setTitle(self, for: .normal)
-        return l
-    }
-    ///create UIButton custom type
-    var titledCustomButton:UIButton{
-        let l = UIButton.init(type: .custom)
-        l.setTitle(self, for: .normal)
-        return l
-    }
-    
-}
 public extension NSAttributedString{
     /**
      根据给出的宽度来计算文本的高度

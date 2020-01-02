@@ -22,6 +22,7 @@ public func dprint<T>(_ items:T, separator: String = " ", terminator: String = "
 public func cprint<T>(_ items: T,  separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
     print("\((file as NSString).lastPathComponent)[\(line)], \(function): \(items)", separator: separator, terminator: terminator)
 }
+// MARK: - String
 public extension String{
     ///get localizedString from main Bundle
     var localizedString:String{
@@ -121,6 +122,7 @@ private let testJSON =
 "description": "A fruit with a distinctive scent."
 }
 """
+// MARK: - Data
 public extension Data{
     ///convert data to utf8 string
     var utf8String:String{
@@ -174,6 +176,7 @@ public func releaseBlock(_ block:()->Void) -> Void{
     block()
     #endif
 }
+// MARK: - Locale
 public extension Locale{
     static var posix: Locale {
         return Locale(identifier: "en_US_POSIX")
@@ -224,6 +227,7 @@ public extension BinaryFloatingPoint{
         return "\(self)"
     }
 }
+// MARK: - Int
 public extension Int{
     var numberFormatterString:String{
         return NumberFormatter().string(from: numberObject) ?? ""
@@ -268,6 +272,7 @@ public extension Double{
         return NumberFormatter().string(from: numberObject) ?? ""
     }
 }
+// MARK: - NSNumber
 public extension NSNumber{
     fileprivate var isBool: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
     func stringWith(fractionDigitsCount min:Int, max:Int) -> String? {
@@ -289,6 +294,7 @@ public extension NSNumber{
         return LengthFormatter().string(fromMeters: doubleValue)
     }
 }
+// MARK: - DispatchQueue
 public extension DispatchQueue{
     static func backgroundQueue()->DispatchQueue{
         return DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
@@ -339,6 +345,7 @@ public extension CharacterSet{
         return CharacterSet.urlQueryAllowed.subtracting(encodableDelimiters)
     }
 }
+// MARK: - URLRequest
 public extension URLRequest{
     ///create URL Request
     static func createURLRequest(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:]) -> URLRequest {
@@ -422,6 +429,7 @@ public extension URLRequest{
         }
     }
 }
+// MARK: - URLResponse
 public extension URLResponse{
     var httpURLResponse:HTTPURLResponse?{
         guard let http = self as? HTTPURLResponse else{
@@ -449,7 +457,7 @@ public extension URLCache{
         return cache
     }()
 }
-
+// MARK: - URLSession
 public extension URLSession{
     static let `default`: URLSession = {
         let session = URLSession.init(configuration: .wtURLSessionConfiguration)
@@ -499,6 +507,7 @@ public extension URLSession{
         return task
     }
 }
+// MARK: - URLRequestPrinter
 ///print URLRequest as curl command,copy and run with terminal
 public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
     var request:URLRequest = URLRequest.init(url: "".urlValue)
@@ -700,6 +709,7 @@ public extension DateFormatter{
         return df.string(from: date)
     }
 }
+// MARK: - Bundle
 public extension Bundle{
     class func appBundleName()->String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleName")  as? String ?? "Unknown"
@@ -749,6 +759,7 @@ public extension Calendar{
         return 0
     }
 }
+// MARK: - NSAttributedString
 public extension NSAttributedString{
     func attributedString(with attrs:[NSAttributedString.Key : Any]) -> NSMutableAttributedString {
         let result = NSMutableAttributedString.init(attributedString: self)
@@ -770,6 +781,7 @@ public extension NSMutableAttributedString{
         }
     }
 }
+// MARK: - WTHTTPMethod
 /// Type representing HTTP methods.
 ///
 /// See https://tools.ietf.org/html/rfc7231#section-4.3
@@ -837,6 +849,7 @@ public extension CodableObject where Self:NSObject{
         return obj
     }
 }
+// MARK: - Encodable
 public extension Encodable{
     ///convert self to data
     var jsonData:Data{
@@ -865,6 +878,7 @@ public extension Encodable{
     }
     #endif
 }
+// MARK: - Decodable
 public extension Decodable{
     static func readFromData<T:Decodable>(with data:Data) -> T?{
         return try? JSONDecoder().decode(T.self, from: data)
