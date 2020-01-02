@@ -741,9 +741,6 @@ func convertCodableTypeToParameters<T:Codable,B>(_ t:T) -> B? {
     }
     return nil
 }
-public extension NSObject{
-    
-}
 public extension Calendar{
     func numberOfDaysInMonth(for date: Date) -> Int {
         if let range = range(of: .day, in: .month, for: date){
@@ -827,9 +824,20 @@ public extension ProcessInfo{
     }
     #endif
 }
+public protocol CodableObject:NSObjectProtocol,Encodable,Decodable{
+}
+public extension CodableObject where Self:NSObject{
+    var copyOfSelf:CodableObject?{
+        guard let tmpClass:CodableObject.Type = self.classForCoder as? CodableObject.Type else{
+            return nil
+        }
+        let obj:Self? = tmpClass.readFromObject(with: self)
+        return obj
+    }
+}
 public extension Encodable{
-    ///convert self to json string (recommand use print,not lldb)
-    var jsonString:String{
+    ///convert self to data
+    var jsonData:Data{
         let encoder = JSONEncoder()
         if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *){
             encoder.outputFormatting = [.withoutEscapingSlashes,.prettyPrinted,.sortedKeys]
@@ -839,10 +847,13 @@ public extension Encodable{
             encoder.outputFormatting = [.prettyPrinted]
         }
         if let data = try? encoder.encode(self){
-            return data.utf8String
-        }else{
-            return "not a json string"
+            return data
         }
+        return Data()
+    }
+    ///convert self to json string (recommand use print,not lldb)
+    var jsonString:String{
+        return jsonData.utf8String
     }
     #if DEBUG
     ///use in lldb to print jsonstring,like(lldb) po obj.printJSONString()
@@ -855,6 +866,9 @@ public extension Encodable{
 public extension Decodable{
     static func readFromData<T:Decodable>(with data:Data) -> T?{
         return try? JSONDecoder().decode(T.self, from: data)
+    }
+    static func readFromObject<T:Decodable>(with obj:Encodable) -> T?{
+        return try? JSONDecoder().decode(T.self, from: obj.jsonData)
     }
 }
 public extension Collection where Element == String {
