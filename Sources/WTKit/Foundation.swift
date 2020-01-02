@@ -824,7 +824,7 @@ public extension ProcessInfo{
     }
     #endif
 }
-public protocol CodableObject:NSObjectProtocol,Encodable,Decodable{
+public protocol CodableObject:Encodable,Decodable{
 }
 public extension CodableObject where Self:NSObject{
     var copyOfSelf:CodableObject?{
