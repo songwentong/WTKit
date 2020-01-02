@@ -877,6 +877,7 @@ public extension Encodable{
         print("\(jsonString)")
     }
     #endif
+    
 }
 // MARK: - Decodable
 public extension Decodable{
@@ -886,6 +887,9 @@ public extension Decodable{
     static func readFromObject<T:Decodable>(with obj:Encodable) -> T?{
         return try? JSONDecoder().decode(T.self, from: obj.jsonData)
     }
+    #if canImport(Combine)
+    
+    #endif
 }
 public extension Collection where Element == String {
     func qualityEncoded() -> String {
