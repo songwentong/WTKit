@@ -476,7 +476,7 @@ public extension UIImageView{
         }
     }
     
-    func setLocalImageName(with name:String) {
+    func setImageName(with name:String) {
         image = name.namedUIImage
     }
     func loadImage(with path:String) {
@@ -681,6 +681,9 @@ public extension CGContext{
 }
 // MARK: - UIImage
 public extension UIImage{
+//    func test() {
+//        pngData()
+//    }
     var imageView:UIImageView{
         UIImageView.init(image: self)
     }
