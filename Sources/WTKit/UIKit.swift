@@ -259,7 +259,7 @@ public extension UIView{
     }
     @IBInspectable var borderColor: UIColor?{
         get {
-            return layer.borderColor?.convertToUIColor()
+            return layer.borderColor?.uiColor
         }
         set {
             layer.borderColor = newValue?.cgColor
@@ -394,9 +394,6 @@ public extension CALayer{
 
 public extension CGColor{
     var uiColor:UIColor{
-        return UIColor.init(cgColor: self)
-    }
-    func convertToUIColor() -> UIColor {
         return UIColor.init(cgColor: self)
     }
 }
