@@ -366,6 +366,7 @@ public extension UIActivityViewController{
         vc.requestTopVCPresent(animated: true)
     }
 }
+// MARK: CALayer
 public extension CALayer{
     func snapShot() -> UIImage {
         if #available(iOS 10.0, *) {
@@ -861,6 +862,7 @@ open class LoadingView: UIView {
         
     }
 }
+// MARK: - WTTextTip
 open class WTTextTip:UIView{
     var tipLabel:UILabel = UILabel.init()
     var tipLabelBGView:UIView = UIView.init()
@@ -889,7 +891,7 @@ open class WTTextTip:UIView{
         tipLabelBGView.topAnchor.constraint(equalTo: tipLabel.topAnchor, constant: -18).isActive = true
     }
 }
-
+// MARK: - UIScrollView
 public extension UIScrollView {
     /// SwifterSwift: Takes a snapshot of an entire ScrollView
     ///
@@ -929,7 +931,7 @@ public extension UIWindow{
 @available(iOS 13.0, *)
 public extension UIWindowScene{
 }
-
+// MARK: - NSAttributedString
 public extension NSAttributedString{
     /**
      根据给出的宽度来计算文本的高度
