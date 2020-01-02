@@ -829,7 +829,7 @@ public protocol CodableObject:Encodable,Decodable{
 }
 ///为了解决对象之间想copy的方案,可以新建一个对象把旧数据拷贝过去
 public extension CodableObject where Self:NSObject{
-    var copyOfSelf:CodableObject?{
+    var copyOfSelf:Self?{
         guard let tmpClass:CodableObject.Type = self.classForCoder as? CodableObject.Type else{
             return nil
         }
