@@ -476,7 +476,9 @@ public extension UIImageView{
         }
     }
     
-    
+    func setLocalImageName(with name:String) {
+        image = name.namedUIImage
+    }
     func loadImage(with path:String) {
         self.image = nil
         let size = self.frame.size
