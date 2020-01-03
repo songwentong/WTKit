@@ -117,10 +117,7 @@ public extension UIColor{
         return image
     }
     class func colorWithHexString(_ string:String, alpha:CGFloat = 1.0, defaultColor:UIColor = .red) -> UIColor{
-        //        let s = NSScanner(string: string)
-//        let myset = NSMutableCharacterSet()
-//        myset.addCharacters(in: "")
-        let mutableCharSet = NSMutableCharacterSet()
+        let mutableCharSet = "".mutableCharacterSet
         mutableCharSet.addCharacters(in: "#")
         mutableCharSet.formUnion(with: CharacterSet.whitespaces);
         
@@ -443,7 +440,6 @@ public extension UIImageView{
             }) { (img) in
                 self.image = img
             }
-            
         } else {
             // Fallback on earlier versions
         }
@@ -1279,5 +1275,8 @@ public extension CGImage{
         return cg
     }
 }
+#if canImport(Combine)
+//iOS 13+
+#endif
 #else
 #endif

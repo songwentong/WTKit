@@ -60,12 +60,14 @@ public extension String{
         URLRequest.init(url: self.urlValue)
     }
     
-    
-    
+    var characterSet:CharacterSet{
+        return CharacterSet.init(charactersIn: self)
+    }
+    var mutableCharacterSet:NSMutableCharacterSet{
+        return NSMutableCharacterSet.init(charactersIn: self)
+    }
     static let generalDelimitersToEncode = ":#[]@"
     static let subDelimitersToEncode = "!$&'()*+,;="
-    
-    
     func localized(_ lang:String) ->String {
         var bundle = Bundle.main
         if let path = Bundle.main.path(forResource: lang, ofType: "lproj") {
@@ -340,13 +342,23 @@ public extension DispatchQueue{
     }
 }
 public extension CharacterSet{
+//    var mutableCharacterSet:NSMutableCharacterSet{
+//        return NSMutableCharacterSet.init
+//    }
     static var wtURLQueryAllowed: CharacterSet{
-        let encodableDelimiters = CharacterSet(charactersIn: "\(String.generalDelimitersToEncode)\(String.subDelimitersToEncode)")
+        let str = String.generalDelimitersToEncode + String.subDelimitersToEncode
+        let encodableDelimiters = str.characterSet
         return CharacterSet.urlQueryAllowed.subtracting(encodableDelimiters)
     }
 }
 // MARK: - URLRequest
 public extension URLRequest{
+    #if canImport(Combine)
+    //iOS 13+
+    func testCombine() -> Void {
+//        URLSession.sha
+    }
+    #endif
     ///create URL Request
     static func createURLRequest(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:]) -> URLRequest {
         var request = URLRequest.init(url: path.urlValue)
