@@ -236,34 +236,36 @@ public extension Int{
     }
 //    static let testUnit:Int = 1
     //KB, MB, GB, TB, PB, EB, ZB, YB
-    static let CountPerUnit:Int = 1024
+    static let countPerUnit:Self = 1024
     ///number of bytes in Kib
-    static let KiB:Int = {
-        return CountPerUnit
+    static let KiB:Self = {
+        return countPerUnit
     }()
     ///number of bytes in MiB
-    static let MiB:Int = {
-        return KiB * CountPerUnit
+    static let MiB:Self = {
+        return KiB * countPerUnit
     }()
     ///number of bytes in GiB
-    static let GiB:Int = {
-        return MiB * CountPerUnit
+    static let GiB:Self = {
+        return MiB * countPerUnit
     }()
-    static let TiB:Int = {
-        return GiB * CountPerUnit
+    static let TiB:Self = {
+        return GiB * countPerUnit
     }()
-    static let PiB:Int = {
-        return TiB * CountPerUnit
+    static let PiB:Self = {
+        return TiB * countPerUnit
     }()
-    static let EiB:Int = {
-        return PiB * CountPerUnit
+    static let EiB:Self = {
+        return PiB * countPerUnit
     }()
+    static let ZiB:Self = EiB * countPerUnit
+    static let YiB:Self = ZiB * countPerUnit
     ///one minute
-    static let minuteSeconds = 60
+    static let minuteSeconds:Self = 60
     ///60min,3600
-    static let hourSeconds = numberOfSecondsOneMin * 60
+    static let hourSeconds:Self = minuteSeconds * 60
     ///24hour,86400
-    static let daySeconds = numberOfSecondsOneHour * 24
+    static let daySeconds:Self = hourSeconds * 24
 }
 public extension Float{
     var numberFormatterString:String{
