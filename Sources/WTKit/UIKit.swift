@@ -1280,3 +1280,5 @@ public extension CGImage{
 #endif
 #else
 #endif
+#if compiler(>=5)
+#endif
