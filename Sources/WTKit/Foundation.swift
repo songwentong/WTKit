@@ -235,10 +235,8 @@ public extension Int{
         return NumberFormatter().string(from: numberObject) ?? ""
     }
 //    static let testUnit:Int = 1
-    
     //KB, MB, GB, TB, PB, EB, ZB, YB
     static let CountPerUnit:Int = 1024
-    
     ///number of bytes in Kib
     static let KiB:Int = {
         return CountPerUnit
@@ -260,6 +258,12 @@ public extension Int{
     static let EiB:Int = {
         return PiB * CountPerUnit
     }()
+    ///one minute
+    static let minuteSeconds = 60
+    ///60min,3600
+    static let hourSeconds = numberOfSecondsOneMin * 60
+    ///24hour,86400
+    static let daySeconds = numberOfSecondsOneHour * 24
 }
 public extension Float{
     var numberFormatterString:String{

@@ -28,7 +28,7 @@ public extension NSValue{
     }
     
 }
-class MyClass {
+class TestNameClass {
 //    var @objc:Int = 1
 //    var default
 //    var fileprivate
