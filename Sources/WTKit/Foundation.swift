@@ -103,10 +103,14 @@ public extension String{
         return result
     }
     static func fullWidthPunctuation()->String{
-        return "“”，。：¥"
+        return """
+        “”，。：¥
+        """
     }
     static func halfWidthPunctuation()->String{
-        return "\"\",.:¥"
+        return """
+        "",.:$
+        """
     }
     static let systemKeyWords:[String] = {
         ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init","_","fallthrough","internal","true","false","switch","dynamic","typealias"]
@@ -279,6 +283,8 @@ public extension Double{
     var numberFormatterString:String{
         return NumberFormatter().string(from: numberObject) ?? ""
     }
+}
+public extension SIMDScalar{
 }
 // MARK: - NSNumber
 public extension NSNumber{
