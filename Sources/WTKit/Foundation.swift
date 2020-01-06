@@ -103,14 +103,18 @@ public extension String{
         return result
     }
     static func fullWidthPunctuation()->String{
-        return """
-        “”，。：¥
+        let str =
         """
+“”，。：¥
+"""
+        return str
     }
     static func halfWidthPunctuation()->String{
-        return """
-        "",.:$
+        let str =
         """
+"",.:$
+"""
+        return str
     }
     static let systemKeyWords:[String] = {
         ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init","_","fallthrough","internal","true","false","switch","dynamic","typealias"]
@@ -167,7 +171,7 @@ public extension Data{
             return nil
         }
     }
-
+    
 }
 ///block run in debug mode
 public func debugBlock(_ block:()->Void) -> Void {
@@ -238,7 +242,7 @@ public extension Int{
     var numberFormatterString:String{
         return NumberFormatter().string(from: numberObject) ?? ""
     }
-//    static let testUnit:Int = 1
+    //    static let testUnit:Int = 1
     //KB, MB, GB, TB, PB, EB, ZB, YB
     static let countPerUnit:Self = 1024
     ///number of bytes in Kib
@@ -354,9 +358,9 @@ public extension DispatchQueue{
     }
 }
 public extension CharacterSet{
-//    var mutableCharacterSet:NSMutableCharacterSet{
-//        return NSMutableCharacterSet.init
-//    }
+    //    var mutableCharacterSet:NSMutableCharacterSet{
+    //        return NSMutableCharacterSet.init
+    //    }
     static var wtURLQueryAllowed: CharacterSet{
         let str = String.generalDelimitersToEncode + String.subDelimitersToEncode
         let encodableDelimiters = str.characterSet
@@ -368,7 +372,7 @@ public extension URLRequest{
     #if canImport(Combine)
     //iOS 13+
     func testCombine() -> Void {
-//        URLSession.sha
+        //        URLSession.sha
     }
     #endif
     ///create URL Request
@@ -392,7 +396,7 @@ public extension URLRequest{
         for (k,v) in URLSessionConfiguration.defaultHeaders{
             request.setValue(v, forHTTPHeaderField: k)
         }
-//        for (k,v) in URLSessionConfiguration.s
+        //        for (k,v) in URLSessionConfiguration.s
         return request
     }
     static func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
@@ -476,7 +480,7 @@ public extension URLCache{
         let totalMemory:UInt64 = ProcessInfo.processInfo.physicalMemory
         //25% of system memory
         let memoryCapacity:Int = Int(totalMemory / 4)
-//        FileManager
+        //        FileManager
         let cache = URLCache.init(memoryCapacity: memoryCapacity, diskCapacity: 1024*1024*1024, diskPath: "WTKitURLCachePath")
         return cache
     }()
@@ -831,9 +835,9 @@ public enum WTHTTPMethod: String {
     func needUseQuery() -> Bool {
         switch self {
             case .get,.head,.delete:
-            return true
+                return true
             default:
-            return false
+                return false
         }
     }
 }
