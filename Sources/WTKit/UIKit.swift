@@ -458,7 +458,6 @@ public extension UIImageView{
         }
     }
     func setResizableImage(with image:UIImage, withCapInsets: UIEdgeInsets = .zero, resizingMode:UIImage.ResizingMode = .tile) {
-        let size = image.size
         self.image = image.resizableImage(withCapInsets: withCapInsets, resizingMode: resizingMode)
     }
 }
