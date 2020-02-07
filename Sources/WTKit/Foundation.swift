@@ -218,8 +218,12 @@ public extension BinaryInteger{
 public extension ExpressibleByIntegerLiteral{
 }
 public extension FloatingPoint{
+    
 }
 public extension BinaryFloatingPoint{
+    var intValue:Int{
+        return Int(self)
+    }
     var byteCountFormatString:String{
         return ByteCountFormatter().string(fromByteCount: Int64.init(self))
     }
@@ -239,6 +243,14 @@ public extension BinaryFloatingPoint{
 }
 // MARK: - Int
 public extension Int{
+//    var floatValue:T:BinaryFloatingPoint{
+//    }
+    var floatValue: Float{
+        return Float(self)
+    }
+    var doubleValue: Double{
+        return Double(self)
+    }
     var numberFormatterString:String{
         return NumberFormatter().string(from: numberObject) ?? ""
     }
