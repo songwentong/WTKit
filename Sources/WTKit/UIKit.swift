@@ -223,6 +223,12 @@ public extension UILabel{
 }
 
 public extension UIView{
+    func removeAllSubviews() {
+        let subviews:[UIView] = self.subviews
+        for v in subviews{
+            v.removeFromSuperview()
+        }
+    }
     func removeAllSubViewsConstraints(){
         for v in subviews{
             v.removelAllConstraints()
@@ -337,6 +343,14 @@ public extension UIActivityViewController{
 }
 // MARK: CALayer
 public extension CALayer{
+    func removeAllSubLayers() {
+        guard let sublayers:[CALayer] = self.sublayers else{
+            return
+        }
+        for l in sublayers{
+            l.removeFromSuperlayer()
+        }
+    }
     func snapShot() -> UIImage {
         if #available(iOS 10.0, *) {
             let render = UIGraphicsImageRenderer.init(size: self.bounds.size)
