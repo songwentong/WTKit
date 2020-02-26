@@ -868,6 +868,48 @@ open class WTGradientView:UIView{
     override open class var layerClass: AnyClass{
         return CAGradientLayer.self
     }
+    var gradientLayer:CAGradientLayer{
+        return layer as! CAGradientLayer
+    }
+    open var colors: [Any]?{
+        didSet{
+            gradientLayer.colors = colors
+        }
+    }
+    
+    open var locations: [NSNumber]?{
+        didSet{
+            gradientLayer.locations = locations
+        }
+    }
+   
+    open var startPoint: CGPoint{
+        get{
+            return gradientLayer.startPoint
+        }
+        set{
+            gradientLayer.startPoint = newValue
+        }
+        
+    }
+    
+    open var endPoint: CGPoint{
+        get{
+            return gradientLayer.endPoint
+        }
+        set{
+            gradientLayer.endPoint = newValue
+        }
+    }
+    
+    open var type: CAGradientLayerType{
+        get{
+            return gradientLayer.type
+        }
+        set{
+            gradientLayer.type = newValue
+        }
+    }
 }
 
 open class AlignLeftFlowLayout: UICollectionViewFlowLayout {

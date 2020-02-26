@@ -506,7 +506,7 @@ public extension URLSession{
     func dataTask(with urlString: String, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         return dataTask(with: urlString.urlValue, completionHandler: completionHandler)
     }
-    func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
+    func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], testingData:Data? = nil, object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
         var request = URLRequest.createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
         //虽然默认带了,但是没有绑定到URLRequest里面,导致URLRequestPrinter无法使用,所以还是手动加上吧
         if let httpAdditionalHeaders = configuration.httpAdditionalHeaders{
@@ -519,9 +519,23 @@ public extension URLSession{
         return dataTaskWith(request: request, codable: object, completionHandler: completionHandler)
     }
     
-    func dataTaskWith<T:Codable>( request:URLRequest, codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
+    func dataTaskWith<T:Codable>( request:URLRequest, testingData:Data? = nil, codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         let task = self.dataTask(with: request) {  (data, response, err) in
             var errorToReturn = err
+            #if DEBUG
+            if let td = testingData {
+                do {
+                    let result = try JSONDecoder().decode(T.self, from: td)//类型转换
+                    DispatchQueue.main.async {
+                        object(result)
+                    }
+                } catch {
+                    errorToReturn = error
+                }
+                completionHandler(data,response,errorToReturn)
+                return
+            }
+            #endif
             if let myData = data{
                 do{
                     let result = try JSONDecoder().decode(T.self, from: myData)//类型转换
