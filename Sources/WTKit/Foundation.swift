@@ -506,7 +506,7 @@ public extension URLSession{
     func dataTask(with urlString: String, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         return dataTask(with: urlString.urlValue, completionHandler: completionHandler)
     }
-    func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], testingData:Data? = nil, object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
+    func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], testData:Data? = nil, object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
         var request = URLRequest.createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
         //虽然默认带了,但是没有绑定到URLRequest里面,导致URLRequestPrinter无法使用,所以还是手动加上吧
         if let httpAdditionalHeaders = configuration.httpAdditionalHeaders{
@@ -516,14 +516,18 @@ public extension URLSession{
                 }
             }
         }
-        return dataTaskWith(request: request, codable: object, completionHandler: completionHandler)
+        return dataTaskWith(request: request, testData: testData, codable: object, completionHandler: completionHandler)
     }
-    
-    func dataTaskWith<T:Codable>( request:URLRequest, testingData:Data? = nil, codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
+    /**
+     对于一个request对象,提供请求,测试和解析功能
+     testData:用于测试的数据,只会出现在debug模式,这个方法非常实用,
+     可以模拟一个想要的数据来测试功能和UI
+     */
+    func dataTaskWith<T:Codable>( request:URLRequest, testData:Data? = nil, codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         let task = self.dataTask(with: request) {  (data, response, err) in
             var errorToReturn = err
             #if DEBUG
-            if let td = testingData {
+            if let td = testData {
                 do {
                     let result = try JSONDecoder().decode(T.self, from: td)//类型转换
                     DispatchQueue.main.async {
