@@ -600,16 +600,7 @@ open class MultipartBodyObject{
     var data:Data = Data()
 }
 
-public extension URLSessionTask{
-    var printer:URLRequestPrinter{
-        guard let req = self.originalRequest else{
-            return URLRequestPrinter()
-        }
-        let result = URLRequestPrinter()
-        result.request = req
-        return result
-    }
-}
+
 public extension URLSessionDataTask{
     
 }

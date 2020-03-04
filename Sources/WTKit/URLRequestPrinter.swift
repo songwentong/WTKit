@@ -6,6 +6,26 @@
 //
 
 import Foundation
+///printer
+public extension URLRequest{
+    ///print URLRequest as curl command,copy and run with terminal
+    var printer:URLRequestPrinter{
+        let p = URLRequestPrinter()
+        p.request = self
+        return p
+    }
+}
+///printer
+public extension URLSessionTask{
+    var printer:URLRequestPrinter{
+        guard let req = self.originalRequest else{
+            return URLRequestPrinter()
+        }
+        let result = URLRequestPrinter()
+        result.request = req
+        return result
+    }
+}
 // MARK: - URLRequestPrinter
 ///print URLRequest as curl command,copy and run with terminal
 public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
@@ -61,11 +81,4 @@ public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConverti
         return result
     }
 }
-public extension URLRequest{
-    ///print URLRequest as curl command,copy and run with terminal
-    var printer:URLRequestPrinter{
-        let p = URLRequestPrinter()
-        p.request = self
-        return p
-    }
-}
+
