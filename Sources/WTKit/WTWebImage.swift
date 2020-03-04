@@ -20,7 +20,7 @@ open class WebImageView:UIImageView{
             guard let data = data else{
                 return
             }
-            guard let img = data.image else{
+            guard let img = data.uiImage else{
                 return
             }
             img.decodedImage(size) { (image) in
@@ -37,7 +37,7 @@ open class WebImageView:UIImageView{
             guard let data = data else{
                 return
             }
-            guard let img = data.image else{
+            guard let img = data.uiImage else{
                 return
             }
             
@@ -59,7 +59,7 @@ open class WebImageButton:UIButton{
             guard let data = data else{
                 return
             }
-            guard let img = data.image else{
+            guard let img = data.uiImage else{
                 return
             }
             img.decodedImage(size) { (image) in
@@ -77,7 +77,7 @@ open class WebImageButton:UIButton{
             guard let data = data else{
                 return
             }
-            guard let img = data.image else{
+            guard let img = data.uiImage else{
                 return
             }
             img.decodedImage(size) { (image) in

@@ -22,7 +22,7 @@ public class ImageLoader:ObservableObject{
     func downloadImage(with url:String) {
         loadingTask?.cancel()
         self.loadingTask = URLSession.default.useCacheElseLoadURLData(with: url.urlValue) { (data, res, err) in
-            if let data = data, let img = data.image{
+            if let data = data, let img = data.uiImage{
                 self.image = img
             }
         }

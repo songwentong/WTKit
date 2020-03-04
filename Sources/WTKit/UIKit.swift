@@ -380,7 +380,9 @@ public extension CGColor{
         return UIColor.init(cgColor: self)
     }
 }
-
+public extension CGRect{
+    
+}
 public extension CGPoint{
     func distance(from point: CGPoint) -> CGFloat {
         return CGPoint.distance(from: self, p2: point)
@@ -390,6 +392,9 @@ public extension CGPoint{
         let b = p1.y - p2.y
         let c_c = a * a + b * b
         return c_c.squareRoot()
+    }
+    func addNewPoint(with p:CGPoint) -> CGPoint {
+        return CGPoint.init(x: x+p.x, y: y+p.y)
     }
 }
 
@@ -410,8 +415,11 @@ struct StructModel:Codable{
     }
 }
 extension Data{
-    var image:UIImage?{
-        UIImage.init(data: self)
+    var uiImage:UIImage?{
+        UIImage.init(data: self, scale: UIScreen.main.scale)
+    }
+    var cgImage:CGImage?{
+        uiImage?.cgImage
     }
 }
 // MARK: - UIImageView
@@ -420,7 +428,7 @@ public extension UIImageView{
     private func testingCombine(){
         if #available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
             let _ = URLSession.default.dataTaskPublisher(for: "https://www.apple.com".urlValue).map { (data,res) -> UIImage? in
-                return data.image
+                return data.uiImage
             }.receive(on: RunLoop.main).sink(receiveCompletion: { (err) in
                 dprint("error:\(err)")
             }) { (img) in
@@ -734,7 +742,7 @@ public extension UIImage{
                 complection(nil,response)
                 return
             }
-            let image = data.image
+            let image = data.uiImage
             complection(image,response)
             guard let img = image else{
                 return
@@ -1027,7 +1035,7 @@ open class WTVC:UIViewController{
                 guard let data = data else{
                     return
                 }
-                guard let img = data.image else{
+                guard let img = data.uiImage else{
                     return
                 }
                 self.wtBackIconImageView.image = img
