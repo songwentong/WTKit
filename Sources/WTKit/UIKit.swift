@@ -11,6 +11,8 @@ import UIKit
 #if canImport(Combine)
 import Combine
 #endif
+import WebKit
+//#if canImport(WebKit)
 // MARK: - String
 public extension String{
     ///create color from self(if hexstring)

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  LoadingView.swift
 //  
 //
 //  Created by 宋文通 on 2020/2/4.
