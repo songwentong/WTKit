@@ -501,6 +501,10 @@ public extension URLSession{
     func dataTask(with urlString: String, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         return dataTask(with: urlString.urlValue, completionHandler: completionHandler)
     }
+    /**
+     执行请求
+     testData:用于测试的数据,在debug模式生效,release模式不生效
+     */
     func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], testData:Data? = nil, object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
         var request = URLRequest.createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
         //虽然默认带了,但是没有绑定到URLRequest里面,导致URLRequestPrinter无法使用,所以还是手动加上吧
