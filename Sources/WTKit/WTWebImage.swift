@@ -6,7 +6,7 @@
 //
 
 import Foundation
-#if canImport(UIKit)
+#if os(iOS)
 import UIKit
 open class WebImageView:UIImageView{
     open var webImageTask:URLSessionDataTask? = nil
