@@ -68,6 +68,12 @@ Debug tool
 ```
 print(request.printer)
 ```
+or you can print it in lldb:
+
+```
+po request.printer
+```
+
 
 This should produce:
 
