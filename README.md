@@ -86,3 +86,10 @@ $ curl -v \
 -H "User-Agent: Demo/1.0 (com.demo.Demo; build:1; iOS 13.0.0) WTKit/1.0" \
 "https://httpbin.org/get"
 ```
+
+## ModelMaker
+
+create Codable File from JSON Data
+https://github.com/songwentong/ModelMaker
+additional Xcode App on Mac,using it to create Codable file Convenience,just copy your json ,edit class name,and press write,you file will create easily
+![](https://github.com/songwentong/WTKit/blob/master/images/modelMaker.png)
