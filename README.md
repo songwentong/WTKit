@@ -1,4 +1,4 @@
-![build](https://github.com/songwentong/WTKit/workflows/Swift/badge.svg)
+![build](https://github.com/songwentong/WTKit/workflows/build/badge.svg)
 [![Platform](https://img.shields.io/cocoapods/p/Alamofire.svg?style=flat)](https://alamofire.github.io/Alamofire)
 
 # WTKit
