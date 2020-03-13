@@ -53,7 +53,7 @@ let simulatedData =
   "url": "https://httpbin.org/get"
 }
 """
-
+//if in DEBUG Mode,and testData != nil,the simulatedData will take effect
 URLSession.shared.dataTaskWith(request: "https://httpbin.org".urlRequest, testData: simulatedData.utf8Data, codable: { (obj:Codable) in
 
         }) { (data, res, err) in
