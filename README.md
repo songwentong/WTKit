@@ -1,4 +1,4 @@
-![build](https://github.com/songwentong/WTKit/workflows/build/badge.svg)
+![build](https://github.com/songwentong/WTKit/workflows/build/badge.svg?branch=master)
 [![Platform](https://img.shields.io/cocoapods/p/Alamofire.svg?style=flat)](https://alamofire.github.io/Alamofire)
 
 # WTKit
@@ -119,3 +119,11 @@ origin:123.120.230.73
 
 
 ## Table Model
+
+## Encodable extension
+
+create json data from encodable objec
+
+```
+
+```
