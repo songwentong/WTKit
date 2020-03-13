@@ -566,6 +566,27 @@ public extension URLSession{
         task.resume()
         return task
     }
+    #if canImport(Combine)
+    private func testCombine() {
+        if #available(OSX 10.15, *) {
+            _ = URLSession.shared.dataTaskPublisher(for: "https://www.apple.com".urlRequest).map { (arg0) -> Int in
+                let (data, _) = arg0
+                do{
+                    let obj = try JSONDecoder().decode(Int.self, from: data)
+                    return obj
+                }catch{
+                    return 1
+                }
+            }.receive(on: RunLoop.main).sink(receiveCompletion: { (err) in
+                print("\(err)")
+            }) { (value) in
+                
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    #endif
 }
 
 public extension URL{
