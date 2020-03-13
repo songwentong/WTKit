@@ -19,3 +19,4 @@ From Xcode 11, you can use Swift Package Manager to add Kingfisher to your proje
 ```
 https://github.com/songwentong/WTKit.git
 ```
+![WTKit](https://github.com/songwentong/WTKit/images/swiftPackage.png)
