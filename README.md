@@ -37,7 +37,8 @@ task.resume()
 
 this feature is only effect on DEBUG
 ```
-let simulatedData =
+//Simulation data
+let simData =
 """
 {
   "args": {},
@@ -54,7 +55,7 @@ let simulatedData =
 }
 """
 //if in DEBUG Mode,and testData != nil,the simulatedData will take effect
-URLSession.shared.dataTaskWith(request: "https://httpbin.org".urlRequest, testData: simulatedData.utf8Data, codable: { (obj:Codable) in
+URLSession.shared.dataTaskWith(request: "https://httpbin.org".urlRequest, testData: simData, codable: { (obj:Codable) in
 
         }) { (data, res, err) in
 
