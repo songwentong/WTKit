@@ -1,5 +1,6 @@
-<a href="https://github.com/onevcat/Kingfisher/actions?query=workflow%3Abuild"><img src="https://github.com/onevcat/kingfisher/workflows/build/badge.svg?branch=master"></a>
+![build](https://github.com/songwentong/WTKit/workflows/Swift/badge.svg)
 [![Platform](https://img.shields.io/cocoapods/p/Alamofire.svg?style=flat)](https://alamofire.github.io/Alamofire)
+
 # WTKit
 
 WTKit is my swift accumulated experience
