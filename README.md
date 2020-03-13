@@ -33,12 +33,40 @@ let task = URLSession.shared.dataTaskWith(request: "https://httpbin.org/get".url
 task.resume()
 ```
 
+## simulation response data
+
+this feature is only effect on DEBUG
+```
+let simulatedData =
+"""
+{
+  "args": {},
+  "headers": {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "zh-cn",
+    "Host": "httpbin.org",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15",
+    "X-Amzn-Trace-Id": "Root=1-5e6b977f-43ebdc40121912f0bb6dc3d0"
+  },
+  "origin": "123.120.230.73",
+  "url": "https://httpbin.org/get"
+}
+"""
+
+URLSession.shared.dataTaskWith(request: "https://httpbin.org".urlRequest, testData: simulatedData.utf8Data, codable: { (obj:Codable) in
+
+        }) { (data, res, err) in
+
+        }
+
+```
+
 ## cURL Command Output
 
 Debug tool
 ```
 print(request.printer)
-
 ```
 
 This should produce:
