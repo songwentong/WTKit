@@ -22,10 +22,18 @@ WTKit is my swift accumulated experience
 WTKit provides a variety of convenience methods for making HTTP requests.
 
 ```swift
+public class HttpBin:NSObject, Codable {
+    var url:String = ""
+    var origin:String = ""
+    enum CodingKeys: String, CodingKey {
+        case url = "url"
+        case origin = "origin"
+    }
+}
 let request = "https://httpbin.org/get".urlRequest
 let task = URLSession.shared.dataTaskWith(request:request,
- codable: { (model:Codable) in
-
+ codable: { (model:HttpBin) in
+//model is parsed  Codable instance
         }) { (data, res, err) in
 
         }
@@ -40,22 +48,14 @@ this feature is only effect on DEBUG
 let simData =
 """
 {
-  "args": {},
-  "headers": {
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Accept-Encoding": "gzip, deflate, br",
-    "Accept-Language": "zh-cn",
-    "Host": "httpbin.org",
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15",
-    "X-Amzn-Trace-Id": "Root=1-5e6b977f-43ebdc40121912f0bb6dc3d0"
-  },
   "origin": "123.120.230.73",
   "url": "https://httpbin.org/get"
 }
 """
 //if in DEBUG Mode,and testData != nil,the simulatedData will take effect
-URLSession.shared.dataTaskWith(request: "https://httpbin.org".urlRequest, testData: simData, codable: { (obj:Codable) in
-
+URLSession.shared.dataTaskWith(request: "https://httpbin.org".urlRequest,
+ testData: simData,
+ codable: { (obj:HttpBin) in
         }) { (data, res, err) in
 
         }
