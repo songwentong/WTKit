@@ -64,6 +64,7 @@ URLSession.shared.dataTaskWith(request: "https://httpbin.org".urlRequest, testDa
 
 Debug tool
 ```
+let request = "https://httpbin.org/get".urlRequest
 print(request.printer)
 ```
 or you can print it in lldb:
