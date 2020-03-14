@@ -216,6 +216,25 @@ let vc:CustromVC = CustromVC.instanceFromStoryBoard()
 let vc2:CustromVC = CustromVC.instanceFromNib()
 //create instance from nib file
 ```
+## Local Manager
+
+edit customBundle of Bundle can change local language easily
+```
+//using english
+let lang = "language".customLocalizedString
+print("language".customLocalizedString)
+//output will be
+//language
+print("english".customLocalizedString)
+//english
+Bundle.customBundle = zhCN
+print("language".customLocalizedString)
+//output will be
+//语言
+print("english".customLocalizedString)
+//英语
+```
+
 
 ## Installation
 ### swift package manager
