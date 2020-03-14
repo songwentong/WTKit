@@ -157,7 +157,49 @@ gview.endPoint = CGPoint(x: 1, y: 0.5)
 //it will effect on it's CAGradientView automatic
 ```
 
-## Version Track
+## UINib extension
+UINibReusableCell protocol
 
+```
+class Cell:UITableViewCell,UINibReusableCell{
+
+}
+//auto load it's nib file
+let nib:UINib = Cell.nib()
+//Cell,like it's class name
+let reuseID:String = Cell.reuseIdentifier
+
+```
+
+## Version Track
+feature to log build history
+
+```
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+  application.track()//track twice no effect
+  application.versionHistory()//version history
+  application.buildHistory()//build history
+  application.isFirstLaunchForBuild//check is first build
+}
+
+```
 
 ## Table Model
+using Protocol oriented programming to describe UITableView as a Model,this will be more flexible,no class tree's constraint
+```
+//cell model
+public protocol UITableViewCellModel{
+    var reuseIdentifier:String{get set}
+    var object: Any?{get set}
+    var userInfo: [AnyHashable : Any]?{get set}
+}
+//section model
+public protocol UITableViewSectionModel {
+    var cells:[UITableViewCellModel]{get set}
+}
+//table modelmodel
+public protocol UITableViewModel {
+    var sections:[UITableViewSectionModel]{get set}
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+}
+```
