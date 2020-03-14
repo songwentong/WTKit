@@ -391,17 +391,20 @@ public extension URLRequest{
     static func createURLRequest(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:]) -> URLRequest {
         var request = URLRequest.init(url: path.urlValue)
         request.httpMethod = method.rawValue
-        let string = URLRequest.convertParametersToString(parameters: parameters)
-        if method.needUseQuery(){
-            if var urlComponents = URLComponents(url: path.urlValue, resolvingAgainstBaseURL: false){
-                let percentEncodedQuery = (urlComponents.percentEncodedQuery.map { $0 + "&" } ?? "") + string
-                urlComponents.percentEncodedQuery = percentEncodedQuery
-                request.url = urlComponents.url
+        if !parameters.isEmpty{
+            let string = URLRequest.convertParametersToString(parameters: parameters)
+            if method.needUseQuery(){
+                if var urlComponents = URLComponents(url: path.urlValue, resolvingAgainstBaseURL: false){
+                    let percentEncodedQuery = (urlComponents.percentEncodedQuery.map { $0 + "&" } ?? "") + string
+                    urlComponents.percentEncodedQuery = percentEncodedQuery
+                    request.url = urlComponents.url
+                }
+            }else{
+                request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+                request.httpBody = string.data(using: .utf8)
             }
-        }else{
-            request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
-            request.httpBody = string.data(using: .utf8)
         }
+        
         for (k,v) in headers{
             request.setValue(v, forHTTPHeaderField: k)
         }
