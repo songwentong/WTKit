@@ -199,6 +199,22 @@ public protocol UITableViewModel {
 }
 ```
 
+## UIView + Xib
+```
+let myView:MyView = MyView.instanceFromXibWithOwner()
+//create MyView instance from xib file
+```
+
+## UIViewController + IB
+create UIViewController instance from storyboard
+```
+let vc:CustromVC = CustromVC.instanceFromStoryBoard()
+//this func is create instance from you Storyboard's root VC
+
+let vc2:CustromVC = CustromVC.instanceFromNib()
+//create instance from nib file
+```
+
 ## Installation
 ### swift package manager
 From Xcode 11, you can use Swift Package Manager to add Kingfisher to your project.
