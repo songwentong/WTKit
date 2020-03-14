@@ -117,13 +117,47 @@ origin:123.120.230.73
 */
 ```
 
-
-## Table Model
-
 ## Encodable extension
 
 create json data from encodable objec
 
 ```
+let obj:Encodable
+print(obj.jsonString)
+//or
+(lldb) po obj.lldbPrint()
+//output will be json like this
+{
+  "args": {},
+  "origin": "123.120.230.73",
+  "url": "https://httpbin.org/get"
+}
 
 ```
+
+## String hex color
+
+```
+"f".hexColor //white UIColor,it same as "ffffff"
+"#3".hexColor //same as 333333
+"ff0000".hexColor//red UIColor
+"ff0000".hexCGColor//red CGColor
+```
+
+## WTGradientView
+
+An UIView hold CAGradientView edit it's property will take effect on it's layer.
+
+```
+let gview = WTGradientView()
+gview.colors = ["f".hexCGColor, "990000".hexCGColor]
+gview.locations = [0, 1]
+gview.startPoint = CGPoint(x: 0, y: 0.5)
+gview.endPoint = CGPoint(x: 1, y: 0.5)
+//it will effect on it's CAGradientView automatic
+```
+
+## Version Track
+
+
+## Table Model
