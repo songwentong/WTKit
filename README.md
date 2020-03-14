@@ -85,12 +85,13 @@ $ curl -v \
 "https://httpbin.org/get"
 ```
 
-## ModelMaker
+## Model Maker
 
 create Codable model class/struct File from JSON Data
 https://github.com/songwentong/ModelMaker
 additional Xcode App on Mac,using it to create Codable file Convenience,just copy your json ,edit class name,and press 'Write file',your file will create easily.
-and it will over write description and debugDescription automatic. this feature is very useful,if you wang to see property values,just print it at lldb or print it
+and it will over write description and debugDescription automatic. this feature is very useful,if you wang to see property values,just print it at lldb or print it.
+model using CodkingKeys by default,you can rename map easily.
 ![](https://github.com/songwentong/WTKit/blob/master/images/modelMaker.png)
 
 ```
