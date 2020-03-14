@@ -568,7 +568,7 @@ public extension URLSession{
     }
     #if canImport(Combine)
     private func testCombine() {
-        if #available(OSX 10.15,iOS 13.0, *) {
+        if #available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
             _ = URLSession.shared.dataTaskPublisher(for: "https://www.apple.com".urlRequest).map { (arg0) -> Int in
                 let (data, _) = arg0
                 do{
