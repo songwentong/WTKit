@@ -200,6 +200,7 @@ public protocol UITableViewModel {
 ```
 
 ## UIView + Xib
+create UIView(or subclass) from nib
 ```
 let myView:MyView = MyView.instanceFromXib()
 //create MyView instance from xib file
@@ -207,7 +208,7 @@ let myView:MyView = MyView.instanceFromXib()
 ```
 
 ## UIViewController + IB
-create UIViewController instance from storyboard
+create UIViewController instance from storyboard/nib
 ```
 let vc:CustromVC = CustromVC.instanceFromStoryBoard()
 //this func is create instance from you Storyboard's root VC
