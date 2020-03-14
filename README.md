@@ -22,7 +22,9 @@ WTKit is my swift accumulated experience
 WTKit provides a variety of convenience methods for making HTTP requests.
 
 ```swift
-let task = URLSession.shared.dataTaskWith(request: "https://httpbin.org/get".urlRequest, codable: { (model:Codable) in
+let request = "https://httpbin.org/get".urlRequest
+let task = URLSession.shared.dataTaskWith(request:request,
+ codable: { (model:Codable) in
 
         }) { (data, res, err) in
 
@@ -90,7 +92,7 @@ $ curl -v \
 create Codable model class/struct File from JSON Data
 https://github.com/songwentong/ModelMaker
 additional Xcode App on Mac,using it to create Codable file Convenience,just copy your json ,edit class name,and press 'Write file',your file will create easily.
-and it will over write description and debugDescription automatic. this feature is very useful,if you wang to see property values,just print it at lldb or print it.
+and it will over write description and debugDescription automatic. this feature is very useful,swift default won't print properties for you(just like Model:<0x00000f1231>),if you print obj it will show you,if you want to see property values,just print it at lldb or print it.
 model using CodkingKeys by default,you can rename map easily.
 ![](https://github.com/songwentong/WTKit/blob/master/images/modelMaker.png)
 
