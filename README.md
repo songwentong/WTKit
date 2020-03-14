@@ -6,24 +6,17 @@
 
 WTKit is my swift accumulated experience
 ## Features
+- [x] Making Codable Requests
+- [x] cURL Command Output
+- [x] Simulation response data for test
 - [x] String to UIColor
-- [x] String to URL
-- [x] URLRequest to CURL
+- [x] Table Model
+- [x] WTGradientView
 - [x] Codable to JSON String
 - [x] JSON to Codable Model
 - [x] Base Hud View(text/indicator)
 - [x] Version track
 - [x] Load Web Image
-## Installation
-### swift package manager
-From Xcode 11, you can use Swift Package Manager to add Kingfisher to your project.
- - Select File > Swift Packages > Add Package Dependency. Enter https://github.com/songwentong/WTKit.git in the "Choose Package Repository" dialog.
- - In the next page, specify the  rule as master branch
- - After Xcode checking out the source and resolving the version, you can choose the "WTKit" library and add it to your app target.
-```
-https://github.com/songwentong/WTKit.git
-```
-![](https://github.com/songwentong/WTKit/blob/master/images/swiftPackage.png)
 
 ## Making Codable Requests
 WTKit provides a variety of convenience methods for making HTTP requests.
@@ -204,3 +197,14 @@ public protocol UITableViewModel {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
 }
 ```
+
+## Installation
+### swift package manager
+From Xcode 11, you can use Swift Package Manager to add Kingfisher to your project.
+ - Select File > Swift Packages > Add Package Dependency. Enter https://github.com/songwentong/WTKit.git in the "Choose Package Repository" dialog.
+ - In the next page, specify the  rule as master branch
+ - After Xcode checking out the source and resolving the version, you can choose the "WTKit" library and add it to your app target.
+```
+https://github.com/songwentong/WTKit.git
+```
+![](https://github.com/songwentong/WTKit/blob/master/images/swiftPackage.png)
