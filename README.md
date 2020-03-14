@@ -201,8 +201,9 @@ public protocol UITableViewModel {
 
 ## UIView + Xib
 ```
-let myView:MyView = MyView.instanceFromXibWithOwner()
+let myView:MyView = MyView.instanceFromXib()
 //create MyView instance from xib file
+//usually use it as UITableViewCell sub class to avoid file owner issue
 ```
 
 ## UIViewController + IB
