@@ -223,8 +223,7 @@ public extension UILabel{
         }
     }
 }
-
-public extension UIView{
+public extension UIView {
     func removeAllSubviews() {
         let subviews:[UIView] = self.subviews
         for v in subviews{
@@ -815,6 +814,9 @@ public extension UIScrollView {
     }
 }
 
+extension UIView:UINibView{
+    
+}
 
 public extension UITableViewCell{
     
@@ -827,7 +829,20 @@ public extension UICollectionViewCell{
 public extension UIWindow{
     
 }
-
+public extension Bundle{
+    //load file form UINib,if you want to use class from,please use UITableViewCell subclass to avoid file's owner issue
+    func loadViewFromNibFile<T:UINibView>(with type:T.Type) -> T? {
+        guard let list = loadNibNamed(T.reuseIdentifier, owner: nil, options: nil) else{
+            return nil
+        }
+        for ele in list{
+            if let o = ele as? T{
+                return o
+            }
+        }
+        return nil
+    }
+}
 
 @available(iOS 13.0, *)
 public extension UIWindowScene{

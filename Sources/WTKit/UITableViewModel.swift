@@ -27,11 +27,12 @@ public protocol UITableViewCellModel{
 }
 // MARK: - UINibReusableCell
 ///protocol to extension an UITableViewCell/UITableViewCollectionViewCell (if using xib file)
-public protocol UINibReusableCell:NSObjectProtocol {
+public protocol UINibView:NSObjectProtocol {
     static func nib() -> UINib
     static var reuseIdentifier: String{get}
 }
-public extension UINibReusableCell{
+
+public extension UINibView{
     //这段代码的神奇之处是到了这里已经无法打印self了，报错内容是：error: <EXPR>:1:11: error: use of undeclared type '$__lldb_context'
     static func nib() -> UINib {
         return UINib.init(nibName: self.reuseIdentifier, bundle: nil)
@@ -59,15 +60,15 @@ public extension UITableView{
         }
         return cell
     }
-    func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type) -> Void {
+    func registNibReuseableCell<T:UINibView>(_ cellType:T.Type) -> Void {
         register(cellType.nib(), forCellReuseIdentifier: cellType.reuseIdentifier)
     }
-    func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type, forHeaderFooterViewReuseIdentifier:String) -> Void {
+    func registNibReuseableCell<T:UINibView>(_ cellType:T.Type, forHeaderFooterViewReuseIdentifier:String) -> Void {
         register(cellType.nib(), forHeaderFooterViewReuseIdentifier: cellType.reuseIdentifier)
     }
 }
 public extension UICollectionView{
-    func registNibReuseableCell<T:UINibReusableCell>(_ cellType:T.Type) -> Void {
+    func registNibReuseableCell<T:UINibView>(_ cellType:T.Type) -> Void {
         let nib = cellType.nib()
         let rid = cellType.reuseIdentifier
         register(nib, forCellWithReuseIdentifier: rid)
