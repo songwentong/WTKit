@@ -124,6 +124,10 @@ public extension String{
     }
     
 }
+public extension NotificationCenter{
+    
+}
+
 private let testJSON =
 """
 {

@@ -52,13 +52,16 @@ let simData =
   "url": "https://httpbin.org/get"
 }
 """
-//if in DEBUG Mode,and testData != nil,the simulatedData will take effect
-URLSession.shared.dataTaskWith(request: "https://httpbin.org".urlRequest,
- testData: simData,
- codable: { (obj:HttpBin) in
-        }) { (data, res, err) in
 
-        }
+let req = "https://httpbin.org".urlRequest
+//if in DEBUG Mode,and testData != nil
+//the simulatedData will take effect
+URLSession.shared.dataTaskWith(request: req, testData: simData,
+  codable: { (obj:HttpBin) in
+//in debug mode ,obj will parse from testData if not nil
+  }) { (data, res, err) in
+
+}
 
 ```
 
@@ -183,11 +186,11 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 ```
 
 ## Table Model
-using Protocol oriented programming to describe UITableView as a Model,this will be more flexible,no class tree's constraint
+The abstract strategy for object-oriented development is used here, which is also the embodiment of the Model part in the MVC pattern.using Protocol oriented programming to describe UITableView as a Model,this will be more flexible,no class tree's constraint.
 ```
 //cell model
 public protocol UITableViewCellModel{
-    var reuseIdentifier:String{get set}
+    var reuseIdentifier: String{get set}
     var object: Any?{get set}
     var userInfo: [AnyHashable : Any]?{get set}
 }

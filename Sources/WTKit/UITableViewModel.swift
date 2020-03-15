@@ -25,7 +25,8 @@ public protocol UITableViewCellModel{
     var object: Any?{get set}
     var userInfo: [AnyHashable : Any]?{get set}
 }
-// MARK: - UINibReusableCell
+
+// MARK: - UINibView
 ///protocol to extension an UITableViewCell/UITableViewCollectionViewCell (if using xib file)
 public protocol UINibView:NSObjectProtocol {
     static func nib() -> UINib
@@ -79,11 +80,12 @@ public protocol UITableViewCellUserActionDelegate:class {
     func tableviewCellUserAction(with cell:UITableViewCell ,actionId:Int, object:Any?, userInfo:[AnyHashable : Any]?) -> Void
 }
 public protocol UITableViewCellDetailModel:UITableViewCellModel {
-    var height:CGFloat{get}
-    var didSelectAction:DispatchWorkItem?{get}
-    var willDisplayAction:DispatchWorkItem?{get}
-    var prefetchAction:DispatchWorkItem?{get}
-    var cancelPrefetchingAction:DispatchWorkItem?{get}
+    var height:CGFloat{get set}
+    var didSelectAction:DispatchWorkItem?{get set}
+    var willDisplayAction:DispatchWorkItem?{get set}
+    var prefetchAction:DispatchWorkItem?{get set}
+    var cancelPrefetchingAction:DispatchWorkItem?{get set}
+    var customEvent:((_ cell:UITableViewCell, _ type:String) -> Void)?{ get set }
 }
 public protocol UICollectionViewCellModel {
     var reuseIdentifier:String{get set}
@@ -204,10 +206,9 @@ open class UITableViewCellModelSample:NSObject,UITableViewCellModel{
 }
 // MARK: - UITableViewCellDetailModelSample
 open class UITableViewCellDetailModelSample:NSObject,UITableViewCellDetailModel {
+    public var customEvent: ((UITableViewCell, String) -> Void)?
     public var object: Any?
-    
     public var userInfo: [AnyHashable : Any]?
-    
     public var willDisplayAction: DispatchWorkItem?
     public var prefetchAction: DispatchWorkItem?
     public var cancelPrefetchingAction: DispatchWorkItem?
