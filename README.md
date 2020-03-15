@@ -198,7 +198,7 @@ public protocol UITableViewCellModel{
 public protocol UITableViewSectionModel {
     var cells:[UITableViewCellModel]{get set}
 }
-//table modelmodel
+//table model
 public protocol UITableViewModel {
     var sections:[UITableViewSectionModel]{get set}
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
