@@ -31,7 +31,7 @@ public class HttpBin:NSObject, Codable {
     }
 }
 let request = "https://httpbin.org/get".urlRequest
-let task = URLSession.shared.dataTaskWith(request:request,
+let task = WT.dataTaskWith(request:request,
  codable: { (model:HttpBin) in
 //model is parsed  Codable instance
         }) { (data, res, err) in
@@ -56,7 +56,8 @@ let simData =
 let req = "https://httpbin.org".urlRequest
 //if in DEBUG Mode,and testData != nil
 //the simulatedData will take effect
-URLSession.shared.dataTaskWith(request: req, testData: simData,
+
+WT.dataTaskWith(request: req, testData: simData,
   codable: { (obj:HttpBin) in
 //in debug mode ,obj will parse from testData if not nil
   }) { (data, res, err) in

@@ -499,6 +499,7 @@ public extension URLCache{
         return cache
     }()
 }
+public let WT = URLSession.default
 // MARK: - URLSession
 public extension URLSession{
     static let `default`: URLSession = {
@@ -632,7 +633,9 @@ open class MultipartBodyObject{
     var data:Data = Data()
 }
 
-
+public extension URLSessionTask{
+    
+}
 public extension URLSessionDataTask{
     
 }
