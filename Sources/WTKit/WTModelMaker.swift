@@ -285,7 +285,9 @@ public class WTModelMaker {
         
         
         //start of public extension
-        var debugDescription = "        return \"\"\"\n        debugDescription of \(className):\n"
+        //Unmanaged.passUnretained(self).toOpaque()
+        //<ModelMaker.ViewController: 0x600003d0c3c0>
+        var debugDescription = "        return \"\"\"\n        <\(className): \(Unmanaged.passUnretained(self).toOpaque())>\n"
         for str in propertyNames{
             debugDescription += "        \(str):"
             debugDescription += "\\"
