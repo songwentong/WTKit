@@ -14,7 +14,7 @@ WTKit是我积累的经验,我认为WTKit可以帮助您提高开发效率。
 - [x] WTGradientView
 - [x] 可编码为JSON字符串
 - [x] JSON到可编码模型
-- [x] 基本Hud视图（文本/指示器）
+- [x] 基本Hud视图(文本/指示器)
 - [x] 版本跟踪
 - [x] 载入网页图片
 
@@ -31,13 +31,13 @@ public class HttpBin:NSObject,Codable{
     }
 }
 let request ="https://httpbin.org/get".urlRequest
-let task = WT.dataTaskWith（request:request,
- codable:{（model:HttpBin）in
+let task = WT.dataTaskWith(request:request,
+ codable:{(model:HttpBin)in
 //模型被解析为可编码实例
-        }）{（data,res,err）in
+        }){(data,res,err)in
 
         }
-task.resume（）
+task.resume()
 ```
 
 ## 模拟URL响应数据
@@ -57,10 +57,10 @@ let req ="https://httpbin.org".urlRequest
 //如果处于DEBUG模式,并且testData！= nil
 //模拟数据将生效
 
-WT.dataTaskWith（request:req,testData:simData,
-  codable:{（obj:HttpBin）in
+WT.dataTaskWith(request:req,testData:simData,
+  codable:{(obj:HttpBin)in
 //在调试模式下,如果不为零,obj将从testData解析
-  }）{（data,res,err）in
+  }){(data,res,err)in
 
 }
 
@@ -76,7 +76,7 @@ print(request.printer)
 或者您可以在lldb中打印它:
 
 ```
-（lldb）po request.printer
+(lldb)po request.printer
 ```
 
 
@@ -97,7 +97,7 @@ $ curl -v \
 从JSON数据创建可编码模型类/结构文件
 https://github.com/songwentong/ModelMaker
 Mac上的其他Xcode App,使用它来创建Codable文件的便利性,只需复制json,编辑类名,然后按"写入文件",即可轻松创建文件。
-它将自动覆盖描述和debugDescription。此功能非常有用,默认设置不会为您打印属性（就像Model:<0x00000f1231>一样）,如果您打印obj,它将显示给您,如果您想查看属性值,只需在lldb上打印或打印。
+它将自动覆盖描述和debugDescription。此功能非常有用,默认设置不会为您打印属性(就像Model:<0x00000f1231>一样),如果您打印obj,它将显示给您,如果您想查看属性值,只需在lldb上打印或打印。
 默认情况下使用CodkingKeys建立模型,您可以轻松地重命名地图。
 ![](https://github.com/songwentong/WTKit/blob/master/images/modelMaker.png)
 
@@ -131,9 +131,9 @@ origin:123.120.230.73
 
 ```
 let obj:Codable
-打印（obj.jsonString）
+打印(obj.jsonString)
 //要么
-（lldb）po obj.lldbPrint（）
+(lldb)po obj.lldbPrint()
 //输出将是这样的json
 {
   "args":{},
@@ -157,11 +157,11 @@ let obj:Codable
 一个UIView按住CAGradientView编辑,其属性将在其图层上生效。
 
 ```
-让gview = WTGradientView（）
+让gview = WTGradientView()
 gview.colors = ["f".hexCGColor,"990000".hexCGColor]
 gview.locations = [0,1]
-gview.startPoint = CGPoint（x:0,y:0.5）
-gview.endPoint = CGPoint（x:1,y:0.5）
+gview.startPoint = CGPoint(x:0,y:0.5)
+gview.endPoint = CGPoint(x:1,y:0.5)
 //它将影响它的CAGradientView自动
 ```
 
@@ -173,7 +173,7 @@ Cell类:UITableViewCell,UINibReusableCell {
 
 }
 //自动加载nib文件
-let nib:UINib = Cell.nib（）
+let nib:UINib = Cell.nib()
 //单元格,就像它的类名一样
 let ReuseID:String = Cell.reuseIdentifier
 
@@ -183,10 +183,10 @@ let ReuseID:String = Cell.reuseIdentifier
 记录构建历史记录的功能
 
 ```
-func application（_ application:UIApplication,didFinishLaunchingWithOptions launchOptions:[UIApplication.LaunchOptionsKey:Any]？）->布尔{
-  application.track（）// track两次无效
-  application.versionHistory（）//版本历史
-  application.buildHistory（）//构建历史
+func application(_ application:UIApplication,didFinishLaunchingWithOptions launchOptions:[UIApplication.LaunchOptionsKey:Any]？)->布尔{
+  application.track()// track两次无效
+  application.versionHistory()//版本历史
+  application.buildHistory()//构建历史
   应用
 ```
 ## WT Table Model
@@ -225,8 +225,8 @@ public protocol UITableViewCellModelHolder {
     var model:UITableViewCellModel？{get set}
 }
 public extension UITableView {
-    func dequeueReusableCellModel（withModel模型:UITableViewCellModel,用于indexPath:IndexPath）-> UITableViewCell {
-        let cell = dequeueReusableCell（withIdentifier:model.reuseIdentifier,for:indexPath）
+    func dequeueReusableCellModel(withModel模型:UITableViewCellModel,用于indexPath:IndexPath)-> UITableViewCell {
+        let cell = dequeueReusableCell(withIdentifier:model.reuseIdentifier,for:indexPath)
         如果var c = cell as？ UITableViewCellModelHolder {
             c.model = model
         }
@@ -235,9 +235,9 @@ public extension UITableView {
 }
 ```
 ## UIView + Xib
-从nib文件创建UIView（或子类）的实例,当您想在xib文件中重用UIView时,可以使用它,建议您使用UITableViewCell而不是UIVIew,因为它具有contentView,没有文件的所有者问题。
+从nib文件创建UIView(或子类)的实例,当您想在xib文件中重用UIView时,可以使用它,建议您使用UITableViewCell而不是UIVIew,因为它具有contentView,没有文件的所有者问题。
 ```
-让myView:MyView = MyView.instanceFromXib（）
+让myView:MyView = MyView.instanceFromXib()
 //从xib文件创建MyView实例
 //通常将其用作UITableViewCell子类,以避免文件所有者问题
 ```
@@ -245,10 +245,10 @@ public extension UITableView {
 ## UIViewController + IB
 从Storyboard / nib创建UIViewController实例
 ```
-让vc:CustromVC = CustromVC.instanceFromStoryBoard（）
+让vc:CustromVC = CustromVC.instanceFromStoryBoard()
 //此函数是从Storyboard的根VC创建实例
 
-让vc2:CustromVC = CustromVC.instanceFromNib（）
+让vc2:CustromVC = CustromVC.instanceFromNib()
 //从nib文件创建实例
 ```
 ##本地经理
@@ -257,16 +257,16 @@ public extension UITableView {
 ```
 //使用英语
 Bundle.customBundle = enUS
-print（"language".customLocalizedString）
+print("language".customLocalizedString)
 //输出将是
 //language
-print（"english".customLocalizedString）
+print("english".customLocalizedString)
 //english
 Bundle.customBundle = zhCN
-print（"language".customLocalizedString）
+print("language".customLocalizedString)
 //输出将是
 //语言
-print（"english".customLocalizedString）
+print("english".customLocalizedString)
 //英语
 ```
 
