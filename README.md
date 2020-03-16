@@ -238,7 +238,7 @@ public extension UITableView{
 }
 ```
 ## UIView + Xib
-create UIView(or subclass) from nib,when you may want to reuse UIView in xib file, you can use it, I suggest you use UITableViewCell instead of UIVIew,because it has a content view, no file's owner issue.
+create UIView(or subclass) from nib,when you may want to reuse UIView in xib file, you can use it, I suggest you use UITableViewCell instead of UIVIew,because it has a contentVie w, no file's owner issue.
 ```
 let myView:MyView = MyView.instanceFromXib()
 //create MyView instance from xib file

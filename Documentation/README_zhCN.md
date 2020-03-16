@@ -22,17 +22,17 @@ WTKit是我积累的经验，我认为WTKit可以帮助您提高开发效率。
 WTKit提供了多种方便的方法来发出HTTP请求。
 
 ```
-public class HttpBin：NSObject，可编码{
+public class HttpBin：NSObject，Codable{
     var url：String =“”
     var origin：String =“”
-    枚举CodingKeys：字符串，CodingKey {
+    enum CodingKeys：String，CodingKey {
         case url =“ url”
-        案例来源=“来源”
+        origin=“origin”
     }
 }
 let request =“ https://httpbin.org/get".urlRequest
-让task = WT.dataTaskWith（request：request，
- 编码：{（model：HttpBin）在
+let task = WT.dataTaskWith（request：request，
+ codable：{（model：HttpBin）in
 //模型被解析为可编码实例
         }）{（data，res，err）in
 
@@ -58,7 +58,7 @@ task.resume（）
 //模拟数据将生效
 
 WT.dataTaskWith（request：req，testData：simData，
-  编码：{（obj：HttpBin）在
+  codable：{（obj：HttpBin）in
 //在调试模式下，如果不为零，obj将从testData解析
   }）{（data，res，err）in
 
@@ -92,7 +92,7 @@ $ curl -v \
 ```
 ![](https://github.com/songwentong/WTKit/blob/master/images/printer.png)
 
-##模型制作者
+##模型制作器
 
 从JSON数据创建可编码模型类/结构文件
 https://github.com/songwentong/ModelMaker
@@ -173,9 +173,9 @@ Cell类：UITableViewCell，UINibReusableCell {
 
 }
 //自动加载nib文件
-让nib：UINib = Cell.nib（）
+let nib：UINib = Cell.nib（）
 //单元格，就像它的类名一样
-令letReuseID：String = Cell.reuseIdentifier
+let ReuseID：String = Cell.reuseIdentifier
 
 ```
 
@@ -189,3 +189,95 @@ func application（_ application：UIApplication，didFinishLaunchingWithOptions
   application.buildHistory（）//构建历史
   应用
 ```
+## WT表模型
+这里使用面向对象开发的抽象策略，这也是MVC模式中Model部分的体现。使用面向协议的编程将UITableView描述为Model，这将更加灵活，没有类树的约束。
+```
+//单元格模型
+public extension UITableViewCellModel {
+    var复用标识符：字符串{获取设置}
+    var对象：是吗？{get set}
+    var userInfo：[AnyHashable：任何]？{获取设置}
+}
+//截面模型
+public extension UITableViewSectionModel {
+    var单元格：[UITableViewCellModel] {获取设置}
+}
+//表格模型
+public extension UITableViewModel {
+    var个部分：[UITableViewSectionModel] {获取设置}
+}
+```
+更多
+```
+//您可以使用此协议来描述某些单元格的更多信息
+public extension UITableViewCellDetailModel：UITableViewCellModel {
+    var height：CGFloat {get set}
+    var didSelectAction：DispatchWorkItem？{get set}
+    var willDisplayAction：DispatchWorkItem？{get set}
+    var prefetchAction：DispatchWorkItem？{get set}
+    var cancelPrefetchingAction：DispatchWorkItem？{get set}
+}
+```
+####发送数据。
+####这些方法适用于所有使用WTTableModel的情况。
+```
+public protocol UITableViewCellModelHolder {
+    var model：UITableViewCellModel？{get set}
+}
+public extension UITableView {
+    func dequeueReusableCellModel（withModel模型：UITableViewCellModel，用于indexPath：IndexPath）-> UITableViewCell {
+        let cell = dequeueReusableCell（withIdentifier：model.reuseIdentifier，for：indexPath）
+        如果var c = cell as？ UITableViewCellModelHolder {
+            c.model =模型
+        }
+        返回单元
+    }
+}
+```
+## UIView + Xib
+从nib文件创建UIView（或子类）的实例，当您想在xib文件中重用UIView时，可以使用它，建议您使用UITableViewCell而不是UIVIew，因为它具有contentView，没有文件的所有者问题。
+```
+让myView：MyView = MyView.instanceFromXib（）
+//从xib文件创建MyView实例
+//通常将其用作UITableViewCell子类，以避免文件所有者问题
+```
+
+## UIViewController + IB
+从Storyboard / nib创建UIViewController实例
+```
+让vc：CustromVC = CustromVC.instanceFromStoryBoard（）
+//此函数是从Storyboard的根VC创建实例
+
+让vc2：CustromVC = CustromVC.instanceFromNib（）
+//从nib文件创建实例
+```
+##本地经理
+
+编辑customBundle捆绑包可以轻松更改本地语言
+```
+//使用英语
+let lang =“ language” .customLocalizedString
+print（“ language” .customLocalizedString）
+//输出将是
+//语言
+print（“ english” .customLocalizedString）
+//英语
+Bundle.customBundle = zhCN
+print（“ language” .customLocalizedString）
+//输出将是
+//语言
+print（“ english” .customLocalizedString）
+//英语
+```
+
+
+##安装
+### Swift Package Manager
+在Xcode 11中，您可以使用Swift Package Manager将Kingfisher添加到您的项目中。
+ -选择“文件”>“ Swift软件包”>“添加软件包依赖性”。在“选择软件包存储库”对话框中输入https://github.com/songwentong/WTKit.git。
+ -在下一页中，将规则指定为master分支
+ -Xcode签出源代码并解析版本后，您可以选择“ WTKit”库并将其添加到您的应用程序目标中。
+```
+https://github.com/songwentong/WTKit.git
+```
+![](https://github.com/songwentong/WTKit/blob/master/images/swiftPackage.png)
