@@ -287,7 +287,12 @@ public class WTModelMaker {
         //start of public extension
         //Unmanaged.passUnretained(self).toOpaque()
         //<ModelMaker.ViewController: 0x600003d0c3c0>
-        var debugDescription = "        return \"\"\"\n        <\(Bundle.appBundleName()).\(className): \(Unmanaged.passUnretained(self).toOpaque())>\n"
+//        let memory = Unmanaged.passUnretained(self).toOpaque()
+        var debugDescription = "        return \"\"\"\n        <\(Bundle.appBundleName()).\(className): "
+        debugDescription += "\\"
+        debugDescription += "("
+        debugDescription += "Unmanaged.passUnretained(self).toOpaque()"
+        debugDescription += ")>\n"
         for str in propertyNames{
             debugDescription += "        \(str):"
             debugDescription += "\\"
