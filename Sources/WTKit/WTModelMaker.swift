@@ -291,10 +291,10 @@ public class WTModelMaker {
             result += "("
             result += str
             result += ")"
-            result += "\\"
-            result += "n"
+            result += "\n"
+//            result += "n"
         }
-        debugDescription = "        return \"debugDescription of \(className):\\" + "n" + debugDescription + "\"\n"
+        debugDescription = "        return \"\"\"debugDescription of \(className):\n" + debugDescription + "\"\"\""
         stringToPrint.append("public extension \(className){\n")
         if !useStruct{
             stringToPrint.append("\(indent)override ")
