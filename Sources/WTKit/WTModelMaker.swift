@@ -288,7 +288,9 @@ public class WTModelMaker {
         //Unmanaged.passUnretained(self).toOpaque()
         //<ModelMaker.ViewController: 0x600003d0c3c0>
 //        let memory = Unmanaged.passUnretained(self).toOpaque()
-        var debugDescription = "        return \"\"\"\n        <\(Bundle.appBundleName()).\(className): "
+        //TODO 包名
+//        let bundleName = ""
+        var debugDescription = "        return \"\"\"\n        <\(className): "
         debugDescription += "\\"
         debugDescription += "("
         debugDescription += "Unmanaged.passUnretained(self).toOpaque()"
