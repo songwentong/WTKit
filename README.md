@@ -204,7 +204,32 @@ public protocol UITableViewModel {
     var sections:[UITableViewSectionModel]{get set}
 }
 ```
-
+more
+```
+//you can use this protocol to describe some Cells more info
+public protocol UITableViewCellDetailModel:UITableViewCellModel {
+    var height:CGFloat{get set}
+    var didSelectAction:DispatchWorkItem?{get set}
+    var willDisplayAction:DispatchWorkItem?{get set}
+    var prefetchAction:DispatchWorkItem?{get set}
+    var cancelPrefetchingAction:DispatchWorkItem?{get set}
+}
+```
+send data
+```
+public protocol UITableViewCellModelHolder {
+    var model:UITableViewCellModel?{get set}
+}
+public extension UITableView{
+    func dequeueReusableCellModel(withModel model:UITableViewCellModel, for indexPath: IndexPath) -> UITableViewCell {
+        let cell = dequeueReusableCell(withIdentifier: model.reuseIdentifier, for: indexPath)
+        if var c = cell as? UITableViewCellModelHolder{
+            c.model = model
+        }
+        return cell
+    }
+}
+```
 ## UIView + Xib
 create UIView(or subclass) from nib
 ```

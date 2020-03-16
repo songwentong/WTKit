@@ -45,15 +45,7 @@ public extension UINibView{
 //    
 //}
 public extension UITableView{
-//    func test() {
-//        let cell:TestCell = dequeueReusableCell(with: TestCell, for: IndexPath.init())
-//    }
-//    func dequeueReusableCell<T:UINibReusableCell>(with obj:T,for indexPath: IndexPath) -> T {
-//
-//        return dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as! T
-//    }
     func dequeueReusableCellModel(withModel model:UITableViewCellModel, for indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = dequeueReusableCell(withIdentifier: model.reuseIdentifier, for: indexPath)
         if var c = cell as? UITableViewCellModelHolder{
             c.model = model
