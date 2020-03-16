@@ -188,3 +188,4 @@ func application（_ application：UIApplication，didFinishLaunchingWithOptions
   application.versionHistory（）//版本历史
   application.buildHistory（）//构建历史
   应用
+```
