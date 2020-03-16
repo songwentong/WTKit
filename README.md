@@ -90,6 +90,7 @@ $ curl -v \
 -H "User-Agent: Demo/1.0 (com.demo.Demo; build:1; iOS 13.0.0) WTKit/1.0" \
 "https://httpbin.org/get"
 ```
+![](https://github.com/songwentong/WTKit/blob/master/images/printer.png)
 
 ## Model Maker
 
