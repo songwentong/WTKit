@@ -18,7 +18,7 @@ WTKit是我积累的经验，我认为WTKit可以帮助您提高开发效率。
 - [x] 版本跟踪
 - [x] 载入网页图片
 
-##发出可编码请求
+## 发出请求,返回Codable对象
 WTKit提供了多种方便的方法来发出HTTP请求。
 
 ```
@@ -40,7 +40,7 @@ let task = WT.dataTaskWith（request：request，
 task.resume（）
 ```
 
-##模拟响应数据
+## 模拟URL响应数据
 
 此功能仅对调试有效
 ```
@@ -92,7 +92,7 @@ $ curl -v \
 ```
 ![](https://github.com/songwentong/WTKit/blob/master/images/printer.png)
 
-##模型制作器
+## 模型制作器
 
 从JSON数据创建可编码模型类/结构文件
 https://github.com/songwentong/ModelMaker
