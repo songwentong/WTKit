@@ -4,7 +4,7 @@
 
 # WTKit
 
-WTKit is my swift accumulated experience
+WTKit is my swift accumulated experience,I think WTKit could help you to improve development efficiency.
 ## Features
 - [x] Making Codable Requests
 - [x] cURL Command Output
