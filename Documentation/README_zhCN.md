@@ -102,9 +102,9 @@ Mac上的其他Xcode App，使用它来创建Codable文件的便利性，只需�
 ![](https://github.com/songwentong/WTKit/blob/master/images/modelMaker.png)
 
 
-###无描述/调试说明
+### 无描述/调试说明
 ![](https://github.com/songwentong/WTKit/blob/master/images/noDesc.png)
-###带有description / debugDescription
+### 带有描述 / 调试说明
 ![](https://github.com/songwentong/WTKit/blob/master/images/desc.png)
 ```
 打印（obj）
