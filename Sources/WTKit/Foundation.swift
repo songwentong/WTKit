@@ -28,6 +28,10 @@ public extension String{
     var localizedString:String{
         return NSLocalizedString(self, comment: "")
     }
+    ///short method
+    var wtLocalString:String{
+        return customLocalizedString
+    }
     ///get localizedString from your custom bundle
     var customLocalizedString:String{
         NSLocalizedString(self, bundle: .customBundle,  comment: "")
