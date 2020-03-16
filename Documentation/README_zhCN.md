@@ -5,7 +5,7 @@
 ＃WTKit
 
 WTKit是我积累的经验，我认为WTKit可以帮助您提高开发效率。
-＃＃ 特征
+## 功能
 - [x] 发出可编码请求
 - [x] cURL命令输出
 - [x] 用于测试的仿真响应数据
@@ -21,8 +21,8 @@ WTKit是我积累的经验，我认为WTKit可以帮助您提高开发效率。
 ##发出可编码请求
 WTKit提供了多种方便的方法来发出HTTP请求。
 
-迅速
-公共类HttpBin：NSObject，可编码{
+```
+public class HttpBin：NSObject，可编码{
     var url：String =“”
     var origin：String =“”
     枚举CodingKeys：字符串，CodingKey {
