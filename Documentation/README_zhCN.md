@@ -125,7 +125,7 @@ origin:123.120.230.73
 */
 ```
 
-##可编码扩展
+## 可编码扩展
 
 从Codable 对象创建json数据
 
@@ -143,7 +143,7 @@ let obj：可编码
 
 ```
 
-##十六进制颜色
+## 十六进制颜色
 
 ```
 "f".hexColor //白色的UIColor，与"ffffff”相同
@@ -271,7 +271,7 @@ print（"english".customLocalizedString）
 ```
 
 
-##安装
+## 安装
 ### Swift Package Manager
 在Xcode 11中，您可以使用Swift Package Manager将Kingfisher添加到您的项目中。
  -选择“文件”>"Swift软件包”>“添加软件包依赖性”。在“选择软件包存储库”对话框中输入https://github.com/songwentong/WTKit.git。
