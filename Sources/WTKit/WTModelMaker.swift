@@ -285,6 +285,17 @@ public class WTModelMaker {
         
         
         //start of public extension
+        var debugDescription = "        return \"\"\"\n        debugDescription of \(className):\n"
+        for str in propertyNames{
+            debugDescription += "        \(str):"
+            debugDescription += "\\"
+            debugDescription += "("
+            debugDescription += str
+            debugDescription += ")"
+            debugDescription += "\n"
+        }
+        debugDescription += "\"\"\""
+        /*
         var debugDescription = propertyNames.reduce(into: String()) { (result, str) in
             result += "        \(str):"
             result += "\\"
@@ -295,6 +306,7 @@ public class WTModelMaker {
 //            result += "n"
         }
         debugDescription = "        return \"\"\"\n        debugDescription of \(className):\n" + debugDescription + "\"\"\""
+        */
         stringToPrint.append("public extension \(className){\n")
         if !useStruct{
             stringToPrint.append("\(indent)override ")
