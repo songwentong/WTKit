@@ -107,22 +107,22 @@ Mac上的其他Xcode App，使用它来创建Codable文件的便利性，只需�
 ### 带有描述 / 调试说明
 ![](https://github.com/songwentong/WTKit/blob/master/images/desc.png)
 ```
-打印（obj）
-//要么
-（lldb）po obj
-/ *
-//输出将是
-args：debug args_class的说明：
-网址：https：//httpbin.org/get
-headers：debug headers_class的描述：
-接受：text / html，application / xhtml + xml，application / xml; q = 0.9，* / *; q = 0.8
-主持人：httpbin.org
-用户代理：Mozilla / 5.0（Macintosh; Intel Mac OS X 10_15_3）AppleWebKit / 605.1.15（KHTML，如Gecko）版本/13.0.5 Safari / 605.1.15
-接受语言：zh-cn
-接受编码：gzip，deflate，br
-X-Amzn-Trace-Id：Root = 1-5e6b977f-43ebdc40121912f0bb6dc3d0
-起源：123.120.230.73
-* /
+print(obj)
+//or
+(lldb) po obj
+/*
+//output will be
+args:debugDescription of args_class:
+url:https://httpbin.org/get
+headers:debugDescription of headers_class:
+Accept:text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Host:httpbin.org
+User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15
+Accept-Language:zh-cn
+Accept-Encoding:gzip, deflate, br
+X-Amzn-Trace-Id:Root=1-5e6b977f-43ebdc40121912f0bb6dc3d0
+origin:123.120.230.73
+*/
 ```
 
 ##可编码扩展
