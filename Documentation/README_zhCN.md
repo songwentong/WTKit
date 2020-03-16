@@ -71,7 +71,7 @@ WT.dataTaskWith（request：req，testData：simData，
 调试工具
 ```
 let request ="https://httpbin.org/get".urlRequest
-打印（request.printer）
+print(request.printer)
 ```
 或者您可以在lldb中打印它：
 
@@ -127,7 +127,7 @@ X-Amzn-Trace-Id：Root = 1-5e6b977f-43ebdc40121912f0bb6dc3d0
 
 ##可编码扩展
 
-从可编码的objec创建json数据
+从Codable 对象创建json数据
 
 ```
 let obj：可编码
@@ -179,7 +179,7 @@ let ReuseID：String = Cell.reuseIdentifier
 
 ```
 
-##版本跟踪
+## 版本跟踪
 记录构建历史记录的功能
 
 ```
@@ -189,7 +189,7 @@ func application（_ application：UIApplication，didFinishLaunchingWithOptions
   application.buildHistory（）//构建历史
   应用
 ```
-## WT表模型
+## WT Table Model
 这里使用面向对象开发的抽象策略，这也是MVC模式中Model部分的体现。使用面向协议的编程将UITableView描述为Model，这将更加灵活，没有类树的约束。
 ```
 //单元格模型
