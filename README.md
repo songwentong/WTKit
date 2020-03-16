@@ -259,7 +259,7 @@ let vc2:CustromVC = CustromVC.instanceFromNib()
 edit customBundle of Bundle can change local language easily
 ```
 //using english
-let lang = "language".customLocalizedString
+Bundle.customBundle = enUS
 print("language".customLocalizedString)
 //output will be
 //language

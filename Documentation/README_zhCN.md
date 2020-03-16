@@ -218,8 +218,8 @@ public extension UITableViewCellDetailModel：UITableViewCellModel {
     var cancelPrefetchingAction：DispatchWorkItem？{get set}
 }
 ```
-####发送数据。
-####这些方法适用于所有使用WTTableModel的情况。
+#### 发送数据。
+#### 这些方法适用于所有使用WTTableModel的情况。
 ```
 public protocol UITableViewCellModelHolder {
     var model：UITableViewCellModel？{get set}
@@ -256,12 +256,12 @@ public extension UITableView {
 编辑customBundle捆绑包可以轻松更改本地语言
 ```
 //使用英语
-let lang ="language".customLocalizedString
+Bundle.customBundle = enUS
 print（"language".customLocalizedString）
 //输出将是
-//语言
+//language
 print（"english".customLocalizedString）
-//英语
+//english
 Bundle.customBundle = zhCN
 print（"language".customLocalizedString）
 //输出将是
