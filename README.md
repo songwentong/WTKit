@@ -192,7 +192,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 ```
 
-## Table Model
+## WT Table Model
 The abstract strategy for object-oriented development is used here, which is also the embodiment of the Model part in the MVC pattern.using Protocol oriented programming to describe UITableView as a Model,this will be more flexible,no class tree's constraint.
 ```
 //cell model
@@ -221,7 +221,8 @@ public protocol UITableViewCellDetailModel:UITableViewCellModel {
     var cancelPrefetchingAction:DispatchWorkItem?{get set}
 }
 ```
-send data
+#### send data.
+#### these methods is suitable for all case using WTTableModel.
 ```
 public protocol UITableViewCellModelHolder {
     var model:UITableViewCellModel?{get set}
@@ -237,7 +238,7 @@ public extension UITableView{
 }
 ```
 ## UIView + Xib
-create UIView(or subclass) from nib
+create UIView(or subclass) from nib,when you may want to use reusable UIView in xib file,you can use it, I suggest you use UITableViewCell instead of UIVIew,because it fix file's owner issue
 ```
 let myView:MyView = MyView.instanceFromXib()
 //create MyView instance from xib file
