@@ -26,11 +26,11 @@ public class HttpBin：NSObject，Codable{
     var url：String =“”
     var origin：String =“”
     enum CodingKeys：String，CodingKey {
-        case url =“ url”
+        case url ="url”
         origin=“origin”
     }
 }
-let request =“ https://httpbin.org/get".urlRequest
+let request ="https://httpbin.org/get".urlRequest
 let task = WT.dataTaskWith（request：request，
  codable：{（model：HttpBin）in
 //模型被解析为可编码实例
@@ -48,12 +48,12 @@ task.resume（）
 让simData =
 “”
 {
-  “ origin”：“ 123.120.230.73”，
-  “ url”：“ https://httpbin.org/get”
+  "origin”："123.120.230.73”，
+  "url”："https://httpbin.org/get”
 }
 “”
 
-让req =“ https://httpbin.org” .urlRequest
+让req ="https://httpbin.org".urlRequest
 //如果处于DEBUG模式，并且testData！= nil
 //模拟数据将生效
 
@@ -70,7 +70,7 @@ WT.dataTaskWith（request：req，testData：simData，
 
 调试工具
 ```
-let request =“ https://httpbin.org/get".urlRequest
+let request ="https://httpbin.org/get".urlRequest
 打印（request.printer）
 ```
 或者您可以在lldb中打印它：
@@ -136,9 +136,9 @@ let obj：可编码
 （lldb）po obj.lldbPrint（）
 //输出将是这样的json
 {
-  “ args”：{}，
-  “ origin”：“ 123.120.230.73”，
-  “ url”：“ https://httpbin.org/get”
+  "args”：{}，
+  "origin”："123.120.230.73”，
+  "url”："https://httpbin.org/get”
 }
 
 ```
@@ -146,10 +146,10 @@ let obj：可编码
 ##十六进制颜色
 
 ```
-“ f” .hexColor //白色的UIColor，与“ ffffff”相同
-“＃3” .hexColor //与333333相同
-“ ff0000” .hexColor //红色UIColor
-“ ff0000” .hexCGColor //红色CGColor
+"f".hexColor //白色的UIColor，与"ffffff”相同
+“＃3".hexColor //与333333相同
+"ff0000".hexColor //红色UIColor
+"ff0000".hexCGColor //红色CGColor
 ```
 
 ## WTGradientView
@@ -158,7 +158,7 @@ let obj：可编码
 
 ```
 让gview = WTGradientView（）
-gview.colors = [“ f” .hexCGColor，“ 990000” .hexCGColor]
+gview.colors = ["f".hexCGColor，"990000".hexCGColor]
 gview.locations = [0，1]
 gview.startPoint = CGPoint（x：0，y：0.5）
 gview.endPoint = CGPoint（x：1，y：0.5）
@@ -256,17 +256,17 @@ public extension UITableView {
 编辑customBundle捆绑包可以轻松更改本地语言
 ```
 //使用英语
-let lang =“ language” .customLocalizedString
-print（“ language” .customLocalizedString）
+let lang ="language".customLocalizedString
+print（"language".customLocalizedString）
 //输出将是
 //语言
-print（“ english” .customLocalizedString）
+print（"english".customLocalizedString）
 //英语
 Bundle.customBundle = zhCN
-print（“ language” .customLocalizedString）
+print（"language".customLocalizedString）
 //输出将是
 //语言
-print（“ english” .customLocalizedString）
+print（"english".customLocalizedString）
 //英语
 ```
 
@@ -274,9 +274,9 @@ print（“ english” .customLocalizedString）
 ##安装
 ### Swift Package Manager
 在Xcode 11中，您可以使用Swift Package Manager将Kingfisher添加到您的项目中。
- -选择“文件”>“ Swift软件包”>“添加软件包依赖性”。在“选择软件包存储库”对话框中输入https://github.com/songwentong/WTKit.git。
+ -选择“文件”>"Swift软件包”>“添加软件包依赖性”。在“选择软件包存储库”对话框中输入https://github.com/songwentong/WTKit.git。
  -在下一页中，将规则指定为master分支
- -Xcode签出源代码并解析版本后，您可以选择“ WTKit”库并将其添加到您的应用程序目标中。
+ -Xcode签出源代码并解析版本后，您可以选择"WTKit”库并将其添加到您的应用程序目标中。
 ```
 https://github.com/songwentong/WTKit.git
 ```
