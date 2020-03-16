@@ -46,14 +46,14 @@ task.resume（）
 ```
 //模拟数据
 让simData =
-“”
+"""
 {
   "origin”："123.120.230.73”，
   "url”："https://httpbin.org/get”
 }
-“”
+"""
 
-让req ="https://httpbin.org".urlRequest
+let req ="https://httpbin.org".urlRequest
 //如果处于DEBUG模式，并且testData！= nil
 //模拟数据将生效
 
