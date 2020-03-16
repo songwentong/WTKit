@@ -192,19 +192,19 @@ func application（_ application：UIApplication，didFinishLaunchingWithOptions
 ## WT Table Model
 这里使用面向对象开发的抽象策略，这也是MVC模式中Model部分的体现。使用面向协议的编程将UITableView描述为Model，这将更加灵活，没有类树的约束。
 ```
-//单元格模型
-public extension UITableViewCellModel {
-    var复用标识符：字符串{获取设置}
-    var对象：是吗？{get set}
-    var userInfo：[AnyHashable：任何]？{获取设置}
+//cell model
+public protocol UITableViewCellModel{
+    var reuseIdentifier: String{get set}
+    var object: Any?{get set}
+    var userInfo: [AnyHashable : Any]?{get set}
 }
-//截面模型
-public extension UITableViewSectionModel {
-    var单元格：[UITableViewCellModel] {获取设置}
+//section model
+public protocol UITableViewSectionModel {
+    var cells:[UITableViewCellModel]{get set}
 }
-//表格模型
-public extension UITableViewModel {
-    var个部分：[UITableViewSectionModel] {获取设置}
+//table model
+public protocol UITableViewModel {
+    var sections:[UITableViewSectionModel]{get set}
 }
 ```
 更多
@@ -228,9 +228,9 @@ public extension UITableView {
     func dequeueReusableCellModel（withModel模型：UITableViewCellModel，用于indexPath：IndexPath）-> UITableViewCell {
         let cell = dequeueReusableCell（withIdentifier：model.reuseIdentifier，for：indexPath）
         如果var c = cell as？ UITableViewCellModelHolder {
-            c.model =模型
+            c.model = model
         }
-        返回单元
+        return cell
     }
 }
 ```
