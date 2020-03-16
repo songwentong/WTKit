@@ -45,7 +45,7 @@ task.resume()
 此功能仅对调试有效
 ```
 //模拟数据
-让simData =
+let simData =
 """
 {
   "origin":"123.120.230.73",
@@ -157,7 +157,7 @@ let obj:Codable
 一个UIView按住CAGradientView编辑,其属性将在其图层上生效。
 
 ```
-让gview = WTGradientView()
+let gview = WTGradientView()
 gview.colors = ["f".hexCGColor,"990000".hexCGColor]
 gview.locations = [0,1]
 gview.startPoint = CGPoint(x:0,y:0.5)
@@ -237,7 +237,7 @@ public extension UITableView {
 ## UIView + Xib
 从nib文件创建UIView(或子类)的实例,当您想在xib文件中重用UIView时,可以使用它,建议您使用UITableViewCell而不是UIVIew,因为它具有contentView,没有文件的所有者问题。
 ```
-让myView:MyView = MyView.instanceFromXib()
+let myView:MyView = MyView.instanceFromXib()
 //从xib文件创建MyView实例
 //通常将其用作UITableViewCell子类,以避免文件所有者问题
 ```
@@ -245,10 +245,10 @@ public extension UITableView {
 ## UIViewController + IB
 从Storyboard / nib创建UIViewController实例
 ```
-让vc:CustromVC = CustromVC.instanceFromStoryBoard()
+let vc:CustromVC = CustromVC.instanceFromStoryBoard()
 //此函数是从Storyboard的根VC创建实例
 
-让vc2:CustromVC = CustromVC.instanceFromNib()
+let vc2:CustromVC = CustromVC.instanceFromNib()
 //从nib文件创建实例
 ```
 ##本地经理
