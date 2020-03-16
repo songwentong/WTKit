@@ -11,7 +11,6 @@ import UIKit
 ///protocol to describe UITableViewCell
 public protocol UITableViewModel {
     var sections:[UITableViewSectionModel]{get set}
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
 }
 // MARK: - UITableViewSectionModel
 ///protocol to describe UITableView's section

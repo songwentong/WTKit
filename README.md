@@ -202,7 +202,6 @@ public protocol UITableViewSectionModel {
 //table model
 public protocol UITableViewModel {
     var sections:[UITableViewSectionModel]{get set}
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
 }
 ```
 
