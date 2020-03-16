@@ -100,6 +100,11 @@ and it will over write description and debugDescription automatic. this feature 
 model using CodkingKeys by default,you can rename map easily.
 ![](https://github.com/songwentong/WTKit/blob/master/images/modelMaker.png)
 
+
+nodesc
+![](https://github.com/songwentong/WTKit/blob/master/images/noDesc.png)
+desc
+![](https://github.com/songwentong/WTKit/blob/master/images/desc.png)
 ```
 print(obj)
 //or
