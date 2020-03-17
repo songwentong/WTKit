@@ -92,7 +92,7 @@ $ curl -v \
 ```
 ![](https://github.com/songwentong/WTKit/blob/master/images/printer.png)
 
-## Model Maker
+## WTModelMaker
 
 create Codable model class/struct File from JSON Data
 https://github.com/songwentong/ModelMaker
