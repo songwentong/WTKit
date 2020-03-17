@@ -94,7 +94,7 @@ $ curl -v \
 
 ## WTModelMaker
 
-create Codable model class/struct File from JSON Data
+WTModelMaker can create Codable model class/struct File from JSON Data
 https://github.com/songwentong/ModelMaker
 additional Xcode App on Mac,using it to create Codable file Convenience,just copy your json ,edit class name,and press 'Write file',your file will create easily.
 and it will over write description and debugDescription automatic. this feature is very useful,swift default won't print properties for you(just like Model:<0x00000f1231>),if you print obj it will show you,if you want to see property values,just print it at lldb or print it.
