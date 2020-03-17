@@ -25,12 +25,12 @@ public func cprint<T>(_ items: T,  separator: String = " ", terminator: String =
 // MARK: - String
 public extension String{
     ///get localizedString from main Bundle
-    var localizedString:String{
-        return NSLocalizedString(self, comment: "")
+    var localizedString: String{
+        NSLocalizedString(self, comment: "")
     }
     ///short method
     var wtLocalString:String{
-        return customLocalizedString
+        customLocalizedString
     }
     ///get localizedString from your custom bundle
     var customLocalizedString:String{
