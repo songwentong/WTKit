@@ -951,6 +951,7 @@ public extension Collection where Element == String {
  date
  cd ios
  pod update
+ agvtool new-version -all $XCS_INTEGRATION_NUMBER
  #release
  xcodebuild archive -workspace Stark.xcworkspace -scheme Stark -configuration Release -archivePath ~/Desktop/Stark.xcarchive
  xcodebuild -exportArchive -archivePath ~/Desktop/Stark.xcarchive -exportPath ~/Desktop/Stark.ipa -exportOptionsPlist ~/Desktop/ExportOptions.plist
