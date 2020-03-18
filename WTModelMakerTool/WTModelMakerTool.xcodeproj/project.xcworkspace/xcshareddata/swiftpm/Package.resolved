@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "WTKit",
+        "repositoryURL": "https://github.com/songwentong/WTKit.git",
+        "state": {
+          "branch": "master",
+          "revision": "d4b9f2de9225992e688aad8c9b227bb908d75529",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

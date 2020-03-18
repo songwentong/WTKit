@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,7 @@
 		E17053BC2421FB5400CBCF9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E17053BA2421FB5400CBCF9E /* Main.storyboard */; };
 		E17053C82421FB5400CBCF9E /* WTModelMakerToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17053C72421FB5400CBCF9E /* WTModelMakerToolTests.swift */; };
 		E17053D32421FB5400CBCF9E /* WTModelMakerToolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17053D22421FB5400CBCF9E /* WTModelMakerToolUITests.swift */; };
+		E17053E22421FC0700CBCF9E /* WTKit in Frameworks */ = {isa = PBXBuildFile; productRef = E17053E12421FC0700CBCF9E /* WTKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E17053E22421FC0700CBCF9E /* WTKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +153,9 @@
 			dependencies = (
 			);
 			name = WTModelMakerTool;
+			packageProductDependencies = (
+				E17053E12421FC0700CBCF9E /* WTKit */,
+			);
 			productName = WTModelMakerTool;
 			productReference = E17053AE2421FB5100CBCF9E /* WTModelMakerTool.app */;
 			productType = "com.apple.product-type.application";
@@ -223,6 +228,9 @@
 				Base,
 			);
 			mainGroup = E17053A52421FB5100CBCF9E;
+			packageReferences = (
+				E17053E02421FC0700CBCF9E /* XCRemoteSwiftPackageReference "WTKit" */,
+			);
 			productRefGroup = E17053AF2421FB5100CBCF9E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -597,6 +605,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E17053E02421FC0700CBCF9E /* XCRemoteSwiftPackageReference "WTKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/songwentong/WTKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E17053E12421FC0700CBCF9E /* WTKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E17053E02421FC0700CBCF9E /* XCRemoteSwiftPackageReference "WTKit" */;
+			productName = WTKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E17053A62421FB5100CBCF9E /* Project object */;
 }
