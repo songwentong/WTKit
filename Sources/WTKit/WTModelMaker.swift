@@ -123,6 +123,16 @@ public class WTModelMaker {
         stringToPrint += "//  site:https://github.com/songwentong/ModelMaker\n//  Thank you for use my json model maker😜\n//\n\n"
         return stringToPrint;
     }
+    private func keyTransform(with origin:String) -> String {
+        return nameReplace(with: keyReplace(with: origin))
+    }
+    private func keyReplace(with origin:String)->String{
+        if useCodingKey{
+            return origin.replacingOccurrences(of: "-", with: "_")
+        }else{
+            return origin
+        }
+    }
     private func nameReplace(with origin:String)->String{
         if commonKeywords.contains(origin){
             if useCodingKey{
@@ -130,6 +140,8 @@ public class WTModelMaker {
             }else{
                 return "`\(origin)`"
             }
+        }else{
+            
         }
         return origin
     }
@@ -175,11 +187,11 @@ public class WTModelMaker {
         }
         
         codingKeys = "    enum CodingKeys: String, CodingKey {" + crlf
-        let formatedString = jsonString.replacingOccurrences(of: "-", with: "_")
+//        let formatedString = jsonString.replacingOccurrences(of: "-", with: "_")
         var propertyNames = [String]()
         var jsonObject:Any? = nil
         do {
-            if let data = formatedString.data(using: String.Encoding.utf8){
+            if let data = jsonString.data(using: String.Encoding.utf8){
                 jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
             }
         } catch {
@@ -188,7 +200,7 @@ public class WTModelMaker {
         if let printObject = jsonObject as? [String:AnyObject] {
             for (key,value) in printObject{
                 //object k-v
-                let nameReplacedKey = nameReplace(with: key)
+                let nameReplacedKey = keyTransform(with: key)
                 propertyNames.append(nameReplacedKey)
                 stringToPrint += crlf
                 stringToPrint += indent
