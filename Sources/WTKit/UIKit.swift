@@ -374,6 +374,32 @@ public extension CALayer{
             }
         }
     }
+    func pause() {
+        /*
+         timeOffset用于动画延时
+         speed用于动画速度
+         */
+        //拿到暂停的时间
+        let pausedTime = convertTime(CACurrentMediaTime(), to: nil)
+        //暂停动画
+        speed = 0
+        //设置延时时间
+        timeOffset = pausedTime
+    }
+    func resume() {
+        //拿到延时的时间
+        let pausedTime = timeOffset
+        //速度恢复
+        speed = 1
+        //延时设置为0
+        timeOffset = 0
+        //开始时间设置为0
+        beginTime = 0
+        //从暂停到现在的时间 = 当前时间 - 暂停时间
+        let timeSincePause = convertTime(CACurrentMediaTime(), from: nil) - pausedTime
+        //设置开始时间
+        beginTime = timeSincePause
+    }
 }
 
 public extension CGColor{
