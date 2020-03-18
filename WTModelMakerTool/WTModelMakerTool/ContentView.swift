@@ -10,8 +10,18 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        VStack{
+            HStack {
+                VStack{
+                    Text("File Path")
+                }.frame(width: 100, height: 40, alignment: .center)
+                Text("Hello, World!")
+                Text("Hello, World!")
+            }
+            HStack { Text("Placeholder\ndsadsas").frame(width: 300, height: 300, alignment: .center)
+                Text("import Foundation").frame(width: 300, height: 300, alignment: .center)
+            }
+        }
     }
 }
 
