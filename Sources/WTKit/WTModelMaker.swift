@@ -175,10 +175,11 @@ public class WTModelMaker {
         }
         
         codingKeys = "    enum CodingKeys: String, CodingKey {" + crlf
+        let formatedString = jsonString.replacingOccurrences(of: "-", with: "_")
         var propertyNames = [String]()
         var jsonObject:Any? = nil
         do {
-            if let data = jsonString.data(using: String.Encoding.utf8){
+            if let data = formatedString.data(using: String.Encoding.utf8){
                 jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
             }
         } catch {
