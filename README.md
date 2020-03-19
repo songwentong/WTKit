@@ -22,6 +22,10 @@ WTKit is my swift accumulated experience,I think WTKit could help you to improve
 WTKit provides a variety of convenience methods for making HTTP requests.
 
 ```swift
+public extension URLSession{
+    ///this method can make a urlrequest and convert result to Codable instance
+    func dataTaskWith<T:Codable>( request:URLRequest, testData:Data? = nil, codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{}
+}
 public class HttpBin:NSObject, Codable {
     var url:String = ""
     var origin:String = ""
@@ -34,6 +38,7 @@ let request = "https://httpbin.org/get".urlRequest
 let task = WT.dataTaskWith(request:request,
  codable: { (model:HttpBin) in
 //model is parsed  Codable instance
+    print("\(model)")
         }) { (data, res, err) in
 
         }
@@ -48,7 +53,16 @@ this feature is only effect on DEBUG
 let simData =
 """
 {
-  "origin": "123.120.230.73",
+  "args": {},
+  "headers": {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "zh-cn",
+    "Host": "httpbin.org",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15",
+    "X-Amzn-Trace-Id": "Root=1-5e716637-2f2252cc4747e55326ef4a08"
+  },
+  "origin": "123.112.227.96",
   "url": "https://httpbin.org/get"
 }
 """
