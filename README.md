@@ -271,7 +271,7 @@ let vc:CustromVC = CustromVC.instanceFromStoryBoard()
 
 let vc2:CustromVC = CustromVC.instanceFromNib()
 //create instance from nib file
-```swift
+```
 ## Local Manager
 
 edit customBundle of Bundle can change local language easily
