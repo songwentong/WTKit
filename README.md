@@ -43,12 +43,12 @@ let task = WT.dataTaskWith(request:request,
 
         }
 task.resume()
-```
+```swift
 
 ## simulation response data
 
 this feature is only effect on DEBUG
-```
+```swift
 //Simulation data
 let simData =
 """
@@ -78,32 +78,32 @@ WT.dataTaskWith(request: req, testData: simData,
 
 }
 
-```
+```swift
 
 ## cURL Command Output
 
 Debug tool
-```
+```swift
 let request = "https://httpbin.org/get".urlRequest
 print(request.printer)
-```
+```swift
 or you can print it in lldb:
 
-```
+```swift
 (lldb) po request.printer
-```
+```swift
 
 
 This should produce:
 
-```
+```swift
 $ curl -v \
 -X GET \
 -H "Accept-Language: en;q=1.0" \
 -H "Accept-Encoding: br;q=1.0, gzip;q=0.9, deflate;q=0.8" \
 -H "User-Agent: Demo/1.0 (com.demo.Demo; build:1; iOS 13.0.0) WTKit/1.0" \
 "https://httpbin.org/get"
-```
+```swift
 ![](https://github.com/songwentong/WTKit/blob/master/images/printer.png)
 
 ## WTModelMaker
@@ -120,7 +120,7 @@ model using CodkingKeys by default,you can rename map easily.
 ![](https://github.com/songwentong/WTKit/blob/master/images/noDesc.png)
 ### with description/debugDescription
 ![](https://github.com/songwentong/WTKit/blob/master/images/desc.png)
-```
+```swift
 print(obj)
 //or
 (lldb) po obj
@@ -137,13 +137,13 @@ Accept-Encoding:gzip, deflate, br
 X-Amzn-Trace-Id:Root=1-5e6b977f-43ebdc40121912f0bb6dc3d0
 origin:123.120.230.73
 */
-```
+```swift
 
 ## Encodable extension
 
 create json data from encodable objec
 
-```
+```swift
 let obj:Encodable
 print(obj.jsonString)
 //or
@@ -155,34 +155,34 @@ print(obj.jsonString)
   "url": "https://httpbin.org/get"
 }
 
-```
+```swift
 
 ## String hex color
 
-```
+```swift
 "f".hexColor //white UIColor,it same as "ffffff"
 "#3".hexColor //same as 333333
 "ff0000".hexColor//red UIColor
 "ff0000".hexCGColor//red CGColor
-```
+```swift
 
 ## WTGradientView
 
 An UIView hold CAGradientView edit it's property will take effect on it's layer.
 
-```
+```swift
 let gview = WTGradientView()
 gview.colors = ["f".hexCGColor, "990000".hexCGColor]
 gview.locations = [0, 1]
 gview.startPoint = CGPoint(x: 0, y: 0.5)
 gview.endPoint = CGPoint(x: 1, y: 0.5)
 //it will effect on it's CAGradientView automatic
-```
+```swift
 
 ## UINib extension
 UINibReusableCell protocol
 
-```
+```swift
 class Cell:UITableViewCell,UINibReusableCell{
 
 }
@@ -191,12 +191,12 @@ let nib:UINib = Cell.nib()
 //Cell,like it's class name
 let reuseID:String = Cell.reuseIdentifier
 
-```
+```swift
 
 ## Version Track
 feature to log build history
 
-```
+```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
   application.track()//track twice no effect
   application.versionHistory()//version history
@@ -204,11 +204,11 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
   application.isFirstLaunchForBuild//check is first build
 }
 
-```
+```swift
 
 ## WT Table Model
 The abstract strategy for object-oriented development is used here, which is also the embodiment of the Model part in the MVC pattern.using Protocol oriented programming to describe UITableView as a Model,this will be more flexible,no class tree's constraint.
-```
+```swift
 //cell model
 public protocol UITableViewCellModel{
     var reuseIdentifier: String{get set}
@@ -223,9 +223,9 @@ public protocol UITableViewSectionModel {
 public protocol UITableViewModel {
     var sections:[UITableViewSectionModel]{get set}
 }
-```
+```swift
 more
-```
+```swift
 //you can use this protocol to describe some Cells more info
 public protocol UITableViewCellDetailModel:UITableViewCellModel {
     var height:CGFloat{get set}
@@ -234,10 +234,10 @@ public protocol UITableViewCellDetailModel:UITableViewCellModel {
     var prefetchAction:DispatchWorkItem?{get set}
     var cancelPrefetchingAction:DispatchWorkItem?{get set}
 }
-```
+```swift
 #### send data.
 #### these methods is suitable for all case using WTTableModel.
-```
+```swift
 public protocol UITableViewCellModelHolder {
     var model:UITableViewCellModel?{get set}
 }
@@ -250,28 +250,28 @@ public extension UITableView{
         return cell
     }
 }
-```
+```swift
 ## UIView + Xib
 create UIView(or subclass) from nib,when you may want to reuse UIView in xib file, you can use it, I suggest you use UITableViewCell instead of UIVIew,because it has a contentVie w, no file's owner issue.
-```
+```swift
 let myView:MyView = MyView.instanceFromXib()
 //create MyView instance from xib file
 //usually use it as UITableViewCell sub class to avoid file owner issue
-```
+```swift
 
 ## UIViewController + IB
 create UIViewController instance from storyboard/nib
-```
+```swift
 let vc:CustromVC = CustromVC.instanceFromStoryBoard()
 //this func is create instance from you Storyboard's root VC
 
 let vc2:CustromVC = CustromVC.instanceFromNib()
 //create instance from nib file
-```
+```swift
 ## Local Manager
 
 edit customBundle of Bundle can change local language easily
-```
+```swift
 //using english
 Bundle.customBundle = enUS
 print("language".customLocalizedString)
@@ -285,7 +285,7 @@ print("language".customLocalizedString)
 //语言
 print("english".customLocalizedString)
 //英语
-```
+```swift
 
 
 ## Installation
@@ -294,7 +294,7 @@ From Xcode 11, you can use Swift Package Manager to add Kingfisher to your proje
  - Select File > Swift Packages > Add Package Dependency. Enter https://github.com/songwentong/WTKit.git in the "Choose Package Repository" dialog.
  - In the next page, specify the  rule as master branch
  - After Xcode checking out the source and resolving the version, you can choose the "WTKit" library and add it to your app target.
-```
+```swift
 https://github.com/songwentong/WTKit.git
-```
+```swift
 ![](https://github.com/songwentong/WTKit/blob/master/images/swiftPackage.png)
