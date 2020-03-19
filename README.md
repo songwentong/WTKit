@@ -86,12 +86,12 @@ Debug tool
 ```swift
 let request = "https://httpbin.org/get".urlRequest
 print(request.printer)
-```swift
+```
 or you can print it in lldb:
 
 ```swift
 (lldb) po request.printer
-```swift
+```
 
 
 This should produce:
