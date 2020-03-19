@@ -189,10 +189,12 @@ class Cell:UITableViewCell,UINibReusableCell{
 //Cell,like it's class name
 let reuseID:String = Cell.reuseIdentifier
 print("\(reuseID)")
-//it's equals to class name
+//Cell
 
 //auto load it's nib file(if class name equal to xib file)
 let nib:UINib = Cell.nib()
+
+//you can use this nib and reuseId to regist/dequeue use the cell
 ```
 
 ## Version Track
