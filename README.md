@@ -43,7 +43,7 @@ let task = WT.dataTaskWith(request:request,
 
         }
 task.resume()
-```swift
+```
 
 ## simulation response data
 
@@ -78,7 +78,7 @@ WT.dataTaskWith(request: req, testData: simData,
 
 }
 
-```swift
+```
 
 ## cURL Command Output
 
@@ -103,7 +103,7 @@ $ curl -v \
 -H "Accept-Encoding: br;q=1.0, gzip;q=0.9, deflate;q=0.8" \
 -H "User-Agent: Demo/1.0 (com.demo.Demo; build:1; iOS 13.0.0) WTKit/1.0" \
 "https://httpbin.org/get"
-```swift
+```
 ![](https://github.com/songwentong/WTKit/blob/master/images/printer.png)
 
 ## WTModelMaker
@@ -137,7 +137,7 @@ Accept-Encoding:gzip, deflate, br
 X-Amzn-Trace-Id:Root=1-5e6b977f-43ebdc40121912f0bb6dc3d0
 origin:123.120.230.73
 */
-```swift
+```
 
 ## Encodable extension
 
@@ -155,7 +155,7 @@ print(obj.jsonString)
   "url": "https://httpbin.org/get"
 }
 
-```swift
+```
 
 ## String hex color
 
@@ -177,7 +177,7 @@ gview.locations = [0, 1]
 gview.startPoint = CGPoint(x: 0, y: 0.5)
 gview.endPoint = CGPoint(x: 1, y: 0.5)
 //it will effect on it's CAGradientView automatic
-```swift
+```
 
 ## UINib extension
 UINibReusableCell protocol
@@ -191,7 +191,7 @@ let nib:UINib = Cell.nib()
 //Cell,like it's class name
 let reuseID:String = Cell.reuseIdentifier
 
-```swift
+```
 
 ## Version Track
 feature to log build history
@@ -204,7 +204,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
   application.isFirstLaunchForBuild//check is first build
 }
 
-```swift
+```
 
 ## WT Table Model
 The abstract strategy for object-oriented development is used here, which is also the embodiment of the Model part in the MVC pattern.using Protocol oriented programming to describe UITableView as a Model,this will be more flexible,no class tree's constraint.
@@ -223,7 +223,7 @@ public protocol UITableViewSectionModel {
 public protocol UITableViewModel {
     var sections:[UITableViewSectionModel]{get set}
 }
-```swift
+```
 more
 ```swift
 //you can use this protocol to describe some Cells more info
@@ -234,7 +234,7 @@ public protocol UITableViewCellDetailModel:UITableViewCellModel {
     var prefetchAction:DispatchWorkItem?{get set}
     var cancelPrefetchingAction:DispatchWorkItem?{get set}
 }
-```swift
+```
 #### send data.
 #### these methods is suitable for all case using WTTableModel.
 ```swift
@@ -250,14 +250,14 @@ public extension UITableView{
         return cell
     }
 }
-```swift
+```
 ## UIView + Xib
 create UIView(or subclass) from nib,when you may want to reuse UIView in xib file, you can use it, I suggest you use UITableViewCell instead of UIVIew,because it has a contentVie w, no file's owner issue.
 ```swift
 let myView:MyView = MyView.instanceFromXib()
 //create MyView instance from xib file
 //usually use it as UITableViewCell sub class to avoid file owner issue
-```swift
+```
 
 ## UIViewController + IB
 create UIViewController instance from storyboard/nib
@@ -285,7 +285,7 @@ print("language".customLocalizedString)
 //语言
 print("english".customLocalizedString)
 //英语
-```swift
+```
 
 
 ## Installation
