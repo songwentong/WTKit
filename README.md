@@ -180,10 +180,10 @@ gview.endPoint = CGPoint(x: 1, y: 0.5)
 ```
 
 ## UINib extension
-UINibReusableCell protocol
+UINibView protocol
 
 ```swift
-class Cell:UITableViewCell,UINibReusableCell{
+class Cell:UITableViewCell,UINibView{
 
 }
 //Cell,like it's class name
