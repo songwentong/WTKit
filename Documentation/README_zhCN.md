@@ -21,7 +21,7 @@ WTKit是我积累的经验,我认为WTKit可以帮助您提高开发效率。
 ## 发出请求,返回Codable对象
 WTKit提供了多种方便的方法来发出HTTP请求。
 
-```
+```swift
 public class HttpBin:NSObject,Codable{
     var url:String =""
     var origin:String =""
@@ -43,7 +43,7 @@ task.resume()
 ## 模拟URL响应数据
 
 此功能仅对调试有效
-```
+```swift
 //模拟数据
 let simData =
 """
@@ -69,20 +69,20 @@ WT.dataTaskWith(request:req,testData:simData,
 ## cURL命令输出
 
 调试工具
-```
+```swift
 let request ="https://httpbin.org/get".urlRequest
 print(request.printer)
 ```
 或者您可以在lldb中打印它:
 
-```
+```swift
 (lldb)po request.printer
 ```
 
 
 这应该产生:
 
-```
+```swift
 $ curl -v \
 -X GET \
 -H "Accept-Language: en;q=1.0" \
@@ -106,7 +106,7 @@ Mac上的其他Xcode App,使用它来创建Codable文件的便利性,只需复�
 ![](https://github.com/songwentong/WTKit/blob/master/images/noDesc.png)
 ### 带有描述 / 调试说明
 ![](https://github.com/songwentong/WTKit/blob/master/images/desc.png)
-```
+```swift
 print(obj)
 //or
 (lldb) po obj
@@ -129,7 +129,7 @@ origin:123.120.230.73
 
 从Codable 对象创建json数据
 
-```
+```swift
 let obj:Codable
 打印(obj.jsonString)
 //要么
@@ -145,7 +145,7 @@ let obj:Codable
 
 ## 十六进制颜色
 
-```
+```swift
 "f".hexColor //白色的UIColor,与"ffffff"相同
 "＃3".hexColor //与333333相同
 "ff0000".hexColor //红色UIColor
@@ -156,7 +156,7 @@ let obj:Codable
 
 一个UIView按住CAGradientView编辑,其属性将在其图层上生效。
 
-```
+```swift
 let gview = WTGradientView()
 gview.colors = ["f".hexCGColor,"990000".hexCGColor]
 gview.locations = [0,1]
@@ -168,7 +168,7 @@ gview.endPoint = CGPoint(x:1,y:0.5)
 ## UINib扩展
 UINibReusableCell协议
 
-```
+```swift
 Cell类:UITableViewCell,UINibReusableCell {
 
 }
@@ -182,7 +182,7 @@ let ReuseID:String = Cell.reuseIdentifier
 ## 版本跟踪
 记录构建历史记录的功能
 
-```
+```swift
 func application(_ application:UIApplication,didFinishLaunchingWithOptions launchOptions:[UIApplication.LaunchOptionsKey:Any]？)->布尔{
   application.track()// track两次无效
   application.versionHistory()//版本历史
@@ -191,7 +191,7 @@ func application(_ application:UIApplication,didFinishLaunchingWithOptions launc
 ```
 ## WT Table Model
 这里使用面向对象开发的抽象策略,这也是MVC模式中Model部分的体现。使用面向协议的编程将UITableView描述为Model,这将更加灵活,没有类树的约束。
-```
+```swift
 //cell model
 public protocol UITableViewCellModel{
     var reuseIdentifier: String{get set}
@@ -208,7 +208,7 @@ public protocol UITableViewModel {
 }
 ```
 更多
-```
+```swift
 //您可以使用此协议来描述某些单元格的更多信息
 public extension UITableViewCellDetailModel:UITableViewCellModel {
     var height:CGFloat {get set}
@@ -220,7 +220,7 @@ public extension UITableViewCellDetailModel:UITableViewCellModel {
 ```
 #### 发送数据。
 #### 这些方法适用于所有使用WTTableModel的情况。
-```
+```swift
 public protocol UITableViewCellModelHolder {
     var model:UITableViewCellModel？{get set}
 }
@@ -236,7 +236,7 @@ public extension UITableView {
 ```
 ## UIView + Xib
 从nib文件创建UIView(或子类)的实例,当您想在xib文件中重用UIView时,可以使用它,建议您使用UITableViewCell而不是UIVIew,因为它具有contentView,没有文件的所有者问题。
-```
+```swift
 let myView:MyView = MyView.instanceFromXib()
 //从xib文件创建MyView实例
 //通常将其用作UITableViewCell子类,以避免文件所有者问题
@@ -244,17 +244,17 @@ let myView:MyView = MyView.instanceFromXib()
 
 ## UIViewController + IB
 从Storyboard / nib创建UIViewController实例
-```
+```swift
 let vc:CustromVC = CustromVC.instanceFromStoryBoard()
 //此函数是从Storyboard的根VC创建实例
 
 let vc2:CustromVC = CustromVC.instanceFromNib()
 //从nib文件创建实例
 ```
-##本地经理
+## 本地语言
 
 编辑customBundle捆绑包可以轻松更改本地语言
-```
+```swift
 //使用英语
 Bundle.customBundle = enUS
 print("language".customLocalizedString)
