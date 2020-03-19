@@ -164,7 +164,7 @@ print(obj.jsonString)
 "#3".hexColor //same as 333333
 "ff0000".hexColor//red UIColor
 "ff0000".hexCGColor//red CGColor
-```swift
+```
 
 ## WTGradientView
 
