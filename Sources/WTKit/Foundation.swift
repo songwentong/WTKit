@@ -120,6 +120,7 @@ public extension String{
 """
         return str
     }
+//    https://docs.swift.org/swift-book/ReferenceManual/LexicalStructure.html
     static let systemKeyWords:[String] = {
         ["super","class","var","let","struct","func","private","public","return","import","protocol","default","open","Type","lazy","in","for","while","do","self","inout","@objc","open","fileprivate","default","subscript","static","case","if","else","deinit","extension","continue","operator","init","_","fallthrough","internal","true","false","switch","dynamic","typealias"]
     }()
