@@ -45,7 +45,7 @@ let task = WT.dataTaskWith(request:request,
 task.resume()
 ```
 
-## simulation response data
+## Simulation response data
 
 this feature is only effect on DEBUG
 ```swift
