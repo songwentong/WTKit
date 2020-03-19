@@ -186,11 +186,13 @@ UINibReusableCell protocol
 class Cell:UITableViewCell,UINibReusableCell{
 
 }
-//auto load it's nib file
-let nib:UINib = Cell.nib()
 //Cell,like it's class name
 let reuseID:String = Cell.reuseIdentifier
+print("\(reuseID)")
+//it's equals to class name
 
+//auto load it's nib file(if class name equal to xib file)
+let nib:UINib = Cell.nib()
 ```
 
 ## Version Track
