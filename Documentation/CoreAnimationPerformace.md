@@ -4,7 +4,7 @@ iOS性能优化
 1.少用不透明的Layer,这样可以减少渲染
 
 ### Use Simpler Paths for CAShapeLayer Objects
-2.CAShapeLayer图形绘制尽量简化.如果path过于复杂,光栅化的成本就会过高,如果一个layey的大小频繁更改（因此必须频繁重绘），则绘制所花费的时间可能加起来并成为性能瓶颈。
+2.CAShapeLayer图形绘制尽量简化.如果path过于复杂,光栅化的成本就会过高,如果一个layer的大小频繁更改（因此必须频繁重绘），则绘制所花费的时间可能加起来并成为性能瓶颈。
 
 一个优化的方案是把一个复杂的图形变成简单的图形.绘制一堆简单的比绘制一个复杂的要更高效.因为重绘操作在CPU上,而合成发生在GPU上,在优化之前需要先检测性能.
 ### Set the Layer Contents Explicitly for Identical Layers
