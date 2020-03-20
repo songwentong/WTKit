@@ -666,9 +666,11 @@ public extension CGContext{
 }
 // MARK: - UIImage
 public extension UIImage{
-//    func test() {
-//        pngData()
-//    }
+    func imageButton() -> UIButton {
+        let b = UIButton.customButton
+        b.setImage(self, for: .normal)
+        return b
+    }
     var imageView:UIImageView{
         UIImageView.init(image: self)
     }
