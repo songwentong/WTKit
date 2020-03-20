@@ -828,6 +828,7 @@ public extension UIScrollView {
     var snapshot: UIImage? {
         // Original Source: https://gist.github.com/thestoics/1204051
         UIGraphicsBeginImageContextWithOptions(contentSize, false, 0)
+        //defer 延时到return之后执行
         defer {
             UIGraphicsEndImageContext()
         }

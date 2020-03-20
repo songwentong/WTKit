@@ -200,10 +200,13 @@ public extension Locale{
     static var posix: Locale {
         return Locale(identifier: "en_US_POSIX")
     }
-    static func en_US() -> Locale {
+    static var en_US: Locale {
         return Locale.init(identifier: "en_US")
     }
-    static func korea() -> Locale{
+    static var zh_CN:Locale{
+        return Locale.init(identifier: "zh_CN")
+    }
+    static var ko_kr: Locale{
         return Locale.init(identifier: "ko-Kore_KR")
     }
 }
