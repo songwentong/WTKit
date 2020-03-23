@@ -11,6 +11,14 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         Text("Hello, World!")
+            .font(.largeTitle)
+            .fontWeight(.medium)
+            .padding(12.8)
+            
+            
+            
+            
+            
     }
 }
 
