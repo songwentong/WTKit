@@ -17,12 +17,12 @@ let df = DateFormatter()
 let date = Date(time)
 return df.stringFromDate(date)
 }
-///根据性别给出颜色
+///根据性别给出图片
 func maleColor()->UIColor{
-if male == 0{
-return UIColor.blueColor
+if sex == 0{
+return "male".namedUIImage
 }else{
-return UIColor.redColor
+return "female".namedUIImage
 }
 }
 
