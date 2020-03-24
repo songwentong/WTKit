@@ -928,6 +928,9 @@ public extension Encodable{
     ///use in lldb to print jsonstring,like(lldb) po obj.printJSONString()
     ///this method is only recommanded use in lldb,so it's in debug mode
     func lldbPrint() {
+
+        
+        
         print("\(jsonString)")
     }
     #endif
@@ -953,3 +956,20 @@ public extension Collection where Element == String {
         }.joined(separator: ", ")
     }
 }
+
+class BaseModel<T:Codable>:Codable{
+    var code:Int = 0
+    var msg:String = ""
+    var obj:T?
+}
+
+class SubModel: Codable {
+    
+}
+/*
+do{
+    _ = try JSONDecoder().decode(BaseModel<SubModel>.self, from: "dasd".utf8Data)
+}catch{
+    
+}
+*/
