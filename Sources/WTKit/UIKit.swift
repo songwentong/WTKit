@@ -109,11 +109,9 @@ public extension UIColor{
     static var color3:UIColor{
         return "3".hexColor
     }
-    
     static var color6:UIColor{
         return "6".hexColor
     }
-    
     static var color9:UIColor{
         return "9".hexColor
     }
