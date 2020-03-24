@@ -207,6 +207,8 @@ view.showTextTip(text:"tip")
 ///debug tip,show only in debug mode
 view.debugTip(text:"tip")
 ```
+effect:
+![](https://github.com/songwentong/WTKit/blob/master/images/tipText.png)
 
 ## Version Track
 feature to log build history
