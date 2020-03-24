@@ -200,6 +200,14 @@ let nib:UINib = Cell.nib()
 //you can use this nib and reuseId to regist/dequeue use the cell
 ```
 
+## HUD View
+```swift
+///normal tip
+view.showTextTip(text:"tip")
+///debug tip,show only in debug mode
+view.debugTip(text:"tip")
+```
+
 ## Version Track
 feature to log build history
 

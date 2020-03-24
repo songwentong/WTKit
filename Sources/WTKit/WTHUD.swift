@@ -15,11 +15,24 @@ public extension UIApplication{
     static func hideLoadingView(){
         shared.windows.first?.hideLoadingView()
     }
+    ///tip view show only in debug mode
+    static func debugTip(with string:String){
+        #if DEBUG
+        showTextTip(with: string)
+        #endif
+    }
     static func showTextTip(with string:String, hideDelay:TimeInterval = 2) {
         findKeyWindow()?.showTextTip(with: string, hideDelay: hideDelay)
     }
 }
 public extension UIView{
+    ///tip view show only in debug mode
+    static func debugTip(with string:String){
+        #if DEBUG
+        UIApplication.showTextTip(with: string)
+        #endif
+    }
+    
     func showLoadingView() {
         hideLoadingView()
         let loadingView = LoadingView.init(frame: self.bounds)
