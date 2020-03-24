@@ -106,6 +106,18 @@ public extension UIDevice{
 }
 // MARK: - UIColor
 public extension UIColor{
+    static var color3:UIColor{
+        return "3".hexColor
+    }
+    
+    static var color6:UIColor{
+        return "6".hexColor
+    }
+    
+    static var color9:UIColor{
+        return "9".hexColor
+    }
+    
     //    func randomColor() -> UIColor {
     //        UIColor.init(red: CGFloat.random(in: ClosedRange.i), green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>)
     //    }
