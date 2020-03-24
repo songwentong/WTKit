@@ -583,10 +583,18 @@ public extension URLSession{
         return task
     }
     #if canImport(Combine)
+    /**
+     这是一个函数式的模式
+     1.map  数据map,例如把Data变成一个Codable的数据
+     2.receive 交付线程.
+     3.sink 处理error
+     3.receiveValue 处理正常数据
+     */
     private func testCombine() {
         if #available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
             _ = URLSession.shared.dataTaskPublisher(for: "https://www.apple.com".urlRequest).map { (arg0) -> Int in
-                let (data, _) = arg0
+                let (data, res) = arg0
+                print("\(res)")
                 do{
                     let obj = try JSONDecoder().decode(Int.self, from: data)
                     return obj
@@ -595,7 +603,7 @@ public extension URLSession{
                 }
             }.receive(on: RunLoop.main).sink(receiveCompletion: { (err) in
                 print("\(err)")
-            }) { (value) in
+                }) { (value) in
                 
             }
         } else {
