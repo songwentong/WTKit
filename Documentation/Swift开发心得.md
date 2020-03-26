@@ -37,10 +37,12 @@
 https双向认证
 ### 大量数据刷新的处理
 
+### extension不能被继承
+一个类的extension实现了一条协议,自身是可以使用的,但是子类不能用,子类不继承任何extension功能
 
 ### swift protocol 和OC protocol不同
 1. OC支持可选方法,一般有一个NSObjectProtocol作为根协议
-2. swift协议可以被struct继承
+2. swift协议可以被struct实现
 
 ### swift 如何保证单例
 
@@ -48,6 +50,7 @@ https双向认证
 1. 可以用系统方法,提供缩放比
 2. 可以减少颜色位数,比如24位的图改为8位
 
+### 大图片加载
 
 ### Swift心得
 1.Extension给Model扩展

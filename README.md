@@ -184,7 +184,7 @@ gview.endPoint = CGPoint(x: 1, y: 0.5)
 //it will effect on it's CAGradientView automatic
 ```
 
-## UINib extension
+## UINibView protocol/extension
 UINibView protocol
 
 ```swift
