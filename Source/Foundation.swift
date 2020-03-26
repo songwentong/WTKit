@@ -957,14 +957,14 @@ public extension Collection where Element == String {
     }
 }
 
-class BaseModel<T:Codable>:Codable{
+private class BaseModel<T:Codable>:Codable{
     var code:Int = 0
     var msg:String = ""
     var obj:T?
 }
 
-class SubModel: Codable {
-    
+private class SubModel: Codable {
+    var state:Int = 0
 }
 /*
 do{
