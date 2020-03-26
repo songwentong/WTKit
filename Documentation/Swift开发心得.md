@@ -4,7 +4,17 @@
 2. Mach-O加载
 3. 程序执行
 
-### 白屏处理
+- 详细描述
+1. 加载dyld到App进程
+2. 加载动态库（包括所依赖的所有动态库）
+3. Rebase
+4. Bind
+5. 初始化Objective C Runtime
+6. 其它的初始化代码
+
+- 在Xcode中，可以通过设置环境变量来查看App的启动时间，DYLD_PRINT_STATISTICS和DYLD_PRINT_STATISTICS_DETAILS。
+
+### 启动优化
 1. 移除不需要用到的动态库
 2. 移除不需要用到的类
 3. 合并功能类似的类和扩展
