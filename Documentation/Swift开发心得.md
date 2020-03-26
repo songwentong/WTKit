@@ -39,8 +39,9 @@ https双向认证
 
 
 ### swift protocol 和OC protocol不同
-1. OC支持可选方法
-2.
+1. OC支持可选方法,一般有一个NSObjectProtocol作为根协议
+2. swift协议可以被struct继承
+
 ### swift 如何保证单例
 
 ### 图片压缩
