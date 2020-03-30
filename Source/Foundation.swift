@@ -24,6 +24,12 @@ public func cprint<T>(_ items: T,  separator: String = " ", terminator: String =
 }
 // MARK: - String
 public extension String{
+    
+    ///[UInt8] Array
+    var toBytes:[UInt8] {
+        return Array(utf8)
+    }
+    
     ///get localizedString from main Bundle
     var localizedString: String{
         NSLocalizedString(self, comment: "")
@@ -611,6 +617,70 @@ public extension URLSession{
         }
     }
     #endif
+}
+
+public class WTURLSessionDelegate:NSObject,URLSessionDelegate{
+    var cerNames:[String] = []{
+        didSet{
+            cerPaths = cerNames.map { (str) -> URL in
+                return (Bundle.main.url(forResource: str, withExtension: nil) ?? "".urlValue)
+            }
+        }
+    }
+    var cerPaths:[URL] = []{
+        didSet{
+            cerDatas = cerPaths.compactMap { (url) -> Data? in
+                do{
+                    let data = try Data.init(contentsOf: url)
+                    return data
+                }catch{
+                    
+                }
+                return nil
+            }
+        }
+    }
+    var cerDatas:[Data] = []
+    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void){
+            // Adapted from OWASP https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning#iOS
+            
+            if (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
+                if let serverTrust = challenge.protectionSpace.serverTrust {
+                    if #available(iOS 12.0, *) {
+                        let isServerTrusted = SecTrustEvaluateWithError(serverTrust, nil)
+                        if(isServerTrusted) {
+                            if let serverCertificate = SecTrustGetCertificateAtIndex(serverTrust, 0) {
+                                let serverCertificateData = SecCertificateCopyData(serverCertificate)
+                                guard let data = CFDataGetBytePtr(serverCertificateData) else{
+                                    return
+                                }
+                                let size = CFDataGetLength(serverCertificateData);
+                                let cert1 = Data.init(bytes: data , count: size)
+                                guard let file = Bundle.main.url(forResource: "certificateFile", withExtension: "der") else{
+                                    return
+                                }
+                                guard let cert2 = try? Data.init(contentsOf: file) else{
+                                    return
+                                }
+                                if cert1 == cert2{
+                                    completionHandler(URLSession.AuthChallengeDisposition.useCredential, URLCredential(trust:serverTrust))
+                                    return
+                                }
+                            }
+                        }
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                    
+                    
+                }
+            }
+            
+            // Pinning failed
+            completionHandler(URLSession.AuthChallengeDisposition.cancelAuthenticationChallenge, nil)
+        
+    }
+    
 }
 
 public extension URL{
