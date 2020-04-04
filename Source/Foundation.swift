@@ -263,6 +263,7 @@ public extension BinaryFloatingPoint{
 public extension Int{
 //    var floatValue:T:BinaryFloatingPoint{
 //    }
+    
     var floatValue: Float{
         return Float(self)
     }

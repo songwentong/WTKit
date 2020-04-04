@@ -45,11 +45,41 @@ https双向认证
 ### extension不能被继承
 一个类的extension实现了一条协议,自身是可以使用的,但是子类不能用,子类不继承任何extension功能
 
+### socket
+1. 丢包
+
+2. 粘包
+https://www.cnblogs.com/ChengYing-Freedom/p/8006497.html
+粘包通常出现在TCP的协议里面，对于UDP来说是不会出现粘包状况的，之所以出现这种状况的原因，涉及到一种名为Nagle的算法。
+3. 断包
+
+### 多线程的应用
+
+### struct VC class
+struct更小,更适合在对象之间拷贝和多线程访问,
+不容易内存泄露,class是面向对象思想,struct可以用面向协议思想开发,协议的复用性更高.
+
+struct只有被修改的时候才会真的copy,平时不copy
+
+https://stackoverflow.com/questions/24232799/why-choose-struct-over-class/24243626#24243626
+UPDATE (27 Mar 2018):
+
+As of Swift 4.0, Xcode 9.2, running Release build on iPhone 6S, iOS 11.2.6, Swift Compiler setting is -O -whole-module-optimization:
+
+class version took 2.06 seconds
+struct version took 4.17e-08 seconds (50,000,000 times faster)
+(I no longer average multiple runs, as variances are very small, under 5%)
+
+Note: the difference is a lot less dramatic without whole module optimization. I'd be glad if someone can point out what the flag actually does.
+
+
 ### swift protocol 和OC protocol不同
 1. OC支持可选方法,一般有一个NSObjectProtocol作为根协议
 2. swift协议可以被struct实现
+3. swift可以默认一个扩展来实现
 
 ### swift 如何保证单例
+用@available 把init和new方法给注解为不可用的.
 
 ### 图片压缩
 1. 可以用系统方法,提供缩放比
