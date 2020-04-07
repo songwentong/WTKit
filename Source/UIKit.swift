@@ -100,8 +100,9 @@ public extension UIDevice{
     static var isSimulator:Bool{
         #if targetEnvironment(simulator)
         return true
-        #endif
+        #else
         return false
+        #endif
     }
 }
 // MARK: - UIColor
@@ -1219,6 +1220,14 @@ public extension CGImage{
         return cg
     }
 }
+public class WTView:UIView{
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+}
 #if canImport(Combine)
 //iOS 13+
 #endif
@@ -1226,3 +1235,4 @@ public extension CGImage{
 #endif
 #if compiler(>=5)
 #endif
+
