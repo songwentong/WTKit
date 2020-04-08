@@ -647,7 +647,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDelegate{
             
             if (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
                 if let serverTrust = challenge.protectionSpace.serverTrust {
-                    if #available(iOS 12.0,OSX 10.14, *) {
+                    if #available(iOS 12.0,OSX 10.14, tvOS 12.0,watchOS 5.0, *) {
                         let isServerTrusted = SecTrustEvaluateWithError(serverTrust, nil)
                         if(isServerTrusted) {
                             if let serverCertificate = SecTrustGetCertificateAtIndex(serverTrust, 0) {
