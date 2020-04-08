@@ -86,6 +86,7 @@ Note: the difference is a lot less dramatic without whole module optimization. I
 2. 可以减少颜色位数,比如24位的图改为8位
 
 ### 大图片加载
+CATileLayer,使用的是动态局部加载.默认加载延迟是0.25秒,提升了体验效果.
 
 ## Core Animation 性能技巧
 ### Use Opaque Layers Whenever Possible
