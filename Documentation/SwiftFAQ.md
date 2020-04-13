@@ -114,8 +114,74 @@ drawLayer:inContext: 和drawrect是在主线程同步执行的.
 
 7.抗锯齿也比较吃性能,但是效果好
 
+### 泛型的使用
+ 泛型Model
+```swift
+struct BaseModel<T:Codable>:Codable{
+  var data:T
+  var code:Int
+  var msg:Int
+}
+```
+protocol 使用泛型
+```swift
+protocol Container {
+    associatedtype Item
+    mutating func append(_ item: Item)
+    var count: Int { get }
+    subscript(i: Int) -> Item { get }
+}
 
-### Swift心得
+struct IntStack: Container {
+    // original IntStack implementation
+    var items = [Int]()
+    mutating func push(_ item: Int) {
+        items.append(item)
+    }
+    mutating func pop() -> Int {
+        return items.removeLast()
+    }
+    // conformance to the Container protocol
+    typealias Item = Int
+    mutating func append(_ item: Int) {
+        self.push(item)
+    }
+    var count: Int {
+        return items.count
+    }
+    subscript(i: Int) -> Int {
+        return items[i]
+    }
+}
+```
+可以定义为泛型
+```swift
+struct Stack<Element>: Container {
+    // original Stack<Element> implementation
+    var items = [Element]()
+    mutating func push(_ item: Element) {
+        items.append(item)
+    }
+    mutating func pop() -> Element {
+        return items.removeLast()
+    }
+    // conformance to the Container protocol
+    mutating func append(_ item: Element) {
+        self.push(item)
+    }
+    var count: Int {
+        return items.count
+    }
+    subscript(i: Int) -> Element {
+        return items[i]
+    }
+}
+```
+
+### rethrow是干嘛的
+rethrow是用于闭包抛出的异常再次被抛出
+
+### extension 的运用
 1.Extension给Model扩展
 举个例子
 ```swift
