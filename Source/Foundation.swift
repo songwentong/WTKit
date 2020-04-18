@@ -209,11 +209,14 @@ public extension Locale{
     static var en_US: Locale {
         return Locale.init(identifier: "en_US")
     }
-    static var zh_CN:Locale{
+    static var zh_CN: Locale{
         return Locale.init(identifier: "zh_CN")
     }
     static var ko_kr: Locale{
         return Locale.init(identifier: "ko-Kore_KR")
+    }
+    static var fr_FR:Locale{
+        return Locale.init(identifier: "fr_FR")
     }
 }
 public extension BinaryInteger{
