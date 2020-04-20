@@ -316,4 +316,8 @@ From Xcode 11, you can use Swift Package Manager to add Kingfisher to your proje
 ```swift
 https://github.com/songwentong/WTKit.git
 ```
+or
+```
+.package(url: "https://github.com/songwentong/WTKit.git", from: "3.0.0"),
+```
 ![](https://github.com/songwentong/WTKit/blob/master/images/swiftPackage.png)
