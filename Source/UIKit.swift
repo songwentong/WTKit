@@ -870,7 +870,7 @@ public extension UIWindow{
     
 }
 public extension Bundle{
-    //load file form UINib,if you want to use class from,please use UITableViewCell subclass to avoid file's owner issue
+    ///load file from UINib,if you want to use class from,please use UITableViewCell subclass to avoid file's owner issue
     func loadViewFromNibFile<T:UINibView>(with type:T.Type) -> T? {
         guard let list = loadNibNamed(T.reuseIdentifier, owner: nil, options: nil) else{
             return nil

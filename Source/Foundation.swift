@@ -829,10 +829,11 @@ public extension DateFormatter{
 }
 // MARK: - Bundle
 public extension Bundle{
+    ///bundle file name ,default is app name
     class func appBundleName()->String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleName")  as? String ?? "Unknown"
     }
-    //bundleid  eg.2345678
+    //bundleid  eg.com.abc.test
     class func appBundleID()->String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as? String ?? "Unknown"
     }
@@ -844,16 +845,19 @@ public extension Bundle{
     static func appVersion()->String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Unknown"
     }
+    //USA
     static var enUS:Bundle = {
         let path:String = Bundle.main.path(forResource: "zh_CN", ofType: "lproj") ?? ""
         let bundle:Bundle = Bundle.init(path: path) ?? Bundle.main
         return bundle
     }()
+    //chinese
     static var zhCN:Bundle = {
         let path:String = Bundle.main.path(forResource: "zh_CN", ofType: "lproj") ?? ""
         let bundle:Bundle = Bundle.init(path: path) ?? Bundle.main
         return bundle
     }()
+    ///using for language switch
     static var customBundle:Bundle = Bundle.main
 }
 public func NSLibraryDirectory() -> String{
