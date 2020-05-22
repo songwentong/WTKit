@@ -882,6 +882,14 @@ public extension Bundle{
         }
         return nil
     }
+    ///从本bundle中读取文件
+    func loadImageWith(name str:String) -> UIImage?{
+        if #available(iOS 13.0, *) {
+            return UIImage.init(named: str, in: self, with: nil)
+        } else {
+            return UIImage.init(named: str, in: self, compatibleWith: nil)
+        }
+    }
 }
 
 @available(iOS 13.0, *)

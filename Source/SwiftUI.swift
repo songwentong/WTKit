@@ -42,7 +42,8 @@ public struct WTImage:SwiftUI.View{
 #endif
 
 struct SwiftUI_Previews: PreviewProvider {
+    @available(iOS 13.0.0, *)
     static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+        return /*@START_MENU_TOKEN@*/Text("Hello, World!")
     }
 }
