@@ -552,6 +552,7 @@ public extension URLSession{
         let task = self.dataTask(with: request) {  (data, response, err) in
             var errorToReturn = err
             #if DEBUG
+            ///如果在debug模式下使用了测试数据，就使用测试数据
             if let td = testData {
                 do {
                     let result = try JSONDecoder().decode(T.self, from: td)//类型转换
@@ -746,16 +747,12 @@ public extension URLSessionConfiguration{
     static var defaulAcceptEncoding:String{
         
         let encodings: [String]
-        #if DEBUG
-        return "compress;q=1.0"
-        #else
         if #available(iOS 11.0, macOS 10.13, tvOS 11.0, watchOS 4.0, *) {
             encodings = ["br", "gzip", "deflate"]
         } else {
             encodings = ["gzip", "deflate"]
         }
         return encodings.qualityEncoded()
-        #endif
     }
     ///"Accept-Language"
     static var defaultLanguage:String{
@@ -1006,9 +1003,6 @@ public extension Encodable{
     ///use in lldb to print jsonstring,like(lldb) po obj.printJSONString()
     ///this method is only recommanded use in lldb,so it's in debug mode
     func lldbPrint() {
-
-        
-        
         print("\(jsonString)")
     }
     #endif
