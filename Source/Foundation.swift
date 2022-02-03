@@ -24,12 +24,12 @@ public func cprint<T>(_ items: T,  separator: String = " ", terminator: String =
 }
 // MARK: - String
 public extension String{
-    
+
     ///[UInt8] Array
     var toBytes:[UInt8] {
         return Array(utf8)
     }
-    
+
     ///get localizedString from main Bundle
     var localizedString: String{
         NSLocalizedString(self, comment: "")
@@ -69,7 +69,7 @@ public extension String{
     var urlRequest:URLRequest{
         URLRequest.init(url: self.urlValue)
     }
-    
+
     var characterSet:CharacterSet{
         return CharacterSet.init(charactersIn: self)
     }
@@ -133,10 +133,10 @@ public extension String{
     var escapeString:String {
         addingPercentEncoding(withAllowedCharacters: CharacterSet.wtURLQueryAllowed) ?? self
     }
-    
+
 }
 public extension NotificationCenter{
-    
+
 }
 
 private let testJSON =
@@ -157,14 +157,14 @@ public extension Data{
     func jsonObject(options: JSONSerialization.ReadingOptions = []) throws -> Any {
         return try JSONSerialization.jsonObject(with: self, options: options)
     }
-    
-    
+
+
     func writeToFile( path:String)  {
         let url = URL.init(fileURLWithPath: path)
         do {
             try write(to: url)
         } catch {
-            
+
         }
     }
     static func readDataFromPath( path:String)->Data?{
@@ -186,7 +186,7 @@ public extension Data{
             return nil
         }
     }
-    
+
 }
 ///block run in debug mode
 public func debugBlock(_ block:()->Void) -> Void {
@@ -239,7 +239,7 @@ public extension BinaryInteger{
 public extension ExpressibleByIntegerLiteral{
 }
 public extension FloatingPoint{
-    
+
 }
 public extension BinaryFloatingPoint{
     var intValue:Int{
@@ -266,7 +266,7 @@ public extension BinaryFloatingPoint{
 public extension Int{
 //    var floatValue:T:BinaryFloatingPoint{
 //    }
-    
+
     var floatValue: Float{
         return Float(self)
     }
@@ -426,7 +426,7 @@ public extension URLRequest{
                 request.httpBody = string.data(using: .utf8)
             }
         }
-        
+
         for (k,v) in headers{
             request.setValue(v, forHTTPHeaderField: k)
         }
@@ -497,7 +497,7 @@ public extension URLResponse{
         }
         return http
     }
-    
+
     var isValidHttpStatusCode:Bool{
         return httpURLResponse?.isValidStatusCode ?? false
     }
@@ -580,7 +580,7 @@ public extension URLSession{
         }
         return task
     }
-    
+
     @discardableResult
     func useCacheElseLoadURLData(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         var request = URLRequest.init(url: url)
@@ -615,7 +615,7 @@ public extension URLSession{
             }.receive(on: RunLoop.main).sink(receiveCompletion: { (err) in
                 print("\(err)")
                 }) { (value) in
-                
+
             }
         } else {
             // Fallback on earlier versions
@@ -639,7 +639,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDelegate{
                     let data = try Data.init(contentsOf: url)
                     return data
                 }catch{
-                    
+
                 }
                 return nil
             }
@@ -648,7 +648,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDelegate{
     var cerDatas:[Data] = []
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void){
             // Adapted from OWASP https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning#iOS
-            
+
             if (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
                 if let serverTrust = challenge.protectionSpace.serverTrust {
                     if #available(iOS 12.0,OSX 10.14, tvOS 12.0,watchOS 5.0, *) {
@@ -676,16 +676,16 @@ public class WTURLSessionDelegate:NSObject,URLSessionDelegate{
                     } else {
                         // Fallback on earlier versions
                     }
-                    
-                    
+
+
                 }
             }
-            
+
             // Pinning failed
             completionHandler(URLSession.AuthChallengeDisposition.cancelAuthenticationChallenge, nil)
-        
+
     }
-    
+
 }
 
 public extension URL{
@@ -713,7 +713,7 @@ open class MultipartBody{
     var parts:[MultipartBodyObject] = []
     func buildBody() -> Data {
         let result = Data()
-        
+
         return result
     }
 }
@@ -725,10 +725,10 @@ open class MultipartBodyObject{
 }
 
 public extension URLSessionTask{
-    
+
 }
 public extension URLSessionDataTask{
-    
+
 }
 public extension URLSessionConfiguration{
     static let wtURLSessionConfiguration:URLSessionConfiguration = {
@@ -745,7 +745,7 @@ public extension URLSessionConfiguration{
     }
     /// Accept-Encoding
     static var defaulAcceptEncoding:String{
-        
+
         let encodings: [String]
         if #available(iOS 11.0, macOS 10.13, tvOS 11.0, watchOS 4.0, *) {
             encodings = ["br", "gzip", "deflate"]
@@ -756,7 +756,7 @@ public extension URLSessionConfiguration{
     }
     ///"Accept-Language"
     static var defaultLanguage:String{
-        
+
         return Locale.preferredLanguages.prefix(6).qualityEncoded()
     }
     ///"User-Agent"
@@ -765,13 +765,13 @@ public extension URLSessionConfiguration{
             return "Unknown User-Agent"
         }
         let executable = info[kCFBundleExecutableKey as String] as? String ?? "Unknown"
-        
+
         let bundle = info[kCFBundleIdentifierKey as String] as? String ?? "Unknown"
-        
+
         let appVersion = info["CFBundleShortVersionString"] as? String ?? "Unknown"
-        
+
         let appBuild = info[kCFBundleVersionKey as String] as? String ?? "Unknown"
-        
+
         let osNameVersion: String = {
             let operatingSystemVersionString = ProcessInfo.processInfo.operatingSystemVersionString
             // swiftformat:disable indent
@@ -791,10 +791,10 @@ public extension URLSessionConfiguration{
                 #endif
             }()
             // swiftformat:enable indent
-            
+
             return "\(osName) \(operatingSystemVersionString)"
         }()
-        
+
         let WTKit = "WTKit"
         let result = "\(executable)/\(appVersion) (\(bundle); build:\(appBuild); \(osNameVersion)) \(WTKit)"
         return result
@@ -809,7 +809,7 @@ public extension Date{
     }
 }
 public extension TimeZone{
-    
+
 }
 public extension DateFormatter{
     //https://nsdateformatter.com
@@ -943,25 +943,25 @@ public enum WTHTTPMethod: String {
     }
 }
 public extension Timer{
-    
+
 }
 public extension RunLoop{
-    
+
 }
 public extension Thread{
-    
+
 }
 public extension OperationQueue{
-    
+
 }
 public extension Operation{
-    
+
 }
 public extension ProcessInfo{
     // print (long)[[NSClassFromString(@"NSProcessInfo") processInfo] _suddenTerminationDisablingCount]
     #if DEBUG
     static func print_suddenTerminationDisablingCount() {
-        
+
     }
     #endif
 }
@@ -1006,7 +1006,7 @@ public extension Encodable{
         print("\(jsonString)")
     }
     #endif
-    
+
 }
 // MARK: - Decodable
 public extension Decodable{
@@ -1017,7 +1017,7 @@ public extension Decodable{
         return try? JSONDecoder().decode(T.self, from: obj.jsonData)
     }
     #if canImport(Combine)
-    
+
     #endif
 }
 public extension Collection where Element == String {
@@ -1027,6 +1027,10 @@ public extension Collection where Element == String {
             return "\(encoding);q=\(quality)"
         }.joined(separator: ", ")
     }
+}
+//safe null returns nil for unrecognised messages instead of throwing an exception
+public extension NSNull{
+
 }
 
 private class BaseModel<T:Codable>:Codable{
@@ -1042,6 +1046,6 @@ private class SubModel: Codable {
 do{
     _ = try JSONDecoder().decode(BaseModel<SubModel>.self, from: "dasd".utf8Data)
 }catch{
-    
+
 }
 */
