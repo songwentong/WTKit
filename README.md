@@ -309,7 +309,7 @@ print("english".customLocalizedString)
 
 ## Installation
 ### swift package manager
-From Xcode 11, you can use Swift Package Manager to add Kingfisher to your project.
+From Xcode 11, you can use Swift Package Manager to add WTKit to your project.
  - Select File > Swift Packages > Add Package Dependency. Enter https://github.com/songwentong/WTKit.git in the "Choose Package Repository" dialog.
  - In the next page, specify the  rule as master branch
  - After Xcode checking out the source and resolving the version, you can choose the "WTKit" library and add it to your app target.

@@ -273,7 +273,7 @@ print("english".customLocalizedString)
 
 ## 安装
 ### Swift Package Manager
-在Xcode 11中,您可以使用Swift Package Manager将Kingfisher添加到您的项目中。
+在Xcode 11中,您可以使用Swift Package Manager将WTKit添加到您的项目中。
 
  - 选择"文件">"Swift软件包">"添加软件包依赖性"。在"选择软件包存储库"对话框中输入https://github.com/songwentong/WTKit.git。
  - 在下一页中,将规则指定为master分支
