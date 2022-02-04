@@ -124,12 +124,12 @@ model using CodkingKeys by default,you can rename map easily.
 print(obj)
 //or
 (lldb) po obj
-/***
+/**
 //output will be
 args:debugDescription of args_class:
 url:https://httpbin.org/get
 headers:debugDescription of headers_class:
-Accept:text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept:text/html,application/xhtml+xml,application/xml;q=0.9;q=0.8
 Host:httpbin.org
 User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15
 Accept-Language:zh-cn
