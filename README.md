@@ -9,11 +9,11 @@ WTKit is my swift accumulated experience,I think WTKit could help you to improve
 - [x] Making Codable Requests
 - [x] cURL Command Output
 - [x] Simulation response data for test
+- [x] JSON to Codable Model
 - [x] String to UIColor
 - [x] Table Model
 - [x] WTGradientView
 - [x] Codable to JSON String
-- [x] JSON to Codable Model
 - [x] Base Hud View(text/indicator)
 - [x] Version track
 - [x] Load Web Image
