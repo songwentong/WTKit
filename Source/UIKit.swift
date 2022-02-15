@@ -79,7 +79,7 @@ public extension String{
         l.setTitle(self, for: .normal)
         return l
     }
-    
+
 }
 public extension UIScreen{
     class var mainScreenBounds:CGRect {
@@ -116,7 +116,7 @@ public extension UIColor{
     static var color9:UIColor{
         return "9".hexColor
     }
-    
+
     //    func randomColor() -> UIColor {
     //        UIColor.init(red: CGFloat.random(in: ClosedRange.i), green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>)
     //    }
@@ -133,11 +133,11 @@ public extension UIColor{
         let mutableCharSet = "".mutableCharacterSet
         mutableCharSet.addCharacters(in: "#")
         mutableCharSet.formUnion(with: CharacterSet.whitespaces);
-        
-        
+
+
         let hString:String = string.trimmingCharacters(in: mutableCharSet as CharacterSet)
-        
-        
+
+
         switch hString.count {
             case 0:
                 return defaultColor;
@@ -153,11 +153,11 @@ public extension UIColor{
                 let g = String.init(hString[rIndex..<gIndex])
                 let b = String.init(hString[gIndex..<bIndex])
                 var rInt:UInt32 = 0x0,gInt:UInt32 = 0x0,bInt:UInt32 = 0x0
-                
+
                 Scanner.init(string: r).scanHexInt32(&rInt)
                 Scanner.init(string: g).scanHexInt32(&gInt)
                 Scanner.init(string: b).scanHexInt32(&bInt)
-                
+
                 let red = CGFloat(rInt)/255.0
                 let green = CGFloat(gInt)/255.0
                 let blue = CGFloat(bInt)/255.0
@@ -335,8 +335,8 @@ public extension UIView {
         sl.lineWidth = cornerRadius * 2.0
         self.layer.mask = sl
     }
-    
-    
+
+
     @discardableResult
     func maskView(with cornerRadius:CGFloat) -> UIView {
         let v = UIView.init(frame: bounds)
@@ -344,7 +344,7 @@ public extension UIView {
         self.mask = v
         return v
     }
-    
+
 }
 
 public extension UIActivityViewController{
@@ -419,7 +419,7 @@ public extension CGColor{
     }
 }
 public extension CGRect{
-    
+
 }
 public extension CGPoint{
     func distance(from point: CGPoint) -> CGFloat {
@@ -437,13 +437,15 @@ public extension CGPoint{
 }
 
 class GlobalImageLoadCache {
+    //全局储存下载链接，用于去重
     var loadingURL:Set<String> = []
+    //保存下载配对，hash和url配对
     var loadingPairs:[Int:String] = [:]
     static let shared:GlobalImageLoadCache = {
         return GlobalImageLoadCache.init()
     }()
 }
-class EmptyModel: Codable {
+private class EmptyModel: Codable {
     var a:Int
 }
 struct StructModel:Codable{
@@ -500,7 +502,7 @@ public extension UIImageView{
         }
         GlobalImageLoadCache.shared.loadingPairs[self.hashValue] = path
         UIImage.loadImage(with: path) { (img, res) in
-            
+
         }
     }
     func cancelLoadImage() {
@@ -544,7 +546,7 @@ public extension UIButton{
         }
         GlobalImageLoadCache.shared.loadingPairs[self.hashValue] = path
         UIImage.loadImage(with: path) { (img, res) in
-            
+
         }
     }
     func setBackGroundImage(with path:String, for state: UIControl.State = .normal ){
@@ -562,7 +564,7 @@ public extension UIButton{
         }
         GlobalImageLoadCache.shared.loadingPairs[self.hashValue] = path
         UIImage.loadImage(with: path) { (img, res) in
-            
+
         }
     }
 }
@@ -637,14 +639,14 @@ public extension UIApplication{
         }
         return root
     }
-    
+
     static func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil){
         topViewController?.present(viewControllerToPresent, animated: flag, completion: completion)
     }
     static func pushViewController(_ viewController: UIViewController, animated: Bool) {
         topViewController?.navigationController?.pushViewController(viewController, animated: animated)
     }
-    
+
     static func findKeyWindow() -> UIWindow? {
         let keyWindowList = shared.windows.filter { (window) -> Bool in
             //            window.windowLevel == .normal
@@ -655,8 +657,8 @@ public extension UIApplication{
         }
         return keyWindowList.first
     }
-    
-    
+
+
 }
 struct ImageLoadResult {
     let image:UIImage
@@ -666,14 +668,14 @@ struct ImageLoadResult {
 @available(iOS 10.0, *)
 
 public extension UIGraphicsRenderer{
-    
+
 }
 @available(iOS 10.0, *)
 public extension UIGraphicsImageRenderer{
 }
 
 public extension CGContext{
-    
+
 }
 // MARK: - UIImage
 public extension UIImage{
@@ -688,7 +690,7 @@ public extension UIImage{
     func applyImage(to imageView:UIImageView) {
         imageView.image = self
     }
-    
+
     /**
      decode image to bitmap using UIGraphicsImageRenderer,
      loading one image may need 0.015s or more,using global dispatch queue
@@ -737,7 +739,7 @@ public extension UIImage{
             }
         }
     }
-    
+
     /**
      draw an new image with corner radius.
      */
@@ -761,7 +763,7 @@ public extension UIImage{
      */
     static func prefetchImage(with url:String){
         loadImage(with: url) { (image, res) in
-            
+
         }
     }
     @discardableResult
@@ -812,21 +814,21 @@ public extension UIImage{
         }
         let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
         //        let bitsPerPixel = cgImage.bitsPerPixel
-        
-        
+
+
         let pixelInfo: Int = ((Int(self.size.width) * Int(pos.y)) + Int(pos.x)) * 4
-        
+
         let r = CGFloat(data[pixelInfo]) / CGFloat(255.0)
         let g = CGFloat(data[pixelInfo+1]) / CGFloat(255.0)
         let b = CGFloat(data[pixelInfo+2]) / CGFloat(255.0)
         let a = CGFloat(data[pixelInfo+3]) / CGFloat(255.0)
-        
+
         return UIColor(red: r, green: g, blue: b, alpha: a)
     }
 }
 
 public extension UIResponder{
-    
+
 }
 
 
@@ -855,19 +857,19 @@ public extension UIScrollView {
 }
 
 extension UIView:UINibView{
-    
+
 }
 
 public extension UITableViewCell{
-    
+
 }
 
 public extension UICollectionViewCell{
-    
+
 }
 
 public extension UIWindow{
-    
+
 }
 public extension Bundle{
     ///load file from UINib,if you want to use class from,please use UITableViewCell subclass to avoid file's owner issue
@@ -905,7 +907,7 @@ public extension NSAttributedString{
         let rect = boundingRect(with: CGSize.init(width: width, height: 1000),options: [.usesLineFragmentOrigin], context: nil)
         return ceil(rect.height)
     }
-    
+
     ///将一个NSAttributedString异步绘制为一个CALayer,耗时大约为0.1-0.2秒左右
     @available(iOS 10.0, *)
     func layerForWidth(with width:CGFloat, callBack:@escaping (CALayer)->Void){
@@ -949,13 +951,13 @@ open class WTGradientView:UIView{
             gradientLayer.colors = colors
         }
     }
-    
+
     open var locations: [NSNumber]?{
         didSet{
             gradientLayer.locations = locations
         }
     }
-   
+
     open var startPoint: CGPoint{
         get{
             return gradientLayer.startPoint
@@ -963,9 +965,9 @@ open class WTGradientView:UIView{
         set{
             gradientLayer.startPoint = newValue
         }
-        
+
     }
-    
+
     open var endPoint: CGPoint{
         get{
             return gradientLayer.endPoint
@@ -974,7 +976,7 @@ open class WTGradientView:UIView{
             gradientLayer.endPoint = newValue
         }
     }
-    
+
     open var type: CAGradientLayerType{
         get{
             return gradientLayer.type
@@ -988,16 +990,16 @@ open class WTGradientView:UIView{
 open class AlignLeftFlowLayout: UICollectionViewFlowLayout {
     override public func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let attributes = super.layoutAttributesForElements(in: rect)
-        
+
         var leftMargin = sectionInset.left
         var maxY: CGFloat = -1.0
         attributes?.forEach { layoutAttribute in
             if layoutAttribute.frame.origin.y >= maxY {
                 leftMargin = sectionInset.left
             }
-            
+
             layoutAttribute.frame.origin.x = leftMargin
-            
+
             leftMargin += layoutAttribute.frame.width + minimumInteritemSpacing
             maxY = max(layoutAttribute.frame.maxY , maxY)
         }
@@ -1018,7 +1020,7 @@ open class WTUINavigationController:UINavigationController {
         return 0.25
     }
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning){
-        
+
     }
     */
 }
@@ -1034,19 +1036,19 @@ open class WTVC:UIViewController{
     open var wtTitleLabel:UILabel = UILabel.init()
     public static var wtBackButtonURL:String = "https://songwentong.github.io/projects/WTKit/backbutton.png"{
         didSet{
-            
+
         }
     }
     public static var wtBackButtonImage:UIImage? = nil
     open override func viewDidLoad() {
         super.viewDidLoad()
-        
+
     }
     open override func loadView() {
         super.loadView()
         configMyHeaderView()
     }
-    
+
     func configMyHeaderView() {
         view.addSubview(wtHeaderView)
         wtHeaderView.turnOffMask()
@@ -1061,7 +1063,7 @@ open class WTVC:UIViewController{
         }
         wtBottomAnchor?.isActive = true
         wtHeaderView.backgroundColor = WTVC.wtDefaultHeaderBGColor
-        
+
         wtHeaderView.addSubview(wtSeparateLine)
         wtSeparateLine.turnOffMask()
         wtSeparateLine.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -1069,15 +1071,15 @@ open class WTVC:UIViewController{
         wtSeparateLine.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor).isActive = true
         wtSeparateLine.heightAnchor.constraint(equalToConstant: 0.33).isActive = true
         wtSeparateLine.backgroundColor = UIColor.init(white: 0, alpha: 0.3)
-        
+
         wtHeaderView.addSubview(wtBackButton)
         wtBackButton.turnOffMask()
         wtBackButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         wtBackButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         wtBackButton.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
         wtBackButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 69).isActive = true
-        
-        
+
+
         //        wtBackButton.setTitle("Back", for: .normal)
         wtBackButton.addTarget(self, action: #selector(wtBackButtonPressed), for: .touchUpInside)
         wtBackButton.addTarget(self, action: #selector(wtBackButtonEvents), for: .allEvents)
@@ -1114,7 +1116,7 @@ open class WTVC:UIViewController{
         wtBackButtonLabel.trailingAnchor.constraint(equalTo: wtBackButton.trailingAnchor, constant: 0).isActive = true
         wtBackButtonLabel.text = "Back"
         wtBackButtonLabel.textColor = .colorWithHexString("0077fa")
-        
+
         wtHeaderView.addSubview(wtTitleLabel)
         wtTitleLabel.turnOffMask()
         wtTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true
@@ -1147,7 +1149,7 @@ open class WTVC:UIViewController{
                 self.wtBackIconImageView.alpha = 1.0
             }
         }) { (flag) in
-            
+
         }
     }
     @objc func wtBackButtonPressed() {
@@ -1183,7 +1185,7 @@ open class WTTableVC:WTVC{
         if #available(iOS 10.0, *) {
             table.refreshControl = UIRefreshControl.init()
         } else {
-            
+
         }
         return table
     }()
@@ -1196,7 +1198,7 @@ open class WTTableVC:WTVC{
         myTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         myTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
     }
-    
+
     open override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -1243,4 +1245,3 @@ public class WTView:UIView{
 #endif
 #if compiler(>=5)
 #endif
-
