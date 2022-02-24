@@ -842,13 +842,13 @@ public extension Bundle{
     static func appVersion()->String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Unknown"
     }
-    //USA
+    //enUS  常用语言地区：英语-美国
     static var enUS:Bundle = {
-        let path:String = Bundle.main.path(forResource: "zh_CN", ofType: "lproj") ?? ""
+        let path:String = Bundle.main.path(forResource: "en_US", ofType: "lproj") ?? ""
         let bundle:Bundle = Bundle.init(path: path) ?? Bundle.main
         return bundle
     }()
-    //chinese
+    //chinese 常用语言地区：中文-中国
     static var zhCN:Bundle = {
         let path:String = Bundle.main.path(forResource: "zh_CN", ofType: "lproj") ?? ""
         let bundle:Bundle = Bundle.init(path: path) ?? Bundle.main
