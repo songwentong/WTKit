@@ -28,23 +28,5 @@ public class ImageLoader:ObservableObject{
         }
     }
 }
-@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
-public struct WTImage:SwiftUI.View{
-    @ObservedObject var imageHolder:ImageLoader = ImageLoader()
-    func downloadImage(with url:String) {
-        imageHolder.downloadImage(with: url)
-    }
-    public var body: some View {
-        Image.init(uiImage: imageHolder.image)
-    }
-}
-
-
-struct SwiftUI_Previews: PreviewProvider {
-    @available(iOS 13.0.0, *)
-    static var previews: some View {
-        return /*@START_MENU_TOKEN@*/Text("Hello, World!")
-    }
-}
 #endif
 #endif
