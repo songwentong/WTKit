@@ -512,8 +512,18 @@ public extension URLCache{
         let totalMemory:UInt64 = ProcessInfo.processInfo.physicalMemory
         //25% of system memory
         let memoryCapacity:Int = Int(totalMemory / 4)
-        //        FileManager
-        let cache = URLCache.init(memoryCapacity: memoryCapacity, diskCapacity: 1024*1024*1024, diskPath: "WTKitURLCachePath")
+        //1GB
+        let dc:Int = 1*1024*1024*1024
+        let cache = URLCache.init(memoryCapacity: memoryCapacity, diskCapacity: dc, diskPath: "WTKitURLCachePath")
+        if let dict = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory()){
+            if let free = dict[.systemFreeSize] as? Int{
+                //GB   MB  KB Byte
+                //221 288 435 712
+                //1G 和25%取大的数字
+                cache.diskCapacity = max(free / 4, cache.diskCapacity)
+                print("\(String(describing: free))")
+            }
+        }
         return cache
     }()
 }
