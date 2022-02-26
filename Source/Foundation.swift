@@ -592,21 +592,14 @@ public extension URLSession{
 
     @discardableResult
     func useCacheElseLoadURLData(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        let request = URLRequest.init(url: url)
+        var request = URLRequest.init(url: url)
+        request.cachePolicy = .returnCacheDataElseLoad
         let task = dataTask(with: request, completionHandler: { (data,res,err) in
             DispatchQueue.main.async {
                 completionHandler(data,res,err)
             }
-            guard let res = res ,let data = data else{
-                return
-            }
-            URLCache.default.storeCachedResponse(.init(response: res, data: data), for: request)
         })
-        if let respon = URLCache.default.cachedResponse(for: request){
-            completionHandler(respon.data,respon.response,nil)
-        }else{
-            task.resume()
-        }
+        task.resume()
         return task
     }
     #if canImport(Combine)
@@ -750,6 +743,7 @@ public extension URLSessionConfiguration{
     static let wtURLSessionConfiguration:URLSessionConfiguration = {
         let config = URLSessionConfiguration.default
         config.httpAdditionalHeaders = defaultHeaders
+        config.urlCache = URLCache.default
         return config
     }()
     static var defaultHeaders:[String:String]{
