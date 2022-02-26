@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "WTKit",
     platforms: [
-        .iOS(SupportedPlatform.IOSVersion.v9),
+        .iOS(.v9),
         .macOS(.v10_12),
         .tvOS(SupportedPlatform.TVOSVersion.v10)
     ],
