@@ -592,8 +592,7 @@ public extension URLSession{
 
     @discardableResult
     func useCacheElseLoadURLData(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        var request = URLRequest.init(url: url)
-        request.cachePolicy = .returnCacheDataElseLoad
+        let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad)
         let task = dataTask(with: request, completionHandler: { (data,res,err) in
             DispatchQueue.main.async {
                 completionHandler(data,res,err)
