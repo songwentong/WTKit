@@ -583,14 +583,21 @@ public extension URLSession{
 
     @discardableResult
     func useCacheElseLoadURLData(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        var request = URLRequest.init(url: url)
-        request.cachePolicy = .returnCacheDataElseLoad
+        let request = URLRequest.init(url: url)
         let task = dataTask(with: request, completionHandler: { (data,res,err) in
             DispatchQueue.main.async {
                 completionHandler(data,res,err)
             }
+            guard let res = res ,let data = data else{
+                return
+            }
+            URLCache.default.storeCachedResponse(.init(response: res, data: data), for: request)
         })
-        task.resume()
+        if let respon = URLCache.default.cachedResponse(for: request){
+            completionHandler(respon.data,respon.response,nil)
+        }else{
+            task.resume()
+        }
         return task
     }
     #if canImport(Combine)
