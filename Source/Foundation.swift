@@ -516,12 +516,11 @@ public extension URLCache{
         let dc:Int = 1*1024*1024*1024
         let cache = URLCache.init(memoryCapacity: memoryCapacity, diskCapacity: dc, diskPath: "WTKitURLCachePath")
         if let dict = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory()){
-            if let free = dict[.systemFreeSize] as? Int{
+            if let ss = dict[.systemSize] as? Int{
                 //GB   MB  KB Byte
                 //221 288 435 712
                 //1G 和25%取大的数字
-                cache.diskCapacity = max(free / 4, cache.diskCapacity)
-                print("\(String(describing: free))")
+                cache.diskCapacity = max(ss / 4, cache.diskCapacity)
             }
         }
         return cache
