@@ -19,6 +19,16 @@ public extension String{
     var hexColor:UIColor{
         return UIColor.colorWithHexString(self)
     }
+    var hexInt32Number:UInt32{
+        var int32:UInt32 = 0x0
+        Scanner.init(string: self).scanHexInt32(&int32)
+        return int32
+    }
+    var hexInt64Number:UInt64{
+        var int64:UInt64 = 0x0
+        Scanner.init(string: self).scanHexInt64(&int64)
+        return int64
+    }
     ///crrate CGColor from self(if hexstring)
     var hexCGColor:CGColor{
         return hexColor.cgColor
@@ -159,11 +169,7 @@ public extension UIColor{
         let mutableCharSet = "".mutableCharacterSet
         mutableCharSet.addCharacters(in: "#")
         mutableCharSet.formUnion(with: CharacterSet.whitespaces);
-
-
         let hString:String = string.trimmingCharacters(in: mutableCharSet as CharacterSet)
-
-
         switch hString.count {
             case 0:
                 return defaultColor;
@@ -178,12 +184,9 @@ public extension UIColor{
                 let r = String.init(hString[..<rIndex])
                 let g = String.init(hString[rIndex..<gIndex])
                 let b = String.init(hString[gIndex..<bIndex])
-                var rInt:UInt32 = 0x0,gInt:UInt32 = 0x0,bInt:UInt32 = 0x0
-
-                Scanner.init(string: r).scanHexInt32(&rInt)
-                Scanner.init(string: g).scanHexInt32(&gInt)
-                Scanner.init(string: b).scanHexInt32(&bInt)
-
+                let rInt:UInt32 = r.hexInt32Number
+                let gInt:UInt32 = g.hexInt32Number
+                let bInt:UInt32 = b.hexInt32Number
                 let red = CGFloat(rInt)/255.0
                 let green = CGFloat(gInt)/255.0
                 let blue = CGFloat(bInt)/255.0
@@ -361,7 +364,6 @@ public extension UIView {
         sl.lineWidth = cornerRadius * 2.0
         self.layer.mask = sl
     }
-
 
     @discardableResult
     func maskView(with cornerRadius:CGFloat) -> UIView {
