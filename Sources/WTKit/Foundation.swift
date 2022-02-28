@@ -589,7 +589,8 @@ public extension URLSession{
         }
         return task
     }
-
+    
+    ///缓存请求
     @discardableResult
     func useCacheElseLoadURLData(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad)
@@ -601,6 +602,23 @@ public extension URLSession{
         task.resume()
         return task
     }
+    
+    ///缓存请求
+    @discardableResult
+    func useCacheElseLoadUrlData(with url:URL, finished:@escaping(Data)->Void, failed:@escaping(Error)->Void) -> URLSessionDataTask{
+        let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad)
+        let task = dataTask(with: request, completionHandler: { (data,res,err) in
+            if let data = data{
+                finished(data)
+            }
+            if let err = err{
+                failed(err)
+            }
+        })
+        task.resume()
+        return task
+    }
+    
     #if canImport(Combine)
     /**
      这是一个函数式的模式
