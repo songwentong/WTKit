@@ -464,15 +464,6 @@ public extension CGPoint{
     }
 }
 
-class GlobalImageLoadCache {
-    //全局储存下载链接，用于去重
-    var loadingURL:Set<String> = []
-    //保存下载配对，hash和url配对
-    var loadingPairs:[Int:String] = [:]
-    static let shared:GlobalImageLoadCache = {
-        return GlobalImageLoadCache.init()
-    }()
-}
 private class EmptyModel: Codable {
     var a:Int
 }
@@ -513,38 +504,13 @@ public extension UIImageView{
     func loadImage(with path:String) {
         self.image = nil
         let size = self.frame.size
-        NotificationCenter.default.addObserver(forName: UIImage.ImageLoadFinishNotification, object: nil, queue: OperationQueue.main) {[weak self] (notification) in
-            guard let result = notification.object as? ImageLoadResult else{
-                return
+        UIImage.loadImage(with: path) { img in
+            img.decodedImage(size) { [weak self]image in
+                self?.image = image
+                self?.layoutIfNeeded()
             }
-            guard let cself = self else{
-                return
-            }
-            guard GlobalImageLoadCache.shared.loadingPairs[cself.hashValue] == result.url else{
-                return
-            }
-            result.image.decodedImage(size) { (image) in
-                cself.image = image
-                cself.layoutIfNeeded()
-            }
-        }
-        GlobalImageLoadCache.shared.loadingPairs[self.hashValue] = path
-        UIImage.loadImage(with: path) { (img, res) in
-
-        }
-    }
-    func cancelLoadImage() {
-        URLSession.shared.getAllTasks { (list) in
-            _ = list.filter { (task) -> Bool in
-                guard let url = task.originalRequest?.url?.absoluteString else{
-                    return false
-                }
-                if GlobalImageLoadCache.shared.loadingPairs[self.hashValue] == url{
-                    return true
-                }
-                task.cancel()
-                return false
-            }
+        } error: { err in
+            
         }
     }
     func setResizableImage(with image:UIImage, withCapInsets: UIEdgeInsets = .zero, resizingMode:UIImage.ResizingMode = .tile) {
@@ -560,39 +526,19 @@ public extension UIButton{
         return .init(type: .custom)
     }
     func setImage(with path:String, for state: UIControl.State = .normal){
-        NotificationCenter.default.addObserver(forName: UIImage.ImageLoadFinishNotification, object: nil, queue: OperationQueue.main) {[weak self] (notification) in
-            guard let result = notification.object as? ImageLoadResult else{
-                return
-            }
-            guard let cself = self else{
-                return
-            }
-            if GlobalImageLoadCache.shared.loadingPairs[cself.hashValue] == result.url{
-                cself.setImage(result.image, for: state)
-                cself.layoutIfNeeded()
-            }
-        }
-        GlobalImageLoadCache.shared.loadingPairs[self.hashValue] = path
-        UIImage.loadImage(with: path) { (img, res) in
-
+        UIImage.loadImage(with: path) { [weak self]image in
+            self?.setImage(image, for: state)
+            self?.layoutIfNeeded()
+        } error: { err in
+            
         }
     }
     func setBackGroundImage(with path:String, for state: UIControl.State = .normal ){
-        NotificationCenter.default.addObserver(forName: UIImage.ImageLoadFinishNotification, object: nil, queue: OperationQueue.main) {[weak self] (notification) in
-            guard let result = notification.object as? ImageLoadResult else{
-                return
-            }
-            guard let cself = self else{
-                return
-            }
-            if GlobalImageLoadCache.shared.loadingPairs[cself.hashValue] == result.url{
-                cself.setBackgroundImage(result.image, for: state)
-                cself.layoutIfNeeded()
-            }
-        }
-        GlobalImageLoadCache.shared.loadingPairs[self.hashValue] = path
-        UIImage.loadImage(with: path) { (img, res) in
-
+        UIImage.loadImage(with: path) { [weak self]image in
+            self?.setBackgroundImage(image, for: state)
+            self?.layoutIfNeeded()
+        } error: { err in
+            
         }
     }
 }
@@ -778,52 +724,33 @@ public extension UIImage{
         iv.layer.masksToBounds = true
         return iv.snapShotImage()
     }
-    /**
-     loading an image from url,using cache if has
+    /*
+     load image
      */
-    @discardableResult
-    static func loadImage(with path: String, complection:@escaping (UIImage?,URLResponse?)->Void) -> URLSessionDataTask? {
-        return loadImage(with: path.urlValue, complection: complection)
+    static func loadImage(with path:String, image:@escaping(UIImage)->Void , error:@escaping(Error)->Void){
+        URLSession.default.useCacheElseLoadURLData(with: path.urlValue) { data, res, err in
+            guard let data = data else{
+                if let err = err{
+                    error(err)
+                }
+                return
+            }
+            guard let img = UIImage.init(data: data) else{
+                return
+            }
+            image(img)
+        }
     }
-    static let ImageLoadFinishNotification:Notification.Name = Notification.Name.init("wtkit.uiimage.loadimagefinish")
     /**
      prefetch image
      */
     static func prefetchImage(with url:String){
-        loadImage(with: url) { (image, res) in
+        loadImage(with:url) { img in
+            
+        } error: { err in
+            
+        }
 
-        }
-    }
-    @discardableResult
-    static func loadImage(with url: URL, complection:@escaping (UIImage?,URLResponse?)->Void) -> URLSessionDataTask? {
-        let list = GlobalImageLoadCache.shared.loadingURL
-        if list.contains(url.absoluteString) {
-            complection(nil,nil)
-            return nil
-        }else{
-            GlobalImageLoadCache.shared.loadingURL.insert(url.absoluteString)
-            //            GlobalImageLoadCache.shared.loadingURL.append(url.absoluteString)
-        }
-        return URLSession.default.useCacheElseLoadURLData(with: url) { (data, response, err) in
-            if GlobalImageLoadCache.shared.loadingURL.contains(url.absoluteString){
-                GlobalImageLoadCache.shared.loadingURL.remove(url.absoluteString)
-            }
-            guard let data = data else{
-                complection(nil,response)
-                return
-            }
-            let image = data.uiImage
-            complection(image,response)
-            guard let img = image else{
-                return
-            }
-            guard let response = response else{
-                complection(nil,nil)
-                return
-            }
-            let result = ImageLoadResult.init(image: img, response: response, url: url.absoluteString)
-            NotificationCenter.default.post(name: UIImage.ImageLoadFinishNotification, object: result, userInfo: nil)
-        }
     }
     ///get a color at position
     func getPixelColor(pos: CGPoint) -> UIColor? {
