@@ -201,7 +201,8 @@
     // MARK: - UIViewController
     public extension UIViewController{
         ///如果应用的controller链中没有出现present出的控制器,就可以成功,否则就会失败
-        func requestPushToTopVC() { UIApplication.topViewController?.navigationController?.pushViewController(self, animated: true)
+        func requestPushToTopVC() {
+            UIApplication.topViewController?.navigationController?.pushViewController(self, animated: true)
         }
         ///如果应用的controller链中没有出现present出的控制器,就可以成功,否则可能会失败
         func requestTopVCPresent( animated flag: Bool, completion: (() -> Void)? = nil) {

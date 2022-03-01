@@ -513,16 +513,16 @@ public extension URLCache{
         //25% of system memory
         let memoryCapacity:Int = Int(totalMemory / 4)
         //1GB
-        let dc:Int = 1*1024*1024*1024
-        let cache = URLCache.init(memoryCapacity: memoryCapacity, diskCapacity: dc, diskPath: "WTKitURLCachePath")
+        var dc:Int = 1*1024*1024*1024
         if let dict = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory()){
             if let ss = dict[.systemSize] as? Int{
                 //GB   MB  KB Byte
                 //221 288 435 712
                 //1G 和25%取大的数字
-                cache.diskCapacity = max(ss / 4, cache.diskCapacity)
+                dc = max(ss / 4, dc)
             }
         }
+        let cache = URLCache.init(memoryCapacity: memoryCapacity, diskCapacity: dc, diskPath: "WTKitURLCachePath")
         return cache
     }()
 }
