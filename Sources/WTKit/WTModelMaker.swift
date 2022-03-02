@@ -101,7 +101,7 @@ public class WTModelMaker {
     public var convertNumberToString = false //数字转换成字符串
     public var indent:String = "    "//缩进
     public let crlf = "\n"//换行
-    var useCodingKey = true//是否使用coding key,如果不用,关键字命名会变成`
+    var useCodingKey = true//是否使用coding key,如果不用,关键字命名会变成``包含的，类似于`default`
     
     public static let `default`:WTModelMaker = {
        return WTModelMaker()
