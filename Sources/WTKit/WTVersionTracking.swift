@@ -18,6 +18,7 @@ fileprivate let WTApplicationVersionsKey = "WTKit VersionTracker versions key"
 fileprivate let WTApplicationBuildsKey = "WTKit VersionTracker builds key"
 #if os(iOS) || os(macOS)
 public extension WTApplication{
+    /// make a track, it is time safe ,track twice = one time 
     func track(){
         if VersionTracker.shared.launchTrakced {
             return
@@ -48,14 +49,14 @@ public extension WTApplication{
     func isFirstLaunchForBuild(_ block:(_ isFirstLaunchForBuild:Bool)->Void){
         block(VersionTracker.shared.isFirstLaunchForBuild)
     }
-    //version history,if no history,return empty string array
+    /// version history,if no history,return empty string array
     func versionHistory()->[String]{
         if let versionHistory = UserDefaults.standard.array(forKey: WTApplicationVersionsKey) as? [String]{
             return versionHistory
         }
         return [String]()
     }
-    //build history,if no history,return empty string array
+    /// build history,if no history,return empty string array
     func buildHistory()->[String]{
         if let versionHistory = UserDefaults.standard.array(forKey: WTApplicationBuildsKey) as? [String]{
             return versionHistory
