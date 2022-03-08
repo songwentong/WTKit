@@ -67,7 +67,7 @@ public extension String{
     }
     //create URLRequest
     var urlRequest:URLRequest{
-        URLRequest.init(url: self.urlValue)
+        urlValue.request
     }
 
     var characterSet:CharacterSet{
