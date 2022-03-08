@@ -853,29 +853,29 @@ public extension DateFormatter{
 }
 // MARK: - Bundle
 public extension Bundle{
-    ///bundle file name ,default is app name
+    /// bundle file name ,default is app name
     class func appBundleName()->String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleName")  as? String ?? "Unknown"
     }
-    //bundleid  eg.com.abc.test
+    /// bundleid  eg.com.abc.test
     class func appBundleID()->String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as? String ?? "Unknown"
     }
-    //build version eg.1234
+    /// build version eg.1234 or 1990
     class func buildVersion()->String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "Unknown"
     }
-    //app version eg. 1.2.1
+    /// app version eg. 1.2.1
     static func appVersion()->String{
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Unknown"
     }
-    //enUS  常用语言地区：英语-美国
+    // enUS  常用语言地区：英语-美国
     static var enUS:Bundle = {
         let path:String = Bundle.main.path(forResource: "en_US", ofType: "lproj") ?? ""
         let bundle:Bundle = Bundle.init(path: path) ?? Bundle.main
         return bundle
     }()
-    //chinese 常用语言地区：中文-中国
+    // chinese 常用语言地区：中文-中国
     static var zhCN:Bundle = {
         let path:String = Bundle.main.path(forResource: "zh_CN", ofType: "lproj") ?? ""
         let bundle:Bundle = Bundle.init(path: path) ?? Bundle.main

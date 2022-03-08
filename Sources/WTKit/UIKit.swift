@@ -572,6 +572,12 @@ public extension UITabBarController{
 }
 // MARK: - UIApplication
 public extension UIApplication{
+    class func buildVersion()->String{
+        Bundle.buildVersion()
+    }
+    static func appVersion()->String{
+        Bundle.appVersion()
+    }
     @available(iOS 13.0, *)
     static func appendNewWindow<T:UIWindow>() -> T? {
         let sceneList = UIApplication.shared.connectedScenes.compactMap { (s:UIScene) -> UIWindowScene? in
