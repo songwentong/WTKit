@@ -482,8 +482,27 @@ extension Data{
         uiImage?.cgImage
     }
 }
+
+private enum AssociatedKeys {
+    static var imageURL = "UIImageView.wt.loadingURL"
+    static var loadingURLOfBG = "UIButton.wt.loadingURLOfBG"
+}
+
 // MARK: - UIImageView
 public extension UIImageView{
+    
+    ///  用于保存加载图片的路径，在重用中路径可能会反复更新，回掉是一个异步返回
+    ///  如果不保存url的话，回掉的可能不是预期的数据
+    var loadingURL: URL? {
+        get {
+            let value = objc_getAssociatedObject(UIImageView.self, &AssociatedKeys.imageURL)
+            return value as? URL
+        }
+        set {
+            objc_setAssociatedObject(UIImageView.self, &AssociatedKeys.imageURL, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
 #if canImport(Combine)
     private func testingCombine(){
         if #available(OSX 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *) {
@@ -505,8 +524,12 @@ public extension UIImageView{
     func loadImage(with path:String) {
         self.image = nil
         let size = self.frame.size
-        UIImage.loadImage(with: path) { img in
-            img.decodedImage(size) { [weak self]image in
+        loadingURL = path.urlValue
+        UIImage.loadImage(with: path) {[weak self] img in
+            if self?.loadingURL != path.urlValue{
+                return
+            }
+            img.decodedImage(size) { [weak self] image in
                 self?.image = image
                 self?.layoutIfNeeded()
             }
@@ -520,6 +543,28 @@ public extension UIImageView{
 }
 // MARK: - UIButton
 public extension UIButton{
+    ///  用于保存加载图片的路径，在重用中路径可能会反复更新，回掉是一个异步返回
+    ///  如果不保存url的话，回掉的可能不是预期的数据
+    var loadingURL: URL? {
+        get {
+            let value = objc_getAssociatedObject(UIButton.self, &AssociatedKeys.imageURL)
+            return value as? URL
+        }
+        set {
+            objc_setAssociatedObject(UIButton.self, &AssociatedKeys.imageURL, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    var loadingURLOfBG: URL? {
+        get {
+            let value = objc_getAssociatedObject(UIButton.self, &AssociatedKeys.loadingURLOfBG)
+            return value as? URL
+        }
+        set {
+            objc_setAssociatedObject(UIButton.self, &AssociatedKeys.loadingURLOfBG, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    
     static var systemButton:UIButton{
         return .init(type: .system)
     }
@@ -528,7 +573,11 @@ public extension UIButton{
     }
     func setImage(with path:String, for state: UIControl.State = .normal){
         let size = frame.size
+        loadingURLOfBG = path.urlValue
         UIImage.loadImage(with: path) { [weak self]image in
+            if self?.loadingURL != path.urlValue{
+                return
+            }
             image.decodedImage(size) { [weak self]img in
                 self?.setImage(image, for: state)
                 self?.layoutIfNeeded()
@@ -539,7 +588,11 @@ public extension UIButton{
     }
     func setBackGroundImage(with path:String, for state: UIControl.State = .normal ){
         let size = frame.size
-        UIImage.loadImage(with: path) {image in
+        loadingURLOfBG = path.urlValue
+        UIImage.loadImage(with: path) {[weak self] image in
+            if self?.loadingURLOfBG != path.urlValue{
+                return
+            }
             image.decodedImage(size) { [weak self]img in
                 self?.setBackgroundImage(image, for: state)
                 self?.layoutIfNeeded()
