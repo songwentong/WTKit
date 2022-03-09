@@ -430,10 +430,6 @@ public extension URLRequest{
         for (k,v) in headers{
             request.setValue(v, forHTTPHeaderField: k)
         }
-        for (k,v) in URLSessionConfiguration.defaultHeaders{
-            request.setValue(v, forHTTPHeaderField: k)
-        }
-        //        for (k,v) in URLSessionConfiguration.s
         return request
     }
     static func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {

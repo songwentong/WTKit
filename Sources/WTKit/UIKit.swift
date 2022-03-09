@@ -485,6 +485,7 @@ extension Data{
 
 private enum AssociatedKeys {
     static var imageURL = "UIImageView.wt.loadingURL"
+    static var downloadTask = "UIImageView.wt.downloadTask"
     static var loadingURLOfBG = "UIButton.wt.loadingURLOfBG"
 }
 
@@ -495,11 +496,20 @@ public extension UIImageView{
     ///  如果不保存url的话，回掉的可能不是预期的数据
     var loadingURL: URL? {
         get {
-            let value = objc_getAssociatedObject(UIImageView.self, &AssociatedKeys.imageURL)
+            let value = objc_getAssociatedObject(self, &AssociatedKeys.imageURL)
             return value as? URL
         }
         set {
-            objc_setAssociatedObject(UIImageView.self, &AssociatedKeys.imageURL, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.imageURL, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    var downloadTask:URLSessionDataTask? {
+        get{
+            let v = objc_getAssociatedObject(self, &AssociatedKeys.downloadTask)
+            return v as? URLSessionDataTask
+        }
+        set{
+            objc_setAssociatedObject(self, &AssociatedKeys.downloadTask, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -793,8 +803,9 @@ public extension UIImage{
     /*
      load image
      */
-    static func loadImage(with path:String, image:@escaping(UIImage)->Void , error:@escaping(Error)->Void){
-        URLSession.default.useCacheElseLoadURLData(with: path.urlValue) { data, res, err in
+    @discardableResult
+    static func loadImage(with path:String, image:@escaping(UIImage)->Void , error:@escaping(Error)->Void) -> URLSessionDataTask{
+        let task = URLSession.default.useCacheElseLoadURLData(with: path.urlValue) { data, res, err in
             guard let data = data else{
                 if let err = err{
                     error(err)
@@ -806,6 +817,7 @@ public extension UIImage{
             }
             image(img)
         }
+        return task
     }
     /**
      prefetch image
