@@ -37,8 +37,6 @@ public extension WTApplication{
         }
         UserDefaults.standard.setValue(versionArray, forKey: WTApplicationVersionsKey)
         UserDefaults.standard.setValue(buildArray, forKey: WTApplicationBuildsKey)
-        //        WTLog(versionArray)
-        //        WTLog(buildArray)
         UserDefaults.standard.synchronize()
         VersionTracker.shared.launchTrakced = true
     }
@@ -46,8 +44,8 @@ public extension WTApplication{
      check current is first lunch for this build
      note don't call this method before track()
      */
-    func isFirstLaunchForBuild(_ block:(_ isFirstLaunchForBuild:Bool)->Void){
-        block(VersionTracker.shared.isFirstLaunchForBuild)
+    func isFirstLaunchForBuild()->Bool{
+        VersionTracker.shared.isFirstLaunchForBuild
     }
     /// version history,if no history,return empty string array
     func versionHistory()->[String]{

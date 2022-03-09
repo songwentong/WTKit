@@ -14,7 +14,6 @@ open class WebImageView:UIImageView{
     open var highlightedImageTask:URLSessionDataTask? = nil
     open func loadWebImage(with path:String) {
         webImageTask?.cancel()
-        let size = self.frame.size
         
         webImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue) { [weak self](data, res, err) in
             guard let data = data else{
@@ -23,7 +22,7 @@ open class WebImageView:UIImageView{
             guard let img = data.uiImage else{
                 return
             }
-            img.decodedImage(size) { (image) in
+            img.decodedImage{ (image) in
                 self?.image = image
                 self?.layoutIfNeeded()
             }
@@ -32,7 +31,6 @@ open class WebImageView:UIImageView{
     }
     open func loadhighlightedImage(with path:String) {
         highlightedImageTask?.cancel()
-        let size = self.frame.size
         highlightedImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue) { [weak self](data, res, err) in
             guard let data = data else{
                 return
@@ -41,7 +39,7 @@ open class WebImageView:UIImageView{
                 return
             }
             
-            img.decodedImage(size) { (image) in
+            img.decodedImage{ (image) in
                 self?.highlightedImage = image
                 self?.layoutIfNeeded()
             }
@@ -54,7 +52,6 @@ open class WebImageButton:UIButton{
     open var backgroundImageImageTask:URLSessionDataTask? = nil
     open func loadWebImage(with path:String,for state:UIControl.State) {
         webImageTask?.cancel()
-        let size = self.bounds.size
         webImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue, completionHandler: { [weak self](data, res, err) in
             guard let data = data else{
                 return
@@ -62,7 +59,7 @@ open class WebImageButton:UIButton{
             guard let img = data.uiImage else{
                 return
             }
-            img.decodedImage(size) { (image) in
+            img.decodedImage{ (image) in
                 self?.setImage(image, for: state)
                 self?.layoutIfNeeded()
             }
@@ -72,7 +69,6 @@ open class WebImageButton:UIButton{
     }
     open func loadBackgroundImageImage(with path:String,for state:UIControl.State){
         backgroundImageImageTask?.cancel()
-        let size = self.frame.size
         backgroundImageImageTask = URLSession.default.useCacheElseLoadURLData(with: path.urlValue, completionHandler: {  [weak self](data, res, err) in
             guard let data = data else{
                 return
@@ -80,7 +76,7 @@ open class WebImageButton:UIButton{
             guard let img = data.uiImage else{
                 return
             }
-            img.decodedImage(size) { (image) in
+            img.decodedImage{ (image) in
                 self?.setImage(image, for: state)
                 self?.layoutIfNeeded()
             }

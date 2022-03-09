@@ -208,6 +208,7 @@ public extension UIViewController{
     func requestTopVCPresent( animated flag: Bool, completion: (() -> Void)? = nil) {
         UIApplication.topViewController?.present(self, animated: flag, completion: completion)
     }
+    /// 从同名的storyboardc文件中取到根控制器的实例
     static func instanceFromStoryBoard<T:UIViewController>() -> T {
         guard let _ = Bundle.main.path(forResource: "\(self)", ofType: "storyboardc") else{
             print("storyboradc file not found class:\(self)")
@@ -503,6 +504,7 @@ public extension UIImageView{
             objc_setAssociatedObject(self, &AssociatedKeys.imageURL, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
+    /// 保存下载的task
     var loadingTask:URLSessionDataTask? {
         get{
             let v = objc_getAssociatedObject(self, &AssociatedKeys.downloadTask)
@@ -533,17 +535,17 @@ public extension UIImageView{
     }
     func loadImage(with path:String) {
         self.image = nil
-        let size = self.frame.size
         loadingURL = path.urlValue
         loadingTask?.cancel()
         let task = UIImage.loadImage(with: path) {[weak self] img in
             if self?.loadingURL != path.urlValue{
                 return
             }
-            img.decodedImage(size) { [weak self] image in
+            
+            img.decodedImage(callBack: { [weak self] image in
                 self?.image = image
                 self?.layoutIfNeeded()
-            }
+            })
         } error: { err in
         }
         loadingTask = task
@@ -583,14 +585,13 @@ public extension UIButton{
         return .init(type: .custom)
     }
     func setImage(with path:String, for state: UIControl.State = .normal){
-        let size = frame.size
         loadingURLOfBG = path.urlValue
         UIImage.loadImage(with: path) { [weak self]image in
             if self?.loadingURL != path.urlValue{
                 return
             }
-            image.decodedImage(size) { [weak self]img in
-                self?.setImage(image, for: state)
+            image.decodedImage {[weak self] img in
+                self?.setImage(img, for: state)
                 self?.layoutIfNeeded()
             }
         } error: { err in
@@ -598,13 +599,12 @@ public extension UIButton{
         }
     }
     func setBackGroundImage(with path:String, for state: UIControl.State = .normal ){
-        let size = frame.size
         loadingURLOfBG = path.urlValue
         UIImage.loadImage(with: path) {[weak self] image in
             if self?.loadingURLOfBG != path.urlValue{
                 return
             }
-            image.decodedImage(size) { [weak self]img in
+            image.decodedImage {[weak self] img in
                 self?.setBackgroundImage(image, for: state)
                 self?.layoutIfNeeded()
             }
@@ -711,11 +711,7 @@ public extension UIApplication{
     
     
 }
-struct ImageLoadResult {
-    let image:UIImage
-    let response:URLResponse
-    let url:String
-}
+
 @available(iOS 10.0, *)
 
 public extension UIGraphicsRenderer{
@@ -741,7 +737,8 @@ public extension UIImage{
     func applyImage(to imageView:UIImageView) {
         imageView.image = self
     }
-    func renderSelf(_ callBack:@escaping((UIImage)->Void)){
+    /// 解码
+    func decodedSelf()->UIImage{
         if #available(iOS 10.0, *) {
             let imageRenderer = UIGraphicsImageRenderer.init(size: size)
             let image = imageRenderer.image { (context:UIGraphicsImageRendererContext) in
@@ -749,35 +746,27 @@ public extension UIImage{
                 cgContext.scaleBy(x: 1.0, y: -1.0)
                 cgContext.translateBy(x: 0, y: -size.height)
                 guard let cgImage = cgImage else{
-                    callBack(self)
                     return
                 }
                 cgContext.draw(cgImage, in: CGRect.init(origin: .zero, size: size))
             }
-            DispatchQueue.safeSyncInMain {
-                callBack(image)
-            }
+            return image
         }else{
             UIGraphicsBeginImageContext(size)
             guard let cgContext = UIGraphicsGetCurrentContext() else{
-                callBack(self)
-                return
+                return self
             }
             cgContext.scaleBy(x: 1.0, y: -1.0)
             cgContext.translateBy(x: 0, y: -size.height)
             guard let cgImage = cgImage else{
-                callBack(self)
-                return
+                return self
             }
             cgContext.draw(cgImage, in: CGRect.init(origin: .zero, size: size))
             guard let image = UIGraphicsGetImageFromCurrentImageContext() else{
-                callBack(self)
-                return
+                return self
             }
             UIGraphicsEndImageContext()
-            DispatchQueue.main.async {
-                callBack(image)
-            }
+            return image
         }
     }
     /**
@@ -785,9 +774,12 @@ public extension UIImage{
      loading one image may need 0.015s or more,using global dispatch queue
      can improve main thread performance
      */
-    func decodedImage(_ size:CGSize, callBack:@escaping ((UIImage)->Void)) {
-        DispatchQueue.global().async {[weak self] in
-            self?.renderSelf(callBack)
+    func decodedImage(callBack:@escaping ((UIImage)->Void)) {
+        DispatchQueue.global().async {
+            let img = self.decodedSelf()
+            DispatchQueue.safeSyncInMain(with: DispatchWorkItem.init(block: {
+               callBack(img)
+            }))
         }
     }
     
