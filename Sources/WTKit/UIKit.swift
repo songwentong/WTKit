@@ -503,7 +503,7 @@ public extension UIImageView{
             objc_setAssociatedObject(self, &AssociatedKeys.imageURL, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    var downloadTask:URLSessionDataTask? {
+    var loadingTask:URLSessionDataTask? {
         get{
             let v = objc_getAssociatedObject(self, &AssociatedKeys.downloadTask)
             return v as? URLSessionDataTask
@@ -535,6 +535,7 @@ public extension UIImageView{
         self.image = nil
         let size = self.frame.size
         loadingURL = path.urlValue
+        loadingTask?.cancel()
         let task = UIImage.loadImage(with: path) {[weak self] img in
             if self?.loadingURL != path.urlValue{
                 return
@@ -544,7 +545,6 @@ public extension UIImageView{
                 self?.layoutIfNeeded()
             }
         } error: { err in
-            
         }
         loadingTask = task
     }
