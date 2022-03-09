@@ -114,7 +114,8 @@ public extension UIDevice{
         return false
 #endif
     }
-    //可用内存空间
+    /// 可用内存空间，注：内存是一个动态分配的数据，可用内存是一个动态的概念
+    /// 直接用这个数据并不一定是想要的数据
     static var freeMemoryInMib:Int64{
         var pagesize: vm_size_t = 0
         
@@ -769,6 +770,7 @@ public extension UIImage{
             return image
         }
     }
+    
     /**
      decode image to bitmap using UIGraphicsImageRenderer,
      loading one image may need 0.015s or more,using global dispatch queue
