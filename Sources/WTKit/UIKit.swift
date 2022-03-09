@@ -535,7 +535,7 @@ public extension UIImageView{
         self.image = nil
         let size = self.frame.size
         loadingURL = path.urlValue
-        UIImage.loadImage(with: path) {[weak self] img in
+        let task = UIImage.loadImage(with: path) {[weak self] img in
             if self?.loadingURL != path.urlValue{
                 return
             }
@@ -546,6 +546,7 @@ public extension UIImageView{
         } error: { err in
             
         }
+        loadingTask = task
     }
     func setResizableImage(with image:UIImage, withCapInsets: UIEdgeInsets = .zero, resizingMode:UIImage.ResizingMode = .tile) {
         self.image = image.resizableImage(withCapInsets: withCapInsets, resizingMode: resizingMode)
