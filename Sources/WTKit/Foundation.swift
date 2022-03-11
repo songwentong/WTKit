@@ -7,8 +7,12 @@
 //  https://github.com/songwentong/WTKit
 
 import Foundation
+#if canImport(CryptoKit)
+import CryptoKit
+#endif
 #if canImport(Combine)
 import Combine
+import UIKit
 #endif
 /// Writes the textual representations of the given items into the standard
 /// output. with file,function,line(In Debug mode)
@@ -22,6 +26,7 @@ public func dprint<T>(_ items:T, separator: String = " ", terminator: String = "
 public func cprint<T>(_ items: T,  separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
     print("\((file as NSString).lastPathComponent)[\(line)], \(function): \(items)", separator: separator, terminator: terminator)
 }
+
 // MARK: - String
 public extension String{
 
@@ -1072,3 +1077,40 @@ do{
 
 }
 */
+public class LRUCache{
+    
+}
+public class DataCacheManager{
+    public static let shared = DataCacheManager()
+    let cacheName:String
+    let dirPath:String
+    init(with cacheName:String = "DataCacheManager") {
+        self.cacheName = cacheName
+        dirPath = NSHomeDirectory() + "/Library/Caches/"  + cacheName
+        
+        let fm = FileManager.default
+        let exi = fm.fileExists(atPath: dirPath)
+        if !exi {
+            do{
+                let url = URL.init(fileURLWithPath: dirPath)
+                try fm.createDirectory(at: url, withIntermediateDirectories: false, attributes: nil)
+            }catch{
+                
+            }
+        }
+        
+        
+    }
+    public func save( data:Data,for key:String) {
+        DispatchQueue.global().async {
+            data.writeToFile(path: "\(self.dirPath)/\(key)")
+        }
+    }
+    public func readData(for key:String, complection:@escaping(Data?)->Void) {
+        DispatchQueue.global().async {
+            let url = URL.init(fileURLWithPath: "\(self.dirPath)/\(key)")
+            let data = try? Data.init(contentsOf: url)
+            complection(data)
+        }
+    }
+}
