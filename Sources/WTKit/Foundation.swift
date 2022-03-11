@@ -1080,6 +1080,7 @@ do{
 public class LRUCache{
     
 }
+///文件储存
 public class DataCacheManager{
     public static let shared = DataCacheManager()
     let cacheName:String

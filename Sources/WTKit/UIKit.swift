@@ -738,7 +738,7 @@ public extension UIImage{
     func applyImage(to imageView:UIImageView) {
         imageView.image = self
     }
-    /// 解码
+    /// 解码,不做任何线程处理
     func decodedSelf()->UIImage{
         if #available(iOS 10.0, *) {
             let imageRenderer = UIGraphicsImageRenderer.init(size: size)
@@ -780,7 +780,7 @@ public extension UIImage{
         DispatchQueue.global().async {
             let img = self.decodedSelf()
             DispatchQueue.safeSyncInMain(with: DispatchWorkItem.init(block: {
-               callBack(img)
+                callBack(img)
             }))
         }
     }
