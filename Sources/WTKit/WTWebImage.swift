@@ -22,7 +22,7 @@ open class WebImageView:UIImageView{
             guard let img = data.uiImage else{
                 return
             }
-            img.decodedImage{ (image) in
+            img.decodedImage(with: self?.frame.size ?? .zero) {(image) in
                 self?.image = image
                 self?.layoutIfNeeded()
             }
@@ -38,8 +38,7 @@ open class WebImageView:UIImageView{
             guard let img = data.uiImage else{
                 return
             }
-            
-            img.decodedImage{ (image) in
+            img.decodedImage(with: self?.bounds.size ?? .zero) { (image) in
                 self?.highlightedImage = image
                 self?.layoutIfNeeded()
             }
@@ -59,7 +58,7 @@ open class WebImageButton:UIButton{
             guard let img = data.uiImage else{
                 return
             }
-            img.decodedImage{ (image) in
+            img.decodedImage(with: self?.bounds.size ?? .zero) {(image) in
                 self?.setImage(image, for: state)
                 self?.layoutIfNeeded()
             }
@@ -76,7 +75,7 @@ open class WebImageButton:UIButton{
             guard let img = data.uiImage else{
                 return
             }
-            img.decodedImage{ (image) in
+            img.decodedImage(with: self?.frame.size ?? .zero) {(image) in
                 self?.setImage(image, for: state)
                 self?.layoutIfNeeded()
             }

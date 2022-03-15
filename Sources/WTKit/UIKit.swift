@@ -158,13 +158,23 @@ public extension UIColor{
     //        UIColor.init(red: CGFloat.random(in: ClosedRange.i), green: <#T##CGFloat#>, blue: <#T##CGFloat#>, alpha: <#T##CGFloat#>)
     //    }
     func createImage(with size:CGSize) -> UIImage? {
-        let rect = CGRect(origin: .zero, size: size)
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
-        setFill()
-        UIRectFill(rect)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
+        if #available(iOS 10.0, *) {
+            let render = UIGraphicsImageRenderer.init(size: size)
+            let img = render.image { context in
+                self.setFill()
+                context.fill(CGRect.init(x: 0, y: 0, width: size.width, height: size.height))
+            }
+            return img
+        } else {
+            // Fallback on earlier versions
+            let rect = CGRect(origin: .zero, size: size)
+            UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+            setFill()
+            UIRectFill(rect)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return image
+        }
     }
     class func colorWithHexString(_ string:String, alpha:CGFloat = 1.0, defaultColor:UIColor = .red) -> UIColor{
         let mutableCharSet = "".mutableCharacterSet
@@ -543,7 +553,7 @@ public extension UIImageView{
                 return
             }
             
-            img.decodedImage(callBack: { [weak self] image in
+            img.decodedImage(with: self?.frame.size ?? .zero, callBack: { [weak self] image in
                 self?.image = image
                 self?.layoutIfNeeded()
             })
@@ -591,7 +601,7 @@ public extension UIButton{
             if self?.loadingURL != path.urlValue{
                 return
             }
-            image.decodedImage {[weak self] img in
+            image.decodedImage(with: self?.frame.size ?? .zero) { [weak self] img in
                 self?.setImage(img, for: state)
                 self?.layoutIfNeeded()
             }
@@ -605,7 +615,7 @@ public extension UIButton{
             if self?.loadingURLOfBG != path.urlValue{
                 return
             }
-            image.decodedImage {[weak self] img in
+            image.decodedImage(with: self?.frame.size ?? .zero) {[weak self] img in
                 self?.setBackgroundImage(image, for: state)
                 self?.layoutIfNeeded()
             }
@@ -738,8 +748,8 @@ public extension UIImage{
     func applyImage(to imageView:UIImageView) {
         imageView.image = self
     }
-    /// 解码,不做任何线程处理
-    func decodedSelf()->UIImage{
+    /// 绘制为小型的图
+    func downSize(with size:CGSize)->UIImage{
         if #available(iOS 10.0, *) {
             let imageRenderer = UIGraphicsImageRenderer.init(size: size)
             let image = imageRenderer.image { (context:UIGraphicsImageRendererContext) in
@@ -776,9 +786,9 @@ public extension UIImage{
      loading one image may need 0.015s or more,using global dispatch queue
      can improve main thread performance
      */
-    func decodedImage(callBack:@escaping ((UIImage)->Void)) {
+    func decodedImage(with size:CGSize, callBack:@escaping ((UIImage)->Void)) {
         DispatchQueue.global().async {
-            let img = self.decodedSelf()
+            let img = self.downSize(with: size)
             DispatchQueue.safeSyncInMain(with: DispatchWorkItem.init(block: {
                 callBack(img)
             }))
