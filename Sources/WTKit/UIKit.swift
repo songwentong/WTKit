@@ -1066,17 +1066,14 @@ open class WTUINavigationController:UINavigationController {
 open class WTVC:UIViewController{
     open var wtHeaderView:UIView = UIView()
     open var wtBottomAnchor:NSLayoutConstraint? = nil
-    public static var wtDefaultHeaderBGColor:UIColor = UIColor.colorWithHexString("f8fafc")
+    public static var wtDefaultHeaderBGColor:UIColor = "f8fafc".hexColor
     open var wtSeparateLine:UIView = UIView()
     open var wtBackButton:UIButton = UIButton.init(type: .custom)
     open var wtBackIconImageView:UIImageView = UIImageView()
     open var wtBackButtonLabel:UILabel = UILabel()
     open var wtTitleLabel:UILabel = UILabel.init()
-    public static var wtBackButtonURL:String = "https://songwentong.github.io/projects/WTKit/backbutton.png"{
-        didSet{
-            
-        }
-    }
+    /// 静态变量，用于保存返回按钮地址
+    public static var wtBackButtonURL:String = "https://songwentong.github.io/projects/WTKit/backbutton.png"
     public static var wtBackButtonImage:UIImage? = nil
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -1086,7 +1083,6 @@ open class WTVC:UIViewController{
         super.loadView()
         configMyHeaderView()
     }
-    
     func configMyHeaderView() {
         view.addSubview(wtHeaderView)
         wtHeaderView.turnOffMask()
@@ -1135,17 +1131,8 @@ open class WTVC:UIViewController{
         wtBackIconImageView.heightAnchor.constraint(equalToConstant: 21).isActive = true
         wtBackIconImageView.contentMode = .scaleAspectFill
         wtBackIconImageView.image = WTVC.wtBackButtonImage
-        if let url = URL.init(string: WTVC.wtBackButtonURL){
-            URLSession.default.useCacheElseLoadURLData(with: url) { (data, res, err) in
-                guard let data = data else{
-                    return
-                }
-                guard let img = data.uiImage else{
-                    return
-                }
-                self.wtBackIconImageView.image = img
-            }
-        }
+        wtBackIconImageView.loadImage(with: WTVC.wtBackButtonURL)
+
         wtBackButton.addSubview(wtBackButtonLabel)
         wtBackButtonLabel.turnOffMask()
         wtBackButtonLabel.leadingAnchor.constraint(equalTo: wtBackIconImageView.trailingAnchor, constant: 6).isActive = true
@@ -1153,7 +1140,7 @@ open class WTVC:UIViewController{
         wtBackButtonLabel.bottomAnchor.constraint(equalTo: wtBackButton.bottomAnchor, constant: 0).isActive = true
         wtBackButtonLabel.trailingAnchor.constraint(equalTo: wtBackButton.trailingAnchor, constant: 0).isActive = true
         wtBackButtonLabel.text = "Back"
-        wtBackButtonLabel.textColor = .colorWithHexString("0077fa")
+        wtBackButtonLabel.textColor = "0077fa".hexColor
         
         wtHeaderView.addSubview(wtTitleLabel)
         wtTitleLabel.turnOffMask()
@@ -1161,11 +1148,12 @@ open class WTVC:UIViewController{
         wtTitleLabel.textAlignment = .center
         wtTitleLabel.centerXAnchor.constraint(equalTo: wtHeaderView.centerXAnchor, constant: 0).isActive = true
         //view.safeAreaLayoutGuide.topAnchor
+        var titleTop = topLayoutGuide.topAnchor
         if #available(iOS 11.0, *) {
-            wtTitleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+            titleTop = view.safeAreaLayoutGuide.topAnchor
         } else {
-            wtTitleLabel.topAnchor.constraint(equalTo: topLayoutGuide.topAnchor).isActive = true
         }
+        wtTitleLabel.topAnchor.constraint(equalTo: titleTop).isActive = true
         wtTitleLabel.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
         wtTitleLabel.text = title
     }
