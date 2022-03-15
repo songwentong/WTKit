@@ -55,7 +55,7 @@ public extension UIView{
         tip.tipLabel.text = string
         tip.isUserInteractionEnabled = false
         addSubview(tip)
-        DispatchQueue.main.asyncAfterAfter(hideDelay) {
+        DispatchQueue.main.asyncAfterTime(hideDelay) {
             tip.removeFromSuperview()
         }
     }

@@ -387,12 +387,11 @@ public extension DispatchQueue{
         DispatchQueue.main.async(execute: work)
     }
     func perform( closure: @escaping () -> Void, afterDelay:Double) -> Void {
-        let time = Int64(afterDelay * Double(NSEC_PER_SEC))
-        let t:DispatchTime = DispatchTime.now() + Double(time) / Double(NSEC_PER_SEC)
+        let t:DispatchTime = DispatchTime.now() + Double(afterDelay)
         self.asyncAfter(deadline: t, execute: closure)
     }
     ///delay excute work
-    func asyncAfterAfter(_ delay: TimeInterval, execute work: @escaping @convention(block) () -> Void) {
+    func asyncAfterTime(_ delay: TimeInterval, execute work: @escaping @convention(block) () -> Void) {
         asyncAfter(deadline: .now() + delay, execute: work)
     }
 }
@@ -526,6 +525,28 @@ public extension URLCache{
         let cache = URLCache.init(memoryCapacity: memoryCapacity, diskCapacity: dc, diskPath: "WTKitURLCachePath")
         return cache
     }()
+    
+    static func testURLDir(){
+        if #available(iOS 13.0, *) {
+            let path = "\(NSHomeDirectory())/Library/Caches/com.test.TestWTKit/testURL"
+            let pathURL = URL.init(fileURLWithPath: path)
+            let cache = URLCache.init(memoryCapacity: 0, diskCapacity: 100000000000, directory: pathURL)
+            let req = URLRequest.init(url: "https://www.baidu.com".urlValue, cachePolicy: .returnCacheDataElseLoad)
+            let config = URLSessionConfiguration.default
+            config.urlCache = cache
+            let mysession = URLSession.init(configuration: config)
+            mysession.configuration.urlCache = cache
+            let t = URLSession.shared.dataTask(with: req) { d, u, e in
+                print("result")
+            }
+            t.resume()
+//            let res = CachedURLResponse.init(response: URLResponse.init(url: "https://z.cn".urlValue, mimeType: "", expectedContentLength: 100, textEncodingName: nil), data: "test data".utf8Data)
+//            cache.storeCachedResponse(res, for: "https://z.cn".urlRequest)
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
 }
 public let WT = URLSession.default
 // MARK: - URLSession
