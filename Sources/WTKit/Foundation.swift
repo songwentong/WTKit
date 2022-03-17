@@ -1101,15 +1101,14 @@ do{
 public class LRUCache{
     
 }
-///文件储存
+///文件储存器
 public class DataCacheManager{
     public static let shared = DataCacheManager()
     let cacheName:String
     let dirPath:String
     init(with cacheName:String = "DataCacheManager") {
         self.cacheName = cacheName
-        dirPath = NSHomeDirectory() + "/Library/Caches/"  + cacheName
-        
+        dirPath = NSHomeDirectory() + "/Library/Caches/WTKit/DataCacheManager/"  + cacheName
         let fm = FileManager.default
         let exi = fm.fileExists(atPath: dirPath)
         if !exi {
@@ -1120,8 +1119,6 @@ public class DataCacheManager{
                 
             }
         }
-        
-        
     }
     public func save( data:Data,for key:String) {
         DispatchQueue.global().async {
@@ -1132,7 +1129,9 @@ public class DataCacheManager{
         DispatchQueue.global().async {
             let url = URL.init(fileURLWithPath: "\(self.dirPath)/\(key)")
             let data = try? Data.init(contentsOf: url)
-            complection(data)
+            DispatchQueue.main.async {
+                complection(data)
+            }
         }
     }
 }
