@@ -582,23 +582,14 @@ public extension URLSession{
     func dataTaskWith<T:Codable>( request:URLRequest, testData:Data? = nil, codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         let task = self.dataTask(with: request) {  (data, response, err) in
             var errorToReturn = err
-            #if DEBUG
-            ///如果在debug模式下使用了测试数据，就使用测试数据
-            if let td = testData {
-                do {
-                    let result = try JSONDecoder().decode(T.self, from: td)//类型转换
-                    DispatchQueue.main.async {
-                        object(result)
-                    }
-                } catch {
-                    errorToReturn = error
-                }
-                completionHandler(data,response,errorToReturn)
-                return
-            }
-            #endif
-            if let myData = data{
+            if var myData = data{
                 do{
+                    #if DEBUG
+                    //如果在debug模式下使用了测试数据，就使用测试数据
+                    if let td = testData{
+                        myData = td
+                    }
+                    #endif
                     let result = try JSONDecoder().decode(T.self, from: myData)//类型转换
                     DispatchQueue.main.async {
                         object(result)
