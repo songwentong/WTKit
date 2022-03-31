@@ -12,6 +12,8 @@ import CryptoKit
 #endif
 #if canImport(Combine)
 import Combine
+#endif
+#if canImport(UIKit)
 import UIKit
 #endif
 /// Writes the textual representations of the given items into the standard
@@ -413,6 +415,15 @@ public extension URLRequest{
         //        URLSession.sha
     }
     #endif
+    #if DEBUG
+    func testRequest() {
+//        "https://apple.com".urlRequest.dataTaskWith { (str:String) in
+//
+//        } completionHandler: { data, res, error in
+//
+//        }
+    }
+    #endif
     ///create URL Request
     static func createURLRequest(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:]) -> URLRequest {
         var request = URLRequest.init(url: path.urlValue)
@@ -470,10 +481,10 @@ public extension URLRequest{
     }
     ///use Codable callback
     func dataTaskWith<T:Codable>(codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
-        return URLSession.shared.dataTaskWith(request: self, codable: object, completionHandler: completionHandler)
+        return URLSession.default.dataTaskWith(request: self, codable: object, completionHandler: completionHandler)
     }
     func dataTask( completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
-        return URLSession.shared.dataTask(with: self) { (data, res, err) in
+        return URLSession.default.dataTask(with: self) { (data, res, err) in
             DispatchQueue.main.async {
                 completionHandler(data,res,err)
             }
@@ -525,27 +536,27 @@ public extension URLCache{
         let cache = URLCache.init(memoryCapacity: memoryCapacity, diskCapacity: dc, diskPath: "WTKitURLCachePath")
         return cache
     }()
-    
+    //检查是否是64bit设备
+#if CGFLOAT_IS_DOUBLE
+    @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
     static func testURLDir(){
-        if #available(iOS 13.0, *) {
-            let path = "\(NSHomeDirectory())/Library/Caches/com.test.TestWTKit/testURL"
-            let pathURL = URL.init(fileURLWithPath: path)
-            let cache = URLCache.init(memoryCapacity: 0, diskCapacity: 100000000000, directory: pathURL)
-            let req = URLRequest.init(url: "https://www.baidu.com".urlValue, cachePolicy: .returnCacheDataElseLoad)
-            let config = URLSessionConfiguration.default
-            config.urlCache = cache
-            let mysession = URLSession.init(configuration: config)
-            mysession.configuration.urlCache = cache
-            let t = URLSession.shared.dataTask(with: req) { d, u, e in
-                print("result")
-            }
-            t.resume()
+        let path = "\(NSHomeDirectory())/Library/Caches/com.test.TestWTKit/testURL"
+        let pathURL = URL.init(fileURLWithPath: path)
+        let cache = URLCache.init(memoryCapacity: 0, diskCapacity: 100000000000, directory: pathURL)
+        let req = URLRequest.init(url: "https://www.baidu.com".urlValue, cachePolicy: .returnCacheDataElseLoad)
+        let config = URLSessionConfiguration.default
+        config.urlCache = cache
+        let mysession = URLSession.init(configuration: config)
+        mysession.configuration.urlCache = cache
+        let t = URLSession.shared.dataTask(with: req) { d, u, e in
+            print("result")
+        }
+        t.resume()
 //            let res = CachedURLResponse.init(response: URLResponse.init(url: "https://z.cn".urlValue, mimeType: "", expectedContentLength: 100, textEncodingName: nil), data: "test data".utf8Data)
 //            cache.storeCachedResponse(res, for: "https://z.cn".urlRequest)
-        } else {
-            // Fallback on earlier versions
-        }
     }
+#endif
+    
     
 }
 public let WT = URLSession.default
@@ -579,7 +590,7 @@ public extension URLSession{
      testData:用于测试的数据,只会出现在debug模式,这个方法非常实用,
      可以模拟一个想要的数据来测试功能和UI
      */
-    func dataTaskWith<T:Codable>( request:URLRequest, testData:Data? = nil, codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
+    func dataTaskWith<T:Codable>( request:URLRequest, testData:Data? = nil, codable object:@escaping (T)->Void, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         let task = self.dataTask(with: request) {  (data, response, err) in
             var errorToReturn = err
             if var myData = data{
@@ -600,6 +611,9 @@ public extension URLSession{
             }
             completionHandler(data,response,errorToReturn)
         }
+        DispatchQueue.global().async {
+            task.resume()
+        }
         return task
     }
     
@@ -612,7 +626,9 @@ public extension URLSession{
                 completionHandler(data,res,err)
             }
         })
-        task.resume()
+        DispatchQueue.global().async {
+            task.resume()
+        }
         return task
     }
     
@@ -622,10 +638,15 @@ public extension URLSession{
         let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad)
         let task = dataTask(with: request, completionHandler: { (data,res,err) in
             if let data = data{
-                finished(data)
+                DispatchQueue.main.async {
+                    finished(data)
+                }
+                
             }
             if let err = err{
-                failed(err)
+                DispatchQueue.main.async {
+                    failed(err)
+                }
             }
         })
         task.resume()
@@ -728,6 +749,7 @@ public class WTURLSessionDelegate:NSObject,URLSessionDelegate{
 }
 
 public extension URL{
+    //https:host/method
     var request:URLRequest{
         return URLRequest.init(url: self)
     }
