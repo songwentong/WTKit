@@ -221,11 +221,11 @@ public extension UIViewController{
     }
     /// 从同名的storyboardc文件中取到根控制器的实例
     static func instanceFromStoryBoard<T:UIViewController>() -> T {
-        guard let _ = Bundle.main.path(forResource: "\(self)", ofType: "storyboardc") else{
+        guard let _ = self.currentBundle.path(forResource: "\(self)", ofType: "storyboardc") else{
             print("storyboradc file not found class:\(self)")
             return T.init()
         }
-        let sb = UIStoryboard.init(name: "\(self)", bundle: nil)
+        let sb = UIStoryboard.init(name: "\(self)", bundle: self.currentBundle)
         if let vc = sb.instantiateInitialViewController() as? T{
             return vc
         }else{
@@ -233,11 +233,11 @@ public extension UIViewController{
         }
     }
     static func instanceFromNib<T:UIViewController>() -> T{
-        guard let _ = Bundle.main.path(forResource: "\(self)", ofType: "nib") else{
+        guard let _ = self.currentBundle.path(forResource: "\(self)", ofType: "nib") else{
             print("nib file not found class:\(self)")
             return T.init()
         }
-        let nib = UINib.init(nibName: "\(self)", bundle: nil)
+        let nib = UINib.init(nibName: "\(self)", bundle: self.currentBundle)
         for ele in nib.instantiate(withOwner: nil, options: nil){
             if let obj = ele as? T{
                 return obj
@@ -338,7 +338,7 @@ public extension UIView {
     func instanceFromXibWithOwner<T:UIView>() -> T{
         let res = "\(self.classForCoder)"
         let bundle = Bundle.init(for: type(of: self))
-        guard let path = Bundle.main.path(forResource: res, ofType: "nib") else{
+        guard let path = T.currentBundle.path(forResource: res, ofType: "nib") else{
             print("nib file not found")
             return T.init()
         }
@@ -353,11 +353,11 @@ public extension UIView {
     }
     static func instanceFromXib<T:UIView>() -> T{
         let res = "\(self)"
-        guard let _ = Bundle.main.path(forResource: res, ofType: "nib") else{
+        guard let _ = T.currentBundle.path(forResource: res, ofType: "nib") else{
             print("nib file not found")
             return T.init()
         }
-        let nib = UINib.init(nibName: "\(self)", bundle: nil)
+        let nib = UINib.init(nibName: "\(self)", bundle: T.currentBundle)
         for ele in nib.instantiate(withOwner: nil, options: nil){
             if let obj = ele as? T{
                 return obj

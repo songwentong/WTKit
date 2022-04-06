@@ -29,6 +29,12 @@ public func cprint<T>(_ items: T,  separator: String = " ", terminator: String =
     print("\((file as NSString).lastPathComponent)[\(line)], \(function): \(items)", separator: separator, terminator: terminator)
 }
 
+public extension NSObject{
+    static var currentBundle:Bundle{
+        return Bundle.init(for: self)
+    }
+}
+
 // MARK: - String
 public extension String{
 
