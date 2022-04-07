@@ -6,7 +6,7 @@
 //  Copyright © 2019 宋文通. All rights reserved.
 //
 import Foundation
-#if os(iOS)
+#if canImport(UIKit)
 import UIKit
 #if canImport(Combine)
 import Combine
@@ -220,23 +220,29 @@ public extension UIViewController{
     
      也适用于复杂结构
      UIWindow ---> UITabBarController ---> UINavigationController ---> UIViewController  ---> present --->  UINavigationController ---> UIViewController
+     和这种复杂结构
+     UIWindow ---> UIViewController ---> present ---> UIViewController ---> present ---> UIViewController
+     和以上所有结构的混合结构
      */
-    func topVC() -> UIViewController {
+    static func topVC()->UIViewController? {
+        return UIApplication.rootViewController?.topVC()
+    }
+    
+    ///获取顶部控制器，不需要直接用
+    fileprivate func topVC() -> UIViewController {
         if let vc = presentedViewController{
             return vc.topVC()
         }
         return self
     }
-    static func topVC()->UIViewController? {
-        return UIApplication.topViewController
-    }
-    ///如果应用的controller链中没有出现present出的控制器,就可以成功,否则就会失败
+    
+    ///检测导航器来push
     func requestPushToTopVC() {
-        UIApplication.topViewController?.navigationController?.pushViewController(self, animated: true)
+        UIViewController.topVC()?.navigationController?.pushViewController(self, animated: true)
     }
-    ///如果应用的controller链中没有出现present出的控制器,就可以成功,否则可能会失败
+    ///检测顶部控制器来push
     func requestTopVCPresent( animated flag: Bool, completion: (() -> Void)? = nil) {
-        UIApplication.topViewController?.present(self, animated: flag, completion: completion)
+        UIViewController.topVC()?.present(self, animated: flag, completion: completion)
     }
     /// 从同名的storyboardc文件中取到根控制器的实例
     static func instanceFromStoryBoard<T:UIViewController>() -> T {
@@ -647,8 +653,8 @@ public extension UIButton{
     }
 }
 public extension UITabBarController{
-    
-    func topVC() -> UIViewController? {
+    ///不需要直接使用
+    fileprivate func topVC() -> UIViewController? {
         return selectedViewController?.topVC()
     }
     var topNavigationController:UINavigationController?{
@@ -659,7 +665,8 @@ public extension UITabBarController{
     }
 }
 public extension UINavigationController{
-    func topVC() -> UIViewController? {
+    ///不需要直接使用
+    fileprivate func topVC() -> UIViewController? {
         return topViewController?.topVC()
     }
 }
@@ -693,42 +700,14 @@ public extension UIApplication{
     static var rootViewController:UIViewController?{
         return UIApplication.shared.keyWindow?.rootViewController
     }
-    static var topNavigationController:UINavigationController?{
-        let root = rootViewController
-        if let tab = root as? UITabBarController{
-            return tab.topNavigationController
-        }
-        if let rn = root as? UINavigationController{
-            return rn
-        }
-        return nil
-    }
-    ///当前顶部控制器
-    static var topViewController:UIViewController?{
-        let root = rootViewController
-        return root?.topVC()
-    }
-    
-    static func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil){
-        topViewController?.present(viewControllerToPresent, animated: flag, completion: completion)
-    }
-    
-    static func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        topViewController?.navigationController?.pushViewController(viewController, animated: animated)
-    }
-    
-    static func findKeyWindow() -> UIWindow? {
-        let keyWindowList = shared.windows.filter { (window) -> Bool in
-            //            window.windowLevel == .normal
+    func findKeyWindow() -> UIWindow? {
+        windows.filter { window in
             if window.isKeyWindow{
                 return true
             }
             return false
-        }
-        return keyWindowList.first
+        }.first
     }
-    
-    
 }
 
 @available(iOS 10.0, *)

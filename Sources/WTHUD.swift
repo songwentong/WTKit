@@ -22,7 +22,7 @@ public extension UIApplication{
         #endif
     }
     static func showTextTip(with string:String, hideDelay:TimeInterval = 2) {
-        findKeyWindow()?.showTextTip(with: string, hideDelay: hideDelay)
+        shared.findKeyWindow()?.showTextTip(with: string, hideDelay: hideDelay)
     }
 }
 public extension UIView{
