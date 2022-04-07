@@ -211,6 +211,25 @@ public extension UIColor{
 }
 // MARK: - UIViewController
 public extension UIViewController{
+    /**
+     在控制器链中获取当前顶部控制器
+     获取顶部控制器的方案既适用于简单结构,比如常见的
+     UIWindow---> UITabBarController ---> [UINavigationController] ---> [UIViewController]
+     或者
+     UIWindow---> UINavigationController ---> [UIViewController]
+    
+     也适用于复杂结构
+     UIWindow ---> UITabBarController ---> UINavigationController ---> UIViewController  ---> present --->  UINavigationController ---> UIViewController
+     */
+    func topVC() -> UIViewController {
+        if let vc = presentedViewController{
+            return vc.topVC()
+        }
+        return self
+    }
+    static func topVC()->UIViewController? {
+        return UIApplication.topViewController
+    }
     ///如果应用的controller链中没有出现present出的控制器,就可以成功,否则就会失败
     func requestPushToTopVC() {
         UIApplication.topViewController?.navigationController?.pushViewController(self, animated: true)
@@ -249,7 +268,9 @@ public extension UIViewController{
 
 public extension UITableViewController{}
 
-public extension UIPageViewController{}
+public extension UIPageViewController{
+    
+}
 
 public extension UICollectionViewController{}
 
@@ -404,6 +425,7 @@ public extension CALayer{
             l.removeFromSuperlayer()
         }
     }
+    ///截图
     func snapShot() -> UIImage {
         if #available(iOS 10.0, *) {
             let render = UIGraphicsImageRenderer.init(size: self.bounds.size)
@@ -625,24 +647,20 @@ public extension UIButton{
     }
 }
 public extension UITabBarController{
-    /**
-     get current UINavigationController or nil
-     获取控制器树结构的方案适用于简单结构,比如常见的
-     UIWindow---> UITabBarController ---> [UINavigationController] ---> [UIViewController]
-     或者
-     UIWindow---> UINavigationController ---> [UIViewController]
-     */
+    
+    func topVC() -> UIViewController? {
+        return selectedViewController?.topVC()
+    }
     var topNavigationController:UINavigationController?{
         if let navi = selectedViewController as? UINavigationController{
             return navi
         }
         return nil
     }
-    var topViewController:UIViewController? {
-        if let navi = selectedViewController as? UINavigationController{
-            return navi.topViewController
-        }
-        return selectedViewController
+}
+public extension UINavigationController{
+    func topVC() -> UIViewController? {
+        return topViewController?.topVC()
     }
 }
 // MARK: - UIApplication
@@ -673,13 +691,7 @@ public extension UIApplication{
         return win
     }
     static var rootViewController:UIViewController?{
-        guard let first = UIApplication.shared.windows.first else{
-            return nil
-        }
-        guard let root = first.rootViewController else{
-            return nil
-        }
-        return root
+        return UIApplication.shared.keyWindow?.rootViewController
     }
     static var topNavigationController:UINavigationController?{
         let root = rootViewController
@@ -691,20 +703,16 @@ public extension UIApplication{
         }
         return nil
     }
+    ///当前顶部控制器
     static var topViewController:UIViewController?{
         let root = rootViewController
-        if let tabVC = root as? UITabBarController{
-            return tabVC.topViewController
-        }
-        if let navi = root as? UINavigationController{
-            return navi.topViewController
-        }
-        return root
+        return root?.topVC()
     }
     
     static func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil){
         topViewController?.present(viewControllerToPresent, animated: flag, completion: completion)
     }
+    
     static func pushViewController(_ viewController: UIViewController, animated: Bool) {
         topViewController?.navigationController?.pushViewController(viewController, animated: animated)
     }
@@ -970,7 +978,8 @@ public extension NSAttributedString{
     }
 }
 
-/*
+/**
+ CAGradientLayer的封装
  example
  layer.colors = [UIColor(red: 0.32, green: 0.77, blue: 0.93, alpha: 1).cgColor, UIColor(red: 0.21, green: 0.46, blue: 0.96, alpha: 1).cgColor]
  layer.locations = [0, 1]
@@ -1063,6 +1072,9 @@ open class WTUINavigationController:UINavigationController {
      */
 }
 // MARK: - WTVC
+/**
+  这个控制器主要的功能是自制导航栏
+ */
 open class WTVC:UIViewController{
     open var wtHeaderView:UIView = UIView()
     open var wtBottomAnchor:NSLayoutConstraint? = nil
@@ -1077,7 +1089,6 @@ open class WTVC:UIViewController{
     public static var wtBackButtonImage:UIImage? = nil
     open override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     open override func loadView() {
         super.loadView()
@@ -1205,6 +1216,9 @@ open class WTVC:UIViewController{
     }
 }
 // MARK: - WTTableVC
+/**
+ 自制tableview
+ */
 open class WTTableVC:WTVC{
     open var myTableView:UITableView = {
         let table = UITableView.init(frame: .zero, style: .plain)
