@@ -888,17 +888,17 @@ open class MultipartBody:NSObject{
 }
 ///文件上传
 open class MultipartBodyObject:NSObject{
-    var name:String = ""
-    var filename:String = ""
-    var contentType:String = ""
-    var data:Data = "".utf8Data
+    open var name:String = ""
+    open var filename:String = ""
+    open var contentType:String = ""
+    open var data:Data = "".utf8Data
     let lineBreak = "\r\n"
     func preBuild() {
         
     }
 }
 open class MultiPartBodyImage:MultipartBodyObject{
-    var image:UIImage? = nil
+    open var image:UIImage? = nil
     public override init() {
         super.init()
     }
