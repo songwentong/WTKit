@@ -211,6 +211,10 @@ public extension UIColor{
 }
 // MARK: - UIViewController
 public extension UIViewController{
+    func printAppear() {
+        //you can use this print to check appearing VC
+        print("📱----->will Appear:----->\(self)")
+    }
     /**
      在控制器链中获取当前顶部控制器
      获取顶部控制器的方案既适用于简单结构,比如常见的
@@ -957,6 +961,9 @@ public extension NSAttributedString{
     }
 }
 
+
+
+
 /**
  CAGradientLayer的封装
  example
@@ -1037,6 +1044,10 @@ open class AlignLeftFlowLayout: UICollectionViewFlowLayout {
 open class WTUINavigationController:UINavigationController {
     open override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        printAppear()
     }
     /*
      func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning{
@@ -1147,8 +1158,10 @@ open class WTVC:UIViewController{
         wtTitleLabel.bottomAnchor.constraint(equalTo: wtHeaderView.bottomAnchor, constant: 0).isActive = true
         wtTitleLabel.text = title
     }
+    
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        printAppear()
         if navigationController?.viewControllers.first == self{
             wtBackButton.isHidden = true
         }else{

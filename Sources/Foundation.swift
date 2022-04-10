@@ -16,6 +16,7 @@ import Combine
 #if canImport(UIKit)
 import UIKit
 #endif
+import NetworkExtension
 /// Writes the textual representations of the given items into the standard
 /// output. with file,function,line(In Debug mode)
 public func dprint<T>(_ items:T, separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
@@ -430,7 +431,10 @@ public extension URLRequest{
 //        }
     }
     #endif
-    ///create URL Request
+    /**
+     create URL Request
+     todo 图片上传 multipart
+     */
     static func createURLRequest(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:]) -> URLRequest {
         var request = URLRequest.init(url: path.urlValue)
         request.httpMethod = method.rawValue
@@ -444,15 +448,37 @@ public extension URLRequest{
                 }
             }else{
                 request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
-                request.httpBody = string.data(using: .utf8)
+                request.httpBody = string.utf8Data
             }
         }
-
         for (k,v) in headers{
             request.setValue(v, forHTTPHeaderField: k)
         }
         return request
     }
+    fileprivate func testUploadImage(){
+        let imagebody = MultiPartBodyImage()
+        imagebody.image = UIImage.init(named: "asd")
+        
+        let req = URLRequest.multipart(with: "http:a.com", method: .post, parts: [imagebody])
+        let t = URLSession.shared.dataTask(with: req) { data, res, err in
+            
+        }
+        t.resume()
+    }
+    static func multipart(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], parts:[MultipartBodyObject] = [MultipartBodyObject]()) -> URLRequest{
+        var req = URLRequest.init(url: path.urlValue)
+        let body = MultipartBody.init()
+        body.parameters = parameters
+        body.parts = parts
+        req.httpBody = body.buildBody()
+        for (k,v) in headers{
+            req.setValue(v, forHTTPHeaderField: k)
+        }
+        req.setValue("multipart/form-data; boundary=\(body.boundary)", forHTTPHeaderField: "Content-Type")
+        return req
+    }
+    
     static func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
         var components: [(String, String)] = []
         if let value = value as? NSNumber {
@@ -504,6 +530,10 @@ public extension URLRequest{
         } else {
             return "gzip;q=0.9,deflate;q=0.8"
         }
+    }
+    
+    func generateBoundary() -> String {
+       return "Boundary-\(NSUUID().uuidString)"
     }
 }
 // MARK: - URLResponse
@@ -771,21 +801,120 @@ public extension URL{
  Uploading a file named "example.txt"
  ------WebKitFormBoundaryqzByvokjOTfF9UwD--
  */
-open class MultipartBody{
-    var boundry:String = "--qweasdzxc"
-    var contentLength:Int = 0
-    var parts:[MultipartBodyObject] = []
-    func buildBody() -> Data {
-        let result = Data()
+/// Constructs `multipart/form-data` for uploads within an HTTP or HTTPS body. There are currently two ways to encode
+/// multipart form data. The first way is to encode the data directly in memory. This is very efficient, but can lead
+/// to memory issues if the dataset is too large. The second way is designed for larger datasets and will write all the
+/// data to a single file on disk with all the proper boundary segmentation. The second approach MUST be used for
+/// larger datasets such as video content, otherwise your app may run out of memory when trying to encode the dataset.
+///
+/// For more information on `multipart/form-data` in general, please refer to the RFC-2388 and RFC-2045 specs as well
+/// and the w3 form documentation.
+///
+/// - https://www.ietf.org/rfc/rfc2388.txt
+/// - https://www.ietf.org/rfc/rfc2045.txt
+/// - https://www.w3.org/TR/html401/interact/forms.html#h-17.13
 
+/**
+    - https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Type
+ 请求头看起来像这样（在这里省略了一些 headers）：
+
+ POST /foo HTTP/1.1
+ Content-Length: 68137
+ Content-Type: multipart/form-data; boundary=---------------------------974767299852498929531610575
+
+ ---------------------------974767299852498929531610575
+ Content-Disposition: form-data; name="description"
+
+ some text
+ ---------------------------974767299852498929531610575
+ Content-Disposition: form-data; name="myFile"; filename="foo.txt"
+ Content-Type: text/plain
+
+ (content of the uploaded file foo.txt)
+ ---------------------------974767299852498929531610575
+ */
+open class MultipartBody{
+    var contentLength:Int = 0
+    var parameters = [String:Any]()
+    var parts:[MultipartBodyObject] = []
+    let lineBreak = "\r\n"
+    var initBoundary = ""
+    var boundary = ""
+    var middleBoundary = ""
+    var endBoundary = ""
+    init() {
+        let first = UInt32.random(in: UInt32.min...UInt32.max)
+        let second = UInt32.random(in: UInt32.min...UInt32.max)
+        boundary = "wtkit.boundary.\(first)\(second)"
+        initBoundary = "--" + boundary + lineBreak
+        middleBoundary = lineBreak + boundary + lineBreak
+        endBoundary = lineBreak + "--" + boundary + "--" + lineBreak
+    }
+    
+    func buildBody() -> Data {
+        var result = Data()
+        result.append(initBoundary.utf8Data)
+        parameters.forEach { (key: String, value: Any) in
+            result.append("Content-Disposition: form-data; name=\"\(key)\"".utf8Data)
+            result.append(lineBreak.utf8Data)
+            result.append("\(value)".utf8Data)
+            result.append(middleBoundary.utf8Data)
+        }
+        parts.forEach { object in
+            object.preBuild()
+            let str = """
+    Content-Disposition: form-data; name="\(object.name)"; filename="\(object.filename)"
+    Content-Type: \(object.contentType)
+    """
+            result.append(str.utf8Data)
+            result.append(lineBreak.utf8Data)
+            result.append("Content-Type: \(object.contentType)".utf8Data)
+            result.append(middleBoundary.utf8Data)
+        }
+        result.append(endBoundary.utf8Data)
         return result
     }
+    
+    /**
+     static func randomBoundary() -> String {
+         let first = UInt32.random(in: UInt32.min...UInt32.max)
+         let second = UInt32.random(in: UInt32.min...UInt32.max)
+
+         return String(format: "alamofire.boundary.%08x%08x", first, second)
+     }
+     */
+
 }
+///文件上传
 open class MultipartBodyObject{
     var name:String = ""
-    var filename:String?
-    var contentType:String?
-    var data:Data = Data()
+    var filename:String = ""
+    var contentType:String = ""
+    var data:Data = "".utf8Data
+    let lineBreak = "\r\n"
+    func preBuild() {
+        
+    }
+}
+open class MultiPartBodyImage:MultipartBodyObject{
+    var image:UIImage? = nil
+    override func preBuild() {
+        super.preBuild()
+        updateDataAndContentType()
+    }
+    func updateDataAndContentType(){
+        guard let img = image else{
+            return
+        }
+        if let pngData = img.pngData() {
+            contentType = "image/png"
+            data = pngData
+        }
+        if let jpgData = img.jpegData(compressionQuality: 1){
+            contentType = "image/jpeg"
+            data = jpgData
+        }
+    }
 }
 
 public extension URLSessionTask{
@@ -1114,6 +1243,10 @@ do{
 
 }
 */
+public extension NWPath{
+    
+}
+
 public class LRUCache{
     
 }
@@ -1151,3 +1284,4 @@ public class DataCacheManager{
         }
     }
 }
+//Mirror
