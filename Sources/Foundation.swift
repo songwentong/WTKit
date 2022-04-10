@@ -833,7 +833,7 @@ public extension URL{
  (content of the uploaded file foo.txt)
  ---------------------------974767299852498929531610575
  */
-open class MultipartBody{
+open class MultipartBody:NSObject{
     var contentLength:Int = 0
     var parameters = [String:Any]()
     var parts:[MultipartBodyObject] = []
@@ -842,7 +842,8 @@ open class MultipartBody{
     var boundary = ""
     var middleBoundary = ""
     var endBoundary = ""
-    init() {
+    override init() {
+        super.init()
         let first = UInt32.random(in: UInt32.min...UInt32.max)
         let second = UInt32.random(in: UInt32.min...UInt32.max)
         boundary = "wtkit.boundary.\(first)\(second)"
@@ -886,7 +887,7 @@ open class MultipartBody{
 
 }
 ///文件上传
-open class MultipartBodyObject{
+open class MultipartBodyObject:NSObject{
     var name:String = ""
     var filename:String = ""
     var contentType:String = ""
@@ -898,6 +899,9 @@ open class MultipartBodyObject{
 }
 open class MultiPartBodyImage:MultipartBodyObject{
     var image:UIImage? = nil
+    public override init() {
+        super.init()
+    }
     override func preBuild() {
         super.preBuild()
         updateDataAndContentType()
