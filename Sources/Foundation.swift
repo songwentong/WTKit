@@ -892,7 +892,6 @@ open class MultipartBodyObject:NSObject{
     open var filename:String = ""
     open var contentType:String = ""
     open var data:Data = "".utf8Data
-    let lineBreak = "\r\n"
     func preBuild() {
         
     }
