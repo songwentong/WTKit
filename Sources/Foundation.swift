@@ -468,6 +468,7 @@ public extension URLRequest{
     }
     static func multipart(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], parts:[MultipartBodyObject] = [MultipartBodyObject]()) -> URLRequest{
         var req = URLRequest.init(url: path.urlValue)
+        req.httpMethod = method.rawValue
         let body = MultipartBody.init()
         body.parameters = parameters
         body.parts = parts
