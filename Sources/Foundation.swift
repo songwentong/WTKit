@@ -869,8 +869,7 @@ open class MultipartBody:NSObject{
     Content-Type: \(object.contentType)
     """
             result.append(str.utf8Data)
-            result.append(lineBreak.utf8Data)
-            result.append("Content-Type: \(object.contentType)".utf8Data)
+            result.append(object.data)
             result.append(middleBoundary.utf8Data)
         }
         result.append(endBoundary.utf8Data)
