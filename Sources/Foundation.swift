@@ -43,6 +43,10 @@ public extension String{
     var toBytes:[UInt8] {
         return Array(utf8)
     }
+    
+    var remoteStringToLocalName:String{
+        return self.replacingOccurrences(of: "/", with: "")
+    }
 
     ///get localizedString from main Bundle
     var localizedString: String{

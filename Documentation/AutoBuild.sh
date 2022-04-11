@@ -60,5 +60,3 @@ zip -r BCSymbolMaps.zip BCSymbolMaps
 t2=$(date +%s)
 t3='use time: '$((t2-t1))' seconds'
 echo $t3
-
-#我是宋文通，欢迎交流275712575@qq.com

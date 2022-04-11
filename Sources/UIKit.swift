@@ -805,10 +805,14 @@ public extension UIImage{
             guard let data = data else{
                 if let err = err{
                     error(err)
+                }else{
+                    //todo no data
                 }
                 return
             }
             guard let img = UIImage.init(data: data) else{
+                //todo data can't create image
+//                error()
                 return
             }
             image(img)
