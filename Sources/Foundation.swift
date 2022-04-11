@@ -1062,8 +1062,21 @@ public func NSLibraryCachesDirectory() -> String{
 }
 public extension FileManager{
 }
-
-public extension JSONDecoder{
+extension NSObject{
+    fileprivate func read(from data:Data){
+//        let mir = Mirror.init(reflecting: self)
+//        mir.customMirror
+    }
+}
+extension JSONDecoder{
+    //func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable
+//    fileprivate func testdecode<T>(_ type: T.Type, from data: Data) -> T where T : Decodable{
+//        var result = T(from: TopLevelDecoder)
+//
+//
+//
+//        return result
+//    }
 }
 func convertCodableTypeToParameters<T:Codable,B>(_ t:T) -> B? {
     do{
