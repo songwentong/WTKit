@@ -1289,8 +1289,13 @@ public class DataCacheManager{
             }
         }
     }
-    func path(with name:String) -> String {
+    public func path(with name:String) -> String {
         "\(self.dirPath)/\(name)"
+    }
+    
+    public func fileExists(with name: String) -> Bool{
+        let path = path(with: name)
+        return FileManager.default.fileExists(atPath: path)
     }
     ///异步存数据
     public func save( data:Data,for key:String, complection:@escaping()->Void) {
@@ -1310,6 +1315,9 @@ public class DataCacheManager{
                 complection(data)
             }
         }
+    }
+    public func removeAllData(){
+        
     }
 }
 //Mirror
