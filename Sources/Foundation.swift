@@ -1275,9 +1275,9 @@ public class DataCacheManager{
     public static let shared = DataCacheManager()
     let cacheName:String
     let dirPath:String
-    init(with cacheName:String = "DataCacheManager") {
+    init(with cacheName:String = "WTKit.DataCacheManager") {
         self.cacheName = cacheName
-        dirPath = NSHomeDirectory() + "/Library/Caches/WTKit/DataCacheManager/"  + cacheName
+        dirPath = NSHomeDirectory() + "/Library/Caches/"  + cacheName
         let fm = FileManager.default
         let exi = fm.fileExists(atPath: dirPath)
         if !exi {
@@ -1285,22 +1285,21 @@ public class DataCacheManager{
                 let url = URL.init(fileURLWithPath: dirPath)
                 try fm.createDirectory(at: url, withIntermediateDirectories: false, attributes: nil)
             }catch{
-                
+                dprint("create failed:\(error)")
             }
         }
     }
     public func path(with name:String) -> String {
-        "\(self.dirPath)/\(name)"
+        self.dirPath + "/" + name
     }
     
     public func fileExists(with name: String) -> Bool{
-        let path = path(with: name)
-        return FileManager.default.fileExists(atPath: path)
+        return FileManager.default.fileExists(atPath: path(with: name))
     }
     ///异步存数据
     public func save( data:Data,for key:String, complection:@escaping()->Void) {
         DispatchQueue.global().async {
-            data.writeToFile(path: "\(self.path(with: key))")
+            data.writeToFile(path: self.path(with: key))
             DispatchQueue.main.async {
                 complection()
             }

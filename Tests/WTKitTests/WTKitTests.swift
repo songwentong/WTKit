@@ -18,6 +18,19 @@ final class WTKitTests: XCTestCase {
         let localizations = Bundle.main.localizations
         print("locals:\(localizations)")
     }
+    override func measure(_ block: () -> Void) {
+        
+    }
+    func testSaveData() {
+        URLSession.default.useCacheElseLoadUrlData(with: "https://img2.tuwandata.com/com/20220411/7dHbGxe3Sd.mp4".urlValue) { data in
+            DataCacheManager.shared.save(data: data, for: "7dHbGxe3Sd.mp4") {
+                dprint(NSHomeDirectory())
+            }
+        } failed: { error in
+            
+        }
+
+    }
 
     static var allTests = [
         ("testExample", testExample),
