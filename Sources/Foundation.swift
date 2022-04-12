@@ -1289,14 +1289,22 @@ public class DataCacheManager{
             }
         }
     }
-    public func save( data:Data,for key:String) {
+    func path(with name:String) -> String {
+        "\(self.dirPath)/\(name)"
+    }
+    ///异步存数据
+    public func save( data:Data,for key:String, complection:@escaping()->Void) {
         DispatchQueue.global().async {
-            data.writeToFile(path: "\(self.dirPath)/\(key)")
+            data.writeToFile(path: "\(self.path(with: key))")
+            DispatchQueue.main.async {
+                complection()
+            }
         }
     }
+    ///异步取数据
     public func readData(for key:String, complection:@escaping(Data?)->Void) {
         DispatchQueue.global().async {
-            let url = URL.init(fileURLWithPath: "\(self.dirPath)/\(key)")
+            let url = URL.init(fileURLWithPath: "\(self.path(with: key))")
             let data = try? Data.init(contentsOf: url)
             DispatchQueue.main.async {
                 complection(data)
