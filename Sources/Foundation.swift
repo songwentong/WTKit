@@ -420,6 +420,7 @@ public extension CharacterSet{
 }
 // MARK: - URLRequest
 public extension URLRequest{
+    
     #if canImport(Combine)
     //iOS 13+
     func testCombine() -> Void {
@@ -442,6 +443,14 @@ public extension URLRequest{
     static func createURLRequest(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:]) -> URLRequest {
         var request = URLRequest.init(url: path.urlValue)
         request.httpMethod = method.rawValue
+        //把httpAdditionalHeaders加上
+        if let httpAdditionalHeaders = WT.configuration.httpAdditionalHeaders{
+            for (k,v) in httpAdditionalHeaders{
+                if let ks = k as? String, let vs = v as? String{
+                    request.setValue(vs, forHTTPHeaderField: ks)
+                }
+            }
+        }
         if !parameters.isEmpty{
             let string = URLRequest.convertParametersToString(parameters: parameters)
             if method.needUseQuery(){
@@ -521,6 +530,9 @@ public extension URLRequest{
         return URLSession.default.dataTaskWith(request: self, codable: object, completionHandler: completionHandler)
     }
     func dataTask( completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
+        if curlOutputEnable{
+            dprint(self.printer)
+        }
         return URLSession.default.dataTask(with: self) { (data, res, err) in
             DispatchQueue.main.async {
                 completionHandler(data,res,err)
@@ -592,12 +604,15 @@ public extension URLCache{
         t.resume()
 //            let res = CachedURLResponse.init(response: URLResponse.init(url: "https://z.cn".urlValue, mimeType: "", expectedContentLength: 100, textEncodingName: nil), data: "test data".utf8Data)
 //            cache.storeCachedResponse(res, for: "https://z.cn".urlRequest)
+        
     }
 #endif
     
     
 }
+///default session
 public let WT = URLSession.default
+///是否打印curl输出
 var curlOutputEnable = false
 // MARK: - URLSession
 public extension URLSession{
@@ -613,15 +628,7 @@ public extension URLSession{
      testData:用于测试的数据,在debug模式生效,release模式不生效
      */
     func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], testData:Data? = nil, object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
-        var request = URLRequest.createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
-        //虽然默认带了,但是没有绑定到URLRequest里面,导致URLRequestPrinter无法使用,所以还是手动加上吧
-        if let httpAdditionalHeaders = configuration.httpAdditionalHeaders{
-            for (k,v) in httpAdditionalHeaders{
-                if let ks = k as? String, let vs = v as? String{
-                    request.setValue(vs, forHTTPHeaderField: ks)
-                }
-            }
-        }
+        let request = URLRequest.createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
         return dataTaskWith(request: request, testData: testData, codable: object, completionHandler: completionHandler)
     }
     /**
@@ -663,6 +670,9 @@ public extension URLSession{
     @discardableResult
     func useCacheElseLoadURLData(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad)
+        if curlOutputEnable{
+            dprint(request.printer)
+        }
         let task = dataTask(with: request, completionHandler: { (data,res,err) in
             DispatchQueue.main.async {
                 completionHandler(data,res,err)
@@ -937,17 +947,18 @@ public extension URLSessionDataTask{
 public extension URLSessionConfiguration{
     static let wtURLSessionConfiguration:URLSessionConfiguration = {
         let config = URLSessionConfiguration.default
-        config.httpAdditionalHeaders = defaultHeaders
+        config.httpAdditionalHeaders = defaultHeaders()
         config.urlCache = URLCache.default
         return config
     }()
-    static var defaultHeaders:[String:String]{
-        var defaultHeaders:[String:String] = [:]
-        defaultHeaders["Accept-Encoding"] = URLSessionConfiguration.defaulAcceptEncoding
-        defaultHeaders["Accept-Language"] = URLSessionConfiguration.defaultLanguage
-        defaultHeaders["User-Agent"] = URLSessionConfiguration.defaultUserAgent
-        return defaultHeaders
+    static func defaultHeaders() -> [String:String]{
+        var dhs:[String:String] = [:]
+        dhs["Accept-Encoding"] = URLSessionConfiguration.defaulAcceptEncoding
+        dhs["Accept-Language"] = URLSessionConfiguration.defaultLanguage
+        dhs["User-Agent"] = URLSessionConfiguration.defaultUserAgent
+        return dhs
     }
+    
     /// Accept-Encoding
     static var defaulAcceptEncoding:String{
 
@@ -1323,4 +1334,18 @@ public class DataCacheManager{
         
     }
 }
-//Mirror
+//todo Mirror
+
+
+/*
+ 默认情况下有一个dict保存默认parameters
+ var para = [String:String]()
+ para["buildNumber"] = Bundle.buildNumber
+ para["version"] = Bundle.version
+ 
+ 根据请求给出额外参数
+ 1.
+ para["aaa"] = "111"
+ 2.
+ para["bbb"] = "222"
+ */
