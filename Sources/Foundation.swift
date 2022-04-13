@@ -1338,14 +1338,15 @@ public class DataCacheManager{
 
 
 /*
+ 最佳例子
  默认情况下有一个dict保存默认parameters
  var para = [String:String]()
  para["buildNumber"] = Bundle.buildNumber
  para["version"] = Bundle.version
  
  根据请求给出额外参数
- 1.
+ 1.domain.com/api1
  para["aaa"] = "111"
- 2.
+ 2.domain.com/api1
  para["bbb"] = "222"
  */
