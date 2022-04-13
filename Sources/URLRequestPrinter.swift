@@ -6,7 +6,7 @@
 //
 
 import Foundation
-///printer
+///request打印
 public extension URLRequest{
     ///print URLRequest as curl command,copy and run with terminal
     var printer:URLRequestPrinter{
@@ -27,7 +27,14 @@ public extension URLSessionTask{
     }
 }
 // MARK: - URLRequestPrinter
-///print URLRequest as curl command,copy and run with terminal
+/**
+ print URLRequest as curl command,copy and run with terminal
+ 把URLRequest的curl 命令打印出来,不需要直接用
+ 举个例子print(request.printer)
+ 会输出一个类似于
+ curl https://www.apple.com
+ 的命令,放到终端里面就可以直接执行了
+ */
 public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
     var request:URLRequest = URLRequest.init(url: "".urlValue)
     public var description: String{

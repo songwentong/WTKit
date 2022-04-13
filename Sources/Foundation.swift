@@ -598,6 +598,7 @@ public extension URLCache{
     
 }
 public let WT = URLSession.default
+var curlOutputEnable = false
 // MARK: - URLSession
 public extension URLSession{
     static let `default`: URLSession = {
@@ -629,6 +630,9 @@ public extension URLSession{
      可以模拟一个想要的数据来测试功能和UI
      */
     func dataTaskWith<T:Codable>( request:URLRequest, testData:Data? = nil, codable object:@escaping (T)->Void, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
+        if curlOutputEnable{
+            dprint(request.printer)
+        }
         let task = self.dataTask(with: request) {  (data, response, err) in
             var errorToReturn = err
             if var myData = data{
