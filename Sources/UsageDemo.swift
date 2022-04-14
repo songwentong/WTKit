@@ -27,7 +27,7 @@ open class DemoNetWorkManager{
     var domain = "https://apple.com"
     var defaultParas = [String:String]()
     /**
-        服务器的借口对应的请求和解析方法
+        服务器的接口对应的请求与解析方法
      */
     func api1(finish object:@escaping (DefaultModel<Int>)->Void) {
         WT.dataTask(with: domain + "/api1", method: .get, parameters: defaultParas, object: object) { d, u, e in
