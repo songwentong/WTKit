@@ -965,8 +965,30 @@ public extension NSAttributedString{
     }
 }
 
-
-
+///图片body
+open class MultiPartBodyImage:MultipartBodyObject{
+    open var image:UIImage? = nil
+    public override init() {
+        super.init()
+    }
+    override func preBuild() {
+        super.preBuild()
+        updateDataAndContentType()
+    }
+    func updateDataAndContentType(){
+        guard let img = image else{
+            return
+        }
+        if let pngData = img.pngData() {
+            contentType = "image/png"
+            data = pngData
+        }
+        if let jpgData = img.jpegData(compressionQuality: 1){
+            contentType = "image/jpeg"
+            data = jpgData
+        }
+    }
+}
 
 /**
  CAGradientLayer的封装

@@ -469,6 +469,7 @@ public extension URLRequest{
         }
         return request
     }
+    /*
     fileprivate func testUploadImage(){
         let imagebody = MultiPartBodyImage()
         imagebody.image = UIImage.init(named: "asd")
@@ -478,7 +479,7 @@ public extension URLRequest{
             
         }
         t.resume()
-    }
+    }*/
     static func multipart(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], parts:[MultipartBodyObject] = [MultipartBodyObject]()) -> URLRequest{
         var req = URLRequest.init(url: path.urlValue)
         req.httpMethod = method.rawValue
@@ -916,29 +917,7 @@ open class MultipartBodyObject:NSObject{
         
     }
 }
-open class MultiPartBodyImage:MultipartBodyObject{
-    open var image:UIImage? = nil
-    public override init() {
-        super.init()
-    }
-    override func preBuild() {
-        super.preBuild()
-        updateDataAndContentType()
-    }
-    func updateDataAndContentType(){
-        guard let img = image else{
-            return
-        }
-        if let pngData = img.pngData() {
-            contentType = "image/png"
-            data = pngData
-        }
-        if let jpgData = img.jpegData(compressionQuality: 1){
-            contentType = "image/jpeg"
-            data = jpgData
-        }
-    }
-}
+
 
 public extension URLSessionTask{
 
@@ -1293,6 +1272,7 @@ do{
 
 }
 */
+@available(macOS 10.11, *)
 public extension NWPath{
     
 }
