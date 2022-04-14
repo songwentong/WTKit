@@ -627,6 +627,7 @@ public extension URLSession{
      执行请求
      testData:用于测试的数据,在debug模式生效,release模式不生效
      */
+    @discardableResult
     func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], testData:Data? = nil, object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
         let request = URLRequest.createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
         return dataTaskWith(request: request, testData: testData, codable: object, completionHandler: completionHandler)
@@ -636,6 +637,7 @@ public extension URLSession{
      testData:用于测试的数据,只会出现在debug模式,这个方法非常实用,
      可以模拟一个想要的数据来测试功能和UI
      */
+    @discardableResult
     func dataTaskWith<T:Codable>( request:URLRequest, testData:Data? = nil, codable object:@escaping (T)->Void, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         if curlOutputEnable{
             dprint(request.printer)
@@ -1336,17 +1338,3 @@ public class DataCacheManager{
 }
 //todo Mirror
 
-
-/*
- 最佳例子
- 默认情况下有一个dict保存默认parameters
- var para = [String:String]()
- para["buildNumber"] = Bundle.buildNumber
- para["version"] = Bundle.version
- 
- 根据请求给出额外参数
- 1.domain.com/api1
- para["aaa"] = "111"
- 2.domain.com/api1
- para["bbb"] = "222"
- */
