@@ -1311,6 +1311,16 @@ public class DataCacheManager{
             }
         }
     }
+    
+    public func saveModel<T:Codable>( object:T,for key:String, complection:@escaping()->Void) {
+        DispatchQueue.global().async {
+            guard let data = try? JSONEncoder().encode(object) else {
+                return
+            }
+            DataCacheManager.shared.save(data: data, for: key, complection: complection)
+        }
+    }
+    
     ///异步取数据
     public func readData(for key:String, complection:@escaping(Data?)->Void) {
         DispatchQueue.global().async {
@@ -1319,6 +1329,19 @@ public class DataCacheManager{
             DispatchQueue.main.async {
                 complection(data)
             }
+        }
+    }
+    public func readModel<T:Codable>(for key:String, finished:@escaping(T)->Void, failed:@escaping()->Void){
+        readData(for: key) { data in
+            guard let data = data else{
+                failed()
+                return
+            }
+            guard let obj = try? JSONDecoder().decode(T.self, from: data)else{
+                failed()
+                return
+            }
+            finished(obj)
         }
     }
     public func removeAllData(){
