@@ -884,7 +884,6 @@ open class MultipartBody:NSObject{
             result.append(middleBoundary.utf8Data)
         }
         parts.forEach { object in
-            object.preBuild()
             let str = """
     Content-Disposition: form-data; name="\(object.name)"; filename="\(object.filename)"
     Content-Type: \(object.contentType)
@@ -913,9 +912,6 @@ open class MultipartBodyObject:NSObject{
     open var filename:String = ""
     open var contentType:String = ""
     open var data:Data = "".utf8Data
-    func preBuild() {
-        
-    }
 }
 
 

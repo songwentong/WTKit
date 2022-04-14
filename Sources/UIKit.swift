@@ -967,13 +967,13 @@ public extension NSAttributedString{
 
 ///图片body
 open class MultiPartBodyImage:MultipartBodyObject{
-    open var image:UIImage? = nil
+    open var image:UIImage? = nil{
+        didSet{
+            updateDataAndContentType()
+        }
+    }
     public override init() {
         super.init()
-    }
-    override func preBuild() {
-        super.preBuild()
-        updateDataAndContentType()
     }
     func updateDataAndContentType(){
         guard let img = image else{
