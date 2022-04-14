@@ -18,10 +18,17 @@ public struct API2Model:Codable{
     var a:Int
     var b:String
 }
-///this manager will be your api requester
+/**
+    this manager will be your api requester
+ 这里是常规使用的Demo,你可以简单的把这份代码拷贝到项目中
+ 修改一下类命,或者继承一下,修改domain就可以使用了
+ */
 open class DemoNetWorkManager{
     var domain = "https://apple.com"
     var defaultParas = [String:String]()
+    /**
+        服务器的借口对应的请求和解析方法
+     */
     func api1(finish object:@escaping (DefaultModel<Int>)->Void) {
         WT.dataTask(with: domain + "/api1", method: .get, parameters: defaultParas, object: object) { d, u, e in
         }
@@ -34,7 +41,9 @@ open class DemoNetWorkManager{
         WT.dataTask(with: domain + "/api2", method: .post, parameters:cp, object: object) { d, u, e in
         }
     }
-    
+    /**
+        使用Demo
+     */
     func usageDemo() {
         DemoNetWorkManager().api1 { num in
             print(num)

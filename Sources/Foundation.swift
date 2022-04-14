@@ -958,6 +958,19 @@ public extension URLSessionConfiguration{
         dhs["Accept-Encoding"] = URLSessionConfiguration.defaulAcceptEncoding
         dhs["Accept-Language"] = URLSessionConfiguration.defaultLanguage
         dhs["User-Agent"] = URLSessionConfiguration.defaultUserAgent
+        dhs["buildVersion"] = Bundle.buildVersion()
+        dhs["appVersion"] = Bundle.appVersion()
+        dhs["appBundleID"] = Bundle.appBundleID()
+        dhs["appBundleName"] = Bundle.appBundleName()
+#if os(iOS)
+        dhs["os"] = "iOS"
+        dhs["deviceName"] = UIDevice.current.systemName
+        dhs["model"] = UIDevice.current.model
+        dhs["localizedModel"] = UIDevice.current.localizedModel
+        dhs["systemVersion"] = UIDevice.current.systemVersion
+#elseif os(macOS)
+        dhs["os"] = "macOS"
+#endif
         return dhs
     }
     
