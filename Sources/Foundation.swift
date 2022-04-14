@@ -1334,19 +1334,68 @@ public class DataCacheManager{
     public func readModel<T:Codable>(for key:String, finished:@escaping(T)->Void, failed:@escaping()->Void){
         readData(for: key) { data in
             guard let data = data else{
-                failed()
+                DispatchQueue.main.async {
+                    failed()
+                }
                 return
             }
             guard let obj = try? JSONDecoder().decode(T.self, from: data)else{
-                failed()
+                DispatchQueue.main.async {
+                    failed()
+                }
                 return
             }
-            finished(obj)
+            DispatchQueue.main.async {
+                finished(obj)
+            }
         }
     }
-    public func removeAllData(){
-        
+    ///清空数据
+    public func removeAllData( complection:@escaping()->Void){
+        DispatchQueue.global().async {
+            let fileManager = FileManager.default
+            guard let pathes = try? fileManager.contentsOfDirectory(atPath: self.dirPath)else{
+                DispatchQueue.main.async {
+                    complection()
+                }
+                return
+            }
+            pathes.forEach({ path in
+                try? fileManager.removeItem(atPath: path)
+            })
+            DispatchQueue.main.async {
+                complection()
+            }
+        }
     }
+    ///获取空间大小
+    public func getAllCacheSize( complection:@escaping(Int)->Void){
+        DispatchQueue.global().async {
+            var total:Int = 0
+            let fileManager = FileManager.default
+            guard let pathes = try? fileManager.contentsOfDirectory(atPath: self.dirPath)else{
+                DispatchQueue.main.async {
+                    complection(total)
+                }
+                return
+            }
+            
+            pathes.forEach({ path in
+                var fileSize : Int = 0
+                if let attr = try? FileManager.default.attributesOfItem(atPath: path){
+                    if let size = attr[FileAttributeKey.size] as? NSNumber{
+                        fileSize = size.intValue
+                        total += fileSize
+                    }
+                }
+            })
+            DispatchQueue.main.async {
+                complection(total)
+            }
+        }
+    }
+    
+    
 }
 //todo Mirror
 
