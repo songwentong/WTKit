@@ -294,30 +294,16 @@ public extension Int{
     var numberFormatterString:String{
         return NumberFormatter().string(from: numberObject) ?? ""
     }
-    //    static let testUnit:Int = 1
+    //static let testUnit:Int = 1
     //KB, MB, GB, TB, PB, EB, ZB, YB
     static let countPerUnit:Self = 1024
     ///number of bytes in Kib
-    static let KiB:Self = {
-        return countPerUnit
-    }()
-    ///number of bytes in MiB
-    static let MiB:Self = {
-        return KiB * countPerUnit
-    }()
-    ///number of bytes in GiB
-    static let GiB:Self = {
-        return MiB * countPerUnit
-    }()
-    static let TiB:Self = {
-        return GiB * countPerUnit
-    }()
-    static let PiB:Self = {
-        return TiB * countPerUnit
-    }()
-    static let EiB:Self = {
-        return PiB * countPerUnit
-    }()
+    static let KiB:Self =   1 * countPerUnit
+    static let MiB:Self = KiB * countPerUnit
+    static let GiB:Self = MiB * countPerUnit
+    static let TiB:Self = GiB * countPerUnit
+    static let PiB:Self = TiB * countPerUnit
+    static let EiB:Self = PiB * countPerUnit
     static let ZiB:Self = EiB * countPerUnit
     static let YiB:Self = ZiB * countPerUnit
     ///one minute
@@ -1276,7 +1262,7 @@ public extension NWPath{
 public class LRUCache{
     
 }
-///文件储存器
+///文件/Model储存器
 public class DataCacheManager{
     public static let shared = DataCacheManager()
     let cacheName:String
