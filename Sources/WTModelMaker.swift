@@ -250,7 +250,7 @@ public class WTModelMaker {
                         stringToPrint += "\(typeString) = [Int]()"
                     }else if value is [String]{
                         //print("string array")
-                        typeString = "String" + optionalMarkIfNeeded()
+                        typeString = "[String]" + optionalMarkIfNeeded()
                         stringToPrint += "\(typeString) = [String]()"
                     }else{
                         guard let list = value as? [Any] else{
