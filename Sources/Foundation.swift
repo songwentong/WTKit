@@ -1383,5 +1383,26 @@ public class DataCacheManager{
     
     
 }
-//todo Mirror
 
+///尝试解析JSON
+private func jsonDecode(with any:Any, data:Data) -> Any {
+    let result = Mirror.init(reflecting: any)
+    let st = result.subjectType
+    let str = "\(st)"
+    print(str)
+    result.children.forEach { child in
+        
+    }
+    return result
+}
+extension NSObject{}
+/*
+ 下面的type.init()会让swift环境的llvm崩溃,记录一下
+func getPropertyType( type: AnyObject.Type, propertyName: String) -> Any.Type {
+    let obj = type.init()
+    let mirror = Mirror.init(reflecting: obj)
+    return mirror.subjectType
+}
+*/
+//todo Mirror
+//T@"NSString",&,N,V_area
