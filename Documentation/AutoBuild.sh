@@ -27,6 +27,9 @@ value=$((value+1))
 agvtool new-version -all $value
 echo "$value"
 echo $value>~/Desktop/build
+#写一下buildnumber
+echo "build number">>~/Desktop/buildLog
+echo $value>>~/Desktop/buildLog
 
 #build
 xcodebuild archive -workspace TuWanApp.xcworkspace -scheme TuWanApp -configuration Release -archivePath ~/Desktop/TuWanApp.xcarchive
@@ -62,5 +65,5 @@ zip -r BCSymbolMaps.zip BCSymbolMaps
 t2=$(date +%s)
 t3='use time: '$((t2-t1))' seconds'
 echo $t3
-echo "appName build complection">>~/Desktop/buildLog
+echo "appName build complete">>~/Desktop/buildLog
 date>>~/Desktop/buildLog
