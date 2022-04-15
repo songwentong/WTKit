@@ -1,7 +1,7 @@
 #自动打包脚本，赠予有缘人
 #所有kkkkkkkkkkkkkkkkkkkkkk这种字符串换成你的key
 #xcode server build shell
-echo "build begin">>~/Desktop/buildLog
+echo "appName build begin">>~/Desktop/buildLog
 date>>~/Desktop/buildLog
 t1=$(date +%s)
 #更新子模块
@@ -62,5 +62,5 @@ zip -r BCSymbolMaps.zip BCSymbolMaps
 t2=$(date +%s)
 t3='use time: '$((t2-t1))' seconds'
 echo $t3
-echo "build complection">>~/Desktop/buildLog
+echo "appName build complection">>~/Desktop/buildLog
 date>>~/Desktop/buildLog
