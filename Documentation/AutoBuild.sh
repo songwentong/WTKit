@@ -5,7 +5,7 @@ echo "appName build begin">>~/Desktop/buildLog
 date>>~/Desktop/buildLog
 t1=$(date +%s)
 #更新子模块
-cd ~/Downloads/TuwanApp
+cd ~/Downloads/MyApp
 cd components/CocosGame/jsb-default
 git pull --rebase
 #更新private模块
@@ -14,7 +14,7 @@ git pull --rebase
 git lfs pull
 
 #更新主工程
-cd ../TuwanApp
+cd ../MyApp
 git add .
 git reset --hard
 git pull --rebase
@@ -32,13 +32,13 @@ echo "build number">>~/Desktop/buildLog
 echo $value>>~/Desktop/buildLog
 
 #build
-xcodebuild archive -workspace TuWanApp.xcworkspace -scheme TuWanApp -configuration Release -archivePath ~/Desktop/TuWanApp.xcarchive
+xcodebuild archive -workspace MyApp.xcworkspace -scheme MyApp -configuration Release -archivePath ~/Desktop/MyApp.xcarchive
 cd cerAndProVision
-xcodebuild -exportArchive -archivePath ~/Desktop/TuWanApp.xcarchive -exportPath ~/Desktop/TuWanApp -exportOptionsPlist ReleaseExportOptions.plist
+xcodebuild -exportArchive -archivePath ~/Desktop/MyApp.xcarchive -exportPath ~/Desktop/MyApp -exportOptionsPlist ReleaseExportOptions.plist
 
 
 #upload to appStore
-cd ~/Desktop/TuWanApp
+cd ~/Desktop/MyApp
 xcrun altool --validate-app --type ios -f [APPName].ipa -u 275712575@qq.com -p xxx
 xcrun altool --upload-app --type ios -f [APPName].ipa -u 275712575@qq.com -p xxx
 date
@@ -47,15 +47,15 @@ date
 #kkkkkkkkkkkkkkkkkkkkkkkkkkkk
 #User Key
 #kkkkkkkkkkkkkkkkkkkkkkkkkkkk
-cd ~/Desktop/TuWanApp.xcarchive
+cd ~/Desktop/MyApp.xcarchive
 zip -r dSYMs.zip dSYMs
 zip -r BCSymbolMaps.zip BCSymbolMaps
 #App ID
 #kkkkkkkkkkkkkkkkkkkkkkkkkkkk
 #App Key
 #kkkkkkkkkkkkkkkkkkkkkkkkkkkk
-#curl -k "https://api.bugly.qq.com/openapi/file/upload/symbol?app_key=eb92bcfc-62b5-4c2a-9ded-8f29d239b917&app_id=30ce33ac24" --form "api_version=1" --form "app_id=kkkkkkkkkkkkkkkkkkkkkkkkkkkk" --form "app_key=kkkkkkkkkkkkkkkkkkkkkkkkkkkk" --form "symbolType=2"  --form "bundleId=com.tuwan.diandian" --form "productVersion=2.4.2" --form "channel=xxx" --form "fileName=dSYMs.zip" --form "file=@dSYMs.zip" --verbose
-#curl -k "https://api.bugly.qq.com/openapi/file/upload/symbol?app_key=eb92bcfc-62b5-4c2a-9ded-8f29d239b917&app_id=30ce33ac24" --form "api_version=1" --form "app_id=kkkkkkkkkkkkkkkkkkkkkkkkkkkk" --form "app_key=kkkkkkkkkkkkkkkkkkkkkkkkkkkk" --form "symbolType=2"  --form "bundleId=com.tuwan.diandian" --form "productVersion=2.4.2" --form "fileName=BCSymbolMaps.zip" --form "file=@BCSymbolMaps.zip" --verbose
+#curl -k "https://api.bugly.qq.com/openapi/file/upload/symbol?app_key=eb92bcfc-62b5-4c2a-9ded-8f29d239b917&app_id=30ce33ac24" --form "api_version=1" --form "app_id=kkkkkkkkkkkkkkkkkkkkkkkkkkkk" --form "app_key=kkkkkkkkkkkkkkkkkkkkkkkkkkkk" --form "symbolType=2"  --form "bundleId=com.WTKit.project" --form "productVersion=2.4.2" --form "channel=xxx" --form "fileName=dSYMs.zip" --form "file=@dSYMs.zip" --verbose
+#curl -k "https://api.bugly.qq.com/openapi/file/upload/symbol?app_key=eb92bcfc-62b5-4c2a-9ded-8f29d239b917&app_id=30ce33ac24" --form "api_version=1" --form "app_id=kkkkkkkkkkkkkkkkkkkkkkkkkkkk" --form "app_key=kkkkkkkkkkkkkkkkkkkkkkkkkkkk" --form "symbolType=2"  --form "bundleId=com.WTKit.project" --form "productVersion=2.4.2" --form "fileName=BCSymbolMaps.zip" --form "file=@BCSymbolMaps.zip" --verbose
 
 #蒲公英上传
 #curl -F "file=@/tmp/example.ipa" -F "uKey=kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" -F "_api_key=kkkkkkkkkkkkkkkkkkkkkkkk" https://upload.pgyer.com/apiv1/app/upload
