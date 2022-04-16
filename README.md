@@ -1,6 +1,6 @@
 <a href="https://github.com/songwentong/WTKit/actions?query=workflow%3Abuild"><img src = "https://github.com/songwentong/WTKit/workflows/build/badge.svg?branch=master">
 </a>
-[![Platform](https://img.shields.io/badge/playform-iOS%20macOS%20tvOS%20watchOS-brightgreen)]
+![Platform](https://img.shields.io/badge/playform-iOS%20macOS%20tvOS%20watchOS-brightgreen)
 
 # WTKit
 <a href="https://github.com/songwentong/WTKit/blob/master/Documentation/README_zhCN.md">中文请看这里</a>
