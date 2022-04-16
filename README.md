@@ -1,6 +1,7 @@
 <a href="https://github.com/songwentong/WTKit/actions?query=workflow%3Abuild"><img src = "https://github.com/songwentong/WTKit/workflows/build/badge.svg?branch=master">
 </a>
 ![Platform](https://img.shields.io/badge/playform-iOS%20macOS%20tvOS%20watchOS-brightgreen)
+[![Swift Package Manager](https://img.shields.io/badge/Swift_Package_Manager-Only-brightgreen?style=flat-square)](https://img.shields.io/badge/Swift_Package_Manager-only-brightgreen?style=flat-square)
 
 # WTKit
 <a href="https://github.com/songwentong/WTKit/blob/master/Documentation/README_zhCN.md">中文请看这里</a>
