@@ -43,9 +43,12 @@ public extension String{
     var toBytes:[UInt8] {
         return Array(utf8)
     }
-    
-    var remoteStringToLocalName:String{
-        return self.replacingOccurrences(of: "/", with: "")
+    ///base64EncodedString
+    var base64EncodedString:String{
+        if let data = data(using: .utf8){
+            return data.base64EncodedString()
+        }
+        return ""
     }
 
     ///get localizedString from main Bundle
@@ -152,6 +155,16 @@ public extension String{
         addingPercentEncoding(withAllowedCharacters: CharacterSet.wtURLQueryAllowed) ?? self
     }
 
+}
+
+public extension URLComponents{
+    /**
+     针对文件缓存的情况,给出一个url对应的文件名
+     https://camo.githubusercontent.com/4508eefc99c68c3ffd496727bfd4b0211b1a36fcac5708513b228b9a10202cdf/68747470733a2f2f6a756e79616e7a2e6769746875622e696f2f4379636c6547414e2f696d616765732f7061696e74696e673270686f746f2e6a7067
+     */
+//    var localName:String{
+//        return "\(String(describing: host))-\(path)"
+//    }
 }
 public extension NotificationCenter{
 
