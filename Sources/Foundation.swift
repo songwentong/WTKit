@@ -13,6 +13,9 @@ import CryptoKit
 #if canImport(Combine)
 import Combine
 #endif
+import var CommonCrypto.CC_MD5_DIGEST_LENGTH
+import func CommonCrypto.CC_MD5
+import typealias CommonCrypto.CC_LONG
 #if canImport(UIKit)
 import UIKit
 #endif
@@ -43,12 +46,27 @@ public extension String{
     var toBytes:[UInt8] {
         return Array(utf8)
     }
+    ///md5 string
+    var md5:String{
+        let length = Int(CC_MD5_DIGEST_LENGTH)
+        let messageData = utf8Data
+        var digestData = Data(count: length)
+
+        _ = digestData.withUnsafeMutableBytes { digestBytes -> UInt8 in
+            messageData.withUnsafeBytes { messageBytes -> UInt8 in
+                if let messageBytesBaseAddress = messageBytes.baseAddress, let digestBytesBlindMemory = digestBytes.bindMemory(to: UInt8.self).baseAddress {
+                    let messageLength = CC_LONG(messageData.count)
+                    CC_MD5(messageBytesBaseAddress, messageLength, digestBytesBlindMemory)
+                }
+                return 0
+            }
+        }
+        return digestData.utf8String
+    }
+
     ///base64EncodedString
     var base64EncodedString:String{
-        if let data = data(using: .utf8){
-            return data.base64EncodedString()
-        }
-        return ""
+        utf8Data.base64EncodedString()
     }
 
     ///get localizedString from main Bundle
