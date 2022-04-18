@@ -1236,7 +1236,7 @@ public extension Encodable{
         return jsonData.utf8String
     }
     #if DEBUG
-    ///use in lldb to print jsonstring,like(lldb) po obj.printJSONString()
+    ///use in lldb to print jsonstring,like(lldb) po obj.lldbPrint()
     ///this method is only recommanded use in lldb,so it's in debug mode
     func lldbPrint() {
         print("\(jsonString)")
