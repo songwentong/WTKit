@@ -548,7 +548,7 @@ public extension URLRequest{
         return URLSession.default.dataTaskWith(request: self, codable: object, completionHandler: completionHandler)
     }
     func dataTask( completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
-        if curlOutputEnable{
+        if logEnable{
             dprint(self.printer)
         }
         return URLSession.default.dataTask(with: self) { (data, res, err) in
@@ -630,8 +630,11 @@ public extension URLCache{
 }
 ///default session
 public let WT = URLSession.default
-///是否打印curl输出
-var curlOutputEnable = false
+/**
+ 是否打印日志
+ 打印日志包含curl的输出和回调的输出
+ */
+var logEnable = false
 // MARK: - URLSession
 public extension URLSession{
     static let `default`: URLSession = {
@@ -657,8 +660,8 @@ public extension URLSession{
      */
     @discardableResult
     func dataTaskWith<T:Codable>( request:URLRequest, testData:Data? = nil, codable object:@escaping (T)->Void, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
-        if curlOutputEnable{
-            dprint(request.printer)
+        if logEnable{
+            cprint(request.printer)
         }
         let task = self.dataTask(with: request) {  (data, response, err) in
             var errorToReturn = err
@@ -678,6 +681,9 @@ public extension URLSession{
                     errorToReturn = error
                 }
             }
+            if logEnable{
+                cprint(data?.utf8String)
+            }
             completionHandler(data,response,errorToReturn)
         }
         DispatchQueue.global().async {
@@ -686,14 +692,33 @@ public extension URLSession{
         return task
     }
     
+    @discardableResult
+    func multipart(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], parts:[MultipartBodyObject] = [MultipartBodyObject](), completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
+        let req = URLRequest.multipart(with: path, method: method, parameters: parameters, headers: headers, parts: parts)
+        if logEnable{
+            cprint(req.printer)
+        }
+        let task = dataTask(with: req) { data, res, err in
+            if logEnable{
+                cprint(data?.utf8String)
+            }
+            completionHandler(data,res,err)
+        }
+        task.resume()
+        return task
+    }
+    
     ///缓存请求
     @discardableResult
     func useCacheElseLoadURLData(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad)
-        if curlOutputEnable{
-            dprint(request.printer)
+        if logEnable{
+            cprint(request.printer)
         }
         let task = dataTask(with: request, completionHandler: { (data,res,err) in
+            if logEnable{
+                cprint(data?.utf8String)
+            }
             DispatchQueue.main.async {
                 completionHandler(data,res,err)
             }
@@ -713,7 +738,6 @@ public extension URLSession{
                 DispatchQueue.main.async {
                     finished(data)
                 }
-                
             }
             if let err = err{
                 DispatchQueue.main.async {
