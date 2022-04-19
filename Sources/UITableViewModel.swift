@@ -7,6 +7,9 @@
 #if os(iOS)
 import Foundation
 import UIKit
+
+
+
 // MARK: - UITableViewModel
 ///protocol to describe UITableViewCell
 public protocol UITableViewModel {
@@ -25,22 +28,7 @@ public protocol UITableViewCellModel{
     var userInfo: [AnyHashable : Any]?{get set}
 }
 
-// MARK: - UINibView
-///protocol to extension an UITableViewCell/UITableViewCollectionViewCell (if using xib file)
-public protocol UINibView:NSObjectProtocol {
-    static func nib() -> UINib
-    static var reuseIdentifier: String{get}
-}
 
-public extension UINibView{
-    //这段代码的神奇之处是到了这里已经无法打印self了，报错内容是：error: <EXPR>:1:11: error: use of undeclared type '$__lldb_context'
-    static func nib() -> UINib {
-        return UINib.init(nibName: self.reuseIdentifier, bundle: nil)
-    }
-    static var reuseIdentifier: String{
-        return "\(self)"
-    }
-}
 //class TestCell: UITableViewCell,UINibReusableCell {
 //    
 //}

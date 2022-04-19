@@ -888,6 +888,30 @@ public extension UIScrollView {
         return UIGraphicsGetImageFromCurrentImageContext()
     }
 }
+// MARK: - UINibView
+///protocol to extension an UITableViewCell/UITableViewCollectionViewCell (if using xib file)
+///对于UITableViewCell/UITableViewCollectionViewCell的重用扩展
+public protocol UINibView:NSObjectProtocol {
+    ///获取当前view的nib文件
+    ///注意:class和nib文件必须同名
+    static func nib() -> UINib
+    ///重用ID
+    static var reuseIdentifier: String{get}
+}
+///对于使用nib开发的view的扩展
+///可以通过class来获取nib文件和reuse id
+public extension UINibView{
+    ///获取当前view的nib文件
+    ///注意:class和nib文件必须同名
+    static func nib() -> UINib {
+        //这段代码的神奇之处是到了这里已经无法打印self了，报错内容是：error: <EXPR>:1:11: error: use of undeclared type '$__lldb_context'
+        return UINib.init(nibName: self.reuseIdentifier, bundle: nil)
+    }
+    ///重用ID
+    static var reuseIdentifier: String{
+        return "\(self)"
+    }
+}
 
 extension UIView:UINibView{
     
