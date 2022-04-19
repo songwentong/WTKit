@@ -205,7 +205,7 @@ public class WTModelMaker {
                 stringToPrint += crlf
                 stringToPrint += indent
                 var typeString = ""
-                stringToPrint += "var \(nameReplacedKey):"
+                stringToPrint += "public var \(nameReplacedKey):"
                 if value is String {
                     typeString = "String"
                     stringToPrint += "String"
