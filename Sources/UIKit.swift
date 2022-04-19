@@ -89,7 +89,11 @@ public extension String{
         l.setTitle(self, for: .normal)
         return l
     }
-    
+    ///调用系统分享
+    func shareInSystemFormat() {
+        let vc = UIActivityViewController.init(activityItems: [self], applicationActivities: nil)
+        UIViewController.topVC()?.present(vc, animated: true)
+    }
 }
 public extension UIScreen{
     class var mainScreenBounds:CGRect {
