@@ -1478,6 +1478,10 @@ public enum StringOrNumber: Codable {
     case string(String)
     case double(Double)
     case int(Int)
+    ///默认值,是空字符串,数据类型的话是0
+    public static func defaultValue() -> Self{
+        return StringOrNumber.string("")
+    }
     public func intValue() -> Int {
         switch self {
         case .int(let num):
