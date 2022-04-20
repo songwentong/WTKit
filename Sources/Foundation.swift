@@ -281,7 +281,7 @@ public extension BinaryInteger{
     var numberObject:NSNumber{
         return NSNumber.init(value: Int(self))
     }
-    func stringValue() -> String {
+    var stringValue:String{
         return "\(self)"
     }
 }
@@ -1493,7 +1493,7 @@ public enum StringOrNumber: Codable {
         case .string(let str):
             return str
         case .int(let num):
-            return num.stringValue()
+            return num.stringValue
         case .double(let dou):
             return dou.stringValue
         }
