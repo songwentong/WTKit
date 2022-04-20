@@ -6,7 +6,7 @@
 //
 
 import Foundation
-///类型枚举器,用于JSON数据枚举,允许字段的数据是int,double和string  Decodable
+///类型枚举器,用于JSON数据枚举,允许字段的数据是int,double和string
 ///配合Model Maker使用,可以让属性异常好用
 public enum StringOrNumber: Codable {
     case string(String)
