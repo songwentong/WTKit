@@ -1103,6 +1103,16 @@ public extension Bundle{
     }()
     ///using for language switch
     static var customBundle:Bundle = Bundle.main
+    
+    func loadxib() {
+        
+    }
+    func loadStoryboard() {
+        
+    }
+    func loadImage()  {
+        
+    }
 }
 public func NSLibraryDirectory() -> String{
     return NSHomeDirectory() + "/Library"
@@ -1450,7 +1460,7 @@ private func jsonDecode(with any:Any, data:Data) -> Any {
     }
     return result
 }
-extension NSObject{}
+
 /*
  下面的type.init()会让swift环境的llvm崩溃,记录一下
 func getPropertyType( type: AnyObject.Type, propertyName: String) -> Any.Type {
@@ -1461,3 +1471,72 @@ func getPropertyType( type: AnyObject.Type, propertyName: String) -> Any.Type {
 */
 //todo Mirror
 //T@"NSString",&,N,V_area
+
+///类型枚举器,用于JSON数据枚举,允许字段的数据是int,double和string  Decodable
+public enum StringOrNumber: Codable {
+    
+    case string(String)
+    case double(Double)
+    case int(Int)
+    func intValue() -> Int {
+        switch self {
+        case .int(let num):
+            return num
+        case .double(let dou):
+            return Int(dou)
+        case .string(let str):
+            return Int(str) ?? 0
+        }
+    }
+    func stringValue() -> String {
+        switch self {
+        case .string(let str):
+            return str
+        case .int(let num):
+            return num.stringValue()
+        case .double(let dou):
+            return dou.stringValue
+        }
+    }
+    func doubleValue() -> Double {
+        switch self {
+        case .double(let num):
+            return num
+        case .int(let num):
+            return num.doubleValue
+        case .string(let str):
+            return Double.init(str) ?? 0
+        }
+    }
+    
+    public init(from decoder: Decoder) throws {
+        if let num = try? decoder.singleValueContainer().decode(Int.self){
+            self = .int(num)
+        }
+        if let double = try? decoder.singleValueContainer().decode(Double.self) {
+            self = .double(double)
+            return
+        }
+        if let string = try? decoder.singleValueContainer().decode(String.self) {
+            self = .string(string)
+            return
+        }
+        throw Error.couldNotFindStringOrDouble
+    }
+    public func encode(to encoder: Encoder) throws{
+        var container = encoder.singleValueContainer()
+        try container.encode(stringValue())
+        
+    }
+    enum Error: Swift.Error {
+        case couldNotFindStringOrDouble
+    }
+}
+public extension NSObject{
+//    func test() {
+//        let str:StringOrNumber = StringOrNumber.int(1)
+//        str.intValue()
+//        str.doubleValue()
+//        str.stringValue()
+//    }
+}
