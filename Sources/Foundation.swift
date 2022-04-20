@@ -1251,7 +1251,7 @@ public extension CodableObject where Self:NSObject{
 // MARK: - Encodable
 public extension Encodable{
     ///convert self to data
-    var jsonData:Data{
+    public var jsonData:Data{
         let encoder = JSONEncoder()
         if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *){
             encoder.outputFormatting = [.withoutEscapingSlashes,.prettyPrinted,.sortedKeys]
@@ -1266,13 +1266,13 @@ public extension Encodable{
         return Data()
     }
     ///convert self to json string (recommand use print,not lldb)
-    var jsonString:String{
+    public var jsonString:String{
         return jsonData.utf8String
     }
     #if DEBUG
     ///use in lldb to print jsonstring,like(lldb) po obj.lldbPrint()
     ///this method is only recommanded use in lldb,so it's in debug mode
-    func lldbPrint() {
+    public func lldbPrint() {
         print("\(jsonString)")
     }
     #endif
@@ -1522,8 +1522,9 @@ public enum StringOrNumber: Codable {
         }else if let string = try? decoder.singleValueContainer().decode(String.self) {
             self = .string(string)
             return
+        }else{
+            throw Error.couldNotFindStringOrDouble
         }
-        throw Error.couldNotFindStringOrDouble
     }
     public func encode(to encoder: Encoder) throws{
         var container = encoder.singleValueContainer()
