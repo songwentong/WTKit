@@ -1478,7 +1478,7 @@ public enum StringOrNumber: Codable {
     case string(String)
     case double(Double)
     case int(Int)
-    func intValue() -> Int {
+    public func intValue() -> Int {
         switch self {
         case .int(let num):
             return num
@@ -1488,7 +1488,7 @@ public enum StringOrNumber: Codable {
             return Int(str) ?? 0
         }
     }
-    func stringValue() -> String {
+    public func stringValue() -> String {
         switch self {
         case .string(let str):
             return str
@@ -1498,7 +1498,7 @@ public enum StringOrNumber: Codable {
             return dou.stringValue
         }
     }
-    func doubleValue() -> Double {
+    public func doubleValue() -> Double {
         switch self {
         case .double(let num):
             return num
