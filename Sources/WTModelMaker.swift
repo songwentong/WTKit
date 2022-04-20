@@ -100,8 +100,10 @@ public class WTModelMaker {
     public var shouldHasDefaultValut = false //是否需要默认值，如果需要默认值
     public var convertNumberToString = false //数字转换成字符串
     public var indent:String = "    "//缩进
+    ///是否使用通用数据
+    public var useStringOrNumber = false
     public let crlf = "\n"//换行
-    var useCodingKey = true//是否使用coding key,如果不用,关键字命名会变成``包含的，类似于`default`
+    var useCodingKey = true//是否使用coding key,如果不用,关键字命名会变成`
     
     public static let `default`:WTModelMaker = {
        return WTModelMaker()
@@ -205,38 +207,52 @@ public class WTModelMaker {
                 stringToPrint += crlf
                 stringToPrint += indent
                 var typeString = ""
-                stringToPrint += "public var \(nameReplacedKey):"
+                stringToPrint += "var \(nameReplacedKey):"
                 if value is String {
-                    typeString = "String"
-                    stringToPrint += "String"
+                    if useStringOrNumber{
+                        typeString = "StringOrNumber"
+                        stringToPrint += "StringOrNumber"
+                    }else{
+                        typeString = "String"
+                        stringToPrint += "String"
+                    }
+//                    typeString = "String"
+                    
                     stringToPrint += optionalMarkIfNeeded()
                     if !useStruct{
                         stringToPrint += " = \"\""
                     }
                 }else if let number = value as? NSNumber{
-                    //char, short int, int, long int, long long int, float, or double or as a BOOL
-                    // “c”, “C”, “s”, “S”, “i”, “I”, “l”, “L”, “q”, “Q”, “f”, and “d”.
-                    //1->q    true->c     1.0->d   6766882->q   6766882.1->d   0->q   false->c
-                    let objCType = number.objCType
-                    let type = String.init(cString: objCType)
                     var defaultValue = " = false"
-                    switch type{
-                        case "c":
-                            typeString = "Bool"
-                            break
-                        case "q":
-                            typeString = "Int"
-                            defaultValue = " = -1"
-                            break
-                        case "d":
-                            typeString = "Double"
-                            defaultValue = " = -1"
-                            break
-                        default:
-                            typeString = "Int"
-                            defaultValue = " = -1"
-                            break
+                    if useStringOrNumber{
+                        typeString = "StringOrNumber"
+                        defaultValue = " = StringOrNumber()"
+                    }else{
+                        //char, short int, int, long int, long long int, float, or double or as a BOOL
+                        // “c”, “C”, “s”, “S”, “i”, “I”, “l”, “L”, “q”, “Q”, “f”, and “d”.
+                        //1->q    true->c     1.0->d   6766882->q   6766882.1->d   0->q   false->c
+                        let objCType = number.objCType
+                        let type = String.init(cString: objCType)
+                        
+                        switch type{
+                            case "c":
+                                typeString = "Bool"
+                                break
+                            case "q":
+                                typeString = "Int"
+                                defaultValue = " = -1"
+                                break
+                            case "d":
+                                typeString = "Double"
+                                defaultValue = " = -1"
+                                break
+                            default:
+                                typeString = "Int"
+                                defaultValue = " = -1"
+                                break
+                        }
                     }
+                    
                     stringToPrint += "\(typeString)"
                     stringToPrint += optionalMarkIfNeeded()
                     if !useStruct{
@@ -250,7 +266,7 @@ public class WTModelMaker {
                         stringToPrint += "\(typeString) = [Int]()"
                     }else if value is [String]{
                         //print("string array")
-                        typeString = "[String]" + optionalMarkIfNeeded()
+                        typeString = "String" + optionalMarkIfNeeded()
                         stringToPrint += "\(typeString) = [String]()"
                     }else{
                         guard let list = value as? [Any] else{
