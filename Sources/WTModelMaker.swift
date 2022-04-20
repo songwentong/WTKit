@@ -95,7 +95,7 @@ public class WTModelMaker {
     public var commonKeywords:[String] = String.systemKeyWords//常用的关键字命名修改,如有需要可以添加
     public var keywordsVarPrefix = ""//关键字属性的前缀,如有需要可以添加
     public var keywordsVarSuffix = "_var"//关键字属性的后缀,默认添加的是_var
-    public var needOptionalMark:Bool = false //是否需要添加问号,来处理字段不存在的情况,true+问号?,否则不用加
+    public var needOptionalMark:Bool = true //是否需要添加问号,来处理字段不存在的情况,true+问号?,否则不用加
     public var useStruct = false //true用struct,false用class
     public var shouldHasDefaultValut = false //是否需要默认值，如果需要默认值
     public var indent:String = "    "//缩进
@@ -308,7 +308,13 @@ public class WTModelMaker {
                  }
                  */
                 if needOptionalMark{
+                    customDecodableStringCore += indent
+                    customDecodableStringCore += indent
                     customDecodableStringCore += "if values.allKeys.contains(.\(nameReplacedKey)){"
+                    customDecodableStringCore += crlf
+                }
+                if needOptionalMark{
+                    customDecodableStringCore += indent
                 }
                 customDecodableStringCore += indent
                 customDecodableStringCore += indent
@@ -317,6 +323,9 @@ public class WTModelMaker {
                     //        a = str.intValue()
                     customDecodableStringCore += "let \(nameReplacedKey)Value = try values.decode(StringOrNumber.self, forKey: .\(nameReplacedKey))"
                     customDecodableStringCore += crlf
+                    if needOptionalMark{
+                        customDecodableStringCore += indent
+                    }
                     customDecodableStringCore += indent
                     customDecodableStringCore += indent
                     customDecodableStringCore += "\(nameReplacedKey) = \(nameReplacedKey)Value.intValue()"
@@ -325,12 +334,18 @@ public class WTModelMaker {
                     customDecodableStringCore += crlf
                     customDecodableStringCore += indent
                     customDecodableStringCore += indent
+                    if needOptionalMark{
+                        customDecodableStringCore += indent
+                    }
                     customDecodableStringCore += "\(nameReplacedKey) = \(nameReplacedKey)Value.doubleValue()"
                 }else if typeString == "String"{
                     customDecodableStringCore += "let \(nameReplacedKey)Value = try values.decode(StringOrNumber.self, forKey: .\(nameReplacedKey))"
                     customDecodableStringCore += crlf
                     customDecodableStringCore += indent
                     customDecodableStringCore += indent
+                    if needOptionalMark{
+                        customDecodableStringCore += indent
+                    }
                     customDecodableStringCore += "\(nameReplacedKey) = \(nameReplacedKey)Value.stringValue()"
                 }else{
                     customDecodableStringCore += """
@@ -339,6 +354,8 @@ public class WTModelMaker {
                 }
                 if needOptionalMark {
                     customDecodableStringCore += crlf
+                    customDecodableStringCore += indent
+                    customDecodableStringCore += indent
                     customDecodableStringCore += "}"
                 }
                 customDecodableStringCore += crlf
