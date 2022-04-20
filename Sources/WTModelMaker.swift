@@ -96,12 +96,12 @@ public class WTModelMaker {
     public var keywordsVarPrefix = ""//关键字属性的前缀,如有需要可以添加
     public var keywordsVarSuffix = "_var"//关键字属性的后缀,默认添加的是_var
     public var needOptionalMark:Bool = false //是否需要添加问号,来处理字段不存在的情况,true+问号?,否则不用加
-    public var useStruct = true //true用struct,false用class
+    public var useStruct = false //true用struct,false用class
     public var shouldHasDefaultValut = false //是否需要默认值，如果需要默认值
-    public var convertNumberToString = false //数字转换成字符串
     public var indent:String = "    "//缩进
-    ///是否使用通用数据
-    public var useStringOrNumber = false
+    ///是否使用数据兼容,可以用于Int/Double/String类型兼容,
+    ///默认ture,用于兼容服务器数据异常
+    public var useStringOrNumber = true
     public let crlf = "\n"//换行
     var useCodingKey = true//是否使用coding key,如果不用,关键字命名会变成`
     
@@ -199,6 +199,9 @@ public class WTModelMaker {
         } catch {
             
         }
+        ///自定义Decodable内核
+        var customDecodableStringCore = ""
+        var typeString = ""
         if let printObject = jsonObject as? [String:AnyObject] {
             for (key,value) in printObject{
                 //object k-v
@@ -206,16 +209,12 @@ public class WTModelMaker {
                 propertyNames.append(nameReplacedKey)
                 stringToPrint += crlf
                 stringToPrint += indent
-                var typeString = ""
                 stringToPrint += "var \(nameReplacedKey):"
                 if value is String {
-                    if useStringOrNumber{
-                        typeString = "StringOrNumber"
-                        stringToPrint += "StringOrNumber"
-                    }else{
-                        typeString = "String"
-                        stringToPrint += "String"
-                    }
+                    
+                    typeString = "String"
+                    stringToPrint += "String"
+                    
 //                    typeString = "String"
                     
                     stringToPrint += optionalMarkIfNeeded()
@@ -224,10 +223,6 @@ public class WTModelMaker {
                     }
                 }else if let number = value as? NSNumber{
                     var defaultValue = " = false"
-                    if useStringOrNumber{
-                        typeString = "StringOrNumber"
-                        defaultValue = " = StringOrNumber()"
-                    }else{
                         //char, short int, int, long int, long long int, float, or double or as a BOOL
                         // “c”, “C”, “s”, “S”, “i”, “I”, “l”, “L”, “q”, “Q”, “f”, and “d”.
                         //1->q    true->c     1.0->d   6766882->q   6766882.1->d   0->q   false->c
@@ -251,7 +246,7 @@ public class WTModelMaker {
                                 defaultValue = " = -1"
                                 break
                         }
-                    }
+                    
                     
                     stringToPrint += "\(typeString)"
                     stringToPrint += optionalMarkIfNeeded()
@@ -303,6 +298,35 @@ public class WTModelMaker {
                 
 //                stringToPrint += crlf
                 
+                customDecodableStringCore += indent
+                customDecodableStringCore += indent
+                if typeString == "Int"{
+                    //        let str = try values.decode(StringOrNumber.self, forKey: .a)
+                    //        a = str.intValue()
+                    customDecodableStringCore += "let \(nameReplacedKey)Value = try values.decode(StringOrNumber.self, forKey: .\(nameReplacedKey))"
+                    customDecodableStringCore += crlf
+                    customDecodableStringCore += indent
+                    customDecodableStringCore += indent
+                    customDecodableStringCore += "\(nameReplacedKey) = \(nameReplacedKey)Value.intValue()"
+                }else if typeString == "Double"{
+                    customDecodableStringCore += "let \(nameReplacedKey)Value = try values.decode(StringOrNumber.self, forKey: .\(nameReplacedKey))"
+                    customDecodableStringCore += crlf
+                    customDecodableStringCore += indent
+                    customDecodableStringCore += indent
+                    customDecodableStringCore += "\(nameReplacedKey) = \(nameReplacedKey)Value.doubleValue()"
+                }else if typeString == "String"{
+                    customDecodableStringCore += "let \(nameReplacedKey)Value = try values.decode(StringOrNumber.self, forKey: .\(nameReplacedKey))"
+                    customDecodableStringCore += crlf
+                    customDecodableStringCore += indent
+                    customDecodableStringCore += indent
+                    customDecodableStringCore += "\(nameReplacedKey) = \(nameReplacedKey)Value.stringValue()"
+                }else{
+                    customDecodableStringCore += """
+        \(nameReplacedKey) = try values.decode(\(typeString).self, forKey: .\(nameReplacedKey))
+        """
+                }
+                customDecodableStringCore += crlf
+                
             }//end for
             codingKeys = codingKeys + indent + "}" + crlf
             stringToPrint = stringToPrint + "\n"
@@ -310,9 +334,16 @@ public class WTModelMaker {
             if useCodingKey,!printObject.isEmpty {
                 stringToPrint = stringToPrint + codingKeys
             }
+            let customPrefix = """
+                        required public init(from decoder: Decoder) throws {
+                            let values = try decoder.container(keyedBy: CodingKeys.self)
+                    """
+            let customDecodableMethodString = customPrefix + crlf + customDecodableStringCore + indent + "}" + crlf
+            if useStringOrNumber{
+                stringToPrint += customDecodableMethodString
+            }
             stringToPrint = stringToPrint + "}" + crlf
         }
-        
         
         
         //start of public extension
