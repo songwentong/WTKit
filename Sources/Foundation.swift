@@ -1516,12 +1516,10 @@ public enum StringOrNumber: Codable {
     public init(from decoder: Decoder) throws {
         if let num = try? decoder.singleValueContainer().decode(Int.self){
             self = .int(num)
-        }
-        if let double = try? decoder.singleValueContainer().decode(Double.self) {
+        }else if let double = try? decoder.singleValueContainer().decode(Double.self) {
             self = .double(double)
             return
-        }
-        if let string = try? decoder.singleValueContainer().decode(String.self) {
+        }else if let string = try? decoder.singleValueContainer().decode(String.self) {
             self = .string(string)
             return
         }
