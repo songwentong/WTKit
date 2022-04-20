@@ -259,7 +259,11 @@ public class WTModelMaker {
                         //print("int array")
                         typeString = "[Int]" + optionalMarkIfNeeded()
                         stringToPrint += "\(typeString) = [Int]()"
-                    }else if value is [String]{
+                    }else if value is [Double]{
+                        typeString = "[Double]" + optionalMarkIfNeeded()
+                        stringToPrint += "\(typeString) = [Double]()"
+                    }
+                    else if value is [String]{
                         //print("string array")
                         typeString = "[String]" + optionalMarkIfNeeded()
                         stringToPrint += "\(typeString) = [String]()"
