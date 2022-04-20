@@ -301,7 +301,15 @@ public class WTModelMaker {
                 codingKeys += crlf
                 
 //                stringToPrint += crlf
-                
+                /**
+                 if values.allKeys.contains(.c){
+                     let cValue = try values.decode(StringOrNumber.self, forKey: .c)
+                     c = cValue.doubleValue()
+                 }
+                 */
+                if needOptionalMark{
+                    customDecodableStringCore += "if values.allKeys.contains(.\(nameReplacedKey)){"
+                }
                 customDecodableStringCore += indent
                 customDecodableStringCore += indent
                 if typeString == "Int"{
@@ -329,7 +337,12 @@ public class WTModelMaker {
         \(nameReplacedKey) = try values.decode(\(typeString).self, forKey: .\(nameReplacedKey))
         """
                 }
+                if needOptionalMark {
+                    customDecodableStringCore += crlf
+                    customDecodableStringCore += "}"
+                }
                 customDecodableStringCore += crlf
+                
                 
             }//end for
             codingKeys = codingKeys + indent + "}" + crlf
