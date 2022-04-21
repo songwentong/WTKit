@@ -347,10 +347,6 @@ public class WTModelMaker {
                 customDecodableStringCore += crlf
                 
             }
-            for (key,value) in printObject{
-                
-                
-            }//end for
             codingKeys = codingKeys + indent + "}" + crlf
             stringToPrint = stringToPrint + "\n"
             //确保对象不为空,如果为空就不用加CodingKeys了

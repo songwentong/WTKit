@@ -37,6 +37,9 @@ public extension NSObject{
     static var currentBundle:Bundle{
         return Bundle.init(for: self)
     }
+    var currentBundle:Bundle{
+        return Bundle.init(for: type(of: self))
+    }
 }
 
 // MARK: - String
@@ -139,7 +142,20 @@ public extension String{
         }
         return ""
     }
+    var toStringList:[String]{
+        self.reduce(into: [String]()) { partialResult, char in
+            partialResult.append(String.init(char))
+        }
+    }
+    ///转为半角字符串，可用于json解析，也可用于处理删除线
     var halfWidthString:String {
+        var str = self
+        let halfWidth = String.halfWidthPunctuation().toStringList
+        for (index,ele) in String.fullWidthPunctuation().toStringList.enumerated() {
+            str = str.replacingOccurrences(of: ele, with: halfWidth[index])
+        }
+        return str
+        /*
         var dict = [String:String]()
         for (index,ele) in String.fullWidthPunctuation().enumerated(){
             for (index2,ele2) in String.halfWidthPunctuation().enumerated(){
@@ -153,19 +169,19 @@ public extension String{
         for (k,v) in dict {
             result = result.replacingOccurrences(of: k, with: v)
         }
-        return result
+        return result*/
     }
     static func fullWidthPunctuation()->String{
         let str =
         """
-“”，。：¥
+“”，。：￥
 """
         return str
     }
     static func halfWidthPunctuation()->String{
         let str =
         """
-"",.:$
+"",.:¥
 """
         return str
     }
