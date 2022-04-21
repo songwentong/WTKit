@@ -41,6 +41,10 @@ public extension NSObject{
 
 // MARK: - String
 public extension String{
+    
+    var doubleValue: Double{
+        return Double(self) ?? 0
+    }
 
     ///[UInt8] Array
     var toBytes:[UInt8] {
@@ -1251,7 +1255,7 @@ public extension CodableObject where Self:NSObject{
 // MARK: - Encodable
 public extension Encodable{
     ///convert self to data
-    public var jsonData:Data{
+    var jsonData:Data{
         let encoder = JSONEncoder()
         if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *){
             encoder.outputFormatting = [.withoutEscapingSlashes,.prettyPrinted,.sortedKeys]
@@ -1266,13 +1270,13 @@ public extension Encodable{
         return Data()
     }
     ///convert self to json string (recommand use print,not lldb)
-    public var jsonString:String{
+    var jsonString:String{
         return jsonData.utf8String
     }
     #if DEBUG
     ///use in lldb to print jsonstring,like(lldb) po obj.lldbPrint()
     ///this method is only recommanded use in lldb,so it's in debug mode
-    public func lldbPrint() {
+    func lldbPrint() {
         print("\(jsonString)")
     }
     #endif

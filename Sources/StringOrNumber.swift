@@ -6,21 +6,31 @@
 //
 
 import Foundation
+/**
+ 数据解析扩展,对于Int/String/Double常见类型兼容
+ Int可以接收Double和String
+ Double可以接收String和Int
+ String可以接收Int和Double
+ */
 public extension KeyedDecodingContainer{
     /**
      Int解析,兼容字符串
      */
     func decodeToInt(forKey key: KeyedDecodingContainer<K>.Key) -> Int{
         do {
-            
-            if let num = try decodeIfPresent(Int.self, forKey: key) {
-                print("aaaaaa")
+            return try decode(Int.self, forKey: key)
+        } catch {
+            do {
+                let dou = try decode(Double.self, forKey: key)
+                return Int(dou)
+            } catch  {
+                do {
+                    let str = try decode(String.self, forKey: key)
+                    return Int(Double(str) ?? 0)
+                } catch  {
+                    return 0
+                }
             }
-//            let num = try decode(Int.self, forKey: key)
-            return 1
-        } catch  {
-            let str = decodeToString(forKey: key)
-            return Int.init(str) ?? 0
         }
     }
     ///Double解析,兼容字符串
@@ -29,8 +39,37 @@ public extension KeyedDecodingContainer{
             let num = try decode(Double.self, forKey: key)
             return num
         } catch  {
-            let str = decodeToString(forKey: key)
-            return Double.init(str) ?? 0
+            do {
+                let str = try decode(String.self, forKey: key)
+                return str.doubleValue
+                
+            } catch  {
+                do {
+                    let num = try decode(Int.self, forKey: key)
+                    return num.doubleValue
+                } catch  {
+                    return 0.0
+                }
+            }
+        }
+    }
+    ///String解析,兼容Double
+    func decodeToString(forKey key: KeyedDecodingContainer<K>.Key) -> String{
+        do {
+            let str = try decode(String.self, forKey: key)
+            return str
+        } catch  {
+            do {
+                let num = try decode(Int.self, forKey: key)
+                return num.stringValue
+            } catch {
+                do {
+                    let dou = try decode(Double.self, forKey: key)
+                    return dou.stringValue
+                } catch  {
+                    return ""
+                }
+            }
         }
     }
     func decodeToBool(forKey key: KeyedDecodingContainer<K>.Key) -> Bool{
@@ -41,16 +80,7 @@ public extension KeyedDecodingContainer{
             return false
         }
     }
-    ///String解析,兼容Double
-    func decodeToString(forKey key: KeyedDecodingContainer<K>.Key) -> String{
-        do {
-            let str = try decode(String.self, forKey: key)
-            return str
-        } catch  {
-            let num = decodeToDouble(forKey: key)
-            return String.init(num)
-        }
-    }
+    
 }
 ///类型枚举器,用于JSON数据枚举,允许字段的数据是int,double和string
 ///配合Model Maker使用,可以让属性异常好用
