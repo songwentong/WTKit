@@ -392,20 +392,20 @@ public class WTModelMaker {
 //        let memory = Unmanaged.passUnretained(self).toOpaque()
         //TODO 包名
 //        let bundleName = ""
-        var debugDescription = "        return \"\"\"\n        <\(className): "
-        debugDescription += "\\"
-        debugDescription += "("
-        debugDescription += "Unmanaged.passUnretained(self).toOpaque()"
-        debugDescription += ")>\n"
+        var debugDescriptionCore = "        return \"\"\"\n        <\(className): "
+        debugDescriptionCore += "\\"
+        debugDescriptionCore += "("
+        debugDescriptionCore += "Unmanaged.passUnretained(self).toOpaque()"
+        debugDescriptionCore += ")>\n"
         for str in propertyNames{
-            debugDescription += "        \(str):"
-            debugDescription += "\\"
-            debugDescription += "("
-            debugDescription += str
-            debugDescription += ")"
-            debugDescription += "\n"
+            debugDescriptionCore += "        \(str):"
+            debugDescriptionCore += "\\"
+            debugDescriptionCore += "("
+            debugDescriptionCore += str
+            debugDescriptionCore += ")"
+            debugDescriptionCore += "\n"
         }
-        debugDescription += "\"\"\""
+        debugDescriptionCore += "\"\"\""
         /*
         var debugDescription = propertyNames.reduce(into: String()) { (result, str) in
             result += "        \(str):"
@@ -418,6 +418,7 @@ public class WTModelMaker {
         }
         debugDescription = "        return \"\"\"\n        debugDescription of \(className):\n" + debugDescription + "\"\"\""
         */
+        /*
         stringToPrint.append("public extension \(className){\n")
         if !useStruct{
             stringToPrint.append("\(indent)override ")
@@ -427,10 +428,10 @@ public class WTModelMaker {
         stringToPrint.append("\(indent)override ")
         }
         stringToPrint.append("var debugDescription: String{\n")
-        stringToPrint += debugDescription + "\n"
+        stringToPrint += debugDescriptionCore + "\n"
         stringToPrint.append("    }\n")
         stringToPrint.append("}")
-        stringToPrint += subClassString
+        stringToPrint += subClassString*/
         for (key,value) in subModelDict{
             stringToPrint += WTSwiftModelString(with: key, jsonString: value,usingHeader: false,isRootClass: false)
         }//end of class
