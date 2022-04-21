@@ -182,11 +182,20 @@ public class WTModelMaker {
         stringToPrint += getClassOrStructName()
         stringToPrint += " "
         stringToPrint += "\(className):"
+        let initMethod = """
+                        public override init() {
+                            super.init()
+                        }
+                    """
         if useStruct{
             stringToPrint += "Codable,CustomStringConvertible,CustomDebugStringConvertible {"
         }else{
             stringToPrint += "NSObject, Codable {"
+            stringToPrint += crlf
+            stringToPrint += initMethod
         }
+        
+        
         
         codingKeys = "    enum CodingKeys: String, CodingKey {" + crlf
 //        let formatedString = jsonString.replacingOccurrences(of: "-", with: "_")
