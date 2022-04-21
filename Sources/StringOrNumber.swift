@@ -23,7 +23,7 @@ public extension KeyedDecodingContainer{
     }
     
     /**
-     Int解析,兼容字符串
+     Int解析,兼容字符串,Double
      */
     func decodeToInt(forKey key: KeyedDecodingContainer<K>.Key) -> Int{
         do {
@@ -43,6 +43,7 @@ public extension KeyedDecodingContainer{
         }
     }
     ///Double解析,兼容字符串
+    ///Double本身可以处理Int类型,所以double找不到的话就找字符串就好了
     func decodeToDouble(forKey key: KeyedDecodingContainer<K>.Key) -> Double{
         do {
             let num = try decode(Double.self, forKey: key)
@@ -62,7 +63,7 @@ public extension KeyedDecodingContainer{
             }
         }
     }
-    ///String解析,兼容Double
+    ///String解析,兼容Double,Int,
     func decodeToString(forKey key: KeyedDecodingContainer<K>.Key) -> String{
         do {
             let str = try decode(String.self, forKey: key)
