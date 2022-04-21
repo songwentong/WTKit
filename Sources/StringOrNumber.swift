@@ -7,23 +7,17 @@
 
 import Foundation
 /**
- 数据解析扩展,对于Int/String/Double常见类型兼容
- Int可以接收Double和String
- Double可以接收String和Int
- String可以接收Int和Double
+ 数据解析扩展
+ 处理了无key异常(无此字段)和类型异常
+ 对于Int/String/Double常见类型兼容
  */
 public extension KeyedDecodingContainer{
     
-    func decodeToObject<T:Decodable>(forKey key: KeyedDecodingContainer<K>.Key) -> T?{
-        do {
-            return try decode(T.self, forKey: key)
-        } catch  {
-            return nil
-        }
-    }
-    
     /**
-     Int解析,兼容字符串,Double
+     Int解析
+     兼容异常:无key异常,类型异常
+     无key有默认值-1
+     类型异常会找字符串类型和Double类型
      */
     func decodeToInt(forKey key: KeyedDecodingContainer<K>.Key) -> Int{
         do {
@@ -35,15 +29,19 @@ public extension KeyedDecodingContainer{
             } catch  {
                 do {
                     let str = try decode(String.self, forKey: key)
-                    return Int(Double(str) ?? 0)
+                    return Int(Double(str) ?? -1)
                 } catch  {
-                    return 0
+                    return -1
                 }
             }
         }
     }
-    ///Double解析,兼容字符串
-    ///Double本身可以处理Int类型,所以double找不到的话就找字符串就好了
+    /**
+     Double解析
+     兼容情况:无key异常,类型异常
+     无key有默认值-1.0
+     类型异常会找字符串类型和Int类型
+     */
     func decodeToDouble(forKey key: KeyedDecodingContainer<K>.Key) -> Double{
         do {
             let num = try decode(Double.self, forKey: key)
@@ -58,12 +56,17 @@ public extension KeyedDecodingContainer{
                     let num = try decode(Int.self, forKey: key)
                     return num.doubleValue
                 } catch  {
-                    return 0.0
+                    return -1.0
                 }
             }
         }
     }
-    ///String解析,兼容Double,Int,
+    /**
+     String解析,兼容Double,Int,
+     兼容情况:无key异常,类型异常
+     无key有默认值为空字符串
+     类型异常会找字符串类型和Int类型
+     */
     func decodeToString(forKey key: KeyedDecodingContainer<K>.Key) -> String{
         do {
             let str = try decode(String.self, forKey: key)
@@ -88,6 +91,13 @@ public extension KeyedDecodingContainer{
             return num
         } catch  {
             return false
+        }
+    }
+    func decodeToObject<T:Decodable>(forKey key: KeyedDecodingContainer<K>.Key) -> T?{
+        do {
+            return try decode(T.self, forKey: key)
+        } catch  {
+            return nil
         }
     }
     
