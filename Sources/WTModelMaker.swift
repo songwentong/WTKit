@@ -95,7 +95,8 @@ public class WTModelMaker {
     public var commonKeywords:[String] = String.systemKeyWords//常用的关键字命名修改,如有需要可以添加
     public var keywordsVarPrefix = ""//关键字属性的前缀,如有需要可以添加
     public var keywordsVarSuffix = "_var"//关键字属性的后缀,默认添加的是_var
-    public var needOptionalMark:Bool = true //是否需要添加问号,来处理字段不存在的情况,true+问号?,否则不用加
+    ///是否需要添加问号,来处理字段不存在的情况,true+问号?,否则不用加
+    public var needOptionalMark:Bool = false
     public var useStruct = false //true用struct,false用class
     public var shouldHasDefaultValut = false //是否需要默认值，如果需要默认值
     public var indent:String = "    "//缩进
@@ -225,10 +226,6 @@ public class WTModelMaker {
                     
                     typeString = "String"
                     stringToPrint += "String"
-                    
-//                    typeString = "String"
-                    
-                    stringToPrint += optionalMarkIfNeeded()
                     if !useStruct{
                         stringToPrint += " = \"\""
                     }
@@ -260,7 +257,6 @@ public class WTModelMaker {
                     
                     
                     stringToPrint += "\(typeString)"
-                    stringToPrint += optionalMarkIfNeeded()
                     if !useStruct{
                         stringToPrint += defaultValue
                     }
@@ -268,14 +264,14 @@ public class WTModelMaker {
                 } else if value is Array<Any>{
                     if value is [Int]{
                         //print("int array")
-                        typeString = "[Int]" + optionalMarkIfNeeded()
+                        typeString = "[Int]"
                         stringToPrint += "\(typeString) = [Int]()"
                     }else if value is [Double]{
-                        typeString = "[Double]" + optionalMarkIfNeeded()
+                        typeString = "[Double]"
                         stringToPrint += "\(typeString) = [Double]()"
                     }else if value is [String]{
                         //print("string array")
-                        typeString = "[String]" + optionalMarkIfNeeded()
+                        typeString = "[String]"
                         stringToPrint += "\(typeString) = [String]()"
                     }else{
                         guard let list = value as? [Any] else{
@@ -300,9 +296,14 @@ public class WTModelMaker {
                         typeString = subClassName
                         subModelDict[subClassName] = tempString
                         stringToPrint += "\(subClassName)"
-                        if !useStruct{
-                            stringToPrint += " = \(subClassName)()"
+                        if needOptionalMark{
+                            stringToPrint += "?"
+                        }else{
+                            if !useStruct{
+                                stringToPrint += " = \(subClassName)()"
+                            }
                         }
+                        
                     }
                 }
                 //                    codingKeys += crlf
@@ -314,61 +315,41 @@ public class WTModelMaker {
                 
 //                stringToPrint += crlf
                 if needOptionalMark{
-                    customDecodableStringCore += indent
-                    customDecodableStringCore += indent
-                    customDecodableStringCore += indent
-                    customDecodableStringCore += "if values.allKeys.contains(.\(nameReplacedKey)){"
-                    customDecodableStringCore += crlf
+//                    customDecodableStringCore += indent
+//                    customDecodableStringCore += indent
+//                    customDecodableStringCore += indent
+//                    customDecodableStringCore += "if values.allKeys.contains(.\(nameReplacedKey)){"
+//                    customDecodableStringCore += crlf
                 }
                 if needOptionalMark{
-                    customDecodableStringCore += indent
+//                    customDecodableStringCore += indent
                 }
+//                customDecodableStringCore += indent
                 customDecodableStringCore += indent
                 customDecodableStringCore += indent
                 customDecodableStringCore += indent
                 if typeString == "Int"{
-                    //        let str = try values.decode(StringOrNumber.self, forKey: .a)
-                    //        a = str.intValue()
-                    customDecodableStringCore += "let \(nameReplacedKey)Value = try values.decode(StringOrNumber.self, forKey: .\(nameReplacedKey))"
-                    customDecodableStringCore += crlf
-                    if needOptionalMark{
-                        customDecodableStringCore += indent
-                    }
-                    customDecodableStringCore += indent
-                    customDecodableStringCore += indent
-                    customDecodableStringCore += indent
-                    customDecodableStringCore += "\(nameReplacedKey) = \(nameReplacedKey)Value.intValue()"
+//                    customDecodableStringCore += indent
+//                    customDecodableStringCore += indent
+//                    customDecodableStringCore += indent
+                    customDecodableStringCore += "\(nameReplacedKey) = values.decodeToInt(forKey: .\(nameReplacedKey))"
                 }else if typeString == "Double"{
-                    customDecodableStringCore += "let \(nameReplacedKey)Value = try values.decode(StringOrNumber.self, forKey: .\(nameReplacedKey))"
-                    customDecodableStringCore += crlf
-                    customDecodableStringCore += indent
-                    customDecodableStringCore += indent
-                    customDecodableStringCore += indent
-                    if needOptionalMark{
-                        customDecodableStringCore += indent
-                    }
-                    customDecodableStringCore += "\(nameReplacedKey) = \(nameReplacedKey)Value.doubleValue()"
+//                    customDecodableStringCore += indent
+                    customDecodableStringCore += "\(nameReplacedKey) = values.decodeToDouble(forKey: .\(nameReplacedKey))"
                 }else if typeString == "String"{
-                    customDecodableStringCore += "let \(nameReplacedKey)Value = try values.decode(StringOrNumber.self, forKey: .\(nameReplacedKey))"
-                    customDecodableStringCore += crlf
-                    customDecodableStringCore += indent
-                    customDecodableStringCore += indent
-                    customDecodableStringCore += indent
-                    if needOptionalMark{
-                        customDecodableStringCore += indent
-                    }
-                    customDecodableStringCore += "\(nameReplacedKey) = \(nameReplacedKey)Value.stringValue()"
+//                    customDecodableStringCore += indent
+                    customDecodableStringCore += "\(nameReplacedKey) = values.decodeToString(forKey: .\(nameReplacedKey))"
                 }else{
-                    customDecodableStringCore += """
-        \(nameReplacedKey) = try values.decode(\(typeString).self, forKey: .\(nameReplacedKey))
-        """
-                }
-                if needOptionalMark {
-                    customDecodableStringCore += crlf
-                    customDecodableStringCore += indent
-                    customDecodableStringCore += indent
-                    customDecodableStringCore += indent
-                    customDecodableStringCore += "}"
+                    if needOptionalMark{
+                        //Object = try values.decodeIfPresent(Object_class.self, forKey: .Object)
+                        customDecodableStringCore += """
+            \(nameReplacedKey) = try values.decodeIfPresent(\(typeString).self, forKey: .\(nameReplacedKey))
+            """
+                    }else{
+                        customDecodableStringCore += """
+            \(nameReplacedKey) = try values.decode(\(typeString).self, forKey: .\(nameReplacedKey))
+            """
+                    }
                 }
                 customDecodableStringCore += crlf
                 
@@ -382,9 +363,10 @@ public class WTModelMaker {
             }
             let customPrefix = """
                         required public init(from decoder: Decoder) throws {
-                            let values = try decoder.container(keyedBy: CodingKeys.self)
+                            do {
+                                let values = try decoder.container(keyedBy: CodingKeys.self)
                     """
-            let preDoCatch = indent + indent + "do {" + crlf
+            let preDoCatch = ""
             let postDoCatch = """
         } catch {
             

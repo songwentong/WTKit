@@ -13,6 +13,15 @@ import Foundation
  String可以接收Int和Double
  */
 public extension KeyedDecodingContainer{
+    
+    func decodeToObject<T:Decodable>(forKey key: KeyedDecodingContainer<K>.Key) -> T?{
+        do {
+            return try decode(T.self, forKey: key)
+        } catch  {
+            return nil
+        }
+    }
+    
     /**
      Int解析,兼容字符串
      */
