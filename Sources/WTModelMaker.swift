@@ -176,6 +176,8 @@ public class WTModelMaker {
         var subModelDict:[String:String] = [String:String]()
         if isRootClass {
             stringToPrint += "import Foundation\n"
+            stringToPrint += "import WTKit\n"
+//            import WTKit
         }
         stringToPrint += "public"
         stringToPrint += " "
