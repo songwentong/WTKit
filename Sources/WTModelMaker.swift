@@ -215,7 +215,11 @@ public class WTModelMaker {
         var customDecodableStringCore = ""
         var typeString = ""
         if let printObject = jsonObject as? [String:AnyObject] {
-            for (key,value) in printObject{
+            let sortedKeys = printObject.keys.sorted(by: <)
+            sortedKeys.forEach { key in
+                guard let value = printObject[key] else{
+                    return
+                }
                 //object k-v
                 let nameReplacedKey = keyTransform(with: key)
                 propertyNames.append(nameReplacedKey)
@@ -274,21 +278,18 @@ public class WTModelMaker {
                         typeString = "[String]"
                         stringToPrint += "\(typeString) = [String]()"
                     }else{
-                        guard let list = value as? [Any] else{
-                            return ""
-                        }
-                        guard let first = list.first else{
-                            return ""
-                        }
-                        if let data = try? JSONSerialization.data(withJSONObject: first, options: []){
-                            let valueString = data.utf8String
-                            let subClassName = className + "_" +  nameReplacedKey
-                            typeString = subClassName
-                            subClassString += self.WTSwiftModelString(with: subClassName, jsonString: valueString, usingHeader: false, isRootClass:false)
-                            stringToPrint += "[\(subClassName)] = [\(subClassName)]()"
+                        if let list = value as? [Any]{
+                            if let first = list.first{
+                                if let data = try? JSONSerialization.data(withJSONObject: first, options: []){
+                                    let valueString = data.utf8String
+                                    let subClassName = className + "_" +  nameReplacedKey
+                                    typeString = subClassName
+                                    subClassString += self.WTSwiftModelString(with: subClassName, jsonString: valueString, usingHeader: false, isRootClass:false)
+                                    stringToPrint += "[\(subClassName)] = [\(subClassName)]()"
+                                }
+                            }
                         }
                     }
-                    
                 }else if value is Dictionary<AnyHashable, Any>{
                     if let tempData = try? JSONSerialization.data(withJSONObject: value, options: []){
                         let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
@@ -313,25 +314,11 @@ public class WTModelMaker {
                 codingKeys += "case \(nameReplacedKey) = \"\(key)\""
                 codingKeys += crlf
                 
-//                stringToPrint += crlf
-                if needOptionalMark{
-//                    customDecodableStringCore += indent
-//                    customDecodableStringCore += indent
-//                    customDecodableStringCore += indent
-//                    customDecodableStringCore += "if values.allKeys.contains(.\(nameReplacedKey)){"
-//                    customDecodableStringCore += crlf
-                }
-                if needOptionalMark{
-//                    customDecodableStringCore += indent
-                }
 //                customDecodableStringCore += indent
                 customDecodableStringCore += indent
                 customDecodableStringCore += indent
                 customDecodableStringCore += indent
                 if typeString == "Int"{
-//                    customDecodableStringCore += indent
-//                    customDecodableStringCore += indent
-//                    customDecodableStringCore += indent
                     customDecodableStringCore += "\(nameReplacedKey) = values.decodeToInt(forKey: .\(nameReplacedKey))"
                 }else if typeString == "Double"{
 //                    customDecodableStringCore += indent
@@ -339,9 +326,15 @@ public class WTModelMaker {
                 }else if typeString == "String"{
 //                    customDecodableStringCore += indent
                     customDecodableStringCore += "\(nameReplacedKey) = values.decodeToString(forKey: .\(nameReplacedKey))"
+                }else if typeString == "[Int]"{
+                    //try values.decode([Int].Type, forKey: .)
+                    customDecodableStringCore += "\(nameReplacedKey) = try values.decode([Int].self, forKey: .\(nameReplacedKey))"
+                }else if typeString == "[Double]"{
+                    customDecodableStringCore += "\(nameReplacedKey) = try values.decode([Double].self, forKey: .\(nameReplacedKey))"
+                }else if typeString == "[String]"{
+                    customDecodableStringCore += "\(nameReplacedKey) = try values.decode([String].self, forKey: .\(nameReplacedKey))"
                 }else{
                     if needOptionalMark{
-                        //Object = try values.decodeIfPresent(Object_class.self, forKey: .Object)
                         customDecodableStringCore += """
             \(nameReplacedKey) = try values.decodeIfPresent(\(typeString).self, forKey: .\(nameReplacedKey))
             """
@@ -352,6 +345,9 @@ public class WTModelMaker {
                     }
                 }
                 customDecodableStringCore += crlf
+                
+            }
+            for (key,value) in printObject{
                 
                 
             }//end for
