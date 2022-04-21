@@ -271,8 +271,7 @@ public class WTModelMaker {
                     }else if value is [Double]{
                         typeString = "[Double]" + optionalMarkIfNeeded()
                         stringToPrint += "\(typeString) = [Double]()"
-                    }
-                    else if value is [String]{
+                    }else if value is [String]{
                         //print("string array")
                         typeString = "[String]" + optionalMarkIfNeeded()
                         stringToPrint += "\(typeString) = [String]()"
@@ -286,6 +285,7 @@ public class WTModelMaker {
                         if let data = try? JSONSerialization.data(withJSONObject: first, options: []){
                             let valueString = data.utf8String
                             let subClassName = className + "_" +  nameReplacedKey
+                            typeString = subClassName
                             subClassString += self.WTSwiftModelString(with: subClassName, jsonString: valueString, usingHeader: false, isRootClass:false)
                             stringToPrint += "[\(subClassName)] = [\(subClassName)]()"
                         }
@@ -295,6 +295,7 @@ public class WTModelMaker {
                     if let tempData = try? JSONSerialization.data(withJSONObject: value, options: []){
                         let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
                         let subClassName = nameReplacedKey + "_class"
+                        typeString = subClassName
                         subModelDict[subClassName] = tempString
                         stringToPrint += "\(subClassName)"
                         if !useStruct{
@@ -310,12 +311,6 @@ public class WTModelMaker {
                 codingKeys += crlf
                 
 //                stringToPrint += crlf
-                /**
-                 if values.allKeys.contains(.c){
-                     let cValue = try values.decode(StringOrNumber.self, forKey: .c)
-                     c = cValue.doubleValue()
-                 }
-                 */
                 if needOptionalMark{
                     customDecodableStringCore += indent
                     customDecodableStringCore += indent
