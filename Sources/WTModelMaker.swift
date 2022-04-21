@@ -316,12 +316,14 @@ public class WTModelMaker {
                 if needOptionalMark{
                     customDecodableStringCore += indent
                     customDecodableStringCore += indent
+                    customDecodableStringCore += indent
                     customDecodableStringCore += "if values.allKeys.contains(.\(nameReplacedKey)){"
                     customDecodableStringCore += crlf
                 }
                 if needOptionalMark{
                     customDecodableStringCore += indent
                 }
+                customDecodableStringCore += indent
                 customDecodableStringCore += indent
                 customDecodableStringCore += indent
                 if typeString == "Int"{
@@ -334,10 +336,12 @@ public class WTModelMaker {
                     }
                     customDecodableStringCore += indent
                     customDecodableStringCore += indent
+                    customDecodableStringCore += indent
                     customDecodableStringCore += "\(nameReplacedKey) = \(nameReplacedKey)Value.intValue()"
                 }else if typeString == "Double"{
                     customDecodableStringCore += "let \(nameReplacedKey)Value = try values.decode(StringOrNumber.self, forKey: .\(nameReplacedKey))"
                     customDecodableStringCore += crlf
+                    customDecodableStringCore += indent
                     customDecodableStringCore += indent
                     customDecodableStringCore += indent
                     if needOptionalMark{
@@ -347,6 +351,7 @@ public class WTModelMaker {
                 }else if typeString == "String"{
                     customDecodableStringCore += "let \(nameReplacedKey)Value = try values.decode(StringOrNumber.self, forKey: .\(nameReplacedKey))"
                     customDecodableStringCore += crlf
+                    customDecodableStringCore += indent
                     customDecodableStringCore += indent
                     customDecodableStringCore += indent
                     if needOptionalMark{
@@ -360,6 +365,7 @@ public class WTModelMaker {
                 }
                 if needOptionalMark {
                     customDecodableStringCore += crlf
+                    customDecodableStringCore += indent
                     customDecodableStringCore += indent
                     customDecodableStringCore += indent
                     customDecodableStringCore += "}"
@@ -378,6 +384,13 @@ public class WTModelMaker {
                         required public init(from decoder: Decoder) throws {
                             let values = try decoder.container(keyedBy: CodingKeys.self)
                     """
+            let preDoCatch = indent + indent + "do {" + crlf
+            let postDoCatch = """
+        } catch {
+            
+        }
+"""
+            customDecodableStringCore = preDoCatch +  customDecodableStringCore + postDoCatch + crlf
             let customDecodableMethodString = customPrefix + crlf + customDecodableStringCore + indent + "}" + crlf
             if useStringOrNumber{
                 stringToPrint += customDecodableMethodString
@@ -385,53 +398,7 @@ public class WTModelMaker {
             stringToPrint = stringToPrint + "}" + crlf
         }
         
-        
-        //start of public extension
-        //Unmanaged.passUnretained(self).toOpaque()
-        //<ModelMaker.ViewController: 0x600003d0c3c0>
-//        let memory = Unmanaged.passUnretained(self).toOpaque()
-        //TODO 包名
-//        let bundleName = ""
-        var debugDescriptionCore = "        return \"\"\"\n        <\(className): "
-        debugDescriptionCore += "\\"
-        debugDescriptionCore += "("
-        debugDescriptionCore += "Unmanaged.passUnretained(self).toOpaque()"
-        debugDescriptionCore += ")>\n"
-        for str in propertyNames{
-            debugDescriptionCore += "        \(str):"
-            debugDescriptionCore += "\\"
-            debugDescriptionCore += "("
-            debugDescriptionCore += str
-            debugDescriptionCore += ")"
-            debugDescriptionCore += "\n"
-        }
-        debugDescriptionCore += "\"\"\""
-        /*
-        var debugDescription = propertyNames.reduce(into: String()) { (result, str) in
-            result += "        \(str):"
-            result += "\\"
-            result += "("
-            result += str
-            result += ")"
-            result += "\n"
-//            result += "n"
-        }
-        debugDescription = "        return \"\"\"\n        debugDescription of \(className):\n" + debugDescription + "\"\"\""
-        */
-        /*
-        stringToPrint.append("public extension \(className){\n")
-        if !useStruct{
-            stringToPrint.append("\(indent)override ")
-        }
-        stringToPrint.append("var description: String{\n        return debugDescription\n    }\n")
-        if !useStruct{
-        stringToPrint.append("\(indent)override ")
-        }
-        stringToPrint.append("var debugDescription: String{\n")
-        stringToPrint += debugDescriptionCore + "\n"
-        stringToPrint.append("    }\n")
-        stringToPrint.append("}")
-        stringToPrint += subClassString*/
+       
         for (key,value) in subModelDict{
             stringToPrint += WTSwiftModelString(with: key, jsonString: value,usingHeader: false,isRootClass: false)
         }//end of class
