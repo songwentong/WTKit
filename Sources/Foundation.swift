@@ -442,6 +442,9 @@ public extension CharacterSet{
 }
 // MARK: - URLRequest
 public extension URLRequest{
+    func cURLDescription() -> String{
+        return printer.debugDescription
+    }
     
     #if canImport(Combine)
     //iOS 13+

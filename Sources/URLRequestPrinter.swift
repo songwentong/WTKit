@@ -32,23 +32,16 @@ public extension URLSessionTask{
  把URLRequest的curl 命令打印出来,不需要直接用
  举个例子print(request.printer)
  会输出一个类似于
- curl https://www.apple.com
+ curl -v https://www.apple.com
+ -H
+ -d
+ -b
  的命令,放到终端里面就可以直接执行了
  */
 public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConvertible {
     var request:URLRequest = URLRequest.init(url: "".urlValue)
     public var description: String{
-        var components: [String] = []
-        
-        if let HTTPMethod = request.httpMethod {
-            components.append(HTTPMethod)
-        }
-        
-        if let urlString = request.url?.absoluteString {
-            components.append(urlString)
-        }
-        let desc = components.joined(separator: " ")
-        return desc
+        return debugDescription
     }
     public var debugDescription: String{
         var components = ["$ curl -v"]
