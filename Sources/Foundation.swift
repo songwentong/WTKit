@@ -155,21 +155,6 @@ public extension String{
             str = str.replacingOccurrences(of: ele, with: halfWidth[index])
         }
         return str
-        /*
-        var dict = [String:String]()
-        for (index,ele) in String.fullWidthPunctuation().enumerated(){
-            for (index2,ele2) in String.halfWidthPunctuation().enumerated(){
-                if index == index2{
-                    dict["\(ele)"] = "\(ele2)"
-                }
-            }
-        }
-        var result = ""
-        result = self
-        for (k,v) in dict {
-            result = result.replacingOccurrences(of: k, with: v)
-        }
-        return result*/
     }
     static func fullWidthPunctuation()->String{
         let str =
@@ -1142,12 +1127,6 @@ public func NSLibraryCachesDirectory() -> String{
 }
 public extension FileManager{
 }
-extension NSObject{
-    fileprivate func read(from data:Data){
-//        let mir = Mirror.init(reflecting: self)
-//        mir.customMirror
-    }
-}
 extension JSONDecoder{
     //func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable
 //    fileprivate func testdecode<T>(_ type: T.Type, from data: Data) -> T where T : Decodable{
@@ -1255,19 +1234,6 @@ public extension ProcessInfo{
     }
     #endif
 }
-///为了解决对象之间想copy的方案,可以新建一个对象把旧数据拷贝过去
-public protocol CodableObject:Encodable,Decodable{
-}
-///为了解决对象之间想copy的方案,可以新建一个对象把旧数据拷贝过去
-public extension CodableObject where Self:NSObject{
-    var copyOfSelf:Self?{
-        guard let tmpClass:CodableObject.Type = self.classForCoder as? CodableObject.Type else{
-            return nil
-        }
-        let obj:Self? = tmpClass.readFromObject(with: self)
-        return obj
-    }
-}
 // MARK: - Encodable
 public extension Encodable{
     ///convert self to data
@@ -1326,7 +1292,7 @@ public extension NSNull{
 private class BaseModel<T:Codable>:Codable{
     var code:Int = 0
     var msg:String = ""
-    var obj:T?
+    var obj:T
 }
 
 private class SubModel: Codable {
@@ -1347,7 +1313,7 @@ public extension NWPath{
 public class LRUCache{
     
 }
-///文件/Model储存器
+///文件/Codable Model储存器
 public class DataCacheManager{
     public static let shared = DataCacheManager()
     let cacheName:String
@@ -1383,7 +1349,7 @@ public class DataCacheManager{
         }
     }
     
-    public func saveModel<T:Codable>( object:T,for key:String, complection:@escaping()->Void) {
+    public func saveCodableModel<T:Codable>( object:T,for key:String, complection:@escaping()->Void) {
         DispatchQueue.global().async {
             guard let data = try? JSONEncoder().encode(object) else {
                 return
@@ -1402,7 +1368,7 @@ public class DataCacheManager{
             }
         }
     }
-    public func readModel<T:Codable>(for key:String, finished:@escaping(T)->Void, failed:@escaping()->Void){
+    public func readCodableModel<T:Codable>(for key:String, finished:@escaping(T)->Void, failed:@escaping()->Void){
         readData(for: key) { data in
             guard let data = data else{
                 DispatchQueue.main.async {
@@ -1450,7 +1416,6 @@ public class DataCacheManager{
                 }
                 return
             }
-            
             pathes.forEach({ path in
                 var fileSize : Int = 0
                 if let attr = try? FileManager.default.attributesOfItem(atPath: path){
@@ -1467,37 +1432,4 @@ public class DataCacheManager{
     }
     
     
-}
-
-///尝试解析JSON
-private func jsonDecode(with any:Any, data:Data) -> Any {
-    let result = Mirror.init(reflecting: any)
-    let st = result.subjectType
-    let str = "\(st)"
-    print(str)
-    result.children.forEach { child in
-        
-    }
-    return result
-}
-
-/*
- 下面的type.init()会让swift环境的llvm崩溃,记录一下
-func getPropertyType( type: AnyObject.Type, propertyName: String) -> Any.Type {
-    let obj = type.init()
-    let mirror = Mirror.init(reflecting: obj)
-    return mirror.subjectType
-}
-*/
-//todo Mirror
-//T@"NSString",&,N,V_area
-
-
-public extension NSObject{
-//    func test() {
-//        let str:StringOrNumber = StringOrNumber.int(1)
-//        str.intValue()
-//        str.doubleValue()
-//        str.stringValue()
-//    }
 }
