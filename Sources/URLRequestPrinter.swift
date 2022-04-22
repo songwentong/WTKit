@@ -56,9 +56,41 @@ public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConverti
         guard let url = request.url else {
             return "$ curl command could not be created"
         }
+        guard let host = url.host else{
+            return "$ curl command could not be created"
+        }
         
         if let httpMethod = request.httpMethod {
             components.append("-X \(httpMethod)")
+        }
+        
+        let configuration = URLSession.default.configuration
+        if let credentialStorage = configuration.urlCredentialStorage {
+            let protectionSpace = URLProtectionSpace(host: host,
+                                                     port: url.port ?? 0,
+                                                     protocol: url.scheme,
+                                                     realm: host,
+                                                     authenticationMethod: NSURLAuthenticationMethodHTTPBasic)
+
+            if let credentials = credentialStorage.credentials(for: protectionSpace)?.values {
+                for credential in credentials {
+                    guard let user = credential.user, let password = credential.password else { continue }
+                    components.append("-u \(user):\(password)")
+                }
+            } else {
+//                if let credential = credential, let user = credential.user, let password = credential.password {
+//                    components.append("-u \(user):\(password)")
+//                }
+            }
+        }
+        
+        
+        if configuration.httpShouldSetCookies{
+            if let cookieStorage = configuration.httpCookieStorage,
+               let cookies = cookieStorage.cookies(for: url), !cookies.isEmpty{
+               let allCookies = cookies.map { "\($0.name)=\($0.value)" }.joined(separator: ";")
+               components.append("-b \"\(allCookies)\"")
+            }
         }
         
         var headers: [AnyHashable: Any] = [:]
@@ -68,12 +100,11 @@ public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConverti
          */
         request.allHTTPHeaderFields?.filter { $0.0 != "Cookie" }
             .forEach { headers[$0.0] = $0.1 }
-        
         components += headers.map {
             let escapedValue = String(describing: $0.value).replacingOccurrences(of: "\"", with: "\\\"")
-            
             return "-H \"\($0.key): \(escapedValue)\""
         }
+        
         
         if let httpBodyData = request.httpBody, let httpBody = String(data: httpBodyData, encoding: .utf8) {
             var escapedBody = httpBody.replacingOccurrences(of: "\\\"", with: "\\\\\"")
