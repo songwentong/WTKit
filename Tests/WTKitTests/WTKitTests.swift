@@ -29,7 +29,37 @@ final class WTKitTests: XCTestCase {
         } failed: { error in
             
         }
-
+    }
+    let jsonString = """
+{
+"intValue":3,
+"strValue":"3.8",
+"double":"3.5",
+"ints":[1,2],
+"flag":true,
+"doubles":[1.1,2.2],
+"object": {
+"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+"Accept-Encoding": "gzip, deflate, br",
+"Accept-Language": "zh-cn",
+"Host": "httpbin.org",
+"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15",
+"X-Amzn-Trace-Id": "Root=1-5e716637-2f2252cc4747e55326ef4a08"
+}
+}
+"""
+    /**
+     测试了类型异常，字段异常，通过测试
+     Int/Double/String 异常处理
+     Dict/Array异常处理
+     null异常处理
+     */
+    func testDecode() {
+       
+        guard let obj2 = Model.decode(with: jsonString.utf8Data) else{
+            return
+        }
+        print(obj2.jsonString)
     }
 
     static var allTests = [

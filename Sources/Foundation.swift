@@ -1237,48 +1237,7 @@ public extension ProcessInfo{
     }
     #endif
 }
-// MARK: - Encodable
-public extension Encodable{
-    ///convert self to data
-    var jsonData:Data{
-        let encoder = JSONEncoder()
-        if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *){
-            encoder.outputFormatting = [.withoutEscapingSlashes,.prettyPrinted,.sortedKeys]
-        }else if #available(OSX 10.13, iOS 11.0, watchOS 4.0, tvOS 11.0, *) {
-            encoder.outputFormatting = [.prettyPrinted,.sortedKeys]
-        } else {
-            encoder.outputFormatting = [.prettyPrinted]
-        }
-        if let data = try? encoder.encode(self){
-            return data
-        }
-        return Data()
-    }
-    ///convert self to json string (recommand use print,not lldb)
-    var jsonString:String{
-        return jsonData.utf8String
-    }
-    #if DEBUG
-    ///use in lldb to print jsonstring,like(lldb) po obj.lldbPrint()
-    ///this method is only recommanded use in lldb,so it's in debug mode
-    func lldbPrint() {
-        print("\(jsonString)")
-    }
-    #endif
 
-}
-// MARK: - Decodable
-public extension Decodable{
-    static func readFromData<T:Decodable>(with data:Data) -> T?{
-        return try? JSONDecoder().decode(T.self, from: data)
-    }
-    static func readFromObject<T:Decodable>(with obj:Encodable) -> T?{
-        return try? JSONDecoder().decode(T.self, from: obj.jsonData)
-    }
-    #if canImport(Combine)
-
-    #endif
-}
 public extension Collection where Element == String {
     func qualityEncoded() -> String {
         return enumerated().map { index, encoding in

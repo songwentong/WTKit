@@ -12,7 +12,6 @@ import Foundation
  对于Int/String/Double常见类型兼容
  */
 public extension KeyedDecodingContainer{
-    
     /**
      Int解析
      兼容异常:无key异常,类型异常
@@ -102,6 +101,63 @@ public extension KeyedDecodingContainer{
     }
     
 }
+public extension JSONDecoder{
+    ///不处理异常
+    func decodeIfPresent<T>(_ type: T.Type, from data: Data) -> T? where T : Decodable{
+        do {
+            let obj = try decode(type, from: data)
+            return obj
+        } catch {
+            
+        }
+        return nil
+    }
+}
+
+// MARK: - Encodable
+public extension Encodable{
+    ///convert self to data
+    var jsonData:Data{
+        let encoder = JSONEncoder()
+        if #available(OSX 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *){
+            encoder.outputFormatting = [.withoutEscapingSlashes,.prettyPrinted,.sortedKeys]
+        }else if #available(OSX 10.13, iOS 11.0, watchOS 4.0, tvOS 11.0, *) {
+            encoder.outputFormatting = [.prettyPrinted,.sortedKeys]
+        } else {
+            encoder.outputFormatting = [.prettyPrinted]
+        }
+        if let data = try? encoder.encode(self){
+            return data
+        }
+        return Data()
+    }
+    ///convert self to json string (recommand use print,not lldb)
+    var jsonString:String{
+        return jsonData.utf8String
+    }
+    #if DEBUG
+    ///use in lldb to print jsonstring,like(lldb) po obj.lldbPrint()
+    ///this method is only recommanded use in lldb,so it's in debug mode
+    func lldbPrint() {
+        print("\(jsonString)")
+    }
+    #endif
+
+}
+// MARK: - Decodable
+public extension Decodable{
+    static func decode(with data:Data) -> Self? {
+        return JSONDecoder().decodeIfPresent(self, from: data)
+    }
+    
+    #if canImport(Combine)
+
+    #endif
+}
+
+
+
+///即将废弃
 ///类型枚举器,用于JSON数据枚举,允许字段的数据是int,double和string
 ///配合Model Maker使用,可以让属性异常好用
 public enum StringOrNumber: Codable {
