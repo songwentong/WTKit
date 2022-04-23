@@ -1,3 +1,4 @@
+fun(){
 #自动打包脚本，赠予有缘人
 #所有kkkkkkkkkkkkkkkkkkkkkk这种字符串换成你的key
 #xcode server build shell
@@ -67,3 +68,13 @@ t3='use time: '$((t2-t1))' seconds'
 echo $t3
 echo "appName build complete">>~/Desktop/buildLog
 date>>~/Desktop/buildLog
+}
+fun
+#下面这个解注释就可以定时运行
+#while true; do
+#t4=86400
+#t5=$((t4-t3))
+#echo $t6
+#    sleep $t5;
+#        fun
+#done
