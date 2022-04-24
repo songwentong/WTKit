@@ -56,7 +56,7 @@ final class WTKitTests: XCTestCase {
      */
     func testDecode() {
        
-        guard let obj2 = Model.decode(with: jsonString.utf8Data) else{
+        guard let obj2 = Model.decodeIfPresent(with: jsonString.utf8Data) else{
             return
         }
         print(obj2.jsonString)

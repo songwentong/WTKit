@@ -146,7 +146,7 @@ public extension Encodable{
 }
 // MARK: - Decodable
 public extension Decodable{
-    static func decode(with data:Data) -> Self? {
+    static func decodeIfPresent(with data:Data) -> Self? {
         return JSONDecoder().decodeIfPresent(self, from: data)
     }
     
