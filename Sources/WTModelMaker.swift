@@ -97,8 +97,8 @@ public class WTModelMaker {
     public var keywordsVarSuffix = "_var"//关键字属性的后缀,默认添加的是_var
     ///是否需要添加问号,来处理字段不存在的情况,true+问号?,否则不用加
     public var needOptionalMark:Bool = false
-    public var useStruct = false //true用struct,false用class
-    public var shouldHasDefaultValut = false //是否需要默认值，如果需要默认值
+    ///true用struct,false用class
+    public var useStruct = false
     public var indent:String = "    "//缩进
     ///是否使用数据兼容,可以用于Int/Double/String类型兼容,
     ///默认ture,用于兼容服务器数据异常
@@ -149,13 +149,13 @@ public class WTModelMaker {
         return origin
     }
     
-    func optionalMarkIfNeeded() -> String {
+    private func optionalMarkIfNeeded() -> String {
         if needOptionalMark{
             return "?"
         }
         return ""
     }
-    func getClassOrStructName() -> String {
+    private func getClassOrStructName() -> String {
         if useStruct {
             return "struct"
         }else{
@@ -165,7 +165,10 @@ public class WTModelMaker {
     
     /// 尝试打印出一个json对应的Model属性
     /// NSArray和NSDictionary可能需要自定义为一个model类型
-    public func WTSwiftModelStringWith(className:String = "XXX", jsonString:String, isRootClass:Bool = true)->String{
+    public func createModelWith(className:String = "XXX", jsonString:String) -> String{
+        return privateCreateModelWith(className: className, jsonString: jsonString, isRootClass: true)
+    }
+    private func privateCreateModelWith(className:String = "XXX", jsonString:String, isRootClass:Bool = true)->String{
         
         var stringToPrint:String = String()
         var codingKeys:String = String()
@@ -383,7 +386,7 @@ public class WTModelMaker {
        
         for (key,value) in subModelDict{
 //            stringToPrint += WTSwiftModelString(with: key, jsonString: value,usingHeader: false,isRootClass: false)
-            stringToPrint += WTSwiftModelStringWith(className: key, jsonString: value, isRootClass: false)
+            stringToPrint += privateCreateModelWith(className: key, jsonString: value, isRootClass: false)
         }//end of class
         return stringToPrint
     }

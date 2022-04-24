@@ -30,7 +30,21 @@ final class WTKitTests: XCTestCase {
             
         }
     }
-    let jsonString = """
+    
+    /**
+     测试了类型异常，字段异常，通过测试
+     Int/Double/String 异常处理
+     Dict/Array异常处理
+     null异常处理
+     */
+    func testDecode() {
+       
+//        guard let obj2 = Model.decodeIfPresent(with: jsonString.utf8Data) else{
+//            return
+//        }
+//        print(obj2.jsonString)
+    }
+    let json1 = """
 {
 "intValue":3,
 "strValue":"3.8",
@@ -48,21 +62,8 @@ final class WTKitTests: XCTestCase {
 }
 }
 """
-    /**
-     测试了类型异常，字段异常，通过测试
-     Int/Double/String 异常处理
-     Dict/Array异常处理
-     null异常处理
-     */
-    func testDecode() {
-       
-//        guard let obj2 = Model.decodeIfPresent(with: jsonString.utf8Data) else{
-//            return
-//        }
-//        print(obj2.jsonString)
-    }
     
-    let giftList = """
+    let json2 = """
  {
     "data": [
       {
@@ -84,7 +85,9 @@ final class WTKitTests: XCTestCase {
   }
 """
     func testGiftList() {
-        let str = WTModelMaker.default.WTSwiftModelStringWith(className: "TWGiftWallOuterModel", jsonString: giftList)
+        let maker = WTModelMaker.default
+        maker.needOptionalMark = false
+        let str = maker.createModelWith(className: "TWGiftWallOuterModel", jsonString: json1)
         print(str)
     }
 
