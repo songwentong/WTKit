@@ -165,16 +165,18 @@ public class WTModelMaker {
     
     /// 尝试打印出一个json对应的Model属性
     /// NSArray和NSDictionary可能需要自定义为一个model类型
-    public func WTSwiftModelString(with className:String = "XXX", jsonString:String, usingHeader:Bool = false, isRootClass:Bool = true)->String{
+    public func WTSwiftModelStringWith(className:String = "XXX", jsonString:String, isRootClass:Bool = true)->String{
         
         var stringToPrint:String = String()
-        var subClassString = "\n"
         var codingKeys:String = String()
         
-        if usingHeader == true {
+        if isRootClass == true {
             stringToPrint += headerString(className: className)
         }
+        ///用于保存子model信息
         var subModelDict:[String:String] = [String:String]()
+        ///用于表述是否是字符串
+        var subModelType:[String:String] = [String:String]()
         if isRootClass {
             stringToPrint += "import Foundation\n"
             stringToPrint += "import WTKit\n"
@@ -282,10 +284,11 @@ public class WTModelMaker {
                             if let first = list.first{
                                 if let data = try? JSONSerialization.data(withJSONObject: first, options: []){
                                     let valueString = data.utf8String
-                                    let subClassName = className + "_" +  nameReplacedKey
+                                    let subClassName =  className + "_" +  nameReplacedKey
                                     typeString = subClassName
-                                    subClassString += self.WTSwiftModelString(with: subClassName, jsonString: valueString, usingHeader: false, isRootClass:false)
+                                    subModelDict[subClassName] = valueString
                                     stringToPrint += "[\(subClassName)] = [\(subClassName)]()"
+                                    subModelType[typeString] = "[" + subClassName + "]"
                                 }
                             }
                         }
@@ -334,13 +337,18 @@ public class WTModelMaker {
                 }else if typeString == "[String]"{
                     customDecodableStringCore += "\(nameReplacedKey) = try values.decode([String].self, forKey: .\(nameReplacedKey))"
                 }else{
+                    var type = typeString
+                    if let type1 = subModelType[typeString]{
+                        type = type1
+                    }
                     if needOptionalMark{
+                        //数组判断
                         customDecodableStringCore += """
-            \(nameReplacedKey) = try values.decodeIfPresent(\(typeString).self, forKey: .\(nameReplacedKey))
+            \(nameReplacedKey) = try values.decodeIfPresent(\(type).self, forKey: .\(nameReplacedKey))
             """
                     }else{
                         customDecodableStringCore += """
-            \(nameReplacedKey) = try values.decode(\(typeString).self, forKey: .\(nameReplacedKey))
+            \(nameReplacedKey) = try values.decode(\(type).self, forKey: .\(nameReplacedKey))
             """
                     }
                 }
@@ -374,7 +382,8 @@ public class WTModelMaker {
         
        
         for (key,value) in subModelDict{
-            stringToPrint += WTSwiftModelString(with: key, jsonString: value,usingHeader: false,isRootClass: false)
+//            stringToPrint += WTSwiftModelString(with: key, jsonString: value,usingHeader: false,isRootClass: false)
+            stringToPrint += WTSwiftModelStringWith(className: key, jsonString: value, isRootClass: false)
         }//end of class
         return stringToPrint
     }

@@ -56,10 +56,36 @@ final class WTKitTests: XCTestCase {
      */
     func testDecode() {
        
-        guard let obj2 = Model.decodeIfPresent(with: jsonString.utf8Data) else{
-            return
-        }
-        print(obj2.jsonString)
+//        guard let obj2 = Model.decodeIfPresent(with: jsonString.utf8Data) else{
+//            return
+//        }
+//        print(obj2.jsonString)
+    }
+    
+    let giftList = """
+ {
+    "data": [
+      {
+        "id": 145,
+        "title": "喜欢你",
+        "num": "4",
+        "pic": "https://img3.tuwandata.com/uploads/play/9766281560847422.png"
+      },
+      {
+        "id": 148,
+        "title": "么么哒",
+        "num": "3",
+        "pic": "https://img3.tuwandata.com/uploads/play/6851431563789324.png"
+      }
+    ],
+    "page": 1,
+    "total_page": 1,
+    "gift_total": 2
+  }
+"""
+    func testGiftList() {
+        let str = WTModelMaker.default.WTSwiftModelStringWith(className: "TWGiftWallOuterModel", jsonString: giftList)
+        print(str)
     }
 
     static var allTests = [
