@@ -298,7 +298,7 @@ public class WTModelMaker {
                 }else if value is Dictionary<AnyHashable, Any>{
                     if let tempData = try? JSONSerialization.data(withJSONObject: value, options: []){
                         let tempString = String.init(data: tempData, encoding: String.Encoding.utf8)
-                        let subClassName = nameReplacedKey + "_class"
+                        let subClassName = className + "_" + nameReplacedKey
                         typeString = subClassName
                         subModelDict[subClassName] = tempString
                         stringToPrint += "\(subClassName)"
@@ -361,12 +361,12 @@ public class WTModelMaker {
             if useCodingKey,!printObject.isEmpty {
                 stringToPrint = stringToPrint + codingKeys
             }
-            var required = "required "
+            var required = indent + "required "
             if useStruct{
-                required = ""
+                required = indent
             }
             let customPrefix = """
-                        public init(from decoder: Decoder) throws {
+                    public init(from decoder: Decoder) throws {
                             do {
                                 let values = try decoder.container(keyedBy: CodingKeys.self)
                     """
@@ -377,7 +377,7 @@ public class WTModelMaker {
             
         }
 """
-            customDecodableStringCore = preDoCatch +  customDecodableStringCore + postDoCatch + crlf
+            customDecodableStringCore = preDoCatch + customDecodableStringCore + postDoCatch + crlf
             let customDecodableMethodString = required + customPrefix + crlf + customDecodableStringCore + indent + "}" + crlf
             if useStringOrNumber{
                 stringToPrint += customDecodableMethodString

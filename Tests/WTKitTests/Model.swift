@@ -1,47 +1,55 @@
+//
 //  TWGiftWallOuterModel.swift
 //
-//  this file is auto create by WTKit on 2022-04-24 22:30:34.
+//  this file is auto create by WTKit on 2022-04-24 23:30:33.
 //  site:https://github.com/songwentong/ModelMaker
 //  Thank you for use my json model maker😜
 //
 
 import Foundation
 import WTKit
-public struct TWGiftWallOuterModel:Codable {
-    init() {}
+public class TWGiftWallOuterModel:NSObject, Codable {
+    public override init() {
+        super.init()
+    }
     var double:String = ""
-    var doubles:[Double] = [Double]()
+    var doubleList:[Double] = [Double]()
     var flag:Bool = false
+    var intList:[Int] = [Int]()
     var intValue:Int = -1
-    var ints:[Int] = [Int]()
-    var object:object_class = object_class()
+    var object:TWGiftWallOuterModel_object = TWGiftWallOuterModel_object()
+    var objectList:[TWGiftWallOuterModel_objectList] = [TWGiftWallOuterModel_objectList]()
     var strValue:String = ""
     enum CodingKeys: String, CodingKey {
         case double = "double"
-        case doubles = "doubles"
+        case doubleList = "doubleList"
         case flag = "flag"
+        case intList = "intList"
         case intValue = "intValue"
-        case ints = "ints"
         case object = "object"
+        case objectList = "objectList"
         case strValue = "strValue"
     }
-    public init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         do {
             let values = try decoder.container(keyedBy: CodingKeys.self)
             double = values.decodeToString(forKey: .double)
-            doubles = try values.decode([Double].self, forKey: .doubles)
+            doubleList = try values.decode([Double].self, forKey: .doubleList)
             flag = try values.decode(Bool.self, forKey: .flag)
+            intList = try values.decode([Int].self, forKey: .intList)
             intValue = values.decodeToInt(forKey: .intValue)
-            ints = try values.decode([Int].self, forKey: .ints)
-            object = try values.decode(object_class.self, forKey: .object)
+            object = try values.decode(TWGiftWallOuterModel_object.self, forKey: .object)
+            objectList = try values.decode([TWGiftWallOuterModel_objectList].self, forKey: .objectList)
             strValue = values.decodeToString(forKey: .strValue)
         } catch {
             
         }
     }
 }
-public struct object_class:Codable {
-    init() {}
+public class TWGiftWallOuterModel_object:NSObject, Codable {
+    public override init() {
+        super.init()
+    }
     var Accept:String = ""
     var Accept_Encoding:String = ""
     var Accept_Language:String = ""
@@ -56,7 +64,7 @@ public struct object_class:Codable {
         case User_Agent = "User-Agent"
         case X_Amzn_Trace_Id = "X-Amzn-Trace-Id"
     }
-    public init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         do {
             let values = try decoder.container(keyedBy: CodingKeys.self)
             Accept = values.decodeToString(forKey: .Accept)
@@ -65,6 +73,32 @@ public struct object_class:Codable {
             Host = values.decodeToString(forKey: .Host)
             User_Agent = values.decodeToString(forKey: .User_Agent)
             X_Amzn_Trace_Id = values.decodeToString(forKey: .X_Amzn_Trace_Id)
+        } catch {
+            
+        }
+    }
+}
+public class TWGiftWallOuterModel_objectList:NSObject, Codable {
+    public override init() {
+        super.init()
+    }
+    var id:Int = -1
+    var num:String = ""
+    var pic:String = ""
+    var title:String = ""
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case num = "num"
+        case pic = "pic"
+        case title = "title"
+    }
+    required public init(from decoder: Decoder) throws {
+        do {
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            id = values.decodeToInt(forKey: .id)
+            num = values.decodeToString(forKey: .num)
+            pic = values.decodeToString(forKey: .pic)
+            title = values.decodeToString(forKey: .title)
         } catch {
             
         }

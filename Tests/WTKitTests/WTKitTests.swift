@@ -44,52 +44,80 @@ final class WTKitTests: XCTestCase {
 //        }
 //        print(obj2.jsonString)
     }
-    let json1 = """
-{
-"intValue":3,
-"strValue":"3.8",
-"double":"3.5",
-"ints":[1,2],
-"flag":true,
-"doubles":[1.1,2.2],
-"object": {
-"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-"Accept-Encoding": "gzip, deflate, br",
-"Accept-Language": "zh-cn",
-"Host": "httpbin.org",
-"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15",
-"X-Amzn-Trace-Id": "Root=1-5e716637-2f2252cc4747e55326ef4a08"
-}
-}
-"""
-    
-    let json2 = """
- {
-    "data": [
-      {
-        "id": 145,
-        "title": "喜欢你",
-        "num": "4",
-        "pic": "https://img3.tuwandata.com/uploads/play/9766281560847422.png"
+    func json1() -> String {
+        let json1 = """
+    {
+      "intValue": 3,
+      "strValue": "3.8",
+      "double": "3.5",
+      "intList": [
+        1,
+        2
+      ],
+      "flag": true,
+      "doubleList": [
+        1.1,
+        2.2
+      ],
+      "object": {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "zh-cn",
+        "Host": "httpbin.org",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15",
+        "X-Amzn-Trace-Id": "Root=1-5e716637-2f2252cc4747e55326ef4a08"
       },
-      {
-        "id": 148,
-        "title": "么么哒",
-        "num": "3",
-        "pic": "https://img3.tuwandata.com/uploads/play/6851431563789324.png"
+      "objectList": [
+        {
+          "id": 145,
+          "title": "喜欢你",
+          "num": "4",
+          "pic": "https://img3.tuwandata.com/uploads/play/9766281560847422.png"
+        },
+        {
+          "id": 148,
+          "title": "么么哒",
+          "num": "3",
+          "pic": "https://img3.tuwandata.com/uploads/play/6851431563789324.png"
+        }
+      ]
+    }
+    """
+        return json1
+    }
+    func json2() -> String {
+        let json2 = """
+     {
+        "data": [
+          {
+            "id": 145,
+            "title": "喜欢你",
+            "num": "4",
+            "pic": "https://img3.tuwandata.com/uploads/play/9766281560847422.png"
+          },
+          {
+            "id": 148,
+            "title": "么么哒",
+            "num": "3",
+            "pic": "https://img3.tuwandata.com/uploads/play/6851431563789324.png"
+          }
+        ],
+        "page": 1,
+        "total_page": 1,
+        "gift_total": 2
       }
-    ],
-    "page": 1,
-    "total_page": 1,
-    "gift_total": 2
-  }
-"""
+    """
+        return json2
+    }
+    
+    
     func testModelCreate() {
         let maker = WTModelMaker.default
         maker.needOptionalMark = false
-        maker.useStruct = true
-        let str = maker.createModelWith(className: "TWGiftWallOuterModel", jsonString: json1)
-        print(str)
+//        maker.useStruct = true
+        let classCode = maker.createModelWith(className: "TWGiftWallOuterModel", jsonString: json1())
+        print(classCode)
+//        maker.useStruct = true
     }
 
     static var allTests = [
