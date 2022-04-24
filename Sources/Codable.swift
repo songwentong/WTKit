@@ -28,7 +28,7 @@ public extension KeyedDecodingContainer{
             } catch  {
                 do {
                     let str = try decode(String.self, forKey: key)
-                    return Int(Double(str) ?? -1)
+                    return Int(str) ?? -1
                 } catch  {
                     return -1
                 }
