@@ -84,9 +84,10 @@ final class WTKitTests: XCTestCase {
     "gift_total": 2
   }
 """
-    func testGiftList() {
+    func testModelCreate() {
         let maker = WTModelMaker.default
         maker.needOptionalMark = false
+        maker.useStruct = true
         let str = maker.createModelWith(className: "TWGiftWallOuterModel", jsonString: json1)
         print(str)
     }

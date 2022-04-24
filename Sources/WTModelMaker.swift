@@ -196,7 +196,10 @@ public class WTModelMaker {
                         }
                     """
         if useStruct{
-            stringToPrint += "Codable,CustomStringConvertible,CustomDebugStringConvertible {"
+            stringToPrint += "Codable {"
+            stringToPrint += crlf
+            stringToPrint += indent
+            stringToPrint += "init() {}"
         }else{
             stringToPrint += "NSObject, Codable {"
             stringToPrint += crlf
@@ -235,9 +238,7 @@ public class WTModelMaker {
                     
                     typeString = "String"
                     stringToPrint += "String"
-                    if !useStruct{
-                        stringToPrint += " = \"\""
-                    }
+                    stringToPrint += " = \"\""
                 }else if let number = value as? NSNumber{
                     var defaultValue = " = false"
                         //char, short int, int, long int, long long int, float, or double or as a BOOL
@@ -266,9 +267,7 @@ public class WTModelMaker {
                     
                     
                     stringToPrint += "\(typeString)"
-                    if !useStruct{
-                        stringToPrint += defaultValue
-                    }
+                    stringToPrint += defaultValue
                     
                 } else if value is Array<Any>{
                     if value is [Int]{
@@ -306,9 +305,7 @@ public class WTModelMaker {
                         if needOptionalMark{
                             stringToPrint += "?"
                         }else{
-                            if !useStruct{
-                                stringToPrint += " = \(subClassName)()"
-                            }
+                            stringToPrint += " = \(subClassName)()"
                         }
                         
                     }
@@ -364,11 +361,16 @@ public class WTModelMaker {
             if useCodingKey,!printObject.isEmpty {
                 stringToPrint = stringToPrint + codingKeys
             }
+            var required = "required "
+            if useStruct{
+                required = ""
+            }
             let customPrefix = """
-                        required public init(from decoder: Decoder) throws {
+                        public init(from decoder: Decoder) throws {
                             do {
                                 let values = try decoder.container(keyedBy: CodingKeys.self)
                     """
+            
             let preDoCatch = ""
             let postDoCatch = """
         } catch {
@@ -376,7 +378,7 @@ public class WTModelMaker {
         }
 """
             customDecodableStringCore = preDoCatch +  customDecodableStringCore + postDoCatch + crlf
-            let customDecodableMethodString = customPrefix + crlf + customDecodableStringCore + indent + "}" + crlf
+            let customDecodableMethodString = required + customPrefix + crlf + customDecodableStringCore + indent + "}" + crlf
             if useStringOrNumber{
                 stringToPrint += customDecodableMethodString
             }

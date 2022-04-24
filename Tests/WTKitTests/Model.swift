@@ -1,23 +1,20 @@
-//
 //  TWGiftWallOuterModel.swift
 //
-//  this file is auto create by WTKit on 2022-04-24 21:42:58.
+//  this file is auto create by WTKit on 2022-04-24 22:30:34.
 //  site:https://github.com/songwentong/ModelMaker
 //  Thank you for use my json model maker😜
 //
 
 import Foundation
 import WTKit
-public class TWGiftWallOuterModel:NSObject, Codable {
-    public override init() {
-        super.init()
-    }
+public struct TWGiftWallOuterModel:Codable {
+    init() {}
     var double:String = ""
     var doubles:[Double] = [Double]()
     var flag:Bool = false
     var intValue:Int = -1
     var ints:[Int] = [Int]()
-    var object:object_class?
+    var object:object_class = object_class()
     var strValue:String = ""
     enum CodingKeys: String, CodingKey {
         case double = "double"
@@ -28,25 +25,23 @@ public class TWGiftWallOuterModel:NSObject, Codable {
         case object = "object"
         case strValue = "strValue"
     }
-    required public init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         do {
             let values = try decoder.container(keyedBy: CodingKeys.self)
             double = values.decodeToString(forKey: .double)
             doubles = try values.decode([Double].self, forKey: .doubles)
-            flag = try values.decodeIfPresent(Bool.self, forKey: .flag) ?? false
+            flag = try values.decode(Bool.self, forKey: .flag)
             intValue = values.decodeToInt(forKey: .intValue)
             ints = try values.decode([Int].self, forKey: .ints)
-            object = try values.decodeIfPresent(object_class.self, forKey: .object)
+            object = try values.decode(object_class.self, forKey: .object)
             strValue = values.decodeToString(forKey: .strValue)
         } catch {
             
         }
     }
 }
-public class object_class:NSObject, Codable {
-    public override init() {
-        super.init()
-    }
+public struct object_class:Codable {
+    init() {}
     var Accept:String = ""
     var Accept_Encoding:String = ""
     var Accept_Language:String = ""
@@ -61,7 +56,7 @@ public class object_class:NSObject, Codable {
         case User_Agent = "User-Agent"
         case X_Amzn_Trace_Id = "X-Amzn-Trace-Id"
     }
-    required public init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         do {
             let values = try decoder.container(keyedBy: CodingKeys.self)
             Accept = values.decodeToString(forKey: .Accept)
