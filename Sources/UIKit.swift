@@ -283,7 +283,10 @@ public extension UIViewController{
 public extension UITableViewController{}
 
 public extension UIPageViewController{
-    
+//    fileprivate func topVC() -> UIViewController {
+//        
+//    }
+//    
 }
 
 public extension UICollectionViewController{}
@@ -310,6 +313,9 @@ public extension UILabel{
             self.adjustsFontSizeToFitWidth = newValue
         }
     }
+}
+public extension CGFloat{
+    
 }
 public extension UIView {
     func removeAllSubviews() {

@@ -5,19 +5,21 @@ fun(){
 echo "appName build begin">>~/Desktop/buildLog
 date>>~/Desktop/buildLog
 t1=$(date +%s)
-#更新子模块
+#revert build change
 cd ~/Downloads/MyApp
+git add .
+git reset --hard
+
+#更新子模块
 cd components/CocosGame/jsb-default
 git pull --rebase
 #更新private模块
-cd ../../../../DianDian_PrivatePods
+cd ~/Downloads/DianDian_PrivatePods
 git pull --rebase
 git lfs pull
 
 #更新主工程
-cd ../MyApp
-git add .
-git reset --hard
+cd .~/Downloads/MyApp
 git pull --rebase
 pod install
 

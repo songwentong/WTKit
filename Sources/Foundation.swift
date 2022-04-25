@@ -358,6 +358,15 @@ public extension Float{
     }
 }
 public extension Double{
+    var floatValue: Float{
+        return Float(self)
+    }
+    var intValue: Int{
+        return Int(self)
+    }
+    var stringValue: String{
+        return "\(self)"
+    }
     
     func stringWith(fractionDigits count:Int) -> String? {
         return numberObject.stringWith(fractionDigits: count)
