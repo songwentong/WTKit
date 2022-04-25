@@ -277,6 +277,12 @@ public extension Locale{
     }
 }
 public extension BinaryInteger{
+    var stringValue:String{
+        return "\(self)"
+    }
+    var doubleValue:Double{
+        return Double(self)
+    }
     var byteCountFormatString:String{
         return ByteCountFormatter().string(fromByteCount: Int64.init(self))
     }
@@ -289,9 +295,6 @@ public extension BinaryInteger{
     var numberObject:NSNumber{
         return NSNumber.init(value: Int(self))
     }
-    var stringValue:String{
-        return "\(self)"
-    }
 }
 public extension ExpressibleByIntegerLiteral{
 }
@@ -301,6 +304,10 @@ public extension FloatingPoint{
 public extension BinaryFloatingPoint{
     var intValue:Int{
         return Int(self)
+    }
+    ///string value of self
+    var stringValue:String{
+        return "\(self)"
     }
     var byteCountFormatString:String{
         return ByteCountFormatter().string(fromByteCount: Int64.init(self))
@@ -313,10 +320,6 @@ public extension BinaryFloatingPoint{
     }
     var lengthFormatterString:String{
         return numberObject.lengthFormatterString
-    }
-    ///string value of self
-    var stringValue:String{
-        return "\(self)"
     }
 }
 // MARK: - Int
