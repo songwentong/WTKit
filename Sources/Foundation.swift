@@ -46,7 +46,10 @@ public extension NSObject{
 public extension String{
     
     var doubleValue: Double{
-        return Double(self) ?? 0
+        return Double(self) ?? -1
+    }
+    var intValue: Int{
+        return Int(self) ?? -1
     }
 
     ///[UInt8] Array
@@ -318,14 +321,14 @@ public extension BinaryFloatingPoint{
 }
 // MARK: - Int
 public extension Int{
-//    var floatValue:T:BinaryFloatingPoint{
-//    }
-
     var floatValue: Float{
         return Float(self)
     }
     var doubleValue: Double{
         return Double(self)
+    }
+    var stringValue: String{
+        return "\(self)"
     }
     var numberFormatterString:String{
         return NumberFormatter().string(from: numberObject) ?? ""
@@ -355,6 +358,7 @@ public extension Float{
     }
 }
 public extension Double{
+    
     func stringWith(fractionDigits count:Int) -> String? {
         return numberObject.stringWith(fractionDigits: count)
     }

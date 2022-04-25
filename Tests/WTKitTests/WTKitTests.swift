@@ -113,7 +113,7 @@ final class WTKitTests: XCTestCase {
     
     func testModelCreate() {
         let maker = WTModelMaker.default
-        maker.needOptionalMark = false
+//        maker.needOptionalMark = false
 //        maker.useStruct = true
         let classCode = maker.createModelWith(className: "TWGiftWallOuterModel", jsonString: json1())
         print(classCode)
