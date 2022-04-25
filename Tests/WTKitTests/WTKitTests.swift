@@ -115,8 +115,29 @@ final class WTKitTests: XCTestCase {
         let maker = WTModelMaker.default
 //        maker.needOptionalMark = false
 //        maker.useStruct = true
-        let classCode = maker.createModelWith(className: "TWGiftWallOuterModel", jsonString: json1())
+        let className = "TWGiftWallOuterModel"
+        let classCode = maker.createModelWith(className: className, jsonString: json1())
+        print(NSHomeDirectory())
         print(classCode)
+        
+        let path = NSHomeDirectory() + "/Documents/" + className + ".swift"
+        print(path)
+//        let url = URL.init(fileURLWithPath: filePath, relativeTo: nil)
+        do {
+            try classCode.write(toFile: path, atomically: true, encoding: .utf8)
+        } catch {
+            
+        }
+        /**
+         var home = "/Users/"
+         //        let user = NSUserName()
+         //        home = home + user + "/Desktop"
+         home = NSHomeDirectory() + "/Documents"
+         try self.effect.string.write(toFile: filePath, atomically: true, encoding: .utf8)
+         print("写文件成功,请在Finder查看")
+         let url = URL.init(fileURLWithPath: filePath, relativeTo: nil)
+         NSWorkspace.shared.activateFileViewerSelecting([url])
+         */
 //        maker.useStruct = true
     }
 
