@@ -12,6 +12,17 @@ import Foundation
  对于Int/String/Double常见类型兼容
  */
 public extension KeyedDecodingContainer{
+    ///尝试解析，异常不throw，没有就没有了
+    func decodeNoThrow<T:Decodable>(_ type: T.Type, forKey key: KeyedDecodingContainer<K>.Key) -> T?{
+        do{
+            let obj:T? = try decodeIfPresent(type, forKey: key)
+            return obj
+        }catch{
+            
+        }
+        return nil
+    }
+    
     /**
      Int解析
      兼容异常:无key异常,类型异常
@@ -84,6 +95,7 @@ public extension KeyedDecodingContainer{
             }
         }
     }
+    
     func decodeToBool(forKey key: KeyedDecodingContainer<K>.Key) -> Bool{
         do {
             let num = try decode(Bool.self, forKey: key)
@@ -97,6 +109,30 @@ public extension KeyedDecodingContainer{
             return try decode(T.self, forKey: key)
         } catch  {
             return nil
+        }
+    }
+    
+    ///decode 为String Array
+    func decodeToStringArray(forKey key:KeyedDecodingContainer<K>.Key) -> [String] {
+        do {
+            let list = try decode([String].self, forKey: key)
+            return list
+        } catch  {
+            do {
+                let list = try decode([Int].self, forKey: key)
+                return list.map { num in
+                    return num.stringValue
+                }
+            } catch {
+                do {
+                    let list = try decode([Double].self, forKey: key)
+                    return list.map { num in
+                        num.stringValue
+                    }
+                } catch  {
+                    return [String]()
+                }
+            }
         }
     }
     
@@ -149,10 +185,6 @@ public extension Decodable{
     static func decodeIfPresent(with data:Data) -> Self? {
         return JSONDecoder().decodeIfPresent(self, from: data)
     }
-    
-    #if canImport(Combine)
-
-    #endif
 }
 
 

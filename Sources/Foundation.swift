@@ -20,6 +20,17 @@ import typealias CommonCrypto.CC_LONG
 import UIKit
 #endif
 import NetworkExtension
+
+///default session
+public let WT = URLSession.default
+/**
+ 是否打印日志
+ 打印日志包含curl的输出和回调的输出
+ */
+var logEnable = false
+
+
+
 /// Writes the textual representations of the given items into the standard
 /// output. with file,function,line(In Debug mode)
 public func dprint<T>(_ items:T, separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
@@ -184,13 +195,6 @@ public extension String{
 }
 
 public extension URLComponents{
-    /**
-     针对文件缓存的情况,给出一个url对应的文件名
-     https://camo.githubusercontent.com/4508eefc99c68c3ffd496727bfd4b0211b1a36fcac5708513b228b9a10202cdf/68747470733a2f2f6a756e79616e7a2e6769746875622e696f2f4379636c6547414e2f696d616765732f7061696e74696e673270686f746f2e6a7067
-     */
-//    var localName:String{
-//        return "\(String(describing: host))-\(path)"
-//    }
 }
 public extension NotificationCenter{
 
@@ -478,7 +482,7 @@ public extension URLRequest{
     }
     #endif
     /**
-     create URL Request
+     create URL Request,使用defaultsession的urlconfiguration
      todo 图片上传 multipart
      */
     static func createURLRequest(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:]) -> URLRequest {
@@ -492,6 +496,9 @@ public extension URLRequest{
                 }
             }
         }
+//        let httpCookieStorage = URLSession.default.configuration.httpCookieStorage
+        
+        
         if !parameters.isEmpty{
             let string = URLRequest.convertParametersToString(parameters: parameters)
             if method.needUseQuery(){
@@ -652,15 +659,10 @@ public extension URLCache{
     
     
 }
-///default session
-public let WT = URLSession.default
-/**
- 是否打印日志
- 打印日志包含curl的输出和回调的输出
- */
-var logEnable = false
+
 // MARK: - URLSession
 public extension URLSession{
+    ///WTKitSession
     static let `default`: URLSession = {
         let session = URLSession.init(configuration: .wtURLSessionConfiguration)
         return session

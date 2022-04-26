@@ -329,27 +329,17 @@ public class WTModelMaker {
                 }else if typeString == "String"{
 //                    customDecodableStringCore += indent
                     customDecodableStringCore += "\(nameReplacedKey) = values.decodeToString(forKey: .\(nameReplacedKey))"
-                }else if typeString == "[Int]"{
-                    //try values.decode([Int].Type, forKey: .)
-                    customDecodableStringCore += "\(nameReplacedKey) = try values.decode([Int].self, forKey: .\(nameReplacedKey))"
-                }else if typeString == "[Double]"{
-                    customDecodableStringCore += "\(nameReplacedKey) = try values.decode([Double].self, forKey: .\(nameReplacedKey))"
-                }else if typeString == "[String]"{
-                    customDecodableStringCore += "\(nameReplacedKey) = try values.decode([String].self, forKey: .\(nameReplacedKey))"
                 }else{
                     var type = typeString
                     if let type1 = subModelType[typeString]{
                         type = type1
                     }
-                    if needOptionalMark{
-                        //数组判断
-                        customDecodableStringCore += """
-            \(nameReplacedKey) = try values.decodeIfPresent(\(type).self, forKey: .\(nameReplacedKey))
-            """
-                    }else{
-                        customDecodableStringCore += """
-            \(nameReplacedKey) = try values.decode(\(type).self, forKey: .\(nameReplacedKey))
-            """
+                    //数组判断
+                    customDecodableStringCore += """
+        \(nameReplacedKey) = values.decodeNoThrow(\(type).self, forKey: .\(nameReplacedKey))
+        """
+                    if !needOptionalMark{
+                        customDecodableStringCore += " ?? \(type)()"
                     }
                 }
                 customDecodableStringCore += crlf

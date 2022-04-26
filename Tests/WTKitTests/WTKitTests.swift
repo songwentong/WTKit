@@ -39,7 +39,7 @@ final class WTKitTests: XCTestCase {
      */
     func testDecode() {
        
-//        guard let obj2 = Model.decodeIfPresent(with: jsonString.utf8Data) else{
+//        guard let obj2 = TWGiftWallOuterModel.decodeIfPresent(with: jsonString.utf8Data) else{
 //            return
 //        }
 //        print(obj2.jsonString)
@@ -115,7 +115,7 @@ final class WTKitTests: XCTestCase {
         let maker = WTModelMaker.default
 //        maker.needOptionalMark = false
 //        maker.useStruct = true
-        let className = "TWGiftWallOuterModel_gift"
+        let className = "TWGiftWallOuterModel"
         let classCode = maker.createModelWith(className: className, jsonString: json1())
         print(NSHomeDirectory())
         print(classCode)
@@ -132,6 +132,63 @@ final class WTKitTests: XCTestCase {
 #endif
             
         } catch {
+            
+        }
+    }
+    
+    
+    
+    func testCookie() {
+        
+        let httpCookieStorage = URLSession.default.configuration.httpCookieStorage
+        let date = Date.init(timeIntervalSinceReferenceDate: 99999999999)
+        let cookieProps:[HTTPCookiePropertyKey:Any] = [
+            .domain: "www.apple.com",
+            .path: "index.html",
+            .name: "name",
+            .value: "value",
+            .secure: true,
+            .expires: date
+            ]
+        guard let cook = HTTPCookie.init(properties: cookieProps) else{
+            return
+        }
+        
+        httpCookieStorage?.setCookie(cook)
+        WT.dataTask(with: "") { a, b, c in
+            
+        }
+        URLSession.default.configuration.httpCookieStorage = httpCookieStorage
+        let task = URLSession.default.dataTask(with: "https://www.apple.com/index.html") { d, u, e in
+            
+        }
+        print(task.printer)
+    }
+    
+    enum PrinterError: Error {
+        case outOfPaper
+        case noToner
+        case onFire
+    }
+    func throwError( string: String) throws -> String {
+        if string == "aaa" {
+            throw PrinterError.outOfPaper
+        }
+        return "Job sent"
+    }
+    func testThrow() {
+        do {
+            let a = try throwError(string: "aaa")
+//            let b = try throwError(string: "aaa")
+//            print(b)
+        } catch  {
+            
+        }
+        do {
+//            let a = try throwError(string: "aaa")
+            let b = try throwError(string: "aaac")
+            print(b)
+        } catch  {
             
         }
     }
