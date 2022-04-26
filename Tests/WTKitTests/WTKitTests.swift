@@ -38,12 +38,39 @@ final class WTKitTests: XCTestCase {
      null异常处理
      */
     func testDecode() {
-       
-//        guard let obj2 = TWGiftWallOuterModel.decodeIfPresent(with: jsonString.utf8Data) else{
-//            return
-//        }
-//        print(obj2.jsonString)
+        guard let obj2 = TWGiftWallOuterModel.decodeIfPresent(with: json1().utf8Data) else{
+            return
+        }
+        print(obj2.jsonString)
     }
+    
+    ///模型创建
+    func testModelCreate() {
+        let maker = WTModelMaker.default
+//        maker.needOptionalMark = false
+//        maker.useStruct = true
+        let className = "TWGiftWallOuterModel"
+        let classCode = maker.createModelWith(className: className, jsonString: json1())
+        print(NSHomeDirectory())
+        print(classCode)
+        
+        let path = NSHomeDirectory() + "/Documents/" + className + ".swift"
+        print(path)
+        do {
+            try classCode.write(toFile: path, atomically: true, encoding: .utf8)
+#if os(macOS)
+            let url = path.urlValue
+            NSWorkspace.shared.activateFileViewerSelecting([url])
+            NSWorkspace.shared.selectFile(path, inFileViewerRootedAtPath: "/")
+#else
+#endif
+        } catch {
+            
+        }
+    }
+    
+    
+    
     func json1() -> String {
         let json1 = """
     {
@@ -109,33 +136,7 @@ final class WTKitTests: XCTestCase {
     """
         return json2
     }
-    
-    
-    func testModelCreate() {
-        let maker = WTModelMaker.default
-//        maker.needOptionalMark = false
-//        maker.useStruct = true
-        let className = "TWGiftWallOuterModel"
-        let classCode = maker.createModelWith(className: className, jsonString: json1())
-        print(NSHomeDirectory())
-        print(classCode)
-        
-        let path = NSHomeDirectory() + "/Documents/" + className + ".swift"
-        print(path)
-        do {
-            try classCode.write(toFile: path, atomically: true, encoding: .utf8)
-#if os(macOS)
-            let url = path.urlValue
-            NSWorkspace.shared.activateFileViewerSelecting([url])
-            NSWorkspace.shared.selectFile(path, inFileViewerRootedAtPath: "/")
-#else
-#endif
-            
-        } catch {
-            
-        }
-    }
-    
+
     
     
     func testCookie() {
@@ -170,29 +171,6 @@ final class WTKitTests: XCTestCase {
         case noToner
         case onFire
     }
-    func throwError( string: String) throws -> String {
-        if string == "aaa" {
-            throw PrinterError.outOfPaper
-        }
-        return "Job sent"
-    }
-    func testThrow() {
-        do {
-            let a = try throwError(string: "aaa")
-//            let b = try throwError(string: "aaa")
-//            print(b)
-        } catch  {
-            
-        }
-        do {
-//            let a = try throwError(string: "aaa")
-            let b = try throwError(string: "aaac")
-            print(b)
-        } catch  {
-            
-        }
-    }
-
     static var allTests = [
         ("testExample", testExample),
     ]

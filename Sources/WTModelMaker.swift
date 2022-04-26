@@ -165,10 +165,10 @@ public class WTModelMaker {
     
     /// 尝试打印出一个json对应的Model属性
     /// NSArray和NSDictionary可能需要自定义为一个model类型
-    public func createModelWith(className:String = "XXX", jsonString:String) -> String{
+    public func createModelWith(className:String = "Model", jsonString:String) -> String{
         return privateCreateModelWith(className: className, jsonString: jsonString, isRootClass: true)
     }
-    private func privateCreateModelWith(className:String = "XXX", jsonString:String, isRootClass:Bool = true)->String{
+    private func privateCreateModelWith(className:String = "Model", jsonString:String, isRootClass:Bool = true)->String{
         
         var stringToPrint:String = String()
         var codingKeys:String = String()
