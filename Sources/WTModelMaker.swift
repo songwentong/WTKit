@@ -162,7 +162,26 @@ public class WTModelMaker {
             return "class"
         }
     }
+    /**
+     String 有多种类型，用类型判断有问题
+     NSTaggedPointerString
+     Swift.String
+     */
+    private func normalCodableTypes() -> [Any]{
+        var normalType:[Any] = [Any]()
+        normalType.append("")
+        normalType.append(1)
+        normalType.append(1.24554)
+        normalType.append(true)
+        normalType.append([1,2])
+        normalType.append(["",""])
+        normalType.append([1.256,2.345])
+        normalType.append([true,false])
+        //除此以外的类型就是Object和Array<Object>
+        return normalType
+    }
     
+
     /// 尝试打印出一个json对应的Model属性
     /// NSArray和NSDictionary可能需要自定义为一个model类型
     public func createModelWith(className:String = "Model", jsonString:String) -> String{
@@ -222,6 +241,7 @@ public class WTModelMaker {
         ///自定义Decodable内核
         var customDecodableStringCore = ""
         var typeString = ""
+        
         if let printObject = jsonObject as? [String:AnyObject] {
             let sortedKeys = printObject.keys.sorted(by: <)
             sortedKeys.forEach { key in
@@ -234,6 +254,7 @@ public class WTModelMaker {
                 stringToPrint += crlf
                 stringToPrint += indent
                 stringToPrint += "var \(nameReplacedKey):"
+
                 if value is String {
                     
                     typeString = "String"
@@ -288,9 +309,9 @@ public class WTModelMaker {
                                     let valueString = data.utf8String
                                     let subClassName =  className + "_" +  nameReplacedKey
                                     typeString = subClassName
-                                    subModelDict[subClassName] = valueString
-                                    stringToPrint += "[\(subClassName)] = [\(subClassName)]()"
+                                    subModelDict[typeString] = valueString
                                     subModelType[typeString] = "[" + subClassName + "]"
+                                    stringToPrint += "[\(subClassName)] = [\(subClassName)]()"
                                 }
                             }
                         }
