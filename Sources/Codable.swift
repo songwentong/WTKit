@@ -111,31 +111,6 @@ public extension KeyedDecodingContainer{
             return nil
         }
     }
-    
-    ///decode 为String Array
-    func decodeToStringArray(forKey key:KeyedDecodingContainer<K>.Key) -> [String] {
-        do {
-            let list = try decode([String].self, forKey: key)
-            return list
-        } catch  {
-            do {
-                let list = try decode([Int].self, forKey: key)
-                return list.map { num in
-                    return num.stringValue
-                }
-            } catch {
-                do {
-                    let list = try decode([Double].self, forKey: key)
-                    return list.map { num in
-                        num.stringValue
-                    }
-                } catch  {
-                    return [String]()
-                }
-            }
-        }
-    }
-    
 }
 public extension JSONDecoder{
     ///不处理异常
@@ -241,13 +216,12 @@ public enum StringOrNumber: Codable {
             self = .string(string)
             return
         }else{
-            throw Error.couldNotFindStringOrDouble
+            self = .defaultValue()
         }
     }
     public func encode(to encoder: Encoder) throws{
         var container = encoder.singleValueContainer()
         try container.encode(stringValue())
-        
     }
     enum Error: Swift.Error {
         case couldNotFindStringOrDouble
