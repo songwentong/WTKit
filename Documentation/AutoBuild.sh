@@ -19,7 +19,7 @@ git pull --rebase
 git lfs pull
 
 #更新主工程
-cd .~/Downloads/MyApp
+cd ~/Downloads/MyApp
 git pull --rebase
 pod install
 
