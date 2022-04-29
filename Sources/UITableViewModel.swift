@@ -40,15 +40,15 @@ public extension UITableView{
         }
         return cell
     }
-    func registNibReuseableCell<T:UINibView>(_ cellType:T.Type) -> Void {
+    func registNibReuseableCell<T:UIView>(_ cellType:T.Type) -> Void {
         register(cellType.nib(), forCellReuseIdentifier: cellType.reuseIdentifier)
     }
-    func registNibReuseableCell<T:UINibView>(_ cellType:T.Type, forHeaderFooterViewReuseIdentifier:String) -> Void {
+    func registNibReuseableCell<T:UIView>(_ cellType:T.Type, forHeaderFooterViewReuseIdentifier:String) -> Void {
         register(cellType.nib(), forHeaderFooterViewReuseIdentifier: cellType.reuseIdentifier)
     }
 }
 public extension UICollectionView{
-    func registNibReuseableCell<T:UINibView>(_ cellType:T.Type) -> Void {
+    func registNibReuseableCell<T:UIView>(_ cellType:T.Type) -> Void {
         let nib = cellType.nib()
         let rid = cellType.reuseIdentifier
         register(nib, forCellWithReuseIdentifier: rid)

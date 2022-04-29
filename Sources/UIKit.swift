@@ -236,7 +236,7 @@ public extension UIViewController{
         return UIApplication.rootViewController?.topVC()
     }
     
-    ///获取顶部控制器，不需要直接用
+    ///获取顶部控制器，不需要直接用,用静态方法就行了
     fileprivate func topVC() -> UIViewController {
         if let vc = presentedViewController{
             return vc.topVC()
@@ -892,19 +892,8 @@ public extension UIScrollView {
         return UIGraphicsGetImageFromCurrentImageContext()
     }
 }
-// MARK: - UINibView
-///protocol to extension an UITableViewCell/UITableViewCollectionViewCell (if using xib file)
-///对于UITableViewCell/UITableViewCollectionViewCell的重用扩展
-public protocol UINibView:NSObjectProtocol {
-    ///获取当前view的nib文件
-    ///注意:class和nib文件必须同名
-    static func nib() -> UINib
-    ///重用ID
-    static var reuseIdentifier: String{get}
-}
-///对于使用nib开发的view的扩展
-///可以通过class来获取nib文件和reuse id
-public extension UINibView{
+
+extension UIView{
     ///获取当前view的nib文件
     ///注意:class和nib文件必须同名
     static func nib() -> UINib {
@@ -915,10 +904,6 @@ public extension UINibView{
     static var reuseIdentifier: String{
         return "\(self)"
     }
-}
-
-extension UIView:UINibView{
-    
 }
 
 public extension UITableViewCell{
@@ -934,7 +919,7 @@ public extension UIWindow{
 }
 public extension Bundle{
     ///load file from UINib,if you want to use class from,please use UITableViewCell subclass to avoid file's owner issue
-    func loadViewFromNibFile<T:UINibView>(with type:T.Type) -> T? {
+    func loadViewFromNibFile<T:UIView>(with type:T.Type) -> T? {
         guard let list = loadNibNamed(T.reuseIdentifier, owner: nil, options: nil) else{
             return nil
         }
@@ -952,6 +937,21 @@ public extension Bundle{
         } else {
             return UIImage.init(named: str, in: self, compatibleWith: nil)
         }
+    }
+    
+    ///load 本地数据
+    func loadData(with name:String?, ofType:String?, completionHandler: @escaping (Data?) -> Void) {
+        let path = path(forResource: name, ofType: ofType)
+        guard let path = path else{
+            completionHandler(nil)
+            return
+        }
+        let task = URLSession.shared.dataTask(with: path.urlValue) { d, u, e in
+            DispatchQueue.main.async {
+                completionHandler(d)
+            }
+        }
+        task.resume()
     }
 }
 
@@ -1114,6 +1114,13 @@ open class WTUINavigationController:UINavigationController {
      
      }
      */
+}
+
+/**
+ 自制TabBar
+ */
+open class WTTabBar : UIView{
+    
 }
 // MARK: - WTVC
 /**
