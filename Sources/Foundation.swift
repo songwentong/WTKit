@@ -280,6 +280,7 @@ public extension Locale{
         return Locale.init(identifier: "fr_FR")
     }
 }
+///所有的Int，包含Uint和各种Int8/Int16/Int32/Int64的扩展
 public extension BinaryInteger{
     var stringValue:String{
         return "\(self)"
@@ -300,11 +301,7 @@ public extension BinaryInteger{
         return NSNumber.init(value: Int(self))
     }
 }
-public extension ExpressibleByIntegerLiteral{
-}
-public extension FloatingPoint{
-
-}
+///所有的Float/Double的扩展
 public extension BinaryFloatingPoint{
     var intValue:Int{
         return Int(self)
@@ -326,6 +323,12 @@ public extension BinaryFloatingPoint{
         return numberObject.lengthFormatterString
     }
 }
+public extension ExpressibleByIntegerLiteral{
+}
+public extension FloatingPoint{
+
+}
+
 // MARK: - Int
 public extension Int{
     var floatValue: Float{

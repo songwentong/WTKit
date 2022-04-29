@@ -1261,6 +1261,17 @@ open class WTVC:UIViewController{
         }
     }
 }
+///所有的Int，包含Uint和各种Int8/Int16/Int32/Int64的扩展
+public extension BinaryInteger{
+    var cgFloatValue:CGFloat{
+        return CGFloat.init(self)
+    }
+}
+public extension BinaryFloatingPoint{
+    var cgFloatValue:CGFloat{
+        return CGFloat.init(self)
+    }
+}
 // MARK: - WTTableVC
 /**
  自制tableview
