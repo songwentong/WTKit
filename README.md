@@ -320,6 +320,6 @@ https://github.com/songwentong/WTKit.git
 ```
 or
 ```
-.package(url: "https://github.com/songwentong/WTKit.git", from: "3.0.0"),
+.package(url: "https://github.com/songwentong/WTKit.git", branch: "master"),
 ```
 ![](https://github.com/songwentong/WTKit/blob/master/images/swiftPackage.png)
