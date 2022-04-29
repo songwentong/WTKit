@@ -187,7 +187,7 @@ public class WTModelMaker {
     public func createModelWith(className:String = "Model", jsonString:String) -> String{
         return privateCreateModelWith(className: className, jsonString: jsonString, isRootClass: true)
     }
-    private func privateCreateModelWith(className:String = "Model", jsonString:String, isRootClass:Bool = true)->String{
+    private func privateCreateModelWith(className:String, jsonString:String, isRootClass:Bool = true)->String{
         
         var stringToPrint:String = String()
         var codingKeys:String = String()

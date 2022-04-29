@@ -166,9 +166,6 @@ final class WTKitTests: XCTestCase {
         }
         
         httpCookieStorage?.setCookie(cook)
-        WT.dataTask(with: "") { a, b, c in
-            
-        }
         URLSession.default.configuration.httpCookieStorage = httpCookieStorage
         let task = URLSession.default.dataTask(with: "https://www.apple.com/index.html") { d, u, e in
             
