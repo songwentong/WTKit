@@ -252,32 +252,7 @@ public extension UIViewController{
     func requestTopVCPresent( animated flag: Bool, completion: (() -> Void)? = nil) {
         UIViewController.topVC()?.present(self, animated: flag, completion: completion)
     }
-    /// 从同名的storyboardc文件中取到根控制器的实例
-    static func instanceFromStoryBoard<T:UIViewController>() -> T {
-        guard let _ = self.currentBundle.path(forResource: "\(self)", ofType: "storyboardc") else{
-            print("storyboradc file not found class:\(self)")
-            return T.init()
-        }
-        let sb = UIStoryboard.init(name: "\(self)", bundle: self.currentBundle)
-        if let vc = sb.instantiateInitialViewController() as? T{
-            return vc
-        }else{
-            return T.init()
-        }
-    }
-    static func instanceFromNib<T:UIViewController>() -> T{
-        guard let _ = self.currentBundle.path(forResource: "\(self)", ofType: "nib") else{
-            print("nib file not found class:\(self)")
-            return T.init()
-        }
-        let nib = UINib.init(nibName: "\(self)", bundle: self.currentBundle)
-        for ele in nib.instantiate(withOwner: nil, options: nil){
-            if let obj = ele as? T{
-                return obj
-            }
-        }
-        return T.init()
-    }
+
 }
 
 public extension UITableViewController{}
@@ -370,42 +345,7 @@ public extension UIView {
     func turnOffMask()  {
         translatesAutoresizingMaskIntoConstraints = false
     }
-    func loadReuseableNibContentView() {
-        let view = instanceFromXibWithOwner()
-        view.frame = self.bounds
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        addSubview(view)
-    }
-    func instanceFromXibWithOwner<T:UIView>() -> T{
-        let res = "\(self.classForCoder)"
-        let bundle = Bundle.init(for: type(of: self))
-        guard let path = T.currentBundle.path(forResource: res, ofType: "nib") else{
-            print("nib file not found")
-            return T.init()
-        }
-        print("load file :\(path)")
-        let nib = UINib.init(nibName: res, bundle: bundle)
-        for ele in nib.instantiate(withOwner: self, options: nil){
-            if let obj = ele as? T{
-                return obj
-            }
-        }
-        return T.init()
-    }
-    static func instanceFromXib<T:UIView>() -> T{
-        let res = "\(self)"
-        guard let _ = T.currentBundle.path(forResource: res, ofType: "nib") else{
-            print("nib file not found")
-            return T.init()
-        }
-        let nib = UINib.init(nibName: "\(self)", bundle: T.currentBundle)
-        for ele in nib.instantiate(withOwner: nil, options: nil){
-            if let obj = ele as? T{
-                return obj
-            }
-        }
-        return T.init()
-    }
+    
     func snapShotImage() -> UIImage {
         return layer.snapShot()
     }
@@ -892,8 +832,8 @@ public extension UIScrollView {
         return UIGraphicsGetImageFromCurrentImageContext()
     }
 }
-
-extension UIView{
+// MARK: - IB
+public extension UIView{
     ///获取当前view的nib文件
     ///注意:class和nib文件必须同名
     static func nib() -> UINib {
@@ -903,6 +843,42 @@ extension UIView{
     ///重用ID
     static var reuseIdentifier: String{
         return "\(self)"
+    }
+    static func instanceFromXib() -> UIView?{
+        for ele in nib().instantiate(withOwner: nil, options: nil){
+            if let obj = ele as? UIView{
+                return obj
+            }
+        }
+        return nil
+    }
+}
+public extension UIViewController{
+    ///重用ID
+    static var reuseIdentifier: String{
+        return "\(self)"
+    }
+    ///获取当前view的nib文件
+    ///注意:class和nib文件必须同名
+    static func nib() -> UINib {
+        //这段代码的神奇之处是到了这里已经无法打印self了，报错内容是：error: <EXPR>:1:11: error: use of undeclared type '$__lldb_context'
+        return UINib.init(nibName: self.reuseIdentifier, bundle: nil)
+    }
+    static func storyboard() -> UIStoryboard{
+        return UIStoryboard.init(name: reuseIdentifier, bundle: nil)
+    }
+    
+    /// 从同名的storyboardc文件中取到根控制器的实例
+    static func instanceFromStoryBoard() -> UIViewController? {
+        storyboard().instantiateInitialViewController()
+    }
+    static func instanceFromNib() -> UIViewController?{
+        for ele in nib().instantiate(withOwner: nil, options: nil){
+            if let obj = ele as? UIViewController{
+                return obj
+            }
+        }
+        return nil
     }
 }
 
