@@ -65,6 +65,10 @@ zip -r BCSymbolMaps.zip BCSymbolMaps
 #java -jar buglySymboliOS.jar -appid kkkkkkkkkkkkkkkkkkkkkkkkkkkk  -appkey kkkkkkkkkkkkkkkkkkkkkkkkkkkk -bundleid com.abc.abcabc -version 2.4.2 -platform IOS -inputSymbol dSYMs
 
 
+#FIR.IM上传
+#curl -F xxx -F fir.com
+
+
 t2=$(date +%s)
 t3='use time: '$((t2-t1))' seconds'
 echo $t3
