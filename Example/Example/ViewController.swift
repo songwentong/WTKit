@@ -11,11 +11,12 @@ class ViewController: UIViewController {
     var section1 = ["GET Request","POST Request","PUT Request","DELETE Request"]
 
     @IBOutlet weak var myTableView: UITableView!
+    let con = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.title = "WTKit"
-        
+        myTableView.refreshControl = con
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -59,6 +60,24 @@ class ViewController: UIViewController {
     }
 
 
+}
+extension ViewController: UIViewControllerRefresh{
+    func vcRefresh() {
+        print("refresh")
+        con.beginRefreshing()
+        myTableView.setContentOffset(CGPoint.init(x: 0, y: -60.5), animated: true)
+        DispatchQueue.main.asyncAfterTime(3) {
+            self.con.endRefreshing()
+        }
+    }
+}
+extension ViewController: UIScrollViewDelegate{
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        dprint(scrollView.contentOffset)
+        DispatchQueue.main.asyncAfterTime(3) {
+            self.con.endRefreshing()
+        }
+    }
 }
 extension ViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

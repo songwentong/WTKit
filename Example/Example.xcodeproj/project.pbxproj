@@ -16,6 +16,7 @@
 		7714F223281DFE390018EF7D /* WTKit in Resources */ = {isa = PBXBuildFile; fileRef = 7714F222281DFE390018EF7D /* WTKit */; };
 		7714F226281DFF7A0018EF7D /* WTKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7714F225281DFF7A0018EF7D /* WTKit */; };
 		7714F228281E01200018EF7D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7714F227281E01200018EF7D /* DetailViewController.swift */; };
+		7714F22B281E723A0018EF7D /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7714F22A281E723A0018EF7D /* MyTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		7714F21C281DFDEB0018EF7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7714F222281DFE390018EF7D /* WTKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WTKit; path = ..; sourceTree = "<group>"; };
 		7714F227281E01200018EF7D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		7714F22A281E723A0018EF7D /* MyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				7714F210281DFDE90018EF7D /* SceneDelegate.swift */,
 				7714F212281DFDE90018EF7D /* ViewController.swift */,
 				7714F227281E01200018EF7D /* DetailViewController.swift */,
+				7714F22A281E723A0018EF7D /* MyTabBarController.swift */,
 				7714F214281DFDE90018EF7D /* Main.storyboard */,
 				7714F217281DFDEB0018EF7D /* Assets.xcassets */,
 				7714F219281DFDEB0018EF7D /* LaunchScreen.storyboard */,
@@ -162,6 +165,7 @@
 				7714F20F281DFDE90018EF7D /* AppDelegate.swift in Sources */,
 				7714F211281DFDE90018EF7D /* SceneDelegate.swift in Sources */,
 				7714F228281E01200018EF7D /* DetailViewController.swift in Sources */,
+				7714F22B281E723A0018EF7D /* MyTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
