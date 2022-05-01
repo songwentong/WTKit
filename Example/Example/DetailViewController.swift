@@ -62,6 +62,9 @@ extension DetailViewController: UITableViewDataSource{
         return 2
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if self.tableView(tableView, numberOfRowsInSection: section) == 0{
+            return ""
+        }
         return ["Headers","Body"][section]
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
