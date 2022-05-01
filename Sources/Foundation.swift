@@ -758,6 +758,27 @@ public extension URLSession{
         return task
     }
     
+    
+    ///缓存请求
+    @discardableResult
+    func useCacheElseLoadUrlData(with url:URL, finished:@escaping(Data)->Void, failed:@escaping(Error)->Void) -> URLSessionDataTask{
+        let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad)
+        let task = dataTask(with: request, completionHandler: { (data,res,err) in
+            if let data = data{
+                DispatchQueue.main.async {
+                    finished(data)
+                }
+            }
+            if let err = err{
+                DispatchQueue.main.async {
+                    failed(err)
+                }
+            }
+        })
+        task.resume()
+        return task
+    }
+    ///写文件
     @discardableResult
     func downloadData(with request:URLRequest, to path:String, complection:@escaping(Bool)->Void) -> URLSessionDataTask {
         let task = self.dataTask(with: request) { data, res, err in
@@ -804,25 +825,7 @@ public extension URLSession{
         return task
     }
     
-    ///缓存请求
-    @discardableResult
-    func useCacheElseLoadUrlData(with url:URL, finished:@escaping(Data)->Void, failed:@escaping(Error)->Void) -> URLSessionDataTask{
-        let request = URLRequest.init(url: url, cachePolicy: .returnCacheDataElseLoad)
-        let task = dataTask(with: request, completionHandler: { (data,res,err) in
-            if let data = data{
-                DispatchQueue.main.async {
-                    finished(data)
-                }
-            }
-            if let err = err{
-                DispatchQueue.main.async {
-                    failed(err)
-                }
-            }
-        })
-        task.resume()
-        return task
-    }
+    
     
     #if canImport(Combine)
     /**
