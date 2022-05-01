@@ -90,15 +90,15 @@ open class LoadingView: UIView {
         self.isUserInteractionEnabled = false
         indicatorBGView.translatesAutoresizingMaskIntoConstraints = false
         indicatorBGView.backgroundColor = UIColor.black.withAlphaComponent(0.66)
-        indicatorBGView.layer.cornerRadius = 4
+        indicatorBGView.layer.cornerRadius = 10
         indicatorBGView.layer.masksToBounds = true
         refreshIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         
         
         indicatorBGView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         indicatorBGView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        indicatorBGView.widthAnchor.constraint(equalToConstant: 75).isActive = true
-        indicatorBGView.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        indicatorBGView.widthAnchor.constraint(equalToConstant: 55).isActive = true
+        indicatorBGView.heightAnchor.constraint(equalToConstant: 55).isActive = true
         
         refreshIndicatorView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         refreshIndicatorView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true

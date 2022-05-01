@@ -574,6 +574,18 @@ public extension URLSession{
     func dataTask(with urlString: String, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         return dataTask(with: urlString.urlValue, completionHandler: completionHandler)
     }
+    
+    /**
+     执行请求
+     testData:用于测试的数据,在debug模式生效,release模式不生效
+     */
+    @discardableResult
+    func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], testData:Data? = nil, object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
+        let request = createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
+        return dataTaskWith(request: request, testData: testData, codable: object, completionHandler: completionHandler)
+    }
+    
+    
     /**
      create URL Request,使用defaultsession的urlconfiguration
      todo 图片上传 multipart
@@ -620,78 +632,9 @@ public extension URLSession{
         }
         t.resume()
     }*/
-    func multipart(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], parts:[MultipartBodyObject] = [MultipartBodyObject]()) -> URLRequest{
-        var req = URLRequest.init(url: path.urlValue)
-        req.httpMethod = method.rawValue
-        let body = MultipartBody.init()
-        body.parameters = parameters
-        body.parts = parts
-        req.httpBody = body.buildBody()
-        for (k,v) in headers{
-            req.setValue(v, forHTTPHeaderField: k)
-        }
-        req.setValue("multipart/form-data; boundary=\(body.boundary)", forHTTPHeaderField: "Content-Type")
-        return req
-    }
     
-    func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
-        var components: [(String, String)] = []
-        if let value = value as? NSNumber {
-            if value.isBool {
-                if value.boolValue{
-                    components.append((key.escapeString, "1".escapeString))
-                }else{
-                    components.append((key.escapeString, "0".escapeString))
-                }
-            } else {
-                components.append((key.escapeString, "\(value)".escapeString))
-            }
-        }else if let bool = value as? Bool {
-            if bool{
-                components.append((key.escapeString, "1".escapeString))
-            }else{
-                components.append((key.escapeString, "0".escapeString))
-            }
-        }else{
-            components.append((key.escapeString,"\(value)".escapeString))
-        }
-        return components
-    }
-    func convertParametersToString( parameters:[String:Any] = [:]) -> String {
-        var components: [(String, String)] = []
-        for key in parameters.keys.sorted(by: <){
-            if let value = parameters[key]{
-                components += queryComponents(fromKey: key, value: value)
-            }
-        }
-        return components.map { "\($0)=\($1)"}.joined(separator: "&")
-    }
-    ///use Codable callback
-
     
-
-    ///-H "Accept-Encoding: gzip;q=1.0, compress;q=0.5"
-    var defaultAcceptEncoding:String{
-        if #available(iOS 11.0, macOS 10.13, tvOS 11.0, watchOS 4.0, *) {
-            return "br;q=1.0,gzip;q=0.9,deflate;q=0.8"
-        } else {
-            return "gzip;q=0.9,deflate;q=0.8"
-        }
-    }
     
-    func generateBoundary() -> String {
-       return "Boundary-\(NSUUID().uuidString)"
-    }
-    
-    /**
-     执行请求
-     testData:用于测试的数据,在debug模式生效,release模式不生效
-     */
-    @discardableResult
-    func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], testData:Data? = nil, object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
-        let request = createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
-        return dataTaskWith(request: request, testData: testData, codable: object, completionHandler: completionHandler)
-    }
     /**
      对于一个request对象,提供请求,测试和解析功能
      testData:用于测试的数据,只会出现在debug模式,这个方法非常实用,
@@ -742,7 +685,7 @@ public extension URLSession{
     
     @discardableResult
     func multipart(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], parts:[MultipartBodyObject] = [MultipartBodyObject](), completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
-        let req = multipart(with: path, method: method, parameters: parameters, headers: headers, parts: parts)
+        let req = multipartRequest(with: path, method: method, parameters: parameters, headers: headers, parts: parts)
         if logEnable{
             cprint(req.printer)
         }
@@ -856,6 +799,71 @@ public extension URLSession{
         }
     }
     #endif
+}
+//create request
+public extension URLSession{
+    func multipartRequest(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], parts:[MultipartBodyObject] = [MultipartBodyObject]()) -> URLRequest{
+        var req = URLRequest.init(url: path.urlValue)
+        req.httpMethod = method.rawValue
+        let body = MultipartBody.init()
+        body.parameters = parameters
+        body.parts = parts
+        req.httpBody = body.buildBody()
+        for (k,v) in headers{
+            req.setValue(v, forHTTPHeaderField: k)
+        }
+        req.setValue("multipart/form-data; boundary=\(body.boundary)", forHTTPHeaderField: "Content-Type")
+        return req
+    }
+    
+    func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
+        var components: [(String, String)] = []
+        if let value = value as? NSNumber {
+            if value.isBool {
+                if value.boolValue{
+                    components.append((key.escapeString, "1".escapeString))
+                }else{
+                    components.append((key.escapeString, "0".escapeString))
+                }
+            } else {
+                components.append((key.escapeString, "\(value)".escapeString))
+            }
+        }else if let bool = value as? Bool {
+            if bool{
+                components.append((key.escapeString, "1".escapeString))
+            }else{
+                components.append((key.escapeString, "0".escapeString))
+            }
+        }else{
+            components.append((key.escapeString,"\(value)".escapeString))
+        }
+        return components
+    }
+    func convertParametersToString( parameters:[String:Any] = [:]) -> String {
+        var components: [(String, String)] = []
+        for key in parameters.keys.sorted(by: <){
+            if let value = parameters[key]{
+                components += queryComponents(fromKey: key, value: value)
+            }
+        }
+        return components.map { "\($0)=\($1)"}.joined(separator: "&")
+    }
+    ///use Codable callback
+
+    
+
+    ///-H "Accept-Encoding: gzip;q=1.0, compress;q=0.5"
+    var defaultAcceptEncoding:String{
+        if #available(iOS 11.0, macOS 10.13, tvOS 11.0, watchOS 4.0, *) {
+            return "br;q=1.0,gzip;q=0.9,deflate;q=0.8"
+        } else {
+            return "gzip;q=0.9,deflate;q=0.8"
+        }
+    }
+    
+    func generateBoundary() -> String {
+       return "Boundary-\(NSUUID().uuidString)"
+    }
 }
 
 public class WTURLSessionDelegate:NSObject,URLSessionDelegate{
@@ -1341,6 +1349,7 @@ do{
 public extension NWPath{
     
 }
+
 
 public class LRUCache{
     

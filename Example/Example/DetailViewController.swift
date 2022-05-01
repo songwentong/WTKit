@@ -13,7 +13,7 @@ class DetailViewController: UIViewController {
     var headers: [String: String] = [:]
     var body: String?
     var elapsedTime: TimeInterval?
-    
+    let con = UIRefreshControl()
     @IBOutlet weak var myTableView: UITableView!
     
     static let numberFormatter: NumberFormatter = {
@@ -25,14 +25,26 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        
+        myTableView.refreshControl = con
+        loadData()
+    }
+
+}
+extension DetailViewController{
+    func loadData() {
         guard let request = request else {
             return
         }
         let t1 = Date().timeIntervalSince1970
+//        self.view.showLoadingView()
+        con.beginRefreshing()
         WT.dataTaskWith(request: request) { (str:String) in
             self.body = str
             dprint(str)
         } completionHandler: { data, u, _ in
+            self.con.endRefreshing()
             if let res = u as? HTTPURLResponse{
                 res.allHeaderFields.forEach { (key: AnyHashable, value: Any) in
                     self.headers["\(key)"] = "\(value)"
@@ -41,9 +53,9 @@ class DetailViewController: UIViewController {
             self.elapsedTime = Date().timeIntervalSince1970 - t1
 //            self.body = data?.utf8String
             self.myTableView.reloadData()
+//            self.view.hideLoadingView()
         }
     }
-
 }
 extension DetailViewController: UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -59,6 +71,9 @@ extension DetailViewController: UITableViewDataSource{
         return body == nil ? 0 : 1
     }
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if self.tableView(tableView, numberOfRowsInSection: section) == 0{
+            return ""
+        }
         if section == 1,let elapsedTime = elapsedTime {
             let elapsedTimeText = Self.numberFormatter.string(from: elapsedTime as NSNumber) ?? "???"
             return "Elapsed Time: \(elapsedTimeText) sec"
@@ -96,7 +111,13 @@ extension DetailViewController: UITableViewDelegate{
         return myTableView.rowHeight
     }
 }
-extension DetailViewController{}
+extension DetailViewController: UIScrollViewDelegate{
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if con.isRefreshing{
+            loadData()
+        }
+    }
+}
 extension DetailViewController{}
 extension DetailViewController{}
 extension DetailViewController{}
