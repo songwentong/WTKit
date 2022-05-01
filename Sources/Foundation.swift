@@ -53,6 +53,8 @@ public extension NSObject{
     }
 }
 
+
+
 // MARK: - String
 public extension String{
     
@@ -191,7 +193,25 @@ public extension String{
     var escapeString:String {
         addingPercentEncoding(withAllowedCharacters: CharacterSet.wtURLQueryAllowed) ?? self
     }
+//    func prefixString(with count:Int) -> String {
+//        var result = String()
+//        for i in 0..<min(self.count, count){
+////            result.append(self)
+//        }
+//        return result
+//    }
 
+}
+
+public extension Array{
+    func prefixObject(with count:Int) -> [Element] {
+        let time = Swift.min(count, self.count)
+        var result = [Element]()
+        for i in 0..<time{
+            result.append(self[i])
+        }
+        return result
+    }
 }
 
 public extension URLComponents{
@@ -484,126 +504,7 @@ public extension URLRequest{
 //        }
     }
     #endif
-    /**
-     create URL Request,使用defaultsession的urlconfiguration
-     todo 图片上传 multipart
-     */
-    static func createURLRequest(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:]) -> URLRequest {
-        var request = URLRequest.init(url: path.urlValue)
-        request.httpMethod = method.rawValue
-        //把httpAdditionalHeaders加上
-        if let httpAdditionalHeaders = WT.configuration.httpAdditionalHeaders{
-            for (k,v) in httpAdditionalHeaders{
-                if let ks = k as? String, let vs = v as? String{
-                    request.setValue(vs, forHTTPHeaderField: ks)
-                }
-            }
-        }
-//        let httpCookieStorage = URLSession.default.configuration.httpCookieStorage
-        
-        
-        if !parameters.isEmpty{
-            let string = URLRequest.convertParametersToString(parameters: parameters)
-            if method.needUseQuery(){
-                if var urlComponents = URLComponents(url: path.urlValue, resolvingAgainstBaseURL: false){
-                    let percentEncodedQuery = (urlComponents.percentEncodedQuery.map { $0 + "&" } ?? "") + string
-                    urlComponents.percentEncodedQuery = percentEncodedQuery
-                    request.url = urlComponents.url
-                }
-            }else{
-                request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
-                request.httpBody = string.utf8Data
-            }
-        }
-        for (k,v) in headers{
-            request.setValue(v, forHTTPHeaderField: k)
-        }
-        return request
-    }
-    /*
-    fileprivate func testUploadImage(){
-        let imagebody = MultiPartBodyImage()
-        imagebody.image = UIImage.init(named: "asd")
-        
-        let req = URLRequest.multipart(with: "http:a.com", method: .post, parts: [imagebody])
-        let t = URLSession.shared.dataTask(with: req) { data, res, err in
-            
-        }
-        t.resume()
-    }*/
-    static func multipart(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], parts:[MultipartBodyObject] = [MultipartBodyObject]()) -> URLRequest{
-        var req = URLRequest.init(url: path.urlValue)
-        req.httpMethod = method.rawValue
-        let body = MultipartBody.init()
-        body.parameters = parameters
-        body.parts = parts
-        req.httpBody = body.buildBody()
-        for (k,v) in headers{
-            req.setValue(v, forHTTPHeaderField: k)
-        }
-        req.setValue("multipart/form-data; boundary=\(body.boundary)", forHTTPHeaderField: "Content-Type")
-        return req
-    }
     
-    static func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
-        var components: [(String, String)] = []
-        if let value = value as? NSNumber {
-            if value.isBool {
-                if value.boolValue{
-                    components.append((key.escapeString, "1".escapeString))
-                }else{
-                    components.append((key.escapeString, "0".escapeString))
-                }
-            } else {
-                components.append((key.escapeString, "\(value)".escapeString))
-            }
-        }else if let bool = value as? Bool {
-            if bool{
-                components.append((key.escapeString, "1".escapeString))
-            }else{
-                components.append((key.escapeString, "0".escapeString))
-            }
-        }else{
-            components.append((key.escapeString,"\(value)".escapeString))
-        }
-        return components
-    }
-    static func convertParametersToString( parameters:[String:Any] = [:]) -> String {
-        var components: [(String, String)] = []
-        for key in parameters.keys.sorted(by: <){
-            if let value = parameters[key]{
-                components += queryComponents(fromKey: key, value: value)
-            }
-        }
-        return components.map { "\($0)=\($1)"}.joined(separator: "&")
-    }
-    ///use Codable callback
-    func dataTaskWith<T:Codable>(codable object:@escaping (T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
-        return URLSession.default.dataTaskWith(request: self, codable: object, completionHandler: completionHandler)
-    }
-    func dataTask( completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
-        if logEnable{
-            dprint(self.printer)
-        }
-        return URLSession.default.dataTask(with: self) { (data, res, err) in
-            DispatchQueue.main.async {
-                completionHandler(data,res,err)
-            }
-        }
-    }
-
-    ///-H "Accept-Encoding: gzip;q=1.0, compress;q=0.5"
-    static var defaultAcceptEncoding:String{
-        if #available(iOS 11.0, macOS 10.13, tvOS 11.0, watchOS 4.0, *) {
-            return "br;q=1.0,gzip;q=0.9,deflate;q=0.8"
-        } else {
-            return "gzip;q=0.9,deflate;q=0.8"
-        }
-    }
-    
-    func generateBoundary() -> String {
-       return "Boundary-\(NSUUID().uuidString)"
-    }
 }
 // MARK: - URLResponse
 public extension URLResponse{
@@ -674,12 +575,121 @@ public extension URLSession{
         return dataTask(with: urlString.urlValue, completionHandler: completionHandler)
     }
     /**
+     create URL Request,使用defaultsession的urlconfiguration
+     todo 图片上传 multipart
+     */
+     func createURLRequest(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:]) -> URLRequest {
+        var request = URLRequest.init(url: path.urlValue)
+        request.httpMethod = method.rawValue
+        //把httpAdditionalHeaders加上
+        if let httpAdditionalHeaders = WT.configuration.httpAdditionalHeaders{
+            for (k,v) in httpAdditionalHeaders{
+                if let ks = k as? String, let vs = v as? String{
+                    request.setValue(vs, forHTTPHeaderField: ks)
+                }
+            }
+        }
+        
+        
+        if !parameters.isEmpty{
+            let string = convertParametersToString(parameters: parameters)
+            if method.needUseQuery(){
+                if var urlComponents = URLComponents(url: path.urlValue, resolvingAgainstBaseURL: false){
+                    let percentEncodedQuery = (urlComponents.percentEncodedQuery.map { $0 + "&" } ?? "") + string
+                    urlComponents.percentEncodedQuery = percentEncodedQuery
+                    request.url = urlComponents.url
+                }
+            }else{
+                request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+                request.httpBody = string.utf8Data
+            }
+        }
+        for (k,v) in headers{
+            request.setValue(v, forHTTPHeaderField: k)
+        }
+        return request
+    }
+    /*
+    fileprivate func testUploadImage(){
+        let imagebody = MultiPartBodyImage()
+        imagebody.image = UIImage.init(named: "asd")
+        
+        let req = URLRequest.multipart(with: "http:a.com", method: .post, parts: [imagebody])
+        let t = URLSession.shared.dataTask(with: req) { data, res, err in
+            
+        }
+        t.resume()
+    }*/
+    func multipart(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], parts:[MultipartBodyObject] = [MultipartBodyObject]()) -> URLRequest{
+        var req = URLRequest.init(url: path.urlValue)
+        req.httpMethod = method.rawValue
+        let body = MultipartBody.init()
+        body.parameters = parameters
+        body.parts = parts
+        req.httpBody = body.buildBody()
+        for (k,v) in headers{
+            req.setValue(v, forHTTPHeaderField: k)
+        }
+        req.setValue("multipart/form-data; boundary=\(body.boundary)", forHTTPHeaderField: "Content-Type")
+        return req
+    }
+    
+    func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
+        var components: [(String, String)] = []
+        if let value = value as? NSNumber {
+            if value.isBool {
+                if value.boolValue{
+                    components.append((key.escapeString, "1".escapeString))
+                }else{
+                    components.append((key.escapeString, "0".escapeString))
+                }
+            } else {
+                components.append((key.escapeString, "\(value)".escapeString))
+            }
+        }else if let bool = value as? Bool {
+            if bool{
+                components.append((key.escapeString, "1".escapeString))
+            }else{
+                components.append((key.escapeString, "0".escapeString))
+            }
+        }else{
+            components.append((key.escapeString,"\(value)".escapeString))
+        }
+        return components
+    }
+    func convertParametersToString( parameters:[String:Any] = [:]) -> String {
+        var components: [(String, String)] = []
+        for key in parameters.keys.sorted(by: <){
+            if let value = parameters[key]{
+                components += queryComponents(fromKey: key, value: value)
+            }
+        }
+        return components.map { "\($0)=\($1)"}.joined(separator: "&")
+    }
+    ///use Codable callback
+
+    
+
+    ///-H "Accept-Encoding: gzip;q=1.0, compress;q=0.5"
+    var defaultAcceptEncoding:String{
+        if #available(iOS 11.0, macOS 10.13, tvOS 11.0, watchOS 4.0, *) {
+            return "br;q=1.0,gzip;q=0.9,deflate;q=0.8"
+        } else {
+            return "gzip;q=0.9,deflate;q=0.8"
+        }
+    }
+    
+    func generateBoundary() -> String {
+       return "Boundary-\(NSUUID().uuidString)"
+    }
+    
+    /**
      执行请求
      testData:用于测试的数据,在debug模式生效,release模式不生效
      */
     @discardableResult
     func dataTask<T:Codable>(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], testData:Data? = nil, object:@escaping(T)->Void,completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void ) -> URLSessionDataTask {
-        let request = URLRequest.createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
+        let request = createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
         return dataTaskWith(request: request, testData: testData, codable: object, completionHandler: completionHandler)
     }
     /**
@@ -697,14 +707,21 @@ public extension URLSession{
             if var myData = data{
                 do{
                     #if DEBUG
-                    //如果在debug模式下使用了测试数据，就使用测试数据
+                    //如果在debug模式下提供了测试数据，就使用测试数据
                     if let td = testData{
                         myData = td
                     }
                     #endif
-                    let result = try JSONDecoder().decode(T.self, from: myData)//类型转换
-                    DispatchQueue.main.async {
-                        object(result)
+                    if "" is T{
+                        let str = myData.utf8String
+                        DispatchQueue.main.async {
+                            object(str as! T)
+                        }
+                    }else{
+                        let result = try JSONDecoder().decode(T.self, from: myData)//类型转换
+                        DispatchQueue.main.async {
+                            object(result)
+                        }
                     }
                 }catch{
                     errorToReturn = error
@@ -713,7 +730,9 @@ public extension URLSession{
             if logEnable{
                 cprint(data?.utf8String)
             }
-            completionHandler(data,response,errorToReturn)
+            DispatchQueue.main.async {
+                completionHandler(data,response,errorToReturn)
+            }
         }
         DispatchQueue.global().async {
             task.resume()
@@ -723,7 +742,7 @@ public extension URLSession{
     
     @discardableResult
     func multipart(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], parts:[MultipartBodyObject] = [MultipartBodyObject](), completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
-        let req = URLRequest.multipart(with: path, method: method, parameters: parameters, headers: headers, parts: parts)
+        let req = multipart(with: path, method: method, parameters: parameters, headers: headers, parts: parts)
         if logEnable{
             cprint(req.printer)
         }
@@ -731,9 +750,36 @@ public extension URLSession{
             if logEnable{
                 cprint(data?.utf8String)
             }
-            completionHandler(data,res,err)
+            DispatchQueue.main.async {
+                completionHandler(data,res,err)
+            }
         }
         task.resume()
+        return task
+    }
+    
+    @discardableResult
+    func downloadData(with request:URLRequest, to path:String, complection:@escaping(Bool)->Void) -> URLSessionDataTask {
+        let task = self.dataTask(with: request) { data, res, err in
+            if let data = data{
+                let url = URL.init(fileURLWithPath: path)
+                do {
+                    try data.write(to: url)
+                    DispatchQueue.main.async {
+                        complection(true)
+                    }
+                } catch {
+
+                }
+            }
+            DispatchQueue.main.async {
+                complection(false)
+            }
+        }
+        DispatchQueue.main.async {
+            task.resume()
+        }
+        
         return task
     }
     

@@ -14,6 +14,8 @@
 		7714F218281DFDEB0018EF7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7714F217281DFDEB0018EF7D /* Assets.xcassets */; };
 		7714F21B281DFDEB0018EF7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7714F219281DFDEB0018EF7D /* LaunchScreen.storyboard */; };
 		7714F223281DFE390018EF7D /* WTKit in Resources */ = {isa = PBXBuildFile; fileRef = 7714F222281DFE390018EF7D /* WTKit */; };
+		7714F226281DFF7A0018EF7D /* WTKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7714F225281DFF7A0018EF7D /* WTKit */; };
+		7714F228281E01200018EF7D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7714F227281E01200018EF7D /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,7 @@
 		7714F21A281DFDEB0018EF7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7714F21C281DFDEB0018EF7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7714F222281DFE390018EF7D /* WTKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WTKit; path = ..; sourceTree = "<group>"; };
+		7714F227281E01200018EF7D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7714F226281DFF7A0018EF7D /* WTKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +49,7 @@
 				7714F222281DFE390018EF7D /* WTKit */,
 				7714F20D281DFDE90018EF7D /* Example */,
 				7714F20C281DFDE90018EF7D /* Products */,
+				7714F224281DFF7A0018EF7D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,12 +67,20 @@
 				7714F20E281DFDE90018EF7D /* AppDelegate.swift */,
 				7714F210281DFDE90018EF7D /* SceneDelegate.swift */,
 				7714F212281DFDE90018EF7D /* ViewController.swift */,
+				7714F227281E01200018EF7D /* DetailViewController.swift */,
 				7714F214281DFDE90018EF7D /* Main.storyboard */,
 				7714F217281DFDEB0018EF7D /* Assets.xcassets */,
 				7714F219281DFDEB0018EF7D /* LaunchScreen.storyboard */,
 				7714F21C281DFDEB0018EF7D /* Info.plist */,
 			);
 			path = Example;
+			sourceTree = "<group>";
+		};
+		7714F224281DFF7A0018EF7D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,6 +99,9 @@
 			dependencies = (
 			);
 			name = Example;
+			packageProductDependencies = (
+				7714F225281DFF7A0018EF7D /* WTKit */,
+			);
 			productName = Example;
 			productReference = 7714F20B281DFDE90018EF7D /* Example.app */;
 			productType = "com.apple.product-type.application";
@@ -145,6 +161,7 @@
 				7714F213281DFDE90018EF7D /* ViewController.swift in Sources */,
 				7714F20F281DFDE90018EF7D /* AppDelegate.swift in Sources */,
 				7714F211281DFDE90018EF7D /* SceneDelegate.swift in Sources */,
+				7714F228281E01200018EF7D /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +381,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7714F225281DFF7A0018EF7D /* WTKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WTKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7714F203281DFDE90018EF7D /* Project object */;
 }
