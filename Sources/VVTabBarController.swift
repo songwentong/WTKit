@@ -91,6 +91,8 @@ public protocol UIViewControllerRefresh: NSObjectProtocol{
 open class VVBarView: UIView{
     var label = UILabel()
     var colorPoint = UIView()
+    var contentView = UIView()
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         self.isUserInteractionEnabled = false

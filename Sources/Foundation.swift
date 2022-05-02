@@ -429,6 +429,10 @@ public extension NSNumber{
         return LengthFormatter().string(fromMeters: doubleValue)
     }
 }
+
+public extension OperationQueue{
+
+}
 // MARK: - DispatchQueue
 public extension DispatchQueue{
     static func backgroundQueue()->DispatchQueue{
@@ -447,17 +451,9 @@ public extension DispatchQueue{
     static func safeSyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
         let main:DispatchQueue = DispatchQueue.main
         if Thread.isMainThread {
-            main.async(execute: work)
+            work()
         }else{
             main.sync(execute: work)
-        }
-    }
-    static func safeSyncInMain(with workItem:DispatchWorkItem){
-        let main:DispatchQueue = DispatchQueue.main
-        if Thread.isMainThread {
-            workItem.perform()
-        }else{
-            main.sync(execute: workItem)
         }
     }
     ///异步回到主线程
@@ -1301,9 +1297,7 @@ public extension RunLoop{
 public extension Thread{
 
 }
-public extension OperationQueue{
 
-}
 public extension Operation{
 
 }
