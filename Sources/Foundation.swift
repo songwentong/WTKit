@@ -453,7 +453,9 @@ public extension DispatchQueue{
         if Thread.isMainThread {
             work()
         }else{
-            main.sync(execute: work)
+            main.async {
+                work()
+            }
         }
     }
     ///delay excute work
