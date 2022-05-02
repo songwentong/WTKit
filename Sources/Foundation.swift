@@ -448,21 +448,13 @@ public extension DispatchQueue{
         return DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
     }
     ///安全同步到主线程
-    static func safeSyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
+    static func safeAsyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
         let main:DispatchQueue = DispatchQueue.main
         if Thread.isMainThread {
             work()
         }else{
             main.sync(execute: work)
         }
-    }
-    ///异步回到主线程
-    static func asyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
-        DispatchQueue.main.async(execute: work)
-    }
-    func perform( closure: @escaping () -> Void, afterDelay:Double) -> Void {
-        let t:DispatchTime = DispatchTime.now() + Double(afterDelay)
-        self.asyncAfter(deadline: t, execute: closure)
     }
     ///delay excute work
     func asyncAfterTime(_ delay: TimeInterval, execute work: @escaping @convention(block) () -> Void) {
@@ -1289,7 +1281,14 @@ public enum WTHTTPMethod: String {
     }
 }
 public extension Timer{
-
+    ///common mode 的timer，scrollview滚动期间也可以使用
+    @available(iOS 10.0, *)
+    func scheduledCommonTimer(timeInterval interval: TimeInterval, repeats: Bool, block: @escaping (Timer) -> Void) -> Timer {
+        let timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: repeats, block: block)
+        RunLoop.current.add(timer, forMode: .common)
+        return timer
+    }
+    
 }
 public extension RunLoop{
 

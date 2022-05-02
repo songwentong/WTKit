@@ -724,7 +724,7 @@ public extension UIImage{
     func decodedImage(with size:CGSize, callBack:@escaping ((UIImage)->Void)) {
         DispatchQueue.global().async {
             let img = self.downSize(with: size)
-            DispatchQueue.safeSyncInMain {
+            DispatchQueue.safeAsyncInMain {
                 callBack(img)
             }
         }
