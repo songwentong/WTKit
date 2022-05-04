@@ -447,7 +447,7 @@ public extension DispatchQueue{
     static func userInteractiveQueue()->DispatchQueue{
         return DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
     }
-    ///安全同步到主线程
+    ///安全到主线程
     static func safeAsyncInMain(execute work: @escaping @convention(block) () -> Swift.Void){
         let main:DispatchQueue = DispatchQueue.main
         if Thread.isMainThread {
