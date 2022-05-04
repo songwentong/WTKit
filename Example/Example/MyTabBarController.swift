@@ -15,7 +15,13 @@ class MyTabBarController: VVTabBarController {
         
         setCustomAction(action: DispatchWorkItem.init(block: {
             print("custom action")
-        }), with: 1)
+        }), for: 1)
+        self.selectedImages = ["icon_home_1","icon_home","icon_msg"].compactMap({ str in
+            return str.namedUIImage
+        })
+        self.images = ["icon_home_2","icon_home_unselect","icon_msg_unselect"].compactMap({ img in
+            return img.namedUIImage
+        })
     }
     
 

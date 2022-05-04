@@ -17,6 +17,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.title = "WTKit"
         myTableView.refreshControl = con
+        hidesBottomBarWhenPushed = true
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -80,21 +81,43 @@ extension ViewController: UIScrollViewDelegate{
     }
 }
 extension ViewController: UITableViewDataSource{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section1.count
+        if section == 0{
+            return section1.count
+        }
+        if section == 1{
+            return 1
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         if let label = cell.viewWithTag(999) as? UILabel{
-            label.text = section1[indexPath.row]
+            if indexPath.section == 0{
+                label.text = section1[indexPath.row]
+            }
+            if indexPath.section == 1{
+                label.text = "Image Cache"
+            }
         }
         return cell
     }
 }
 extension ViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "detail", sender: indexPath)
+        if indexPath.section == 0{
+            performSegue(withIdentifier: "detail", sender: indexPath)
+        }
+        if indexPath.section == 1{
+            if let vc = ImageCacheViewController.instanceFromStoryBoard() {
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        
     }
 }
 

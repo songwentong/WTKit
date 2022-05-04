@@ -54,7 +54,7 @@ public extension String{
         return button
     }
     ///create UILabel
-    var label:UILabel{
+    var badagelabel:UILabel{
         let l = UILabel.init()
         l.text = self
         return l

@@ -17,6 +17,8 @@
 		7714F226281DFF7A0018EF7D /* WTKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7714F225281DFF7A0018EF7D /* WTKit */; };
 		7714F228281E01200018EF7D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7714F227281E01200018EF7D /* DetailViewController.swift */; };
 		7714F22B281E723A0018EF7D /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7714F22A281E723A0018EF7D /* MyTabBarController.swift */; };
+		7756A7C72820B1F7009E079B /* ImageCacheViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7756A7C62820B1F7009E079B /* ImageCacheViewController.swift */; };
+		7756A7C92820B203009E079B /* ImageCacheViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7756A7C82820B203009E079B /* ImageCacheViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		7714F222281DFE390018EF7D /* WTKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WTKit; path = ..; sourceTree = "<group>"; };
 		7714F227281E01200018EF7D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		7714F22A281E723A0018EF7D /* MyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
+		7756A7C62820B1F7009E079B /* ImageCacheViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheViewController.swift; sourceTree = "<group>"; };
+		7756A7C82820B203009E079B /* ImageCacheViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ImageCacheViewController.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,8 @@
 				7714F217281DFDEB0018EF7D /* Assets.xcassets */,
 				7714F219281DFDEB0018EF7D /* LaunchScreen.storyboard */,
 				7714F21C281DFDEB0018EF7D /* Info.plist */,
+				7756A7C62820B1F7009E079B /* ImageCacheViewController.swift */,
+				7756A7C82820B203009E079B /* ImageCacheViewController.storyboard */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -147,6 +153,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7756A7C92820B203009E079B /* ImageCacheViewController.storyboard in Resources */,
 				7714F223281DFE390018EF7D /* WTKit in Resources */,
 				7714F21B281DFDEB0018EF7D /* LaunchScreen.storyboard in Resources */,
 				7714F218281DFDEB0018EF7D /* Assets.xcassets in Resources */,
@@ -164,6 +171,7 @@
 				7714F213281DFDE90018EF7D /* ViewController.swift in Sources */,
 				7714F20F281DFDE90018EF7D /* AppDelegate.swift in Sources */,
 				7714F211281DFDE90018EF7D /* SceneDelegate.swift in Sources */,
+				7756A7C72820B1F7009E079B /* ImageCacheViewController.swift in Sources */,
 				7714F228281E01200018EF7D /* DetailViewController.swift in Sources */,
 				7714F22B281E723A0018EF7D /* MyTabBarController.swift in Sources */,
 			);
