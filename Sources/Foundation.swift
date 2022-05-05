@@ -43,7 +43,16 @@ public func dprint<T>(_ items:T, separator: String = " ", terminator: String = "
 public func cprint<T>(_ items: T,  separator: String = " ", terminator: String = "\n",file:String = #file, function:String = #function, line:Int = #line) -> Void {
     print("\((file as NSString).lastPathComponent)[\(line)], \(function): \(items)", separator: separator, terminator: terminator)
 }
-
+///return the value between two values
+@inlinable public func mid<T>(_ min: T, _ value: T, _ max: T) -> T where T : Comparable{
+    if value < min{
+        return min
+    }
+    if value > max{
+        return max
+    }
+    return value
+}
 public extension NSObject{
     static var currentBundle:Bundle{
         return Bundle.init(for: self)

@@ -114,7 +114,9 @@ extension ViewController: UITableViewDelegate{
         }
         if indexPath.section == 1{
             if let vc = ImageCacheViewController.instanceFromStoryBoard() {
-                navigationController?.pushViewController(vc, animated: true)
+                navigationController?.safePushVC(vc, animated: true)
+                navigationController?.safePushVC(vc, animated: true)
+//                navigationController?.pushViewController(vc, animated: true)
             }
         }
         

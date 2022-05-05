@@ -11,9 +11,18 @@ import Foundation
 import SwiftUI
 import Combine
 #if os(iOS)
+#if compiler(>=5.1)
+
+//public struct AsyncImage<Content> : View where Content : View {
+//    public var any = AsyncImage
+
+@available(iOS 13.0, *)
+//public struct WebImage<Content> : View where Content : View{}
+
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public class ImageLoader:ObservableObject{
     public var didChange = PassthroughSubject<ImageLoader,Never>()
+
     @Published var image:UIImage = UIImage.init()
     deinit {
         loadingTask?.cancel()
@@ -34,5 +43,6 @@ public class ImageLoader:ObservableObject{
         }
     }
 }
+#endif
 #endif
 #endif

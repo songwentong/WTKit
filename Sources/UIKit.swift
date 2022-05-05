@@ -630,6 +630,15 @@ public extension UINavigationController{
     fileprivate func topVC() -> UIViewController? {
         return topViewController?.topVC()
     }
+    @discardableResult
+    func safePushVC(_ viewController: UIViewController, animated: Bool) ->  Bool{
+        if viewControllers.contains(viewController){
+            return false
+        }else{
+            pushViewController(viewController, animated: animated)
+            return true
+        }
+    }
 }
 // MARK: - UIApplication
 public extension UIApplication{
