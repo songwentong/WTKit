@@ -1112,10 +1112,26 @@ open class WTTabBar : UIView{
     
 }
 // MARK: - WTVC
+///控制器状态
+public enum VCStatus{
+    ///无操作
+    case idle
+    ///请求数据
+    case loading
+    ///无数据
+    case noData
+    ///网络异常
+    case networkError
+}
 /**
   这个控制器主要的功能是自制导航栏
  */
 open class WTVC:UIViewController{
+    open var status:VCStatus = .idle{
+        didSet{
+            updateToStatus()
+        }
+    }
     open var wtHeaderView:UIView = UIView()
     open var wtBottomAnchor:NSLayoutConstraint? = nil
     public static var wtDefaultHeaderBGColor:UIColor = "f8fafc".hexColor
@@ -1217,6 +1233,9 @@ open class WTVC:UIViewController{
         }else{
             wtBackButton.isHidden = false
         }
+    }
+    open func updateToStatus() {
+        
     }
     @objc func wtBackButtonEvents(){
         UIView.animate(withDuration: 0.2, delay: 0, options: .beginFromCurrentState, animations: {
