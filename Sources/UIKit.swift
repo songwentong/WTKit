@@ -338,6 +338,19 @@ public extension UIView {
             layer.borderColor = newValue?.cgColor
         }
     }
+    /**
+     4个方向可选圆角
+     左上角的话用UIRectCorner.topLeft
+     左上角+右下角的话用[UIRectCorner.topLeft,UIRectCorner.bottomRight]
+     */
+    func cornerRadiusBy(corners: UIRectCorner, cornerRadii:CGFloat) {
+        let path = UIBezierPath(roundedRect:bounds,
+                                byRoundingCorners:corners,
+                                cornerRadii: CGSize(width: cornerRadii, height:  cornerRadii))
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+        layer.mask = maskLayer
+    }
     func addSubViewAndTurnOffMask(_ view: UIView) {
         addSubview(view)
         view.turnOffMask()
