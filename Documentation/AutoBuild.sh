@@ -1,6 +1,8 @@
 fun(){
 #自动打包脚本，赠予有缘人
 #所有kkkkkkkkkkkkkkkkkkkkkk这种字符串换成你的key
+#profile path
+#~/Library/MobileDevice/Provisioning\ Profiles
 #xcode server build shell
 echo "appName build begin">>~/Desktop/buildLog
 date>>~/Desktop/buildLog
