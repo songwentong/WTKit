@@ -1293,9 +1293,10 @@ public enum WTHTTPMethod: String {
 }
 public extension Timer{
     ///common mode 的timer，scrollview滚动期间也可以使用
-    @available(iOS 10.0, *)
-    func scheduledCommonTimer(timeInterval interval: TimeInterval, repeats: Bool, block: @escaping (Timer) -> Void) -> Timer {
+    @available(iOS 10.0,macOS 10.12, *)
+    func scheduledCommonTimer(timeInterval interval: TimeInterval, repeats: Bool, block: @escaping (Timer) -> Void) -> Timer {    
         let timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: repeats, block: block)
+        
         RunLoop.current.add(timer, forMode: .common)
         return timer
     }

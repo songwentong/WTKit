@@ -35,7 +35,7 @@ echo "build number">>~/Desktop/buildLog
 echo $value>>~/Desktop/buildLog
 
 #build
-xcodebuild archive -workspace MyApp.xcworkspace -scheme MyApp -configuration Release -archivePath ~/Desktop/MyApp.xcarchive
+xcodebuild archive -workspace MyApp.xcworkspace -scheme MyApp -configuration Release -destination generic/platform=iOS -archivePath ~/Desktop/MyApp.xcarchive
 cd cerAndProVision
 xcodebuild -exportArchive -archivePath ~/Desktop/MyApp.xcarchive -exportPath ~/Desktop/MyApp -exportOptionsPlist ReleaseExportOptions.plist
 
