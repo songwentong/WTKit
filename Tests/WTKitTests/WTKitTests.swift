@@ -147,6 +147,11 @@ final class WTKitTests: XCTestCase {
     func jsonInt() -> String {
         return "{\"number\":1}"
     }
+    func testHash() {
+        print("qweasdzxc".hashValue)
+        print("qweasdzxc".hashValue)
+        print("qweasdzxc".hashValue)
+    }
     
     
     func testCookie() {

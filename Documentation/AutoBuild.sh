@@ -40,11 +40,9 @@ echo $value>>~/Desktop/buildLog
 xcodebuild archive -workspace MyApp.xcworkspace -scheme MyApp -configuration Release -destination generic/platform=iOS -archivePath ~/Desktop/MyApp.xcarchive
 cd cerAndProVision
 xcodebuild -exportArchive -archivePath ~/Desktop/MyApp.xcarchive -exportPath ~/Desktop/MyApp -exportOptionsPlist ReleaseExportOptions.plist
-
-
 #upload to appStore
 cd ~/Desktop/MyApp
-xcrun altool --validate-app --type ios -f [APPName].ipa -u 275712575@qq.com -p xxx
+#xcrun altool --validate-app --type ios -f [APPName].ipa -u 275712575@qq.com -p xxx
 xcrun altool --upload-app --type ios -f [APPName].ipa -u 275712575@qq.com -p xxx
 date
 #bugly 符号表上传
