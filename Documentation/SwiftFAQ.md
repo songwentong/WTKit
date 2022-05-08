@@ -232,3 +232,8 @@ func subscribeText()-> String{
 
 ### NSSet为什么比Array性能高，是如何去重的
   NSSet实现原理
+#### HashMap/Set实现原理
+HashMap对应的哈希表是由数组+链表组成的
+HashSet:它是基于 HashMap 实现的，HashSet 底层使用 HashMap 来保存所有元素
+因此 HashSet 的实现比较简单，相关 HashSet 的操作，基本上都是直接调用底层 HashMap 的相关方法来完成
+们应该为保存到 HashSet 中的对象覆盖 hashCode() 和 equals()。
