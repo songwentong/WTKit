@@ -67,7 +67,37 @@ WTKit is my swift accumulated experience,I think WTKit could help you to improve
         return json1
     }
     
-        /**
+    
+    ///Codable模型创建
+    ///给出一个class/struct名和json字符串，创建一个对应名字的class/struct
+    ///并写入Document目录
+    ///model处理了类型异常并转化，
+    ///Int类型如果收到了String会自动转化类型，反之亦然
+    ///对象类型和其他复杂类型也做了异常处理，不再抛出异常
+    func testModelCreate() {
+        let maker = WTModelMaker.default
+//        maker.needOptionalMark = false
+//        maker.useStruct = true
+        let className = "TWGiftWallOuterModel"
+        let classCode = maker.createModelWith(className: className, jsonString: json1())
+        print(NSHomeDirectory())
+//        print(classCode)
+        let path = NSHomeDirectory() + "/Documents/" + className + ".swift"
+        print(path)
+        do {
+            try classCode.write(toFile: path, atomically: true, encoding: .utf8)
+#if os(macOS)
+            let url = path.urlValue
+            NSWorkspace.shared.activateFileViewerSelecting([url])
+            NSWorkspace.shared.selectFile(path, inFileViewerRootedAtPath: "/")
+#else
+#endif
+        } catch {
+            
+        }
+    }
+    
+     /**
      test model Decode 测试数据解码
      contains type error/key not found  包含了类型异常，字段异常
      Int/Double/String     type error handle and transfer to type 异常处理
