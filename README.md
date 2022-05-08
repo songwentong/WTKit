@@ -78,7 +78,7 @@ WTKit is my swift accumulated experience,I think WTKit could help you to improve
         let maker = WTModelMaker.default
 //        maker.needOptionalMark = false
 //        maker.useStruct = true
-        let className = "TWGiftWallOuterModel"
+        let className = "TestModel"
         let classCode = maker.createModelWith(className: className, jsonString: json1())
         print(NSHomeDirectory())
 //        print(classCode)
@@ -104,7 +104,7 @@ WTKit is my swift accumulated experience,I think WTKit could help you to improve
      others decode no error throws
      */
     func testDecode() {
-        guard let obj2 = TWGiftWallOuterModel.decodeIfPresent(with: json1().utf8Data) else{
+        guard let obj2 = TestModel.decodeIfPresent(with: json1().utf8Data) else{
             return
         }
         print(obj2.jsonString)

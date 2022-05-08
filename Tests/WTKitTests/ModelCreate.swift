@@ -8,7 +8,7 @@
 
 import Foundation
 import WTKit
-public class TWGiftWallOuterModel:NSObject, Codable {
+public class TestModel:NSObject, Codable {
     public override init() {
         super.init()
     }
