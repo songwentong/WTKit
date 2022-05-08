@@ -24,6 +24,62 @@ WTKit is my swift accumulated experience,I think WTKit could help you to improve
 #### WTKit can create a swift model file from json
 #### type-Adaption decode json,WTKit resove JSONDecoder type mismatch error,and convert is to the type you need,like Int can decode from String/Double/Int, or String can decode from String/Double/Int 
 #### Endocable/Decodable extensions,Decodable can decode from JSON,Encodable can map to json string
+```swift
+    func json1() -> String {
+        let json1 = """
+    {
+      "intValue": 3,
+      "strValue": "3.8",
+      "double": "3.5",
+      "intList": [
+        1,
+        2
+      ],
+      "flag": true,
+      "doubleList": [
+        1.1,
+        2.2
+      ],
+      "object": {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "zh-cn",
+        "Host": "httpbin.org",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15",
+        "X-Amzn-Trace-Id": "Root=1-5e716637-2f2252cc4747e55326ef4a08"
+      },
+      "objectList": [
+        {
+          "id": 145,
+          "title": "喜欢你",
+          "num": "4",
+          "pic": "https://img3.tuwandata.com/uploads/play/9766281560847422.png"
+        },
+        {
+          "id": 148,
+          "title": "么么哒",
+          "num": "3",
+          "pic": "https://img3.tuwandata.com/uploads/play/6851431563789324.png"
+        }
+      ]
+    }
+    """
+        return json1
+    }
+    
+        /**
+     test model Decode 测试数据解码
+     contains type error/key not found  包含了类型异常，字段异常
+     Int/Double/String     type error handle and transfer to type 异常处理
+     others decode no error throws
+     */
+    func testDecode() {
+        guard let obj2 = TWGiftWallOuterModel.decodeIfPresent(with: json1().utf8Data) else{
+            return
+        }
+        print(obj2.jsonString)
+    }
+```
 
 ## Making Codable Requests
 WTKit provides a variety of convenience methods for making HTTP requests.
