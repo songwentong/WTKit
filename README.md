@@ -277,14 +277,11 @@ gview.endPoint = CGPoint(x: 1, y: 0.5)
 //it will effect on it's CAGradientView automatic
 ```
 
-## UINibView protocol/extension
-UINibView protocol
+## UIView extension
+
 
 ```swift
-class Cell:UITableViewCell,UINibView{
-
-}
-//Cell,like it's class name
+//Cell reuse id,like it's class name
 let reuseID:String = Cell.reuseIdentifier
 print("\(reuseID)")
 //Cell
