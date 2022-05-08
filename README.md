@@ -19,10 +19,10 @@ WTKit is my swift accumulated experience,I think WTKit could help you to improve
 - [x] Version track
 - [x] Load Web Image
 
-##Codable extensions(JSON Decode/enode, model creater)
-####WTKit can create a swift model file from json
-####type-Adaption decode json,WTKit resove JSONDecoder type mismatch error,and convert is to the type you need,like Int can decode from String/Double/Int, or String can decode from String/Double/Int 
-####Endocable/Decodable extensions,Decodable can decode from JSON,Encodable can map to json string
+## Codable extensions(JSON Decode/enode, model creater)
+#### WTKit can create a swift model file from json
+#### type-Adaption decode json,WTKit resove JSONDecoder type mismatch error,and convert is to the type you need,like Int can decode from String/Double/Int, or String can decode from String/Double/Int 
+#### Endocable/Decodable extensions,Decodable can decode from JSON,Encodable can map to json string
 
 ## Making Codable Requests
 WTKit provides a variety of convenience methods for making HTTP requests.
