@@ -215,20 +215,20 @@ func subscribeText()-> String{
 }
 }
 ```
-###响应链
+### 响应链
 
 
-###Optional原理
+### Optional原理
 是一个enum
 有case none
 和case some<Wrapped>
 
-###strong和copy区别
+### strong和copy区别
 结论：源对象为不可变字符串而言，不论使用copy还是strong属性，所对应的值是不发生变化，strong和copy并没有开辟新的内存，即并不是深拷贝。此时，使用copy或是strong，并没有对数据产生影响。
 结论：数据源为可变字符串而言，使用copy申明属性，会开辟一块新的内存空间存放值，源数据不论怎么变化，都不会影响copy属性中的值，属于深拷贝；使用strong申明属性，不会开辟新的内存空间，只会引用到源数据内存地址，因此源数据改变，则strong属性也会改变，属于浅拷贝。
 
-###闭包详解
+### 闭包详解
 
 
-###NSSet为什么比Array性能高，是如何去重的
+### NSSet为什么比Array性能高，是如何去重的
   NSSet实现原理
