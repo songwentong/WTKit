@@ -231,7 +231,7 @@ func subscribeText()-> String{
 
 ### 组件化优化方案
 目前组件化可以优化为二进制包，便于节省编译时间
-
+语法优化
 ▲ -Xfrontend: 如果编译或类型检查时耗时多长，则在Xcode中输出警告。
 
 ▲ -debug-time-function-bodies：输出每个函数的编译时长。
