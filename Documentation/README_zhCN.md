@@ -21,6 +21,49 @@ WTKit是我积累的经验,我认为WTKit可以帮助您提高开发效率。
 - [x] 版本跟踪
 - [x] 载入url图片
 
+## UIView + Xib
+从nib文件创建UIView(或子类)的实例,当您想在xib文件中重用UIView时,可以使用它,建议您使用UITableViewCell而不是UIVIew,因为它具有contentView,没有文件的所有者问题。
+```swift
+let myView:MyView = MyView.instanceFromXib()
+//从xib文件创建MyView实例
+//通常将其用作UITableViewCell子类,以避免文件所有者问题
+```
+
+## UIViewController + IB
+从Storyboard / nib创建UIViewController实例
+```swift
+let vc:CustromVC = CustromVC.instanceFromStoryBoard()
+//此函数是从Storyboard的根VC创建实例
+
+let vc2:CustromVC = CustromVC.instanceFromNib()
+//从nib文件创建实例
+```
+
+## 十六进制颜色
+
+```swift
+"f".hexColor //白色的UIColor,与"ffffff"相同
+"＃3".hexColor //与333333相同
+"ff0000".hexColor //红色UIColor
+"ff0000".hexCGColor //红色CGColor
+```
+## 可编码扩展
+
+从Codable 对象创建json数据
+
+```swift
+let obj:Codable
+打印(obj.jsonString)
+//要么
+(lldb)po obj.lldbPrint()
+//输出将是这样的json
+{
+  "args":{},
+  "origin":"123.120.230.73",
+  "url":"https://httpbin.org/get"
+}
+
+```
 
 ## Codable 扩展(模型创建,数据解析)
 #### WTKit 可以根据json字符串创建数据
@@ -220,32 +263,8 @@ origin:123.120.230.73
 */
 ```
 
-## 可编码扩展
 
-从Codable 对象创建json数据
 
-```swift
-let obj:Codable
-打印(obj.jsonString)
-//要么
-(lldb)po obj.lldbPrint()
-//输出将是这样的json
-{
-  "args":{},
-  "origin":"123.120.230.73",
-  "url":"https://httpbin.org/get"
-}
-
-```
-
-## 十六进制颜色
-
-```swift
-"f".hexColor //白色的UIColor,与"ffffff"相同
-"＃3".hexColor //与333333相同
-"ff0000".hexColor //红色UIColor
-"ff0000".hexCGColor //红色CGColor
-```
 
 ## WTGradientView
 
