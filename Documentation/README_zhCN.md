@@ -24,7 +24,7 @@ WTKit是我积累的经验,我认为WTKit可以帮助您提高开发效率。
 
 ## Codable 扩展(模型创建,数据解析)
 #### WTKit 可以根据json字符串创建数据
-#### 可类型适配数据解码,WTKit 可以处理 JSONDecoder 的类型错误异常,然后转变成你需要的数据类型,比如你的属性是Int,但是可以接收 String/Double/Int类型的数据, 或者属性是String ,可以接受 String/Double/Int类型的数据 
+#### 可类型适配数据解码,WTKit 可以处理 JSONDecoder 的类型错误异常,然后转变成你需要的数据类型,比如你的属性是Int,但是可以接收 String/Double/Int类型的数据, 或者属性是String ,可以接受 String/Double/Int类型的数据
 #### Endocable/Decodable 扩展,Decodable 可以直接读取JSON,Encodable 可以转变为 json 字符串
 ```swift
     func json1() -> String {
@@ -68,8 +68,8 @@ WTKit是我积累的经验,我认为WTKit可以帮助您提高开发效率。
     """
         return json1
     }
-    
-    
+
+
     ///Codable模型创建
     ///给出一个class/struct名和json字符串，创建一个对应名字的class/struct
     ///并写入Document目录
@@ -95,10 +95,10 @@ WTKit是我积累的经验,我认为WTKit可以帮助您提高开发效率。
 #else
 #endif
         } catch {
-            
+
         }
     }
-    
+
      /**
      test model Decode 测试数据解码
      contains type error/key not found  包含了类型异常，字段异常
@@ -260,20 +260,6 @@ gview.endPoint = CGPoint(x:1,y:0.5)
 //它将影响它的CAGradientView自动
 ```
 
-## UINib扩展
-UINibReusableCell协议
-
-```swift
-Cell类:UITableViewCell,UINibReusableCell {
-
-}
-//自动加载nib文件
-let nib:UINib = Cell.nib()
-//单元格,就像它的类名一样
-let ReuseID:String = Cell.reuseIdentifier
-
-```
-
 ## 版本跟踪
 记录构建历史记录的功能
 
@@ -329,23 +315,7 @@ public extension UITableView {
     }
 }
 ```
-## UIView + Xib
-从nib文件创建UIView(或子类)的实例,当您想在xib文件中重用UIView时,可以使用它,建议您使用UITableViewCell而不是UIVIew,因为它具有contentView,没有文件的所有者问题。
-```swift
-let myView:MyView = MyView.instanceFromXib()
-//从xib文件创建MyView实例
-//通常将其用作UITableViewCell子类,以避免文件所有者问题
-```
 
-## UIViewController + IB
-从Storyboard / nib创建UIViewController实例
-```swift
-let vc:CustromVC = CustromVC.instanceFromStoryBoard()
-//此函数是从Storyboard的根VC创建实例
-
-let vc2:CustromVC = CustromVC.instanceFromNib()
-//从nib文件创建实例
-```
 ## 本地语言
 
 编辑customBundle捆绑包可以轻松更改本地语言
