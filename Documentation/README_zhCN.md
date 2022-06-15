@@ -53,7 +53,7 @@ let vc2:CustromVC = CustromVC.instanceFromNib()
 
 ```swift
 let obj:Codable
-打印(obj.jsonString)
+print(obj.jsonString)
 //要么
 (lldb)po obj.lldbPrint()
 //输出将是这样的json
