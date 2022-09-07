@@ -243,3 +243,26 @@ HashMap对应的哈希表是由数组+链表组成的
 HashSet:它是基于 HashMap 实现的，HashSet 底层使用 HashMap 来保存所有元素
 因此 HashSet 的实现比较简单，相关 HashSet 的操作，基本上都是直接调用底层 HashMap 的相关方法来完成
 们应该为保存到 HashSet 中的对象覆盖 hashCode() 和 equals()。
+
+#### 在UIWindow上找到当前顶部控制器
+#### 组件化的弊端
+编译慢，资源访问不便
+#### YYModel工作原理,其中Dict中的NSNumber是如何赋值给基本类型的,比如Int,Float,Double
+比如int a = NSNumber   这肯定是不能接受的
+问:反射中获得类型是int还是float
+#### Alamofire 中get/post区别如何在post的httpbody中添加多个图片资源的时候
+Httpbody(Data)中是怎么主治数据的
+form data/multipart
+StringByAddingPercent.
+multipart
+#### SDWebImage实现
+
+#### git pull 会自动产生一个commit,如何把这个commit消除
+git pull —rebase
+
+#### 多线程使用场景
+下载图片,文件读写操作,图片/视频资源压缩/上传
+
+#### 自动打包
+CFBundleShortVersionString和CFBundleVersion分别代表了什么,version和build的区别
+如何用终端升级build号 avgtool update
