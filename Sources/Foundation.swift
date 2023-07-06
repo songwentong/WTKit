@@ -1066,6 +1066,7 @@ public extension URLSessionConfiguration{
         let config = URLSessionConfiguration.default
         config.httpAdditionalHeaders = defaultHeaders()
         config.urlCache = URLCache.default
+        config.httpCookieStorage = HTTPCookieStorage.shared
         return config
     }()
     static func defaultHeaders() -> [String:String]{
