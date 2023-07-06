@@ -60,6 +60,7 @@ public func cprint<T>(_ items: T,  separator: String = " ", terminator: String =
     }
     return value
 }
+#if os(iOS) || os(OSX)
 public extension NSObject{
     static var currentBundle:Bundle{
         return Bundle.init(for: self)
@@ -68,7 +69,7 @@ public extension NSObject{
         return Bundle.init(for: type(of: self))
     }
 }
-
+#endif
 // MARK - String crypto
 #if canImport(CommonCrypto)
 public extension String{
@@ -895,8 +896,10 @@ public class WTURLSessionDelegate:NSObject,URLSessionDelegate{
         }
     }
     var cerDatas:[Data] = []
+    #if os(iOS) || os(OSX)
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void){
             // Adapted from OWASP https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning#iOS
+
 
             if (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
             #if os(iOS)
@@ -927,17 +930,16 @@ public class WTURLSessionDelegate:NSObject,URLSessionDelegate{
                     // Fallback on earlier versions
                 }
                   }
-            #endif
-
-
-
-
+                  #endif
             }
+
 
             // Pinning failed
             completionHandler(URLSession.AuthChallengeDisposition.cancelAuthenticationChallenge, nil)
 
     }
+    #endif
+
 
 }
 
