@@ -13,9 +13,12 @@ import CryptoKit
 #if canImport(Combine)
 import Combine
 #endif
+#if canImport(CommonCrypto)
 import var CommonCrypto.CC_MD5_DIGEST_LENGTH
 import func CommonCrypto.CC_MD5
 import typealias CommonCrypto.CC_LONG
+#endif
+
 #if canImport(UIKit)
 import UIKit
 #endif
@@ -62,11 +65,32 @@ public extension NSObject{
     }
 }
 
+// MARK - String crypto
+#if canImport(CommonCrypto)
+public extension String{
+///md5 string
+    var md5:String{
+    let length = Int(CC_MD5_DIGEST_LENGTH)
+    let messageData = utf8Data
+    var digestData = Data(count: length)
 
+    _ = digestData.withUnsafeMutableBytes { digestBytes -> UInt8 in
+        messageData.withUnsafeBytes { messageBytes -> UInt8 in
+            if let messageBytesBaseAddress = messageBytes.baseAddress, let digestBytesBlindMemory = digestBytes.bindMemory(to: UInt8.self).baseAddress {
+                let messageLength = CC_LONG(messageData.count)
+                CC_MD5(messageBytesBaseAddress, messageLength, digestBytesBlindMemory)
+            }
+            return 0
+        }
+    }
+    return digestData.utf8String
+}
+}
+#endif
 
 // MARK: - String
 public extension String{
-    
+
     var doubleValue: Double{
         return Double(self) ?? -1
     }
@@ -77,23 +101,6 @@ public extension String{
     ///[UInt8] Array
     var toBytes:[UInt8] {
         return Array(utf8)
-    }
-    ///md5 string
-    var md5:String{
-        let length = Int(CC_MD5_DIGEST_LENGTH)
-        let messageData = utf8Data
-        var digestData = Data(count: length)
-
-        _ = digestData.withUnsafeMutableBytes { digestBytes -> UInt8 in
-            messageData.withUnsafeBytes { messageBytes -> UInt8 in
-                if let messageBytesBaseAddress = messageBytes.baseAddress, let digestBytesBlindMemory = digestBytes.bindMemory(to: UInt8.self).baseAddress {
-                    let messageLength = CC_LONG(messageData.count)
-                    CC_MD5(messageBytesBaseAddress, messageLength, digestBytesBlindMemory)
-                }
-                return 0
-            }
-        }
-        return digestData.utf8String
     }
 
     ///base64EncodedString
@@ -406,7 +413,7 @@ public extension Double{
     var stringValue: String{
         return "\(self)"
     }
-    
+
     func stringWith(fractionDigits count:Int) -> String? {
         return numberObject.stringWith(fractionDigits: count)
     }
@@ -487,7 +494,7 @@ public extension URLRequest{
     func cURLDescription() -> String{
         return printer.debugDescription
     }
-    
+
     #if canImport(Combine)
     //iOS 13+
     func testCombine() -> Void {
@@ -503,7 +510,7 @@ public extension URLRequest{
 //        }
     }
     #endif
-    
+
 }
 // MARK: - URLResponse
 public extension URLResponse{
@@ -556,11 +563,11 @@ public extension URLCache{
         t.resume()
 //            let res = CachedURLResponse.init(response: URLResponse.init(url: "https://z.cn".urlValue, mimeType: "", expectedContentLength: 100, textEncodingName: nil), data: "test data".utf8Data)
 //            cache.storeCachedResponse(res, for: "https://z.cn".urlRequest)
-        
+
     }
 #endif
-    
-    
+
+
 }
 
 // MARK: - URLSession
@@ -573,7 +580,7 @@ public extension URLSession{
     func dataTask(with urlString: String, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         return dataTask(with: urlString.urlValue, completionHandler: completionHandler)
     }
-    
+
     /**
      执行请求
      testData:用于测试的数据,在debug模式生效,release模式不生效
@@ -583,8 +590,8 @@ public extension URLSession{
         let request = createURLRequest(with: path, method: method, parameters: parameters, headers: headers)
         return dataTaskWith(request: request, testData: testData, codable: object, completionHandler: completionHandler)
     }
-    
-    
+
+
     /**
      create URL Request,使用defaultsession的urlconfiguration
      todo 图片上传 multipart
@@ -600,8 +607,8 @@ public extension URLSession{
                 }
             }
         }
-        
-        
+
+
         if !parameters.isEmpty{
             let string = convertParametersToString(parameters: parameters)
             if method.needUseQuery(){
@@ -624,16 +631,16 @@ public extension URLSession{
     fileprivate func testUploadImage(){
         let imagebody = MultiPartBodyImage()
         imagebody.image = UIImage.init(named: "asd")
-        
+
         let req = URLRequest.multipart(with: "http:a.com", method: .post, parts: [imagebody])
         let t = URLSession.shared.dataTask(with: req) { data, res, err in
-            
+
         }
         t.resume()
     }*/
-    
-    
-    
+
+
+
     /**
      对于一个request对象,提供请求,测试和解析功能
      testData:用于测试的数据,只会出现在debug模式,这个方法非常实用,
@@ -681,7 +688,7 @@ public extension URLSession{
         }
         return task
     }
-    
+
     @discardableResult
     func multipart(with path:String, method:WTHTTPMethod = .get, parameters:[String:Any] = [:], headers:[String:String] = [:], parts:[MultipartBodyObject] = [MultipartBodyObject](), completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask{
         let req = multipartRequest(with: path, method: method, parameters: parameters, headers: headers, parts: parts)
@@ -699,8 +706,8 @@ public extension URLSession{
         task.resume()
         return task
     }
-    
-    
+
+
     ///缓存请求
     @discardableResult
     func useCacheElseLoadUrlData(with url:URL, finished:@escaping(Data)->Void, failed:@escaping(Error)->Void) -> URLSessionDataTask{
@@ -742,10 +749,10 @@ public extension URLSession{
         DispatchQueue.main.async {
             task.resume()
         }
-        
+
         return task
     }
-    
+
     ///缓存请求
     @discardableResult
     func useCacheElseLoadURLData(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
@@ -766,9 +773,9 @@ public extension URLSession{
         }
         return task
     }
-    
-    
-    
+
+
+
     #if canImport(Combine)
     /**
      这是一个函数式的模式
@@ -814,7 +821,7 @@ public extension URLSession{
         req.setValue("multipart/form-data; boundary=\(body.boundary)", forHTTPHeaderField: "Content-Type")
         return req
     }
-    
+
     func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
         var components: [(String, String)] = []
         if let value = value as? NSNumber {
@@ -849,7 +856,7 @@ public extension URLSession{
     }
     ///use Codable callback
 
-    
+
 
     ///-H "Accept-Encoding: gzip;q=1.0, compress;q=0.5"
     var defaultAcceptEncoding:String{
@@ -859,7 +866,7 @@ public extension URLSession{
             return "gzip;q=0.9,deflate;q=0.8"
         }
     }
-    
+
     func generateBoundary() -> String {
        return "Boundary-\(NSUUID().uuidString)"
     }
@@ -999,7 +1006,7 @@ open class MultipartBody:NSObject{
         middleBoundary = lineBreak + boundary + lineBreak
         endBoundary = lineBreak + "--" + boundary + "--" + lineBreak
     }
-    
+
     func buildBody() -> Data {
         var result = Data()
         result.append(initBoundary.utf8Data)
@@ -1021,7 +1028,7 @@ open class MultipartBody:NSObject{
         result.append(endBoundary.utf8Data)
         return result
     }
-    
+
     /**
      static func randomBoundary() -> String {
          let first = UInt32.random(in: UInt32.min...UInt32.max)
@@ -1074,7 +1081,7 @@ public extension URLSessionConfiguration{
 #endif
         return dhs
     }
-    
+
     /// Accept-Encoding
     static var defaulAcceptEncoding:String{
 
@@ -1188,15 +1195,15 @@ public extension Bundle{
     }()
     ///using for language switch
     static var customBundle:Bundle = Bundle.main
-    
+
     func loadxib() {
-        
+
     }
     func loadStoryboard() {
-        
+
     }
     func loadImage()  {
-        
+
     }
 }
 public func NSLibraryDirectory() -> String{
@@ -1294,13 +1301,13 @@ public enum WTHTTPMethod: String {
 public extension Timer{
     ///common mode 的timer，scrollview滚动期间也可以使用
     @available(iOS 10.0,macOS 10.12, *)
-    func scheduledCommonTimer(timeInterval interval: TimeInterval, repeats: Bool, block: @escaping (Timer) -> Void) -> Timer {    
+    func scheduledCommonTimer(timeInterval interval: TimeInterval, repeats: Bool, block: @escaping (Timer) -> Void) -> Timer {
         let timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: repeats, block: block)
-        
+
         RunLoop.current.add(timer, forMode: .common)
         return timer
     }
-    
+
 }
 public extension RunLoop{
 
@@ -1352,12 +1359,12 @@ do{
 */
 @available(macOS 10.11, *)
 public extension NWPath{
-    
+
 }
 
 
 public class LRUCache{
-    
+
 }
 ///文件/Codable Model储存器
 public class DataCacheManager{
@@ -1381,7 +1388,7 @@ public class DataCacheManager{
     public func path(with name:String) -> String {
         self.dirPath + "/" + name
     }
-    
+
     public func fileExists(with name: String) -> Bool{
         return FileManager.default.fileExists(atPath: path(with: name))
     }
@@ -1394,7 +1401,7 @@ public class DataCacheManager{
             }
         }
     }
-    
+
     public func saveCodableModel<T:Codable>( object:T,for key:String, complection:@escaping()->Void) {
         DispatchQueue.global().async {
             guard let data = try? JSONEncoder().encode(object) else {
@@ -1403,7 +1410,7 @@ public class DataCacheManager{
             DataCacheManager.shared.save(data: data, for: key, complection: complection)
         }
     }
-    
+
     ///异步取数据
     public func readData(for key:String, complection:@escaping(Data?)->Void) {
         DispatchQueue.global().async {
@@ -1476,6 +1483,6 @@ public class DataCacheManager{
             }
         }
     }
-    
-    
+
+
 }
