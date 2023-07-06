@@ -18,11 +18,15 @@ import var CommonCrypto.CC_MD5_DIGEST_LENGTH
 import func CommonCrypto.CC_MD5
 import typealias CommonCrypto.CC_LONG
 #endif
-
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 #if canImport(UIKit)
 import UIKit
 #endif
+#if canImport(NetworkExtension)
 import NetworkExtension
+#endif
 
 ///default session
 public let WT = URLSession.default
@@ -327,12 +331,15 @@ public extension BinaryInteger{
     var byteCountFormatString:String{
         return ByteCountFormatter().string(fromByteCount: Int64.init(self))
     }
+    #if canImport(UIKit)
+
     var massFormatterString:String{
         return numberObject.massFormatterString
     }
     var lengthFormatterString:String{
         return numberObject.lengthFormatterString
     }
+    #endif
     var numberObject:NSNumber{
         return NSNumber.init(value: Int(self))
     }
@@ -352,12 +359,14 @@ public extension BinaryFloatingPoint{
     var numberObject:NSNumber{
         return NSNumber.init(value: Double(self))
     }
+    #if canImport(UIKit)
     var massFormatterString:String{
         return numberObject.massFormatterString
     }
     var lengthFormatterString:String{
         return numberObject.lengthFormatterString
     }
+    #endif
 }
 public extension ExpressibleByIntegerLiteral{
 }
@@ -413,10 +422,11 @@ public extension Double{
     var stringValue: String{
         return "\(self)"
     }
-
+    #if os(iOS)
     func stringWith(fractionDigits count:Int) -> String? {
         return numberObject.stringWith(fractionDigits: count)
     }
+    #endif
     var numberFormatterString:String{
         return NumberFormatter().string(from: numberObject) ?? ""
     }
@@ -424,6 +434,7 @@ public extension Double{
 public extension SIMDScalar{
 }
 // MARK: - NSNumber
+#if canImport(UIKit)
 public extension NSNumber{
     fileprivate var isBool: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
     func stringWith(fractionDigitsCount min:Int, max:Int) -> String? {
@@ -445,7 +456,7 @@ public extension NSNumber{
         return LengthFormatter().string(fromMeters: doubleValue)
     }
 }
-
+#endif
 public extension OperationQueue{
 
 }
@@ -824,17 +835,7 @@ public extension URLSession{
 
     func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
         var components: [(String, String)] = []
-        if let value = value as? NSNumber {
-            if value.isBool {
-                if value.boolValue{
-                    components.append((key.escapeString, "1".escapeString))
-                }else{
-                    components.append((key.escapeString, "0".escapeString))
-                }
-            } else {
-                components.append((key.escapeString, "\(value)".escapeString))
-            }
-        }else if let bool = value as? Bool {
+        if let bool = value as? Bool {
             if bool{
                 components.append((key.escapeString, "1".escapeString))
             }else{
@@ -898,35 +899,39 @@ public class WTURLSessionDelegate:NSObject,URLSessionDelegate{
             // Adapted from OWASP https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning#iOS
 
             if (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
-                if let serverTrust = challenge.protectionSpace.serverTrust {
-                    if #available(iOS 12.0,OSX 10.14, tvOS 12.0,watchOS 5.0, *) {
-                        let isServerTrusted = SecTrustEvaluateWithError(serverTrust, nil)
-                        if(isServerTrusted) {
-                            if let serverCertificate = SecTrustGetCertificateAtIndex(serverTrust, 0) {
-                                let serverCertificateData = SecCertificateCopyData(serverCertificate)
-                                guard let data = CFDataGetBytePtr(serverCertificateData) else{
-                                    return
-                                }
-                                let size = CFDataGetLength(serverCertificateData);
-                                let cert1 = Data.init(bytes: data , count: size)
-                                guard let file = Bundle.main.url(forResource: "certificateFile", withExtension: "der") else{
-                                    return
-                                }
-                                guard let cert2 = try? Data.init(contentsOf: file) else{
-                                    return
-                                }
-                                if cert1 == cert2{
-                                    completionHandler(URLSession.AuthChallengeDisposition.useCredential, URLCredential(trust:serverTrust))
-                                    return
-                                }
+            #if os(iOS)
+            if let serverTrust = challenge.protectionSpace.serverTrust {
+                if #available(iOS 12.0,OSX 10.14, tvOS 12.0,watchOS 5.0, *) {
+                    let isServerTrusted = SecTrustEvaluateWithError(serverTrust, nil)
+                    if(isServerTrusted) {
+                        if let serverCertificate = SecTrustGetCertificateAtIndex(serverTrust, 0) {
+                            let serverCertificateData = SecCertificateCopyData(serverCertificate)
+                            guard let data = CFDataGetBytePtr(serverCertificateData) else{
+                                return
+                            }
+                            let size = CFDataGetLength(serverCertificateData);
+                            let cert1 = Data.init(bytes: data , count: size)
+                            guard let file = Bundle.main.url(forResource: "certificateFile", withExtension: "der") else{
+                                return
+                            }
+                            guard let cert2 = try? Data.init(contentsOf: file) else{
+                                return
+                            }
+                            if cert1 == cert2{
+                                completionHandler(URLSession.AuthChallengeDisposition.useCredential, URLCredential(trust:serverTrust))
+                                return
                             }
                         }
-                    } else {
-                        // Fallback on earlier versions
                     }
-
-
+                } else {
+                    // Fallback on earlier versions
                 }
+                  }
+            #endif
+
+
+
+
             }
 
             // Pinning failed
@@ -1103,6 +1108,8 @@ public extension URLSessionConfiguration{
         guard let info = Bundle.main.infoDictionary else{
             return "Unknown User-Agent"
         }
+        #if os(iOS)
+
         let executable = info[kCFBundleExecutableKey as String] as? String ?? "Unknown"
 
         let bundle = info[kCFBundleIdentifierKey as String] as? String ?? "Unknown"
@@ -1137,6 +1144,8 @@ public extension URLSessionConfiguration{
         let WTKit = "WTKit"
         let result = "\(executable)/\(appVersion) (\(bundle); build:\(appBuild); \(osNameVersion)) \(WTKit)"
         return result
+        #endif
+        return ""
     }
 }
 public extension Date{
@@ -1357,10 +1366,7 @@ do{
 
 }
 */
-@available(macOS 10.11, *)
-public extension NWPath{
 
-}
 
 
 public class LRUCache{

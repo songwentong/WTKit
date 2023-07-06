@@ -9,16 +9,16 @@
 /*
   自动生成Codable的对象,可以处理字段和swift关键字重名的情况,能正确处理super,import,class这类字段
  可在属性添加前缀和后缀,自动解析嵌套类型,用JSONDecoder读取json数据可以直接生成一个已经赋值的类的实例.
- 
+
  核心
  一,根据JSON生成对应数据结构的类(支持嵌套)
  二,关键字过滤重定义key,比如return
  三,支持程序输出和控制台输出 description
  四,测试功能
- 
+
  这个类的功能目前还是有限的,有几个情况目前无法很好的处理,需要手动修改
  1.不支持特殊符号-
- 
+
  */
 import Foundation
 public extension NSValue{
@@ -27,7 +27,7 @@ public extension NSValue{
         let type = String.init(cString: objCType)
         return type
     }
-    
+
 }
 class TestNameClass {
 //    var @objc:Int = 1
@@ -58,31 +58,31 @@ class TestNameClass {
 }
 /*
  Swift Keywords used in Declarations------------------------------
- 
+
  class    deinit    enum    extension
  func    import    init    internal
  let    operator    private    protocol
  public    static    struct    subscript
  typealias    var
- 
- 
+
+
  Swift Keywords used in Statements------------------------------
- 
+
  break    case    continue    default
  do    else    fallthrough    for
  if    in    return    switch
  where    while
- 
- 
+
+
  Swift Keywords used in Expressions and Types------------------------------
- 
+
  as    dynamicType    false    is
  nil    self    Self    super
  true    _COLUMN_    _FILE_    _FUNCTION_
  _LINE_
- 
+
  Swift Keywords used in Specific Contexts------------------------------
- 
+
  associativity    convenience    dynamic    didSet
  final    get    infix    inout
  lazy    left    mutating    none
@@ -105,16 +105,16 @@ public class WTModelMaker {
     public var useStringOrNumber = true
     public let crlf = "\n"//换行
     var useCodingKey = true//是否使用coding key,如果不用,关键字命名会变成`
-    
+
     public static let `default`:WTModelMaker = {
        return WTModelMaker()
     }()
     func randomClassName(with prefix:String)->String{
-        let randomNumber = arc4random_uniform(150)
+        let randomNumber = Int.random(in: 0...5)
         let suffix = String.init(randomNumber)
         return prefix+suffix
     }
-    
+
     private func headerString(className:String)->String{
         let date:Date = Date()
         let dateFormatter = DateFormatter()
@@ -144,11 +144,11 @@ public class WTModelMaker {
                 return "`\(origin)`"
             }
         }else{
-            
+
         }
         return origin
     }
-    
+
     private func optionalMarkIfNeeded() -> String {
         if needOptionalMark{
             return "?"
@@ -180,7 +180,7 @@ public class WTModelMaker {
         //除此以外的类型就是Object和Array<Object>
         return normalType
     }
-    
+
 
     /// 尝试打印出一个json对应的Model属性
     /// NSArray和NSDictionary可能需要自定义为一个model类型
@@ -188,10 +188,10 @@ public class WTModelMaker {
         return privateCreateModelWith(className: className, jsonString: jsonString, isRootClass: true)
     }
     private func privateCreateModelWith(className:String, jsonString:String, isRootClass:Bool = true)->String{
-        
+
         var stringToPrint:String = String()
         var codingKeys:String = String()
-        
+
         if isRootClass == true {
             stringToPrint += headerString(className: className)
         }
@@ -224,9 +224,9 @@ public class WTModelMaker {
             stringToPrint += crlf
             stringToPrint += initMethod
         }
-        
-        
-        
+
+
+
         codingKeys = "    enum CodingKeys: String, CodingKey {" + crlf
 //        let formatedString = jsonString.replacingOccurrences(of: "-", with: "_")
         var propertyNames = [String]()
@@ -236,12 +236,12 @@ public class WTModelMaker {
                 jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
             }
         } catch {
-            
+
         }
         ///自定义Decodable内核
         var customDecodableStringCore = ""
         var typeString = ""
-        
+
         if let printObject = jsonObject as? [String:AnyObject] {
             let sortedKeys = printObject.keys.sorted(by: <)
             sortedKeys.forEach { key in
@@ -256,7 +256,7 @@ public class WTModelMaker {
                 stringToPrint += "var \(nameReplacedKey):"
 
                 if value is String {
-                    
+
                     typeString = "String"
                     stringToPrint += "String"
                     stringToPrint += " = \"\""
@@ -267,7 +267,7 @@ public class WTModelMaker {
                         //1->q    true->c     1.0->d   6766882->q   6766882.1->d   0->q   false->c
                         let objCType = number.objCType
                         let type = String.init(cString: objCType)
-                        
+
                         switch type{
                             case "c":
                                 typeString = "Bool"
@@ -285,11 +285,11 @@ public class WTModelMaker {
                                 defaultValue = " = -1"
                                 break
                         }
-                    
-                    
+
+
                     stringToPrint += "\(typeString)"
                     stringToPrint += defaultValue
-                    
+
                 } else if value is Array<Any>{
                     if value is [Int]{
                         //print("int array")
@@ -328,16 +328,16 @@ public class WTModelMaker {
                         }else{
                             stringToPrint += " = \(subClassName)()"
                         }
-                        
+
                     }
                 }
                 //                    codingKeys += crlf
                 codingKeys += indent
                 codingKeys += indent
-                
+
                 codingKeys += "case \(nameReplacedKey) = \"\(key)\""
                 codingKeys += crlf
-                
+
 //                customDecodableStringCore += indent
                 customDecodableStringCore += indent
                 customDecodableStringCore += indent
@@ -364,7 +364,7 @@ public class WTModelMaker {
                     }
                 }
                 customDecodableStringCore += crlf
-                
+
             }
             codingKeys = codingKeys + indent + "}" + crlf
             stringToPrint = stringToPrint + "\n"
@@ -381,11 +381,11 @@ public class WTModelMaker {
                             do {
                                 let values = try decoder.container(keyedBy: CodingKeys.self)
                     """
-            
+
             let preDoCatch = ""
             let postDoCatch = """
         } catch {
-            
+
         }
 """
             customDecodableStringCore = preDoCatch + customDecodableStringCore + postDoCatch + crlf
@@ -395,8 +395,8 @@ public class WTModelMaker {
             }
             stringToPrint = stringToPrint + "}" + crlf
         }
-        
-       
+
+
         for (key,value) in subModelDict{
 //            stringToPrint += WTSwiftModelString(with: key, jsonString: value,usingHeader: false,isRootClass: false)
             stringToPrint += privateCreateModelWith(className: key, jsonString: value, isRootClass: false)

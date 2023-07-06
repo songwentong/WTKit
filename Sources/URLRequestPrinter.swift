@@ -1,11 +1,14 @@
 //
 //  URLRequestPrinter.swift
-//  
+//
 //
 //  Created by 宋文通 on 2020/3/4.
 //
 
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 ///request打印
 public extension URLRequest{
     ///print URLRequest as curl command,copy and run with terminal
@@ -45,18 +48,18 @@ public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConverti
     }
     public var debugDescription: String{
         var components = ["$ curl -v"]
-        
+
         guard let url = request.url else {
             return "$ curl command could not be created"
         }
         guard let host = url.host else{
             return "$ curl command could not be created"
         }
-        
+
         if let httpMethod = request.httpMethod {
             components.append("-X \(httpMethod)")
         }
-        
+
         let configuration = URLSession.default.configuration
         if let credentialStorage = configuration.urlCredentialStorage {
             let protectionSpace = URLProtectionSpace(host: host,
@@ -76,8 +79,8 @@ public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConverti
 //                }
             }
         }
-        
-        
+
+
         if configuration.httpShouldSetCookies{
             if let cookieStorage = configuration.httpCookieStorage,
                let cookies = cookieStorage.cookies(for: url), !cookies.isEmpty{
@@ -85,7 +88,7 @@ public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConverti
                components.append("-b \"\(allCookies)\"")
             }
         }
-        
+
         var headers: [AnyHashable: Any] = [:]
         /*
          session.configuration.httpAdditionalHeaders?.filter {  $0.0 != AnyHashable("Cookie") }
@@ -97,19 +100,18 @@ public class URLRequestPrinter:CustomDebugStringConvertible,CustomStringConverti
             let escapedValue = String(describing: $0.value).replacingOccurrences(of: "\"", with: "\\\"")
             return "-H \"\($0.key): \(escapedValue)\""
         }
-        
-        
+
+
         if let httpBodyData = request.httpBody, let httpBody = String(data: httpBodyData, encoding: .utf8) {
             var escapedBody = httpBody.replacingOccurrences(of: "\\\"", with: "\\\\\"")
             escapedBody = escapedBody.replacingOccurrences(of: "\"", with: "\\\"")
-            
+
             components.append("-d \"\(escapedBody)\"")
         }
-        
+
         components.append("\"\(url.absoluteString)\"")
-        
+
         let result = components.joined(separator: " \\\n\t")
         return result
     }
 }
-

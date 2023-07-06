@@ -1,13 +1,12 @@
 //
 //  Reachability.swift
-//  
+//
 //
 //  Created by Wentong Song on 2022/5/1.
 //
-
-import SystemConfiguration
 import Foundation
-
+#if canImport(NetworkExtension)
+import SystemConfiguration
 public enum ReachabilityError: Error {
     case failedToCreateWithAddress(sockaddr, Int32)
     case failedToCreateWithHostname(String, Int32)
@@ -49,7 +48,7 @@ public class Reachability {
             case .unavailable: return "No Connection"
             }
         }
-        
+
         @available(*, deprecated, renamed: "unavailable")
         public static let none: Connection = .unavailable
     }
@@ -80,7 +79,7 @@ public class Reachability {
         if flags == nil {
             try? setReachabilityFlags()
         }
-        
+
         switch flags?.connection {
         case .unavailable?, nil: return .unavailable
         case .cellular?: return allowsCellularConnection ? .cellular : .unavailable
@@ -241,11 +240,11 @@ fileprivate extension Reachability {
                 self.stopNotifier()
                 throw ReachabilityError.unableToGetFlags(SCError())
             }
-            
+
             self.flags = flags
         }
     }
-    
+
 
     func notifyReachabilityChanged() {
         let notify = { [weak self] in
@@ -384,3 +383,4 @@ private class ReachabilityWeakifier {
     }
 }
 
+#endif
