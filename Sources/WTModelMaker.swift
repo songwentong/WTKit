@@ -91,7 +91,7 @@ class TestNameClass {
  right    set    Type    unowned
  weak    willSet
  */
-public class WTModelMaker {
+public class WTModelMaker:NSObject {
     public var commonKeywords:[String] = String.systemKeyWords//常用的关键字命名修改,如有需要可以添加
     public var keywordsVarPrefix = ""//关键字属性的前缀,如有需要可以添加
     public var keywordsVarSuffix = "_var"//关键字属性的后缀,默认添加的是_var
