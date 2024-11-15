@@ -26,10 +26,10 @@ public extension KeyedDecodingContainer{
     /**
      Int解析
      兼容异常:无key异常,类型异常
-     无key有默认值-1
+     无key有默认值(默认值可设置)
      类型异常会找字符串类型和Double类型
      */
-    func decodeToInt(forKey key: KeyedDecodingContainer<K>.Key) -> Int{
+    func decodeToInt(forKey key: KeyedDecodingContainer<K>.Key, defaultValue:Int = -1 ) -> Int{
         do {
             return try decode(Int.self, forKey: key)
         } catch {
@@ -39,9 +39,9 @@ public extension KeyedDecodingContainer{
             } catch  {
                 do {
                     let str = try decode(String.self, forKey: key)
-                    return Int(str) ?? -1
+                    return Int(str) ?? defaultValue
                 } catch  {
-                    return -1
+                    return defaultValue
                 }
             }
         }
@@ -49,10 +49,10 @@ public extension KeyedDecodingContainer{
     /**
      Double解析
      兼容情况:无key异常,类型异常
-     无key有默认值-1.0
+     无key有默认值(默认值可设置)
      类型异常会找字符串类型和Int类型
      */
-    func decodeToDouble(forKey key: KeyedDecodingContainer<K>.Key) -> Double{
+    func decodeToDouble(forKey key: KeyedDecodingContainer<K>.Key, defaultValue:Double = -1.0) -> Double{
         do {
             let num = try decode(Double.self, forKey: key)
             return num
@@ -66,7 +66,7 @@ public extension KeyedDecodingContainer{
                     let num = try decode(Int.self, forKey: key)
                     return num.doubleValue
                 } catch  {
-                    return -1.0
+                    return defaultValue
                 }
             }
         }
@@ -74,10 +74,10 @@ public extension KeyedDecodingContainer{
     /**
      String解析,兼容Double,Int,
      兼容情况:无key异常,类型异常
-     无key有默认值为空字符串
+     无key有默认值为空字符串(默认值可设置)
      类型异常会找字符串类型和Int类型
      */
-    func decodeToString(forKey key: KeyedDecodingContainer<K>.Key) -> String{
+    func decodeToString(forKey key: KeyedDecodingContainer<K>.Key, defaultValue:String = "") -> String{
         do {
             let str = try decode(String.self, forKey: key)
             return str
@@ -90,18 +90,18 @@ public extension KeyedDecodingContainer{
                     let dou = try decode(Double.self, forKey: key)
                     return dou.stringValue
                 } catch  {
-                    return ""
+                    return defaultValue
                 }
             }
         }
     }
     
-    func decodeToBool(forKey key: KeyedDecodingContainer<K>.Key) -> Bool{
+    func decodeToBool(forKey key: KeyedDecodingContainer<K>.Key, defaultValue:Bool = false) -> Bool{
         do {
             let num = try decode(Bool.self, forKey: key)
             return num
         } catch  {
-            return false
+            return defaultValue
         }
     }
     func decodeToObject<T:Decodable>(forKey key: KeyedDecodingContainer<K>.Key) -> T?{
